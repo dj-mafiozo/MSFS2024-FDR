@@ -1,0 +1,1675 @@
+{
+  "source_file": "A32NX Flight Deck API - FlyByWire Simulations Documentation.htm",
+  "source_sha256": "ad3e87ecc72d9905c24dfd856e5221cd6f1354fe2b5744184c31c2e44c448f67",
+  "reference_url": "https://github.com/flybywiresim/aircraft/blob/master/fbw-a32nx/docs/a320-simvars.md",
+  "variable_count": 223,
+  "variables": {
+    "A32NX_OVHD_ELEC_BAT_1_PB_IS_AUTO": {
+      "function": "BAT 1",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_BAT_1_PB_HAS_FAULT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_BAT_2_PB_IS_AUTO": {
+      "function": "BAT 2",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_BAT_2_PB_HAS_FAULT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_ELEC_BAT_1_POTENTIAL": {
+      "function": "BAT 1 Display",
+      "values": "0.0..99.9",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_ELEC_BAT_2_POTENTIAL": {
+      "function": "BAT 2 Display",
+      "values": "0.0..99.9",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_EXT_PWR_PB_IS_ON": {
+      "function": "EXT PWR",
+      "values": "0..1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_EXT_PWR_AVAIL:1": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_ENG_GEN_1_PB_HAS_FAULT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_ENG_GEN_2_PB_HAS_FAULT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_APU_GEN_1_PB_HAS_FAULT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_BUS_TIE_PB_IS_AUTO": {
+      "function": "BUS TIE",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_BUS_TIE_PB_HAS_FAULT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_AC_ESS_FEED_PB_IS_NORMAL": {
+      "function": "AC ESS FEED",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_AC_ESS_FEED_PB_HAS_FAULT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_IDG_1_PB_IS_RELEASED": {
+      "function": "IDG 1",
+      "values": "0 -> 1",
+      "access": "R/W",
+      "remark": "Cannot be undone - flight restart required",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_IDG_1_PB_HAS_FAULT": {
+      "function": "IDG 1",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_IDG_2_PB_IS_RELEASED": {
+      "function": "IDG 2",
+      "values": "0 -> 1",
+      "access": "R/W",
+      "remark": "Cannot be undone - flight restart required",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_IDG_2_PB_HAS_FAULT": {
+      "function": "IDG 2",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_GALY_AND_CAB_PB_IS_AUTO": {
+      "function": "GALY & CAB",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_GALY_AND_CAB_PB_HAS_FAULT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_COMMERCIAL_PB_IS_AUTO": {
+      "function": "COMMERCIAL",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ELEC_COMMERCIAL_PB_HAS_FAULT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "STROBE_0_AUTO": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "AUTO only when STROBES are ON",
+      "source": "local Flight Deck API"
+    },
+    "LIGHTING_LANDING_1": {
+      "function": "",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "Switch position of the NOSE switch: 2=OFF, 1=TAXI, 0=T.O.",
+      "source": "local Flight Deck API"
+    },
+    "LIGHTING_LANDING_2": {
+      "function": "",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "Switch position of the left landing light: 2=RETRACT, 1=OFF, 0=ON",
+      "source": "local Flight Deck API"
+    },
+    "LIGHTING_LANDING_3": {
+      "function": "",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "Switch position of the right landing light: 2=RETRACT, 1=OFF, 0=ON",
+      "source": "local Flight Deck API"
+    },
+    "LANDING_1_RETRACTED": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "No function - NOSE light can't be retracted",
+      "source": "local Flight Deck API"
+    },
+    "LANDING_2_RETRACTED": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "Retraction of left landing light: 0=extended, 1=retracted",
+      "source": "local Flight Deck API"
+    },
+    "LANDING_3_RETRACTED": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "Retraction of right landing light 0=extended, 1=retracted",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_INTLT_ANN": {
+      "function": "ANN LT",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "2=DIM, 1=BRT, 0=TEST",
+      "source": "local Flight Deck API"
+    },
+    "XMLVAR_SWITCH_OVHD_INTLT_NOSMOKING_POSITION": {
+      "function": "NO SMOKING",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "0=ON, 1=AUTO, 2=OFF",
+      "source": "local Flight Deck API"
+    },
+    "XMLVAR_SWITCH_OVHD_INTLT_EMEREXIT_POSITION": {
+      "function": "EMER EXIT LT",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "0=ON, 1=AUTO, 2=OFF",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ADIRS_IR_1_MODE_SELECTOR_KNOB": {
+      "function": "ADIR 1 knob",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "0=OFF, 1=NAV, 2=ATT",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ADIRS_IR_1_PB_IS_ON": {
+      "function": "IR 1",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ADIRS_IR_1_PB_HAS_FAULT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ADIRS_ADR_1_PB_IS_ON": {
+      "function": "ADR 1",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ADIRS_ADR_1_PB_HAS_FAULT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_ADIRS_REMAINING_IR_ALIGNMENT_TIME": {
+      "function": "Remaining Alignment Time",
+      "values": "seconds",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_ADIRS_ON_BAT_IS_ILLUMINATED": {
+      "function": "ON BAT light",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_APU_MASTER_SW_PB_IS_ON": {
+      "function": "MASTER SW",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_APU_MASTER_SW_PB_HAS_FAULT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_APU_START_PB_IS_ON": {
+      "function": "START",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_APU_START_PB_IS_AVAILABLE": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_RCDR_GROUND_CONTROL_ON": {
+      "function": "GND CTL",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_RCDR_TEST": {
+      "function": "CVR TEST",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OXYGEN_MASKS_DEPLOYED": {
+      "function": "MASK MAN ON",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OXYGEN_PASSENGER_LIGHT_ON": {
+      "function": "PASSENGER",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "PUSH_OVHD_OXYGEN_CREW": {
+      "function": "CREW SUPPLY",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FIRE_TEST_APU": {
+      "function": "APU FIRE Test",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FIRE_GUARD_APU": {
+      "function": "APU FIRE GUARD",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FIRE_BUTTON_APU": {
+      "function": "APU FIRE",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "Open Guard first. Can't be reset.",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FIRE_APU_AGENT1_DISCHARGE": {
+      "function": "APU DISCH",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "Press Fire button first. Can't be reset.",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FIRE_TEST_ENG1": {
+      "function": "ENG {1|2} FIRE TEST",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FIRE_TEST_ENG2": {
+      "function": "ENG {1|2} FIRE TEST",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FIRE_GUARD_ENG1": {
+      "function": "ENG {1|2} FIRE GUARD",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FIRE_GUARD_ENG2": {
+      "function": "ENG {1|2} FIRE GUARD",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FIRE_BUTTON_ENG1": {
+      "function": "ENG {1|2} FIRE",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "Open Guard first. Can't be reset.",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FIRE_BUTTON_ENG2": {
+      "function": "ENG {1|2} FIRE",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "Open Guard first. Can't be reset.",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FIRE_ENG1_AGENT1_DISCHARGE": {
+      "function": "ENG {1|2} AGENT1",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "Press Fire button first. Can't be reset.",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FIRE_ENG2_AGENT1_DISCHARGE": {
+      "function": "ENG {1|2} AGENT1",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "Press Fire button first. Can't be reset.",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FIRE_ENG1_AGENT2_DISCHARGE": {
+      "function": "ENG {1|2} AGENT2",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "Press Fire button first. Can't be reset.",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FIRE_ENG2_AGENT2_DISCHARGE": {
+      "function": "ENG {1|2} AGENT2",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "Press Fire button first. Can't be reset.",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_PNEU_APU_BLEED_PB_IS_ON": {
+      "function": "APU BLEED",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_PNEU_APU_BLEED_PB_HAS_FAULT": {
+      "function": "",
+      "values": "1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_PNEU_ENG_1_BLEED_PB_HAS_FAULT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_PNEU_ENG_2_BLEED_PB_HAS_FAULT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_KNOB_OVHD_AIRCOND_XBLEED_POSITION": {
+      "function": "X BLEED knob",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_PNEU_XBLEED_VALVE_OPEN": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "APU_BLEED_PRESSURE": {
+      "function": "",
+      "values": "..",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_COND_PACK_1_PB_IS_ON": {
+      "function": "PACK 1",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_COND_PACK_1_PB_HAS_FAULT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_COND_PACK_FLOW_VALVE_1_IS_OPEN": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_COND_PACK_2_PB_IS_ON": {
+      "function": "PACK 2",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_COND_PACK_2_PB_HAS_FAULT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_COND_PACK_FLOW_VALVE_2_IS_OPEN": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_KNOB_OVHD_AIRCOND_PACKFLOW_POSITION": {
+      "function": "PACK FLOW knob",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_COND_PACK_FLOW": {
+      "function": "",
+      "values": "0..120",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_COND_CKPT_SELECTOR_KNOB": {
+      "function": "COCKPIT knob",
+      "values": "0..300",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_COND_CKPT_TEMP": {
+      "function": "",
+      "values": "°",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_COND_CKPT_DUCT_TEMP": {
+      "function": "",
+      "values": "°",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_COND_FWD_SELECTOR_KNOB": {
+      "function": "FWD CABIN knob",
+      "values": "0..300",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_COND_FWD_TEMP": {
+      "function": "",
+      "values": "°",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_COND_FWD_DUCT_TEMP": {
+      "function": "",
+      "values": "°",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_COND_AFT_SELECTOR_KNOB": {
+      "function": "AFT CABIN knob",
+      "values": "0..300",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_COND_AFT_TEMP": {
+      "function": "",
+      "values": "°",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_COND_AFT_DUCT_TEMP": {
+      "function": "",
+      "values": "°",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_COND_HOT_AIR_PB_IS_ON": {
+      "function": "HOT AIR",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_OVHD_COND_HOT_AIR_PB_HAS_FAULT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_AIRCOND_RAMAIR_TOGGLE_LOCK": {
+      "function": "RAM AIR",
+      "values": "0|1",
+      "access": "R",
+      "remark": "Switch Guard",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_AIRCOND_RAMAIR_TOGGLE": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "XMLVAR_MOMENTARY_PUSH_OVHD_ANTIICE_WING_PRESSED": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "Button state",
+      "source": "local Flight Deck API"
+    },
+    "XMLVAR_MOMENTARY_PUSH_OVHD_ANTIICE_ENG1_PRESSED": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "Button state",
+      "source": "local Flight Deck API"
+    },
+    "XMLVAR_MOMENTARY_PUSH_OVHD_ANTIICE_ENG2_PRESSED": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "Button state",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_MAN_PITOT_HEAT": {
+      "function": "PROBE/WINDOW HEAT",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "Function & Button light",
+      "source": "local Flight Deck API"
+    },
+    "XMLVAR_MOMENTARY_PUSH_OVHD_PROBESWINDOW_PRESSED": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "Button state",
+      "source": "local Flight Deck API"
+    },
+    "PUSH_OVHD_CALLS_MECH": {
+      "function": "MECH",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "PUSH_OVHD_CALLS_ALL": {
+      "function": "ALL",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "PUSH_OVHD_CALLS_FWD": {
+      "function": "FWD",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "PUSH_OVHD_CALLS_AFT": {
+      "function": "AFT",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_CALLS_EMER_ON_LOCK": {
+      "function": "EMER",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_CALLS_EMER_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_RAIN_REPELLENT_LEFT_ON": {
+      "function": "RAIN RPLNT",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_RAIN_REPELLENT_RIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_ELAC_1_PUSHBUTTON_PRESSED": {
+      "function": "ELAC overhead pushbutton",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_ELAC_2_PUSHBUTTON_PRESSED": {
+      "function": "ELAC overhead pushbutton",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FAC_1_PUSHBUTTON_PRESSED": {
+      "function": "FAC overhead pushbutton",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FAC_2_PUSHBUTTON_PRESSED": {
+      "function": "FAC overhead pushbutton",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_SEC_1_PUSHBUTTON_PRESSED": {
+      "function": "SEC overhead pushbutton",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_SEC_2_PUSHBUTTON_PRESSED": {
+      "function": "SEC overhead pushbutton",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_SEC_3_PUSHBUTTON_PRESSED": {
+      "function": "SEC overhead pushbutton",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_SEC_1_FAULT_LIGHT_ON": {
+      "function": "SEC fault light",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_SEC_2_FAULT_LIGHT_ON": {
+      "function": "SEC fault light",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_SEC_3_FAULT_LIGHT_ON": {
+      "function": "SEC fault light",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_L_DISPLAY_BARO_VALUE": {
+      "function": "",
+      "values": "948-1084 (hPa) or",
+      "access": "R",
+      "remark": "Range dynamically changes with Baro unit",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_R_DISPLAY_BARO_VALUE": {
+      "function": "",
+      "values": "27.99-32.01 (Hg)",
+      "access": "R",
+      "remark": "Range dynamically changes with Baro unit",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_L_DISPLAY_BARO_MODE": {
+      "function": "",
+      "values": "0..2",
+      "access": "R",
+      "remark": "0=STD, 1=QNH, 2=QFE",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_R_DISPLAY_BARO_MODE": {
+      "function": "",
+      "values": "0..2",
+      "access": "R",
+      "remark": "0=STD, 1=QNH, 2=QFE",
+      "source": "local Flight Deck API"
+    },
+    "XMLVAR_BARO_SELECTOR_HPA_1": {
+      "function": "inHG / hPa",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "0=Hg, 1=hPa, REMOVED",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_L_DISPLAY_BARO_VALUE_MODE": {
+      "function": "",
+      "values": "0..2",
+      "access": "R",
+      "remark": "0=STD, 1=hPa, 2=inHG",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_R_DISPLAY_BARO_VALUE_MODE": {
+      "function": "",
+      "values": "0..2",
+      "access": "R",
+      "remark": "0=STD, 1=hPa, 2=inHG",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_L_BARO_IS_INHG": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_R_BARO_IS_INHG": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_L_FD_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_R_FD_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_L_LS_LIGHT_ON": {
+      "function": "LS",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_R_LS_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_L_CSTR_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_R_CSTR_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_L_WPT_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_R_WPT_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_L_VORD_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_R_VORD_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_L_NDB_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_R_NDB_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_L_ARPT_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_R_ARPT_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_L_EFIS_MODE": {
+      "function": "",
+      "values": "0..4",
+      "access": "R/W",
+      "remark": "0=ROSE ILS, 1=ROSE VOR, 2=ROSE NAV. 3=ARC, 4=PLAN",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_R_EFIS_MODE": {
+      "function": "",
+      "values": "0..4",
+      "access": "R/W",
+      "remark": "0=ROSE ILS, 1=ROSE VOR, 2=ROSE NAV. 3=ARC, 4=PLAN",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_L_EFIS_RANGE": {
+      "function": "",
+      "values": "0..5",
+      "access": "R/W",
+      "remark": "0=10, ..., 5=320",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_R_EFIS_RANGE": {
+      "function": "",
+      "values": "0..5",
+      "access": "R/W",
+      "remark": "0=10, ..., 5=320",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_L_NAVAID_1_MODE": {
+      "function": "",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "0=OFF, 1=ADF, 2=VOR",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_L_NAVAID_2_MODE": {
+      "function": "",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "0=OFF, 1=ADF, 2=VOR",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_R_NAVAID_1_MODE": {
+      "function": "",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "0=OFF, 1=ADF, 2=VOR",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EFIS_R_NAVAID_2_MODE": {
+      "function": "",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "0=OFF, 1=ADF, 2=VOR",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_AFS_DISPLAY_SPD_MACH_VALUE": {
+      "function": "",
+      "values": "0..399/0.1..0.99",
+      "access": "R",
+      "remark": "Range depends on speed/mach mode",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_AFS_DISPLAY_SPD_MACH_DASHES": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_AFS_DISPLAY_SPD_MACH_MANAGED": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_AFS_DISPLAY_HDG_TRK_VALUE": {
+      "function": "",
+      "values": "0..359",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_AFS_DISPLAY_HDG_TRK_DASHES": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_AFS_DISPLAY_HDG_TRK_MANAGED": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_LOC_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "XMLVAR_AUTOPILOT_ALTITUDE_INCREMENT": {
+      "function": "",
+      "values": "100|1000",
+      "access": "R",
+      "remark": "REMOVED",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_ALT_INCREMENT_1000": {
+      "function": "",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_EXPED_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_AFS_DISPLAY_VS_FPA_VALUE": {
+      "function": "",
+      "values": "-6000..6000/-9.9..9.9",
+      "access": "R",
+      "remark": "Range depends on TRK/FPA mode",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_AFS_DISPLAY_VS_FPA_DASHES": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_APPR_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_AP_1_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_AP_2_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_AUTOTHRUST_STATUS": {
+      "function": "A/THR",
+      "values": "0..2",
+      "access": "R",
+      "remark": "0=Disengaged, 1=Armed, 2=Active",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_ATHR_LIGHT_ON": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_AFS_DISPLAY_MACH_MODE": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FCU_AFS_DISPLAY_TRK_FPA_MODE": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_MASTER_CAUTION": {
+      "function": "MASTER CAUTION",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_MASTER_WARNING": {
+      "function": "MASTER WARNING",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_AUTOPILOT_AUTOLAND_WARNING": {
+      "function": "AUTOLAND WARNING",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_AUTOBRAKES_ARMED_MODE": {
+      "function": "AUTO BRK LO/MED/MAX",
+      "values": "0..3",
+      "access": "R",
+      "remark": "0=DIS, 1=LO, 2=MED, 3=MAX",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_AUTOBRAKES_ACTIVE": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "0=not braking, 1=braking",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_AUTOBRAKES_DECEL_LIGHT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "0=off, 1=on",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_BRAKE_FAN_BTN_PRESSED": {
+      "function": "BRK FAN",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_BARO_BRIGHTNESS": {
+      "function": "BRIGHTNESS",
+      "values": "0..100",
+      "access": "R/W",
+      "remark": "Auto-brightness - will automatically change",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_CHRONO_ET_SWITCH_POS": {
+      "function": "ELAPSED TIME SWITCH",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "0 = RUN, 1 = STOP, 2 = RESET",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_CHRONO_ET_ELAPSED_TIME": {
+      "function": "ELAPSED TIME",
+      "values": "seconds with decimals",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_CHRONO_ELAPSED_TIME": {
+      "function": "CHRONO TIME",
+      "values": "seconds with decimals",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_EFIS_TERR_L_ACTIVE": {
+      "function": "TERR ON ND L",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_EFIS_TERR_R_ACTIVE": {
+      "function": "TERR ON ND R",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_ATT_HDG_SWITCHING_KNOB": {
+      "function": "ATT HDG",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "0=CAPT, 1=NORM, 2=F/O",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_AIR_DATA_SWITCHING_KNOB": {
+      "function": "AIR DATA",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "0=CAPT, 1=NORM, 2=F/O",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_EIS_DMC_SWITCHING_KNOB": {
+      "function": "EIS DMC",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "0=CAPT, 1=NORM, 2=F/O",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_ECAM_ND_XFR_SWITCHING_KNOB": {
+      "function": "ECAM/NA XFR",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "0=CAPT, 1=NORM, 2=F/O",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_ECAM_SD_CURRENT_PAGE_INDEX": {
+      "function": "ECAM SD Page button",
+      "values": "-1..12",
+      "access": "R/W",
+      "remark": "See below.",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_BTN_CLR": {
+      "function": "Left CLR button",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "This is a momentary button - it needs to be reset to 0 by the API user",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_BTN_CLR2": {
+      "function": "Right CLR button",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "This is a momentary button - it needs to be reset to 0 by the API user",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_BTN_RCL": {
+      "function": "RCL button",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "This is a momentary button - it needs to be reset to 0 by the API user",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_BTN_TOCONFIG": {
+      "function": "T.O. CONFIG button",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "This is a momentary button - it needs to be reset to 0 by the API user",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_BTN_EMERCANC": {
+      "function": "EMER CANC button",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "This is a momentary button - it needs to be reset to 0 by the API user",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_ECAM_SFAIL": {
+      "function": "Page to show on error",
+      "values": "-1..12",
+      "access": "R",
+      "remark": "See below. Has the page index of the page called by the error message",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_AUTOTHRUST_DISCONNECT": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_RMP_L_SELECTED_MODE": {
+      "function": "RMP MODE",
+      "values": "0..3",
+      "access": "R/W",
+      "remark": "0=SEL, 1=VHF1, 2=VHF2, 3=VHF3",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_RMP_L_TOGGLE_SWITCH": {
+      "function": "RMP ON/OFF",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "XMLVAR_A320_WEATHERRADAR_SYS": {
+      "function": "SYS",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "0=1, 1=OFF, 2=2",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_SWITCH_RADAR_PWS_POSITION": {
+      "function": "PWS",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "0=OFF, 1=AUTO",
+      "source": "local Flight Deck API"
+    },
+    "XMLVAR_A320_WEATHERRADAR_MODE": {
+      "function": "MODE",
+      "values": "0..3",
+      "access": "R/W",
+      "remark": "0=WX, 1=WX+T, 2=TURB, 3=MAP",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_TRANSPONDER_MODE": {
+      "function": "ATC MODE",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "0=STBY, 1=AUTO, 2=ON",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_TRANSPONDER_SYSTEM": {
+      "function": "ATC SYSTEM",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "0 = System 1, 1 = System 2",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_SWITCH_ATC_ALT": {
+      "function": "ALT RPTG",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "0=OFF, 1=ON",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_SWITCH_TCAS_TRAFFIC_POSITION": {
+      "function": "TCAS MODE",
+      "values": "0..3",
+      "access": "R/W",
+      "remark": "0=THRT, 1=ALL, 2=ABV, 3=BLW",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_SWITCH_TCAS_POSITION": {
+      "function": "TCAS TRAFFIC",
+      "values": "0..2",
+      "access": "R/W",
+      "remark": "0=STBY, 1=TA, 2=TA/RA",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_SPOILERS_HANDLE_POSITION": {
+      "function": "",
+      "values": "0.0..1.0",
+      "access": "R",
+      "remark": "(add. SIMCONNECT VARS available)",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_SPOILERS_ARMED": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FLAPS_HANDLE_INDEX": {
+      "function": "",
+      "values": "0..4",
+      "access": "R",
+      "remark": "0=UP, 4=FULL",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_FLAPS_HANDLE_PERCENT": {
+      "function": "",
+      "values": "0.0..1.0",
+      "access": "R",
+      "remark": "0.0=UP, 1.0=FULL (0.25 steps)",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_PARK_BRAKE_LEVER_POS": {
+      "function": "PARKING BRAKE",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "XMLVAR_RUDDERTRIM": {
+      "function": "RUD TRIM",
+      "values": "0 | 2",
+      "access": "R/W",
+      "remark": "Knob jumps back. Needs to be set repeatably until the target value is reached",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_COCKPIT_DOOR_LOCKED": {
+      "function": "COCKPIT DOOR",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "PUSH_DOORPANEL_VIDEO": {
+      "function": "VIDEO",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_PRIORITY_TAKEOVER:1": {
+      "function": "TAKE OVER pushbutton",
+      "values": "0|1",
+      "access": "R",
+      "remark": "Causes AP disconnection",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_PRIORITY_TAKEOVER:2": {
+      "function": "",
+      "values": "0|1",
+      "access": "R",
+      "remark": "Causes AP disconnection",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_LEFT_BRAKE_PEDAL_INPUT": {
+      "function": "Brakes",
+      "values": "0..100",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_RIGHT_BRAKE_PEDAL_INPUT": {
+      "function": "",
+      "values": "1..100",
+      "access": "R",
+      "remark": "",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_EFB_BRIGHTNESS": {
+      "function": "EFB Brightness",
+      "values": "0..100",
+      "access": "R/W",
+      "remark": "Overwrites automatic setting",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_LOAD_LIGHTING_PRESET": {
+      "function": "Load Lighting Preset",
+      "values": "1..8",
+      "access": "R/W",
+      "remark": "Aircraft must be powered. Will be reset to 0 after the preset has been loaded.",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_SAVE_LIGHTING_PRESET": {
+      "function": "Save Lighting Preset",
+      "values": "1..8",
+      "access": "R/W",
+      "remark": "Aircraft must be powered. Will be reset to 0 after the preset has been saved.",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_LOAD_AIRCRAFT_PRESET": {
+      "function": "Load Aircraft Preset",
+      "values": "1..5",
+      "access": "R/W",
+      "remark": "Will be reset to 0 after the preset has been loaded.",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_LOAD_AIRCRAFT_PRESET_PROGRESS": {
+      "function": "Current Progress for Aircraft Preset Loading",
+      "values": "0.0..1.0",
+      "access": "R",
+      "remark": "Percent done of the Aircraft State to be loaded.",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_LOAD_AIRCRAFT_PRESET_CURRENT_ID": {
+      "function": "Current Aircraft Preset Loading Step",
+      "values": "0..999",
+      "access": "R",
+      "remark": "ID of the current step.",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_PUSHBACK_SYSTEM_ENABLED": {
+      "function": "Pushback System",
+      "values": "0|1",
+      "access": "R/W",
+      "remark": "To turn off the Pushback System completely to not interfere with other pushback add-ons",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_PUSHBACK_SPD_FACTOR": {
+      "function": "Pushback Movement Factor",
+      "values": "-1.0..1.0",
+      "access": "R/W",
+      "remark": "Set the speed of the pushback tug in percent. Negative values are backwards movements.",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_PUSHBACK_HDG_FACTOR": {
+      "function": "Pushback Heading Factor",
+      "values": "-1.0..1.0",
+      "access": "R/W",
+      "remark": "Set the turning factor from max left (-1.0) to max right (1.0)",
+      "source": "local Flight Deck API"
+    },
+    "A32NX_IS_READY": {
+      "function": "A32NX_IS_READY",
+      "values": "bool",
+      "access": "R",
+      "remark": "JavaScript readiness",
+      "source": "official custom-L-var reference"
+    },
+    "A32NX_SPEEDS_VAPP": {
+      "function": "A32NX_SPEEDS_VAPP",
+      "values": "knots",
+      "access": "R",
+      "remark": "FMS VAPP, including pilot override",
+      "source": "official custom-L-var reference"
+    },
+    "A32NX_SPEEDS_MANAGED_PFD": {
+      "function": "A32NX_SPEEDS_MANAGED_PFD",
+      "values": "knots",
+      "access": "R",
+      "remark": "FMS managed speed target; zero is invalid",
+      "source": "official custom-L-var reference"
+    }
+  },
+  "excluded": [
+    {
+      "name": "XMLVAR_Baro1_Mode",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "BTN_LS_1_FILTER_ACTIVE",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "BTN_LS_2_FILTER_ACTIVE",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_EFIS_L_OPTION",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_EFIS_R_OPTION",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_EFIS_L_ND_MODE",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_EFIS_R_ND_MODE",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_EFIS_L_ND_RANGE",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_EFIS_R_ND_RANGE",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_EFIS_L_NAVAID_1_MODE",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_EFIS_L_NAVAID_2_MODE",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_EFIS_R_NAVAID_1_MODE",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_EFIS_R_NAVAID_2_MODE",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_AUTOPILOT_SPEED_SELECTED",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_AUTOPILOT_HEADING_SELECTED",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_FCU_LOC_MODE_ACTIVE",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_FCU_AFS_DISPLAY_ALT_VALUE",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_FCU_AFS_DISPLAY_LVL_CH_MANAGED",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_FMA_EXPEDITE_MODE",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_AUTOPILOT_VS_SELECTED",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX.FCU_VS_INC",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_FCU_APPR_MODE_ACTIVE",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_AUTOPILOT_1_ACTIVE",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_AUTOPILOT_2_ACTIVE",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_TRK_FPA_MODE_ACTIVE",
+      "reason": "not readable or deprecated"
+    },
+    {
+      "name": "A32NX_AUTOBRAKES_ARMED_MODE_SET",
+      "reason": "not readable or deprecated"
+    }
+  ]
+}

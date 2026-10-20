@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<SimBase.Document>
+    <FlightPlan.FlightPlan>
+        <DepartureID>EPMO</DepartureID>
+        <DestinationID>EPMO</DestinationID>
+        <Title>EPMO - EPMO</Title>
+        <Descr>Flight from EPMO to EPMO</Descr>
+        <FPType>IFR</FPType>
+        <CruisingAlt>4000.000</CruisingAlt>
+        <AppVersion>
+            <AppVersionMajor>12</AppVersionMajor>
+            <AppVersionMinor>2</AppVersionMinor>
+            <AppVersionBuild>282174</AppVersionBuild>
+        </AppVersion>
+        <DepartureDetails>
+            <RunwayNumberFP>8</RunwayNumberFP>
+            <DepartureFP>SOXE4C</DepartureFP>
+        </DepartureDetails>
+        <ArrivalDetails>
+            <RunwayNumberFP>8</RunwayNumberFP>
+        </ArrivalDetails>
+        <ApproachDetails>
+            <ApproachTypeFP>ILS</ApproachTypeFP>
+            <RunwayNumberFP>8</RunwayNumberFP>
+            <TransitionFP>KUXEN</TransitionFP>
+        </ApproachDetails>
+    </FlightPlan.FlightPlan>
+</SimBase.Document>

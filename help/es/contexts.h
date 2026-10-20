@@ -1,0 +1,6 @@
+#define IDH_OVERVIEW 100
+#define IDH_MAP 200
+#define IDH_CHARTS 300
+#define IDH_ANALYSIS 400
+#define IDH_SETTINGS 500
+#define IDH_ABOUT 600

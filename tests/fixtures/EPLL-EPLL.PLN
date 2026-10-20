@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+
+<SimBase.Document>
+    <FlightPlan.FlightPlan>
+        <DepartureID>EPLL</DepartureID>
+        <DestinationID>EPLL</DestinationID>
+        <Title>EPLL - EPLL</Title>
+        <Descr>Flight from EPLL to EPLL</Descr>
+        <FPType>IFR</FPType>
+        <CruisingAlt>4000.000</CruisingAlt>
+        <AppVersion>
+            <AppVersionMajor>12</AppVersionMajor>
+            <AppVersionMinor>2</AppVersionMinor>
+            <AppVersionBuild>282174</AppVersionBuild>
+        </AppVersion>
+        <DepartureDetails>
+            <RunwayNumberFP>25</RunwayNumberFP>
+            <DepartureFP>ADOX2W</DepartureFP>
+        </DepartureDetails>
+        <ArrivalDetails>
+            <RunwayNumberFP>25</RunwayNumberFP>
+            <ArrivalFP>SOXE2T</ArrivalFP>
+        </ArrivalDetails>
+        <ApproachDetails>
+            <ApproachTypeFP>ILS</ApproachTypeFP>
+            <RunwayNumberFP>25</RunwayNumberFP>
+            <SuffixFP>Z</SuffixFP>
+            <TransitionFP>LL501</TransitionFP>
+        </ApproachDetails>
+    </FlightPlan.FlightPlan>
+</SimBase.Document>

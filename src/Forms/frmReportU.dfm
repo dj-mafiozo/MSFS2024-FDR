@@ -1,0 +1,62 @@
+﻿object frmReport: TfrmReport
+  HelpType = htContext
+  HelpContext = 400
+  Left = 0
+  Top = 0
+  Caption = 'Analiza kontaktu z pasem'
+  ClientHeight = 600
+  ClientWidth = 850
+  Color = clBtnFace
+  Font.Charset = DEFAULT_CHARSET
+  Font.Color = clWindowText
+  Font.Height = -14
+  Font.Name = 'Segoe UI'
+  Font.Style = []
+  OldCreateOrder = True
+  Position = poOwnerFormCenter
+  OnClose = FormClose
+  PixelsPerInch = 96
+  TextHeight = 19
+  object BrowserPanel: TPanel
+    Left = 0
+    Top = 0
+    Width = 850
+    Height = 575
+    Align = alClient
+    BevelOuter = bvNone
+    TabOrder = 2
+  end
+  object mReport: TMemo
+    Left = 0
+    Top = 0
+    Width = 850
+    Height = 575
+    Align = alClient
+    ReadOnly = True
+    ScrollBars = ssVertical
+    TabOrder = 0
+  end
+  object btnClose: TButton
+    Left = 0
+    Top = 575
+    Width = 850
+    Height = 25
+    Align = alBottom
+    Cancel = True
+    Caption = 'Zamknij'
+    TabOrder = 1
+    OnClick = CloseClick
+  end
+  object StartTimer: TTimer
+    Interval = 100
+    OnTimer = StartTick
+    Left = 200
+    Top = 24
+  end
+  object AppTranslator: TTranslator
+    AutoBiDiLayout = False
+    OnAfterTranslate = TranslateTitle
+    Left = 88
+    Top = 24
+  end
+end

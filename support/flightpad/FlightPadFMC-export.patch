@@ -1,0 +1,384 @@
+--- a/Windows/Common/ScreenModel.pas
++++ b/Windows/Common/ScreenModel.pas
+@@ -4,7 +4,7 @@
+ Interface
+ 
+  Uses
+-  System.SysUtils, System.JSON, Vcl.Graphics, AircraftTypes;
++  System.SysUtils, System.Classes, System.JSON, Vcl.Graphics, AircraftTypes;
+ 
+  Const
+   LedNames : Array [0 .. 11] Of String = ('EXEC', 'CALL', 'DSPY', 'FAIL', 'MSG', 'OFST', 'FM1', 'FM2', 'FM', 'IND', 'RDY', 'MCDU MENU');
+@@ -25,12 +25,15 @@
+   TScreenModel = Class
+    Private
+     FProfile : TAircraftProfile;
++    FHasScreen: Boolean;
+    Public
+     State : TScreenState;
+     Side  : String;
+     Constructor Create(Const Profile : TAircraftProfile);
+     Procedure Reset;
+     Procedure Parse(Const Message : String);
++    Function ExportText: String;
++    Property HasScreen: Boolean Read FHasScreen;
+     Function LedOn(Const Name : String) : Boolean;
+   End;
+ 
+@@ -131,9 +134,27 @@
+    End;
+    Procedure TScreenModel.Reset;
+    Begin
++    FHasScreen := False;
+     ClearCells(State);
+     FillChar(State.Leds, SizeOf(State.Leds), 0);
+     State.Overlay := ''
++   End;
++   Function TScreenModel.ExportText: String;
++   Var Lines: System.Classes.TStringList; R, C: Integer; Line: String;
++   Begin
++    Lines := System.Classes.TStringList.Create;
++    Try
++     Lines.LineBreak := #13#10;
++     For R := 0 To 13 Do
++      Begin
++       Line := '';
++       For C := 0 To 23 Do
++        If State.Cells[R,C].Symbol = '' Then Line := Line + ' '
++        Else Line := Line + Copy(State.Cells[R,C].Symbol, 1, 1);
++       Lines.Add(Line);
++      End;
++     Result := Lines.Text;
++    Finally Lines.Free; End;
+    End;
+    Function TScreenModel.LedOn(Const Name : String) : Boolean;
+ 
+@@ -440,6 +461,8 @@
+       Else
+        Exit;
+       // Commit only fully parsed snapshots; malformed messages cannot leave a half-painted screen.
++      If ((Kind = 'screen_update') And Not FProfile.Airbus) Or
++       (FProfile.Airbus And (Root.GetValue('left') <> Nil)) Then FHasScreen := True;
+       State := Next;
+      Finally
+       V.Free
+--- a/Windows/Common/FMCMain.pas
++++ b/Windows/Common/FMCMain.pas
+@@ -6,7 +6,7 @@
+   Winapi.Windows, Winapi.Messages, System.Classes, System.SysUtils, System.Types, System.JSON,
+   System.IniFiles, System.IOUtils, System.Math, Vcl.Forms, Vcl.Controls,
+   Vcl.Graphics, Vcl.Menus, Vcl.ExtCtrls, Vcl.StdCtrls, Vcl.Imaging.pngimage,
+-  AircraftTypes, ScreenModel, Transport, ClientSettings;
++  AircraftTypes, ScreenModel, Transport, ClientSettings, FlightPadScreenIPC;
+ 
+  Type
+   TFMCForm = Class(TForm)
+@@ -28,6 +28,7 @@
+     Procedure Keyboard(Sender : TObject; Var Key : Char);
+     Procedure Shortcut(Sender : TObject; Var Key : Word; Shift : TShiftState);
+    Private
++    FScreenPublisher: TFlightPadScreenPublisher;
+     FSettingsOpen: Boolean;
+     FFullscreen: Boolean;
+     FWindowedBounds: TRect;
+@@ -95,6 +96,7 @@
+    FPressed              := -1;
+    Caption               := P.Title;
+    FModel                := TScreenModel.Create(P);
++   If P.Airbus Then FScreenPublisher := TFlightPadScreenPublisher.Create(P.SettingsName);
+    FSettings             := ClientSettings.LoadSettings(FConfig);
+    If Not P.SupportsSide Then
+     FSettings.Side    := 'capt';
+@@ -135,6 +137,7 @@
+    If FRefocusTimer <> Nil Then FRefocusTimer.Enabled := False;
+    If FTimer <> Nil Then
+     FTimer.Enabled := False;
++   FScreenPublisher.Free;
+    FTransport.Free;
+    FModel.Free;
+    FSkin.Free;
+@@ -688,6 +691,8 @@
+          FStatus := 'Invalid server message: ' + E.Message
+        End;
+      End;
++    If FScreenPublisher <> Nil Then
++     FScreenPublisher.Publish(FModel.ExportText, FConnected And FModel.HasScreen And (FModel.State.Overlay = ''));
+     If (Work.Count > 0) Or (FPressed >= 0) Then
+      FPaint.Invalidate;
+     If GetTickCount64 >= FPressedUntil Then
+--- a/Windows/FenixA320/FenixA320MCDU.dpr
++++ b/Windows/FenixA320/FenixA320MCDU.dpr
+@@ -1,6 +1,8 @@
+ ﻿Program FenixA320MCDU;
+ 
+ Uses
++
++ FlightPadScreenIPC in '..\Common\FlightPadScreenIPC.pas',
+  Vcl.Forms,
+  FMCMain        In '..\Common\FMCMain.pas' {FMCForm} ,
+  AircraftTypes  In '..\Common\AircraftTypes.pas',
+--- a/Windows/FenixA320/FenixA320MCDU.dproj
++++ b/Windows/FenixA320/FenixA320MCDU.dproj
+@@ -96,6 +96,7 @@
+         <DelphiCompile Include="$(MainSource)">
+             <MainSource>MainSource</MainSource>
+         </DelphiCompile>
++        <DCCReference Include="..\Common\FlightPadScreenIPC.pas"/>
+         <DCCReference Include="..\Common\FMCMain.pas">
+             <Form>FMCForm</Form>
+             <FormType>dfm</FormType>
+--- a/Windows/FenixA320/FenixA320Screen.dpr
++++ b/Windows/FenixA320/FenixA320Screen.dpr
+@@ -1,5 +1,6 @@
+ ﻿program FenixA320Screen;
+-uses Vcl.Forms, FMCMain in '..\Common\FMCMain.pas' {FMCForm},
++uses
++ FlightPadScreenIPC in '..\Common\FlightPadScreenIPC.pas', Vcl.Forms, FMCMain in '..\Common\FMCMain.pas' {FMCForm},
+   ScreenMain in '..\Common\ScreenMain.pas', AircraftTypes, Profile;
+ begin
+   Application.Initialize;
+--- a/Windows/FenixA320/FenixA320Screen.dproj
++++ b/Windows/FenixA320/FenixA320Screen.dproj
+@@ -96,6 +96,7 @@
+         <DelphiCompile Include="$(MainSource)">
+             <MainSource>MainSource</MainSource>
+         </DelphiCompile>
++        <DCCReference Include="..\Common\FlightPadScreenIPC.pas"/>
+         <DCCReference Include="..\Common\FMCMain.pas">
+             <Form>FMCForm</Form>
+             <FormType>dfm</FormType>
+--- a/Windows/FBWA320/FBWA320MCDU.dpr
++++ b/Windows/FBWA320/FBWA320MCDU.dpr
+@@ -1,6 +1,8 @@
+ ﻿Program FBWA320MCDU;
+ 
+ Uses
++
++ FlightPadScreenIPC in '..\Common\FlightPadScreenIPC.pas',
+  Vcl.Forms,
+  FMCMain        In '..\Common\FMCMain.pas' {FMCForm} ,
+  AircraftTypes  In '..\Common\AircraftTypes.pas',
+--- a/Windows/FBWA320/FBWA320MCDU.dproj
++++ b/Windows/FBWA320/FBWA320MCDU.dproj
+@@ -96,6 +96,7 @@
+         <DelphiCompile Include="$(MainSource)">
+             <MainSource>MainSource</MainSource>
+         </DelphiCompile>
++        <DCCReference Include="..\Common\FlightPadScreenIPC.pas"/>
+         <DCCReference Include="..\Common\FMCMain.pas">
+             <Form>FMCForm</Form>
+             <FormType>dfm</FormType>
+--- a/Windows/FBWA320/FBWA320Screen.dpr
++++ b/Windows/FBWA320/FBWA320Screen.dpr
+@@ -1,5 +1,6 @@
+ ﻿program FBWA320Screen;
+-uses Vcl.Forms, FMCMain in '..\Common\FMCMain.pas' {FMCForm},
++uses
++ FlightPadScreenIPC in '..\Common\FlightPadScreenIPC.pas', Vcl.Forms, FMCMain in '..\Common\FMCMain.pas' {FMCForm},
+   ScreenMain in '..\Common\ScreenMain.pas', AircraftTypes, Profile;
+ begin
+   Application.Initialize;
+--- a/Windows/FBWA320/FBWA320Screen.dproj
++++ b/Windows/FBWA320/FBWA320Screen.dproj
+@@ -96,6 +96,7 @@
+         <DelphiCompile Include="$(MainSource)">
+             <MainSource>MainSource</MainSource>
+         </DelphiCompile>
++        <DCCReference Include="..\Common\FlightPadScreenIPC.pas"/>
+         <DCCReference Include="..\Common\FMCMain.pas">
+             <Form>FMCForm</Form>
+             <FormType>dfm</FormType>
+--- /dev/null
++++ b/Windows/Common/FlightPadScreenIPC.pas
+@@ -0,0 +1,161 @@
++unit FlightPadScreenIPC;
++
++interface
++
++uses Winapi.Windows, System.SysUtils;
++
++const
++  FlightPadTextLength = 14 * 26; // 24 UTF-16 cells + CRLF per row
++  FlightPadHeartbeatMS = 5000;
++
++type
++  // Fixed layout, shared unchanged between Win32 FlightPad and Win64 FDR.
++  TFlightPadScreenPacket = packed record
++    Magic, Version, PacketSize, ProcessID: Cardinal;
++    HeartbeatTick, ScreenTick: UInt64;
++    ScreenUTC: TFileTime;
++    Available, TextLength: Cardinal;
++    Text: array[0..FlightPadTextLength-1] of WideChar;
++  end;
++  TFlightPadScreenSnapshot = record
++    Text: string;
++    ProcessID: Cardinal;
++    ScreenTick: UInt64;
++    ScreenUTC: TFileTime;
++  end;
++  TFlightPadScreenPublisher = class
++  private
++    FMap, FMutex: THandle;
++    FView: Pointer;
++    FLastText: string;
++    FLastAvailable: Boolean;
++    FScreenTick: UInt64;
++    FScreenUTC: TFileTime;
++  public
++    constructor Create(const Profile: string);
++    destructor Destroy; override;
++    procedure Publish(const Text: string; Available: Boolean);
++  end;
++
++function ReadFlightPadScreen(const Profile: string; out Snapshot: TFlightPadScreenSnapshot): Boolean;
++function ReadFlightPadScreenPID(const Profile: string; PID: Cardinal;
++  out Snapshot: TFlightPadScreenSnapshot): Boolean;
++
++implementation
++
++uses Winapi.TlHelp32;
++
++const ScreenMagic = $46504D43;
++
++function ObjectName(const Profile: string; PID: Cardinal): string;
++begin
++  Result := 'Local\FlightPadFMC.Screen.v1.' + Profile + '.' + IntToStr(PID);
++end;
++
++constructor TFlightPadScreenPublisher.Create(const Profile: string);
++var Name: string;
++begin
++  inherited Create;
++  if (Profile <> 'FenixA320') and (Profile <> 'FBWA320') then Exit;
++  Name := ObjectName(Profile, GetCurrentProcessId);
++  FMutex := CreateMutex(nil, False, PChar(Name + '.Lock'));
++  if FMutex = 0 then Exit;
++  FMap := CreateFileMapping(INVALID_HANDLE_VALUE, nil, PAGE_READWRITE, 0,
++    SizeOf(TFlightPadScreenPacket), PChar(Name));
++  if FMap = 0 then Exit;
++  FView := MapViewOfFile(FMap, FILE_MAP_WRITE, 0, 0, SizeOf(TFlightPadScreenPacket));
++end;
++
++destructor TFlightPadScreenPublisher.Destroy;
++begin
++  Publish('', False);
++  if FView <> nil then UnmapViewOfFile(FView);
++  if FMap <> 0 then CloseHandle(FMap);
++  if FMutex <> 0 then CloseHandle(FMutex);
++  inherited;
++end;
++
++procedure TFlightPadScreenPublisher.Publish(const Text: string; Available: Boolean);
++var P: TFlightPadScreenPacket; W: DWORD;
++begin
++  if (FView = nil) or (FMutex = 0) then Exit;
++  Available := Available and (Length(Text) = FlightPadTextLength);
++  W := WaitForSingleObject(FMutex, 0);
++  if (W <> WAIT_OBJECT_0) and (W <> WAIT_ABANDONED) then Exit;
++  try
++    if (Text <> FLastText) or (Available <> FLastAvailable) or (FScreenTick = 0) then
++    begin
++      FScreenTick := GetTickCount64;
++      GetSystemTimeAsFileTime(FScreenUTC);
++      FLastText := Text;
++      FLastAvailable := Available;
++    end;
++    FillChar(P, SizeOf(P), 0);
++    P.Magic := ScreenMagic; P.Version := 1; P.PacketSize := SizeOf(P);
++    P.ProcessID := GetCurrentProcessId;
++    P.HeartbeatTick := GetTickCount64; P.ScreenTick := FScreenTick;
++    P.ScreenUTC := FScreenUTC;
++    if Available then
++    begin
++      P.Available := 1; P.TextLength := Length(Text);
++      Move(PChar(Text)^, P.Text[0], Length(Text) * SizeOf(WideChar));
++    end;
++    Move(P, FView^, SizeOf(P));
++  finally ReleaseMutex(FMutex); end;
++end;
++
++function ReadFlightPadScreenPID(const Profile: string; PID: Cardinal;
++  out Snapshot: TFlightPadScreenSnapshot): Boolean;
++var M, Lock: THandle; View: Pointer; P: TFlightPadScreenPacket;
++  Name: string; W: DWORD; NowTick: UInt64; R: Integer;
++begin
++  Result := False;
++  Snapshot.Text := ''; Snapshot.ProcessID := 0; Snapshot.ScreenTick := 0;
++  FillChar(Snapshot.ScreenUTC, SizeOf(Snapshot.ScreenUTC), 0);
++  Name := ObjectName(Profile, PID);
++  Lock := OpenMutex(SYNCHRONIZE or MUTEX_MODIFY_STATE, False, PChar(Name + '.Lock'));
++  if Lock = 0 then Exit;
++  try
++    M := OpenFileMapping(FILE_MAP_READ, False, PChar(Name));
++    if M = 0 then Exit;
++    try
++      View := MapViewOfFile(M, FILE_MAP_READ, 0, 0, SizeOf(P));
++      if View = nil then Exit;
++      try
++        W := WaitForSingleObject(Lock, 0);
++        if (W <> WAIT_OBJECT_0) and (W <> WAIT_ABANDONED) then Exit;
++        try Move(View^, P, SizeOf(P)); finally ReleaseMutex(Lock); end;
++      finally UnmapViewOfFile(View); end;
++    finally CloseHandle(M); end;
++  finally CloseHandle(Lock); end;
++  NowTick := GetTickCount64;
++  if (P.Magic <> ScreenMagic) or (P.Version <> 1) or (P.PacketSize <> SizeOf(P)) or
++    (P.ProcessID <> PID) or (P.Available <> 1) or (P.TextLength <> FlightPadTextLength) or
++    (P.HeartbeatTick > NowTick) or (NowTick - P.HeartbeatTick > FlightPadHeartbeatMS) then Exit;
++  for R := 0 to 13 do
++    if (P.Text[R*26+24] <> #13) or (P.Text[R*26+25] <> #10) then Exit;
++  SetString(Snapshot.Text, PWideChar(@P.Text[0]), P.TextLength);
++  if Pos(#0, Snapshot.Text) > 0 then begin Snapshot.Text := ''; Exit; end;
++  Snapshot.ProcessID := PID; Snapshot.ScreenTick := P.ScreenTick; Snapshot.ScreenUTC := P.ScreenUTC;
++  Result := True;
++end;
++
++function ReadFlightPadScreen(const Profile: string; out Snapshot: TFlightPadScreenSnapshot): Boolean;
++var Processes: THandle; Entry: TProcessEntry32; Candidate: TFlightPadScreenSnapshot;
++begin
++  Result := False; Snapshot.Text := ''; Snapshot.ProcessID := 0; Snapshot.ScreenTick := 0;
++  FillChar(Snapshot.ScreenUTC, SizeOf(Snapshot.ScreenUTC), 0);
++  Processes := CreateToolhelp32Snapshot(TH32CS_SNAPPROCESS, 0);
++  if Processes = INVALID_HANDLE_VALUE then Exit;
++  try
++    Entry.dwSize := SizeOf(Entry);
++    if Process32First(Processes, Entry) then
++      repeat
++        if ReadFlightPadScreenPID(Profile, Entry.th32ProcessID, Candidate) then
++          if not Result or (Candidate.ScreenTick > Snapshot.ScreenTick) then
++          begin Snapshot := Candidate; Result := True; end;
++      until not Process32Next(Processes, Entry);
++  finally CloseHandle(Processes); end;
++end;
++
++end.
+--- /dev/null
++++ b/Windows/tests/ExportTests.dpr
+@@ -0,0 +1,27 @@
++program ExportTests;
++{$APPTYPE CONSOLE}
++uses System.SysUtils, System.Classes, AircraftTypes, ScreenModel, FlightPadScreenIPC;
++var P: TAircraftProfile; Model: TScreenModel; Lines: TStringList; Text: string; I: Integer;
++procedure Check(B: Boolean; const Message: string);
++begin if not B then raise Exception.Create(Message); end;
++begin
++ for I:=0 to 1 do
++ begin
++  P:=Default(TAircraftProfile); P.Airbus:=True; P.Fenix:=I=0;
++  Model:=TScreenModel.Create(P); Lines:=TStringList.Create;
++  try
++   Check(not Model.HasScreen,'No initial fake screen');
++   Model.Parse('{"type":"exec_led","value":true}');
++   Check(not Model.HasScreen,'LED is not a screen');
++   Model.Parse('{"left":{"title":"PERF TAKE OFF","titleLeft":"TEST","page":"1/2","lines":[["V1","135"],["VR","140"],["V2","145"]],"scratchpad":"ABC"}}');
++   Check(Model.HasScreen,'Parsed full screen available');
++   Text:=Model.ExportText; Check(Length(Text)=FlightPadTextLength,'Fixed export length');
++   Lines.Text:=Text; Check(Lines.Count=14,'Fourteen rows');
++   Check(Lines[1]='V1                   135','Left/right layout');
++   Check(Lines[13]='ABC                     ','Scratchpad and trailing spaces');
++   Check(Pos('1/2',Lines[0])>0,'Page number');
++   Model.Reset;Check(not Model.HasScreen,'Reset invalidates availability');
++  finally Lines.Free;Model.Free;end;
++ end;
++ Writeln('PASS: Fenix/FBW model text export, complete 14x24 screen, alignment, scratchpad, CRLF and reset availability.');
++end.

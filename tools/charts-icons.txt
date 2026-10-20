@@ -1,0 +1,6 @@
+go-top.png
+go-up.png
+go-down.png
+go-bottom.png
+go-previous.png
+go-next.png

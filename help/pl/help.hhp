@@ -1,0 +1,25 @@
+[OPTIONS]
+Compatibility=1.1 or later
+Compiled file=MSFS2024-FDR.pl.chm
+Contents file=contents.hhc
+Default topic=overview.htm
+Display compile progress=No
+Full-text search=No
+Language=0x415 Polish
+Title=MSFS2024-FDR
+[FILES]
+overview.htm
+map.htm
+charts.htm
+analysis.htm
+settings.htm
+about.htm
+[ALIAS]
+IDH_OVERVIEW=overview.htm
+IDH_MAP=map.htm
+IDH_CHARTS=charts.htm
+IDH_ANALYSIS=analysis.htm
+IDH_SETTINGS=settings.htm
+IDH_ABOUT=about.htm
+[MAP]
+#include contexts.h

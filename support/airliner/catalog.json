@@ -1,0 +1,1554 @@
+{
+  "scope": "Literal numeric L:*airliner* names in supplied installed instrument sources; not runtime enumeration.",
+  "count": 31,
+  "fields": [
+    {
+      "name": "AIRLINER_V1_SPEED",
+      "units": [
+        "Knots"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-b787-10/html_ui/Pages/VCockpit/Instruments/Airliners/B787_10/FMC/B787_10_FMC.js",
+        "asobo-vcockpits-instruments-b747-8/html_ui/Pages/VCockpit/Instruments/Airliners/B747_8/FMC/B747_8_FMC_MainDisplay.js",
+        "asobo-vcockpits-instruments-cj4/html_ui/Pages/VCockpit/Instruments/Airliners/CJ4/PFD/CJ4_PFD.js",
+        "asobo-vcockpits-instruments-cj4/html_ui/Pages/VCockpit/Instruments/Airliners/CJ4/FMC/CJ4_FMC_TakeOffRefPage.js",
+        "asobo-vcockpits-instruments-cj4/html_ui/Pages/VCockpit/Instruments/Airliners/CJ4/FMC/CJ4_FMC.js",
+        "asobo-vcockpits-instruments-b737-max8/html_ui/Pages/VCockpit/Instruments/Airliners/AS05B/FMC/AS05B_FMC_MainDisplay.js",
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/FMC/FMCMainDisplay.js",
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/CDU/A320_Neo_CDU_MainDisplay.js",
+        "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/SystemsHost/SystemsHost.js",
+        "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/MFD/mfd.js",
+        "flybywire-aircraft-a320-neo/html_ui/Pages/VCockpit/Instruments/A32NX/MCDU/mcdu.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_VR_SPEED",
+      "units": [
+        "Knots"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-b787-10/html_ui/Pages/VCockpit/Instruments/Airliners/B787_10/FMC/B787_10_FMC.js",
+        "asobo-vcockpits-instruments-b747-8/html_ui/Pages/VCockpit/Instruments/Airliners/B747_8/FMC/B747_8_FMC_MainDisplay.js",
+        "asobo-vcockpits-instruments-b737-max8/html_ui/Pages/VCockpit/Instruments/Airliners/AS05B/PFD/AS05B_PFD_AirspeedIndicator.js",
+        "asobo-vcockpits-instruments-cj4/html_ui/Pages/VCockpit/Instruments/Airliners/CJ4/PFD/CJ4_PFD.js",
+        "asobo-vcockpits-instruments-cj4/html_ui/Pages/VCockpit/Instruments/Airliners/CJ4/FMC/CJ4_FMC_TakeOffRefPage.js",
+        "asobo-vcockpits-instruments-cj4/html_ui/Pages/VCockpit/Instruments/Airliners/CJ4/FMC/CJ4_FMC.js",
+        "asobo-vcockpits-instruments-b737-max8/html_ui/Pages/VCockpit/Instruments/Airliners/AS05B/FMC/AS05B_FMC_MainDisplay.js",
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/PFD/AirspeedIndicator.js",
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/FMC/FMCMainDisplay.js",
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/CDU/A320_Neo_CDU_MainDisplay.js",
+        "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/MFD/mfd.js",
+        "flybywire-aircraft-a320-neo/html_ui/Pages/VCockpit/Instruments/A32NX/MCDU/mcdu.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_V2_SPEED",
+      "units": [
+        "Knots"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-b787-10/html_ui/Pages/VCockpit/Instruments/Airliners/B787_10/FMC/B787_10_FMC.js",
+        "asobo-vcockpits-instruments-b747-8/html_ui/Pages/VCockpit/Instruments/Airliners/B747_8/FMC/B747_8_FMC_MainDisplay.js",
+        "asobo-vcockpits-instruments-b737-max8/html_ui/Pages/VCockpit/Instruments/Airliners/AS05B/PFD/AS05B_PFD_AirspeedIndicator.js",
+        "asobo-vcockpits-instruments-cj4/html_ui/Pages/VCockpit/Instruments/Airliners/CJ4/PFD/CJ4_PFD.js",
+        "asobo-vcockpits-instruments-cj4/html_ui/Pages/VCockpit/Instruments/Airliners/CJ4/FMC/CJ4_FMC_TakeOffRefPage.js",
+        "asobo-vcockpits-instruments-cj4/html_ui/Pages/VCockpit/Instruments/Airliners/CJ4/FMC/CJ4_FMC.js",
+        "asobo-vcockpits-instruments-b737-max8/html_ui/Pages/VCockpit/Instruments/Airliners/AS05B/FMC/AS05B_FMC_MainDisplay.js",
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/PFD/AirspeedIndicator.js",
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/FMC/FMCMainDisplay.js",
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/CDU/A320_Neo_CDU_MainDisplay.js",
+        "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/FCU/fcu.js",
+        "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/MFD/mfd.js",
+        "flybywire-aircraft-a320-neo/html_ui/Pages/VCockpit/Instruments/A32NX/MCDU/mcdu.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_MINIMUM_DESCENT_ALTITUDE",
+      "units": [
+        "feet",
+        "number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/FMC/FMCMainDisplay.js",
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/Airbus/Airbus_FMA.js",
+        "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/SystemsHost/SystemsHost.js",
+        "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/MFD/mfd.js",
+        "flybywire-aircraft-a320-neo/html_ui/Pages/VCockpit/Instruments/A32NX/MCDU/mcdu.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/Airbus_FMA.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/Airbus_FMA.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/Airbus_FMA.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/Airbus_FMA.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/Airbus_FMA.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/Airbus_FMA.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/Airbus_FMA.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/Airbus_FMA.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/Airbus_FMA.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/Airbus_FMA.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/Airbus_FMA.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/Airbus_FMA.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/Airbus_FMA.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/Airbus_FMA.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/Airbus_FMA.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_DECISION_HEIGHT",
+      "units": [
+        "feet",
+        "number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/FMC/FMCMainDisplay.js",
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/Airbus/Airbus_FMA.js",
+        "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/SystemsHost/SystemsHost.js",
+        "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/MFD/mfd.js",
+        "flybywire-aircraft-a320-neo/html_ui/Pages/VCockpit/Instruments/A32NX/MCDU/mcdu.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/Airbus_FMA.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/Airbus_FMA.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/Airbus_FMA.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/Airbus_FMA.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/Airbus_FMA.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/Airbus_FMA.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/Airbus_FMA.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/Airbus_FMA.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/Airbus_FMA.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/Airbus_FMA.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/Airbus_FMA.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/Airbus_FMA.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/Airbus_FMA.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/Airbus_FMA.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/Airbus_FMA.js"
+      ]
+    },
+    {
+      "name": "A32NX_AIRLINER_CRUISE_ALTITUDE",
+      "units": [
+        "number"
+      ],
+      "sources": [
+        "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/ExtrasHost/index.js",
+        "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/MFD/mfd.js",
+        "flybywire-aircraft-a320-neo/html_ui/Pages/VCockpit/Instruments/A32NX/MCDU/mcdu.js"
+      ]
+    },
+    {
+      "name": "A32NX_AIRLINER_TO_FLEX_TEMP",
+      "units": [
+        "number"
+      ],
+      "sources": [
+        "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/SystemsHost/SystemsHost.js",
+        "flybywire-aircraft-a320-neo/html_ui/Pages/VCockpit/Instruments/A32NX/SystemsHost/index.js",
+        "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/MFD/mfd.js",
+        "flybywire-aircraft-a320-neo/html_ui/Pages/VCockpit/Instruments/A32NX/MCDU/mcdu.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_ACC_ALT",
+      "units": [
+        "Number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/FMC/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/FMCMainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_APPR_GREEN_DOT_SPD",
+      "units": [
+        "Number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/FMC/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/FMCMainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_CRUISE_ALTITUDE",
+      "units": [
+        "number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-b737-max8/html_ui/Pages/VCockpit/Instruments/Airliners/AS05B/PFD/AS05B_FMA.js",
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/FMC/FMCMainDisplay.js",
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/Boeing/Boeing_FMA.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/LVFR_Libraries/LVFR_Systems.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/PAX/LVFR_Pax.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_SDK/A321/LVFR_Systems.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/LVFR_Libraries/LVFR_Systems.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/PAX/LVFR_Pax.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/MFD/mfdinstrument.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/PAX/LVFR_Pax.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_SDK/A320/LVFR_Systems.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/EFB/efb.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_Libraries/LVFR_Systems.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/CDU/fmcinstrument.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/MFD/mfdinstrument.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/LVFR_Libraries/LVFR_Systems.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/EFB/efb_f.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/EFB/efb.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/PAX/LVFR_Pax.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/CDU/fmcinstrument.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/LVFR_Libraries/LVFR_Systems.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/PAX/LVFR_Pax.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/MFD/mfdinstrument.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_SDK/A319/LVFR_Systems.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/PAX/LVFR_Pax.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/EFB/efb.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/CDU/fmcinstrument.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_SDK/A319/LVFR_Systems.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/PAX/LVFR_Pax.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/MFD/mfdinstrument.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/CDU/fmcinstrument.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/EFB/efb.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_SDK/A318/LVFR_Systems.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/PAX/LVFR_Pax.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/PAX/LVFR_Pax.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/LVFR_Libraries/LVFR_Systems.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/LVFR_Libraries/LVFR_Systems.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/PAX/LVFR_Pax.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/MFD/mfdinstrument.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_SDK/A318/LVFR_Systems.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/EFB/efbinstrument.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/PAX/LVFR_Pax.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/MFD/mfdinstrument.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/EFB/efbinstrument.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/CDU/fmcinstrument.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/EFB/efb.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/CDU/fmcinstrument.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/LVFR_Libraries/LVFR_Systems.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/PAX/LVFR_Pax.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/LVFR_Libraries/LVFR_Systems.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/PAX/LVFR_Pax.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/MFD/mfdinstrument.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/EFB/efb.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/CDU/fmcinstrument.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_FLIGHT_PHASE",
+      "units": [
+        "number"
+      ],
+      "sources": [
+        "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/MFD/mfd.js",
+        "flybywire-aircraft-a320-neo/html_ui/Pages/VCockpit/Instruments/A32NX/MCDU/mcdu.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_FMC_FORCE_NEXT_UPDATE",
+      "units": [
+        "number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-b787-10/html_ui/Pages/VCockpit/Instruments/Airliners/B787_10/FMC/B787_10_FMC.js",
+        "asobo-vcockpits-instruments-b747-8/html_ui/Pages/VCockpit/Instruments/Airliners/B747_8/FMC/B747_8_FMC_MainDisplay.js",
+        "asobo-vcockpits-instruments-cj4/html_ui/Pages/VCockpit/Instruments/Airliners/CJ4/FMC/CJ4_FMC.js",
+        "asobo-vcockpits-instruments-b737-max8/html_ui/Pages/VCockpit/Instruments/Airliners/AS05B/FMC/AS05B_FMC_MainDisplay.js",
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/CDU/A320_Neo_CDU_MainDisplay.js",
+        "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/MFD/mfd.js",
+        "flybywire-aircraft-a320-neo/html_ui/Pages/VCockpit/Instruments/A32NX/MCDU/mcdu.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_FMS_HEADING_TOP_CLIMB",
+      "units": [
+        "number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/MFD/A320_Neo_MFD.js",
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_FMS_HEADING_TOP_DSCNT",
+      "units": [
+        "number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/MFD/A320_Neo_MFD.js",
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_FMS_LAT_TOP_CLIMB",
+      "units": [
+        "number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/MFD/A320_Neo_MFD.js",
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_FMS_LAT_TOP_DSCNT",
+      "units": [
+        "number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-b787-10/html_ui/Pages/VCockpit/Instruments/Airliners/B787_10/FMC/B787_10_FMC.js",
+        "asobo-vcockpits-instruments-b747-8/html_ui/Pages/VCockpit/Instruments/Airliners/B747_8/FMC/B747_8_FMC_MainDisplay.js",
+        "asobo-vcockpits-instruments-cj4/html_ui/Pages/VCockpit/Instruments/Airliners/CJ4/FMC/CJ4_FMC.js",
+        "asobo-vcockpits-instruments-b737-max8/html_ui/Pages/VCockpit/Instruments/Airliners/AS05B/FMC/AS05B_FMC_MainDisplay.js",
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/MFD/A320_Neo_MFD.js",
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_FMS_LONG_TOP_CLIMB",
+      "units": [
+        "number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/MFD/A320_Neo_MFD.js",
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_FMS_LONG_TOP_DSCNT",
+      "units": [
+        "number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-b787-10/html_ui/Pages/VCockpit/Instruments/Airliners/B787_10/FMC/B787_10_FMC.js",
+        "asobo-vcockpits-instruments-b747-8/html_ui/Pages/VCockpit/Instruments/Airliners/B747_8/FMC/B747_8_FMC_MainDisplay.js",
+        "asobo-vcockpits-instruments-cj4/html_ui/Pages/VCockpit/Instruments/Airliners/CJ4/FMC/CJ4_FMC.js",
+        "asobo-vcockpits-instruments-b737-max8/html_ui/Pages/VCockpit/Instruments/Airliners/AS05B/FMC/AS05B_FMC_MainDisplay.js",
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/MFD/A320_Neo_MFD.js",
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_FMS_SHOW_TOP_CLIMB",
+      "units": [
+        "number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/MFD/A320_Neo_MFD.js",
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_FMS_SHOW_TOP_DSCNT",
+      "units": [
+        "number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-b787-10/html_ui/Pages/VCockpit/Instruments/Airliners/B787_10/FMC/B787_10_FMC.js",
+        "asobo-vcockpits-instruments-b747-8/html_ui/Pages/VCockpit/Instruments/Airliners/B747_8/FMC/B747_8_FMC_MainDisplay.js",
+        "asobo-vcockpits-instruments-cj4/html_ui/Pages/VCockpit/Instruments/Airliners/CJ4/FMC/CJ4_FMC.js",
+        "asobo-vcockpits-instruments-b737-max8/html_ui/Pages/VCockpit/Instruments/Airliners/AS05B/FMC/AS05B_FMC_MainDisplay.js",
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/MFD/A320_Neo_MFD.js",
+        "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/MFD/A320_Neo_MFD.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/MFD/LVFR_Airbus_MFD.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_MANAGED_APPROACH_SPEED",
+      "units": [
+        "number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/FMC/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/FMCMainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_MCDU_CURRENT_FPLN_WAYPOINT",
+      "units": [
+        "number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/FMC/FMCMainDisplay.js",
+        "asobo-vcockpits-instruments/html_ui/Pages/VCockpit/Instruments/Shared/Map/MapInstrument.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/Map/MapInstrument.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/Map/MapInstrument.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "fss-aircraft-e19x/html_ui/Pages/vcockpit/Instruments/fss-embraer-e1xx/MFD/mfd.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/Map/MapInstrument.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/Map/MapInstrument.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/Map/MapInstrument.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "fss-aircraft-e17x/html_ui/Pages/vcockpit/Instruments/fss-embraer-e1xx/MFD/mfd.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/Map/MapInstrument.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/Map/MapInstrument.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/Map/MapInstrument.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/Map/MapInstrument.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/FMCMainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_TAKEOFF_FLAP",
+      "units": [
+        "number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/PFD/AirspeedIndicator.js",
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/FMC/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/FMCMainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_THRUST_CLIMB_MODE",
+      "units": [
+        "number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-b747-8/html_ui/Pages/VCockpit/Instruments/Airliners/B747_8/FMC/B747_8_FMC_MainDisplay.js",
+        "asobo-vcockpits-instruments-b737-max8/html_ui/Pages/VCockpit/Instruments/Airliners/AS05B/FMC/AS05B_FMC_MainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_THRUST_TAKEOFF_MODE",
+      "units": [
+        "number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-b747-8/html_ui/Pages/VCockpit/Instruments/Airliners/B747_8/FMC/B747_8_FMC_MainDisplay.js",
+        "asobo-vcockpits-instruments-b737-max8/html_ui/Pages/VCockpit/Instruments/Airliners/AS05B/FMC/AS05B_FMC_MainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_THR_RED_ALT",
+      "units": [
+        "Number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/FMC/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/FMCMainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_TO_FLEX_TEMP",
+      "units": [
+        "Number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/FMC/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/FMCMainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_TO_GREEN_DOT_SPD",
+      "units": [
+        "Number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/FMC/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/FMCMainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_TRANS_ALT",
+      "units": [
+        "Number"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/FMC/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/FMCMainDisplay.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/FMCMainDisplay.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/FMCMainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_VREF_SPEED",
+      "units": [
+        "knots"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-b787-10/html_ui/Pages/VCockpit/Instruments/Airliners/B787_10/FMC/B787_10_FMC.js",
+        "asobo-vcockpits-instruments-b747-8/html_ui/Pages/VCockpit/Instruments/Airliners/B747_8/FMC/B747_8_FMC_MainDisplay.js",
+        "asobo-vcockpits-instruments-b737-max8/html_ui/Pages/VCockpit/Instruments/Airliners/AS05B/FMC/AS05B_FMC_MainDisplay.js"
+      ]
+    },
+    {
+      "name": "AIRLINER_VX_SPEED",
+      "units": [
+        "Knots"
+      ],
+      "sources": [
+        "asobo-vcockpits-instruments-b737-max8/html_ui/Pages/VCockpit/Instruments/Airliners/AS05B/PFD/AS05B_PFD_AirspeedIndicator.js",
+        "asobo-vcockpits-instruments-cj4/html_ui/Pages/VCockpit/Instruments/Airliners/CJ4/PFD/CJ4_PFD.js",
+        "asobo-vcockpits-instruments-cj4/html_ui/Pages/VCockpit/Instruments/Airliners/CJ4/FMC/CJ4_FMC.js",
+        "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/PFD/AirspeedIndicator.js",
+        "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/PFD/AirspeedIndicator.js"
+      ]
+    }
+  ],
+  "sources": [
+    {
+      "path": "asobo-vcockpits-instruments-b787-10/html_ui/Pages/VCockpit/Instruments/Airliners/B787_10/FMC/B787_10_FMC.js",
+      "sha256": "70b0011d1cd8b7c3a255e80bf60573a9ceed0ced429860951c08bf31b57fcbe4"
+    },
+    {
+      "path": "asobo-vcockpits-instruments-b747-8/html_ui/Pages/VCockpit/Instruments/Airliners/B747_8/FMC/B747_8_FMC_MainDisplay.js",
+      "sha256": "2b8e75460ca875c8e5580afffa6d9e79f14354753091989fe52ddc73e232a2b9"
+    },
+    {
+      "path": "asobo-vcockpits-instruments-b737-max8/html_ui/Pages/VCockpit/Instruments/Airliners/AS05B/PFD/AS05B_PFD_AirspeedIndicator.js",
+      "sha256": "6e0eccf289da1b4208235e90ee7d7c0adcbcea6d49c1d4ac461fc9c5a0e04484"
+    },
+    {
+      "path": "asobo-vcockpits-instruments-b737-max8/html_ui/Pages/VCockpit/Instruments/Airliners/AS05B/PFD/AS05B_FMA.js",
+      "sha256": "33de0cba93b604b580454c94d3ca5190705e1cf5d3e6a30969258267108fc6b7"
+    },
+    {
+      "path": "asobo-vcockpits-instruments-cj4/html_ui/Pages/VCockpit/Instruments/Airliners/CJ4/PFD/CJ4_PFD.js",
+      "sha256": "f5298dcb3028268370c8a4059314c1bcc4d898972b72ceb63d55cbc9bf436730"
+    },
+    {
+      "path": "asobo-vcockpits-instruments-cj4/html_ui/Pages/VCockpit/Instruments/Airliners/CJ4/FMC/CJ4_FMC_TakeOffRefPage.js",
+      "sha256": "58e27d43e7448aa5f463b2b4b12de6fa1173fe7a5968924dfecb4d267e1dd5d5"
+    },
+    {
+      "path": "asobo-vcockpits-instruments-cj4/html_ui/Pages/VCockpit/Instruments/Airliners/CJ4/FMC/CJ4_FMC.js",
+      "sha256": "b92ff23eb41c6bb8f8a4913e2d9ac0b0af68edc35e811feda746aad3a1ff7c3e"
+    },
+    {
+      "path": "asobo-vcockpits-instruments-b737-max8/html_ui/Pages/VCockpit/Instruments/Airliners/AS05B/FMC/AS05B_FMC_MainDisplay.js",
+      "sha256": "807a6129d4c634355b0d694132a48265d9d95ea0e157806e9a04c05610cd0957"
+    },
+    {
+      "path": "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/PFD/AirspeedIndicator.js",
+      "sha256": "3708d5f0f5d7e383265b44e6a5312d87ebaf6cf82637ee899d9145fc6eac1687"
+    },
+    {
+      "path": "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/FMC/FMCMainDisplay.js",
+      "sha256": "1cb18087d70abcca750c0b441033a034640a280393af63c57100218a61790725"
+    },
+    {
+      "path": "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/Boeing/Boeing_FMA.js",
+      "sha256": "fb7d44e5eda50708cd0b7d50e6083c0727cf80edbdeea63afeec1cc264c67e81"
+    },
+    {
+      "path": "asobo-vcockpits-instruments-airliners/html_ui/Pages/VCockpit/Instruments/Airliners/Shared/Airbus/Airbus_FMA.js",
+      "sha256": "32e8feb24875082aeae8afdcab8c8ef61e32a97dab3bcf34c1285eaf0f6c0834"
+    },
+    {
+      "path": "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/MFD/A320_Neo_MFD.js",
+      "sha256": "a60deb9191ba7e4eee92963ee016e2add1b292ca32c67c6db067ba14d0d60ce0"
+    },
+    {
+      "path": "asobo-vcockpits-instruments-a320-neo/html_ui/Pages/VCockpit/Instruments/Airliners/A320_Neo/CDU/A320_Neo_CDU_MainDisplay.js",
+      "sha256": "e7a3da4965335892c134dcc95b562ad5915da9f437481656de1144de2f96e56e"
+    },
+    {
+      "path": "asobo-vcockpits-instruments/html_ui/Pages/VCockpit/Instruments/Shared/Map/MapInstrument.js",
+      "sha256": "cc4db6e908887f44a206af6da234f49048c533f9fc07f2a0e6c84946b6f81df4"
+    },
+    {
+      "path": "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/SystemsHost/SystemsHost.js",
+      "sha256": "9e414037d5d48c41110431dc532d8f3af79d384092122b6e2a3233de93b7564b"
+    },
+    {
+      "path": "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/FCU/fcu.js",
+      "sha256": "927740baf09e3765b4a34e680d70fcb1bf66d5351f3aca89390de5ae0a5034c3"
+    },
+    {
+      "path": "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/ExtrasHost/index.js",
+      "sha256": "60faba5e3015879f7fc4e79d3b049364ea4f2e3aaddc9548b11b46bfd0c57496"
+    },
+    {
+      "path": "flybywire-aircraft-a320-neo/html_ui/Pages/VCockpit/Instruments/A32NX/SystemsHost/index.js",
+      "sha256": "4906fb09ebaa654a784070f556ad7625310eb968ba264d93f5973e65f8549bb9"
+    },
+    {
+      "path": "flybywire-aircraft-a380-842/html_ui/Pages/VCockpit/Instruments/A380X/MFD/mfd.js",
+      "sha256": "840ee5b64e049f2cddcd7880f2f8b865d8f5d84874e7afcf785c63724f734c1b"
+    },
+    {
+      "path": "flybywire-aircraft-a320-neo/html_ui/Pages/VCockpit/Instruments/A32NX/MCDU/mcdu.js",
+      "sha256": "ad92be05f3734a61932a2e7025aaa5f5bde0037aa5da2cf0e866e251e45edc8c"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/PFD/AirspeedIndicator.js",
+      "sha256": "7a746fd97d7d16b8b18704a94ca4a053d7feb4a9fa9536f159a7c6d006578e0a"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/Map/MapInstrument.js",
+      "sha256": "b9b1f4b48edf80a3014b570c79f849ccb6fc7c7b53c67c0045391903ca16d909"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/LVFR_Libraries/LVFR_Systems.js",
+      "sha256": "a4d6434fdbf2e601378886fdb94d19f326c50598615f90499708f0a03078d878"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/FMCMainDisplay.js",
+      "sha256": "c98f63031a4830600b46eff5f3565ec02bf4e459672e8d968bc0539679d4eb76"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/Shared/Airbus_FMA.js",
+      "sha256": "5d20352bf5c280102f71c518b1f012d0107eaaf9bf0529ccf23e61c99d308248"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/PAX/LVFR_Pax.js",
+      "sha256": "a34fe997837ac398d6c52a08d89bb27ad6bc5eaf84419b0141e4daa5610992b9"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/MFD/LVFR_Airbus_MFD.js",
+      "sha256": "622b7ed8305cf51d46db92c23425f834db4dc0db1b19f46b6f5c1be394753e6a"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/PFD/AirspeedIndicator.js",
+      "sha256": "7a746fd97d7d16b8b18704a94ca4a053d7feb4a9fa9536f159a7c6d006578e0a"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/Map/MapInstrument.js",
+      "sha256": "b9b1f4b48edf80a3014b570c79f849ccb6fc7c7b53c67c0045391903ca16d909"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_SDK/A321/LVFR_Systems.js",
+      "sha256": "a8c8007a6c790b40fb1241a221b920d7e72edc0b05ced19a91115641b805a7ae"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/LVFR_Libraries/LVFR_Systems.js",
+      "sha256": "a4d6434fdbf2e601378886fdb94d19f326c50598615f90499708f0a03078d878"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/FMCMainDisplay.js",
+      "sha256": "c98f63031a4830600b46eff5f3565ec02bf4e459672e8d968bc0539679d4eb76"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/Shared/Airbus_FMA.js",
+      "sha256": "5d20352bf5c280102f71c518b1f012d0107eaaf9bf0529ccf23e61c99d308248"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+      "sha256": "48fcdf438532e2988cde76c66dedcb4d0aa2115b332c9e4cc0cbdeb1d55dbe3f"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/PAX/LVFR_Pax.js",
+      "sha256": "a34fe997837ac398d6c52a08d89bb27ad6bc5eaf84419b0141e4daa5610992b9"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+      "sha256": "a9110347137dfb6e179c0e8ffd280018ec0f5bccc6de1527d06eb869be53ea9a"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/MFD/mfdinstrument.js",
+      "sha256": "7315ce4952f53d957717c4e65dbd0a9228bf2c8ffd02bbb10664dd06c7f97f0c"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/MFD/LVFR_Airbus_MFD.js",
+      "sha256": "622b7ed8305cf51d46db92c23425f834db4dc0db1b19f46b6f5c1be394753e6a"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+      "sha256": "215a06c3660c2d60ffd0c156b25d0c1c56d2ece6055d9b8ef43bf786b67b5dd0"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/Shared/LVFR_AIRBUS_SHARED_V2/Airbus_FMA.js",
+      "sha256": "df97453782e33425d01183907744f5d71cad7cde312443e40ffa882bd3a733ae"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/PAX/LVFR_Pax.js",
+      "sha256": "a34fe997837ac398d6c52a08d89bb27ad6bc5eaf84419b0141e4daa5610992b9"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/MFD/A320_Neo_MFD.js",
+      "sha256": "59e3f25b53b356376f86616a264270fa6e837f362be200260dedddfc3e673566"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+      "sha256": "681225fc8d8bbe856b7f6ebaf4e45f91962a78c43a0183397928c368f4467243"
+    },
+    {
+      "path": "fss-aircraft-e19x/html_ui/Pages/vcockpit/Instruments/fss-embraer-e1xx/MFD/mfd.js",
+      "sha256": "8773b08f7255e1fee71cb16c77ebd02f358bad9965eab55938c15dd655f6fcaf"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/PFD/AirspeedIndicator.js",
+      "sha256": "7a746fd97d7d16b8b18704a94ca4a053d7feb4a9fa9536f159a7c6d006578e0a"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/Map/MapInstrument.js",
+      "sha256": "a8d3f2390b7735dbd137d406c77f177d8ab7feace43ef6a9d71e13466f79c1bc"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_SDK/A320/LVFR_Systems.js",
+      "sha256": "a8c8007a6c790b40fb1241a221b920d7e72edc0b05ced19a91115641b805a7ae"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/EFB/efb.js",
+      "sha256": "f3b7517d961b6a1a73853c34ecbb2c8113967b410b1848326df4decc3d4b2c0a"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_Libraries/LVFR_Systems.js",
+      "sha256": "9fd6a79b92d77589cc5373319b7088d486204c2696a32491ffcec48e5a328c57"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+      "sha256": "a9110347137dfb6e179c0e8ffd280018ec0f5bccc6de1527d06eb869be53ea9a"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+      "sha256": "d243bf4dd41ceb8d7732d90396129f3b74552881ea35fe97575d26e3e85d556d"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/LVFR_AIRBUS_SHARED_V2/Airbus_FMA.js",
+      "sha256": "df97453782e33425d01183907744f5d71cad7cde312443e40ffa882bd3a733ae"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+      "sha256": "48fcdf438532e2988cde76c66dedcb4d0aa2115b332c9e4cc0cbdeb1d55dbe3f"
+    },
+    {
+      "path": "lvfr-airbus-a340-300/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a340-300/_c/CDU/fmcinstrument.js",
+      "sha256": "0ea098ee20ea941379aa04c9a6c890c77fad96213701e847a5265d78683edf44"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/FMCMainDisplay.js",
+      "sha256": "e876eda4d1af64a759896582219a120a04f4955fc2712eba1297e1511004008f"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/Shared/Airbus_FMA.js",
+      "sha256": "ffd416f2ccaebea209c46d3d5312b4bf2c1ea69453f6a3c7cd8889a4c4ba2aff"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/MFD/mfdinstrument.js",
+      "sha256": "874385cf9a2e2305c10a900ba8e9bad2bf46b977c588b22614f60737dc3469a7"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/MFD/LVFR_Airbus_MFD.js",
+      "sha256": "7ff3a3e05c61ac8f2a0204c7d51b019563c9c5146ae4eb8dd579a61212602834"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/PFD/AirspeedIndicator.js",
+      "sha256": "7a746fd97d7d16b8b18704a94ca4a053d7feb4a9fa9536f159a7c6d006578e0a"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/Map/MapInstrument.js",
+      "sha256": "a8d3f2390b7735dbd137d406c77f177d8ab7feace43ef6a9d71e13466f79c1bc"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/LVFR_Libraries/LVFR_Systems.js",
+      "sha256": "9fd6a79b92d77589cc5373319b7088d486204c2696a32491ffcec48e5a328c57"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/FMCMainDisplay.js",
+      "sha256": "e876eda4d1af64a759896582219a120a04f4955fc2712eba1297e1511004008f"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/Shared/Airbus_FMA.js",
+      "sha256": "ffd416f2ccaebea209c46d3d5312b4bf2c1ea69453f6a3c7cd8889a4c4ba2aff"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/EFB/efb_f.js",
+      "sha256": "0128457abe0f95ce457a5465d6e374473a1cc40f690b92fe0835d734b6a11655"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/EFB/efb.js",
+      "sha256": "b533406a336baa15caf6cfe6a29166539861a902820ba4212a9f5ec4b1bb6068"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/PAX/LVFR_Pax.js",
+      "sha256": "a34fe997837ac398d6c52a08d89bb27ad6bc5eaf84419b0141e4daa5610992b9"
+    },
+    {
+      "path": "lvfr-airbus-a321-neo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a321-neo/_c/CDU/fmcinstrument.js",
+      "sha256": "4a1c8e0e7c34175cb95183ede2727c37cb5a16a2e62f086b2c9487f7347089d3"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/MFD/LVFR_Airbus_MFD.js",
+      "sha256": "7ff3a3e05c61ac8f2a0204c7d51b019563c9c5146ae4eb8dd579a61212602834"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+      "sha256": "f9752c518108166a72f5fe7d727d15df0eeab0d1fcf628f4f4b6d75e0378e125"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/PFD/AirspeedIndicator.js",
+      "sha256": "7a746fd97d7d16b8b18704a94ca4a053d7feb4a9fa9536f159a7c6d006578e0a"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/Map/MapInstrument.js",
+      "sha256": "a8d3f2390b7735dbd137d406c77f177d8ab7feace43ef6a9d71e13466f79c1bc"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/LVFR_Libraries/LVFR_Systems.js",
+      "sha256": "9fd6a79b92d77589cc5373319b7088d486204c2696a32491ffcec48e5a328c57"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/FMCMainDisplay.js",
+      "sha256": "e876eda4d1af64a759896582219a120a04f4955fc2712eba1297e1511004008f"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/Shared/Airbus_FMA.js",
+      "sha256": "ffd416f2ccaebea209c46d3d5312b4bf2c1ea69453f6a3c7cd8889a4c4ba2aff"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/PAX/LVFR_Pax.js",
+      "sha256": "a34fe997837ac398d6c52a08d89bb27ad6bc5eaf84419b0141e4daa5610992b9"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/MFD/mfdinstrument.js",
+      "sha256": "4a3486978aaa1c1ec763ba87c9860543d5f1f6b464e9459f9994afe8995b77cd"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/MFD/LVFR_Airbus_MFD.js",
+      "sha256": "7ff3a3e05c61ac8f2a0204c7d51b019563c9c5146ae4eb8dd579a61212602834"
+    },
+    {
+      "path": "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_SDK/A319/LVFR_Systems.js",
+      "sha256": "a8c8007a6c790b40fb1241a221b920d7e72edc0b05ced19a91115641b805a7ae"
+    },
+    {
+      "path": "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+      "sha256": "a9110347137dfb6e179c0e8ffd280018ec0f5bccc6de1527d06eb869be53ea9a"
+    },
+    {
+      "path": "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+      "sha256": "d243bf4dd41ceb8d7732d90396129f3b74552881ea35fe97575d26e3e85d556d"
+    },
+    {
+      "path": "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/Airbus_FMA.js",
+      "sha256": "df97453782e33425d01183907744f5d71cad7cde312443e40ffa882bd3a733ae"
+    },
+    {
+      "path": "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/PAX/LVFR_Pax.js",
+      "sha256": "a34fe997837ac398d6c52a08d89bb27ad6bc5eaf84419b0141e4daa5610992b9"
+    },
+    {
+      "path": "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/MFD/A320_Neo_MFD.js",
+      "sha256": "59e3f25b53b356376f86616a264270fa6e837f362be200260dedddfc3e673566"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/EFB/efb.js",
+      "sha256": "4a755731ea101d26c792f5126639cff312de467cf51b5c8832ab0ebb03983ae2"
+    },
+    {
+      "path": "fss-aircraft-e17x/html_ui/Pages/vcockpit/Instruments/fss-embraer-e1xx/MFD/mfd.js",
+      "sha256": "8773b08f7255e1fee71cb16c77ebd02f358bad9965eab55938c15dd655f6fcaf"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+      "sha256": "f9752c518108166a72f5fe7d727d15df0eeab0d1fcf628f4f4b6d75e0378e125"
+    },
+    {
+      "path": "lvfr-airbus-a330-900/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-900/_c/CDU/fmcinstrument.js",
+      "sha256": "374199f344397e5abe97b2311e8bd1ac7fcb683bcfbba149f96ca0a8ace06770"
+    },
+    {
+      "path": "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+      "sha256": "681225fc8d8bbe856b7f6ebaf4e45f91962a78c43a0183397928c368f4467243"
+    },
+    {
+      "path": "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_SDK/A319/LVFR_Systems.js",
+      "sha256": "a8c8007a6c790b40fb1241a221b920d7e72edc0b05ced19a91115641b805a7ae"
+    },
+    {
+      "path": "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+      "sha256": "a9110347137dfb6e179c0e8ffd280018ec0f5bccc6de1527d06eb869be53ea9a"
+    },
+    {
+      "path": "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+      "sha256": "d243bf4dd41ceb8d7732d90396129f3b74552881ea35fe97575d26e3e85d556d"
+    },
+    {
+      "path": "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/Airbus_FMA.js",
+      "sha256": "df97453782e33425d01183907744f5d71cad7cde312443e40ffa882bd3a733ae"
+    },
+    {
+      "path": "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/PAX/LVFR_Pax.js",
+      "sha256": "a34fe997837ac398d6c52a08d89bb27ad6bc5eaf84419b0141e4daa5610992b9"
+    },
+    {
+      "path": "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/MFD/mfdinstrument.js",
+      "sha256": "733d8f5d1fe66ddb8adba75b8ec96a4c1fdce3328fbf482d73770c6731507572"
+    },
+    {
+      "path": "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/CDU/fmcinstrument.js",
+      "sha256": "456ad0c6107b39d432d9464465e14918f57902cc5c6c92c3daad90a2710e902f"
+    },
+    {
+      "path": "lvfr-airbus-a319-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a319-ceo/_c/EFB/efb.js",
+      "sha256": "aa7983d20b43ef52ddf6baac70da56966e0162bd6dd44e6f75554e8da74b1e6a"
+    },
+    {
+      "path": "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_SDK/A318/LVFR_Systems.js",
+      "sha256": "a8c8007a6c790b40fb1241a221b920d7e72edc0b05ced19a91115641b805a7ae"
+    },
+    {
+      "path": "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+      "sha256": "a9110347137dfb6e179c0e8ffd280018ec0f5bccc6de1527d06eb869be53ea9a"
+    },
+    {
+      "path": "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+      "sha256": "d243bf4dd41ceb8d7732d90396129f3b74552881ea35fe97575d26e3e85d556d"
+    },
+    {
+      "path": "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/Shared/LVFR_AIRBUS_SHARED_V2/Airbus_FMA.js",
+      "sha256": "df97453782e33425d01183907744f5d71cad7cde312443e40ffa882bd3a733ae"
+    },
+    {
+      "path": "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/PAX/LVFR_Pax.js",
+      "sha256": "a34fe997837ac398d6c52a08d89bb27ad6bc5eaf84419b0141e4daa5610992b9"
+    },
+    {
+      "path": "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/MFD/A320_Neo_MFD.js",
+      "sha256": "59e3f25b53b356376f86616a264270fa6e837f362be200260dedddfc3e673566"
+    },
+    {
+      "path": "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/PFD/AirspeedIndicator.js",
+      "sha256": "7a746fd97d7d16b8b18704a94ca4a053d7feb4a9fa9536f159a7c6d006578e0a"
+    },
+    {
+      "path": "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/Map/MapInstrument.js",
+      "sha256": "abf2d6bfb50aad1b83cc04af14ad73765c59f76ebff210abf4ee7a5849aa45f5"
+    },
+    {
+      "path": "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+      "sha256": "6271c85684b365b7d6616c7a28d1223dfa4b5160faebc7b7b9ddd4efd1aa17e6"
+    },
+    {
+      "path": "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/PAX/LVFR_Pax.js",
+      "sha256": "a34fe997837ac398d6c52a08d89bb27ad6bc5eaf84419b0141e4daa5610992b9"
+    },
+    {
+      "path": "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/MFD/LVFR_Airbus_MFD.js",
+      "sha256": "622b7ed8305cf51d46db92c23425f834db4dc0db1b19f46b6f5c1be394753e6a"
+    },
+    {
+      "path": "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/PFD/AirspeedIndicator.js",
+      "sha256": "7a746fd97d7d16b8b18704a94ca4a053d7feb4a9fa9536f159a7c6d006578e0a"
+    },
+    {
+      "path": "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/LVFR_Libraries/LVFR_Systems.js",
+      "sha256": "9fd6a79b92d77589cc5373319b7088d486204c2696a32491ffcec48e5a328c57"
+    },
+    {
+      "path": "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/FMCMainDisplay.js",
+      "sha256": "e876eda4d1af64a759896582219a120a04f4955fc2712eba1297e1511004008f"
+    },
+    {
+      "path": "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/Shared/Airbus_FMA.js",
+      "sha256": "ffd416f2ccaebea209c46d3d5312b4bf2c1ea69453f6a3c7cd8889a4c4ba2aff"
+    },
+    {
+      "path": "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/Map/MapInstrument.js",
+      "sha256": "a8d3f2390b7735dbd137d406c77f177d8ab7feace43ef6a9d71e13466f79c1bc"
+    },
+    {
+      "path": "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/LVFR_Libraries/LVFR_Systems.js",
+      "sha256": "9fd6a79b92d77589cc5373319b7088d486204c2696a32491ffcec48e5a328c57"
+    },
+    {
+      "path": "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/FMCMainDisplay.js",
+      "sha256": "e876eda4d1af64a759896582219a120a04f4955fc2712eba1297e1511004008f"
+    },
+    {
+      "path": "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/Shared/Airbus_FMA.js",
+      "sha256": "ffd416f2ccaebea209c46d3d5312b4bf2c1ea69453f6a3c7cd8889a4c4ba2aff"
+    },
+    {
+      "path": "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/PAX/LVFR_Pax.js",
+      "sha256": "a34fe997837ac398d6c52a08d89bb27ad6bc5eaf84419b0141e4daa5610992b9"
+    },
+    {
+      "path": "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_l/CDU/A320_Neo_CDU_MainDisplay.js",
+      "sha256": "681225fc8d8bbe856b7f6ebaf4e45f91962a78c43a0183397928c368f4467243"
+    },
+    {
+      "path": "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/MFD/mfdinstrument.js",
+      "sha256": "ecd8be754ca59ad11a0c966f0810e6c7fc9aeb05a286a701bd9b59446e59ca2f"
+    },
+    {
+      "path": "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_SDK/A318/LVFR_Systems.js",
+      "sha256": "a8c8007a6c790b40fb1241a221b920d7e72edc0b05ced19a91115641b805a7ae"
+    },
+    {
+      "path": "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/PFD/AirspeedIndicator.js",
+      "sha256": "a9110347137dfb6e179c0e8ffd280018ec0f5bccc6de1527d06eb869be53ea9a"
+    },
+    {
+      "path": "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_l/EFB/efbinstrument.js",
+      "sha256": "f924aafba1a5d8ad8e29220e0023cac99d5ad320decfbfef4c133e693e46b401"
+    },
+    {
+      "path": "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/FMCMainDisplay.js",
+      "sha256": "d243bf4dd41ceb8d7732d90396129f3b74552881ea35fe97575d26e3e85d556d"
+    },
+    {
+      "path": "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/Shared/LVFR_AIRBUS_SHARED_V2/Airbus_FMA.js",
+      "sha256": "df97453782e33425d01183907744f5d71cad7cde312443e40ffa882bd3a733ae"
+    },
+    {
+      "path": "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/PAX/LVFR_Pax.js",
+      "sha256": "a34fe997837ac398d6c52a08d89bb27ad6bc5eaf84419b0141e4daa5610992b9"
+    },
+    {
+      "path": "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/MFD/mfdinstrument.js",
+      "sha256": "45e4eca77c23261966bd8ab459a98e4db4dae52bdbe2f5e1749b1075022acc43"
+    },
+    {
+      "path": "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/EFB/efbinstrument.js",
+      "sha256": "d470c2c8bf1d3b3906cfe269d2ca3efada39c9f44a5f495ebc44c4317a2b5115"
+    },
+    {
+      "path": "lvfr-a333/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a333/_c/CDU/fmcinstrument.js",
+      "sha256": "3735ec8a333ece17b31012645dfb960b04c71ea437190f9b8cd7f95517366384"
+    },
+    {
+      "path": "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/EFB/efb.js",
+      "sha256": "63a807baa01a64c075899058fb24f4e1712206138b7e401c373c41e851804977"
+    },
+    {
+      "path": "lvfr-airbus-a318-ceo/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a318-ceo/_c/CDU/fmcinstrument.js",
+      "sha256": "08033c51754cf2553ac0108420125cf639728cb671e58dd1e586f2c006f1ca8c"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/PFD/AirspeedIndicator.js",
+      "sha256": "7a746fd97d7d16b8b18704a94ca4a053d7feb4a9fa9536f159a7c6d006578e0a"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/Map/MapInstrument.js",
+      "sha256": "a8d3f2390b7735dbd137d406c77f177d8ab7feace43ef6a9d71e13466f79c1bc"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/LVFR_Libraries/LVFR_Systems.js",
+      "sha256": "9fd6a79b92d77589cc5373319b7088d486204c2696a32491ffcec48e5a328c57"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/FMCMainDisplay.js",
+      "sha256": "e876eda4d1af64a759896582219a120a04f4955fc2712eba1297e1511004008f"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/Shared/Airbus_FMA.js",
+      "sha256": "ffd416f2ccaebea209c46d3d5312b4bf2c1ea69453f6a3c7cd8889a4c4ba2aff"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/PAX/LVFR_Pax.js",
+      "sha256": "a34fe997837ac398d6c52a08d89bb27ad6bc5eaf84419b0141e4daa5610992b9"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/MFD/LVFR_Airbus_MFD.js",
+      "sha256": "7ff3a3e05c61ac8f2a0204c7d51b019563c9c5146ae4eb8dd579a61212602834"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_l/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+      "sha256": "6271c85684b365b7d6616c7a28d1223dfa4b5160faebc7b7b9ddd4efd1aa17e6"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/PFD/AirspeedIndicator.js",
+      "sha256": "7a746fd97d7d16b8b18704a94ca4a053d7feb4a9fa9536f159a7c6d006578e0a"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/Map/MapInstrument.js",
+      "sha256": "a8d3f2390b7735dbd137d406c77f177d8ab7feace43ef6a9d71e13466f79c1bc"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/LVFR_Libraries/LVFR_Systems.js",
+      "sha256": "9fd6a79b92d77589cc5373319b7088d486204c2696a32491ffcec48e5a328c57"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/FMCMainDisplay.js",
+      "sha256": "e876eda4d1af64a759896582219a120a04f4955fc2712eba1297e1511004008f"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/Shared/Airbus_FMA.js",
+      "sha256": "ffd416f2ccaebea209c46d3d5312b4bf2c1ea69453f6a3c7cd8889a4c4ba2aff"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/PAX/LVFR_Pax.js",
+      "sha256": "a34fe997837ac398d6c52a08d89bb27ad6bc5eaf84419b0141e4daa5610992b9"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/MFD/mfdinstrument.js",
+      "sha256": "e8c61d67975af7d665b3981e5a8510c6fbdc170f936f57b66960fd1843cb5112"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/MFD/LVFR_Airbus_MFD.js",
+      "sha256": "7ff3a3e05c61ac8f2a0204c7d51b019563c9c5146ae4eb8dd579a61212602834"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/EFB/efb.js",
+      "sha256": "4a755731ea101d26c792f5126639cff312de467cf51b5c8832ab0ebb03983ae2"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/CDU/LVFR_Airbus_CDU_MainDisplay.js",
+      "sha256": "6271c85684b365b7d6616c7a28d1223dfa4b5160faebc7b7b9ddd4efd1aa17e6"
+    },
+    {
+      "path": "lvfr-a330-200 V1-1-1/html_ui/Pages/VCockpit/Instruments/Airliners/lvfr-a330-200/_c/CDU/fmcinstrument.js",
+      "sha256": "374199f344397e5abe97b2311e8bd1ac7fcb683bcfbba149f96ca0a8ace06770"
+    }
+  ]
+}

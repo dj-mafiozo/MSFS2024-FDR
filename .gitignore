@@ -1,0 +1,95 @@
+# Build output and release packages
+/.build/
+/bin/*
+!/bin/settings.example.ini
+*.exe
+*.dll
+*.bpl
+*.dcp
+*.bpi
+*.dcu
+*.obj
+*.o
+*.map
+*.tds
+*.rsm
+*.drc
+*.zip
+*.7z
+*.rar
+
+# Delphi IDE state (keep .dpr, .dproj, .pas, .dfm, .res and .ico)
+*.dproj.local
+*.groupproj.local
+*.identcache
+*.projdata
+*.stat
+*.dsk
+*.bak
+*.old
+*.~*
+__history/
+__recovery/
+/.vs/
+/.idea/
+/.vscode/
+
+# Private recordings, SQLite journals and backups
+*.db
+*.db-*
+*.db.*
+*.sqlite
+*.sqlite-*
+*.sqlite3
+*.sqlite3-*
+*.fdb
+*.kml
+/recordings/
+/captures/
+/backups/
+/cache/
+/logs/
+/ofp/
+*.log
+*.log.*
+*.dmp
+*.dump
+
+# Local configuration, account details, API keys and downloaded OFPs
+*.ini
+!*.example.ini
+!*.sample.ini
+.env
+.env.*
+!.env.example
+simbrief-latest.json
+settings.json
+*.ofp
+OFP-*.html
+OFP-*.pdf
+
+# Generated test output; keep test programs and intentional fixtures
+/tests/*.png
+/tests/*.json
+/tests/*.txt
+
+# Local reference material, not project source
+/737_FMC/
+/A32nx_MCDU/
+/A32NX Flight Deck API - FlyByWire Simulations Documentation.htm
+/A32NX Flight Deck API - FlyByWire Simulations Documentation_files/
+/MSFS_MAX8_SDK*/
+/downloads/
+
+# Tool caches and local environments
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+node_modules/
+/.codex/
+/.aws/
+.DS_Store
+Thumbs.db
+Desktop.ini
