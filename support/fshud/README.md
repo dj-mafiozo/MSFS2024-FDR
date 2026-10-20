@@ -1,4 +1,6 @@
-# FSHud — odczyt lokalnego panelu
+﻿# FSHud — odczyt lokalnego panelu
+
+[Tłumaczenia interfejsu](../../Translation.pl.md)
 
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 

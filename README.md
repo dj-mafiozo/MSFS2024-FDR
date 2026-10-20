@@ -1,5 +1,7 @@
 ﻿# MSFS2024-FDR — Delphi 10.2 VCL Win64
 
+[Tłumaczenia interfejsu](Translation.pl.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 ## Mapa i wykresy w osobnych oknach
@@ -442,3 +444,22 @@ W bazie, modelu lotu i konfiguracji nadal są oryginalne identyfikatory. Są pe�
 ### Jednostki prezentacji
 
 W Ustawieniach → Jednostki wybierz jednostkę docelową osobno dla każdej jednostki źródłowej, np. ft → m, lb → kg, US gal → l. Pozostawienie tej samej jednostki wyłącza konwersję. Zmiana działa na wykresy (linie, skale, kursor) i podgląd parametrów, również w odłączonym oknie. Baza i dane do analizy pozostają oryginalne. Nie zgadujemy jednostek nieopisanych pól SDK.
+
+
+### Przeciąganie wykresów
+
+W Ustawieniach wykresów przeciągnij parametr z lewej listy na prawą, aby dodać go we wskazanym miejscu. Przeciągnięcie z prawej na lewą ukrywa wykres. Ctrl+przeciągnięcie wewnątrz prawej listy zmienia kolejność; linia pokazuje miejsce wstawienia. Obie listy przewijają się przy krawędzi podczas przeciągania. Checkboxy i przyciski nadal działają. OK zatwierdza kopię roboczą, Anuluj zachowuje poprzedni wybór.
+
+
+### Język Windows, dziewięć języków i VersionInfo
+
+Domyślny wybór języka to auto. Aplikacja odczytuje język interfejsu użytkownika Windows, niezależnie od ustawień liczb/dat. Warianty regionalne są mapowane na PL/EN/DE/ES/FR/RU/TR/IT/PT; inne języki przechodzą na angielski. Wybór auto jest zapamiętywany i rozwiązywany ponownie po uruchomieniu. Istniejący jawny wybór języka pozostaje zachowany. Menu i Ustawienia obsługują automatyczny wybór oraz dziewięć języków. Katalog obejmuje nowe etykiety zmienionego GUI. Pomoc pozostaje w czterech dotychczasowych językach; dla nowych używana jest angielska. Nowe tłumaczenia są pierwszą wersją przygotowaną lokalnie przez Qwen3 z korektami terminologii i kontrolą struktury; nie są po przeglądzie native speakerów. VersionU czyta liczbowy i tekstowy VersionInfo z EXE z uwzględnieniem tablic językowych. O programie pokazuje rzeczywistą wersję, ProductName i copyright. Wspólny Build wynosi 2 (0.1.0.2); pozostałe numery i dane autora zachowano. tools/bump_build.py zwiększa tylko Build raz na logiczną zmianę; check_version.py kontroluje brak nadpisań konfiguracji. CLI buduje przez MSBuild, aby wygenerować aktualne zasoby wersji.
+
+
+Rozszerzenie lokalizacji: interfejs obsługuje 25 lokalizacji. Dodano en-GB, fr-CA, pt-BR, de-AT, de-CH, be-BY, el-GR, uk-UA, hr-HR, cs-CZ, da-DK, nl-NL, fi-FI, nb-NO, sk-SK i sv-SE. Warianty regionalne są zapisywane osobno; be oznacza białoruski, a no/nb/nn wybierają dostępny norweski Bokmål. Nie jest to osobne tłumaczenie Nynorsk. Szwajcarski niemiecki używa ss zamiast ß. Detekcja automatyczna używa języka interfejsu Windows, bez zmiany formatów liczbowych. Pomoc pozostaje w PL/EN/DE/ES, z odpowiednim językiem bazowym lub angielskim jako zastępczym. Nowe tłumaczenia to pierwsza wersja z korektami terminologii i kontrolą struktury; nie przeszły przeglądu native speakera. Build: 0.1.0.3, pozostałe dane wersji i autora bez zmian.
+
+
+Interfejs zawiera 32 lokalizacje, sortowane według kodu. Nowe: ar-SA, he-IL, hi-IN, id-ID, ja-JP, vi-VN i zh-CN. Skróty ar/he wybierają odpowiednie warianty; iw/in obsługiwane są jako starsze aliasy he/id. Arabski i hebrajski używają układu RTL; wykresy, mapy i surowe teksty FMC/METAR/OFP zachowują LTR. Fonty Noto w assets/fonts są dołączane do bin/fonts i paczek, ładowane prywatnie bez instalacji systemowej, razem z licencjami OFL i manifestem pochodzenia. Pomoc i dokumentacja pozostają w czterech językach. Zasady zgłaszania błędów tłumaczeń: Translation.pl.md. Build 0.1.0.4.
+
+
+StackTrace zbiera stosy wywołań dla błędów. Zachowaj MSFS2024-FDR.pdb obok dokładnie tej wersji EXE, z którą został wygenerowany; paczka zawiera ten plik. Przy zgłoszeniu dołącz wersję aplikacji i odpowiedni fragment msfs_fdr_debug.log. Kompilacja ze źródeł wymaga map2pdb.exe w PATH; szczegółowa mapa jest generowana i przetwarzana po kompilacji.

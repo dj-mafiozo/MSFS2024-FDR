@@ -27,11 +27,11 @@ implementation
 
 uses
   {$IFDEF DELPHI16_UP}
-  IOUtils, System.Win.Registry,
+  System.IOUtils, System.Win.Registry,
   {$ELSE}
   ActiveX, Registry,
   {$ENDIF}
-  SysUtils,
+  System.SysUtils,
   uWVMiscFunctions;
 
 type

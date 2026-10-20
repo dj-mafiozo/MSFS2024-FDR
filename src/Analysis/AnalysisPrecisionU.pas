@@ -1,4 +1,5 @@
-﻿Unit AnalysisPrecisionU;
+﻿{$StackFrames On}
+Unit AnalysisPrecisionU;
 
 Interface
 

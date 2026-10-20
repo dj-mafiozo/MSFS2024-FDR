@@ -1,4 +1,5 @@
-﻿Unit AircraftLVarReaderU;
+﻿{$StackFrames On}
+Unit AircraftLVarReaderU;
 
 Interface
 

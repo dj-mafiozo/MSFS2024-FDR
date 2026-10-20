@@ -80,6 +80,8 @@ OFP-*.pdf
 /A32NX Flight Deck API - FlyByWire Simulations Documentation_files/
 /MSFS_MAX8_SDK*/
 /downloads/
+/dist/
+/docs/flightsim-to/
 
 # Tool caches and local environments
 __pycache__/

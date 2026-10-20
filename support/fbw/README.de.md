@@ -1,5 +1,7 @@
 ﻿# FlyByWire A32NX
 
+[Übersetzungen der Oberfläche](../../Translation.de.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 Titel mit A32NX oder FlyByWire/FBW zusammen mit A320 wählen FBWA32NX. Ein allgemeiner A320 oder FBW A380 passt nicht. Der Katalog enthält 223 lesbare L-Vars aus der bereitgestellten Flight Deck API-Dokumentation. Explizite Indizes werden aufgelöst, 26 veraltete oder nur schreibbare Einträge ausgeschlossen. Bereitschaft und Geschwindigkeitseinheiten ergänzen die offiziellen Referenzen. Manifest und Katalog enthalten den SHA-256 der Quelle; die vollständige HTML-Dokumentation wird nicht verteilt.

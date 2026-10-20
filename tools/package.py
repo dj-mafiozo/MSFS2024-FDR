@@ -3,8 +3,6 @@ from pathlib import Path
 import zipfile
 root=Path(__file__).resolve().parents[1]
 license_name='LICENSE' if (root/'LICENSE').exists() else 'LICENSE.txt'
-addon=root.parent/'MSFS24IFlyEFB'
-if not addon.exists():addon=root/'efb-addon'
 settings=(root/'bin/settings.example.ini').read_text(encoding='utf-8-sig')
 def tree(z,folder,suffixes=None,prefix=None):
  base=root/folder
@@ -23,6 +21,7 @@ def docs(z):
 with zipfile.ZipFile(root/'MSFSFDR-VCL-source.zip','w',zipfile.ZIP_DEFLATED) as z:
  for folder,suffixes in [('src',{'.pas','.dfm','.dpr','.dproj','.inc','.res','.ico'}),('tools',{'.py','.ps1','.dpr','.txt'}),('runtime',{'.dll'}),('tests',{'.dpr'})]:tree(z,folder,suffixes)
  tree(z,'Icons',{'.png','.bmp'})
+ tree(z,'assets/fonts',{'.ttf','.ttc','.txt','.json'})
  docs(z)
  for p in (root/'tests/fixtures').glob('*.PLN'):z.write(p,p.relative_to(root).as_posix())
  for n in ['build.ps1','test.ps1','.gitignore','bin/settings.example.ini']:z.write(root/n,n)
@@ -40,20 +39,15 @@ with zipfile.ZipFile(root/'MSFSFDR-VCL-source.zip','w',zipfile.ZIP_DEFLATED) as 
  i18n=root/'vendor/i18n'
  assert (i18n/'Packages/i18nLocalizer.pas').exists(),'Missing i18n source'
  tree(z,'vendor/i18n',{'.pas','.dfm','.inc','.res','.dcr','.rc','.dpk'})
+ tree(z,'vendor/Delphi-StackTrace',{'.pas','.inc','.md'})
+ z.write(root/'vendor/Delphi-StackTrace/License','vendor/Delphi-StackTrace/License')
  z.write(i18n/'LICENSE','vendor/i18n/LICENSE')
- if addon.exists():
-  for folder in ['src','vendor','tests']:
-   for p in (addon/folder).rglob('*'):
-    if p.is_file():z.write(p,'efb-addon/'+p.relative_to(addon).as_posix())
-  for n in ['build.cjs','package.json','package-lock.json','README.md']:
-   if (addon/n).exists():z.write(addon/n,'efb-addon/'+n)
  z.writestr('bin/settings.ini',settings)
 with zipfile.ZipFile(root/'MSFSFDR-VCL.zip','w',zipfile.ZIP_DEFLATED) as z:
- for n in ['MSFS2024-FDR.exe','SimConnect.dll','sqlite3.dll','WebView2Loader.dll','MSFS2024-FDR.i18n']:z.write(root/'bin'/n,n)
+ for n in ['MSFS2024-FDR.exe','MSFS2024-FDR.pdb','SimConnect.dll','sqlite3.dll','WebView2Loader.dll','MSFS2024-FDR.i18n']:z.write(root/'bin'/n,n)
+ tree(z,'bin/fonts',{'.ttf','.ttc','.txt','.json'},'fonts')
  tree(z,'bin/help',{'.chm'},'help')
  docs(z);z.write(root/'MSFSFDR-VCL-source.zip','MSFSFDR-VCL-source.zip')
- for p in (addon/'dist/mateusz-efb-ifly').rglob('*'):
-  if p.is_file():z.write(p,'Community/mateusz-efb-ifly/'+p.relative_to(addon/'dist/mateusz-efb-ifly').as_posix())
  z.writestr('settings.ini',settings)
 with zipfile.ZipFile(root/'MSFSFDR-VCL-source.zip') as z:
  names=z.namelist()
@@ -62,8 +56,17 @@ with zipfile.ZipFile(root/'MSFSFDR-VCL-source.zip') as z:
  assert len(names)==len(set(names)),'Duplicate ZIP members'
 with zipfile.ZipFile(root/'MSFSFDR-VCL.zip') as z:
  assert 'gemini_api_key=\n' in z.read('settings.ini').decode()
- assert 'language=pl-PL' in z.read('settings.ini').decode()
+ assert 'language=auto' in z.read('settings.ini').decode()
  for lang in ('pl','en','de','es'):
   assert 'help/MSFS2024-FDR.'+lang+'.chm' in z.namelist()
   assert 'help/'+lang+'/overview.htm' in z.namelist()
-print('PASS: Win64/source archives preserve source tree, four-language documentation, external four-language catalog, i18n license/dependencies and safe Polish defaults; no recordings or local credentials.')
+print('PASS: Win64/source archives preserve source tree, four-language documentation, external four-language catalog, i18n license/dependencies and safe Windows-language defaults; no recordings or local credentials.')
+
+with zipfile.ZipFile(root/'MSFSFDR-VCL.zip') as z:
+ for name in ['NotoSans-Regular.ttf','NotoSansArabic-Regular.ttf','NotoSansHebrew-Regular.ttf','NotoSansDevanagari-Regular.ttf','NotoSansCJK-Regular.ttc','OFL-Noto.txt','OFL-NotoCJK.txt']:
+  assert z.read('fonts/'+name)==(root/'assets/fonts'/name).read_bytes(),name
+print('PASS: all bundled script fonts and OFL licenses are present in runtime archive.')
+
+for archive in ['MSFSFDR-VCL.zip','MSFSFDR-VCL-source.zip']:
+ with zipfile.ZipFile(root/archive) as z:
+  assert not any('mateusz-efb-ifly/' in n.lower() or n.lower().startswith(('community/','optional-community/','efb-addon/')) for n in z.namelist())

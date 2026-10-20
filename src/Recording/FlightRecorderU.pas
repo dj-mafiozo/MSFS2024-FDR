@@ -1,4 +1,5 @@
-﻿Unit FlightRecorderU;
+﻿{$StackFrames On}
+Unit FlightRecorderU;
 
 Interface
 

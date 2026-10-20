@@ -1,4 +1,5 @@
-﻿Unit PMDGNG3ReaderU;
+﻿{$StackFrames On}
+Unit PMDGNG3ReaderU;
 
 Interface
 

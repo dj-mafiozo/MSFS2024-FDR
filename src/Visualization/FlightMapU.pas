@@ -1,4 +1,5 @@
-﻿Unit FlightMapU;
+﻿{$StackFrames On}
+Unit FlightMapU;
 
 Interface
 
@@ -134,6 +135,8 @@ Implementation
  Constructor TFlightMap.Create(AOwner : TComponent);
   Begin
    Inherited;
+   ParentBiDiMode := False;
+   BiDiMode       := bdLeftToRight;
    DoubleBuffered := True;
    fZoom          := 4;
    TilesEnabled   := True;

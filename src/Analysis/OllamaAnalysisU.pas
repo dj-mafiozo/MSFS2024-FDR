@@ -1,4 +1,5 @@
-﻿Unit OllamaAnalysisU;
+﻿{$StackFrames On}
+Unit OllamaAnalysisU;
 
 Interface
 

@@ -39,9 +39,9 @@ begin
   try
    C.WriteString('ui','language','en-US');S.Load(C);
    Check(S.Caption='Settings','New form uses current language');
-   Check(S.cbLanguage.ItemIndex=1,'Load language selection');
-   Check((S.SettingsPages.PageCount=3) and (S.ProviderPages.PageCount=3),'Tabbed settings');
-   Check((S.cbLanguage.Items.Count=4) and (S.ClientHeight<600),'Compact four-language settings');
+   Check(S.cbLanguage.ItemIndex=10,'Load language selection');
+   Check((S.SettingsPages.PageCount=4) and (S.ProviderPages.PageCount=3),'Tabbed settings');
+   Check((S.cbLanguage.Items.Count=UILanguageCount+1) and (S.ClientHeight<600),'Compact four-language settings');
    Check(S.btnCancel.Caption='Cancel','English dialog button');
    Check(S.cbProvider.Items[1]='Gemini (API key)','Combo item translation');
    Check(Pos('run codex login',S.lHelp.Caption)>0,'Multiline DFM help translation');
@@ -51,12 +51,12 @@ begin
    Bitmap:=TBitmap.Create;PNG:=TPngImage.Create;
    try
     S.Show;
-    for I:=1 to 2 do begin S.SettingsPages.ActivePageIndex:=I;Application.ProcessMessages;Bitmap.SetSize(S.ClientWidth,S.ClientHeight);S.PaintTo(Bitmap.Canvas,0,0);PNG.Assign(Bitmap);PNG.SaveToFile(ExtractFilePath(ParamStr(0))+'settings-tab-'+IntToStr(I)+'.png');end;
+    for I:=1 to 3 do begin S.SettingsPages.ActivePageIndex:=I;Application.ProcessMessages;Bitmap.SetSize(S.ClientWidth,S.ClientHeight);S.PaintTo(Bitmap.Canvas,0,0);PNG.Assign(Bitmap);PNG.SaveToFile(ExtractFilePath(ParamStr(0))+'settings-tab-'+IntToStr(I)+'.png');end;
     S.SettingsPages.ActivePageIndex:=0;S.Hide;
    finally PNG.Free;Bitmap.Free;end;
-   S.cbLanguage.ItemIndex:=2;S.Save(C);Check((Language='de-DE') and (C.ReadString('ui','language','')='de-DE'),'Save German');
-   S.cbLanguage.ItemIndex:=3;S.Save(C);Check((Language='es-ES') and (S.Caption='Ajustes'),'Save Spanish');
-   S.cbLanguage.ItemIndex:=0;S.Save(C);
+   S.cbLanguage.ItemIndex:=7;S.Save(C);Check((Language='de-DE') and (C.ReadString('ui','language','')='de-DE'),'Save German');
+   S.cbLanguage.ItemIndex:=11;S.Save(C);Check((Language='es-ES') and (S.Caption='Ajustes'),'Save Spanish');
+   S.cbLanguage.ItemIndex:=23;S.Save(C);
    Check(Language='pl-PL','Save applies language');
    Check(F.aSettings.Caption='Ustawienia','Open form retranslates');
    C.WriteString('ui','language','en-US');S.Load(C);S.ModalResult:=mrCancel;
@@ -75,7 +75,7 @@ begin
   Worker.FreeOnTerminate:=False;Worker.Start;Worker.WaitFor;Worker.Free;
   Check(Failure='','Thread-safe lookup: '+Failure);
   Check(FormatSettings.DecimalSeparator=DecimalBefore,'Numeric formatting unchanged');
-  SetLanguage('unsupported');Check(Language='pl-PL','Unsupported locale falls back to Polish');
+  SetLanguage('unsupported');Check(Language='en-US','Unsupported locale falls back to English');
  finally F.aPolish.Execute;F.Free;end;
  Writeln('PASS: Polish default, live English/Polish/German/Spanish menu/forms/frame, dynamic SimBrief, saved language, cancel, worker lookup and invariant number formatting.');
 end.

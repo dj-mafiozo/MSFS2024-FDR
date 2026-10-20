@@ -1,4 +1,5 @@
-﻿Unit FacilitiesU;
+﻿{$StackFrames On}
+Unit FacilitiesU;
 
 Interface
 

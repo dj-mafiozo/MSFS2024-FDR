@@ -1,10 +1,11 @@
-﻿Unit frmSettingsU;
+﻿{$StackFrames On}
+Unit frmSettingsU;
 
 Interface
 
  Uses
-  LocalizationU, i18nLocalizer, i18nCore, Winapi.Windows, System.Classes, System.SysUtils,
-  System.IniFiles, System.Math, Vcl.ComCtrls, Vcl.Forms, Vcl.StdCtrls, Vcl.Controls, Vcl.Samples.Spin, Vcl.ExtCtrls,
+  UIFontsU, Vcl.Graphics, System.Types, LocalizationU, i18nLocalizer, i18nCore, Winapi.Windows, System.Classes, System.SysUtils,
+  System.IniFiles, System.Math, System.StrUtils, Vcl.ComCtrls, Vcl.Forms, Vcl.StdCtrls, Vcl.Controls, Vcl.Samples.Spin, Vcl.ExtCtrls,
   OllamaAnalysisU, ParameterNamesU, Vcl.ValEdit, Vcl.Grids;
 
  Type
@@ -53,6 +54,7 @@ Interface
     btnOK            : TButton;
     btnCancel        : TButton;
     btnResetLayout   : TButton;
+    Procedure LanguageDrawItem(Control : TWinControl; Index : Integer; Rect : TRect; State : TOwnerDrawState);
     Procedure RefreshOllamaModels(Sender : TObject);
     Procedure ModelsTick(Sender : TObject);
     Procedure ModelsActivate(Sender : TObject);
@@ -71,6 +73,21 @@ Interface
 Implementation
 
  {$R *.dfm}
+
+ Procedure TfrmSettings.LanguageDrawItem(Control : TWinControl; Index : Integer; Rect : TRect; State : TOwnerDrawState);
+  Var Code, Text : String; Flags : Cardinal;
+  Begin
+   If Index < 0 Then Exit;
+   Code := Language;
+   If (Index > 0) And (Index <= UILanguageCount) Then Code := UILanguageLocales[Index-1];
+   cbLanguage.Canvas.FillRect(Rect);
+   cbLanguage.Canvas.Font.Assign(cbLanguage.Font);
+   cbLanguage.Canvas.Font.Name := LocaleFontName(Code);
+   Text := cbLanguage.Items[Index]; InflateRect(Rect,-4,0);
+   Flags := DT_SINGLELINE Or DT_VCENTER Or DT_NOPREFIX;
+   If (Copy(Code,1,2)='ar') Or (Copy(Code,1,2)='he') Then Flags := Flags Or DT_RTLREADING;
+   DrawText(cbLanguage.Canvas.Handle,PChar(Text),Length(Text),Rect,Flags);
+  End;
 
  Destructor TfrmSettings.Destroy;
   Begin
@@ -185,9 +202,10 @@ Implementation
      UnitsEditor.ItemProps[Row-1].PickList.CommaText := DisplayUnitOptions(Source);
     End;
    cbLanguage.ItemIndex := 0;
-   If SameText(Config.ReadString('ui', 'language', 'pl-PL'), 'en-US') Then cbLanguage.ItemIndex := 1;
-   If SameText(Config.ReadString('ui', 'language', 'pl-PL'), 'de-DE') Then cbLanguage.ItemIndex := 2;
-   If SameText(Config.ReadString('ui', 'language', 'pl-PL'), 'es-ES') Then cbLanguage.ItemIndex := 3;
+   If Not SameText(Config.ReadString('ui','language','auto'),'auto') Then
+    For I := 0 To UILanguageCount-1 Do
+     If UILanguageLocales[I] = NormalizeLanguage(Config.ReadString('ui','language','auto')) Then
+      Begin cbLanguage.ItemIndex := I+1; Break; End;
    ReadAnalysisWindow(Config, False, BeforeSeconds, AfterSeconds);
    seBefore.Value := BeforeSeconds;
    seAfter.Value  := AfterSeconds;
@@ -234,14 +252,11 @@ Implementation
    Config.WriteInteger('ai', 'takeoff_after_seconds', seAfter.Value);
    Config.WriteInteger('ai', 'landing_before_seconds', seLandingBefore.Value);
    Config.WriteInteger('ai', 'landing_after_seconds', seLandingAfter.Value);
-   Case cbLanguage.ItemIndex Of
-    1: Config.WriteString('ui', 'language', 'en-US');
-    2: Config.WriteString('ui', 'language', 'de-DE');
-    3: Config.WriteString('ui', 'language', 'es-ES');
-    Else Config.WriteString('ui', 'language', 'pl-PL');
-   End;
+   If (cbLanguage.ItemIndex > 0) And (cbLanguage.ItemIndex <= UILanguageCount) Then
+    Config.WriteString('ui','language',UILanguageLocales[cbLanguage.ItemIndex-1])
+   Else Config.WriteString('ui','language','auto');
    Config.UpdateFile;
-   SetLanguage(Config.ReadString('ui', 'language', 'pl-PL'));
+   SetLanguage(Config.ReadString('ui', 'language', 'auto'));
   End;
 
 End.

@@ -1,4 +1,5 @@
-﻿Unit ReportMarkdownU;
+﻿{$StackFrames On}
+Unit ReportMarkdownU;
 
 Interface
 

@@ -1,5 +1,7 @@
 ﻿# Analyse mit Ollama
 
+[Übersetzungen der Oberfläche](../../Translation.de.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 In Einstellungen → KI-Anbieter Ollama (HTTP / lokales Modell) wählen. Der Server ist standardmäßig `http://localhost:11434`. Er muss bereits laufen und ein Modell enthalten; FDR startet oder installiert nichts. Kein Gemini-Schlüssel und kein Codex-EXE sind nötig. Bei einem entfernten Server wird der Flugkontext dorthin übertragen.

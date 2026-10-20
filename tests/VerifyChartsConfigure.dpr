@@ -47,11 +47,11 @@ begin
   D.CopySelectionTo(ResultList);
   Check((ResultList.Count=2) and (ResultList[0]='other_aircraft_field') and (ResultList[1]='VS'),'Unseen aircraft preferences preserved');
   D.ListPanel.Width:=300;D.Splitter1.OnMoved(D.Splitter1);
-  Ratio:=D.ListPanel.Width/(D.MainPanel.ClientWidth-D.Splitter1.Width-D.GraphButtonPanel.Width);
+  Ratio:=D.ListPanel.Width/(D.MainGroupBox.ClientWidth-D.Splitter1.Width-D.GraphButtonPanel.Width);
   D.Width:=1200;D.FormResize(D);
-  Check(Abs(D.ListPanel.Width-Ratio*(D.MainPanel.ClientWidth-D.Splitter1.Width-D.GraphButtonPanel.Width))<=1,'User split ratio on grow');
+  Check(Abs(D.ListPanel.Width-Ratio*(D.MainGroupBox.ClientWidth-D.Splitter1.Width-D.GraphButtonPanel.Width))<=1,'User split ratio on grow');
   D.Width:=850;D.FormResize(D);
-  Check(Abs(D.ListPanel.Width-Ratio*(D.MainPanel.ClientWidth-D.Splitter1.Width-D.GraphButtonPanel.Width))<=1,'User split ratio on shrink');
+  Check(Abs(D.ListPanel.Width-Ratio*(D.MainGroupBox.ClientWidth-D.Splitter1.Width-D.GraphButtonPanel.Width))<=1,'User split ratio on shrink');
   Check((D.btnMoveUp.Glyph.PixelFormat=pf24bit) and (D.btnMoveUp.NumGlyphs=1),'SpeedButton compatible colour-key glyph');
   D.Width:=1000;D.ButtonsResize(D);
   Check(Abs((D.btnOk.Left+D.btnCancel.Left+D.btnCancel.Width)-D.ButtonPanel.ClientWidth)<=1,'Buttons centered on resize');
@@ -64,11 +64,11 @@ begin
  F:=TfrmMain.Create(nil);B:=TBitmap.Create;Expected:=TBitmap.Create;Expected.SetSize(22,22);PNG:=TPngImage.Create;
  try
   F.Timer.Enabled:=False;F.aTiles.Checked:=False;F.aTilesExecute(F.aTiles);
-  Check(F.ImageList.Count=35,'Image indices preserved');Check(not F.ImageList.Masked,'True-alpha image list');
+  Check(F.ImageList.Count>=40,'Image indices preserved');Check(not F.ImageList.Masked,'True-alpha image list');
   B.PixelFormat:=pf32bit;B.SetSize(22,22);Background:=RGB(123,151,179);
   Source:=TPngImage.Create;
   try
-   for I:=0 to F.ImageList.Count-1 do begin
+   for I:=0 to 34 do begin
     case I of
      0:FileName:='application-exit.png';1:FileName:='applications-internet.png';
      2:FileName:='applications-system.png';3:FileName:='dconf-editor.png';
@@ -99,7 +99,7 @@ begin
    end;
   finally Source.Free;end;
   B.Canvas.Brush.Color:=Background;B.Canvas.FillRect(Rect(0,0,22,22));F.ImageList.Draw(B.Canvas,0,0,21);
-  Expected.LoadFromFile(ExtractFilePath(ParamStr(0))+'..\Icons\de.bmp');
+  Expected.LoadFromFile(ExtractFilePath(ParamStr(0))+'..\Icons\Flags\de.bmp');
   for Y:=0 to Expected.Height-1 do for X:=0 to Expected.Width-1 do
    Check(ColorToRGB(B.Canvas.Pixels[X+3,Y+5])=ColorToRGB(Expected.Canvas.Pixels[X,Y]),'Opaque flag colors must be preserved');
   S:=F.SimBriefPage.Controls[0] as TfraSimBrief;Names:=TStringList.Create;

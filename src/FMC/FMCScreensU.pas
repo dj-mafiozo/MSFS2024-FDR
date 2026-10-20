@@ -1,4 +1,5 @@
-﻿Unit FMCScreensU;
+﻿{$StackFrames On}
+Unit FMCScreensU;
 
 Interface
 

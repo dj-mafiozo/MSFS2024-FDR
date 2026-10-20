@@ -1,4 +1,5 @@
-﻿Unit frmSimBriefU;
+﻿{$StackFrames On}
+Unit frmSimBriefU;
 
 Interface
 
@@ -10,6 +11,7 @@ Interface
   TfrmSimBrief = Class(TLocalizedForm)
    Published
     AppTranslator : TTranslator;
+    ViewGroupBox  : TGroupBox;
     ViewHost      : TPanel;
     btnClose      : TButton;
   End;

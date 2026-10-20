@@ -1,4 +1,5 @@
-﻿Unit fraGraphU;
+﻿{$StackFrames On}
+Unit fraGraphU;
 
 Interface
 

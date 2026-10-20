@@ -1,4 +1,5 @@
-﻿Unit FlightPlanU;
+﻿{$StackFrames On}
+Unit FlightPlanU;
 
 Interface
 

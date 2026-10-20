@@ -1,18 +1,18 @@
-﻿Unit frmMainU;
+﻿{$StackFrames On}
+Unit frmMainU;
 
 Interface
 
  Uses
-  Vcl.XPMan, Vcl.Menus, LocalizationU, i18nLocalizer, Winapi.Windows, System.SysUtils, System.Classes,
+  UIFontsU, Vcl.XPMan, Vcl.Menus, LocalizationU, i18nLocalizer, Winapi.Windows, System.SysUtils, System.Classes,
   System.IOUtils, System.Math, System.IniFiles, System.Generics.Collections, Vcl.Forms,
   Vcl.Controls, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.ComCtrls, Vcl.CheckLst, Vcl.Grids,
-  Vcl.DBGrids, Vcl.Dialogs, Vcl.Samples.Spin, Data.DB, FireDAC.Comp.Client, System.UITypes,
-  System.JSON, Vcl.Graphics, Vcl.Imaging.pngimage,
+  Vcl.DBGrids, Vcl.Dialogs, Vcl.Samples.Spin, Data.DB, FireDAC.Comp.Client, FireDAC.Stan.Param,
+  System.UITypes, System.JSON, Vcl.Graphics, Vcl.Imaging.pngimage,
   FlightDatabaseU, RecorderWorkerU, FlightMapU, FlightChartsU, FlightTelemetryU,
   FlightAnalysisU, frmReportU, AppLogU, FlightPlanU, frmSettingsU, AnalysisContextU, frmSimBriefFrameU,
   i18nCore, System.Actions, Vcl.ActnList, System.ImageList, Vcl.ImgList,
-  Vcl.ToolWin, fraMapU, fraGraphU, frmViewWindowU, frmAssignGroupU,
-  Vcl.PlatformDefaultStyleActnCtrls, Vcl.ActnMan;
+  Vcl.ToolWin, fraMapU, fraGraphU, frmViewWindowU, frmAssignGroupU;
 
  Type
   TfrmMain = Class(TLocalizedForm)
@@ -20,33 +20,62 @@ Interface
     aAbout             : TAction;
     aAnalysisLanding   : TAction;
     aAnalysisLiftoff   : TAction;
+    aArabic            : TAction;
     aAssign            : TAction;
     aAuto              : TAction;
+    aBelarusian        : TAction;
+    aChinese           : TAction;
     aClose             : TAction;
+    aCroatian          : TAction;
     ActionList         : TActionList;
+    aCzech             : TAction;
+    aDanish            : TAction;
     aDelete            : TAction;
     aDeleteGroup       : TAction;
+    aDutch             : TAction;
     aEnglish           : TAction;
+    aEnglishGB         : TAction;
     aExportKML         : TAction;
+    aFinnish           : TAction;
     aFit               : TAction;
+    aFrench            : TAction;
+    aFrenchCA          : TAction;
     aGerman            : TAction;
+    aGermanAT          : TAction;
+    aGermanCH          : TAction;
+    aGreek             : TAction;
+    aHebrew            : TAction;
     aHelp              : TAction;
+    aHindi             : TAction;
     aImportPlan        : TAction;
+    aIndonesian        : TAction;
+    aItalian           : TAction;
+    aJapanese          : TAction;
+    aLangAuto          : TAction;
     aMetar             : TAction;
     aNewGroup          : TAction;
+    aNorwegian         : TAction;
     aOpen              : TAction;
     aOverview          : TAction;
     aPolish            : TAction;
+    aPortuguese        : TAction;
+    aPortugueseBR      : TAction;
     AppTranslator      : TTranslator;
     aRefresh           : TAction;
     aRenameGroup       : TAction;
+    aRussian           : TAction;
     aSavePNGMap        : TAction;
     aSettings          : TAction;
+    aSlovak            : TAction;
     aSpanish           : TAction;
     aStart             : TAction;
     aStop              : TAction;
+    aSwedish           : TAction;
     aTiles             : TAction;
     aTripInfo          : TAction;
+    aTurkish           : TAction;
+    aUkrainian         : TAction;
+    aVietnamese        : TAction;
     btnAnalysisLiftoff : TToolButton;
     btnAssign          : TToolButton;
     btnAuto            : TToolButton;
@@ -88,43 +117,73 @@ Interface
     MapPanel           : TPanel;
     miAbout            : TMenuItem;
     miAnalysis         : TMenuItem;
+    miArabic           : TMenuItem;
     miAssign           : TMenuItem;
     miAuto             : TMenuItem;
+    miBelarusian       : TMenuItem;
     miChartsConfigure  : TMenuItem;
+    miChinese          : TMenuItem;
     miClose            : TMenuItem;
+    miCroatian         : TMenuItem;
+    miCzech            : TMenuItem;
+    miDanish           : TMenuItem;
     miDeleteGroup      : TMenuItem;
     miDeleteTrip       : TMenuItem;
+    miDutch            : TMenuItem;
     miEnglish          : TMenuItem;
+    miEnglishGB        : TMenuItem;
     miExport           : TMenuItem;
     miFile             : TMenuItem;
+    miFinnish          : TMenuItem;
     miFit              : TMenuItem;
+    miFrench           : TMenuItem;
+    miFrenchCA         : TMenuItem;
     miFullView         : TMenuItem;
     miGerman           : TMenuItem;
+    miGermanAT         : TMenuItem;
+    miGermanCH         : TMenuItem;
     miGraphWindow      : TMenuItem;
+    miGreek            : TMenuItem;
     miGroups           : TMenuItem;
+    miHebrew           : TMenuItem;
     miHelp             : TMenuItem;
     miHelpContents     : TMenuItem;
+    miHindi            : TMenuItem;
     miImport           : TMenuItem;
+    miIndonesian       : TMenuItem;
+    miItalian          : TMenuItem;
+    miJapanese         : TMenuItem;
     miLanding          : TMenuItem;
+    miLangAuto         : TMenuItem;
     miLanguage         : TMenuItem;
     miMapWindow        : TMenuItem;
     miMetar            : TMenuItem;
     miNewGroup         : TMenuItem;
+    miNorwegian        : TMenuItem;
     miOpen             : TMenuItem;
     miOverview         : TMenuItem;
     miPolish           : TMenuItem;
+    miPortuguese       : TMenuItem;
+    miPortugueseBR     : TMenuItem;
     miRecording        : TMenuItem;
     miRefresh          : TMenuItem;
     miRenameGroup      : TMenuItem;
+    miRussian          : TMenuItem;
     miSaveMap          : TMenuItem;
+    miSeparator1       : TMenuItem;
     miSettings         : TMenuItem;
+    miSlovak           : TMenuItem;
     miSpanish          : TMenuItem;
     miStart            : TMenuItem;
     miStop             : TMenuItem;
+    miSwedish          : TMenuItem;
     miTakeoff          : TMenuItem;
     miTiles            : TMenuItem;
     miTools            : TMenuItem;
     miTripInfo         : TMenuItem;
+    miTurkish          : TMenuItem;
+    miUkrainian        : TMenuItem;
+    miVietnamese       : TMenuItem;
     miView             : TMenuItem;
     miZoomIn           : TMenuItem;
     miZoomOut          : TMenuItem;
@@ -155,11 +214,8 @@ Interface
     ToolButton15       : TToolButton;
     ValuesPage         : TTabSheet;
     ViewPan            : TTrackBar;
-    Procedure aAboutExecute(Sender : TObject);
-    Procedure aHelpExecute(Sender : TObject);
-    Procedure ValueParameterHint(Sender : TObject; Shift : TShiftState; X, Y : Integer);
-    Procedure FrameMenuOpen(Sender : TObject);
     Function AppHelp(Command : Word; Data : THelpEventData; Var CallHelp : Boolean) : Boolean;
+    Procedure aAboutExecute(Sender : TObject);
     Procedure aAnalysisExecute(Sender : TObject);
     Procedure aAssignExecute(Sender : TObject);
     Procedure aAutoExecute(Sender : TObject);
@@ -171,6 +227,7 @@ Interface
     Procedure aExportKMLExecute(Sender : TObject);
     Procedure aFitExecute(Sender : TObject);
     Procedure aGraphWindowExecute(Sender : TObject);
+    Procedure aHelpExecute(Sender : TObject);
     Procedure aImportPlanExecute(Sender : TObject);
     Procedure aMapWindowExecute(Sender : TObject);
     Procedure aMetarExecute(Sender : TObject);
@@ -193,12 +250,17 @@ Interface
     Procedure FormCreate(Sender : TObject);
     Procedure FormDestroy(Sender : TObject);
     Procedure FormResize(Sender : TObject);
+    Procedure FrameMenuOpen(Sender : TObject);
     Procedure GroupChanged(Sender : TObject);
     Procedure LanguageChanged(Sender : TObject);
+    Procedure LanguageMenuDraw(Sender : TObject; ACanvas : TCanvas; ARect : TRect; Selected : Boolean);
+    Procedure LanguageMenuMeasure(Sender : TObject; ACanvas : TCanvas; Var Width, Height : Integer);
     Procedure PanChart(Sender : TObject);
     Procedure SelectTrip(Sender : TObject);
     Procedure Tick(Sender : TObject);
     Procedure TimelineChange(Sender : TObject);
+    Procedure UpdateLanguageActions;
+    Procedure ValueParameterHint(Sender : TObject; Shift : TShiftState; X, Y : Integer);
     Procedure ZoomChart(Sender : TObject);
    Private
     fMapFrame      : TfraMap;
@@ -266,7 +328,7 @@ Implementation
  {$R *.dfm}
 
  Uses
-  frmTripInfoU, frmChartsConfigureU, frmAboutU, AppHelpU, ParameterNamesU;
+  frmTripInfoU, frmChartsConfigureU, frmAboutU, AppHelpU, ParameterNamesU, VersionU;
 
  Function TfrmMain.GetMapWindow : TAction;
   Begin
@@ -317,8 +379,15 @@ Implementation
   End;
 
  Procedure TfrmMain.AppException(Sender : TObject; E : Exception);
+  Procedure LogStackTrace(E : Exception);
+   Begin
+    If Not E.StackTrace.IsEmpty Then
+     Log(0, 'StackTrace = [' + #13#10 + E.StackTrace + #13#10 + ')');
+   End;
+
   Begin
-   Log(0, Format('%s at %p: %s', [E.ClassName, ExceptAddr, E.Message]));
+   Log(0, Format('MSFS24-FDR (ver. %s): %s at %p: %s', [VersionInfo.FileVersion, E.ClassName, ExceptAddr, E.Message]));
+   LogStackTrace(E);
    Application.ShowException(E);
   End;
 
@@ -422,23 +491,99 @@ Implementation
 
   End;
 
- Procedure TfrmMain.ChangeLanguage(Sender : TObject);
+ Procedure TfrmMain.LanguageMenuMeasure(Sender : TObject; ACanvas : TCanvas; Var Width, Height : Integer);
+  Var
+   Item : TMenuItem;
+   A    : TAction;
   Begin
-   If (Sender = miEnglish) Or (Sender = aEnglish) Then
-    SetLanguage('en-US')
-   Else If (Sender = miGerman) Or (Sender = aGerman) Then
-    SetLanguage('de-DE')
-   Else If (Sender = miSpanish) Or (Sender = aSpanish) Then
-    SetLanguage('es-ES')
+   Item              := Sender As TMenuItem;
+   A                 := Item.Action As TAction;
+   ACanvas.Font.Name := LocaleFontName(UILanguageLocales[A.Tag - 1]);
+   Width             := ACanvas.TextWidth(UILanguageNames[A.Tag - 1]) + 64;
+   Height            := Max(28, ACanvas.TextHeight(UILanguageNames[A.Tag - 1]) + 8);
+  End;
+
+ Procedure TfrmMain.LanguageMenuDraw(Sender : TObject; ACanvas : TCanvas; ARect : TRect; Selected : Boolean);
+  Var
+   Item       : TMenuItem;
+   A          : TAction;
+   Text, Code : String;
+   Flags      : Cardinal;
+  Begin
+   Item := Sender As TMenuItem;
+   A    := Item.Action As TAction;
+   Code := UILanguageLocales[A.Tag - 1];
+   If Selected Then
+    Begin
+     ACanvas.Brush.Color := clHighlight;
+     ACanvas.Font.Color  := clHighlightText;
+    End
    Else
-    SetLanguage('pl-PL');
-   fConfig.WriteString('ui', 'language', Language);
+    Begin
+     ACanvas.Brush.Color := clMenu;
+     ACanvas.Font.Color  := clMenuText;
+    End;
+   ACanvas.FillRect(ARect);
+   ACanvas.Font.Name := LocaleFontName(Code);
+   If Item.Checked Then
+    ACanvas.TextOut(ARect.Left + 5, ARect.Top + 4, #$2713);
+   If Assigned(MainMenu.Images) And (Item.ImageIndex >= 0) And (Item.ImageIndex < MainMenu.Images.Count) Then
+    MainMenu.Images.Draw(ACanvas, ARect.Left + 18, ARect.Top + (ARect.Height - MainMenu.Images.Height) Div 2, Item.ImageIndex);
+   Inc(ARect.Left, 40);
+   Text  := UILanguageNames[A.Tag - 1];
+   Flags := DT_SINGLELINE Or DT_VCENTER Or DT_NOPREFIX;
+   If (Copy(Code, 1, 2) = 'ar') Or (Copy(Code, 1, 2) = 'he') Then
+    Flags := Flags Or DT_RTLREADING;
+   DrawText(ACanvas.Handle, PChar(Text), Length(Text), ARect, Flags);
+  End;
+
+ Procedure TfrmMain.UpdateLanguageActions;
+  Var
+   I      : Integer;
+   Action : TAction;
+   Item : TMenuItem;
+  Begin
+   miLanguage.AutoHotkeys := maManual;
+   For I := 0 To ActionList.ActionCount - 1 Do
+    If ActionList.Actions[I] Is TAction Then
+     Begin
+      Action := TAction(ActionList.Actions[I]);
+      If Action = aLangAuto Then
+       Action.Checked := LanguagePreference = 'auto'
+      Else If (Action.Category = 'Language') And (Action.Tag > 0) And (Action.Tag <= UILanguageCount) Then
+       Begin
+        Action.Caption := UILanguageNames[Action.Tag - 1];
+        Action.Checked := (LanguagePreference <> 'auto') And (Language = UILanguageLocales[Action.Tag - 1]);
+       End;
+     End;
+   For I := 0 To miLanguage.Count-1 Do
+    Begin
+     Item := miLanguage.Items[I];
+     If (Item.Action Is TAction) And (Item.Action.Tag > 0) And (Item.Action.Tag <= UILanguageCount) Then
+      Item.Caption := UILanguageNames[Item.Action.Tag-1];
+    End;
+  End;
+
+ Procedure TfrmMain.ChangeLanguage(Sender : TObject);
+  Var
+   Action : TAction;
+  Begin
+   If Sender Is TMenuItem Then
+    Action := TMenuItem(Sender).Action As TAction
+   Else If Sender Is TAction Then
+    Action := TAction(Sender)
+   Else
+    Exit;
+   If Action = aLangAuto Then
+    SetLanguage('auto')
+   Else If (Action.Tag > 0) And (Action.Tag <= UILanguageCount) Then
+    SetLanguage(UILanguageLocales[Action.Tag - 1])
+   Else
+    Exit;
+   fConfig.WriteString('ui', 'language', LanguagePreference);
    fConfig.UpdateFile;
-   aPolish.Checked  := Language = 'pl-PL';
-   aEnglish.Checked := Language = 'en-US';
-   aGerman.Checked  := Language = 'de-DE';
-   aSpanish.Checked := Language = 'es-ES';
-   fPlanShown       := '';
+   UpdateLanguageActions;
+   fPlanShown := '';
    If Assigned(fSimBrief) Then
     fSimBrief.Retranslate;
   End;
@@ -499,11 +644,9 @@ Implementation
    fRoot                   := ExtractFilePath(ParamStr(0));
    fConfig                 := TMemIniFile.Create(TPath.Combine(fRoot, 'settings.ini'), TEncoding.UTF8);
    LoadDisplayUnits(fConfig);
-   SetLanguage(fConfig.ReadString('ui', 'language', 'pl-PL'));
-   aPolish.Checked  := Language = 'pl-PL';
-   aEnglish.Checked := Language = 'en-US';
-   aGerman.Checked  := Language = 'de-DE';
-   aSpanish.Checked := Language = 'es-ES';
+   SetLanguage(fConfig.ReadString('ui', 'language', 'auto'));
+
+   UpdateLanguageActions;
    fSimBrief        := TfraSimBrief.Create(Self);
    fSimBrief.Parent := SimBriefPage;
    fSimBrief.Align  := alClient;
@@ -853,11 +996,9 @@ Implementation
       F.Save(fConfig);
       fCharts.Invalidate;
       UpdatePoint(Timeline.Position);
-      aPolish.Checked  := Language = 'pl-PL';
-      aEnglish.Checked := Language = 'en-US';
-      aGerman.Checked  := Language = 'de-DE';
-      aSpanish.Checked := Language = 'es-ES';
-      fPlanShown       := '';
+
+      UpdateLanguageActions;
+      fPlanShown := '';
       If Assigned(fSimBrief) Then
        fSimBrief.Retranslate;
      End;
@@ -1026,7 +1167,8 @@ Implementation
 
  Procedure TfrmMain.CursorMove(Sender : TObject; Index : Integer);
   Begin
-   If Timeline.Position = Index Then Exit;
+   If Timeline.Position = Index Then
+    Exit;
    Timeline.Position := Index;
    UpdatePoint(Index);
   End;

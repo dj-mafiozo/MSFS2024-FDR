@@ -1,5 +1,7 @@
 ﻿# CHM help and F1
 
+[Interface translations](../Translation.en.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 F1 or Help → Help contents opens the active view topic. Topics cover getting started, map, charts, analysis, settings and About. PL/EN/DE/ES follow the interface language.

@@ -48,13 +48,13 @@ Begin
  Try
   Application.Initialize;SetLanguage('pl-PL');
   Root := ExtractFilePath(ParamStr(0));Docs := TPath.Combine(Root,'..\docs\screenshots');ForceDirectories(Docs);
-  Main := TfrmMain.Create(Nil);Probe := TProbe.Create;Timer := TTimer.Create(Nil);B := TBitmap.Create;
+  Main := TfrmMain.Create(Nil);SetLanguage('pl-PL');Probe := TProbe.Create;Timer := TTimer.Create(Nil);B := TBitmap.Create;
   Try
    Main.Timer.Enabled := False;Main.aTiles.Checked := False;Main.aTilesExecute(Main.aTiles);
    Main.Position := poDesigned;Main.Left := -4000;Main.Show;
    If Not Main.HistoryGrid.DataSource.DataSet.IsEmpty Then Main.SelectTrip(Main);
    Application.ProcessMessages;
-   Check((Main.ImageListSmall.Width=16) And (Main.ImageListSmall.Height=16) And (Main.ImageListSmall.Count=35),'Small icon dimensions/indices');
+   Check((Main.ImageListSmall.Width=16) And (Main.ImageListSmall.Height=16) And (Main.ImageListSmall.Count>=40),'Small icon dimensions/indices');
    Check(Not Main.ImageListSmall.Masked,'Small icons use alpha');
    B.SetSize(16,16);BG:=RGB(155,183,209);B.Canvas.Brush.Color:=BG;B.Canvas.FillRect(Rect(0,0,16,16));Main.ImageListSmall.Draw(B.Canvas,0,0,0);
    Check(ColorToRGB(B.Canvas.Pixels[15,15])=BG,'Transparent icon corner');

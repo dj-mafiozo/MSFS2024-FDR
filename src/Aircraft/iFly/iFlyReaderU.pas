@@ -1,4 +1,5 @@
-﻿Unit iFlyReaderU;
+﻿{$StackFrames On}
+Unit iFlyReaderU;
 
 Interface
 

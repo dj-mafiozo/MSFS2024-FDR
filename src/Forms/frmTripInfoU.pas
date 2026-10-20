@@ -1,4 +1,5 @@
-﻿Unit frmTripInfoU;
+﻿{$StackFrames On}
+Unit frmTripInfoU;
 
 Interface
 
@@ -10,26 +11,27 @@ Interface
  Type
   TfrmTripInfo = Class(TLocalizedForm)
    Published
-    AppTranslator : TTranslator;
-    btnClose      : TButton;
-    btnImport     : TButton;
-    btnOFP        : TButton;
-    btnRefresh    : TButton;
-    ButtonsPanel  : TPanel;
-    chkAllowOlder : TCheckBox;
-    eAccount      : TEdit;
-    FetchTimer    : TTimer;
-    mInfo         : TMemo;
-    SimBriefPanel : TPanel;
+    AppTranslator    : TTranslator;
+    btnClose         : TButton;
+    btnImport        : TButton;
+    btnOFP           : TButton;
+    btnRefresh       : TButton;
+    ButtonsPanel     : TPanel;
+    chkAllowOlder    : TCheckBox;
+    eAccount         : TEdit;
+    FetchTimer       : TTimer;
+    mInfo            : TMemo;
+    SimBriefPanel    : TPanel;
+    TripInfoGroupBox : TGroupBox;
     Procedure ImportClick(Sender : TObject);
     Procedure OFPClick(Sender : TObject);
     Procedure FetchTick(Sender : TObject);
     Procedure RefreshClick(Sender : TObject);
    Private
-    fFetch      : TSimBriefFetch;
     fAllowOlder : Boolean;
     fConfig     : TMemIniFile;
     fConnection : TFDConnection;
+    fFetch      : TSimBriefFetch;
     fTrip       : Integer;
    Public
     Destructor Destroy; Override;

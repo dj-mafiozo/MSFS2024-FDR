@@ -1,5 +1,7 @@
 ﻿# MSFS2024-FDR — Delphi 10.2 VCL Win64
 
+[Interface translations](Translation.en.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 ## Separate map and chart windows
@@ -139,3 +141,22 @@ The database, flight model and preferences retain original identifiers. Complete
 ### Display units
 
 In Settings → Units choose a target for each source unit, e.g. ft → m, lb → kg, US gal → l. Keeping the source unit disables conversion. Charts (curves, scales, cursor) and the parameter inspector update, including detached windows. Stored data and analysis inputs retain their original units. Unknown SDK units are never guessed.
+
+
+### Chart drag and drop
+
+In Configure charts, drag a parameter from the left list to the right to insert it at the drop position. Dragging a chart back to the left hides it. Hold Ctrl while dragging within the right list to reorder; an insertion line marks the destination. Both lists scroll near their edges during dragging. Checkboxes and buttons remain available. OK applies the working copy; Cancel preserves the previous selection.
+
+
+### Windows language, nine locales and VersionInfo
+
+Earlier nine-locale implementation (superseded by the expansion below): The first-run preference is auto. Windows UI language is detected independently of number/date formats. Regional variants map to PL/EN/DE/ES/FR/RU/TR/IT/PT, with English for unsupported languages. The auto preference survives restarts; existing explicit choices are retained. Menu/settings expose auto plus nine languages. New GUI labels are included. Help remains in the existing four languages, with English help for new locales. New translations are a local Qwen3 first pass with terminology corrections and structural checks, not a native-speaker review. VersionU reads fixed/string EXE VersionInfo using its translation tables. About displays the actual file version, ProductName and copyright. Shared Build is 2 (0.1.0.2); other version numbers and author metadata are preserved. tools/bump_build.py increments only Build once per logical change; check_version.py rejects configuration overrides. CLI builds use MSBuild to generate current version resources.
+
+
+Localization expansion: the interface supports 25 locales. Added en-GB, fr-CA, pt-BR, de-AT, de-CH, be-BY, el-GR, uk-UA, hr-HR, cs-CZ, da-DK, nl-NL, fi-FI, nb-NO, sk-SK and sv-SE. Regional selections are persisted separately. be means Belarusian; no/nb/nn select the available Norwegian Bokmål translation, not a separate Nynorsk translation. Swiss German uses ss instead of ß. Automatic detection follows the Windows UI language without changing numeric formats. Help remains PL/EN/DE/ES, with base-language or English fallback. New translations are a first pass with terminology corrections and structural validation, without native-speaker review. Build: 0.1.0.3; other version and author metadata are unchanged.
+
+
+The interface contains 32 locales sorted by code. New: ar-SA, he-IL, hi-IN, id-ID, ja-JP, vi-VN and zh-CN. ar/he resolve to their variants; legacy iw/in aliases resolve to he/id. Arabic and Hebrew use RTL layout; charts, maps and raw FMC/METAR/OFP text remain LTR. Noto fonts in assets/fonts are deployed to bin/fonts and archives, loaded privately without system installation, with OFL licenses and provenance hashes. Help and documentation remain in four languages. Translation issue-report instructions: Translation.en.md. Build 0.1.0.4.
+
+
+StackTrace captures exception call stacks. Keep MSFS2024-FDR.pdb beside the exact EXE it was generated for; the archive includes it. Include the application version and relevant msfs_fdr_debug.log excerpt when reporting a problem. Source builds require map2pdb.exe on PATH; a detailed MAP is generated and converted after compilation.

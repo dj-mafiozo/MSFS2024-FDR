@@ -256,3 +256,40 @@ VerifyChartsConfigure regression: preserve the user splitter ratio when growing/
 ### Display units
 
 Synthetic tests: VerifyDisplayUnits covers distance, vertical speed, airspeed, mass, US volume, affine temperature, pressure, NaN/Infinity, incompatible units, unknown SDK values, settings persistence/options, localization and buffering with 64 charts. VerifyParameterNames, VerifyChartView, VerifyUI, VerifyChartsConfigure and VerifyHelpAbout also passed (35 main/small icons, new icon transparency). No live MSFS session or user-recording smoothness measurement. Buffering remains enabled above 16 charts; repeated hover over the same sample does not refresh the whole inspector.
+
+2026-10-19 — flightsim.to review package: fresh Win64 Release, PE dependency check, 66 ZIP entries, CRC/read-back validation, x64 EXE/DLL validation, three DLLs loaded from extraction, four CHMs/HTML, optional EFB layout sizes. Confirmed no Pascal source, recordings, logs, private configuration or account cache. Actual extracted EXE opened a responsive main window and closed gracefully (exit 0). Five English screenshots from a copy of an existing recording were visually reviewed. No live MSFS test. No upload; binary-only review package requires a Corresponding Source arrangement under the current AGPL license.
+
+
+
+### Chart drag and drop
+
+New VerifyChartDrag: synthetic VCL callback tests for cross-list add/remove, insertion/empty/end drops, deduplication, Ctrl-only reordering, duplicate captions with distinct raw IDs, filtered removal, cancellation, foreign sources, scroll timer state, native checkbox clicks and working-copy isolation. Visually reviewed the insertion marker screenshot. VerifyChartsConfigure, VerifyParameterNames, VerifyDetachedViews and VerifyLocalization also passed. Updated the stale localization-test expectation from three settings tabs to four, including Units. No physical mouse-drag trial or stationary-pointer autoscroll timing test. The default test.ps1 list now contains 40 programs.
+
+
+### Windows language, nine locales and VersionInfo
+
+VerifyVersionLanguage covers 14 regional/fallback cases, Windows UI language, persistent auto mode, nine language actions, settings save/cancel, exact localized captions, company/copyright Unicode, EXE version parsing and the About version label. French settings and Russian About screenshots were visually reviewed. VerifyLocalization, VerifyParameterNames, VerifyHelpAbout, VerifyChartsConfigure, VerifyDisplayUnits and VerifyChartDrag passed. Stale tests were adapted to the manual MainPanel/MainGroupBox rename, 40 icons and ten language choices. bump_build on a copy changed 0.1.0.2 to 0.1.0.3; the actual project remains 0.1.0.2. Catalog checks cover 987 definitions, nine locales, placeholders and DFM bindings. Synthetic tests; Windows language was not changed and no MSFS flight was run. The default list contains 41 verification programs; the entire suite was not rerun for this change.
+
+
+Locale expansion (0.1.0.3): VerifyLocaleExpansion checks 30 regional/alias/fallback cases, all 25 language actions, exact settings titles, list indices and regional preference persistence; automatic mode, unchanged decimal separator and help fallback. It captures settings screenshots for be-BY, el-GR and pt-BR. Synthetic tests only, without MSFS. Catalog validation covers 1003 definitions in 25 locales, Format placeholders, Unicode and DFM bindings. The default suite contains 42 programs; this does not mean the entire suite was run for this change. Regression scope executed: VerifyLocaleExpansion, VerifyVersionLanguage, VerifyLocalization, VerifyParameterNames, VerifyHelpAbout, VerifyChartsConfigure, VerifyDisplayUnits, VerifyChartDrag. New text has not had native-speaker review; these tests do not certify linguistic quality.
+
+
+VerifyGlobalLocales: synthetic checks for 32 code-sorted choices, aliases, five privately loaded font files and missing glyphs in seven script samples. Checks application/form BiDiMode, RTL/LTR transitions and restored label anchor positions, raw data/map/time-axis LTR, persisted settings and screenshots for all seven new languages. check_fonts.py verifies sources, SHA-256, font signatures and two OFL licenses. check_documentation.py checks four Translation.*.md notices and top-of-README links. The default list contains 43 programs; this does not mean the whole suite was run. No MSFS live test or native-speaker review.
+
+
+Executed scope for this change: 11 tests passed: VerifyGlobalLocales, VerifyLocaleExpansion, VerifyVersionLanguage, VerifyLocalization, VerifyChartsConfigure, VerifyDetachedViews, VerifyDisplayUnits, VerifyHelpAbout, VerifyParameterNames, VerifyChartDrag, VerifyReport.
+
+
+Also checked fresh windows created while Arabic/Hebrew is already active: RTL direction and right-hand label placement.
+
+
+0.1.0.5 — VerifyRTLReturn starts with persisted ar-SA, opens the language menu through WM_INITMENUPOPUP, switches to en-US, then performs four ar-SA/he-IL → pl-PL round trips. Checks VCL direction and native HWND RTL reading/right/left-scrollbar/layout flags throughout the control tree, panel placement, clean language captions and unchanged ImageIndex values for all 32 language actions. Test settings are restored; the user bin/settings.ini is not used. Selected scope passed: VerifyRTLReturn, VerifyGlobalLocales, VerifyDetachedViews, VerifyLocalization. Synthetic only; no MSFS flight. The default suite contains 44 programs and was not run in full.
+
+
+0.1.0.6: VerifyRTLReturn now checks actual MFT_RIGHTORDER/MFT_RIGHTJUSTIFY flags throughout the HMENU tree, popup initialization and Hebrew → Automatic. The test reproduced stale flags before the fix and passed afterward. Other passing tests: VerifyGlobalLocales, VerifyDetachedViews, VerifyHelpAbout. No live MSFS flight. StackTrace and StackFrames directives retained; Debug compilation with PDB generation verified.
+
+
+VerifyVersionLanguage — PASS (EXE VersionInfo 0.1.0.6).
+
+
+0.1.0.7 — packaging: removed mateusz-efb-ifly and Community/Optional-Community payloads, --addon argument and bundled-install instructions. ZIP validation checks that no add-on is present. Distribution-only change; no additional VCL behavior tests.

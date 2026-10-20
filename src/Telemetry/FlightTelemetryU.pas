@@ -1,4 +1,5 @@
-﻿Unit FlightTelemetryU;
+﻿{$StackFrames On}
+Unit FlightTelemetryU;
 
 Interface
 

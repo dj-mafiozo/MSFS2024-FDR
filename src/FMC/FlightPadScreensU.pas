@@ -1,4 +1,5 @@
-﻿Unit FlightPadScreensU;
+﻿{$StackFrames On}
+Unit FlightPadScreensU;
 
 Interface
 

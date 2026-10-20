@@ -1,4 +1,4 @@
-﻿"""Check four-language navigation for project-owned README and test documentation."""
+"""Check four-language navigation for project-owned README and test documentation."""
 from pathlib import Path
 import re
 root=Path(__file__).resolve().parents[1]
@@ -25,3 +25,15 @@ for base in bases:
                 assert (path.parent/target).is_file(),f'Broken language link: {path}: {target}'
         count+=1
 print(f'PASS: {len(bases)} project documentation sets, {count} PL/EN/DE/ES files with valid language navigation.')
+
+for base in bases:
+ if base.stem.lower() not in {'readme'}:continue
+ for suffix,locale in [('', 'pl'),('.en','en'),('.de','de'),('.es','es')]:
+  page=base.with_name('README'+suffix+'.md')
+  text=page.read_text(encoding='utf-8-sig')
+  assert 'Translation.'+locale+'.md)' in '\n'.join(text.splitlines()[:5]),page
+for locale in ['pl','en','de','es']:
+ text=(root/('Translation.'+locale+'.md')).read_text(encoding='utf-8')
+ assert 'https://github.com/dj-mafiozo/MSFS2024-FDR/issues' in text
+ assert '%s' in text and '%d' in text
+print('PASS: four translation notices and top-of-README issue-report links.')

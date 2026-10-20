@@ -1,4 +1,5 @@
-﻿Unit AppLogU;
+﻿{$StackFrames On}
+Unit AppLogU;
 
 Interface
 

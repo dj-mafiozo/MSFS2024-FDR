@@ -1,4 +1,5 @@
-﻿Unit LegacyMigrationU;
+﻿{$StackFrames On}
+Unit LegacyMigrationU;
 
 Interface
 

@@ -1,4 +1,5 @@
-﻿Unit RecorderWorkerU;
+﻿{$StackFrames On}
+Unit RecorderWorkerU;
 
 Interface
 

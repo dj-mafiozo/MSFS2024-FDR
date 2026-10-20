@@ -1,4 +1,5 @@
-﻿Unit PMDGNG3CatalogU;
+﻿{$StackFrames On}
+Unit PMDGNG3CatalogU;
 
 Interface
 

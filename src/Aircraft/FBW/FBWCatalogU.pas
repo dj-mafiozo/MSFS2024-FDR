@@ -1,4 +1,5 @@
-﻿Unit FBWCatalogU;
+﻿{$StackFrames On}
+Unit FBWCatalogU;
 
 Interface
 

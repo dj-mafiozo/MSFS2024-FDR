@@ -1,4 +1,5 @@
-﻿Unit FlightPadScreenIPCU;
+﻿{$StackFrames On}
+Unit FlightPadScreenIPCU;
 
 Interface
 

@@ -1,5 +1,7 @@
 ﻿# Ayuda CHM y F1
 
+[Traducciones de la interfaz](../Translation.es.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 F1 o Ayuda → Contenido de ayuda abre el tema de la vista activa. Incluye introducción, mapa, gráficos, análisis, configuración e información del programa. PL/EN/DE/ES siguen el idioma de la interfaz.

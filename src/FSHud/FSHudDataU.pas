@@ -1,4 +1,5 @@
-﻿Unit FSHudDataU;
+﻿{$StackFrames On}
+Unit FSHudDataU;
 
 Interface
 

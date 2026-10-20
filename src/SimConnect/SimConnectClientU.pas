@@ -1,4 +1,5 @@
-﻿Unit SimConnectClientU;
+﻿{$StackFrames On}
+Unit SimConnectClientU;
 
 Interface
 

@@ -1,4 +1,5 @@
-﻿Unit GSXVarsU;
+﻿{$StackFrames On}
+Unit GSXVarsU;
 
 Interface
 

@@ -1,5 +1,7 @@
 ﻿# MSFS2024-FDR — Delphi 10.2 VCL Win64
 
+[Übersetzungen der Oberfläche](Translation.de.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 Nativer Flugrekorder und Viewer für Microsoft Flight Simulator 2024. Das derzeit private Projekt entstand ursprünglich aus MSFS-Flight-Data-Recorder (Qt); Architektur, Aufzeichnung, Datenbank, Oberfläche, Flugzeuganbindungen und Analyse wurden seitdem umfangreich neu aufgebaut. Quellenherkunft bleibt in NOTICE dokumentiert, AGPL-3.0 in LICENSE erhalten. Qt wird nicht verwendet.
@@ -111,3 +113,22 @@ Datenbank, Flugmodell und Einstellungen behalten die Originalkennungen. Vollstä
 ### Anzeigeeinheiten
 
 Unter Einstellungen → Einheiten eine Zieleinheit je Quelleinheit wählen, z. B. ft → m, lb → kg, US gal → l. Die gleiche Einheit deaktiviert die Umrechnung. Diagramme (Kurven, Skalen, Cursor) und Parameteranzeige werden auch im separaten Fenster angepasst. Datenbank und Analysedaten bleiben im Original. Unbekannte SDK-Einheiten werden nicht geraten.
+
+
+### Diagramme per Drag-and-drop
+
+Unter Diagramme konfigurieren einen Parameter von links nach rechts an die gewünschte Position ziehen. Nach links ziehen blendet das Diagramm aus. Innerhalb der rechten Liste mit gedrückter Strg-Taste ziehen, um die Reihenfolge zu ändern. Eine Einfügelinie markiert das Ziel; beide Listen scrollen am Rand. Kontrollkästchen und Schaltflächen bleiben nutzbar. OK übernimmt die Arbeitskopie, Abbrechen verwirft Änderungen.
+
+
+### Windows-Sprache, neun Sprachen und VersionInfo
+
+Die erste Sprachwahl ist auto. Die Windows-Anzeigesprache wird unabhängig von Zahlen-/Datumsformaten erkannt. Regionale Varianten werden PL/EN/DE/ES/FR/RU/TR/IT/PT zugeordnet, sonst Englisch. Auto bleibt gespeichert; explizite bestehende Einstellungen bleiben erhalten. Menü und Einstellungen bieten zehn Optionen. Neue GUI-Beschriftungen sind übersetzt. Hilfe bleibt viersprachig, mit englischem Fallback für neue Sprachen. Neue Texte sind ein lokaler Qwen3-Erstentwurf mit Fachbegriffskorrekturen, ohne muttersprachliche Prüfung. VersionU liest EXE-Versionsdaten und Sprachblöcke; Info zeigt Dateiversion, ProductName und Copyright. Gemeinsamer Build: 2 (0.1.0.2); übrige Versionsnummern/Autorendaten unverändert. bump_build.py erhöht nur Build pro logischer Änderung; check_version.py prüft Vererbung. CLI nutzt MSBuild für aktuelle Versionsressourcen.
+
+
+Erweiterung: Die Oberfläche unterstützt 25 Gebietsschemas. Neu: en-GB, fr-CA, pt-BR, de-AT, de-CH, be-BY, el-GR, uk-UA, hr-HR, cs-CZ, da-DK, nl-NL, fi-FI, nb-NO, sk-SK und sv-SE. Regionale Varianten werden getrennt gespeichert. be steht für Belarussisch; no/nb/nn verwenden die verfügbare Bokmål-Übersetzung, keine eigene Nynorsk-Version. Schweizer Deutsch verwendet ss statt ß. Die automatische Auswahl folgt der Windows-Anzeigesprache, ohne Zahlenformate zu ändern. Die Hilfe bleibt PL/EN/DE/ES, mit Basissprache oder Englisch als Ersatz. Neue Übersetzungen sind eine erste Fassung mit Terminologiekorrekturen und Strukturprüfung, ohne muttersprachliche Prüfung. Build: 0.1.0.3; andere Versions- und Autorendaten bleiben unverändert.
+
+
+Die Oberfläche enthält 32 nach Code sortierte Gebietsschemas. Neu: ar-SA, he-IL, hi-IN, id-ID, ja-JP, vi-VN und zh-CN. ar/he wählen die jeweiligen Varianten; ältere Aliase iw/in werden he/id zugeordnet. Arabisch und Hebräisch verwenden RTL; Diagramme, Karten und FMC/METAR/OFP-Rohtexte bleiben LTR. Noto-Schriften aus assets/fonts werden mit OFL-Lizenzen und Herkunftsprüfsummen nach bin/fonts und in die Archive übernommen und nur privat geladen, ohne Systeminstallation. Hilfe und Dokumentation bleiben viersprachig. Hinweise zu Übersetzungsfehlern: Translation.de.md. Build 0.1.0.4.
+
+
+StackTrace erfasst Aufrufstapel bei Ausnahmen. MSFS2024-FDR.pdb neben genau dem EXE aufbewahren, für das es erzeugt wurde; die Datei liegt im Archiv. Bei Fehlerberichten Programmversion und passenden Auszug aus msfs_fdr_debug.log beifügen. Quellcode-Builds benötigen map2pdb.exe im PATH; eine detaillierte MAP-Datei wird nach dem Kompilieren konvertiert.

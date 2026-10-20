@@ -1,5 +1,7 @@
 ﻿# Variables comunes de instrumentos AIRLINER
 
+[Traducciones de la interfaz](../../Translation.es.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 Los 31 nombres *AIRLINER* catalogados son L-vars de instrumentos, leídas como `L:<nombre>` mediante SimConnect_AddToDataDefinition, no SimVars estándar A:. Proceden de 149 archivos de instrumentos instalados (Asobo A320/737 MAX/747/787/CJ4 y FBW/FSS/LVFR). AIRLINER puede aparecer como prefijo o en medio. Esto no valida todos los valores Carenado ni los nombres generados dinámicamente.

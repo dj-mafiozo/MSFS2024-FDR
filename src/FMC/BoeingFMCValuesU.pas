@@ -1,4 +1,5 @@
-﻿Unit BoeingFMCValuesU;
+﻿{$StackFrames On}
+Unit BoeingFMCValuesU;
 
 Interface
 

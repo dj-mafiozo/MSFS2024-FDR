@@ -1,4 +1,5 @@
-﻿Unit FMCPreflightU;
+﻿{$StackFrames On}
+Unit FMCPreflightU;
 
 Interface
 

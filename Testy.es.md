@@ -130,3 +130,40 @@ VerifyChartsConfigure: conservar la proporción del separador al ampliar/reducir
 ### Unidades de visualización
 
 Pruebas sintéticas: VerifyDisplayUnits verifica distancia, velocidad vertical, velocidad, masa, volumen estadounidense, temperatura con desplazamiento, presión, NaN/Infinity, unidades incompatibles, SDK desconocido, ajustes, traducciones y búfer con 64 gráficos. También pasaron VerifyParameterNames, VerifyChartView, VerifyUI, VerifyChartsConfigure y VerifyHelpAbout (35 iconos grandes/pequeños, transparencia del nuevo icono). Sin prueba MSFS en vivo ni medición con una grabación del usuario. El búfer sigue activo con más de 16 gráficos; repetir el mismo punto del cursor no actualiza todo el inspector.
+
+2026-10-19 — paquete de revisión flightsim.to: Release Win64 actualizado, dependencias PE, 66 entradas ZIP, CRC/lectura, EXE/DLL x64, carga de tres DLL extraídas, cuatro CHM/HTML y tamaños del puente EFB verificados. Sin fuentes Pascal, grabaciones, registros, configuración privada ni caché de cuentas. El EXE extraído abrió una ventana principal que respondía y cerró normalmente (salida 0). Se revisaron visualmente cinco capturas en inglés de una copia de una grabación existente. Sin prueba MSFS en vivo ni publicación. La distribución pública requiere resolver el acceso al Corresponding Source según la AGPL vigente.
+
+
+
+### Arrastrar gráficos
+
+VerifyChartDrag verifica callbacks VCL sintéticos: añadir/quitar, inserción/lista vacía/final, duplicados, requisito Ctrl, etiquetas iguales con IDs distintos, filtros, cancelación, fuentes externas, temporizador, clic nativo en casillas y copia de trabajo. Marcador revisado visualmente. También pasaron VerifyChartsConfigure, VerifyParameterNames, VerifyDetachedViews y VerifyLocalization. Corregida la expectativa antigua de tres pestañas a cuatro. Sin prueba física del ratón ni medición del desplazamiento con cursor inmóvil. test.ps1 incluye ahora 40 programas.
+
+
+### Idioma de Windows, nueve idiomas y VersionInfo
+
+VerifyVersionLanguage cubre 14 variantes/fallbacks, idioma de Windows, auto persistente, nueve acciones, guardar/cancelar, títulos traducidos exactos, Unicode y versión EXE/Acerca de. Revisadas capturas francesas y rusas. Pasaron VerifyLocalization, VerifyParameterNames, VerifyHelpAbout, VerifyChartsConfigure, VerifyDisplayUnits y VerifyChartDrag. Adaptados tests antiguos a GroupBox, 40 iconos y diez opciones. Probado bump_build en copia: 0.1.0.2 a 0.1.0.3. Catálogo: 987 entradas, nueve idiomas, marcadores/DFM válidos. Pruebas sintéticas, sin cambiar el idioma de Windows ni vuelo MSFS. Lista predeterminada: 41 programas; no se repitió toda la suite.
+
+
+Ampliación de idiomas (0.1.0.3): VerifyLocaleExpansion comprueba 30 casos regionales/alias/alternativas, las 25 acciones de idioma, títulos de ajustes, índices y persistencia regional, modo automático, separador decimal sin cambios y ayuda alternativa. Capturas: be-BY, el-GR, pt-BR. Solo pruebas sintéticas, sin MSFS. Validación: 1003 definiciones, 25 idiomas, marcadores Format, Unicode y enlaces DFM. La lista predeterminada tiene 42 programas; no se ejecutó toda para este cambio. Regresión ejecutada: VerifyLocaleExpansion, VerifyVersionLanguage, VerifyLocalization, VerifyParameterNames, VerifyHelpAbout, VerifyChartsConfigure, VerifyDisplayUnits, VerifyChartDrag. Sin revisión de hablantes nativos; las pruebas no certifican la calidad lingüística.
+
+
+VerifyGlobalLocales: prueba sintética de 32 opciones ordenadas por código, alias, cinco archivos de fuentes privados y glifos de siete muestras. Comprueba BiDiMode, cambios RTL/LTR, restauración de posiciones, LTR en datos/mapa/eje temporal, ajustes y siete capturas. check_fonts.py verifica origen, SHA-256, formatos y dos licencias OFL. check_documentation.py comprueba cuatro Translation.*.md y enlaces README. Lista predeterminada: 43 programas; no significa que se ejecutaran todos. Sin prueba en MSFS ni revisión de hablantes nativos.
+
+
+Alcance ejecutado para este cambio: 11 pruebas superadas: VerifyGlobalLocales, VerifyLocaleExpansion, VerifyVersionLanguage, VerifyLocalization, VerifyChartsConfigure, VerifyDetachedViews, VerifyDisplayUnits, VerifyHelpAbout, VerifyParameterNames, VerifyChartDrag, VerifyReport.
+
+
+También se comprobaron ventanas nuevas con árabe/hebreo ya activos: dirección RTL y etiquetas situadas a la derecha.
+
+
+0.1.0.5 — VerifyRTLReturn inicia con ar-SA guardado, abre el menú mediante WM_INITMENUPOPUP, cambia a en-US y comprueba cuatro ciclos ar-SA/he-IL → pl-PL. Verifica dirección VCL, indicadores RTL nativos HWND en el árbol de controles, paneles, nombres sin & e ImageIndex intactos de las 32 acciones. Restaura los ajustes de prueba; no utiliza bin/settings.ini del usuario. Superadas: VerifyRTLReturn, VerifyGlobalLocales, VerifyDetachedViews, VerifyLocalization. Solo pruebas sintéticas, sin vuelo MSFS. Lista predeterminada: 44 programas, no ejecutada completa.
+
+
+0.1.0.6: VerifyRTLReturn comprueba los indicadores MFT_RIGHTORDER/MFT_RIGHTJUSTIFY de todo el árbol HMENU, la apertura de submenús y hebreo → Automático. Error reproducido antes de la corrección; después PASS. También superadas: VerifyGlobalLocales, VerifyDetachedViews, VerifyHelpAbout. Sin vuelo real en MSFS. Conservados StackTrace/StackFrames; comprobada compilación Debug con generación PDB.
+
+
+VerifyVersionLanguage — PASS (EXE VersionInfo 0.1.0.6).
+
+
+0.1.0.7 — empaquetado: eliminados mateusz-efb-ifly, Community/Optional-Community, --addon e instrucciones de instalación. La validación ZIP comprueba su ausencia. Cambio de distribución; sin pruebas VCL adicionales.

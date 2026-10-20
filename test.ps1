@@ -1,5 +1,9 @@
 ﻿param([string]$DelphiRoot='C:\Program Files (x86)\Embarcadero\Studio\19.0',[string[]]$Tests=@(),[string]$I18nRoot='')
 $ErrorActionPreference='Stop'
+python "$PSScriptRoot\tools\check_fonts.py"
+if($LASTEXITCODE -ne 0){throw 'Bundled fonts or licenses are incomplete'}
+python "$PSScriptRoot\tools\check_version.py"
+if($LASTEXITCODE -ne 0){throw 'VersionInfo configuration is inconsistent'}
 python "$PSScriptRoot\tools\check_documentation.py"
 if($LASTEXITCODE -ne 0){throw 'Documentation translations are incomplete'}
 python "$PSScriptRoot\tools\check_translations.py"
@@ -24,6 +28,11 @@ Copy-Item "$vendor\bin64\WebView2Loader.dll" "$PSScriptRoot\tests\WebView2Loader
 & python "$PSScriptRoot\tools\build_help.py"
 if($LASTEXITCODE -ne 0){throw 'Help build failed'}
 if(Test-Path "$PSScriptRoot\bin\help"){New-Item -ItemType Directory -Path "$PSScriptRoot\tests\help" -Force | Out-Null;Copy-Item -Path "$PSScriptRoot\bin\help\*" -Destination "$PSScriptRoot\tests\help" -Recurse -Force}
+if(($Tests.Count -eq 0) -or ($Tests -contains 'VerifyVersionLanguage') -or ($Tests -contains 'VerifyLocaleExpansion')) {
+ $env:BDS=$DelphiRoot;$env:BDSINCLUDE=Join-Path $DelphiRoot 'include'
+ & "$env:WINDIR\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe" "$PSScriptRoot\src\MSFS2024-FDR.dproj" /t:Build /p:Config=Debug /p:Platform=Win64 "/p:I18nRoot=$i18n" /v:minimal /nologo
+ if($LASTEXITCODE -ne 0){throw 'VersionInfo test application build failed'}
+}
 Push-Location "$PSScriptRoot\tests"
 try {
   & "$DelphiRoot\bin\dcc32.exe" -B -Q '-NSSystem;System.Win;Winapi;Vcl;Data;Xml;Xml.Win' "-U$DelphiRoot\lib\win32\release;$unitPaths" "-E$PSScriptRoot\tests" "-N0$PSScriptRoot\.build\Win32\Tests" 'MockFlightPad32.dpr'
@@ -32,7 +41,7 @@ try {
     & "$DelphiRoot\bin\dcc64.exe" -B -Q '-NSSystem;System.Win;Winapi;Vcl;Data;Xml;Xml.Win' "-U$DelphiRoot\lib\win64\release;$unitPaths" "-E$PSScriptRoot\tests" "-N0$PSScriptRoot\.build\Win64\Tests" "$mock.dpr"
     if($LASTEXITCODE -ne 0){throw "Compile failed: $mock"}
   }
-  if($Tests.Count -eq 0){$Tests=@('VerifyPort','VerifyLegacy','VerifyUI','VerifyDiagnostics','VerifyFlightPlan','VerifyAnalysis','VerifyContext','VerifyReport','VerifyMetar','VerifyChartView','VerifyAircraftSDK','VerifyFenix','VerifyFBW','VerifyPMDG','VerifyFMC','VerifyFlightPad','VerifyAirbusMCDU','VerifyOllama','VerifyOllamaModels','VerifyTripInfo','VerifyPrecision','VerifyAirliner','VerifyGroundWeather','VerifySimBrief','VerifySimBriefUI','VerifyGSX','VerifySession','VerifyFSHud','VerifyRecorderWorker','VerifySimBacklog','VerifyBoeingFMC','VerifyIFlyDisplays','VerifyLocalization','VerifyChartsConfigure','VerifyDetachedViews','VerifyGroups','VerifyHelpAbout','VerifyParameterNames','VerifyDisplayUnits')}
+  if($Tests.Count -eq 0){$Tests=@('VerifyPort','VerifyLegacy','VerifyUI','VerifyDiagnostics','VerifyFlightPlan','VerifyAnalysis','VerifyContext','VerifyReport','VerifyMetar','VerifyChartView','VerifyAircraftSDK','VerifyFenix','VerifyFBW','VerifyPMDG','VerifyFMC','VerifyFlightPad','VerifyAirbusMCDU','VerifyOllama','VerifyOllamaModels','VerifyTripInfo','VerifyPrecision','VerifyAirliner','VerifyGroundWeather','VerifySimBrief','VerifySimBriefUI','VerifyGSX','VerifySession','VerifyFSHud','VerifyRecorderWorker','VerifySimBacklog','VerifyBoeingFMC','VerifyIFlyDisplays','VerifyLocalization','VerifyChartsConfigure','VerifyDetachedViews','VerifyGroups','VerifyHelpAbout','VerifyParameterNames','VerifyDisplayUnits','VerifyChartDrag','VerifyVersionLanguage','VerifyLocaleExpansion','VerifyGlobalLocales','VerifyRTLReturn')}
   foreach($test in $Tests) {
     & "$DelphiRoot\bin\dcc64.exe" -B -Q -DPORT_TEST '-NSSystem;System.Win;Winapi;Vcl;Data;Xml;Xml.Win' "-U$DelphiRoot\lib\win64\release;$unitPaths;$vendor\source" "-I$vendor\source;$i18n" "-E$PSScriptRoot\tests" "-N0$PSScriptRoot\.build\Win64\Tests" "$test.dpr"
     if($LASTEXITCODE -ne 0){throw "Compile failed: $test"}

@@ -1,4 +1,5 @@
-﻿Unit EventFilterU;
+﻿{$StackFrames On}
+Unit EventFilterU;
 
 Interface
 

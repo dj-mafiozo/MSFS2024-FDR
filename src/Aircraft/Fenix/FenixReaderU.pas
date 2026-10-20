@@ -1,4 +1,5 @@
-﻿Unit FenixReaderU;
+﻿{$StackFrames On}
+Unit FenixReaderU;
 
 Interface
 

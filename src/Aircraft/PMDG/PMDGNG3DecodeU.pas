@@ -1,4 +1,5 @@
-﻿Unit PMDGNG3DecodeU;
+﻿{$StackFrames On}
+Unit PMDGNG3DecodeU;
 
 Interface
 

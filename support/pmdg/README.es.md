@@ -1,5 +1,7 @@
 ﻿# SDK PMDG 737 NG3
 
+[Traducciones de la interfaz](../../Translation.es.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 PMDG 737 NG (-600/-700/-800/-900, BBJ/carga) selecciona PMDGNG3. No incluye PMDG 777, MAX ni otros fabricantes. El PMDG_NG3_SDK.h oficial proporcionado define 916 bytes de datos con 494 campos tras expandir arrays y 1009 bytes por CDU. Los bytes reservados no son telemetría. Se comprobaron pack(8), alineación máxima 4, tamaño y offsets con ctypes y de forma independiente con clang-cl. No se distribuye el encabezado propietario.

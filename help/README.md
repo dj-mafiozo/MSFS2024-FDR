@@ -1,5 +1,7 @@
 ﻿# Pomoc CHM i F1
 
+[Tłumaczenia interfejsu](../Translation.pl.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 F1 lub Pomoc → Pomoc programu otwiera temat aktywnego widoku. Pomoc zawiera wprowadzenie, mapę, wykresy, analizę, ustawienia i informacje o programie. Język PL/EN/DE/ES odpowiada językowi interfejsu.

@@ -1,4 +1,5 @@
-﻿Unit TelemetryCatalogU;
+﻿{$StackFrames On}
+Unit TelemetryCatalogU;
 
 Interface
 

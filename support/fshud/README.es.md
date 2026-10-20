@@ -1,5 +1,7 @@
 ﻿# Lector del panel local FSHud
 
+[Traducciones de la interfaz](../../Translation.es.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 La integración opcional utiliza el protocolo no oficial de `http://localhost:19786/`, comprobado anteriormente con la versión 2.1.200. Obtiene página y script local referenciado, identifica versión/clave, conecta a /ws y solo envía validación del cliente. No selecciona respuestas ATC, cambia ajustes ni controla el avión. Cambios del fabricante pueden requerir adaptar el lector.

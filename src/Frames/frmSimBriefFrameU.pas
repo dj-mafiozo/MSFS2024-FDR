@@ -1,4 +1,5 @@
-﻿Unit frmSimBriefFrameU;
+﻿{$StackFrames On}
+Unit frmSimBriefFrameU;
 
 Interface
 

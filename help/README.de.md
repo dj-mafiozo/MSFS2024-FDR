@@ -1,5 +1,7 @@
 ﻿# CHM-Hilfe und F1
 
+[Übersetzungen der Oberfläche](../Translation.de.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 F1 oder Hilfe → Programmhilfe öffnet das Thema der aktiven Ansicht. Einstieg, Karte, Diagramme, Analyse, Einstellungen und Programminformationen sind enthalten. PL/EN/DE/ES folgen der Oberflächensprache.

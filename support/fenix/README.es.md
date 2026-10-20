@@ -1,5 +1,7 @@
 ﻿# Fenix A32X
 
+[Traducciones de la interfaz](../../Translation.es.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 Los títulos con Fenix o FNX_32/FNX A32 seleccionan FenixA32X. Los demás aviones conservan SimConnect; iFly sigue utilizando su SDK. El catálogo contiene 1203 L-vars únicas extraídas de 2096 parámetros VAR_NAME* del Cockpit_Behavior.xml proporcionado. El manifiesto conserva contexto y SHA-256; no se distribuye el XML del fabricante.

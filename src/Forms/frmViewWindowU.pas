@@ -1,4 +1,5 @@
-﻿Unit frmViewWindowU;
+﻿{$StackFrames On}
+Unit frmViewWindowU;
 
 Interface
 

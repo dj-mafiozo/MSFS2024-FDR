@@ -1,5 +1,7 @@
 ﻿# Dependencias de compilación y ejecución
 
+[Traducciones de la interfaz](../Translation.es.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 Compile Win64 con Delphi 10.2 VCL/FireDAC. Junto a `MSFS2024-FDR.exe` deben estar SimConnect.dll Win64 del SDK/runtime MSFS2024, sqlite3.dll, WebView2Loader.dll de WebView4Delphi bin64 y MSFS2024-FDR.i18n. Los informes Markdown requieren Microsoft Edge WebView2 Runtime. Este grabador usa SQLite, separado del anterior iFly/Firebird.

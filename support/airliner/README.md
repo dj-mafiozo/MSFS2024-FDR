@@ -1,4 +1,6 @@
-# Wspólne zmienne AIRLINER przez SimConnect
+﻿# Wspólne zmienne AIRLINER przez SimConnect
+
+[Tłumaczenia interfejsu](../../Translation.pl.md)
 
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 

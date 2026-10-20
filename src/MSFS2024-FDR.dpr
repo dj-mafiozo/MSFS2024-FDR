@@ -1,6 +1,10 @@
-﻿Program MSFSFDR;
+﻿{$StackFrames On}
+Program MSFSFDR;
 
 uses
+  StackTrace,
+  UIFontsU in 'i18n\UIFontsU.pas',
+  VersionU in 'Core\VersionU.pas',
   ParameterNamesU in 'Visualization\ParameterNamesU.pas',
   System.SysUtils,
   AppHelpU in 'Core\AppHelpU.pas',
@@ -67,6 +71,8 @@ uses
   fraGraphU in 'Frames\fraGraphU.pas' {fraGraph: TFrame},
   frmViewWindowU in 'Forms\frmViewWindowU.pas' {frmViewWindow};
 
+{$R 'MSFS2024-FDR.res'}
+
 Begin
  Try
   Application.Initialize;
@@ -77,6 +83,8 @@ Begin
   On E : Exception Do
    Begin
     Log(0, 'Startup/shutdown: ' + E.ClassName + ': ' + E.Message);
+    If Not E.StackTrace.IsEmpty Then
+     Log(0, 'StackTrace = [' + #13#10 + E.StackTrace + #13#10 + ')');
     Application.ShowException(E);
     ExitCode := 1;
    End;

@@ -1,4 +1,5 @@
-﻿Unit AirbusMCDUValuesU;
+﻿{$StackFrames On}
+Unit AirbusMCDUValuesU;
 
 Interface
 

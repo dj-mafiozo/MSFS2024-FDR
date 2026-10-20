@@ -1,5 +1,7 @@
 ﻿# MSFS2024-FDR — Delphi 10.2 VCL Win64
 
+[Traducciones de la interfaz](Translation.es.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 Grabador y visor nativo para Microsoft Flight Simulator 2024. El proyecto, actualmente privado, comenzó a partir de MSFS-Flight-Data-Recorder (Qt). Desde entonces se rediseñaron grabación, arquitectura, base de datos, interfaz, integraciones y análisis. Se conserva atribución en NOTICE y AGPL-3.0 en LICENSE. No utiliza Qt.
@@ -111,3 +113,22 @@ La base, el modelo y la configuración conservan los identificadores originales.
 ### Unidades de visualización
 
 En Configuración → Unidades elige la unidad de destino por cada unidad original, p. ej. ft → m, lb → kg, US gal → l. Mantener la misma unidad desactiva la conversión. Se actualizan los gráficos (curvas, escalas y cursor) y el inspector, incluso en ventanas separadas. La base de datos y los datos de análisis conservan sus unidades originales. No se adivinan unidades desconocidas del SDK.
+
+
+### Arrastrar gráficos
+
+En Configurar gráficos, arrastra un parámetro de izquierda a derecha para insertarlo en la posición elegida. Arrastrarlo de derecha a izquierda oculta el gráfico. Mantén Ctrl al arrastrar dentro de la lista derecha para cambiar el orden. Una línea marca la inserción y ambas listas desplazan su contenido cerca de los bordes. Las casillas y botones siguen funcionando. Aceptar aplica la copia de trabajo; Cancelar conserva la selección anterior.
+
+
+### Idioma de Windows, nueve idiomas y VersionInfo
+
+La opción inicial es auto. Se detecta el idioma de interfaz de Windows sin alterar los formatos numéricos/de fecha. Las variantes regionales se asignan a PL/EN/DE/ES/FR/RU/TR/IT/PT; los idiomas no admitidos usan inglés. Auto se conserva al reiniciar y las elecciones explícitas existentes se respetan. Menú y ajustes incluyen diez opciones. Se traducen las nuevas etiquetas GUI. La ayuda sigue en cuatro idiomas, con inglés para los nuevos. Los textos nuevos son una primera traducción local Qwen3 con correcciones terminológicas, sin revisión nativa. VersionU lee VersionInfo fijo/textual y tablas de idiomas; Acerca de muestra versión real, ProductName y copyright. Build común: 2 (0.1.0.2); se conservan los demás números y datos del autor. bump_build.py incrementa solo Build por cambio lógico; check_version.py valida la herencia. La compilación CLI usa MSBuild para generar los recursos de versión.
+
+
+Ampliación: la interfaz admite 25 configuraciones regionales. Nuevas: en-GB, fr-CA, pt-BR, de-AT, de-CH, be-BY, el-GR, uk-UA, hr-HR, cs-CZ, da-DK, nl-NL, fi-FI, nb-NO, sk-SK y sv-SE. Las variantes regionales se guardan por separado. be significa bielorruso; no/nb/nn usan la traducción noruega Bokmål disponible, sin una versión Nynorsk independiente. El alemán suizo usa ss en lugar de ß. La detección automática sigue el idioma de Windows sin cambiar formatos numéricos. La ayuda sigue en PL/EN/DE/ES, con idioma base o inglés como alternativa. Las traducciones nuevas son una primera versión con correcciones terminológicas y validación estructural, sin revisión por hablantes nativos. Build: 0.1.0.3; los demás datos de versión y autor no cambian.
+
+
+La interfaz contiene 32 configuraciones regionales ordenadas por código. Nuevas: ar-SA, he-IL, hi-IN, id-ID, ja-JP, vi-VN y zh-CN. ar/he seleccionan sus variantes; los alias antiguos iw/in corresponden a he/id. Árabe y hebreo usan RTL; gráficos, mapas y texto original FMC/METAR/OFP mantienen LTR. Las fuentes Noto de assets/fonts se copian a bin/fonts y a los archivos, con licencias OFL y sumas de procedencia; se cargan de forma privada sin instalación en Windows. La ayuda y documentación mantienen cuatro idiomas. Avisos sobre traducciones: Translation.es.md. Build 0.1.0.4.
+
+
+StackTrace captura pilas de llamadas de excepciones. Conserve MSFS2024-FDR.pdb junto al EXE exacto para el que se generó; el archivo está incluido en el paquete. Al informar de un problema indique la versión y el fragmento pertinente de msfs_fdr_debug.log. Compilar requiere map2pdb.exe en PATH; el MAP detallado se convierte después de la compilación.

@@ -1,5 +1,9 @@
-param([string]$DelphiRoot='C:\Program Files (x86)\Embarcadero\Studio\19.0',[string]$SDKRoot='C:\MSFS 2024 SDK',[string]$I18nRoot='')
+﻿param([string]$DelphiRoot='C:\Program Files (x86)\Embarcadero\Studio\19.0',[string]$SDKRoot='C:\MSFS 2024 SDK',[string]$I18nRoot='')
 $ErrorActionPreference='Stop'
+python "$PSScriptRoot\tools\check_fonts.py"
+if($LASTEXITCODE -ne 0){throw 'Bundled fonts or licenses are incomplete'}
+python "$PSScriptRoot\tools\check_version.py"
+if($LASTEXITCODE -ne 0){throw 'VersionInfo configuration is inconsistent'}
 $i18n=$I18nRoot
 if([string]::IsNullOrWhiteSpace($i18n)){$i18n=Join-Path (Split-Path $PSScriptRoot) 'i18n\Packages';if(-not(Test-Path -LiteralPath $i18n)){$i18n=Join-Path $PSScriptRoot 'vendor\i18n\Packages'}}
 if(-not (Test-Path -LiteralPath $i18n)){throw 'Missing i18n package; install it beside the repository.'}
@@ -12,7 +16,9 @@ Copy-Item "$vendor\bin64\WebView2Loader.dll" "$PSScriptRoot\bin\WebView2Loader.d
 Copy-Item -LiteralPath "$PSScriptRoot\translations\MSFS2024-FDR.i18n" -Destination "$PSScriptRoot\bin\MSFS2024-FDR.i18n" -Force
 Push-Location "$PSScriptRoot\src"
 try {
-  & "$DelphiRoot\bin\dcc64.exe" -B -Q '-NSSystem;System.Win;Winapi;Vcl;Data;Xml;Xml.Win' "-U$DelphiRoot\lib\win64\release;$unitPaths;$vendor\source" "-I$vendor\source;$i18n" "-E$PSScriptRoot\bin" "-N0$PSScriptRoot\.build\Win64\Release" MSFS2024-FDR.dpr
+  $env:BDS=$DelphiRoot
+  $env:BDSINCLUDE=Join-Path $DelphiRoot 'include'
+  & "$env:WINDIR\Microsoft.NET\Framework\v4.0.30319\MSBuild.exe" "$PSScriptRoot\src\MSFS2024-FDR.dproj" /t:Build /p:Config=Release /p:Platform=Win64 "/p:I18nRoot=$i18n" /v:minimal /nologo
   if ($LASTEXITCODE -ne 0) {throw 'Delphi VCL build failed'}
   $sim="$SDKRoot\SimConnect SDK\lib\SimConnect.dll"
   if(-not (Test-Path -LiteralPath $sim)){$sim="$PSScriptRoot\runtime\SimConnect.dll"}

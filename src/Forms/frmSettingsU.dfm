@@ -1,8 +1,7 @@
 ﻿object frmSettings: TfrmSettings
-  HelpType = htContext
-  HelpContext = 500
   Left = 0
   Top = 0
+  HelpContext = 500
   BorderStyle = bsDialog
   Caption = 'Ustawienia'
   ClientHeight = 500
@@ -19,11 +18,17 @@
   PixelsPerInch = 96
   TextHeight = 17
   object SettingsPages: TPageControl
+    AlignWithMargins = True
     Left = 8
     Top = 8
     Width = 644
-    Height = 440
+    Height = 448
+    Margins.Left = 8
+    Margins.Top = 8
+    Margins.Right = 8
+    Margins.Bottom = 44
     ActivePage = GeneralPage
+    Align = alClient
     TabOrder = 0
     object GeneralPage: TTabSheet
       Caption = 'Ogolne'
@@ -39,15 +44,44 @@
         Top = 16
         Width = 280
         Height = 25
-        Style = csDropDownList
-        ItemIndex = 0
+        Style = csOwnerDrawFixed
+          ItemHeight = 24
+          OnDrawItem = LanguageDrawItem
         TabOrder = 0
-        Text = 'Polski'
         Items.Strings = (
-          'Polski'
-          'English'
+          'Wykryj automatycznie'
+          'العربية'
+          'Беларуская'
+          'Čeština'
+          'Dansk'
+          'Deutsch (Österreich)'
+          'Deutsch (Schweiz)'
           'Deutsch'
-          'Espa'#241'ol')
+          'Ελληνικά'
+          'English (United Kingdom)'
+          'English'
+          'Español'
+          'Suomi'
+          'Français (Canada)'
+          'Français'
+          'עברית'
+          'हिन्दी'
+          'Hrvatski'
+          'Bahasa Indonesia'
+          'Italiano'
+          '日本語'
+          'Norsk (bokmål)'
+          'Nederlands'
+          'Polski'
+          'Português (Brasil)'
+          'Português'
+          'Русский'
+          'Slovenčina'
+          'Svenska'
+          'Türkçe'
+          'Українська'
+          'Tiếng Việt'
+          '简体中文')
       end
       object btnResetLayout: TButton
         Left = 16
@@ -63,11 +97,9 @@
       object UnitsEditor: TValueListEditor
         Left = 0
         Top = 0
-        Width = 620
-        Height = 410
+        Width = 636
+        Height = 416
         Align = alClient
-        KeyOptions = []
-        Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goEditing, goAlwaysShowEditor, goThumbTracking]
         TabOrder = 0
         TitleCaptions.Strings = (
           'Jednostka oryginalna'
@@ -196,7 +228,9 @@
         Top = 36
         Width = 600
         Height = 25
-        Style = csDropDownList
+        Style = csOwnerDrawFixed
+          ItemHeight = 24
+          OnDrawItem = LanguageDrawItem
         ItemIndex = 0
         TabOrder = 0
         Text = 'Codex (konto ChatGPT / CLI)'

@@ -45,32 +45,55 @@ object frmChartsConfigure: TfrmChartsConfigure
       TabOrder = 1
     end
   end
-  object MainPanel: TPanel
-    Left = 0
-    Top = 0
-    Width = 851
-    Height = 634
+  object MainGroupBox: TGroupBox
+    AlignWithMargins = True
+    Left = 4
+    Top = 4
+    Width = 843
+    Height = 626
+    Margins.Left = 4
+    Margins.Top = 4
+    Margins.Right = 4
+    Margins.Bottom = 4
     Align = alClient
-    BevelOuter = bvNone
     TabOrder = 1
     object Splitter1: TSplitter
-      Left = 407
-      Top = 0
-      Height = 634
+      Left = 413
+      Top = 15
+      Height = 609
     end
     object ListPanel: TPanel
-      Left = 0
-      Top = 0
+      AlignWithMargins = True
+      Left = 6
+      Top = 15
       Width = 407
-      Height = 634
+      Height = 601
+      Margins.Left = 4
+      Margins.Top = 0
+      Margins.Right = 0
+      Margins.Bottom = 8
       Align = alLeft
       BevelOuter = bvNone
       TabOrder = 0
+      object lAllParameters: TLabel
+        AlignWithMargins = True
+        Left = 0
+        Top = 0
+        Width = 407
+        Height = 13
+        Margins.Left = 0
+        Margins.Top = 0
+        Margins.Right = 0
+        Margins.Bottom = 8
+        Align = alTop
+        Alignment = taCenter
+        Caption = 'Wszystkie parametry'
+      end
       object ParameterList: TCheckListBox
         Left = 0
-        Top = 21
+        Top = 42
         Width = 407
-        Height = 613
+        Height = 559
         OnClickCheck = ParameterCheck
         Align = alClient
         ItemHeight = 13
@@ -78,11 +101,16 @@ object frmChartsConfigure: TfrmChartsConfigure
         ShowHint = True
         TabOrder = 0
         OnClick = OrderClick
+        OnDragDrop = ListDragDrop
+        OnDragOver = ListDragOver
+        OnEndDrag = ListEndDrag
+        OnMouseDown = ListMouseDown
         OnMouseMove = ParameterHint
+        OnStartDrag = ListStartDrag
       end
       object eSearch: TEdit
         Left = 0
-        Top = 0
+        Top = 21
         Width = 407
         Height = 21
         Align = alTop
@@ -92,34 +120,25 @@ object frmChartsConfigure: TfrmChartsConfigure
       end
     end
     object VisiblePanel: TPanel
-      Left = 410
-      Top = 0
-      Width = 441
-      Height = 634
+      AlignWithMargins = True
+      Left = 419
+      Top = 15
+      Width = 418
+      Height = 601
+      Margins.Top = 0
+      Margins.Right = 4
+      Margins.Bottom = 8
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 1
-      object ChartOrderList: TListBox
-        Left = 34
-        Top = 0
-        Width = 407
-        Height = 634
-        Align = alClient
-        ItemHeight = 13
-        ParentShowHint = False
-        ShowHint = True
-        TabOrder = 0
-        OnClick = OrderClick
-        OnMouseMove = ParameterHint
-      end
       object GraphButtonPanel: TPanel
         Left = 0
         Top = 0
         Width = 34
-        Height = 634
+        Height = 601
         Align = alLeft
         BevelOuter = bvNone
-        TabOrder = 1
+        TabOrder = 0
         object btnMoveFirst: TSpeedButton
           AlignWithMargins = True
           Left = 3
@@ -128,16 +147,6 @@ object frmChartsConfigure: TfrmChartsConfigure
           Height = 28
           Margins.Bottom = 0
           Action = aMoveFirst
-          Align = alTop
-        end
-        object btnMoveUp: TSpeedButton
-          AlignWithMargins = True
-          Left = 3
-          Top = 255
-          Width = 28
-          Height = 28
-          Margins.Bottom = 0
-          Action = aMoveUp
           Align = alTop
         end
         object btnMoveDown: TSpeedButton
@@ -181,6 +190,16 @@ object frmChartsConfigure: TfrmChartsConfigure
           Action = aHide
           Align = alTop
         end
+        object btnMoveUp: TSpeedButton
+          AlignWithMargins = True
+          Left = 3
+          Top = 255
+          Width = 28
+          Height = 28
+          Margins.Bottom = 0
+          Action = aMoveUp
+          Align = alTop
+        end
         object Separator: TPanel
           Left = 0
           Top = 0
@@ -191,7 +210,57 @@ object frmChartsConfigure: TfrmChartsConfigure
           TabOrder = 0
         end
       end
+      object ChartListPanel: TPanel
+        AlignWithMargins = True
+        Left = 38
+        Top = 0
+        Width = 380
+        Height = 601
+        Margins.Left = 4
+        Margins.Top = 0
+        Margins.Right = 0
+        Margins.Bottom = 0
+        Align = alClient
+        BevelOuter = bvNone
+        TabOrder = 1
+        object lChartsShown: TLabel
+          Left = 0
+          Top = 0
+          Width = 380
+          Height = 13
+          Align = alTop
+          Alignment = taCenter
+          Caption = 'Parametry pokazane na wykresach'
+        end
+        object ChartOrderList: TListBox
+          Left = 0
+          Top = 13
+          Width = 380
+          Height = 588
+          Style = lbOwnerDrawFixed
+          Align = alClient
+          ItemHeight = 13
+          ParentShowHint = False
+          ShowHint = True
+          TabOrder = 0
+          OnClick = OrderClick
+          OnDragDrop = ListDragDrop
+          OnDragOver = ListDragOver
+          OnDrawItem = DrawChartItem
+          OnEndDrag = ListEndDrag
+          OnMouseDown = ListMouseDown
+          OnMouseMove = ParameterHint
+          OnStartDrag = ListStartDrag
+        end
+      end
     end
+  end
+  object DragScrollTimer: TTimer
+    Enabled = False
+    Interval = 80
+    OnTimer = DragScrollTick
+    Left = 128
+    Top = 320
   end
   object AppTranslator: TTranslator
     AutoBiDiLayout = False
@@ -207,7 +276,7 @@ object frmChartsConfigure: TfrmChartsConfigure
     Left = 32
     Top = 320
     Bitmap = {
-      494C0101060008000C0016001600FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010106000800140016001600FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       0000000000003600000028000000580000002C0000000100200000000000803C
       0000000000000000000000000000000000000000000000000000000000000000
       0000000000000000000000000000000000000000000000000000000000000000

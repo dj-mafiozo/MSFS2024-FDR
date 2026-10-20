@@ -1,4 +1,5 @@
-﻿Unit FSHudProtocolU;
+﻿{$StackFrames On}
+Unit FSHudProtocolU;
 
 Interface
 

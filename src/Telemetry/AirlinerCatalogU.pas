@@ -1,4 +1,5 @@
-﻿Unit AirlinerCatalogU;
+﻿{$StackFrames On}
+Unit AirlinerCatalogU;
 
 Interface
 

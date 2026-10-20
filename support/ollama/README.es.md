@@ -1,5 +1,7 @@
 ﻿# Análisis con Ollama
 
+[Traducciones de la interfaz](../../Translation.es.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 Seleccione Ollama (HTTP / modelo local) en Ajustes → Proveedores de IA. El servidor predeterminado es `http://localhost:11434`; debe estar activo y tener un modelo instalado. FDR no inicia servidores ni instala modelos. No necesita clave Gemini ni EXE Codex. Un servidor remoto recibe el contexto del vuelo.

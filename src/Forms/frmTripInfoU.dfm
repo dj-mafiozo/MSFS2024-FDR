@@ -16,60 +16,6 @@ object frmTripInfo: TfrmTripInfo
   Position = poOwnerFormCenter
   PixelsPerInch = 96
   TextHeight = 17
-  object SimBriefPanel: TPanel
-    Left = 0
-    Top = 0
-    Width = 640
-    Height = 76
-    Align = alTop
-    BevelOuter = bvNone
-    TabOrder = 2
-    object chkAllowOlder: TCheckBox
-      Left = 12
-      Top = 47
-      Width = 495
-      Height = 21
-      Caption = 'Dopuszczaj starszy plan (wymaga zgodnej zapisanej trasy)'
-      TabOrder = 3
-    end
-    object eAccount: TEdit
-      Left = 12
-      Top = 12
-      Width = 225
-      Height = 25
-      TabOrder = 0
-      TextHint = 'SimBrief username / Pilot ID'
-    end
-    object btnImport: TButton
-      Left = 245
-      Top = 10
-      Width = 135
-      Height = 28
-      Caption = 'Import SimBrief'
-      TabOrder = 1
-      OnClick = ImportClick
-    end
-    object btnOFP: TButton
-      Left = 388
-      Top = 10
-      Width = 115
-      Height = 28
-      Caption = 'Zapisz OFP'
-      TabOrder = 2
-      OnClick = OFPClick
-    end
-  end
-  object mInfo: TMemo
-    Left = 0
-    Top = 76
-    Width = 640
-    Height = 500
-    Align = alClient
-    ReadOnly = True
-    ScrollBars = ssBoth
-    TabOrder = 0
-    WordWrap = False
-  end
   object ButtonsPanel: TPanel
     Left = 0
     Top = 576
@@ -77,7 +23,7 @@ object frmTripInfo: TfrmTripInfo
     Height = 44
     Align = alBottom
     BevelOuter = bvNone
-    TabOrder = 1
+    TabOrder = 0
     DesignSize = (
       640
       44)
@@ -101,6 +47,76 @@ object frmTripInfo: TfrmTripInfo
       Default = True
       ModalResult = 2
       TabOrder = 1
+    end
+  end
+  object TripInfoGroupBox: TGroupBox
+    AlignWithMargins = True
+    Left = 8
+    Top = 8
+    Width = 624
+    Height = 560
+    Margins.Left = 8
+    Margins.Top = 8
+    Margins.Right = 8
+    Margins.Bottom = 8
+    Align = alClient
+    Padding.Left = 8
+    Padding.Right = 8
+    Padding.Bottom = 8
+    TabOrder = 1
+    object SimBriefPanel: TPanel
+      Left = 10
+      Top = 19
+      Width = 604
+      Height = 76
+      Align = alTop
+      BevelOuter = bvNone
+      TabOrder = 0
+      object chkAllowOlder: TCheckBox
+        Left = 12
+        Top = 47
+        Width = 495
+        Height = 21
+        Caption = 'Dopuszczaj starszy plan (wymaga zgodnej zapisanej trasy)'
+        TabOrder = 3
+      end
+      object eAccount: TEdit
+        Left = 12
+        Top = 12
+        Width = 225
+        Height = 25
+        TabOrder = 0
+        TextHint = 'SimBrief username / Pilot ID'
+      end
+      object btnImport: TButton
+        Left = 245
+        Top = 10
+        Width = 135
+        Height = 28
+        Caption = 'Import SimBrief'
+        TabOrder = 1
+        OnClick = ImportClick
+      end
+      object btnOFP: TButton
+        Left = 388
+        Top = 10
+        Width = 115
+        Height = 28
+        Caption = 'Zapisz OFP'
+        TabOrder = 2
+        OnClick = OFPClick
+      end
+    end
+    object mInfo: TMemo
+      Left = 10
+      Top = 95
+      Width = 604
+      Height = 455
+      Align = alClient
+      ReadOnly = True
+      ScrollBars = ssBoth
+      TabOrder = 1
+      WordWrap = False
     end
   end
   object FetchTimer: TTimer

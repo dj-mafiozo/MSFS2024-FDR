@@ -1,4 +1,6 @@
-# Common AIRLINER instrument L-vars
+﻿# Common AIRLINER instrument L-vars
+
+[Interface translations](../../Translation.en.md)
 
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 

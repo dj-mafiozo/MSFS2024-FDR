@@ -1,3 +1,4 @@
+{$StackFrames On}
 Unit frmAssignGroupU;
 
 Interface
@@ -9,7 +10,7 @@ Interface
  Type
   TfrmAssignGroup = Class(TLocalizedForm)
    Published
-    lGroup        : TLabel;
+    GroupAssignGroupBox: TGroupBox;
     cbGroups      : TComboBox;
     btnOK         : TButton;
     btnCancel     : TButton;

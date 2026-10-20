@@ -1,4 +1,5 @@
-﻿Unit FenixCatalogU;
+﻿{$StackFrames On}
+Unit FenixCatalogU;
 
 Interface
 

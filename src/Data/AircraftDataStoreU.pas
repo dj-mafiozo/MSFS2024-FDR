@@ -1,4 +1,5 @@
-﻿Unit AircraftDataStoreU;
+﻿{$StackFrames On}
+Unit AircraftDataStoreU;
 
 Interface
 
@@ -11,8 +12,8 @@ Interface
  Type
   TAircraftHistory = Class
    Private
-    Q      : TFDQuery;
-    FState : TJSONObject;
+    q      : TFDQuery;
+    fState : TJSONObject;
    Public
     Constructor Create(DB : TFDConnection; Trip : Integer);
     Destructor Destroy; Override;
@@ -74,16 +75,16 @@ Implementation
  Constructor TAircraftHistory.Create(DB : TFDConnection; Trip : Integer);
   Begin
    Inherited Create;
-   FState       := TJSONObject.Create;
-   Q            := TFDQuery.Create(Nil);
-   Q.Connection := DB;
-   Q.Open('select sample,reset_state,payload from trip_aircraft_data where trip=:t order by sample', [Trip]);
+   fState       := TJSONObject.Create;
+   q            := TFDQuery.Create(Nil);
+   q.Connection := DB;
+   q.Open('select sample,reset_state,payload from trip_aircraft_data where trip=:t order by sample', [Trip]);
   End;
 
  Destructor TAircraftHistory.Destroy;
   Begin
-   Q.Free;
-   FState.Free;
+   q.Free;
+   fState.Free;
    Inherited;
   End;
 
@@ -92,23 +93,23 @@ Implementation
    D, SDK : TJSONObject;
    V      : TJSONValue;
   Begin
-   While Not Q.Eof And (Q.FieldByName('sample').AsLargeInt <= ID) Do
+   While Not q.Eof And (q.FieldByName('sample').AsLargeInt <= ID) Do
     Begin
-     If Q.FieldByName('reset_state').AsInteger <> 0 Then
+     If q.FieldByName('reset_state').AsInteger <> 0 Then
       Begin
-       FState.Free;
-       FState := TJSONObject.Create;
+       fState.Free;
+       fState := TJSONObject.Create;
       End;
-     D := TJSONObject.ParseJSONValue(Q.FieldByName('payload').AsString) As TJSONObject;
+     D := TJSONObject.ParseJSONValue(q.FieldByName('payload').AsString) As TJSONObject;
      Try
       If D <> Nil Then
-       MergeJSON(FState, D);
+       MergeJSON(fState, D);
      Finally
       D.Free;
      End;
-     Q.Next;
+     q.Next;
     End;
-   Result := TJSONObject.ParseJSONValue(FState.ToJSON) As TJSONObject;
+   Result := TJSONObject.ParseJSONValue(fState.ToJSON) As TJSONObject;
    V      := Result.GetValue('aircraft_sdk');
    If V Is TJSONObject Then
     Begin

@@ -1,10 +1,12 @@
-﻿Unit AircraftTelemetryU;
+﻿{$StackFrames On}
+Unit AircraftTelemetryU;
 
 Interface
 
  Uses
   Winapi.Windows, System.DateUtils, System.Math, System.SysUtils, System.JSON, System.Generics.Collections,
-  FlightTelemetryU, iFlyReaderU, iFlySDKCatalogU, FDRTypesU, FenixReaderU, FenixCatalogU, AppLogU, FBWReaderU, FBWCatalogU, PMDGNG3ReaderU, PMDGNG3CatalogU, PMDGNG3DecodeU;
+  FlightTelemetryU, iFlyReaderU, iFlySDKCatalogU, FDRTypesU, FenixReaderU, FenixCatalogU,
+  AppLogU, FBWReaderU, FBWCatalogU, PMDGNG3ReaderU, PMDGNG3CatalogU, PMDGNG3DecodeU;
 
  Type
   TAircraftProvider = Class

@@ -1,5 +1,7 @@
 ﻿# Build- und Laufzeitabhängigkeiten
 
+[Übersetzungen der Oberfläche](../Translation.de.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 Win64 mit Delphi 10.2 VCL/FireDAC bauen. Neben `MSFS2024-FDR.exe` gehören Win64 SimConnect.dll aus dem MSFS2024 SDK/Runtime, sqlite3.dll, WebView2Loader.dll aus WebView4Delphi bin64 und MSFS2024-FDR.i18n. Für Markdown-Berichte ist Microsoft Edge WebView2 Runtime erforderlich. Dieser Rekorder verwendet SQLite, unabhängig vom früheren iFly/Firebird-Rekorder.

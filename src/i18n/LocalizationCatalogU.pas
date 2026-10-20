@@ -1,4 +1,5 @@
-﻿Unit LocalizationCatalogU;
+﻿{$StackFrames On}
+Unit LocalizationCatalogU;
 
 Interface
 

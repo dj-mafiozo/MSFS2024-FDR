@@ -1,11 +1,12 @@
-﻿Unit FlightChartsU;
+﻿{$StackFrames On}
+Unit FlightChartsU;
 
 Interface
 
  Uses
   System.SysUtils, System.Classes, System.Math, System.Types, System.Generics.Collections,
   Vcl.Controls, Vcl.Graphics, Vcl.Forms, Winapi.Windows,
-  FlightDatabaseU, LocalizationU, ParameterNamesU;
+  FlightDatabaseU, LocalizationU, UIFontsU, ParameterNamesU;
 
  Type
   TCursorEvent = Procedure(Sender : TObject; Index : Integer) Of Object;
@@ -53,6 +54,8 @@ Implementation
  Constructor TFlightCharts.Create(AOwner : TComponent);
   Begin
    Inherited;
+   ParentBiDiMode := False;
+   BiDiMode       := bdLeftToRight;
    DoubleBuffered := True;
    fSelected      := TList<Integer>.Create;
   End;
@@ -82,7 +85,8 @@ Implementation
 
  Procedure TFlightCharts.SetCursor(Index : Integer);
   Begin
-   If fCursor = Index Then Exit;
+   If fCursor = Index Then
+    Exit;
    fCursor := Index;
    Invalidate;
   End;
@@ -106,14 +110,18 @@ Implementation
    Started    : Boolean;
    Title      : String;
    TitleRect  : TRect;
+   TextRect   : TRect;
+   Text       : String;
   Begin
    Canvas.Brush.Color := $241810;
    Canvas.FillRect(ClientRect);
-   Canvas.Font.Name  := 'Segoe UI';
+   Canvas.Font.Name  := LocaleFontName(Language);
    Canvas.Font.Color := clWhite;
    If Not Assigned(fData) Or (fData.Points.Count = 0) Or (fSelected.Count = 0) Then
     Begin
-     Canvas.TextOut(20, 20, Tr('Wybierz lot i parametry wykres'#243'w.'));
+     Text     := Tr('Wybierz lot i parametry wykres'#243'w.');
+     TextRect := Rect(20, 20, Width - 5, 45);
+     DrawText(Canvas.Handle, PChar(Text), Length(Text), TextRect, DT_SINGLELINE Or DT_NOPREFIX Or IfThen(AppLocalizer.BiDiMode = bdRightToLeft, DT_RTLREADING, 0));
      Exit;
     End;
    Duration   := Max(0.001, fViewEnd - fViewStart);
@@ -136,12 +144,14 @@ Implementation
        MaxV := Max(MaxV, V);
       End;
      Canvas.Font.Color := clWhite;
-     Title := ParameterCaption(fData.Labels[Field]);
-     TitleRect := Rect(64,y0-25,Max(65,Width-145),y0-5);
-     DrawText(Canvas.Handle,PChar(Title),Length(Title),TitleRect,DT_SINGLELINE Or DT_END_ELLIPSIS Or DT_NOPREFIX);
+     Title             := ParameterCaption(fData.Labels[Field]);
+     TitleRect         := Rect(64, y0 - 25, Max(65, Width - 145), y0 - 5);
+     DrawText(Canvas.Handle, PChar(Title), Length(Title), TitleRect, DT_SINGLELINE Or DT_END_ELLIPSIS Or DT_NOPREFIX Or IfThen(AppLocalizer.BiDiMode = bdRightToLeft, DT_RTLREADING, 0));
      If MinV = MaxDouble Then
       Begin
-       Canvas.TextOut(64, y0, Tr('Brak danych'));
+       Text     := Tr('Brak danych');
+       TextRect := Rect(64, y0, Width - 5, y0 + 30);
+       DrawText(Canvas.Handle, PChar(Text), Length(Text), TextRect, DT_SINGLELINE Or DT_NOPREFIX Or IfThen(AppLocalizer.BiDiMode = bdRightToLeft, DT_RTLREADING, 0));
        Continue;
       End;
      If MinV = MaxV Then

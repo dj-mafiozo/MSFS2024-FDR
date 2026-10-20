@@ -1,4 +1,6 @@
-# Integracja FlyByWire A32NX
+﻿# Integracja FlyByWire A32NX
+
+[Tłumaczenia interfejsu](../../Translation.pl.md)
 
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 

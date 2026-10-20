@@ -1,4 +1,5 @@
-﻿Unit FDRTypesU;
+﻿{$StackFrames On}
+Unit FDRTypesU;
 
 Interface
 

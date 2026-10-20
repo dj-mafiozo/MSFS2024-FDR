@@ -1,4 +1,5 @@
-﻿Unit SimBriefImportU;
+﻿{$StackFrames On}
+Unit SimBriefImportU;
 
 Interface
 

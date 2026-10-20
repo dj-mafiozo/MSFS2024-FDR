@@ -1,4 +1,6 @@
-# Integracja SDK PMDG 737 NG3
+﻿# Integracja SDK PMDG 737 NG3
+
+[Tłumaczenia interfejsu](../../Translation.pl.md)
 
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 

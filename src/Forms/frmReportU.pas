@@ -1,9 +1,10 @@
-﻿Unit frmReportU;
+﻿{$StackFrames On}
+Unit frmReportU;
 
 Interface
 
  Uses
-  LocalizationU, i18nLocalizer, System.Classes, System.SysUtils, System.IOUtils,
+  UIFontsU, LocalizationU, i18nLocalizer, System.Classes, System.SysUtils, System.IOUtils,
   Vcl.Forms, Vcl.StdCtrls, Vcl.Controls, Vcl.ExtCtrls,
   uWVBrowser, uWVWindowParent, uWVLoader, uWVTypeLibrary, uWVCoreWebView2Args, ReportMarkdownU,
   i18nCore;
@@ -11,22 +12,23 @@ Interface
  Type
   TfrmReport = Class(TLocalizedForm)
    Published
-    AppTranslator : TTranslator;
-    mReport       : TMemo;
-    btnClose      : TButton;
-    BrowserPanel  : TPanel;
-    StartTimer    : TTimer;
+    AppTranslator  : TTranslator;
+    mReport        : TMemo;
+    btnClose       : TButton;
+    BrowserPanel   : TPanel;
+    ReportGroupBox : TGroupBox;
+    StartTimer     : TTimer;
     Procedure TranslateTitle(Sender : TObject);
     Procedure CloseClick(Sender : TObject);
     Procedure FormClose(Sender : TObject; Var Action : TCloseAction);
     Procedure StartTick(Sender : TObject);
    Private
-    fBrowser : TWVBrowser;
-    fHost    : TWVWindowParent;
+    fBrowser     : TWVBrowser;
+    fHost        : TWVWindowParent;
     fTitleSource : String;
-    fHTML    : Boolean;
-    fReport  : String;
-    fStarted : Boolean;
+    fHTML        : Boolean;
+    fReport      : String;
+    fStarted     : Boolean;
     Function DocumentHTML : String;
     Procedure Created(Sender : TObject);
     Procedure NavigationCompleted(Sender : TObject; Const WebView : ICoreWebView2; Const Args : ICoreWebView2NavigationCompletedEventArgs);
@@ -58,6 +60,7 @@ Implementation
      GlobalWebView2Loader.UserDataFolder := TPath.Combine(GetEnvironmentVariable('LOCALAPPDATA'), 'MSFSFDR\ReportsWebView2');
      GlobalWebView2Loader.StartWebView2;
     End;
+   ApplyLocalePresentation(Self,Language);
   End;
 
  Destructor TfrmReport.Destroy;
@@ -80,8 +83,8 @@ Implementation
  Procedure TfrmReport.SetHTMLDocument(Const HTML : String);
   Begin
    fTitleSource := '';
-   fHTML           := True;
-   fReport         := HTML;
+   fHTML        := True;
+   fReport      := HTML;
    mReport.Text := HTML;
    If fBrowser.Initialized Then
     fBrowser.NavigateToString(DocumentHTML);
@@ -89,22 +92,26 @@ Implementation
 
  Procedure TfrmReport.TranslateTitle(Sender : TObject);
   Begin
-   If fTitleSource <> '' Then Caption := Tr(fTitleSource);
+   If fTitleSource <> '' Then
+    Caption := Tr(fTitleSource);
   End;
 
  Procedure TfrmReport.SetReport(Const Markdown : String; Landing : Boolean);
   Begin
-   If Landing Then fTitleSource := 'Analiza lądowania'
-   Else fTitleSource := 'Analiza startu';
+   If Landing Then
+    fTitleSource := 'Analiza lądowania'
+   Else
+    fTitleSource := 'Analiza startu';
    SetReport(Markdown);
   End;
 
  Procedure TfrmReport.SetReport(Const Markdown : String);
   Begin
-   If fTitleSource = '' Then fTitleSource := 'Analiza kontaktu z pasem';
+   If fTitleSource = '' Then
+    fTitleSource := 'Analiza kontaktu z pasem';
    TranslateTitle(Self);
-   fHTML           := False;
-   fReport         := Markdown;
+   fHTML        := False;
+   fReport      := Markdown;
    mReport.Text := Markdown;
    If (fBrowser <> Nil) And fBrowser.Initialized Then
     fBrowser.NavigateToString(DocumentHTML);
@@ -122,7 +129,7 @@ Implementation
   Begin
    A := TCoreWebView2NavigationCompletedEventArgs.Create(Args);
    Try
-    mReport.Visible   := Not A.IsSuccess;
+    mReport.Visible      := Not A.IsSuccess;
     BrowserPanel.Visible := A.IsSuccess;
    Finally
     A.Free;

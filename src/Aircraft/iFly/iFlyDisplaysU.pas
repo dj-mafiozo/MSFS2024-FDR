@@ -1,4 +1,5 @@
-﻿Unit iFlyDisplaysU;
+﻿{$StackFrames On}
+Unit iFlyDisplaysU;
 
 Interface
 

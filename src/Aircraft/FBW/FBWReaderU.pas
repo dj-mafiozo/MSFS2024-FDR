@@ -1,4 +1,5 @@
-﻿Unit FBWReaderU;
+﻿{$StackFrames On}
+Unit FBWReaderU;
 
 Interface
 

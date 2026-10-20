@@ -1,4 +1,5 @@
-﻿Unit AnalysisContextU;
+﻿{$StackFrames On}
+Unit AnalysisContextU;
 
 Interface
 

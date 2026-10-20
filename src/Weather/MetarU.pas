@@ -1,4 +1,5 @@
-﻿Unit MetarU;
+﻿{$StackFrames On}
+Unit MetarU;
 
 Interface
 

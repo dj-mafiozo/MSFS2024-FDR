@@ -1,5 +1,7 @@
 ﻿# Aufgezeichnete GSX-Pro-SDK-Werte
 
+[Übersetzungen der Oberfläche](../../Translation.de.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 Telemetry/GSXVarsU.pas liest unabhängig vom Flugzeug 16 numerische L-Vars über MSFS24 SimConnect. Jede hat eigene Definition/Anforderung; ein fehlendes Feld blockiert keine anderen. Keine WASM-Brücke, Steuerbefehle oder Schreibzugriffe.

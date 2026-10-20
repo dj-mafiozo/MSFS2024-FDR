@@ -16,15 +16,6 @@ object frmSimBrief: TfrmSimBrief
   Position = poOwnerFormCenter
   PixelsPerInch = 96
   TextHeight = 17
-  object ViewHost: TPanel
-    Left = 0
-    Top = 0
-    Width = 1000
-    Height = 770
-    Align = alClient
-    BevelOuter = bvNone
-    TabOrder = 0
-  end
   object btnClose: TButton
     Left = 0
     Top = 770
@@ -34,7 +25,29 @@ object frmSimBrief: TfrmSimBrief
     Cancel = True
     Caption = 'Zamknij'
     ModalResult = 2
+    TabOrder = 0
+  end
+  object ViewGroupBox: TGroupBox
+    AlignWithMargins = True
+    Left = 8
+    Top = 8
+    Width = 984
+    Height = 754
+    Margins.Left = 8
+    Margins.Top = 8
+    Margins.Right = 8
+    Margins.Bottom = 8
+    Align = alClient
     TabOrder = 1
+    object ViewHost: TPanel
+      Left = 2
+      Top = 19
+      Width = 980
+      Height = 733
+      Align = alClient
+      BevelOuter = bvNone
+      TabOrder = 0
+    end
   end
   object AppTranslator: TTranslator
     AutoBiDiLayout = False

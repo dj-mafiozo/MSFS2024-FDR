@@ -1,5 +1,7 @@
 ﻿# Local build/runtime dependencies
 
+[Interface translations](../Translation.en.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 Build the Win64 application with Delphi 10.2 VCL/FireDAC. Runtime files beside MSFS2024-FDR.exe: SimConnect.dll from MSFS2024 SDK/runtime, sqlite3.dll matching Win64, and WebView2Loader.dll from WebView4Delphi bin64. Microsoft Edge WebView2 Runtime is needed for rendered Markdown. The recorder uses SQLite, not the separate earlier Firebird recorder.

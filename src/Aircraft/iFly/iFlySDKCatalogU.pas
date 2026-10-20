@@ -1,4 +1,5 @@
-﻿Unit iFlySDKCatalogU;
+﻿{$StackFrames On}
+Unit iFlySDKCatalogU;
 
 Interface
 

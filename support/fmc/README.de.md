@@ -1,5 +1,7 @@
 ﻿# FMC/MCDU-Bildschirmverlauf
 
+[Übersetzungen der Oberfläche](../../Translation.de.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 TFMCScreen besitzt TStringList Lines: 14 Zeilen zu 24 Zeichen, einschließlich Leerzeichen und CRLF. FireDAC deaktiviert StrsTrim. iFly liefert Zeichen/Glyphen, komprimierte Farben/Schriften, HTML und CDU-Lampen; PMDG liefert Client Data CDU; Fenix/FBW benötigen den aktualisierten [FlightPadFMC-Client](../flightpad/README.de.md). Helligkeit beweist keine Stromversorgung; numerische L-Vars ersetzen keinen Text.

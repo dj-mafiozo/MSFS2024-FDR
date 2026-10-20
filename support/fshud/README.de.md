@@ -1,5 +1,7 @@
 ﻿# Leser des lokalen FSHud-Panels
 
+[Übersetzungen der Oberfläche](../../Translation.de.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 Die optionale Integration verwendet das inoffizielle Panelprotokoll `http://localhost:19786/`; Verbindung zuvor mit Version 2.1.200 geprüft. Der Leser holt Seite und referenziertes lokales Skript, erkennt Version/Protokollschlüssel, verbindet /ws und sendet nur die Clientvalidierung. Keine ATC-Antwortwahl, Einstellungsänderung oder Flugzeugsteuerung. Herstelleränderungen können eine Anpassung erfordern.

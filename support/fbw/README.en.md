@@ -1,4 +1,6 @@
-FlyByWire A32NX Flight Deck API integration
+﻿FlyByWire A32NX Flight Deck API integration
+
+[Interface translations](../../Translation.en.md)
 =========================================
 
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)

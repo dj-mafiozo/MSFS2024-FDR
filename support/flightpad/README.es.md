@@ -1,5 +1,7 @@
 ﻿# Pantallas MCDU de FlightPadFMC
 
+[Traducciones de la interfaz](../../Translation.es.md)
+
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 FDR obtiene el texto completo de un cliente Windows actualizado, activo y conectado: FenixA320MCDU, FenixA320Screen, FBWA320MCDU o FBWA320Screen. Un EXE antiguo sin exportador no entrega texto. FDR no inicia el cliente/servidor ni pulsa teclas.

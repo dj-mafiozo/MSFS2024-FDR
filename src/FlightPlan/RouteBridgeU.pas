@@ -1,4 +1,5 @@
-﻿Unit RouteBridgeU;
+﻿{$StackFrames On}
+Unit RouteBridgeU;
 
 Interface
 
