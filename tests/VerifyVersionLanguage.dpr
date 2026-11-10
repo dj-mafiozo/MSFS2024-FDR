@@ -75,8 +75,7 @@ Type
  [TestFixture]
  TVerifyVersionLanguageTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyVersionLanguageTests.Regression;
@@ -163,5 +162,4 @@ Procedure TVerifyVersionLanguageTests.Regression;
 
 Begin
  RunNativeTests(TVerifyVersionLanguageTests);
-
 End.

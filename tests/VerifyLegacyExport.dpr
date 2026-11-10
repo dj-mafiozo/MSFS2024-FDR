@@ -68,8 +68,7 @@ Type
  [TestFixture]
  TVerifyLegacyExportTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyLegacyExportTests.Regression;
@@ -320,5 +319,4 @@ Procedure TVerifyLegacyExportTests.Regression;
 
 Begin
  RunNativeTests(TVerifyLegacyExportTests);
-
 End.

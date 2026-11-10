@@ -70,8 +70,7 @@ Type
  [TestFixture]
  TVerifyFlightDirectorTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyFlightDirectorTests.Regression;
@@ -177,5 +176,4 @@ Procedure TVerifyFlightDirectorTests.Regression;
 
 Begin
  RunNativeTests(TVerifyFlightDirectorTests);
-
 End.

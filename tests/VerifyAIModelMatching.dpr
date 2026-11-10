@@ -24,8 +24,7 @@ Type
  [TestFixture]
  TVerifyAIModelMatchingTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyAIModelMatchingTests.Regression;
@@ -70,5 +69,4 @@ Procedure TVerifyAIModelMatchingTests.Regression;
 
 Begin
  RunNativeTests(TVerifyAIModelMatchingTests);
-
 End.

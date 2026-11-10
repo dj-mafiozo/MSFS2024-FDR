@@ -118,8 +118,7 @@ Type
  [TestFixture]
  TVerifyAirbusMCDUTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyAirbusMCDUTests.Regression;
@@ -363,5 +362,4 @@ Procedure TVerifyAirbusMCDUTests.Regression;
 
 Begin
  RunNativeTests(TVerifyAirbusMCDUTests);
-
 End.

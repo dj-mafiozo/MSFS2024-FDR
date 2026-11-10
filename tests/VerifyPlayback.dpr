@@ -110,8 +110,7 @@ Type
  [TestFixture]
  TVerifyPlaybackTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyPlaybackTests.Regression;
@@ -254,5 +253,4 @@ Procedure TVerifyPlaybackTests.Regression;
 
 Begin
  RunNativeTests(TVerifyPlaybackTests);
-
 End.

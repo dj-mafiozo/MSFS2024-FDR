@@ -145,5 +145,4 @@ Begin
   Mock
  Else
   RunNativeTests(TVerifyAnalysisTests);
-
 End.

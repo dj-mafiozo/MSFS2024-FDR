@@ -78,8 +78,7 @@ Type
  [TestFixture]
  TVerifyContextTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyContextTests.Regression;
@@ -273,5 +272,4 @@ Procedure TVerifyContextTests.Regression;
 
 Begin
  RunNativeTests(TVerifyContextTests);
-
 End.

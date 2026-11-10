@@ -68,8 +68,7 @@ Type
  [TestFixture]
  TVerifyIDEProjectSaveTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyIDEProjectSaveTests.Regression;
@@ -98,5 +97,4 @@ Procedure TVerifyIDEProjectSaveTests.Regression;
 
 Begin
  RunNativeTests(TVerifyIDEProjectSaveTests);
-
 End.

@@ -69,7 +69,6 @@ Begin
     Result := i;
     Best   := Length(FSLTLProfiles[i].Prefix);
    End;
-
 End;
 
  Function FSLTLUses(Const Title, SimVar : String) : Boolean;

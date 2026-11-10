@@ -41,8 +41,7 @@ Type
  [TestFixture]
  TVerifyNativeATCTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyNativeATCTests.Regression;
@@ -103,5 +102,4 @@ Procedure TVerifyNativeATCTests.Regression;
 
 Begin
  RunNativeTests(TVerifyNativeATCTests);
-
 End.

@@ -71,8 +71,7 @@ Type
  [TestFixture]
  TVerifySimBriefMapsTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifySimBriefMapsTests.Regression;
@@ -170,5 +169,4 @@ Procedure TVerifySimBriefMapsTests.Regression;
 
 Begin
  RunNativeTests(TVerifySimBriefMapsTests);
-
 End.

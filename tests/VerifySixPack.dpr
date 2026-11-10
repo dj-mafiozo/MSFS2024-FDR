@@ -367,8 +367,7 @@ Type
  [TestFixture]
  TVerifySixPackTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifySixPackTests.Regression;
@@ -503,5 +502,4 @@ Procedure TVerifySixPackTests.Regression;
 
 Begin
  RunNativeTests(TVerifySixPackTests);
-
 End.

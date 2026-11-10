@@ -69,8 +69,7 @@ Type
  [TestFixture]
  TVerifyPrecisionTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyPrecisionTests.Regression;
@@ -142,5 +141,4 @@ Procedure TVerifyPrecisionTests.Regression;
 
 Begin
  RunNativeTests(TVerifyPrecisionTests);
-
 End.

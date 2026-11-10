@@ -163,8 +163,7 @@ Type
  [TestFixture]
  TVerifyDetachedViewsTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyDetachedViewsTests.Regression;
@@ -357,5 +356,4 @@ Procedure TVerifyDetachedViewsTests.Regression;
 
 Begin
  RunNativeTests(TVerifyDetachedViewsTests);
-
 End.

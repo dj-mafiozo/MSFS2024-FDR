@@ -46,8 +46,7 @@ Type
  [TestFixture]
  TVerifySessionTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifySessionTests.Regression;
@@ -136,5 +135,4 @@ Procedure TVerifySessionTests.Regression;
 
 Begin
  RunNativeTests(TVerifySessionTests);
-
 End.

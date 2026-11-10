@@ -56,8 +56,7 @@ Type
  [TestFixture]
  TVerifyLocaleExpansionTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyLocaleExpansionTests.Regression;
@@ -126,5 +125,4 @@ Procedure TVerifyLocaleExpansionTests.Regression;
 
 Begin
  RunNativeTests(TVerifyLocaleExpansionTests);
-
 End.

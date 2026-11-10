@@ -11,5 +11,4 @@ Begin
   MessageDlg('Trwają prace nad instalatorem, aktualizatorem i deinstalatorem MSFS24-FDR. Obecne wydanie należy rozpakować i uruchomić ręcznie.', mtInformation, [mbOK], 0)
  Else
   MessageDlg('The MSFS24-FDR installer, updater and uninstaller are under development. Extract and run this release manually.', mtInformation, [mbOK], 0);
-
 End.

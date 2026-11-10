@@ -65,8 +65,7 @@ Type
  [TestFixture]
  TVerifyChartDragTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyChartDragTests.Regression;
@@ -180,5 +179,4 @@ Procedure TVerifyChartDragTests.Regression;
 
 Begin
  RunNativeTests(TVerifyChartDragTests);
-
 End.

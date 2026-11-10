@@ -409,8 +409,7 @@ Type
  [TestFixture]
  TVerifyAirbusDisplaysTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyAirbusDisplaysTests.Regression;
@@ -432,5 +431,4 @@ Procedure TVerifyAirbusDisplaysTests.Regression;
 
 Begin
  RunNativeTests(TVerifyAirbusDisplaysTests);
-
 End.

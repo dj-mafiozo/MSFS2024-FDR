@@ -238,5 +238,4 @@ Procedure TReleasePEMTests.EncryptedFixtureRoundTrip;
 
 Begin
  RunNativeTests(TReleasePEMTests);
-
 End.

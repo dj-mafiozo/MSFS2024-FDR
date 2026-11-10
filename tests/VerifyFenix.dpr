@@ -95,8 +95,7 @@ Type
  [TestFixture]
  TVerifyFenixTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyFenixTests.Regression;
@@ -390,5 +389,4 @@ Procedure TVerifyFenixTests.Regression;
 
 Begin
  RunNativeTests(TVerifyFenixTests);
-
 End.

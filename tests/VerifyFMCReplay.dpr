@@ -44,8 +44,7 @@ Type
  [TestFixture]
  TVerifyFMCReplayTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyFMCReplayTests.Regression;
@@ -161,5 +160,4 @@ Procedure TVerifyFMCReplayTests.Regression;
 
 Begin
  RunNativeTests(TVerifyFMCReplayTests);
-
 End.

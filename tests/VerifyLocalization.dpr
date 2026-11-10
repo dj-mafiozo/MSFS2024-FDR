@@ -44,8 +44,7 @@ Type
  [TestFixture]
  TVerifyLocalizationTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyLocalizationTests.Regression;
@@ -187,5 +186,4 @@ Procedure TVerifyLocalizationTests.Regression;
 
 Begin
  RunNativeTests(TVerifyLocalizationTests);
-
 End.

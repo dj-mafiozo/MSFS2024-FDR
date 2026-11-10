@@ -42,8 +42,7 @@ Type
  [TestFixture]
  TVerifyAddonLVarsTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyAddonLVarsTests.Regression;
@@ -160,5 +159,4 @@ Procedure TVerifyAddonLVarsTests.Regression;
 
 Begin
  RunNativeTests(TVerifyAddonLVarsTests);
-
 End.

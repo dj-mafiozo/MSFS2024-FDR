@@ -72,8 +72,7 @@ Type
  [TestFixture]
  TVerifyChartViewTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyChartViewTests.Regression;
@@ -140,5 +139,4 @@ Procedure TVerifyChartViewTests.Regression;
 
 Begin
  RunNativeTests(TVerifyChartViewTests);
-
 End.

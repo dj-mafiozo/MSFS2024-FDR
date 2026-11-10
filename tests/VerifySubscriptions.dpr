@@ -51,8 +51,7 @@ Type
  [TestFixture]
  TVerifySubscriptionsTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifySubscriptionsTests.Regression;
@@ -158,5 +157,4 @@ Procedure TVerifySubscriptionsTests.Regression;
 
 Begin
  RunNativeTests(TVerifySubscriptionsTests);
-
 End.

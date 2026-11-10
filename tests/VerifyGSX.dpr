@@ -62,8 +62,7 @@ Type
  [TestFixture]
  TVerifyGSXTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyGSXTests.Regression;
@@ -221,5 +220,4 @@ Procedure TVerifyGSXTests.Regression;
 
 Begin
  RunNativeTests(TVerifyGSXTests);
-
 End.

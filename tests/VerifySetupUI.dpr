@@ -123,8 +123,7 @@ Type
  [TestFixture]
  TVerifySetupUITests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifySetupUITests.Regression;
@@ -214,5 +213,4 @@ Procedure TVerifySetupUITests.Regression;
 
 Begin
  RunNativeTests(TVerifySetupUITests);
-
 End.

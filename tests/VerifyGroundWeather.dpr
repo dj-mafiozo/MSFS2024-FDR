@@ -44,8 +44,7 @@ Type
  [TestFixture]
  TVerifyGroundWeatherTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyGroundWeatherTests.Regression;
@@ -130,5 +129,4 @@ Procedure TVerifyGroundWeatherTests.Regression;
 
 Begin
  RunNativeTests(TVerifyGroundWeatherTests);
-
 End.

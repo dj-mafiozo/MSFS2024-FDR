@@ -105,5 +105,4 @@ Procedure THelpContextsTests.DFMAndLocalizedManual;
 
 Begin
  RunNativeTests(THelpContextsTests);
-
 End.

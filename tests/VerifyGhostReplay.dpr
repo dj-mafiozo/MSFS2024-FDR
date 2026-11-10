@@ -37,8 +37,7 @@ Type
  [TestFixture]
  TVerifyGhostReplayTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyGhostReplayTests.Regression;
@@ -186,5 +185,4 @@ Procedure TVerifyGhostReplayTests.Regression;
 
 Begin
  RunNativeTests(TVerifyGhostReplayTests);
-
 End.

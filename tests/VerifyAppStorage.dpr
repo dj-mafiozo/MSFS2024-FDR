@@ -30,8 +30,7 @@ Type
  [TestFixture]
  TVerifyAppStorageTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyAppStorageTests.Regression;
@@ -118,5 +117,4 @@ Procedure TVerifyAppStorageTests.Regression;
 
 Begin
  RunNativeTests(TVerifyAppStorageTests);
-
 End.

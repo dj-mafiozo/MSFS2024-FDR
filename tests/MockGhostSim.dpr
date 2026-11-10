@@ -215,5 +215,4 @@ Exports
 
 Begin
  Queue := TQueue<TBytes>.Create;
-
 End.

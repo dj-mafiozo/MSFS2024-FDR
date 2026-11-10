@@ -833,5 +833,4 @@ Begin
   End;
  Plot.Free;
  System.Writeln('PASS: detached localized frames, complete instrument/ECAM gallery and standard catalog.');
-
 End.

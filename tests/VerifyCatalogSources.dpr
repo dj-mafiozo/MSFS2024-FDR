@@ -311,5 +311,4 @@ Procedure TCatalogSourcesTests.CommittedProvenance;
 
 Begin
  RunNativeTests(TCatalogSourcesTests);
-
 End.

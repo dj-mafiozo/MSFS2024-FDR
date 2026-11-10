@@ -62,8 +62,7 @@ Type
  [TestFixture]
  TVerifyGlobalLocalesTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyGlobalLocalesTests.Regression;
@@ -155,5 +154,4 @@ Procedure TVerifyGlobalLocalesTests.Regression;
 
 Begin
  RunNativeTests(TVerifyGlobalLocalesTests);
-
 End.

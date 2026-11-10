@@ -34,8 +34,7 @@ Type
  [TestFixture]
  TVerifyFlapsHandleTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyFlapsHandleTests.Regression;
@@ -91,5 +90,4 @@ Procedure TVerifyFlapsHandleTests.Regression;
 
 Begin
  RunNativeTests(TVerifyFlapsHandleTests);
-
 End.

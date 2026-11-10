@@ -84,8 +84,7 @@ Type
  [TestFixture]
  TVerifyRecordingWorkerTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyRecordingWorkerTests.Regression;
@@ -160,5 +159,4 @@ Procedure TVerifyRecordingWorkerTests.Regression;
 
 Begin
  RunNativeTests(TVerifyRecordingWorkerTests);
-
 End.

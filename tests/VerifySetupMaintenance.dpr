@@ -199,8 +199,7 @@ Type
  [TestFixture]
  TVerifySetupMaintenanceTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifySetupMaintenanceTests.Regression;
@@ -229,5 +228,4 @@ Procedure TVerifySetupMaintenanceTests.Regression;
 
 Begin
  RunNativeTests(TVerifySetupMaintenanceTests);
-
 End.

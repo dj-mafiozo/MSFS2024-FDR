@@ -71,8 +71,7 @@ Type
  [TestFixture]
  TVerifyRecordingTreeTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyRecordingTreeTests.Regression;
@@ -156,5 +155,4 @@ Procedure TVerifyRecordingTreeTests.Regression;
 
 Begin
  RunNativeTests(TVerifyRecordingTreeTests);
-
 End.

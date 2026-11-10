@@ -328,8 +328,7 @@ Type
  [TestFixture]
  TVerifyB38MEICASTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyB38MEICASTests.Regression;
@@ -351,5 +350,4 @@ Procedure TVerifyB38MEICASTests.Regression;
 
 Begin
  RunNativeTests(TVerifyB38MEICASTests);
-
 End.

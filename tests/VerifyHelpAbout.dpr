@@ -105,8 +105,7 @@ Type
  [TestFixture]
  TVerifyHelpAboutTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyHelpAboutTests.Regression;
@@ -261,5 +260,4 @@ Procedure TVerifyHelpAboutTests.Regression;
 
 Begin
  RunNativeTests(TVerifyHelpAboutTests);
-
 End.

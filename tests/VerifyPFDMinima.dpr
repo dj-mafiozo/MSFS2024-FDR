@@ -56,8 +56,7 @@ Type
  [TestFixture]
  TVerifyPFDMinimaTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyPFDMinimaTests.Regression;
@@ -119,5 +118,4 @@ Procedure TVerifyPFDMinimaTests.Regression;
 
 Begin
  RunNativeTests(TVerifyPFDMinimaTests);
-
 End.

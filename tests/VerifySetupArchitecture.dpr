@@ -36,8 +36,7 @@ Type
  [TestFixture]
  TVerifySetupArchitectureTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifySetupArchitectureTests.Regression;
@@ -90,5 +89,4 @@ Procedure TVerifySetupArchitectureTests.Regression;
 
 Begin
  RunNativeTests(TVerifySetupArchitectureTests);
-
 End.

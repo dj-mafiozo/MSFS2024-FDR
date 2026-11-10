@@ -27,8 +27,7 @@ Type
  [TestFixture]
  TVerifyParameterValuesTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyParameterValuesTests.Regression;
@@ -113,5 +112,4 @@ Procedure TVerifyParameterValuesTests.Regression;
 
 Begin
  RunNativeTests(TVerifyParameterValuesTests);
-
 End.

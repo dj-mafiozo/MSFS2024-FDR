@@ -33,8 +33,7 @@ Type
  [TestFixture]
  TVerifyPanelProportionsTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyPanelProportionsTests.Regression;
@@ -148,5 +147,4 @@ Procedure TVerifyPanelProportionsTests.Regression;
 
 Begin
  RunNativeTests(TVerifyPanelProportionsTests);
-
 End.

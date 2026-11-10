@@ -37,8 +37,7 @@ Type
  [TestFixture]
  TVerifyTripInfoTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyTripInfoTests.Regression;
@@ -120,5 +119,4 @@ Procedure TVerifyTripInfoTests.Regression;
 
 Begin
  RunNativeTests(TVerifyTripInfoTests);
-
 End.

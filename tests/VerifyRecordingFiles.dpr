@@ -333,5 +333,4 @@ Begin
   CrashFixture(ParamStr(2))
  Else
   RunNativeTests(TVerifyRecordingFilesTests);
-
 End.

@@ -48,8 +48,7 @@ Type
  [TestFixture]
  TVerifyPFD737Tests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
    [Test] Procedure LocalizedConstruction;
  End;
 
@@ -273,5 +272,4 @@ Procedure TVerifyPFD737Tests.LocalizedConstruction;
 
 Begin
  RunNativeTests(TVerifyPFD737Tests);
-
 End.

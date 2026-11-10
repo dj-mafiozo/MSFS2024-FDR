@@ -34,8 +34,7 @@ Type
  [TestFixture]
  TVerifyDisplayUnitsTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyDisplayUnitsTests.Regression;
@@ -130,5 +129,4 @@ Procedure TVerifyDisplayUnitsTests.Regression;
 
 Begin
  RunNativeTests(TVerifyDisplayUnitsTests);
-
 End.

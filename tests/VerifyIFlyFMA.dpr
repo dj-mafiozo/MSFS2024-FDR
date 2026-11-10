@@ -87,8 +87,7 @@ Type
  [TestFixture]
  TVerifyIFlyFMATests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyIFlyFMATests.Regression;
@@ -151,5 +150,4 @@ Procedure TVerifyIFlyFMATests.Regression;
 
 Begin
  RunNativeTests(TVerifyIFlyFMATests);
-
 End.

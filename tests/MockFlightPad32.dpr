@@ -77,5 +77,4 @@ Begin
   CloseHandle(Change);
   CloseHandle(Offline);
  End;
-
 End.

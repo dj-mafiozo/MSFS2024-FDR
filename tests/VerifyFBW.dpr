@@ -91,8 +91,7 @@ Type
  [TestFixture]
  TVerifyFBWTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyFBWTests.Regression;
@@ -246,5 +245,4 @@ Procedure TVerifyFBWTests.Regression;
 
 Begin
  RunNativeTests(TVerifyFBWTests);
-
 End.

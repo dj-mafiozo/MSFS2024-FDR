@@ -158,5 +158,4 @@ Begin
  Queued  := TDictionary<DWORD, Boolean>.Create;
  Names   := TDictionary<DWORD, String>.Create;
  MockReset(0);
-
 End.

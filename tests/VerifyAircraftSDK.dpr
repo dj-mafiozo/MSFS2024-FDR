@@ -81,8 +81,7 @@ Type
  [TestFixture]
  TVerifyAircraftSDKTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyAircraftSDKTests.Regression;
@@ -268,5 +267,4 @@ Procedure TVerifyAircraftSDKTests.Regression;
 
 Begin
  RunNativeTests(TVerifyAircraftSDKTests);
-
 End.

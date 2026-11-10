@@ -70,8 +70,7 @@ Type
  [TestFixture]
  TVerifyPFDReadoutsTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyPFDReadoutsTests.Regression;
@@ -200,5 +199,4 @@ Procedure TVerifyPFDReadoutsTests.Regression;
 
 Begin
  RunNativeTests(TVerifyPFDReadoutsTests);
-
 End.

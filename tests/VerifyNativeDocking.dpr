@@ -83,8 +83,7 @@ Type
  [TestFixture]
  TVerifyNativeDockingTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyNativeDockingTests.Regression;
@@ -159,5 +158,4 @@ Procedure TVerifyNativeDockingTests.Regression;
 
 Begin
  RunNativeTests(TVerifyNativeDockingTests);
-
 End.

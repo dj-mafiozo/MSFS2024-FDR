@@ -302,8 +302,7 @@ Type
  [TestFixture]
  TVerifyViewStateTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyViewStateTests.Regression;
@@ -326,5 +325,4 @@ Procedure TVerifyViewStateTests.Regression;
 
 Begin
  RunNativeTests(TVerifyViewStateTests);
-
 End.

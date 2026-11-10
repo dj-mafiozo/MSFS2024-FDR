@@ -62,8 +62,7 @@ Type
  [TestFixture]
  TVerifyMetarTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyMetarTests.Regression;
@@ -187,5 +186,4 @@ Procedure TVerifyMetarTests.Regression;
 
 Begin
  RunNativeTests(TVerifyMetarTests);
-
 End.

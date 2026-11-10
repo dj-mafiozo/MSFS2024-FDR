@@ -47,8 +47,7 @@ Type
  [TestFixture]
  TVerifySimulatorVersionTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifySimulatorVersionTests.Regression;
@@ -93,5 +92,4 @@ Procedure TVerifySimulatorVersionTests.Regression;
 
 Begin
  RunNativeTests(TVerifySimulatorVersionTests);
-
 End.

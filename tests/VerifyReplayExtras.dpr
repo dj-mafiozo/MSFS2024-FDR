@@ -22,8 +22,7 @@ Type
  [TestFixture]
  TVerifyReplayExtrasTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyReplayExtrasTests.Regression;
@@ -67,5 +66,4 @@ Procedure TVerifyReplayExtrasTests.Regression;
 
 Begin
  RunNativeTests(TVerifyReplayExtrasTests);
-
 End.

@@ -23,8 +23,7 @@ Type
  [TestFixture]
  TVerifyDiagnosticsTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyDiagnosticsTests.Regression;
@@ -60,5 +59,4 @@ Procedure TVerifyDiagnosticsTests.Regression;
 
 Begin
  RunNativeTests(TVerifyDiagnosticsTests);
-
 End.

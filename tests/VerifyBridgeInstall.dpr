@@ -28,8 +28,7 @@ Type
  [TestFixture]
  TVerifyBridgeInstallTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyBridgeInstallTests.Regression;
@@ -84,5 +83,4 @@ Procedure TVerifyBridgeInstallTests.Regression;
 
 Begin
  RunNativeTests(TVerifyBridgeInstallTests);
-
 End.

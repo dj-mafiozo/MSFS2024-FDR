@@ -75,8 +75,7 @@ Type
  [TestFixture]
  TVerifyBoeingFMCTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyBoeingFMCTests.Regression;
@@ -209,5 +208,4 @@ Procedure TVerifyBoeingFMCTests.Regression;
 
 Begin
  RunNativeTests(TVerifyBoeingFMCTests);
-
 End.

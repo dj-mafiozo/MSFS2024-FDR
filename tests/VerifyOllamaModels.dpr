@@ -78,8 +78,7 @@ Type
  [TestFixture]
  TVerifyOllamaModelsTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyOllamaModelsTests.Regression;
@@ -184,5 +183,4 @@ Procedure TVerifyOllamaModelsTests.Regression;
 
 Begin
  RunNativeTests(TVerifyOllamaModelsTests);
-
 End.

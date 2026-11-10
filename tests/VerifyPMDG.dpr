@@ -110,8 +110,7 @@ Type
  [TestFixture]
  TVerifyPMDGTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyPMDGTests.Regression;
@@ -385,5 +384,4 @@ Procedure TVerifyPMDGTests.Regression;
 
 Begin
  RunNativeTests(TVerifyPMDGTests);
-
 End.

@@ -59,8 +59,7 @@ Type
  [TestFixture]
  TVerifyFlightPadAppearanceTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyFlightPadAppearanceTests.Regression;
@@ -139,5 +138,4 @@ Procedure TVerifyFlightPadAppearanceTests.Regression;
 
 Begin
  RunNativeTests(TVerifyFlightPadAppearanceTests);
-
 End.

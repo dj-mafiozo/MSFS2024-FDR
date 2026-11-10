@@ -38,8 +38,7 @@ Type
  [TestFixture]
  TVerifyFSHudTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyFSHudTests.Regression;
@@ -194,5 +193,4 @@ Procedure TVerifyFSHudTests.Regression;
 
 Begin
  RunNativeTests(TVerifyFSHudTests);
-
 End.

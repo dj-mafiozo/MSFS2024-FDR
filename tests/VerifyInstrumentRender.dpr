@@ -65,8 +65,7 @@ Type
  [TestFixture]
  TVerifyInstrumentRenderTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyInstrumentRenderTests.Regression;
@@ -162,5 +161,4 @@ Procedure TVerifyInstrumentRenderTests.Regression;
 
 Begin
  RunNativeTests(TVerifyInstrumentRenderTests);
-
 End.

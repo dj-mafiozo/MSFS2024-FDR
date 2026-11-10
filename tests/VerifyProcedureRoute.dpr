@@ -113,8 +113,7 @@ Type
  [TestFixture]
  TVerifyProcedureRouteTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyProcedureRouteTests.Regression;
@@ -254,5 +253,4 @@ Procedure TVerifyProcedureRouteTests.Regression;
 
 Begin
  RunNativeTests(TVerifyProcedureRouteTests);
-
 End.

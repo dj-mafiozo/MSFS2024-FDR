@@ -27,8 +27,7 @@ Type
  [TestFixture]
  TVerifyLegacyTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyLegacyTests.Regression;
@@ -73,5 +72,4 @@ Procedure TVerifyLegacyTests.Regression;
 
 Begin
  RunNativeTests(TVerifyLegacyTests);
-
 End.

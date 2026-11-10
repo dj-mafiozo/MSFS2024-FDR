@@ -52,8 +52,7 @@ Type
  [TestFixture]
  TVerifySimBacklogTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifySimBacklogTests.Regression;
@@ -105,5 +104,4 @@ Procedure TVerifySimBacklogTests.Regression;
 
 Begin
  RunNativeTests(TVerifySimBacklogTests);
-
 End.

@@ -48,8 +48,7 @@ Type
  [TestFixture]
  TVerifySetupSignatureTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifySetupSignatureTests.Regression;
@@ -136,5 +135,4 @@ Procedure TVerifySetupSignatureTests.Regression;
 
 Begin
  RunNativeTests(TVerifySetupSignatureTests);
-
 End.

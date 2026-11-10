@@ -256,7 +256,6 @@ Begin
  RegisterFunc := self.GetFuncPtr('LdrRegisterDllNotification');
  If Assigned(RegisterFunc) Then
   MyAssert(RegisterFunc(0, self.OsDllNotification, Nil, fHandlerCookie) = STATUS_SUCCESS);
-
 End;
 
 // ===================================================================================================================
@@ -273,7 +272,6 @@ Begin
    UnregisterFunc := self.GetFuncPtr('LdrUnregisterDllNotification');
    MyAssert(UnregisterFunc(fHandlerCookie) = STATUS_SUCCESS);
   End;
-
 End;
 
 // ===================================================================================================================
@@ -284,7 +282,6 @@ End;
 Begin
  fSymSearchPath := Value;
  fDoReinit      := true;
-
 End;
 
 // ===================================================================================================================
@@ -331,7 +328,6 @@ Begin
 
    MyAssert(DbgHelp.SymInitialize(fProcess, PChar(SearchPath), true));
   End;
-
 End;
 
 // ===================================================================================================================
@@ -347,7 +343,6 @@ Begin
    MyAssert(Winapi.Windows.CloseHandle(fProcess));
    fProcess := 0;
   End;
-
 End;
 
 // ===================================================================================================================
@@ -357,7 +352,6 @@ End;
 
 Begin
  Result := Winapi.Windows.GetProcAddress(Winapi.Windows.LoadLibrary('ntdll.dll'), FuncName);
-
 End;
 
 // ===================================================================================================================
@@ -369,7 +363,6 @@ End;
 Begin
  If Reason = LDR_DLL_NOTIFICATION_REASON_UNLOADED Then
   fDoReinit := true;
-
 End;
 
 // ===================================================================================================================
@@ -388,7 +381,6 @@ Begin
   Result := '???'
  Else
   Result := Buffer;
-
 End;
 
 // ===================================================================================================================
@@ -445,7 +437,6 @@ Begin
  Finally
   FLock.ReleaseExclusive;
  End;
-
 End;
 
 // ===================================================================================================================
@@ -516,7 +507,6 @@ Begin
  Finally
   FLock.ReleaseExclusive;
  End;
-
 End;
 
 // ===================================================================================================================
@@ -536,7 +526,6 @@ Begin
     Result := Result + #13#10;
    Result  := Result + '  at ' + self.ProcessFrame(Addrs[i]).ToString;
   End;
-
 End;
 
 // ===================================================================================================================
@@ -590,7 +579,6 @@ Begin
  self.DoSetupContext(Ctx);
  Count  := self.DoGetStackTrace(Ctx, 1, Addrs);
  Result := self.InterpretStackTrace(Addrs, Count);
-
 End;
 
  Type
@@ -663,7 +651,6 @@ Begin
  FSavedErrorProc  := System.ErrorProc;
  System.ErrorProc := TExceptionHelp.ErrorProc;
  {$Endif}
-
 End;
 
 // ===================================================================================================================
@@ -680,7 +667,6 @@ Begin
  System.SysUtils.Exception.GetExceptionStackInfoProc := Nil;
  // Release should remain possible: System.SysUtils.Exception.CleanupStackInfoProc not cleared
  System.SysUtils.Exception.GetStackInfoStringProc := Nil;
-
 End;
 
 {$Ifndef Win64}
@@ -738,7 +724,6 @@ Begin
   End;
 
  Result := 0; // EXCEPTION_CONTINUE_SEARCH
-
 End;
 
 // ===================================================================================================================
@@ -805,7 +790,6 @@ Begin
 
  System.GetMem(Result, SizeOf(TFrames));
  PFrames(Result).Count := TStackTraceHlp.DoGetStackTrace(Ctx, SkipFrames, PFrames(Result).Addrs);
-
 End;
 
 {$Else}
@@ -871,7 +855,6 @@ Begin
    OsCtx.ValidCtx := false;
    OsCtx.Stack    := PFrames(Result)^;
   End;
-
 End;
 {$Endif}
 
@@ -885,7 +868,6 @@ Begin
  // InvalidPointer.*Free* should be *FreeInstance* (as a few lines before with OutOfMemory.FreeInstance)
  // => CleanupStackInfo is also called for the shared "InvalidPointer" object which has no StackInfo
  System.FreeMem(Info);
-
 End;
 
 // ===================================================================================================================
@@ -898,7 +880,6 @@ Begin
   Result := ''
  Else
   Result := TStackTraceHlp.InterpretStackTrace(PFrames(Info).Addrs, PFrames(Info).Count);
-
 End;
 
 Initialization

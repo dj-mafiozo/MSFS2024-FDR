@@ -83,8 +83,7 @@ Type
  [TestFixture]
  TVerifyChartsConfigureTests = Class
   Public
-   [Test]
-   Procedure Regression;
+   [Test] Procedure Regression;
  End;
 
 Procedure TVerifyChartsConfigureTests.Regression;
@@ -297,5 +296,4 @@ Procedure TVerifyChartsConfigureTests.Regression;
 
 Begin
  RunNativeTests(TVerifyChartsConfigureTests);
-
 End.
