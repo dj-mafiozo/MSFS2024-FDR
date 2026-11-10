@@ -14,7 +14,10 @@ Interface
  Type
   TLocalizedForm = Class(TForm)
    Private
+    fMenuVisualState    : String;
+    fMenuRepaintPending : Boolean;
     Procedure CMMenuChanged(Var Message : TMessage); Message CM_MENUCHANGED;
+    Procedure RepaintMenu(Var Message : TMessage); Message WM_APP + $31F;
    Public
     Constructor Create(AOwner : TComponent); Override;
   End;
@@ -368,18 +371,46 @@ Implementation
   End;
 
  Procedure TLocalizedForm.CMMenuChanged(Var Message : TMessage);
+  Var
+   State : String;
+   i     : Integer;
+   Item  : TMenuItem;
   Begin
-   // VCL SetMenu reassigns WindowHandle even for the already attached HMENU.
-   // On MiddleEast Windows this invokes AdjustBiDiBehavior (RTL then LTR)
-   // and DrawMenuBar twice. Native item changes need repainting, not reattaching.
+   // Submenu action updates do not change the visible menu bar. Reattaching
+   // invokes VCL's RTL workaround; unconditional DrawMenuBar also flickers.
    If (FormStyle = fsNormal) And HandleAllocated And (Menu <> Nil) And
-   (GetMenu(Handle) = Menu.Handle) Then
+   Not Menu.AutoMerge And (GetMenu(Handle) = Menu.Handle) Then
     Begin
-     DrawMenuBar(Handle);
+     State := IntToStr(Ord(BiDiMode));
+     For i := 0 To Menu.Items.Count - 1 Do
+      Begin
+       Item := Menu.Items[i];
+       If Item.Visible Then
+        State := State + Format('|%d:%s:%d:%d:%d',
+        [Length(Item.Caption), Item.Caption, Ord(Item.Enabled),
+        Ord(Item.Checked), Item.ImageIndex]);
+      End;
+     If State <> fMenuVisualState Then
+      Begin
+       fMenuVisualState := State;
+       If Not fMenuRepaintPending Then
+        fMenuRepaintPending := PostMessage(Handle, WM_APP + $31F, 0, 0);
+      End;
      Message.Result := 0;
     End
    Else
-    Inherited;
+    Begin
+     fMenuVisualState := '';
+     Inherited;
+    End;
+  End;
+
+ Procedure TLocalizedForm.RepaintMenu(Var Message : TMessage);
+  Begin
+   fMenuRepaintPending := False;
+   If HandleAllocated And (Menu <> Nil) And (GetMenu(Handle) = Menu.Handle) Then
+    DrawMenuBar(Handle);
+   Message.Result := 0;
   End;
 
  Constructor TLocalizedForm.Create(AOwner : TComponent);

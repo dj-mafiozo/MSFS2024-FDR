@@ -6,7 +6,27 @@
 
 Uses
  TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
- System.SysUtils, System.IniFiles, System.IOUtils, Vcl.Forms, Vcl.Graphics, Vcl.Imaging.pngimage, VersionU, LocalizationU, frmMainU, frmSettingsU, frmAboutU;
+ System.SysUtils, System.IniFiles, System.IOUtils, Vcl.Forms, Vcl.Graphics, Vcl.Imaging.pngimage, VersionU, LocalizationU, frmMainU, frmSettingsU, frmAboutU, frmChartsConfigureU;
+
+Procedure Check(b : Boolean; Const m : String); Forward;
+
+Procedure CheckSearchHints(Main : TfrmMain);
+ Var
+  Charts : TfrmChartsConfigure;
+ Begin
+  SetLanguage('en-US');
+  Charts := TfrmChartsConfigure.Create(Nil);
+  Try
+   Check(Main.eSearch.TextHint = 'Search recordings', 'Recording search hint');
+   Check(Main.eValueSearch.TextHint = 'Search parameters', 'Value search hint');
+   Check(Charts.eSearch.TextHint = 'Search parameters', 'Chart search hint');
+   SetLanguage('pl-PL');
+   Check(Main.eSearch.TextHint = 'Szukaj nagrania lotu', 'Recording hint restored');
+   Check(Main.eValueSearch.TextHint = 'Szukaj parametru', 'Value hint restored');
+  Finally
+   Charts.Free;
+  End;
+ End;
 
 Procedure Check(b : Boolean; Const m : String);
  Begin
@@ -67,6 +87,8 @@ Procedure TVerifyVersionLanguageTests.Regression;
     Check(NormalizeLanguage(Inputs[i]) = Expected[i], 'Regional normalization ' + Inputs[i]);
    SetLanguage('auto');
    Check((LanguagePreference = 'auto') And (Language = WindowsLanguage), 'Windows auto resolution');
+   Check(TFile.ReadAllText(ExtractFilePath(ParamStr(0)) + '..\bin\MSFS2024-FDR.i18n', TEncoding.UTF8) =
+   TFile.ReadAllText(ExtractFilePath(ParamStr(0)) + '..\translations\MSFS2024-FDR.i18n', TEncoding.UTF8), 'Build deploys current translation catalog');
    v := ReadVersionInfo(ExtractFilePath(ParamStr(0)) + '..\bin\MSFS2024-FDR.exe');
    Check(v.Available And (v.FileVersion = ExeVersionInfo.FileVersion), 'Resource fixed version');
    Check((v.ProductVersion = '0.1') And (v.CompanyName = 'DJ M@fi0z0' + #$2122), 'Preserved metadata/Unicode');
@@ -80,6 +102,7 @@ Procedure TVerifyVersionLanguageTests.Regression;
     m.Timer.Enabled := False;
     m.aLangAuto.Execute;
     Check((LanguagePreference = 'auto') And m.aLangAuto.Checked, 'Auto action');
+    CheckSearchHints(m);
     m.aFrench.Execute;
     Check((Language = 'fr-FR') And m.aFrench.Checked And Not m.aLangAuto.Checked, 'French action');
     m.aRussian.Execute;

@@ -22168,6 +22168,41 @@
       <Translation Locale="he-IL">ניגון מטוס רפאים</Translation>
       <Translation Locale="id-ID">Pemutaran pesawat bayangan</Translation>
     </Property>
+    <Property ID="eValueSearch.TextHint">
+      <Value>Szukaj parametru</Value>
+      <Translation Locale="pl-PL">Szukaj parametru</Translation>
+      <Translation Locale="en-US">Search parameters</Translation>
+      <Translation Locale="de-DE">Parameter suchen</Translation>
+      <Translation Locale="es-ES">Buscar parámetros</Translation>
+      <Translation Locale="fr-FR">Paramètres de recherche</Translation>
+      <Translation Locale="ru-RU">Параметры поиска</Translation>
+      <Translation Locale="tr-TR">Arama Parametreleri</Translation>
+      <Translation Locale="it-IT">Parametri di ricerca</Translation>
+      <Translation Locale="pt-PT">Parâmetros de pesquisa</Translation>
+      <Translation Locale="en-GB">Search parametres</Translation>
+      <Translation Locale="fr-CA">Paramètres de recherche</Translation>
+      <Translation Locale="pt-BR">Pesquisar parâmetros</Translation>
+      <Translation Locale="de-AT">Parameter suchen</Translation>
+      <Translation Locale="de-CH">Parameter suchen</Translation>
+      <Translation Locale="be-BY">Пошук параметраў</Translation>
+      <Translation Locale="el-GR">Αναζήτηση παραμέτρων</Translation>
+      <Translation Locale="uk-UA">Пошук параметрів</Translation>
+      <Translation Locale="hr-HR">Pretraži parametre</Translation>
+      <Translation Locale="cs-CZ">Hledat parametry</Translation>
+      <Translation Locale="da-DK">Søg parametre</Translation>
+      <Translation Locale="nl-NL">Zoekparameters</Translation>
+      <Translation Locale="fi-FI">Etsiparametrit</Translation>
+      <Translation Locale="nb-NO">Søkparametere</Translation>
+      <Translation Locale="sk-SK">Hľadať parametre</Translation>
+      <Translation Locale="sv-SE">Sök parametrar</Translation>
+      <Translation Locale="zh-CN">搜索参数</Translation>
+      <Translation Locale="ja-JP">検索パラメータ</Translation>
+      <Translation Locale="vi-VN">Tham số tìm kiếm</Translation>
+      <Translation Locale="hi-IN">खोज पैरामीटर</Translation>
+      <Translation Locale="ar-SA">بحث المعايير</Translation>
+      <Translation Locale="he-IL">פרמטרים של חיפוש</Translation>
+      <Translation Locale="id-ID">Cari parameter</Translation>
+    </Property>
   </Domain>
   <Domain Name="frmReport">
     <Property ID="btnClose.Caption">

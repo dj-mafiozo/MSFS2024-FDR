@@ -627,3 +627,5 @@ Help encoding: VerifyHelpContexts reads HTML/HHC using the matching Windows code
 Report regression: VerifyReport shares HelpScreenshotU with the help capture tool. It checks retained text and native EM_FORMATRANGE bitmap rendering; capture also requires visible text pixels. PL/EN/DE/ES reports have opening/continuation images. Flight fixtures have monotonic 20 s timestamps and stored interval, flight phases, changing configuration, GSX and ATC.
 
 `VerifyRTLReturn` also forces 40 `CM_MENUCHANGED` notifications on an already attached menu, checking native HMENU flags and stable header positions after switching from RTL to automatic language selection.
+
+The menu regression counts native WM_NCPAINT messages: 40 unchanged-header notifications must not repaint the frame, while a changed header must repaint. Version tests compare the deployed i18n catalog with its source and check English/Polish recording, value and chart search cues.

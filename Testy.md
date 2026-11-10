@@ -952,3 +952,5 @@ Kodowanie pomocy: VerifyHelpContexts czyta HTML/HHC właściwą stroną Windows,
 Regresja raportu: VerifyReport korzysta z tego samego HelpScreenshotU co generator pomocy. Sprawdza zachowanie treści i render RichEdit do bitmapy przez EM_FORMATRANGE; generator weryfikuje też obecność pikseli tekstu w ilustracji. Raport demonstracyjny PL/EN/DE/ES ma osobne zrzuty początku i dalszych wniosków. Dane lotu mają monotoniczne znaczniki co 20 s i jawnie zapisany interwał, fazy lotu oraz zmienną konfigurację/GSX/ATC.
 
 Regresja `VerifyRTLReturn` wymusza również 40 powiadomień `CM_MENUCHANGED` na już podłączonym menu, kontrolując flagi HMENU i stałe położenie nagłówków po przejściu RTL → automatyczny język.
+
+Regresja menu kontroluje natywne WM_NCPAINT: niezmienione nagłówki nie mogą odrysowywać ramki przy 40 powiadomieniach, a zmieniony nagłówek musi się odświeżyć. Test wersji sprawdza zgodność katalogu i18n w bin ze źródłem oraz angielskie/polskie podpowiedzi wyszukiwania nagrań, wartości i wykresów.

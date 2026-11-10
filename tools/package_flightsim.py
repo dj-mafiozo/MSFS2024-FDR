@@ -74,6 +74,8 @@ def build(output=None):
     for name in ['MSFS2024-FDR.exe','MSFS24-FDR-Setup.exe','SimConnect.dll','sqlite3.dll']:
         data=entries[name].read_bytes();pe=struct.unpack_from('<I',data,0x3c)[0]
         assert data[pe:pe+4]==b'PE\0\0' and struct.unpack_from('<H',data,pe+4)[0]==0x8664,name
+    # Use the authoritative catalog even when bin contains an older build.
+    entries["MSFS2024-FDR.i18n"]=ROOT/"translations/MSFS2024-FDR.i18n"
     # Current repository docs replace any stale generated copies in bin.
     for path in ROOT.glob('*.md'):
         if path.name!='AGENTS.md':entries[path.name]=path

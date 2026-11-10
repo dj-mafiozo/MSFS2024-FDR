@@ -1,4 +1,4 @@
-﻿"""Check that the Delphi IDE project explicitly lists every local source unit."""
+"""Check that the Delphi IDE project explicitly lists every local source unit."""
 from pathlib import Path
 import re
 import xml.etree.ElementTree as ET
@@ -75,6 +75,14 @@ for platform in ('Win32','Win64'):
                 scopes.update(group.findtext('m:DCC_Namespace',default='',namespaces=ns).split(';'))
         if not required_scopes.issubset(scopes):
             errors.append('Missing effective Windows unit scopes: '+config+'_'+platform)
+# Dependency hooks must follow the import: Delphi.Targets overwrites earlier values.
+children=list(project.getroot())
+imports=[i for i,c in enumerate(children) if c.tag=='{'+ns['m']+'}Import' and 'CodeGear.Delphi.Targets' in c.get('Project','')]
+for name in ('BuildDependsOn','MakeDependsOn'):
+    groups=[i for i,c in enumerate(children) if c.find('m:'+name,ns) is not None]
+    if not imports or not groups or groups[-1] < imports[-1]:
+        errors.append('Translation deployment hook must follow Delphi targets import: '+name)
+
 delphi_import_seen=False
 for child in project.getroot():
     if child.tag=='{'+ns['m']+'}Import' and 'CodeGear.Delphi.Targets' in child.get('Project',''):
