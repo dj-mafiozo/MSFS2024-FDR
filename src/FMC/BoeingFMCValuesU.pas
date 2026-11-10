@@ -16,8 +16,8 @@ Implementation
  Procedure ParseBoeingPerformance(Lines : TStrings; Values : TJSONObject);
   Var
    Title  : String;
-   L      : String;
-   R      : String;
+   l      : String;
+   r      : String;
    Mode   : String;
    Side   : String;
    State  : String;
@@ -25,20 +25,21 @@ Implementation
    i      : Integer;
    j      : Integer;
    FS     : TFormatSettings;
-   M      : TMatch;
+   m      : TMatch;
 
    Procedure Number(Const Key, Text, Pattern : String; Group : Integer = 1; Scale : Double = 1);
     Var
      Match : TMatch;
-     V     : Double;
+     v     : Double;
     Begin
      Match := TRegEx.Match(Text, Pattern);
      Values.RemovePair(Key).Free;
-     If Match.Success And TryStrToFloat(Match.Groups[Group].Value.Replace(',', '.'), V, FS) Then
-      Values.AddPair(Key, TJSONNumber.Create(V * Scale))
+     If Match.Success And TryStrToFloat(Match.Groups[Group].Value.Replace(',', '.'), v, FS) Then
+      Values.AddPair(Key, TJSONNumber.Create(v * Scale))
      Else
       Values.AddPair(Key, TJSONNull.Create);
     End;
+
    Procedure Text(Const Key, Value : String);
     Begin
      Values.RemovePair(Key).Free;
@@ -47,6 +48,7 @@ Implementation
      Else
       Values.AddPair(Key, Value);
     End;
+
    Procedure N1(Const Row : String);
     Const
      Pair = '^\s*(\d{1,3}(?:[.,]\d+)?)\s*/\s*(\d{1,3}(?:[.,]\d+)?)\s*%?\s*$';
@@ -64,16 +66,16 @@ Implementation
    If Pos('TAKEOFFREF', Title) > 0 Then
     For i := 1 To Lines.Count - 2 Do
      Begin
-      L := UpperCase(Copy(Lines[i], 1, 12));
-      R := Copy(Lines[i + 1], 1, 12);
-      If Pos('FLAPS', L) > 0 Then
-       Number('takeoff_flaps_deg', R, '^\s*(\d{1,2})(?:\D|$)');
-      If Pos('TO N1', L) > 0 Then
-       N1(R);
-      If (Pos('CG', L) > 0) And (Pos('TRIM', L) > 0) Then
+      l := UpperCase(Copy(Lines[i], 1, 12));
+      r := Copy(Lines[i + 1], 1, 12);
+      If Pos('FLAPS', l) > 0 Then
+       Number('takeoff_flaps_deg', r, '^\s*(\d{1,2})(?:\D|$)');
+      If Pos('TO N1', l) > 0 Then
+       N1(r);
+      If (Pos('CG', l) > 0) And (Pos('TRIM', l) > 0) Then
        Begin
-        Number('takeoff_cg_pct', R, '^\s*(\d{1,2}(?:[.,]\d+)?)\s*%');
-        Number('takeoff_trim_units', R, '%\s*(\d{1,2}(?:[.,]\d+)?)\s*$');
+        Number('takeoff_cg_pct', r, '^\s*(\d{1,2}(?:[.,]\d+)?)\s*%');
+        Number('takeoff_trim_units', r, '%\s*(\d{1,2}(?:[.,]\d+)?)\s*$');
        End;
      End;
    If Pos('N1LIMIT', Title) > 0 Then
@@ -101,33 +103,33 @@ Implementation
       Begin
        If Pos('SEL/OAT', UpperCase(Lines[i])) > 0 Then
         Begin
-         L := Copy(Lines[i + 1], 1, 12);
-         R := Copy(Lines[i + 1], 13, 12);
-         Number('assumed_temp_c', L, '^\s*([+-]?\d{1,2})\s*/');
-         Number('oat_c', L, '/\s*([+-]?\d{1,2})');
-         N1(R);
+         l := Copy(Lines[i + 1], 1, 12);
+         r := Copy(Lines[i + 1], 13, 12);
+         Number('assumed_temp_c', l, '^\s*([+-]?\d{1,2})\s*/');
+         Number('oat_c', l, '/\s*([+-]?\d{1,2})');
+         N1(r);
         End;
        For j := 0 To 1 Do
         Begin
-         L    := UpperCase(Copy(Lines[i], j * 12 + 1, 12));
+         l    := UpperCase(Copy(Lines[i], j * 12 + 1, 12));
          Mode := '';
          If j = 0 Then
           Begin
            Side := 'takeoff';
-           M    := TRegEx.Match(L, '<\s*(TO(?:-[12B])?)\b');
+           m    := TRegEx.Match(l, '<\s*(TO(?:-[12B])?)\b');
           End
          Else
           Begin
            Side := 'climb';
-           M    := TRegEx.Match(L, '\b(CLB(?:-[12])?)\s*>');
+           m    := TRegEx.Match(l, '\b(CLB(?:-[12])?)\s*>');
           End;
-         If M.Success Then
-          Mode := M.Groups[1].Value;
+         If m.Success Then
+          Mode := m.Groups[1].Value;
          If Mode = '' Then
           Continue;
-         If Pos('<ACT>', L) > 0 Then
+         If Pos('<ACT>', l) > 0 Then
           State := 'active'
-         Else If Pos('<SEL>', L) > 0 Then
+         Else If Pos('<SEL>', l) > 0 Then
           State := 'selected'
          Else
           Continue;
@@ -152,54 +154,54 @@ Implementation
    If (Pos('PERFINIT', Title) > 0) Or (Pos('PREFINIT', Title) > 0) Then
     For i := 1 To Lines.Count - 2 Do
      Begin
-      L := UpperCase(Copy(Lines[i], 1, 12));
-      R := Copy(Lines[i + 1], 1, 12);
-      If Pos('GW/', L) > 0 Then
+      l := UpperCase(Copy(Lines[i], 1, 12));
+      r := Copy(Lines[i + 1], 1, 12);
+      If Pos('GW/', l) > 0 Then
        Begin
-        Number('gross_weight_display', R, '^\s*(\d+(?:[.,]\d+)?)\s*/');
-        Number('cruise_cg_pct', R, '/\s*(\d+(?:[.,]\d+)?)\s*%');
+        Number('gross_weight_display', r, '^\s*(\d+(?:[.,]\d+)?)\s*/');
+        Number('cruise_cg_pct', r, '/\s*(\d+(?:[.,]\d+)?)\s*%');
        End;
-      If Pos('PLAN/FUEL', L) > 0 Then
+      If Pos('PLAN/FUEL', l) > 0 Then
        Begin
-        Number('planned_fuel_display', R, '^\s*(\d+(?:[.,]\d+)?)\s*/');
-        Number('fuel_display', R, '/\s*(\d+(?:[.,]\d+)?)');
-        M := TRegEx.Match(UpperCase(Copy(Lines[i + 1], 1, 14)), '(SENS|CALC)\s*$');
-        If M.Success Then
-         Text('fuel_source', M.Groups[1].Value)
+        Number('planned_fuel_display', r, '^\s*(\d+(?:[.,]\d+)?)\s*/');
+        Number('fuel_display', r, '/\s*(\d+(?:[.,]\d+)?)');
+        m := TRegEx.Match(UpperCase(Copy(Lines[i + 1], 1, 14)), '(SENS|CALC)\s*$');
+        If m.Success Then
+         Text('fuel_source', m.Groups[1].Value)
         Else
          Text('fuel_source', '');
        End;
-      If Pos('ZFW', L) > 0 Then
-       Number('zfw_display', R, '^\s*(\d+(?:[.,]\d+)?)\s*$');
-      If Pos('RESERVES', L) > 0 Then
-       Number('reserves_display', R, '^\s*(\d+(?:[.,]\d+)?)\s*$');
-      If Pos('COST INDEX', L) > 0 Then
-       Number('cost_index', R, '^\s*(\d+)\s*$');
-      L := UpperCase(Copy(Lines[i], 13, 12));
-      R := UpperCase(Copy(Lines[i + 1], 13, 12));
-      If Pos('CRZ ALT', L) > 0 Then
+      If Pos('ZFW', l) > 0 Then
+       Number('zfw_display', r, '^\s*(\d+(?:[.,]\d+)?)\s*$');
+      If Pos('RESERVES', l) > 0 Then
+       Number('reserves_display', r, '^\s*(\d+(?:[.,]\d+)?)\s*$');
+      If Pos('COST INDEX', l) > 0 Then
+       Number('cost_index', r, '^\s*(\d+)\s*$');
+      l := UpperCase(Copy(Lines[i], 13, 12));
+      r := UpperCase(Copy(Lines[i + 1], 13, 12));
+      If Pos('CRZ ALT', l) > 0 Then
        Begin
-        If Pos('FL', R) > 0 Then
-         Number('cruise_altitude_ft', R, '^\s*FL\s*(\d{2,3})\s*$', 1, 100)
+        If Pos('FL', r) > 0 Then
+         Number('cruise_altitude_ft', r, '^\s*FL\s*(\d{2,3})\s*$', 1, 100)
         Else
-         Number('cruise_altitude_ft', R, '^\s*(\d{3,5})\s*$');
+         Number('cruise_altitude_ft', r, '^\s*(\d{3,5})\s*$');
        End;
-      If Pos('TRANS ALT', L) > 0 Then
-       Number('transition_altitude_ft', R, '^\s*(\d{3,5})\s*$');
-      If Pos('CRZ WIND', L) > 0 Then
+      If Pos('TRANS ALT', l) > 0 Then
+       Number('transition_altitude_ft', r, '^\s*(\d{3,5})\s*$');
+      If Pos('CRZ WIND', l) > 0 Then
        Begin
-        Number('cruise_wind_deg', R, '^\s*(\d{1,3})\D*/');
-        Number('cruise_wind_kt', R, '/\s*(\d{1,3})\s*$');
+        Number('cruise_wind_deg', r, '^\s*(\d{1,3})\D*/');
+        Number('cruise_wind_kt', r, '/\s*(\d{1,3})\s*$');
        End;
-      If Pos('ISA DEV', L) > 0 Then
+      If Pos('ISA DEV', l) > 0 Then
        Begin
-        Number('isa_dev_f', R, '([+-]?\d{1,3})\x{00B0}?F');
-        Number('isa_dev_c', R, '([+-]?\d{1,3})\x{00B0}?C');
+        Number('isa_dev_f', r, '([+-]?\d{1,3})\x{00B0}?F');
+        Number('isa_dev_c', r, '([+-]?\d{1,3})\x{00B0}?C');
        End;
-      If Pos('T/C OAT', L) > 0 Then
+      If Pos('T/C OAT', l) > 0 Then
        Begin
-        Number('top_of_climb_oat_f', R, '([+-]?\d{1,3})\x{00B0}?F');
-        Number('top_of_climb_oat_c', R, '([+-]?\d{1,3})\x{00B0}?C');
+        Number('top_of_climb_oat_f', r, '([+-]?\d{1,3})\x{00B0}?F');
+        Number('top_of_climb_oat_c', r, '([+-]?\d{1,3})\x{00B0}?C');
        End;
      End;
   End;

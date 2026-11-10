@@ -4,6 +4,11 @@
 
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
+## v2 export (0.1.0.9)
+
+`ExportAppearance` adds RGB/flags for 336 cells, known/unknown lamps, side, overlay and text. The v2 mapping `Local\FlightPadFMC.Screen.v2.<profile>.<PID>` uses the existing v1 `.Lock` mutex. Packed size: 66316 bytes (unchanged 776-byte text header plus length and up to 32768 UTF-16 JSON units). A complete snapshot is copied under one mutex; v1 remains published. Only content/appearance/status changes advance the screen timestamp. v2 captures unavailable/overlay states; v1 keeps its old available-text contract. Connectivity is not electrical power. The text-only specification below documents backward compatibility.
+
+
 FDR reads full screen text from running connected updated FenixA320MCDU, FenixA320Screen, FBWA320MCDU or FBWA320Screen Windows clients. An old executable without the exporter provides no screen. FDR does not start the client or its server.
 
 TScreenModel.ExportText in Windows/Common/ScreenModel.pas assembles rendered cells into TStringList and returns Lines.Text: 14 rows of 24 UTF-16 characters with CRLF, total 364 UTF-16 units. Alignment, spaces, blank rows, symbols and scratchpad are preserved. HasScreen distinguishes received text from an initial empty model; reset invalidates it. Colours/fonts are not part of this exporter.

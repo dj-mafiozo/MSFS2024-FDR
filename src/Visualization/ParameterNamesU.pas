@@ -4,7 +4,7 @@ Unit ParameterNamesU;
 Interface
 
  Uses
-  System.IniFiles;
+  System.IniFiles, System.Classes;
 
  Const
   DisplayUnitCount = 23;
@@ -13,18 +13,22 @@ Interface
  Function DisplayUnitOptions(Const Source : String) : String;
  Procedure LoadDisplayUnits(Config : TCustomIniFile);
  Procedure SaveDisplayUnit(Config : TCustomIniFile; Const Source, Target : String);
+ Function ParameterDisplayText(Const Identifier : String; Value : Double; Const AircraftICAO : String = ''; Const AircraftTitle : String = ''; FlapPositionCount : Integer = 0) : String;
+ Function GSXDisplayText(Const Identifier : String; Labels : TStrings; Const Values : TArray<Double>) : String;
  Function ParameterDisplayValue(Const Identifier : String; Value : Double) : Double;
+ Function ParameterDisplayUnit(Const Identifier : String) : String;
  Function ParameterSourceUnit(Const Identifier : String) : String;
-
  Function ParameterCaption(Const Identifier : String) : String;
 
 Implementation
 
  Uses
-  System.SysUtils, System.StrUtils, System.Classes, System.Generics.Collections,
-  TelemetryCatalogU, AirlinerCatalogU, LocalizationU, System.Math;
+  System.SysUtils, System.StrUtils, System.Generics.Collections,
+  FlapsHandleU, TelemetryCatalogU, AirlinerCatalogU, LocalizationU, System.Math,
+  iFlySDKCatalogU, PMDGNG3CatalogU, PMDG777CatalogU, FenixCatalogU, FBWCatalogU, GSXVarsU, AddonLVarCatalogU;
 
  Var
+  ValueLabels   : TObjectDictionary<String, TStringList>;
   Captions      : TDictionary<String, String>;
   Units         : TDictionary<String, String>;
   CurrentLocale : String;
@@ -32,55 +36,41 @@ Implementation
 
  Function UnitCaption(Const Value : String) : String;
   Begin
-   Case IndexText(Value, ['Feet', 'Feet per minute', 'Feet/minute', 'Degrees', 'Knots', 'Celsius', 'Percent', 'Percent Over 100', 'Millibars', 'inHg', 'GForce', 'Gallons', 'Pounds', 'Pounds per hour', 'RPM', 'Hours', 'Seconds', 'Volts', 'Meters', 'Meters per second', 'psf', 'psi', 'Mach', 'Kelvin']) Of
-    0 :
-     Result := 'ft';
-    1, 2 :
-     Result := 'ft/min';
-    3 :
-     Result := #$00B0;
-    4 :
-     Result := 'kt';
-    5 :
-     Result := #$00B0 + 'C';
-    6 :
-     Result := '%';
-    7 :
-     Result := '0' + #$2013 + '1';
-    8 :
-     Result := 'hPa';
-    9 :
-     Result := 'inHg';
-    10 :
-     Result := 'g';
-    11 :
-     Result := 'US gal';
-    12 :
-     Result := 'lb';
-    13 :
-     Result := 'lb/h';
-    14 :
-     Result := 'rpm';
-    15 :
-     Result := 'h';
-    16 :
-     Result := 's';
-    17 :
-     Result := 'V';
-    18 :
-     Result := 'm';
-    19 :
-     Result := 'm/s';
-    20 :
-     Result := 'psf';
-    21 :
-     Result := 'psi';
-    22 :
-     Result := 'Mach';
-    23 :
-     Result := 'K';
-    Else
-     Result := '';
+   If SameText(Value, 'MHz') Then
+    Exit('MHz');
+   If SameText(Value, 'KHz') Then
+    Exit('kHz');
+   If SameText(Value, 'Nautical miles') Then
+    Exit('NM');
+   If SameText(Value, 'Radians') Then
+    Exit('rad');
+   Case IndexText(Value, ['Feet', 'Feet per minute', 'Feet/minute', 'Degrees', 'Knots', 'Celsius', 'Percent', 'Percent Over 100', 'Millibars', 'inHg', 'GForce', 'Gallons', 'Pounds', 'Pounds per hour', 'RPM', 'Hours', 'Seconds', 'Volts', 'Meters', 'Meters per second', 'psf', 'psi', 'Mach', 'Kelvin', 'Amps']) Of
+    0  : Result := 'ft';
+    1  : Result := 'ft/min';
+    2  : Result := 'ft/min';
+    3  : Result := #$00B0;
+    4  : Result := 'kt';
+    5  : Result := #$00B0 + 'C';
+    6  : Result := '%';
+    7  : Result := '0' + #$2013 + '1';
+    8  : Result := 'hPa';
+    9  : Result := 'inHg';
+    10 : Result := 'g';
+    11 : Result := 'US gal';
+    12 : Result := 'lb';
+    13 : Result := 'lb/h';
+    14 : Result := 'rpm';
+    15 : Result := 'h';
+    16 : Result := 's';
+    17 : Result := 'V';
+    18 : Result := 'm';
+    19 : Result := 'm/s';
+    20 : Result := 'psf';
+    21 : Result := 'psi';
+    22 : Result := 'Mach';
+    23 : Result := 'K';
+    24 : Result := 'A';
+   Else Result := '';
    End;
   End;
 
@@ -97,11 +87,31 @@ Implementation
     Units.AddOrSetValue(LowerCase('AirlinerLVar.' + AirlinerNames[i]), UnitCaption(AirlinerUnits[i]));
    For i := Low(EngineColumns) To High(EngineColumns) Do
     Units.AddOrSetValue(EngineColumns[i].Name, UnitCaption(SimFields[EngineColumns[i].FieldIndex].Units));
+   Units.AddOrSetValue('turn_indicator_rate', #$00B0 + '/s');
+   Units.AddOrSetValue('turn_coordinator_ball', '-127..127');
+   Units.AddOrSetValue('pmdg777.fmc_v1', 'kt');
+   Units.AddOrSetValue('pmdg777.fmc_vr', 'kt');
+   Units.AddOrSetValue('pmdg777.fmc_v2', 'kt');
+   Units.AddOrSetValue('pmdg777.fmc_landingvref', 'kt');
+   Units.AddOrSetValue('pmdg777.fmc_cruisealt', 'ft');
+   Units.AddOrSetValue('pmdg777.fmc_landingaltitude', 'ft');
+   Units.AddOrSetValue('pmdg777.fmc_transitionalt', 'ft');
+   Units.AddOrSetValue('pmdg777.fmc_transitionlevel', 'ft');
+   Units.AddOrSetValue('pmdg777.fmc_accelerationalt', 'ft');
+   Units.AddOrSetValue('pmdg777.fmc_eoaccelerationalt', 'ft');
+   Units.AddOrSetValue('pmdg777.mcp_heading', '°');
+   Units.AddOrSetValue('pmdg777.mcp_altitude', 'ft');
+   Units.AddOrSetValue('pmdg777.mcp_vertspeed', 'ft/min');
+   Units.AddOrSetValue('pmdg777.mcp_fpa', '°');
+   Units.AddOrSetValue('pmdg777.fuel_qtycenter', 'lb');
+   Units.AddOrSetValue('pmdg777.fuel_qtyleft', 'lb');
+   Units.AddOrSetValue('pmdg777.fuel_qtyright', 'lb');
+   Units.AddOrSetValue('pmdg777.fuel_qtyaux', 'lb');
   End;
 
  Function SourceDisplayUnit(Index : Integer) : String;
   Const
-   Names : Array [0 .. DisplayUnitCount - 1] Of String = ('ft', 'ft/min', #$00B0, 'kt', #$00B0 + 'C', '%', '0' + #$2013 + '1', 'hPa', 'inHg', 'g', 'US gal', 'lb', 'lb/h', 'rpm', 'h', 's', 'V', 'm', 'm/s', 'psf', 'psi', 'Mach', 'K');
+   Names : Array [0..DisplayUnitCount - 1] Of String = ('ft', 'ft/min', #$00B0, 'kt', #$00B0 + 'C', '%', '0' + #$2013 + '1', 'hPa', 'inHg', 'g', 'US gal', 'lb', 'lb/h', 'rpm', 'h', 's', 'V', 'm', 'm/s', 'psf', 'psi', 'Mach', 'K');
   Begin
    Result := Names[Index];
   End;
@@ -183,15 +193,15 @@ Implementation
  Function ParameterSourceUnit(Const Identifier : String) : String;
   Var
    Base : String;
-   P    : Integer;
+   p    : Integer;
   Begin
    EnsureMetadata;
    Base := Identifier;
    If Pos('.', Base) = 0 Then
     Begin
-     P := LastDelimiter('#', Base);
-     If P > 0 Then
-      Base := Trim(Copy(Base, 1, P - 1));
+     p := LastDelimiter('#', Base);
+     If p > 0 Then
+      Base := Trim(Copy(Base, 1, p - 1));
     End;
    If Not Units.TryGetValue(LowerCase(Base), Result) Then
     Result := '';
@@ -242,23 +252,188 @@ Implementation
     Factor := 0.01;
   End;
 
+ Function ParameterDisplayUnit(Const Identifier : String) : String;
+  Begin
+   Result := TargetUnit(ParameterSourceUnit(Identifier));
+  End;
+
  Function ParameterDisplayValue(Const Identifier : String; Value : Double) : Double;
   Var
    Source : String;
    Target : String;
-   A      : Double;
-   B      : Double;
-   C      : Double;
-   D      : Double;
+   a      : Double;
+   b      : Double;
+   c      : Double;
+   d      : Double;
   Begin
    Result := Value;
    Source := ParameterSourceUnit(Identifier);
    Target := TargetUnit(Source);
    If (Source = '') Or (Source = Target) Or IsNan(Value) Or IsInfinite(Value) Then
     Exit;
-   UnitScale(Source, A, B);
-   UnitScale(Target, C, D);
-   Result := (Value * A + B - D) / C;
+   UnitScale(Source, a, b);
+   UnitScale(Target, c, d);
+   Result := (Value * a + b - d) / c;
+  End;
+
+ Procedure EnsureValueLabels;
+  Var
+   i : Integer;
+   j : Integer;
+
+   Procedure Add(Const Name, Definition : String);
+    Var
+     List : TStringList;
+    Begin
+     If Definition = '' Then
+      Exit;
+     List                    := TStringList.Create;
+     List.NameValueSeparator := '=';
+     List.Text               := StringReplace(Definition, '\r\n', #13#10, [rfReplaceAll]);
+     ValueLabels.AddOrSetValue(LowerCase(Name), List);
+    End;
+
+  Begin
+   If ValueLabels <> Nil Then
+    Exit;
+   ValueLabels := TObjectDictionary<String, TStringList>.Create([doOwnsValues]);
+   For i       := 0 To High(SimFields) Do
+    Add(SimFields[i].Name, SimFields[i].DisplayValue);
+   For i := 0 To High(NumericColumns) Do
+    Add(NumericColumns[i].Name, SimFields[NumericColumns[i].FieldIndex].DisplayValue);
+   For i := 0 To High(EngineColumns) Do
+    Begin
+     Add(EngineColumns[i].Name, SimFields[EngineColumns[i].FieldIndex].DisplayValue);
+     For j := 1 To 16 Do
+      Add(EngineColumns[i].Name + ' #' + IntToStr(j), SimFields[EngineColumns[i].FieldIndex].DisplayValue);
+    End;
+   For i := 0 To High(SDKFields) Do
+    Add('iFlySDK.' + SDKFields[i].Name, SDKFields[i].DisplayValue);
+   For i := 0 To High(PMDGFields) Do
+    Add('PMDGNG3.' + PMDGFields[i].Name, PMDGFields[i].DisplayValue);
+   For i := 0 To High(PMDG777Fields) Do
+    Add('PMDG777.' + PMDG777Fields[i].Name, PMDG777Fields[i].DisplayValue);
+   For i := 0 To High(FenixFields) Do
+    Add('FenixLVar.' + FenixFields[i].Name, FenixFields[i].DisplayValue);
+   For i := 0 To High(FBWFields) Do
+    Add('FBWLVar.' + FBWFields[i].Name, FBWFields[i].DisplayValue);
+   For i := 0 To High(GSXFields) Do
+    Add('GSX.' + GSXFields[i].Name, GSXFields[i].DisplayValue);
+   For i := 0 To High(AddonFields) Do
+    Add(AddonFields[i].Provider + '.' + AddonFields[i].Name, AddonFields[i].DisplayValue);
+  End;
+
+ Function ParameterDisplayText(Const Identifier : String; Value : Double; Const AircraftICAO, AircraftTitle : String; FlapPositionCount : Integer) : String;
+  Var
+   List       : TStringList;
+   Key        : String;
+   Lookup     : String;
+   Definition : String;
+   Index      : Integer;
+  Begin
+   Result := '-';
+   If IsNan(Value) Or IsInfinite(Value) Then
+    Exit;
+   EnsureValueLabels;
+   Lookup := LowerCase(Identifier);
+   If SameText(Identifier, 'flaps_handle_index') Then
+    Begin
+     Lookup := '@flaps:' + UpperCase(Trim(AircraftICAO)) + ':' + UpperCase(AircraftTitle) + ':' + IntToStr(FlapPositionCount);
+     If Not ValueLabels.ContainsKey(Lookup) Then
+      Begin
+       Definition := FlapsHandleDisplayValue(AircraftICAO, AircraftTitle, FlapPositionCount);
+       List       := TStringList.Create;
+       List.Text  := StringReplace(Definition, '\r\n', #13#10, [rfReplaceAll]);
+       ValueLabels.Add(Lookup, List);
+      End;
+    End;
+   If ValueLabels.TryGetValue(Lookup, List) And (Abs(Value) < 1E15) Then
+    If Value = Trunc(Value) Then
+     Begin
+      Key   := Format('%.0f', [Value]);
+      Index := List.IndexOfName(Key);
+      If Index >= 0 Then
+       Begin
+        Result := List.ValueFromIndex[Index];
+        If StartsText('GSX.', Identifier) Then
+         Result := Tr(Result);
+        Exit;
+       End;
+     End;
+   Result := Format('%.8g', [ParameterDisplayValue(Identifier, Value)]);
+  End;
+
+ Function GSXDisplayText(Const Identifier : String; Labels : TStrings; Const Values : TArray<Double>) : String;
+  Var
+   Name        : String;
+   Direction   : String;
+   CurrentText : String;
+   TargetText  : String;
+   CargoText   : String;
+   v           : Double;
+   Current     : Double;
+   Target      : Double;
+   Cargo       : Double;
+   k           : Integer;
+
+   Function Read(Const Field : String) : Double;
+    Var
+     n : Integer;
+    Begin
+     Result := NaN;
+     n      := Labels.IndexOf('GSX.' + Field);
+     If (n >= 0) And (n < Length(Values)) And Not IsInfinite(Values[n]) Then
+      Result := Values[n];
+    End;
+
+   Function CountText(Number : Double) : String;
+    Begin
+     Result := '-';
+     If Not IsNan(Number) And (Number >= 0) Then
+      Result := Format('%.0f', [Number]);
+    End;
+
+  Begin
+   Name   := Copy(Identifier, 5, MaxInt);
+   v      := Read(Name);
+   Result := ParameterDisplayText(Identifier, v);
+   If IsNan(v) Or IsInfinite(v) Then
+    Exit;
+   If EndsText('_STATE', Name) Then
+    Begin
+     If IsNan(v) Or IsInfinite(v) Or (v < 1) Or (v > 6) Or (v <> Trunc(v)) Then
+      Exit(Tr('Brak danych'));
+     k         := Trunc(v);
+     Direction := '';
+     If Name = 'FSDT_GSX_BOARDING_STATE' Then
+      Direction := 'BOARDING';
+     If Name = 'FSDT_GSX_DEBOARDING_STATE' Then
+      Direction := 'DEBOARDING';
+     If (Direction <> '') And (k In [5, 6]) Then
+      Begin
+       Current := Read('FSDT_GSX_NUMPASSENGERS_' + Direction + '_TOTAL');
+       Target  := Read('FSDT_GSX_NUMPASSENGERS');
+       If Not IsNan(Target) Then
+        If Target <= 0 Then
+         Target    := NaN;
+       Cargo       := Read('FSDT_GSX_' + Direction + '_CARGO_PERCENT');
+       CurrentText := CountText(Current);
+       TargetText  := CountText(Target);
+       CargoText   := '-';
+       If Not IsNan(Cargo) And (Cargo >= 0) And (Cargo <= 100) Then
+        CargoText := Format('%.0f%%', [Cargo]);
+       Result     := Result + ' (' + Format(Tr('Passengers: %s/%s; baggage: %s'), [CurrentText, TargetText, CargoText]) + ')';
+      End;
+    End
+   Else If EndsText('_CARGO_PERCENT', Name) And Not IsNan(v) And (v >= 0) And (v <= 100) Then
+    Result := Format('%.0f%%', [v])
+   Else If (Name = 'FSDT_GSX_BOARDING_CARGO') Or (Name = 'FSDT_GSX_DEBOARDING_CARGO') Or (Name = 'FSDT_VAR_Frozen') Then
+    Begin
+     If v = 0 Then
+      Result := Tr('Inactive')
+     Else If v = 1 Then
+      Result := Tr('Active');
+    End;
   End;
 
  Function Humanize(Const Name : String) : String;
@@ -306,9 +481,9 @@ Implementation
       End
      Else
       Begin
-       If (i > 1) And CharInSet(Name[i], ['A' .. 'Z']) And (CharInSet(Name[i - 1], ['a' .. 'z']) Or ((i < Length(Name)) And CharInSet(Name[i - 1], ['A' .. 'Z']) And CharInSet(Name[i + 1], ['a' .. 'z']))) Then
+       If (i > 1) And CharInSet(Name[i], ['A'..'Z']) And (CharInSet(Name[i - 1], ['a'..'z']) Or ((i < Length(Name)) And CharInSet(Name[i - 1], ['A'..'Z']) And CharInSet(Name[i + 1], ['a'..'z']))) Then
         Flush;
-       If (i > 1) And CharInSet(Name[i], ['0' .. '9']) And CharInSet(Name[i - 1], ['a' .. 'z', 'A' .. 'Z']) And Not SameText(Word, 'N') And Not SameText(Word, 'V') Then
+       If (i > 1) And CharInSet(Name[i], ['0'..'9']) And CharInSet(Name[i - 1], ['a'..'z', 'A'..'Z']) And Not SameText(Word, 'N') And Not SameText(Word, 'V') Then
         Flush;
        Word := Word + Name[i];
       End;
@@ -326,7 +501,7 @@ Implementation
    UnitText : String;
    Engine   : String;
    Locale   : String;
-   P        : Integer;
+   p        : Integer;
   Begin
    // UI-only cache: never used by the recorder or database schema.
    Locale := Language;
@@ -344,28 +519,30 @@ Implementation
    Source   := '';
    Suffix   := '';
    UnitText := '';
-   P        := Pos('.', Base);
-   If P > 0 Then
-    Case IndexText(Copy(Base, 1, P - 1), ['iFlySDK', 'FenixLVar', 'FBWLVar', 'PMDGNG3', 'AirlinerLVar', 'GSX', 'FSHud']) Of
-     0 :
-      Source := 'iFly';
-     1 :
-      Source := 'Fenix';
-     2 :
-      Source := 'FBW';
-     3 :
-      Source := 'PMDG 737';
-     4 :
-      Source := 'Airliner';
-     5 :
-      Source := 'GSX';
-     6 :
-      Source := 'FSHud';
+   p        := Pos('.', Base);
+   If p > 0 Then
+    Case IndexText(Copy(Base, 1, p - 1), ['iFlySDK', 'FenixLVar', 'FBWLVar', 'PMDGNG3', 'AirlinerLVar', 'GSX', 'FSHud', 'PMDG777', 'PMDGDC6', 'CSS737', 'MaddogX', 'SkySimDC9', 'SkySimMD11', 'TFDiMD11', 'AsoboBell407', 'AsoboEC135']) Of
+     0  : Source := 'iFly';
+     1  : Source := 'Fenix';
+     2  : Source := 'FBW';
+     3  : Source := 'PMDG 737';
+     4  : Source := 'Airliner';
+     5  : Source := 'GSX';
+     6  : Source := 'FSHud';
+     7  : Source := 'PMDG 777';
+     8  : Source := 'PMDG DC-6';
+     9  : Source := 'CSS 737';
+     10 : Source := 'Maddog X';
+     11 : Source := 'SkySim DC-9';
+     12 : Source := 'SkySim MD-11';
+     13 : Source := 'TFDi MD-11';
+     14 : Source := 'Bell 407';
+     15 : Source := 'EC135';
     End;
    If Source <> '' Then
-    Delete(Base, 1, P);
-   P := LastDelimiter('#', Base);
-   If (P > 0) And (Source = '') And TryStrToInt(Trim(Copy(Base, P + 1, MaxInt)), P) Then
+    Delete(Base, 1, p);
+   p := LastDelimiter('#', Base);
+   If (p > 0) And (Source = '') And TryStrToInt(Trim(Copy(Base, p + 1, MaxInt)), p) Then
     Begin
      Engine := Trim(Copy(Base, LastDelimiter('#', Base) + 1, MaxInt));
      Base   := Trim(Copy(Base, 1, LastDelimiter('#', Base) - 1));
@@ -394,6 +571,7 @@ Initialization
 
 Finalization
 
+ ValueLabels.Free;
  DisplayUnits.Free;
  Captions.Free;
  Units.Free;

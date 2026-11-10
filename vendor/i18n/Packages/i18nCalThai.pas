@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -11,18 +11,18 @@
 /// <summary>
 /// This unit implements the Thai Buddhist calendar.
 /// </summary>
-unit i18nCalThai;
+Unit i18nCalThai;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-uses
+ Uses
   SysUtils, i18nCalendar, i18nCalGregorian;
 
-type
+ Type
 
-  {$region 'xmldoc'}
+  {$Region 'xmldoc'}
   /// <summary>
   /// This class implements the Thai Buddhist Era calendar.
   /// </summary>
@@ -39,41 +39,41 @@ type
   /// TThaiCalendar supports both Common Era (C.E.) and Thai Buddhist Era.
   /// </para>
   /// </remarks>
-  {$endregion}
-  TThaiCalendar = class(TGregorianCalendar)
-  protected
-    {$region 'xmldoc'}
+  {$Endregion}
+  TThaiCalendar = Class(TGregorianCalendar)
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// The difference between years in Thai Era and Common Era.
     /// </summary>
-    {$endregion}
-    const THAI_YEAR_OFFSET = -543;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const THAI_YEAR_OFFSET = -543;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Specifies index of Thai Era.
     /// </summary>
-    {$endregion}
-    const ThaiEra = 2;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const ThaiEra = 2;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the unique identifier of the calendar.
     /// </summary>
     /// <returns>
     /// Returns <see cref="CAL_THAI"/>.
     /// </returns>
-    {$endregion}
-    class function CalendarID: Cardinal; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function CalendarID : Cardinal; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of eras that the calendar class supports.
     /// </summary>
     /// <returns>
     /// Returns 2.
     /// </returns>
-    {$endregion}
-    class function MaxEra: Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MaxEra : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the minimum <see cref="TDateTime"/> value that can be managed by
     /// the calendar.
@@ -82,9 +82,9 @@ type
     /// The minimum supported <see cref="TDateTime"/> value.
     /// </returns>
     /// <seealso cref="MaxSupportedDateTime"/>
-    {$endregion}
-    class function MinSupportedDateTime: TDateTime; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MinSupportedDateTime : TDateTime; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the maximum <see cref="TDateTime"/> value that can be managed by
     /// the calendar.
@@ -93,9 +93,9 @@ type
     /// The maximum supported <see cref="TDateTime"/> value.
     /// </returns>
     /// <seealso cref="MinSupportedDateTime"/>
-    {$endregion}
-    class function MaxSupportedDateTime: TDateTime; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MaxSupportedDateTime : TDateTime; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TCalendarSettings"/> class that provides locale
     /// specific settings for the calendar.
@@ -103,9 +103,9 @@ type
     /// <returns>
     /// Returns <see cref="TThaiCalendarSettings"/> class.
     /// </returns>
-    {$endregion}
-    class function SettingsClass: TCalendarSettingsClass; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function SettingsClass : TCalendarSettingsClass; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a year from one era to another.
     /// </summary>
@@ -121,23 +121,24 @@ type
     /// <returns>
     /// The year expressed in the target era.
     /// </returns>
-    {$endregion}
-    function ConvertYear(Year, FromEra, ToEra: Integer): Integer; override;
-  end;
+    {$Endregion}
+    Function ConvertYear(Year, FromEra, ToEra : Integer) : Integer; Override;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This class provides locale specific settings for the <see cref="TThaiCalendar"/>
-  /// class.
-  /// </summary>
-  /// <remarks>
-  /// TThaiCalendarSettings class collects the Thai calendar's locale specific
-  /// settings, which are required by the <see cref="TThaiCalendar"/> class.
-  /// </remarks>
-  {$endregion}
-  TThaiCalendarSettings = class(TGregorianCalendarSettings)
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// This class provides locale specific settings for the <see cref="TThaiCalendar"/>
+/// class.
+/// </summary>
+/// <remarks>
+/// TThaiCalendarSettings class collects the Thai calendar's locale specific
+/// settings, which are required by the <see cref="TThaiCalendar"/> class.
+/// </remarks>
+{$Endregion}
+
+  TThaiCalendarSettings = Class(TGregorianCalendarSettings)
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="EraNames"/> and <see cref="ShortEraNames"/> properties for
     /// the specified era based on the given locale and calendar identifier.
@@ -151,88 +152,100 @@ type
     /// <param name="CalendarID">
     /// The identifier of calendar system.
     /// </param>
-    {$endregion}
-    procedure PrepareEraName(Era: Integer; const Locale: String; CalendarID: Cardinal); override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure PrepareEraName(Era : Integer; Const Locale : String; CalendarID : Cardinal); Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines the calendar system that this settings is provided for.
     /// </summary>
     /// <returns>
     /// Returns <see cref="TThaiCalendar"/> class.
     /// </returns>
-    {$endregion}
-    class function CalendarClass: TCalendarClass; override;
-  end;
+    {$Endregion}
+    Class Function CalendarClass : TCalendarClass; Override;
+  End;
 
-implementation
+Implementation
 
-uses
+ Uses
   Math, Types, i18nWinNLS;
 
 { TThaiCalendar }
 
-class function TThaiCalendar.CalendarID: Cardinal;
-begin
-  Result := CAL_THAI;
-end;
+  Class Function TThaiCalendar.CalendarID : Cardinal;
 
-class function TThaiCalendar.SettingsClass: TCalendarSettingsClass;
-begin
-  Result := TThaiCalendarSettings;
-end;
+Begin
+ Result := CAL_THAI;
 
-class function TThaiCalendar.MaxEra: Integer;
-begin
-  Result := ThaiEra;
-end;
+End;
 
-class function TThaiCalendar.MinSupportedDateTime: TDateTime;
-begin
-  Result := Max({0001/01/01 Thai} -891920.0, inherited);
-end;
+  Class Function TThaiCalendar.SettingsClass : TCalendarSettingsClass;
 
-class function TThaiCalendar.MaxSupportedDateTime: TDateTime;
-begin
-  Result := Min({9999/12/31 Thai} 2760139.99999, inherited)
-end;
+Begin
+ Result := TThaiCalendarSettings;
 
-function TThaiCalendar.ConvertYear(Year, FromEra, ToEra: Integer): Integer;
-begin
-  if Year = 0 then
+End;
+
+  Class Function TThaiCalendar.MaxEra : Integer;
+
+Begin
+ Result := ThaiEra;
+
+End;
+
+  Class Function TThaiCalendar.MinSupportedDateTime : TDateTime;
+
+Begin
+ Result := Max({0001/01/01 Thai} -891920.0, Inherited);
+
+End;
+
+  Class Function TThaiCalendar.MaxSupportedDateTime : TDateTime;
+
+Begin
+ Result := Min({9999/12/31 Thai} 2760139.99999, Inherited)
+
+End;
+
+ Function TThaiCalendar.ConvertYear(Year, FromEra, ToEra : Integer) : Integer;
+  Begin
+   If Year = 0 Then
     YearError(FromEra, 0)
-  else if FromEra <> ToEra then
-  begin
-    if FromEra = ThaiEra then
+   Else If FromEra <> ToEra Then
+    Begin
+     If FromEra = ThaiEra Then
       Year := OffsetYear(Year, +THAI_YEAR_OFFSET, FromEra, CommonEra)
-    else if FromEra <> CommonEra then
+     Else If FromEra <> CommonEra Then
       EraError(FromEra);
-    if ToEra = ThaiEra then
+     If ToEra = ThaiEra Then
       Year := OffsetYear(Year, -THAI_YEAR_OFFSET, CommonEra, ToEra)
-    else if ToEra <> CommonEra then
+     Else If ToEra <> CommonEra Then
       EraError(ToEra);
-  end
-  else if not (FromEra in [CommonEra, ThaiEra]) then
+    End
+   Else If Not(FromEra In [CommonEra, ThaiEra]) Then
     EraError(FromEra);
-  Result := Year;
-end;
+   Result := Year;
+  End;
 
 { TThaiCalendarSettings }
 
-class function TThaiCalendarSettings.CalendarClass: TCalendarClass;
-begin
-  Result := TThaiCalendar;
-end;
+  Class Function TThaiCalendarSettings.CalendarClass : TCalendarClass;
 
-procedure TThaiCalendarSettings.PrepareEraName(Era: Integer;
-  const Locale: String; CalendarID: Cardinal);
-begin
-  if Era = TThaiCalendar.CommonEra then
-    inherited PrepareEraName(Era, Locale, CAL_GREGORIAN)
-  else
-    inherited PrepareEraName(Era, Locale, CalendarID);
-end;
+Begin
+ Result := TThaiCalendar;
 
-initialization
-  CalendarTypes.Register(TThaiCalendar, ['th-TH']);
-end.
+End;
+
+ Procedure TThaiCalendarSettings.PrepareEraName(Era : Integer; Const Locale : String; CalendarID : Cardinal);
+  Begin
+   If Era = TThaiCalendar.CommonEra Then
+    Inherited PrepareEraName(Era, Locale, CAL_GREGORIAN)
+   Else
+    Inherited PrepareEraName(Era, Locale, CalendarID);
+  End;
+
+Initialization
+ CalendarTypes.Register(TThaiCalendar, ['th-TH']);
+
+End.

@@ -3,54 +3,54 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
 /// This unit contains code for flipping controls and updating properties based
 /// on the direction of the user interface language.
-unit i18nBiDi;
+Unit i18nBiDi;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-uses
+ Uses
   Windows, Messages, SysUtils, TypInfo, Classes, Controls, i18nHashList;
 
-type
+ Type
 
-  {$region 'xmldoc'}
+  {$Region 'xmldoc'}
   /// <summary>
   /// BiDi provides a set of class methods for horizontal flipping of the
   /// bi-directional controls.
   /// </summary>
-  {$endregion}
-  BiDi = class
-  public
-    type
-      {$region 'xmldoc'}
-      /// <summary>
-      /// Represents a callback function that receives the runtime type information of
-      /// the property that should be updated when its owner object is flipped.
-      /// </summary>
-      /// <param name="Instance">
-      /// The object whose properties are examined.
-      /// </param>
-      /// <param name="Prop">
-      /// The runtime type information of the property to update.
-      /// </param>
-      /// <seealso cref="RegisterProperty"/>
-      /// <seealso cref="FlipProperties"/>
-      /// <seealso cref="FlipChildren"/>
-      {$endregion}
-      TPropertyFlipFunc = procedure(Instance: TObject; Prop: PPropInfo);
-  private
-    class var PropFlipFuncs: TKeyLookup<PTypeInfo,TPropertyFlipFunc>;
-    class procedure Cleanup;  static;
-  protected
-    {$region 'xmldoc'}
+  {$Endregion}
+  BiDi = Class
+   Public
+    Type
+    {$Region 'xmldoc'}
+    /// <summary>
+    /// Represents a callback function that receives the runtime type information of
+    /// the property that should be updated when its owner object is flipped.
+    /// </summary>
+    /// <param name="Instance">
+    /// The object whose properties are examined.
+    /// </param>
+    /// <param name="Prop">
+    /// The runtime type information of the property to update.
+    /// </param>
+    /// <seealso cref="RegisterProperty"/>
+    /// <seealso cref="FlipProperties"/>
+    /// <seealso cref="FlipChildren"/>
+    {$Endregion}
+    TPropertyFlipFunc = Procedure(Instance : TObject; Prop : PPropInfo);
+   Private
+    Class Var PropFlipFuncs : TKeyLookup<PTypeInfo, TPropertyFlipFunc>;
+    Class Procedure Cleanup; Static;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Performs special actions on a specified common control to toggle its
     /// direction.
@@ -59,9 +59,9 @@ type
     /// The target common control.
     /// </param>
     /// <seealso cref="FlipChildren"/>
-    {$endregion}
-    class procedure FlipCommonControl(Control: TWinControl); static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure FlipCommonControl(Control : TWinControl); Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Applies the registered property flip functions to the properties of a
     /// specified object.
@@ -70,9 +70,9 @@ type
     /// The target object.
     /// </param>
     /// <seealso cref="RegisterProperty"/>
-    {$endregion}
-    class procedure FlipProperties(Instance: TObject); static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure FlipProperties(Instance : TObject); Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Updates the ExStyle of a specified window handle to mirror its layout
     /// according to a specified <see cref="TBiDiMode"/> value.
@@ -84,10 +84,10 @@ type
     /// The <see cref="TBiDiMode"/> that determines the requested direction of
     /// the control's layout.
     /// </param>
-    {$endregion}
-    class procedure UpdateLayout(hWnd: HWND; BiDiMode: TBiDiMode); static;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure UpdateLayout(hWnd : hWnd; BiDiMode : TBiDiMode); Static;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Registers a callback function that will be responsible for updating a particular
     /// property type when the owner object is flipped.
@@ -100,9 +100,9 @@ type
     /// </param>
     /// <seealso cref="FlipChildren"/>
     /// <seealso cref="UnregisterProperty"/>
-    {$endregion}
-    class procedure RegisterProperty(PropType: PTypeInfo; FlipFunc: TPropertyFlipFunc); static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure RegisterProperty(PropType : PTypeInfo; FlipFunc : TPropertyFlipFunc); Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Unregisters a callback function that was responsible for updating a particular
     /// property type when the owner object was flipped.
@@ -111,9 +111,9 @@ type
     /// The type information of the property that the handler was registered for.
     /// </param>
     /// <seealso cref="RegisterProperty"/>
-    {$endregion}
-    class procedure UnregisterProperty(PropType: PTypeInfo); static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure UnregisterProperty(PropType : PTypeInfo); Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Horizontally flips position of child controls of a specified control.
     /// </summary>
@@ -126,18 +126,18 @@ type
     /// The control to flip its children.
     /// </param>
     /// <seealso cref="RegisterProperty"/>
-    {$endregion}
-    class procedure FlipChildren(Control: TWinControl); static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure FlipChildren(Control : TWinControl); Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Swaps Left and Right properties of a specified <see cref="TMargins"/> object.
     /// </summary>
     /// <param name="Margins">
     /// The <see cref="TMargins"/> object that should be flipped.
     /// </param>
-    {$endregion}
-    class procedure FlipMargins(Margins: TMargins); inline; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure FlipMargins(Margins : TMargins); Inline; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Toggles akLeft and akRight members of a specified <see cref="TAnchors"/>
     /// value if it has one and only one of these members.
@@ -148,9 +148,9 @@ type
     /// <returns>
     /// The new <see cref="TAnchors"/> value.
     /// </returns>
-    {$endregion}
-    class function FlipAnchors(Anchors: TAnchors): TAnchors; inline; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function FlipAnchors(Anchors : TAnchors) : TAnchors; Inline; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Changes alLeft and alRight values of a specified <see cref="TAlign"/> value
     /// respectively to alRight and alLeft if the <see cref="TAlign"/> value is one
@@ -162,9 +162,9 @@ type
     /// <returns>
     /// The new <see cref="TAlign"/> value.
     /// </returns>
-    {$endregion}
-    class function FlipAlign(Align: TAlign): TAlign; inline; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function FlipAlign(Align : TAlign) : TAlign; Inline; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Changes taLeftJustify and taRightJustify values of a specified
     /// <see cref="TAlignment"/> value respectively to taRightJustify and
@@ -177,252 +177,285 @@ type
     /// <returns>
     /// The new <see cref="TAlignment"/> value.
     /// </returns>
-    {$endregion}
-    class function FlipAlignment(Alignment: TAlignment): TAlignment; inline; static;
-  end;
+    {$Endregion}
+    Class Function FlipAlignment(Alignment : TAlignment) : TAlignment; Inline; Static;
+  End;
 
-implementation
+Implementation
 
-uses
+ Uses
   Types, ComCtrls, CommCtrl, Buttons;
 
-type
-  TControlHack = class(TControl);
-  TWinControlHack = class(TWinControl);
+ Type
+   TControlHack = Class(TControl);
 
-{ BiDi }
+    TWinControlHack = Class(TWinControl);
 
-class procedure BiDi.FlipChildren(Control: TWinControl);
-var
-  ChildControl: TControl;
-  I, ParentWidth: Integer;
-begin
-  Control.DisableAlign;
-  try
+  { BiDi }
+
+    Class Procedure BiDi.FlipChildren(Control : TWinControl);
+
+   Var
+    ChildControl : TControl;
+    i            : Integer;
+    ParentWidth  : Integer;
+
+  Begin
+   Control.DisableAlign;
+   Try
     ParentWidth := Control.ClientWidth;
-    for I := 0 to Control.ControlCount - 1 do
-    begin
-      ChildControl := Control.Controls[I];
-      with TControlHack(ChildControl) do
-      begin
+    For i       := 0 To Control.ControlCount - 1 Do
+     Begin
+      ChildControl := Control.Controls[i];
+      With TControlHack(ChildControl) Do
+       Begin
         Left := ParentWidth - Width - Left;
-        if ParentBiDiMode then
-        begin
+        If ParentBiDiMode Then
+         Begin
           FlipProperties(ChildControl);
-          if ChildControl is TWinControl then
-          begin
+          If ChildControl Is TWinControl Then
+           Begin
             FlipCommonControl(TWinControl(ChildControl));
-            if TWinControl(ChildControl).ControlCount <> 0 then
-              FlipChildren(TWinControl(ChildControl));
-          end;
-        end;
+            If TWinControl(ChildControl).ControlCount <> 0 Then
+             FlipChildren(TWinControl(ChildControl));
+           End;
+         End;
         Perform(CM_ALLCHILDRENFLIPPED, 0, 0);
         FlipMargins(Margins);
-        Align := FlipAlign(Align);
+        Align   := FlipAlign(Align);
         Anchors := FlipAnchors(Anchors);
-      end;
-    end;
-  finally
+       End;
+     End;
+   Finally
     Control.EnableAlign;
-  end;
-end;
+   End;
 
-class procedure BiDi.FlipCommonControl(Control: TWinControl);
-var
-  I: Integer;
-  hHeader: HWND;
-begin
-  if Control is TCustomTabControl then
-  begin
+ End;
+
+   Class Procedure BiDi.FlipCommonControl(Control : TWinControl);
+
+  Var
+   i       : Integer;
+   hHeader : hWnd;
+
+ Begin
+  If Control Is TCustomTabControl Then
+   Begin
     {$IFDEF COMPILER2010_UP}
     // Just adjust ExStyle of the window to mirror its layout.
     UpdateLayout(Control.Handle, Control.BiDiMode);
     {$ENDIF}
-  end
-  else if Control is TCustomTreeView then
-  begin
+   End
+  Else If Control Is TCustomTreeView Then
+   Begin
     // Just adjust ExStyle of the window to mirror its layout.
     UpdateLayout(Control.Handle, Control.BiDiMode);
-  end
-  else if Control is TCustomListView then
-  begin
+   End
+  Else If Control Is TCustomListView Then
+   Begin
     // Adjust ExStyle of the window to mirror its layout.
     UpdateLayout(Control.Handle, Control.BiDiMode);
     // If the ListView has a header, update its ExStyle too.
     hHeader := ListView_GetHeader(Control.Handle);
-    if hHeader <> 0 then
-      UpdateLayout(hHeader, Control.BiDiMode);
+    If hHeader <> 0 Then
+     UpdateLayout(hHeader, Control.BiDiMode);
     // Because the layout is mirrored, there is no need to flip alignment of
     // list columns. So, flip them back to original.
-    with TListView(Control) do
-    begin
+    With TListView(Control) Do
+     Begin
       Columns.BeginUpdate;
-      for I := 0 to Columns.Count - 1 do
-        Columns[I].Alignment := FlipAlignment(Columns[I].Alignment);
+      For i                 := 0 To Columns.Count - 1 Do
+       Columns[i].Alignment := FlipAlignment(Columns[i].Alignment);
       Columns.EndUpdate;
-    end;
-  end
-  else if Control is TCustomStatusBar then
-  begin
-    if not Control.HandleAllocated and (Control.BidiMode <> bdLeftToRight) then
-    begin
+     End;
+   End
+  Else If Control Is TCustomStatusBar Then
+   Begin
+    If Not Control.HandleAllocated And (Control.BiDiMode <> bdLeftToRight) Then
+     Begin
       // If the control's BiDiMode is bdRightToLeft and the control's handle is
       // not allocated yet, caption of the panels render in opposite direction.
       // This needs a workaround!
-    end;
+     End;
     // Adjust ExStyle of the window to mirror its layout.
     UpdateLayout(Control.Handle, Control.BiDiMode);
     // Because the layout is mirrored, there is no need to flip alignment of
     // status panels. So, flip them back to original.
-    with TCustomStatusBar(Control) do
-    begin
+    With TCustomStatusBar(Control) Do
+     Begin
       Panels.BeginUpdate;
-      for I := 0 to Panels.Count - 1 do
-        Panels[I].Alignment := FlipAlignment(Panels[I].Alignment);
+      For i                := 0 To Panels.Count - 1 Do
+       Panels[i].Alignment := FlipAlignment(Panels[i].Alignment);
       Panels.EndUpdate;
-    end;
-  end
-  else if Control is TCustomHeaderControl then
-  begin
-    if not Control.HandleAllocated and (Control.BidiMode <> bdLeftToRight) then
-    begin
+     End;
+   End
+  Else If Control Is TCustomHeaderControl Then
+   Begin
+    If Not Control.HandleAllocated And (Control.BiDiMode <> bdLeftToRight) Then
+     Begin
       // If the control's BiDiMode is bdRightToLeft and the control's handle is
       // not allocated yet, caption of the sections render in opposite direction.
       // This is a workaround!
-      Control.BidiMode := bdLeftToRight;
+      Control.BiDiMode := bdLeftToRight;
       Control.HandleNeeded;
       TControlHack(Control).ParentBiDiMode := True;
-    end;
+     End;
     // Adjust ExStyle of the window to mirror its layout.
     UpdateLayout(Control.Handle, Control.BiDiMode);
     // Because the layout is mirrored, there is no need to flip alignment of
     // header sections. So, flip them back to original.
-    with TCustomHeaderControl(Control) do
-    begin
+    With TCustomHeaderControl(Control) Do
+     Begin
       Sections.BeginUpdate;
-      for I := 0 to Sections.Count - 1 do
-        Sections[I].Alignment := FlipAlignment(Sections[I].Alignment);
+      For i                  := 0 To Sections.Count - 1 Do
+       Sections[i].Alignment := FlipAlignment(Sections[i].Alignment);
       Sections.EndUpdate;
-    end;
-  end;
-end;
+     End;
+   End;
 
-class procedure BiDi.UpdateLayout(hWnd: HWND; BiDiMode: TBiDiMode);
-const
-  RTLOffBits = WS_EX_RIGHT or WS_EX_LEFTSCROLLBAR or WS_EX_RTLREADING;
-  RTLOnBits = WS_EX_LAYOUTRTL or WS_EX_NOINHERITLAYOUT;
-var
-  ExStyle: Integer;
-begin
+ End;
+
+   Class Procedure BiDi.UpdateLayout(hWnd : hWnd; BiDiMode : TBiDiMode);
+
+  Const
+   RTLOffBits = WS_EX_RIGHT Or WS_EX_LEFTSCROLLBAR Or WS_EX_RTLREADING;
+   RTLOnBits  = WS_EX_LAYOUTRTL Or WS_EX_NOINHERITLAYOUT;
+
+  Var
+   ExStyle : Integer;
+
+ Begin
   ExStyle := GetWindowLong(hWnd, GWL_EXSTYLE);
-  if BiDiMode = bdRightToLeft then
-    ExStyle := (ExStyle and not RTLOffBits) or RTLOnBits
-  else
-    ExStyle := ExStyle and not RTLOnBits;
+  If BiDiMode = bdRightToLeft Then
+   ExStyle := (ExStyle And Not RTLOffBits) Or RTLOnBits
+  Else
+   ExStyle := ExStyle And Not RTLOnBits;
   SetWindowLong(hWnd, GWL_EXSTYLE, ExStyle);
-end;
 
-class procedure BiDi.FlipMargins(Margins: TMargins);
-var
-  T: Integer;
-begin
-  T := Margins.Left;
-  Margins.Left := Margins.Right;
-  Margins.Right := T;
-end;
+ End;
 
-class function BiDi.FlipAnchors(Anchors: TAnchors): TAnchors;
-begin
-  if (akLeft in Anchors) xor (akRight in Anchors) then
-    Anchors := (Anchors - [akLeft, akRight]) + ([akLeft, akRight] - Anchors);
-  Result := Anchors;
-end;
+   Class Procedure BiDi.FlipMargins(Margins : TMargins);
 
-class function BiDi.FlipAlign(Align: TAlign): TAlign;
-begin
-  if Align = alLeft then
-    Align := alRight
-  else if Align = alRight then
-    Align := alLeft;
+  Var
+   t : Integer;
+
+ Begin
+  t             := Margins.Left;
+  Margins.Left  := Margins.Right;
+  Margins.Right := t;
+
+ End;
+
+   Class Function BiDi.FlipAnchors(Anchors : TAnchors) : TAnchors;
+
+ Begin
+  If (akLeft In Anchors) Xor (akRight In Anchors) Then
+   Anchors := (Anchors - [akLeft, akRight]) + ([akLeft, akRight] - Anchors);
+  Result   := Anchors;
+
+ End;
+
+   Class Function BiDi.FlipAlign(Align : TAlign) : TAlign;
+
+ Begin
+  If Align = alLeft Then
+   Align := alRight
+  Else If Align = alRight Then
+   Align := alLeft;
   Result := Align;
-end;
 
-class function BiDi.FlipAlignment(Alignment: TAlignment): TAlignment;
-begin
-  if Alignment = taLeftJustify then
-    Alignment := taRightJustify
-  else if Alignment = taRightJustify then
-    Alignment := taLeftJustify;
-  Result := Alignment;
-end;
+ End;
 
-class procedure BiDi.RegisterProperty(PropType: PTypeInfo; FlipFunc: TPropertyFlipFunc);
-begin
-  if Assigned(FlipFunc) then
-  begin
-    if not Assigned(PropFlipFuncs) then
-      PropFlipFuncs := TKeyLookup<PTypeInfo,TPropertyFlipFunc>.Create(8);
+   Class Function BiDi.FlipAlignment(Alignment : TAlignment) : TAlignment;
+
+ Begin
+  If Alignment = taLeftJustify Then
+   Alignment := taRightJustify
+  Else If Alignment = taRightJustify Then
+   Alignment := taLeftJustify;
+  Result     := Alignment;
+
+ End;
+
+   Class Procedure BiDi.RegisterProperty(PropType : PTypeInfo; FlipFunc : TPropertyFlipFunc);
+
+ Begin
+  If Assigned(FlipFunc) Then
+   Begin
+    If Not Assigned(PropFlipFuncs) Then
+     PropFlipFuncs := TKeyLookup<PTypeInfo, TPropertyFlipFunc>.Create(8);
     PropFlipFuncs.AddOrUpdate(PropType, @FlipFunc);
-  end;
-end;
+   End;
 
-class procedure BiDi.UnregisterProperty(PropType: PTypeInfo);
-begin
-  if Assigned(PropFlipFuncs) then
-    PropFlipFuncs.Remove(PropType);
-end;
+ End;
 
-class procedure BiDi.FlipProperties(Instance: TObject);
-var
-  Count, I: Integer;
-  PropList: PPropList;
-  PropInfo: PPropInfo;
-  FlipFunc: TPropertyFlipFunc;
-begin
-  if Assigned(PropFlipFuncs) then
-  begin
+   Class Procedure BiDi.UnregisterProperty(PropType : PTypeInfo);
+
+ Begin
+  If Assigned(PropFlipFuncs) Then
+   PropFlipFuncs.Remove(PropType);
+
+ End;
+
+   Class Procedure BiDi.FlipProperties(Instance : TObject);
+
+  Var
+   Count    : Integer;
+   i        : Integer;
+   PropList : PPropList;
+   PropInfo : PPropInfo;
+   FlipFunc : TPropertyFlipFunc;
+
+ Begin
+  If Assigned(PropFlipFuncs) Then
+   Begin
     Count := GetPropList(Instance, PropList);
-    if Count <> 0 then
-      try
-        for I := 0 to Count - 1 do
-        begin
-          PropInfo := PropList[I];
-          if PropFlipFuncs.Retrieve(PropInfo^.PropType^, FlipFunc) then
-            FlipFunc(Instance, PropInfo);
-        end;
-      finally
-        FreeMem(PropList);
-      end;
-  end;
-end;
+    If Count <> 0 Then
+     Try
+      For i := 0 To Count - 1 Do
+       Begin
+        PropInfo := PropList[i];
+        If PropFlipFuncs.Retrieve(PropInfo^.PropType^, FlipFunc) Then
+         FlipFunc(Instance, PropInfo);
+       End;
+     Finally
+      FreeMem(PropList);
+     End;
+   End;
 
-class procedure BiDi.Cleanup;
-begin
-  if Assigned(PropFlipFuncs) then
-    FreeAndNil(PropFlipFuncs);
-end;
+End;
+
+  Class Procedure BiDi.Cleanup;
+
+Begin
+ If Assigned(PropFlipFuncs) Then
+  FreeAndNil(PropFlipFuncs);
+
+End;
 
 { Custom Property Flip Functions }
 
-procedure PropFlipper_ButtonLayout(Instance: TObject; Prop: PPropInfo);
-var
-  EnumName: String;
-begin
-  EnumName := GetEnumProp(Instance, Prop);
-  if EnumName = 'blGlyphLeft' then
+ Procedure PropFlipper_ButtonLayout(Instance : TObject; Prop : PPropInfo);
+  Var
+   EnumName : String;
+  Begin
+   EnumName := GetEnumProp(Instance, Prop);
+   If EnumName = 'blGlyphLeft' Then
     SetEnumProp(Instance, Prop, 'blGlyphRight')
-  else if EnumName = 'blGlyphRight' then
+   Else If EnumName = 'blGlyphRight' Then
     SetEnumProp(Instance, Prop, 'blGlyphLeft');
-end;
+  End;
 
-procedure PropFlipper_Padding(Instance: TObject; Prop: PPropInfo);
-begin
-  BiDi.FlipMargins(TPadding(GetObjectProp(Instance, Prop)));
-end;
+ Procedure PropFlipper_Padding(Instance : TObject; Prop : PPropInfo);
+  Begin
+   BiDi.FlipMargins(TPadding(GetObjectProp(Instance, Prop)));
+  End;
 
-initialization
-  BiDi.RegisterProperty(TypeInfo(TButtonLayout), @PropFlipper_ButtonLayout);
-  BiDi.RegisterProperty(TypeInfo(TPadding), @PropFlipper_Padding);
-finalization
-  BiDi.Cleanup;
-end.
+Initialization
+ BiDi.RegisterProperty(TypeInfo(TButtonLayout), @PropFlipper_ButtonLayout);
+ BiDi.RegisterProperty(TypeInfo(TPadding), @PropFlipper_Padding);
+
+Finalization
+ BiDi.Cleanup;
+
+End.

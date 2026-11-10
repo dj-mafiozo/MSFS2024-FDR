@@ -46,3 +46,8 @@ lines += [f'CockpitEvents: array[0..{len(events)-1}] of string = ('+','.join(map
 (root/'src').mkdir(parents=True,exist_ok=True)
 (root/'src/telemetry/TelemetryCatalogU.pas').write_text('\n'.join(lines)+'\n')
 print(len(fields),'SimConnect fields;',len(nums),'numeric columns;',len(bools),'booleans;',len(engines),'engine columns;',len(events),'events')
+
+from append_visual_telemetry import append
+append(root/'src/telemetry/TelemetryCatalogU.pas')
+from apply_display_values import update_catalog
+update_catalog(root/'src/telemetry/TelemetryCatalogU.pas')

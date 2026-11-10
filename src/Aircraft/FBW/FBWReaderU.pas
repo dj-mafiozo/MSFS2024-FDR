@@ -20,11 +20,11 @@ Implementation
  Constructor TFBWReader.Create(Const DLL : String);
   Var
    Names : TArray<String>;
-   I     : Integer;
+   i     : Integer;
   Begin
    SetLength(Names, FBWFieldCount);
-   For I     := 0 To FBWFieldCount - 1 Do
-    Names[I] := FBWFields[I].Name;
+   For i     := 0 To FBWFieldCount - 1 Do
+    Names[i] := FBWFields[i].Name;
    Inherited Create(Names, 'MSFS FDR FBW A32NX L-vars (read only)', DLL);
   End;
 

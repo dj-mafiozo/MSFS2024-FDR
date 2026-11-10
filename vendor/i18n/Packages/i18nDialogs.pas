@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -15,43 +15,43 @@
 /// TODO: Font dialog, Color dialog, Find and replace dialog, Print dialog,
 /// Page setup dialog, Open dialog, Save dialog.
 /// </remarks>
-unit i18nDialogs;
+Unit i18nDialogs;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-uses
+ Uses
   Windows, Classes, Graphics, Dialogs, Controls, Forms, StdCtrls, Menus, i18nUnicode;
 
-type
+ Type
 
-  {$region 'xmldoc'}
+  {$Region 'xmldoc'}
   /// <summary>
   /// TCustomDlgBtnCaptions is the ancestor for all objects that provide
   /// localizable captions for common dialog buttons.
   /// </summary>
-  {$endregion}
-  TCustomDlgBtnCaptions = class(TPersistent)
-  private
-    fCaptions: array [TMsgDlgBtn] of String;
-    function GetCaptions(DlgBtn: TMsgDlgBtn): String; inline;
-    procedure SetCaptions(DlgBtn: TMsgDlgBtn; const Value: String); inline;
-    function IsStoredCaptions(DlgBtn: TMsgDlgBtn): Boolean;
-  public
-    {$region 'xmldoc'}
+  {$Endregion}
+  TCustomDlgBtnCaptions = Class(TPersistent)
+   Private
+    fCaptions : Array [TMsgDlgBtn] Of String;
+    Function GetCaptions(DlgBtn : TMsgDlgBtn) : String; Inline;
+    Procedure SetCaptions(DlgBtn : TMsgDlgBtn; Const Value : String); Inline;
+    Function IsStoredCaptions(DlgBtn : TMsgDlgBtn) : Boolean;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class.
     /// </summary>
-    {$endregion}
-    constructor Create;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies the contents from a source object.
     /// </summary>
-    {$endregion}
-    procedure Assign(Source: TPersistent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Assign(Source : TPersistent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates dimensions of a set of buttons that are arranged side by side.
     /// </summary>
@@ -70,176 +70,177 @@ type
     /// <returns>
     /// The number of buttons.
     /// </returns>
-    {$endregion}
-    function GetMetrics(DC: HDC; Buttons: TMsgDlgButtons; var Width, Height: Integer): Integer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetMetrics(DC : HDC; Buttons : TMsgDlgButtons; Var Width, Height : Integer) : Integer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists captions of the buttons.
     /// </summary>
-    {$endregion}
-    property Captions[DlgBtn: TMsgDlgBtn]: String read GetCaptions write SetCaptions; default;
-  protected
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Captions[DlgBtn : TMsgDlgBtn] : String Read GetCaptions Write SetCaptions; Default;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "Yes" button.
     /// </summary>
-    {$endregion}
-    property Yes: String index mbYes read GetCaptions write SetCaptions stored IsStoredCaptions;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Yes : String Index mbYes Read GetCaptions Write SetCaptions Stored IsStoredCaptions;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "No" button.
     /// </summary>
-    {$endregion}
-    property No: String index mbNo read GetCaptions write SetCaptions stored IsStoredCaptions;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property No : String Index mbNo Read GetCaptions Write SetCaptions Stored IsStoredCaptions;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "OK" button.
     /// </summary>
-    {$endregion}
-    property OK: String index mbOK read GetCaptions write SetCaptions stored IsStoredCaptions;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OK : String Index mbOK Read GetCaptions Write SetCaptions Stored IsStoredCaptions;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "Cancel" button.
     /// </summary>
-    {$endregion}
-    property Cancel: String index mbCancel read GetCaptions write SetCaptions stored IsStoredCaptions;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Cancel : String Index mbCancel Read GetCaptions Write SetCaptions Stored IsStoredCaptions;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "Abort" button.
     /// </summary>
-    {$endregion}
-    property Abort: String index mbAbort read GetCaptions write SetCaptions stored IsStoredCaptions;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Abort : String Index mbAbort Read GetCaptions Write SetCaptions Stored IsStoredCaptions;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "Retry" button.
     /// </summary>
-    {$endregion}
-    property Retry: String index mbRetry read GetCaptions write SetCaptions stored IsStoredCaptions;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Retry : String Index mbRetry Read GetCaptions Write SetCaptions Stored IsStoredCaptions;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "Ignore" button.
     /// </summary>
-    {$endregion}
-    property Ignore: String index mbIgnore read GetCaptions write SetCaptions stored IsStoredCaptions;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Ignore : String Index mbIgnore Read GetCaptions Write SetCaptions Stored IsStoredCaptions;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "All" button.
     /// </summary>
-    {$endregion}
-    property All: String index mbAll read GetCaptions write SetCaptions stored IsStoredCaptions;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property All : String Index mbAll Read GetCaptions Write SetCaptions Stored IsStoredCaptions;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "No to all" button.
     /// </summary>
-    {$endregion}
-    property NoToAll: String index mbNoToAll read GetCaptions write SetCaptions stored IsStoredCaptions;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property NoToAll : String Index mbNoToAll Read GetCaptions Write SetCaptions Stored IsStoredCaptions;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "Yes to all" button.
     /// </summary>
-    {$endregion}
-    property YesToAll: String index mbYesToAll read GetCaptions write SetCaptions stored IsStoredCaptions;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property YesToAll : String Index mbYesToAll Read GetCaptions Write SetCaptions Stored IsStoredCaptions;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "Help" button.
     /// </summary>
-    {$endregion}
-    property Help: String index mbHelp read GetCaptions write SetCaptions stored IsStoredCaptions;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Help : String Index mbHelp Read GetCaptions Write SetCaptions Stored IsStoredCaptions;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "Close" button.
     /// </summary>
-    {$endregion}
-    property Close: String index mbClose read GetCaptions write SetCaptions stored IsStoredCaptions;
-  end;
+    {$Endregion}
+    Property Close : String Index mbClose Read GetCaptions Write SetCaptions Stored IsStoredCaptions;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomDlgCheckBox is the ancestor for all objects that represent a check
-  /// box control as a property.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomDlgCheckBox as a base class when defining a new object that
-  /// represents a check box as a published property of another object.
-  /// </remarks>
-  {$endregion}
-  TCustomDlgCheckBox = class(TPersistent)
-  private
-    fCaption: String;
-    fHint: String;
-    fAllowGrayed: Boolean;
-    fState: TCheckBoxState;
-    fEnabled: Boolean;
-    fVisible: Boolean;
-    fControl: TCheckBox;
-    procedure SetCaption(const Value: String);
-    procedure SetHint(const Value: String);
-    procedure SetAllowGrayed(Value: Boolean);
-    procedure SetState(Value: TCheckBoxState);
-    function GetChecked: Boolean;
-    procedure SetChecked(Value: Boolean);
-    procedure SetEnabled(Value: Boolean);
-    procedure SetVisible(Value: Boolean);
-    procedure SetControl(Value: TCheckBox);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomDlgCheckBox is the ancestor for all objects that represent a check
+/// box control as a property.
+/// </summary>
+/// <remarks>
+/// Use TCustomDlgCheckBox as a base class when defining a new object that
+/// represents a check box as a published property of another object.
+/// </remarks>
+{$Endregion}
+
+  TCustomDlgCheckBox = Class(TPersistent)
+   Private
+    fCaption     : String;
+    fHint        : String;
+    fAllowGrayed : Boolean;
+    fState       : TCheckBoxState;
+    fEnabled     : Boolean;
+    fVisible     : Boolean;
+    fControl     : TCheckBox;
+    Procedure SetCaption(Const Value : String);
+    Procedure SetHint(Const Value : String);
+    Procedure SetAllowGrayed(Value : Boolean);
+    Procedure SetState(Value : TCheckBoxState);
+    Function GetChecked : Boolean;
+    Procedure SetChecked(Value : Boolean);
+    Procedure SetEnabled(Value : Boolean);
+    Procedure SetVisible(Value : Boolean);
+    Procedure SetControl(Value : TCheckBox);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the check box control that will be managed by the
     /// TCustomDlgCheckBox object.
     /// </summary>
-    {$endregion}
-    property Control: TCheckBox read fControl write SetControl;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Control : TCheckBox Read fControl Write SetControl;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check box can be in a grayed state.
     /// </summary>
-    {$endregion}
-    property AllowGrayed: Boolean read fAllowGrayed write SetAllowGrayed default False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AllowGrayed : Boolean Read fAllowGrayed Write SetAllowGrayed Default False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets a text string that identifies the check box control to the user.
     /// </summary>
-    {$endregion}
-    property Caption: String read fCaption write SetCaption;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Caption : String Read fCaption Write SetCaption;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check box is selected.
     /// </summary>
-    {$endregion}
-    property Checked: Boolean read GetChecked write SetChecked stored False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Checked : Boolean Read GetChecked Write SetChecked Stored False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check box control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled: Boolean read fEnabled write SetEnabled default True;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled : Boolean Read fEnabled Write SetEnabled Default True;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the check box control.
     /// </summary>
-    {$endregion}
-    property Hint: String read fHint write SetHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint : String Read fHint Write SetHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check box is selected, deselected, or grayed.
     /// </summary>
-    {$endregion}
-    property State: TCheckBoxState read fState write SetState default cbUnchecked;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property State : TCheckBoxState Read fState Write SetState Default cbUnchecked;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check box control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible: Boolean read fVisible write SetVisible default False;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible : Boolean Read fVisible Write SetVisible Default False;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class.
     /// </summary>
-    {$endregion}
-    constructor Create;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies the settings from another check box.
     /// </summary>
@@ -247,9 +248,9 @@ type
     /// The source object.
     /// </param>
     /// <seealso cref="AssignTo"/>
-    {$endregion}
-    procedure Assign(Source: TPersistent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Assign(Source : TPersistent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies the settings to another check box.
     /// </summary>
@@ -257,9 +258,9 @@ type
     /// The destination object.
     /// </param>
     /// <seealso cref="Assign"/>
-    {$endregion}
-    procedure AssignTo(Dest: TPersistent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure AssignTo(Dest : TPersistent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates dimensions of the check box on a specified device context.
     /// </summary>
@@ -272,357 +273,362 @@ type
     /// <returns>
     /// The width and height of the check box on the specified device context.
     /// </returns>
-    {$endregion}
-    function GetMetrics(DC: HDC; MaxWidth: Integer): TSize;
-  end;
+    {$Endregion}
+    Function GetMetrics(DC : HDC; MaxWidth : Integer) : TSize;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TMsgDlgTypeIcons stores the icons that can appear on a message dialog.
-  /// </summary>
-  {$endregion}
-  TMsgDlgTypeIcons = class(TPersistent)
-  private
-    fIcons: array [TMsgDlgType] of TIcon;
-    function GetIcons(DlgType: TMsgDlgType): TIcon; inline;
-    procedure SetIcons(DlgType: TMsgDlgType; Value: TIcon);
-    function IsStoredIcons(DlgType: TMsgDlgType): Boolean;
-  public
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TMsgDlgTypeIcons stores the icons that can appear on a message dialog.
+/// </summary>
+{$Endregion}
+
+  TMsgDlgTypeIcons = Class(TPersistent)
+   Private
+    fIcons : Array [TMsgDlgType] Of TIcon;
+    Function GetIcons(DlgType : TMsgDlgType) : TIcon; Inline;
+    Procedure SetIcons(DlgType : TMsgDlgType; Value : TIcon);
+    Function IsStoredIcons(DlgType : TMsgDlgType) : Boolean;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class.
     /// </summary>
-    {$endregion}
-    constructor Create;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the instance and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies the icons from another object.
     /// </summary>
     /// <param name="Source">
     /// The source object.
     /// </param>
-    {$endregion}
-    procedure Assign(Source: TPersistent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Assign(Source : TPersistent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the available icons for a message dialog.
     /// </summary>
-    {$endregion}
-    property Icons[DlgType: TMsgDlgType]: TIcon read GetIcons write SetIcons; default;
-  published
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Icons[DlgType : TMsgDlgType] : TIcon Read GetIcons Write SetIcons; Default;
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the icon for a warning message dialog.
     /// </summary>
-    {$endregion}
-    property Warning: TIcon index mtWarning read GetIcons write SetIcons stored IsStoredIcons;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Warning : TIcon Index mtWarning Read GetIcons Write SetIcons Stored IsStoredIcons;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the icon for an error message dialog.
     /// </summary>
-    {$endregion}
-    property Error: TIcon index mtError read GetIcons write SetIcons stored IsStoredIcons;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Error : TIcon Index mtError Read GetIcons Write SetIcons Stored IsStoredIcons;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the icon for an informative message dialog.
     /// </summary>
-    {$endregion}
-    property Information: TIcon index mtInformation read GetIcons write SetIcons stored IsStoredIcons;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Information : TIcon Index mtInformation Read GetIcons Write SetIcons Stored IsStoredIcons;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the icon for an inquiry message dialog.
     /// </summary>
-    {$endregion}
-    property Confirmation: TIcon index mtConfirmation read GetIcons write SetIcons stored IsStoredIcons;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Confirmation : TIcon Index mtConfirmation Read GetIcons Write SetIcons Stored IsStoredIcons;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the icon for a custom message dialog.
     /// </summary>
-    {$endregion}
-    property Custom: TIcon index mtCustom read GetIcons write SetIcons stored IsStoredIcons;
-  end;
+    {$Endregion}
+    Property Custom : TIcon Index mtCustom Read GetIcons Write SetIcons Stored IsStoredIcons;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TMsgDlgTypeCaptions stores the titles that a message dialog can have.
-  /// </summary>
-  {$endregion}
-  TMsgDlgTypeCaptions = class(TPersistent)
-  private
-    fCaptions: array [TMsgDlgType] of String;
-    function GetCaptions(DlgType: TMsgDlgType): String; inline;
-    procedure SetCaptions(DlgType: TMsgDlgType; const Value: String); inline;
-    function IsStoredCaptions(DlgType: TMsgDlgType): Boolean;
-  public
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TMsgDlgTypeCaptions stores the titles that a message dialog can have.
+/// </summary>
+{$Endregion}
+
+  TMsgDlgTypeCaptions = Class(TPersistent)
+   Private
+    fCaptions : Array [TMsgDlgType] Of String;
+    Function GetCaptions(DlgType : TMsgDlgType) : String; Inline;
+    Procedure SetCaptions(DlgType : TMsgDlgType; Const Value : String); Inline;
+    Function IsStoredCaptions(DlgType : TMsgDlgType) : Boolean;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class.
     /// </summary>
-    {$endregion}
-    constructor Create;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies the titles from another object.
     /// </summary>
     /// <param name="Source">
     /// The source object.
     /// </param>
-    {$endregion}
-    procedure Assign(Source: TPersistent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Assign(Source : TPersistent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the available titles for a message dialog.
     /// </summary>
-    {$endregion}
-    property Captions[DlgType: TMsgDlgType]: String read GetCaptions write SetCaptions; default;
-  published
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Captions[DlgType : TMsgDlgType] : String Read GetCaptions Write SetCaptions; Default;
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the title for a warning message dialog.
     /// </summary>
-    {$endregion}
-    property Warning: String index mtWarning read GetCaptions write SetCaptions stored IsStoredCaptions;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Warning : String Index mtWarning Read GetCaptions Write SetCaptions Stored IsStoredCaptions;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the title for an error message dialog.
     /// </summary>
-    {$endregion}
-    property Error: String index mtError read GetCaptions write SetCaptions stored IsStoredCaptions;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Error : String Index mtError Read GetCaptions Write SetCaptions Stored IsStoredCaptions;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the title for an informative message dialog.
     /// </summary>
-    {$endregion}
-    property Information: String index mtInformation read GetCaptions write SetCaptions stored IsStoredCaptions;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Information : String Index mtInformation Read GetCaptions Write SetCaptions Stored IsStoredCaptions;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the title for an inquiry message dialog.
     /// </summary>
-    {$endregion}
-    property Confirmation: String index mtConfirmation read GetCaptions write SetCaptions stored IsStoredCaptions;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Confirmation : String Index mtConfirmation Read GetCaptions Write SetCaptions Stored IsStoredCaptions;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the title for a custom message dialog.
     /// </summary>
-    {$endregion}
-    property Custom: String index mtCustom read GetCaptions write SetCaptions stored IsStoredCaptions;
-  end;
+    {$Endregion}
+    Property Custom : String Index mtCustom Read GetCaptions Write SetCaptions Stored IsStoredCaptions;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TMsgDlgBtnCaptions stores the caption of buttons for a message dialog.
-  /// </summary>
-  {$endregion}
-  TMsgDlgBtnCaptions = class(TCustomDlgBtnCaptions)
-  published
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TMsgDlgBtnCaptions stores the caption of buttons for a message dialog.
+/// </summary>
+{$Endregion}
+
+  TMsgDlgBtnCaptions = Class(TCustomDlgBtnCaptions)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "Yes" button.
     /// </summary>
-    {$endregion}
-    property Yes;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Yes;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "No" button.
     /// </summary>
-    {$endregion}
-    property No;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property No;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "OK" button.
     /// </summary>
-    {$endregion}
-    property OK;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OK;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "Cancel" button.
     /// </summary>
-    {$endregion}
-    property Cancel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Cancel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "Abort" button.
     /// </summary>
-    {$endregion}
-    property Abort;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Abort;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "Retry" button.
     /// </summary>
-    {$endregion}
-    property Retry;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Retry;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "Ignore" button.
     /// </summary>
-    {$endregion}
-    property Ignore;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Ignore;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "All" button.
     /// </summary>
-    {$endregion}
-    property All;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property All;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "No to all" button.
     /// </summary>
-    {$endregion}
-    property NoToAll;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property NoToAll;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "Yes to all" button.
     /// </summary>
-    {$endregion}
-    property YesToAll;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property YesToAll;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "Help" button.
     /// </summary>
-    {$endregion}
-    property Help;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Help;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "Close" button.
     /// </summary>
-    {$endregion}
-    property Close;
-  end;
+    {$Endregion}
+    Property Close;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TMsgDlgCheckBox represents a check box that can appear on a message dialog.
-  /// </summary>
-  {$endregion}
-  TMsgDlgCheckBox = class(TCustomDlgCheckBox)
-  published
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TMsgDlgCheckBox represents a check box that can appear on a message dialog.
+/// </summary>
+{$Endregion}
+
+  TMsgDlgCheckBox = Class(TCustomDlgCheckBox)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check box can be in a grayed state.
     /// </summary>
-    {$endregion}
-    property AllowGrayed;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AllowGrayed;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets a text string that identifies the check box control to the user.
     /// </summary>
-    {$endregion}
-    property Caption;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Caption;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check box is selected.
     /// </summary>
-    {$endregion}
-    property Checked;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Checked;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check box control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the check box control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check box is selected, deselected, or grayed.
     /// </summary>
-    {$endregion}
-    property State;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property State;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check box control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-  end;
+    {$Endregion}
+    Property Visible;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TMessageDialog displays a localizable message dialog.
-  /// </summary>
-  /// <remarks>
-  /// <para>
-  /// Use TMessageDialog to display a modal Windows dialog box for displaying a message,
-  /// and getting the user response. The dialog does not appear at runtime until it is
-  /// activated by a call to one of its show methods.
-  /// </para>
-  /// <para>
-  /// TMessageDialog has properties and methods to facilitate customization of the dialog
-  /// and displaying messages.
-  /// </para>
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TMessageDialog displays a localizable message dialog.
+/// </summary>
+/// <remarks>
+/// <para>
+/// Use TMessageDialog to display a modal Windows dialog box for displaying a message,
+/// and getting the user response. The dialog does not appear at runtime until it is
+/// activated by a call to one of its show methods.
+/// </para>
+/// <para>
+/// TMessageDialog has properties and methods to facilitate customization of the dialog
+/// and displaying messages.
+/// </para>
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TMessageDialog = class(TComponent)
-  private
-    fAutoHotKeys: Boolean;
-    fIcons: TMsgDlgTypeIcons;
-    fCaptions: TMsgDlgTypeCaptions;
-    fButtonCaptions: TMsgDlgBtnCaptions;
-    fDialog: TForm;
-    fFont: TFont;
-    fBiDiMode: TBiDiMode;
-    fParentFont: Boolean;
-    fParentBiDiMode: Boolean;
-    fCallbackTimer: Boolean;
-    fCheckBox: TMsgDlgCheckBox;
-    fShowTicks: Cardinal;
-    fOnShow: TNotifyEvent;
-    fOnClose: TNotifyEvent;
-    fOnCallbackTimer: TNotifyEvent;
-    procedure SetCaptions(Value: TMsgDlgTypeCaptions);
-    procedure SetIcons(Value: TMsgDlgTypeIcons);
-    procedure SetButtonCaptions(Value: TMsgDlgBtnCaptions);
-    procedure SetFont(Value: TFont);
-    function GetBiDiMode: TBiDiMode;
-    procedure SetBiDiMode(Value: TBiDiMode);
-    procedure SetParentFont(Value: Boolean);
-    procedure SetParentBiDiMode(Value: Boolean);
-    procedure SetCheckBox(Value: TMsgDlgCheckBox);
-    function GetShowDuration: Cardinal;
-    function IsStoredFont: Boolean;
-    function IsStoredBiDiMode: Boolean;
-    procedure FontChange(Sender: TObject);
-    procedure DialogShow(Sender: TObject);
-    procedure DialogClose(Sender: TObject; var Action: TCloseAction);
-    procedure DialogKeyDown(Sender: TObject; var Key: Word; Shift: TShiftState);
-    procedure HelpButtonClick(Sender: TObject);
-    procedure CheckBoxClicked(Sender: TObject);
-    procedure CallbackTimerTrigger(Sender: TObject);
-  protected
-    {$region 'xmldoc'}
+  TMessageDialog = Class(TComponent)
+   Private
+    fAutoHotKeys     : Boolean;
+    fIcons           : TMsgDlgTypeIcons;
+    fCaptions        : TMsgDlgTypeCaptions;
+    fButtonCaptions  : TMsgDlgBtnCaptions;
+    fDialog          : TForm;
+    fFont            : TFont;
+    fBiDiMode        : TBiDiMode;
+    fParentFont      : Boolean;
+    fParentBiDiMode  : Boolean;
+    fCallbackTimer   : Boolean;
+    fCheckBox        : TMsgDlgCheckBox;
+    fShowTicks       : Cardinal;
+    fOnShow          : TNotifyEvent;
+    fOnClose         : TNotifyEvent;
+    fOnCallbackTimer : TNotifyEvent;
+    Procedure SetCaptions(Value : TMsgDlgTypeCaptions);
+    Procedure SetIcons(Value : TMsgDlgTypeIcons);
+    Procedure SetButtonCaptions(Value : TMsgDlgBtnCaptions);
+    Procedure SetFont(Value : TFont);
+    Function GetBiDiMode : TBiDiMode;
+    Procedure SetBiDiMode(Value : TBiDiMode);
+    Procedure SetParentFont(Value : Boolean);
+    Procedure SetParentBiDiMode(Value : Boolean);
+    Procedure SetCheckBox(Value : TMsgDlgCheckBox);
+    Function GetShowDuration : Cardinal;
+    Function IsStoredFont : Boolean;
+    Function IsStoredBiDiMode : Boolean;
+    Procedure FontChange(Sender : TObject);
+    Procedure DialogShow(Sender : TObject);
+    Procedure DialogClose(Sender : TObject; Var Action : TCloseAction);
+    Procedure DialogKeyDown(Sender : TObject; Var Key : Word; Shift : TShiftState);
+    Procedure HelpButtonClick(Sender : TObject);
+    Procedure CheckBoxClicked(Sender : TObject);
+    Procedure CallbackTimerTrigger(Sender : TObject);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnShow"/> event.
     /// </summary>
-    {$endregion}
-    procedure DoShow; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoShow; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnClose"/> event.
     /// </summary>
-    {$endregion}
-    procedure DoClose; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoClose; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnCallbackTimer"/> event.
     /// </summary>
-    {$endregion}
-    procedure DoCallbackTimer; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoCallbackTimer; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the content of the visible dialog as a string. GetDialogText is
     /// called when the user presses Ctrl+C keys to put the dialog's text in the
@@ -631,25 +637,25 @@ type
     /// <returns>
     /// Returns a string that represents the title, message, and buttons of the dialog.
     /// </returns>
-    {$endregion}
-    function GetDialogText: String; virtual;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetDialogText : String; Virtual;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the component.
     /// </summary>
     /// <param name="AOwner">
     /// The component that owns this component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the component and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Brings up a message dialog and obtains the user's response.
     /// </summary>
@@ -680,11 +686,9 @@ type
     /// <seealso cref="YesNoCancel"/>
     /// <seealso cref="YesNoAllCancel"/>
     /// <seealso cref="RetryIgnoreAbort"/>
-    {$endregion}
-    function Show(const Msg: String; DlgType: TMsgDlgType;
-      Buttons: TMsgDlgButtons; DefaultButton: TMsgDlgBtn;
-      HelpContext: THelpContext = 0): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Show(Const Msg : String; DlgType : TMsgDlgType; Buttons : TMsgDlgButtons; DefaultButton : TMsgDlgBtn; HelpContext : THelpContext = 0) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Brings up a message dialog and obtains the user's response.
     /// </summary>
@@ -719,11 +723,9 @@ type
     /// <seealso cref="YesNoCancel"/>
     /// <seealso cref="YesNoAllCancel"/>
     /// <seealso cref="RetryIgnoreAbort"/>
-    {$endregion}
-    function Show(const Fmt: String; const Args: array of const;
-      DlgType: TMsgDlgType; Buttons: TMsgDlgButtons; DefaultButton: TMsgDlgBtn;
-      HelpContext: THelpContext = 0): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Show(Const Fmt : String; Const Args : Array Of Const; DlgType : TMsgDlgType; Buttons : TMsgDlgButtons; DefaultButton : TMsgDlgBtn; HelpContext : THelpContext = 0) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Brings up a message dialog and obtains the user's response.
     /// </summary>
@@ -750,10 +752,9 @@ type
     /// <seealso cref="YesNoCancel"/>
     /// <seealso cref="YesNoAllCancel"/>
     /// <seealso cref="RetryIgnoreAbort"/>
-    {$endregion}
-    function Show(const Msg: String; DlgType: TMsgDlgType;
-      Buttons: TMsgDlgButtons; HelpContext: THelpContext = 0): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Show(Const Msg : String; DlgType : TMsgDlgType; Buttons : TMsgDlgButtons; HelpContext : THelpContext = 0) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Brings up a message dialog and obtains the user's response.
     /// </summary>
@@ -784,11 +785,9 @@ type
     /// <seealso cref="YesNoCancel"/>
     /// <seealso cref="YesNoAllCancel"/>
     /// <seealso cref="RetryIgnoreAbort"/>
-    {$endregion}
-    function Show(const Fmt: String; const Args: array of const;
-      DlgType: TMsgDlgType; Buttons: TMsgDlgButtons;
-      HelpContext: THelpContext = 0): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Show(Const Fmt : String; Const Args : Array Of Const; DlgType : TMsgDlgType; Buttons : TMsgDlgButtons; HelpContext : THelpContext = 0) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Displays a message dialog with custom title and icon.
     /// </summary>
@@ -806,9 +805,9 @@ type
     /// <seealso cref="YesNoCancel"/>
     /// <seealso cref="YesNoAllCancel"/>
     /// <seealso cref="RetryIgnoreAbort"/>
-    {$endregion}
-    procedure ShowMessage(const Msg: String; HelpContext: THelpContext = 0);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ShowMessage(Const Msg : String; HelpContext : THelpContext = 0);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Displays a warning message dialog.
     /// </summary>
@@ -826,9 +825,9 @@ type
     /// <seealso cref="YesNoCancel"/>
     /// <seealso cref="YesNoAllCancel"/>
     /// <seealso cref="RetryIgnoreAbort"/>
-    {$endregion}
-    procedure ShowWarning(const Msg: String; HelpContext: THelpContext = 0);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ShowWarning(Const Msg : String; HelpContext : THelpContext = 0);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Displays an error message dialog.
     /// </summary>
@@ -846,9 +845,9 @@ type
     /// <seealso cref="YesNoCancel"/>
     /// <seealso cref="YesNoAllCancel"/>
     /// <seealso cref="RetryIgnoreAbort"/>
-    {$endregion}
-    procedure ShowError(const Msg: String; HelpContext: THelpContext = 0);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ShowError(Const Msg : String; HelpContext : THelpContext = 0);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Displays an informative message dialog.
     /// </summary>
@@ -866,9 +865,9 @@ type
     /// <seealso cref="YesNoCancel"/>
     /// <seealso cref="YesNoAllCancel"/>
     /// <seealso cref="RetryIgnoreAbort"/>
-    {$endregion}
-    procedure Inform(const Msg: String; HelpContext: THelpContext = 0);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Inform(Const Msg : String; HelpContext : THelpContext = 0);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Displays an inquiry message dialog with "Yes" and "No" buttons.
     /// </summary>
@@ -893,9 +892,9 @@ type
     /// <seealso cref="YesNoCancel"/>
     /// <seealso cref="YesNoAllCancel"/>
     /// <seealso cref="RetryIgnoreAbort"/>
-    {$endregion}
-    function Confirm(const Msg: String; DefaultButton: TMsgDlgBtn = mbYes; HelpContext: THelpContext = 0): Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Confirm(Const Msg : String; DefaultButton : TMsgDlgBtn = mbYes; HelpContext : THelpContext = 0) : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Displays an inquiry message dialog with "Yes" and "No", and "Cancel" buttons.
     /// </summary>
@@ -919,9 +918,9 @@ type
     /// <seealso cref="Confirm"/>
     /// <seealso cref="YesNoAllCancel"/>
     /// <seealso cref="RetryIgnoreAbort"/>
-    {$endregion}
-    function YesNoCancel(const Msg: String; DefaultButton: TMsgDlgBtn = mbYes; HelpContext: THelpContext = 0): Integer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function YesNoCancel(Const Msg : String; DefaultButton : TMsgDlgBtn = mbYes; HelpContext : THelpContext = 0) : Integer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Displays an inquiry message dialog with "Yes" and "No", "Yes to all", "No to all",
     /// and "Cancel" buttons.
@@ -946,9 +945,9 @@ type
     /// <seealso cref="Confirm"/>
     /// <seealso cref="YesNoCancel"/>
     /// <seealso cref="RetryIgnoreAbort"/>
-    {$endregion}
-    function YesNoAllCancel(const Msg: String; DefaultButton: TMsgDlgBtn = mbNo; HelpContext: THelpContext = 0): Integer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function YesNoAllCancel(Const Msg : String; DefaultButton : TMsgDlgBtn = mbNo; HelpContext : THelpContext = 0) : Integer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Displays a warning message dialog with "Retry" and "Ignore", and "Abort"
     /// buttons.
@@ -973,42 +972,42 @@ type
     /// <seealso cref="Confirm"/>
     /// <seealso cref="YesNoCancel"/>
     /// <seealso cref="YesNoAllCancel"/>
-    {$endregion}
-    function RetryIgnoreAbort(const Msg: String; DefaultButton: TMsgDlgBtn = mbRetry; HelpContext: THelpContext = 0): Integer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function RetryIgnoreAbort(Const Msg : String; DefaultButton : TMsgDlgBtn = mbRetry; HelpContext : THelpContext = 0) : Integer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Provides direct access to the underlying form object while the dialog is
     /// displayed.
     /// </summary>
-    {$endregion}
-    property Dialog: TForm read fDialog;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Dialog : TForm Read fDialog;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the number of milliseconds that the dialog is displayed.
     /// </summary>
-    {$endregion}
-    property ShowDuration: Cardinal read GetShowDuration;
-  published
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowDuration : Cardinal Read GetShowDuration;
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the hot key of the dialog's buttons should be determined
     /// automatically.
     /// </summary>
-    {$endregion}
-    property AutoHotKeys: Boolean read fAutoHotKeys write fAutoHotKeys default True;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoHotKeys : Boolean Read fAutoHotKeys Write fAutoHotKeys Default True;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the dialog.
     /// </summary>
-    {$endregion}
-    property BiDiMode: TBiDiMode read GetBiDiMode write SetBiDiMode stored IsStoredBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode : TBiDiMode Read GetBiDiMode Write SetBiDiMode Stored IsStoredBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the captions of the dialog buttons.
     /// </summary>
-    {$endregion}
-    property ButtonCaptions: TMsgDlgBtnCaptions read fButtonCaptions write SetButtonCaptions;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ButtonCaptions : TMsgDlgBtnCaptions Read fButtonCaptions Write SetButtonCaptions;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the component should generate the periodic <see cref="OnCallbackTimer"/>
     /// event while a dialog is displayed.
@@ -1024,197 +1023,200 @@ type
     /// </para>
     /// </remarks>
     /// <seealso cref="ShowDuration"/>
-    {$endregion}
-    property CallbackTimer: Boolean read fCallbackTimer write fCallbackTimer default False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CallbackTimer : Boolean Read fCallbackTimer Write fCallbackTimer Default False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the titles of the dialog for all different types of messages.
     /// </summary>
-    {$endregion}
-    property Captions: TMsgDlgTypeCaptions read fCaptions write SetCaptions;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Captions : TMsgDlgTypeCaptions Read fCaptions Write SetCaptions;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets properties of the check box that can appear on the dialog.
     /// </summary>
-    {$endregion}
-    property CheckBox: TMsgDlgCheckBox read fCheckBox write SetCheckBox;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CheckBox : TMsgDlgCheckBox Read fCheckBox Write SetCheckBox;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the dialog.
     /// </summary>
-    {$endregion}
-    property Font: TFont read fFont write SetFont stored IsStoredFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font : TFont Read fFont Write SetFont Stored IsStoredFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the icons of the dialog for all different types of messages.
     /// </summary>
-    {$endregion}
-    property Icons: TMsgDlgTypeIcons read fIcons write SetIcons;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Icons : TMsgDlgTypeIcons Read fIcons Write SetIcons;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the component uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode: Boolean read fParentBiDiMode write SetParentBiDiMode default True;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode : Boolean Read fParentBiDiMode Write SetParentBiDiMode Default True;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the component uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont: Boolean read fParentFont write SetParentFont default True;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont : Boolean Read fParentFont Write SetParentFont Default True;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the message dialog is shown.
     /// </summary>
-    {$endregion}
-    property OnShow: TNotifyEvent read fOnShow write fOnShow;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnShow : TNotifyEvent Read fOnShow Write fOnShow;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the message dialog closes.
     /// </summary>
-    {$endregion}
-    property OnClose: TNotifyEvent read fOnClose write fOnClose;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClose : TNotifyEvent Read fOnClose Write fOnClose;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs every second while the dialog is displayed and the value of
     /// <see cref="CallbackTimer"/> property is <see langword="true"/>.</summary>
-    {$endregion}
-    property OnCallbackTimer: TNotifyEvent read fOnCallbackTimer write fOnCallbackTimer;
-  end;
+    {$Endregion}
+    Property OnCallbackTimer : TNotifyEvent Read fOnCallbackTimer Write fOnCallbackTimer;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TInputQueryDlgBtnCaptions stores the caption of buttons for an input query
-  /// dialog.
-  /// </summary>
-  {$endregion}
-  TInputQueryDlgBtnCaptions = class(TCustomDlgBtnCaptions)
-  published
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TInputQueryDlgBtnCaptions stores the caption of buttons for an input query
+/// dialog.
+/// </summary>
+{$Endregion}
+
+  TInputQueryDlgBtnCaptions = Class(TCustomDlgBtnCaptions)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "OK" button.
     /// </summary>
-    {$endregion}
-    property OK;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OK;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "Cancel" button.
     /// </summary>
-    {$endregion}
-    property Cancel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Cancel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the caption for "Help" button.
     /// </summary>
-    {$endregion}
-    property Help;
-  end;
+    {$Endregion}
+    Property Help;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TInputQueryDlgValidateEvent is the type for event handlers that respond when
-  /// an input string needs to be validated.
-  /// </summary>
-  /// <param name="Sender">
-  /// The object that generated the event.
-  /// </param>
-  /// <param name="Value">
-  /// The string value to validate or modify.
-  /// </param>
-  /// <returns>
-  /// Returns <see langword="true"/> if the string value is valid, otherwise returns
-  /// <see langword="false"/>.
-  /// </returns>
-  {$endregion}
-  TInputQueryDlgValidateEvent = function(Sender: TObject; var Value: String): Boolean of Object;
+{$Region 'xmldoc'}
+/// <summary>
+/// TInputQueryDlgValidateEvent is the type for event handlers that respond when
+/// an input string needs to be validated.
+/// </summary>
+/// <param name="Sender">
+/// The object that generated the event.
+/// </param>
+/// <param name="Value">
+/// The string value to validate or modify.
+/// </param>
+/// <returns>
+/// Returns <see langword="true"/> if the string value is valid, otherwise returns
+/// <see langword="false"/>.
+/// </returns>
+{$Endregion}
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TInputQueryDialog displays a localizable input dialog box that lets the user
-  /// enter a string, double, or integer.
-  /// </summary>
-  /// <remarks>
-  /// <para>
-  /// Use TInputQueryDialog to display a modal Windows dialog box for requesting a string,
-  /// double, or integer from the user. The dialog does not appear at runtime until it
-  /// is activated by calling the <see cref="Execute"/> method.
-  /// </para>
-  /// <para>
-  /// TInputQueryDialog has properties and methods to facilitate customization of the dialog
-  /// and prompting for the user's input.
-  /// </para>
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+  TInputQueryDlgValidateEvent = Function(Sender : TObject; Var Value : String) : Boolean Of Object;
+
+{$Region 'xmldoc'}
+/// <summary>
+/// TInputQueryDialog displays a localizable input dialog box that lets the user
+/// enter a string, double, or integer.
+/// </summary>
+/// <remarks>
+/// <para>
+/// Use TInputQueryDialog to display a modal Windows dialog box for requesting a string,
+/// double, or integer from the user. The dialog does not appear at runtime until it
+/// is activated by calling the <see cref="Execute"/> method.
+/// </para>
+/// <para>
+/// TInputQueryDialog has properties and methods to facilitate customization of the dialog
+/// and prompting for the user's input.
+/// </para>
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TInputQueryDialog = class(TComponent)
-  protected
-    type
-      {$region 'xmldoc'}
-      /// <summary>
-      /// This enumeration type identifies the types of inputs for an input query dialog.
-      /// </summary>
-      {$endregion}
-      TInputType = (
-        {$region 'xmldoc'}
-        /// Multiple lines of text.
-        {$endregion}
-        itMultiLineText,
-        {$region 'xmldoc'}
-        /// A single line of text.
-        {$endregion}
-        itSingleLineText,
-        {$region 'xmldoc'}
-        /// An integer number.
-        {$endregion}
-        itInteger,
-        {$region 'xmldoc'}
-        /// A floating point number.
-        {$endregion}
-        itFloat
-      );
-  private
-    fButtonCaptions: TInputQueryDlgBtnCaptions;
-    fDialog: TForm;
-    fFont: TFont;
-    fBiDiMode: TBiDiMode;
-    fParentFont: Boolean;
-    fParentBiDiMode: Boolean;
-    fReadOnly: Boolean;
-    fInputType: TInputType;
-    fEditBox: TCustomEdit;
-    fOnShow: TNotifyEvent;
-    fOnClose: TNotifyEvent;
-    fOnValidate: TInputQueryDlgValidateEvent;
-    procedure SetButtonCaptions(Value: TInputQueryDlgBtnCaptions);
-    procedure SetFont(Value: TFont);
-    function GetBiDiMode: TBiDiMode;
-    procedure SetBiDiMode(Value: TBiDiMode);
-    procedure SetParentFont(Value: Boolean);
-    procedure SetParentBiDiMode(Value: Boolean);
-    function IsStoredFont: Boolean;
-    function IsStoredBiDiMode: Boolean;
-    procedure FontChange(Sender: TObject);
-    procedure DialogShow(Sender: TObject);
-    procedure DialogClose(Sender: TObject; var Action: TCloseAction);
-    procedure DialogCloseQuery(Sender: TObject; var CanClose: Boolean);
-    procedure HelpButtonClick(Sender: TObject);
-  protected
-    {$region 'xmldoc'}
+  TInputQueryDialog = Class(TComponent)
+   Protected
+    Type
+    {$Region 'xmldoc'}
+    /// <summary>
+    /// This enumeration type identifies the types of inputs for an input query dialog.
+    /// </summary>
+    {$Endregion}
+    TInputType = (
+    {$Region 'xmldoc'}
+    /// Multiple lines of text.
+    {$Endregion}
+    itMultiLineText,
+    {$Region 'xmldoc'}
+    /// A single line of text.
+    {$Endregion}
+    itSingleLineText,
+    {$Region 'xmldoc'}
+    /// An integer number.
+    {$Endregion}
+    itInteger,
+    {$Region 'xmldoc'}
+    /// A floating point number.
+    {$Endregion}
+    itFloat
+    );
+   Private
+    fButtonCaptions : TInputQueryDlgBtnCaptions;
+    fDialog         : TForm;
+    fFont           : TFont;
+    fBiDiMode       : TBiDiMode;
+    fParentFont     : Boolean;
+    fParentBiDiMode : Boolean;
+    fReadOnly       : Boolean;
+    fInputType      : TInputType;
+    fEditBox        : TCustomEdit;
+    fOnShow         : TNotifyEvent;
+    fOnClose        : TNotifyEvent;
+    fOnValidate     : TInputQueryDlgValidateEvent;
+    Procedure SetButtonCaptions(Value : TInputQueryDlgBtnCaptions);
+    Procedure SetFont(Value : TFont);
+    Function GetBiDiMode : TBiDiMode;
+    Procedure SetBiDiMode(Value : TBiDiMode);
+    Procedure SetParentFont(Value : Boolean);
+    Procedure SetParentBiDiMode(Value : Boolean);
+    Function IsStoredFont : Boolean;
+    Function IsStoredBiDiMode : Boolean;
+    Procedure FontChange(Sender : TObject);
+    Procedure DialogShow(Sender : TObject);
+    Procedure DialogClose(Sender : TObject; Var Action : TCloseAction);
+    Procedure DialogCloseQuery(Sender : TObject; Var CanClose : Boolean);
+    Procedure HelpButtonClick(Sender : TObject);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnShow"/> event.
     /// </summary>
-    {$endregion}
-    procedure DoShow; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoShow; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnClose"/> event.
     /// </summary>
-    {$endregion}
-    procedure DoClose; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoClose; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnValidate"/> event.
     /// </summary>
@@ -1225,9 +1227,9 @@ type
     /// Returns <see langword="true"/> if the value is valid, otherwise returns
     /// <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function DoValidate(var Value: String): Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DoValidate(Var Value : String) : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Brings up an input dialog box ready for the user to enter a string,
     /// double, or integer in its edit box.
@@ -1253,26 +1255,25 @@ type
     /// Returns <see langword="true"/> if the user chooses OK, and <see langword="false"/>
     /// if the user chooses Cancel or presses the Esc key.
     /// </returns>
-    {$endregion}
-    function Prompt(const ACaption, APrompt: String; var Value: String;
-      AInputType: TInputType; HelpContext: THelpContext = 0): Boolean;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Prompt(Const ACaption, APrompt : String; Var Value : String; AInputType : TInputType; HelpContext : THelpContext = 0) : Boolean;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the component.
     /// </summary>
     /// <param name="AOwner">
     /// The component that owns this component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the component and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Brings up an input dialog box ready for the user to enter a string in its
     /// edit box.
@@ -1299,10 +1300,9 @@ type
     /// Returns <see langword="true"/> if the user chooses OK, and <see langword="false"/>
     /// if the user chooses Cancel or presses the Esc key.
     /// </returns>
-    {$endregion}
-    function Execute(const ACaption, APrompt: String; var Value: String;
-      Multiline: Boolean = False; HelpContext: THelpContext = 0): Boolean; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Execute(Const ACaption, APrompt : String; Var Value : String; Multiline : Boolean = False; HelpContext : THelpContext = 0) : Boolean; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Brings up an input dialog box ready for the user to enter an integer number
     /// in its edit box.
@@ -1325,10 +1325,9 @@ type
     /// Returns <see langword="true"/> if the user chooses OK, and <see langword="false"/>
     /// if the user chooses Cancel or presses the Esc key.
     /// </returns>
-    {$endregion}
-    function Execute(const ACaption, APrompt: String; var Value: Integer;
-      HelpContext: THelpContext = 0): Boolean; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Execute(Const ACaption, APrompt : String; Var Value : Integer; HelpContext : THelpContext = 0) : Boolean; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Brings up an input dialog box ready for the user to enter a floating point
     /// number in its edit box.
@@ -1351,1378 +1350,1355 @@ type
     /// Returns <see langword="true"/> if the user chooses OK, and <see langword="false"/>
     /// if the user chooses Cancel or presses the Esc key.
     /// </returns>
-    {$endregion}
-    function Execute(const ACaption, APrompt: String; var Value: Double;
-      HelpContext: THelpContext = 0): Boolean; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Execute(Const ACaption, APrompt : String; Var Value : Double; HelpContext : THelpContext = 0) : Boolean; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Provides direct access to the underlying form object while the dialog is
     /// displayed.
     /// </summary>
-    {$endregion}
-    property Dialog: TForm read fDialog;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Dialog : TForm Read fDialog;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Provides direct access to the underlying edit control while the dialog is
     /// displayed.
     /// </summary>
-    {$endregion}
-    property EditBox: TCustomEdit read fEditBox;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property EditBox : TCustomEdit Read fEditBox;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the current input mode of the dialog onscreen.
     /// </summary>
-    {$endregion}
-    property InputType: TInputType read fInputType;
-  published
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property InputType : TInputType Read fInputType;
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the dialog.
     /// </summary>
-    {$endregion}
-    property BiDiMode: TBiDiMode read GetBiDiMode write SetBiDiMode stored IsStoredBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode : TBiDiMode Read GetBiDiMode Write SetBiDiMode Stored IsStoredBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the captions of the dialog buttons.
     /// </summary>
-    {$endregion}
-    property ButtonCaptions: TInputQueryDlgBtnCaptions read fButtonCaptions write SetButtonCaptions;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ButtonCaptions : TInputQueryDlgBtnCaptions Read fButtonCaptions Write SetButtonCaptions;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the dialog.
     /// </summary>
-    {$endregion}
-    property Font: TFont read fFont write SetFont stored IsStoredFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font : TFont Read fFont Write SetFont Stored IsStoredFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can enter a value.
     /// </summary>
-    {$endregion}
-    property ReadOnly: Boolean read fReadOnly write fReadOnly default False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ReadOnly : Boolean Read fReadOnly Write fReadOnly Default False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the component uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode: Boolean read fParentBiDiMode write SetParentBiDiMode default True;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode : Boolean Read fParentBiDiMode Write SetParentBiDiMode Default True;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the component uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont: Boolean read fParentFont write SetParentFont default True;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont : Boolean Read fParentFont Write SetParentFont Default True;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dialog is shown.
     /// </summary>
-    {$endregion}
-    property OnShow: TNotifyEvent read fOnShow write fOnShow;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnShow : TNotifyEvent Read fOnShow Write fOnShow;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dialog closes.
     /// </summary>
-    {$endregion}
-    property OnClose: TNotifyEvent read fOnClose write fOnClose;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClose : TNotifyEvent Read fOnClose Write fOnClose;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dialog is about to close to validate the input value.
     /// </summary>
-    {$endregion}
-    property OnValidate: TInputQueryDlgValidateEvent read fOnValidate write fOnValidate;
-  end;
+    {$Endregion}
+    Property OnValidate : TInputQueryDlgValidateEvent Read fOnValidate Write fOnValidate;
+  End;
 
-implementation
+Implementation
 
-uses
+ Uses
   {$IFDEF COMPILER_XE3_UP}
   UITypes,
   {$ENDIF}
   Types, SysUtils, Character, Clipbrd, ExtCtrls, i18nCtrls;
 
-resourcestring
-  SMsgDlgWarning     = 'Warning';
-  SMsgDlgError       = 'Error';
+ Resourcestring
+  SMsgDlgWarning = 'Warning';
+  SMsgDlgError = 'Error';
   SMsgDlgInformation = 'Information';
-  SMsgDlgConfirm     = 'Confirm';
+  SMsgDlgConfirm = 'Confirm';
 
-resourcestring
-  SMsgDlgYes         = 'Yes';
-  SMsgDlgNo          = 'No';
-  SMsgDlgOK          = 'OK';
-  SMsgDlgCancel      = 'Cancel';
-  SMsgDlgHelp        = 'Help';
-  SMsgDlgAbort       = 'Abort';
-  SMsgDlgRetry       = 'Retry';
-  SMsgDlgIgnore      = 'Ignore';
-  SMsgDlgAll         = 'All';
-  SMsgDlgNoToAll     = 'No to All';
-  SMsgDlgYesToAll    = 'Yes to All';
-  SMsgDlgClose       = 'Close';
+ Resourcestring
+  SMsgDlgYes = 'Yes';
+  SMsgDlgNo = 'No';
+  SMsgDlgOK = 'OK';
+  SMsgDlgCancel = 'Cancel';
+  SMsgDlgHelp = 'Help';
+  SMsgDlgAbort = 'Abort';
+  SMsgDlgRetry = 'Retry';
+  SMsgDlgIgnore = 'Ignore';
+  SMsgDlgAll = 'All';
+  SMsgDlgNoToAll = 'No to All';
+  SMsgDlgYesToAll = 'Yes to All';
+  SMsgDlgClose = 'Close';
 
-const
-  DialogCaptions: array [TMsgDlgType] of Pointer =
-    (@SMsgDlgWarning, @SMsgDlgError, @SMsgDlgInformation, @SMsgDlgConfirm, nil);
-  IconIDs: array [TMsgDlgType] of PChar =
-    (IDI_EXCLAMATION, IDI_HAND, IDI_ASTERISK, IDI_QUESTION, nil);
-  ButtonCaptions_: array [TMsgDlgBtn] of Pointer =
-    (@SMsgDlgYes, @SMsgDlgNo, @SMsgDlgOK, @SMsgDlgCancel, @SMsgDlgAbort,
-     @SMsgDlgRetry, @SMsgDlgIgnore, @SMsgDlgAll, @SMsgDlgNoToAll,
-     @SMsgDlgYesToAll, @SMsgDlgHelp {$IFDEF UNICODE}, @SMsgDlgClose {$ENDIF});
-  ButtonNames: array [TMsgDlgBtn] of String =
-    ('Yes', 'No', 'OK', 'Cancel', 'Abort', 'Retry', 'Ignore', 'All', 'NoToAll',
-     'YesToAll', 'Help' {$IFDEF UNICODE}, 'Close' {$ENDIF});
-  ModalResults: array [TMsgDlgBtn] of Integer =
-    (mrYes, mrNo, mrOk, mrCancel, mrAbort, mrRetry, mrIgnore, mrAll, mrNoToAll,
-     mrYesToAll, 0 {$IFDEF UNICODE}, mrClose {$ENDIF});
+ Const
+  DialogCaptions : Array [TMsgDlgType] Of Pointer =
+  (@SMsgDlgWarning, @SMsgDlgError, @SMsgDlgInformation, @SMsgDlgConfirm, Nil);
+  IconIDs : Array [TMsgDlgType] Of PChar =
+  (IDI_EXCLAMATION, IDI_HAND, IDI_ASTERISK, IDI_QUESTION, Nil);
+  ButtonCaptions_ : Array [TMsgDlgBtn] Of Pointer =
+  (@SMsgDlgYes, @SMsgDlgNo, @SMsgDlgOK, @SMsgDlgCancel, @SMsgDlgAbort,
+  @SMsgDlgRetry, @SMsgDlgIgnore, @SMsgDlgAll, @SMsgDlgNoToAll,
+  @SMsgDlgYesToAll, @SMsgDlgHelp {$IFDEF UNICODE}, @SMsgDlgClose {$ENDIF});
+  ButtonNames : Array [TMsgDlgBtn] Of String =
+  ('Yes', 'No', 'OK', 'Cancel', 'Abort', 'Retry', 'Ignore', 'All', 'NoToAll',
+  'YesToAll', 'Help' {$IFDEF UNICODE}, 'Close' {$ENDIF});
+  ModalResults : Array [TMsgDlgBtn] Of Integer =
+  (mrYes, mrNo, mrOk, mrCancel, mrAbort, mrRetry, mrIgnore, mrAll, mrNoToAll,
+  mrYesToAll, 0 {$IFDEF UNICODE}, mrClose {$ENDIF});
 
 { Helper Functions }
 
-type TButtonHotKeys = array[TMsgDlgBtn] of Char;
+ Type
+  TButtonHotKeys = Array[TMsgDlgBtn] Of Char;
 
-function RemovePrefix(const Str: String): String;
-var
-  I: Integer;
-begin
-  Result := Str;
-  I := Length(Result);
-  while I > 0 do
-  begin
-    if Result[I] = '&' then
-    begin
-      if (I = 1) or (Result[I - 1] <> '&') then
-        Delete(Result, I, 1)
-      else
-        Dec(I);
-    end;
-    Dec(I);
-  end;
-end;
+ Function RemovePrefix(Const Str : String) : String;
+  Var
+   i : Integer;
+  Begin
+   Result := Str;
+   i      := Length(Result);
+   While i > 0 Do
+    Begin
+     If Result[i] = '&' Then
+      Begin
+       If (i = 1) Or (Result[i - 1] <> '&') Then
+        Delete(Result, i, 1)
+       Else
+        Dec(i);
+      End;
+     Dec(i);
+    End;
+  End;
 
-function GetAutoHotKey(const Caption: String; Button: TMsgDlgBtn;
-  var LastHotKeys: TButtonHotKeys): String;
-var
-  B: TMsgDlgBtn;
-  HotKey: Char;
-  I: Integer;
-begin
-  Result := RemovePrefix(Caption);
-  if not (Button in [mbOK, mbCancel]) then
-  begin
-    for I := 1 to Length(Result) do
-    begin
-      if not CharIsLetterOrDigit(Result[I]) then
+ Function GetAutoHotKey(Const Caption : String; Button : TMsgDlgBtn; Var LastHotKeys : TButtonHotKeys) : String;
+  Var
+   b      : TMsgDlgBtn;
+   HotKey : Char;
+   i      : Integer;
+  Begin
+   Result := RemovePrefix(Caption);
+   If Not(Button In [mbOK, mbCancel]) Then
+    Begin
+     For i := 1 To Length(Result) Do
+      Begin
+       If Not CharIsLetterOrDigit(Result[i]) Then
         Continue;
-      HotKey := CharToUpper(Result[I]);
-      for B := Low(TMsgDlgBtn) to Pred(Button) do
-        if HotKey = LastHotKeys[B] then
-        begin
+       HotKey := CharToUpper(Result[i]);
+       For b  := Low(TMsgDlgBtn) To Pred(Button) Do
+        If HotKey = LastHotKeys[b] Then
+         Begin
           HotKey := #0;
           Break;
-        end;
-      if HotKey <> #0 then
-      begin
-        Insert('&', Result, I);
-        LastHotKeys[B] := HotKey;
-        Break;
-      end;
-    end;
-  end;
-end;
+         End;
+       If HotKey <> #0 Then
+        Begin
+         Insert('&', Result, i);
+         LastHotKeys[b] := HotKey;
+         Break;
+        End;
+      End;
+    End;
+  End;
 
 { TCustomDlgBtnCaptions }
 
-constructor TCustomDlgBtnCaptions.Create;
-var
-  DlgBtn: TMsgDlgBtn;
-begin
-  for DlgBtn := Low(TMsgDlgBtn) to High(TMsgDlgBtn) do
+ Constructor TCustomDlgBtnCaptions.Create;
+  Var
+   DlgBtn : TMsgDlgBtn;
+  Begin
+   For DlgBtn         := Low(TMsgDlgBtn) To High(TMsgDlgBtn) Do
     fCaptions[DlgBtn] := LoadResString(ButtonCaptions_[DlgBtn]);
-end;
+  End;
 
-procedure TCustomDlgBtnCaptions.Assign(Source: TPersistent);
-var
-  DlgBtn: TMsgDlgBtn;
-begin
-  if Source is TCustomDlgBtnCaptions then
-    for DlgBtn := Low(TMsgDlgBtn) to High(TMsgDlgBtn) do
-      Captions[DlgBtn] := TCustomDlgBtnCaptions(Source).Captions[DlgBtn]
-  else
-    inherited Assign(Source);
-end;
+ Procedure TCustomDlgBtnCaptions.Assign(Source : TPersistent);
+  Var
+   DlgBtn : TMsgDlgBtn;
+  Begin
+   If Source Is TCustomDlgBtnCaptions Then
+    For DlgBtn        := Low(TMsgDlgBtn) To High(TMsgDlgBtn) Do
+     Captions[DlgBtn] := TCustomDlgBtnCaptions(Source).Captions[DlgBtn]
+   Else
+    Inherited Assign(Source);
+  End;
 
-function TCustomDlgBtnCaptions.GetMetrics(DC: HDC; Buttons: TMsgDlgButtons;
-  var Width, Height: Integer): Integer;
-const
-  HorzSpacing = 4;
-  VertSpacing = 2;
-var
-  B: TMsgDlgBtn;
-  TextRect: TRect;
-begin
-  Result := 0;
-  for B := Low(TMsgDlgBtn) to High(TMsgDlgBtn) do
-    if B in Buttons then
-    begin
+ Function TCustomDlgBtnCaptions.GetMetrics(DC : HDC; Buttons : TMsgDlgButtons; Var Width, Height : Integer) : Integer;
+  Const
+   HorzSpacing = 4;
+   VertSpacing = 2;
+  Var
+   b        : TMsgDlgBtn;
+   TextRect : TRect;
+  Begin
+   Result := 0;
+   For b  := Low(TMsgDlgBtn) To High(TMsgDlgBtn) Do
+    If b In Buttons Then
+     Begin
       Inc(Result);
       SetRect(TextRect, 0, 0, 0, 0);
-      DrawText(DC, PChar(Captions[B]), Length(Captions[B]), TextRect,
-        DT_CALCRECT or DT_SINGLELINE);
-      if Width < TextRect.Right - TextRect.Left + 2 * HorzSpacing then
-        Width := TextRect.Right - TextRect.Left + 2 * HorzSpacing;
-      if Height < TextRect.Bottom - TextRect.Top + 2 * VertSpacing then
-        Height := TextRect.Bottom - TextRect.Top + 2 * VertSpacing;
-    end;
-end;
+      DrawText(DC, PChar(Captions[b]), Length(Captions[b]), TextRect,
+      DT_CALCRECT Or DT_SINGLELINE);
+      If Width < TextRect.Right - TextRect.Left + 2 * HorzSpacing Then
+       Width := TextRect.Right - TextRect.Left + 2 * HorzSpacing;
+      If Height < TextRect.Bottom - TextRect.Top + 2 * VertSpacing Then
+       Height := TextRect.Bottom - TextRect.Top + 2 * VertSpacing;
+     End;
+  End;
 
-function TCustomDlgBtnCaptions.GetCaptions(DlgBtn: TMsgDlgBtn): String;
-begin
-  Result := fCaptions[DlgBtn];
-end;
+ Function TCustomDlgBtnCaptions.GetCaptions(DlgBtn : TMsgDlgBtn) : String;
+  Begin
+   Result := fCaptions[DlgBtn];
+  End;
 
-procedure TCustomDlgBtnCaptions.SetCaptions(DlgBtn: TMsgDlgBtn;
-  const Value: String);
-begin
-  fCaptions[DlgBtn] := Value;
-end;
+ Procedure TCustomDlgBtnCaptions.SetCaptions(DlgBtn : TMsgDlgBtn; Const Value : String);
+  Begin
+   fCaptions[DlgBtn] := Value;
+  End;
 
-function TCustomDlgBtnCaptions.IsStoredCaptions(DlgBtn: TMsgDlgBtn): Boolean;
-begin
-  Result := (fCaptions[DlgBtn] <> LoadResString(ButtonCaptions_[DlgBtn]));
-end;
+ Function TCustomDlgBtnCaptions.IsStoredCaptions(DlgBtn : TMsgDlgBtn) : Boolean;
+  Begin
+   Result := (fCaptions[DlgBtn] <> LoadResString(ButtonCaptions_[DlgBtn]));
+  End;
 
 { TCustomDlgCheckBox }
 
-constructor TCustomDlgCheckBox.Create;
-begin
-  inherited Create;
-  fAllowGrayed := False;
-  fState := cbUnchecked;
-  fEnabled := True;
-  fVisible := False;
-end;
+ Constructor TCustomDlgCheckBox.Create;
+  Begin
+   Inherited Create;
+   fAllowGrayed := False;
+   fState       := cbUnchecked;
+   fEnabled     := True;
+   fVisible     := False;
+  End;
 
-procedure TCustomDlgCheckBox.Assign(Source: TPersistent);
-begin
-  if Source is TCustomDlgCheckBox then
-  begin
-    Caption := TCustomDlgCheckBox(Source).Caption;
-    Hint := TCustomDlgCheckBox(Source).Hint;
-    AllowGrayed := TCustomDlgCheckBox(Source).AllowGrayed;
-    State := TCustomDlgCheckBox(Source).State;
-    Enabled := TCustomDlgCheckBox(Source).Enabled;
-    Visible := TCustomDlgCheckBox(Source).Visible;
-  end
-  else if Source is TCheckBox then
-  begin
-    Caption := TCheckBox(Source).Caption;
-    Hint := TCheckBox(Source).Hint;
-    AllowGrayed := TCheckBox(Source).AllowGrayed;
-    State := TCheckBox(Source).State;
-    Enabled := TCheckBox(Source).Enabled;
-    Visible := TCheckBox(Source).Visible;
-  end
-  else
-    inherited Assign(Source);
-end;
+ Procedure TCustomDlgCheckBox.Assign(Source : TPersistent);
+  Begin
+   If Source Is TCustomDlgCheckBox Then
+    Begin
+     Caption     := TCustomDlgCheckBox(Source).Caption;
+     Hint        := TCustomDlgCheckBox(Source).Hint;
+     AllowGrayed := TCustomDlgCheckBox(Source).AllowGrayed;
+     State       := TCustomDlgCheckBox(Source).State;
+     Enabled     := TCustomDlgCheckBox(Source).Enabled;
+     Visible     := TCustomDlgCheckBox(Source).Visible;
+    End
+   Else If Source Is TCheckBox Then
+    Begin
+     Caption     := TCheckBox(Source).Caption;
+     Hint        := TCheckBox(Source).Hint;
+     AllowGrayed := TCheckBox(Source).AllowGrayed;
+     State       := TCheckBox(Source).State;
+     Enabled     := TCheckBox(Source).Enabled;
+     Visible     := TCheckBox(Source).Visible;
+    End
+   Else
+    Inherited Assign(Source);
+  End;
 
-procedure TCustomDlgCheckBox.AssignTo(Dest: TPersistent);
-begin
-  if Dest is TCheckBox then
-  begin
-    TCheckBox(Dest).Caption := Caption;
-    TCheckBox(Dest).Hint := Hint;
-    TCheckBox(Dest).AllowGrayed := AllowGrayed;
-    TCheckBox(Dest).State := State;
-    TCheckBox(Dest).Enabled := Enabled;
-    TCheckBox(Dest).Visible := Visible;
-  end
-  else
-    inherited AssignTo(Dest);
-end;
+ Procedure TCustomDlgCheckBox.AssignTo(Dest : TPersistent);
+  Begin
+   If Dest Is TCheckBox Then
+    Begin
+     TCheckBox(Dest).Caption     := Caption;
+     TCheckBox(Dest).Hint        := Hint;
+     TCheckBox(Dest).AllowGrayed := AllowGrayed;
+     TCheckBox(Dest).State       := State;
+     TCheckBox(Dest).Enabled     := Enabled;
+     TCheckBox(Dest).Visible     := Visible;
+    End
+   Else
+    Inherited AssignTo(Dest);
+  End;
 
-function TCustomDlgCheckBox.GetMetrics(DC: HDC; MaxWidth: Integer): TSize;
-const
-  Spacing = 4;
-var
-  TextRect: TRect;
-  CheckSize: TSize;
-begin
-  CheckSize := GetCheckBoxSize;
-  SetRect(TextRect, 0, 0, MaxWidth - CheckSize.cx + Spacing, 0);
-  DrawText(DC, PChar(Caption), Length(Caption), TextRect,
-    DT_CALCRECT or DT_WORDBREAK);
-  Result.cx := TextRect.Right - TextRect.Left + CheckSize.cx + Spacing;
-  Result.cy := TextRect.Bottom - TextRect.Top;
-  if Result.cy < CheckSize.cy then
+ Function TCustomDlgCheckBox.GetMetrics(DC : HDC; MaxWidth : Integer) : TSize;
+  Const
+   Spacing = 4;
+  Var
+   TextRect  : TRect;
+   CheckSize : TSize;
+  Begin
+   CheckSize := GetCheckBoxSize;
+   SetRect(TextRect, 0, 0, MaxWidth - CheckSize.cx + Spacing, 0);
+   DrawText(DC, PChar(Caption), Length(Caption), TextRect,
+   DT_CALCRECT Or DT_WORDBREAK);
+   Result.cx := TextRect.Right - TextRect.Left + CheckSize.cx + Spacing;
+   Result.cy := TextRect.Bottom - TextRect.Top;
+   If Result.cy < CheckSize.cy Then
     Result.cy := CheckSize.cy;
-end;
+  End;
 
-procedure TCustomDlgCheckBox.SetCaption(const Value: String);
-begin
-  if Caption <> Value then
-  begin
-    fCaption := Value;
-    if Assigned(Control) then
+ Procedure TCustomDlgCheckBox.SetCaption(Const Value : String);
+  Begin
+   If Caption <> Value Then
+    Begin
+     fCaption := Value;
+     If Assigned(Control) Then
       Control.Caption := Caption;
-  end;
-end;
+    End;
+  End;
 
-procedure TCustomDlgCheckBox.SetHint(const Value: String);
-begin
-  if Hint <> Value then
-  begin
-    fHint := Value;
-    if Assigned(Control) then
+ Procedure TCustomDlgCheckBox.SetHint(Const Value : String);
+  Begin
+   If Hint <> Value Then
+    Begin
+     fHint := Value;
+     If Assigned(Control) Then
       Control.Hint := Hint;
-  end;
-end;
+    End;
+  End;
 
-procedure TCustomDlgCheckBox.SetAllowGrayed(Value: Boolean);
-begin
-  if AllowGrayed <> Value then
-  begin
-    fAllowGrayed := Value;
-    if Assigned(Control) then
+ Procedure TCustomDlgCheckBox.SetAllowGrayed(Value : Boolean);
+  Begin
+   If AllowGrayed <> Value Then
+    Begin
+     fAllowGrayed := Value;
+     If Assigned(Control) Then
       Control.AllowGrayed := AllowGrayed;
-  end;
-end;
+    End;
+  End;
 
-procedure TCustomDlgCheckBox.SetState(Value: TCheckBoxState);
-begin
-  if State <> Value then
-  begin
-    fState := Value;
-    if Assigned(Control) then
+ Procedure TCustomDlgCheckBox.SetState(Value : TCheckBoxState);
+  Begin
+   If State <> Value Then
+    Begin
+     fState := Value;
+     If Assigned(Control) Then
       Control.State := State;
-  end;
-end;
+    End;
+  End;
 
-function TCustomDlgCheckBox.GetChecked: Boolean;
-begin
-  Result := (State = cbChecked);
-end;
+ Function TCustomDlgCheckBox.GetChecked : Boolean;
+  Begin
+   Result := (State = cbChecked);
+  End;
 
-procedure TCustomDlgCheckBox.SetChecked(Value: Boolean);
-begin
-  if Value then
+ Procedure TCustomDlgCheckBox.SetChecked(Value : Boolean);
+  Begin
+   If Value Then
     State := cbChecked
-  else
+   Else
     State := cbUnchecked;
-end;
+  End;
 
-procedure TCustomDlgCheckBox.SetEnabled(Value: Boolean);
-begin
-  if Enabled <> Value then
-  begin
-    fEnabled := Value;
-    if Assigned(Control) then
+ Procedure TCustomDlgCheckBox.SetEnabled(Value : Boolean);
+  Begin
+   If Enabled <> Value Then
+    Begin
+     fEnabled := Value;
+     If Assigned(Control) Then
       Control.Enabled := Enabled;
-  end;
-end;
+    End;
+  End;
 
-procedure TCustomDlgCheckBox.SetVisible(Value: Boolean);
-begin
-  if Visible <> Value then
-  begin
-    fVisible := Value;
-    if Assigned(Control) then
+ Procedure TCustomDlgCheckBox.SetVisible(Value : Boolean);
+  Begin
+   If Visible <> Value Then
+    Begin
+     fVisible := Value;
+     If Assigned(Control) Then
       Control.Visible := Visible;
-  end;
-end;
+    End;
+  End;
 
-procedure TCustomDlgCheckBox.SetControl(Value: TCheckBox);
-begin
-  if Control <> Value then
-  begin
-    fControl := Value;
-    if Assigned(Control) then
+ Procedure TCustomDlgCheckBox.SetControl(Value : TCheckBox);
+  Begin
+   If Control <> Value Then
+    Begin
+     fControl := Value;
+     If Assigned(Control) Then
       AssignTo(Control);
-  end;
-end;
+    End;
+  End;
 
 { TMsgDlgTypeIcons }
 
-constructor TMsgDlgTypeIcons.Create;
-var
-  DlgType: TMsgDlgType;
-begin
-  for DlgType := Low(TMsgDlgType) to High(TMsgDlgType) do
-  begin
-    fIcons[DlgType] := TIcon.Create;
-    if DlgType <> mtCustom then
+ Constructor TMsgDlgTypeIcons.Create;
+  Var
+   DlgType : TMsgDlgType;
+  Begin
+   For DlgType := Low(TMsgDlgType) To High(TMsgDlgType) Do
+    Begin
+     fIcons[DlgType] := TIcon.Create;
+     If DlgType <> mtCustom Then
       fIcons[DlgType].Handle := LoadIcon(0, IconIDs[DlgType]);
-  end;
-end;
+    End;
+  End;
 
-destructor TMsgDlgTypeIcons.Destroy;
-var
-  DlgType: TMsgDlgType;
-begin
-  for DlgType := Low(TMsgDlgType) to High(TMsgDlgType) do
+ Destructor TMsgDlgTypeIcons.Destroy;
+  Var
+   DlgType : TMsgDlgType;
+  Begin
+   For DlgType := Low(TMsgDlgType) To High(TMsgDlgType) Do
     fIcons[DlgType].Free;
-  inherited Destroy;
-end;
+   Inherited Destroy;
+  End;
 
-procedure TMsgDlgTypeIcons.Assign(Source: TPersistent);
-var
-  DlgType: TMsgDlgType;
-begin
-  if Source is TMsgDlgTypeIcons then
-    for DlgType := Low(TMsgDlgType) to High(TMsgDlgType) do
-      Icons[DlgType] := TMsgDlgTypeIcons(Source).Icons[DlgType]
-  else
-    inherited Assign(Source);
-end;
+ Procedure TMsgDlgTypeIcons.Assign(Source : TPersistent);
+  Var
+   DlgType : TMsgDlgType;
+  Begin
+   If Source Is TMsgDlgTypeIcons Then
+    For DlgType     := Low(TMsgDlgType) To High(TMsgDlgType) Do
+     Icons[DlgType] := TMsgDlgTypeIcons(Source).Icons[DlgType]
+   Else
+    Inherited Assign(Source);
+  End;
 
-function TMsgDlgTypeIcons.GetIcons(DlgType: TMsgDlgType): TIcon;
-begin
-  Result := fIcons[DlgType];
-end;
+ Function TMsgDlgTypeIcons.GetIcons(DlgType : TMsgDlgType) : TIcon;
+  Begin
+   Result := fIcons[DlgType];
+  End;
 
-procedure TMsgDlgTypeIcons.SetIcons(DlgType: TMsgDlgType; Value: TIcon);
-begin
-  if Assigned(Value) then
+ Procedure TMsgDlgTypeIcons.SetIcons(DlgType : TMsgDlgType; Value : TIcon);
+  Begin
+   If Assigned(Value) Then
     fIcons[DlgType].Assign(Value)
-  else if DlgType <> mtCustom then
+   Else If DlgType <> mtCustom Then
     fIcons[DlgType].Handle := LoadIcon(0, IconIDs[DlgType])
-  else
+   Else
     fIcons[DlgType].Handle := 0;
-end;
+  End;
 
-function TMsgDlgTypeIcons.IsStoredIcons(DlgType: TMsgDlgType): Boolean;
-begin
-  if fIcons[DlgType].Empty then
+ Function TMsgDlgTypeIcons.IsStoredIcons(DlgType : TMsgDlgType) : Boolean;
+  Begin
+   If fIcons[DlgType].Empty Then
     Result := False
-  else if DlgType <> mtCustom then
+   Else If DlgType <> mtCustom Then
     Result := (fIcons[DlgType].Handle <> LoadIcon(0, IconIDs[DlgType]))
-  else
+   Else
     Result := True;
-end;
+  End;
 
 { TMsgDlgTypeCaptions }
 
-constructor TMsgDlgTypeCaptions.Create;
-var
-  DlgType: TMsgDlgType;
-begin
-  for DlgType := Low(TMsgDlgType) to High(TMsgDlgType) do
-    if DlgType <> mtCustom then
-      fCaptions[DlgType] := LoadResString(DialogCaptions[DlgType])
-    else
-      fCaptions[DlgType] := '';
-end;
+ Constructor TMsgDlgTypeCaptions.Create;
+  Var
+   DlgType : TMsgDlgType;
+  Begin
+   For DlgType := Low(TMsgDlgType) To High(TMsgDlgType) Do
+    If DlgType <> mtCustom Then
+     fCaptions[DlgType] := LoadResString(DialogCaptions[DlgType])
+    Else
+     fCaptions[DlgType] := '';
+  End;
 
-procedure TMsgDlgTypeCaptions.Assign(Source: TPersistent);
-var
-  DlgType: TMsgDlgType;
-begin
-  if Source is TMsgDlgTypeCaptions then
-    for DlgType := Low(TMsgDlgType) to High(TMsgDlgType) do
-      Captions[DlgType] := TMsgDlgTypeCaptions(Source).Captions[DlgType]
-  else
-    inherited Assign(Source);
-end;
+ Procedure TMsgDlgTypeCaptions.Assign(Source : TPersistent);
+  Var
+   DlgType : TMsgDlgType;
+  Begin
+   If Source Is TMsgDlgTypeCaptions Then
+    For DlgType        := Low(TMsgDlgType) To High(TMsgDlgType) Do
+     Captions[DlgType] := TMsgDlgTypeCaptions(Source).Captions[DlgType]
+   Else
+    Inherited Assign(Source);
+  End;
 
-function TMsgDlgTypeCaptions.GetCaptions(DlgType: TMsgDlgType): String;
-begin
-  Result := fCaptions[DlgType];
-end;
+ Function TMsgDlgTypeCaptions.GetCaptions(DlgType : TMsgDlgType) : String;
+  Begin
+   Result := fCaptions[DlgType];
+  End;
 
-procedure TMsgDlgTypeCaptions.SetCaptions(DlgType: TMsgDlgType;
-  const Value: String);
-begin
-  fCaptions[DlgType] := Value;
-end;
+ Procedure TMsgDlgTypeCaptions.SetCaptions(DlgType : TMsgDlgType; Const Value : String);
+  Begin
+   fCaptions[DlgType] := Value;
+  End;
 
-function TMsgDlgTypeCaptions.IsStoredCaptions(DlgType: TMsgDlgType): Boolean;
-begin
-  if DlgType <> mtCustom then
+ Function TMsgDlgTypeCaptions.IsStoredCaptions(DlgType : TMsgDlgType) : Boolean;
+  Begin
+   If DlgType <> mtCustom Then
     Result := (fCaptions[DlgType] <> LoadResString(DialogCaptions[DlgType]))
-  else
+   Else
     Result := (fCaptions[DlgType] <> '');
-end;
+  End;
 
 { TMessageDialog }
 
-constructor TMessageDialog.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  fAutoHotKeys := True;
-  fCheckBox := TMsgDlgCheckBox.Create;
-  fIcons := TMsgDlgTypeIcons.Create;
-  fCaptions := TMsgDlgTypeCaptions.Create;
-  fButtonCaptions := TMsgDlgBtnCaptions.Create;
-  fFont := TFont.Create;
-  fFont.OnChange := FontChange;
-  ParentBiDiMode := True;
-  ParentFont := True;
-end;
+ Constructor TMessageDialog.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   fAutoHotKeys    := True;
+   fCheckBox       := TMsgDlgCheckBox.Create;
+   fIcons          := TMsgDlgTypeIcons.Create;
+   fCaptions       := TMsgDlgTypeCaptions.Create;
+   fButtonCaptions := TMsgDlgBtnCaptions.Create;
+   fFont           := TFont.Create;
+   fFont.OnChange  := FontChange;
+   ParentBiDiMode  := True;
+   ParentFont      := True;
+  End;
 
-destructor TMessageDialog.Destroy;
-begin
-  fIcons.Free;
-  fCaptions.Free;
-  fButtonCaptions.Free;
-  fCheckBox.Free;
-  fFont.Free;
-  inherited Destroy;
-end;
+ Destructor TMessageDialog.Destroy;
+  Begin
+   fIcons.Free;
+   fCaptions.Free;
+   fButtonCaptions.Free;
+   fCheckBox.Free;
+   fFont.Free;
+   Inherited Destroy;
+  End;
 
-function TMessageDialog.GetShowDuration: Cardinal;
-begin
-  if Assigned(Dialog) then
+ Function TMessageDialog.GetShowDuration : Cardinal;
+  Begin
+   If Assigned(Dialog) Then
     Result := GetTickCount - fShowTicks
-  else
+   Else
     Result := fShowTicks;
-end;
+  End;
 
-procedure TMessageDialog.SetCheckBox(Value: TMsgDlgCheckBox);
-begin
-  fCheckBox.Assign(Value);
-end;
+ Procedure TMessageDialog.SetCheckBox(Value : TMsgDlgCheckBox);
+  Begin
+   fCheckBox.Assign(Value);
+  End;
 
-procedure TMessageDialog.SetIcons(Value: TMsgDlgTypeIcons);
-begin
-  fIcons.Assign(Value);
-end;
+ Procedure TMessageDialog.SetIcons(Value : TMsgDlgTypeIcons);
+  Begin
+   fIcons.Assign(Value);
+  End;
 
-procedure TMessageDialog.SetCaptions(Value: TMsgDlgTypeCaptions);
-begin
-  fCaptions.Assign(Value);
-end;
+ Procedure TMessageDialog.SetCaptions(Value : TMsgDlgTypeCaptions);
+  Begin
+   fCaptions.Assign(Value);
+  End;
 
-procedure TMessageDialog.SetButtonCaptions(Value: TMsgDlgBtnCaptions);
-begin
-  fButtonCaptions.Assign(Value);
-end;
+ Procedure TMessageDialog.SetButtonCaptions(Value : TMsgDlgBtnCaptions);
+  Begin
+   fButtonCaptions.Assign(Value);
+  End;
 
-procedure TMessageDialog.SetFont(Value: TFont);
-begin
-  fFont.Assign(Value);
-end;
+ Procedure TMessageDialog.SetFont(Value : TFont);
+  Begin
+   fFont.Assign(Value);
+  End;
 
-function TMessageDialog.GetBiDiMode: TBiDiMode;
-begin
-  if ParentBiDiMode then
+ Function TMessageDialog.GetBiDiMode : TBiDiMode;
+  Begin
+   If ParentBiDiMode Then
     fBiDiMode := Application.BiDiMode;
-  Result := fBiDiMode;
-end;
+   Result     := fBiDiMode;
+  End;
 
-procedure TMessageDialog.SetBiDiMode(Value: TBiDiMode);
-begin
-  fBiDiMode := Value;
-  fParentBiDiMode := False;
-end;
+ Procedure TMessageDialog.SetBiDiMode(Value : TBiDiMode);
+  Begin
+   fBiDiMode       := Value;
+   fParentBiDiMode := False;
+  End;
 
-procedure TMessageDialog.SetParentFont(Value: Boolean);
-begin
-  if ParentFont <> Value then
-  begin
-    if Value then
+ Procedure TMessageDialog.SetParentFont(Value : Boolean);
+  Begin
+   If ParentFont <> Value Then
+    Begin
+     If Value Then
       fFont.Assign(Application.DefaultFont);
-    fParentFont := Value;
-  end;
-end;
+     fParentFont := Value;
+    End;
+  End;
 
-procedure TMessageDialog.SetParentBiDiMode(Value: Boolean);
-begin
-  if ParentBiDiMode <> Value then
-  begin
-    if Value then
-      fBiDiMode := Application.BiDiMode;
-    fParentBiDiMode := Value;
-  end;
-end;
+ Procedure TMessageDialog.SetParentBiDiMode(Value : Boolean);
+  Begin
+   If ParentBiDiMode <> Value Then
+    Begin
+     If Value Then
+      fBiDiMode      := Application.BiDiMode;
+     fParentBiDiMode := Value;
+    End;
+  End;
 
-function TMessageDialog.IsStoredFont: Boolean;
-begin
-  Result := not ParentFont;
-end;
+ Function TMessageDialog.IsStoredFont : Boolean;
+  Begin
+   Result := Not ParentFont;
+  End;
 
-function TMessageDialog.IsStoredBiDiMode: Boolean;
-begin
-  Result := not ParentBiDiMode;
-end;
+ Function TMessageDialog.IsStoredBiDiMode : Boolean;
+  Begin
+   Result := Not ParentBiDiMode;
+  End;
 
-procedure TMessageDialog.FontChange(Sender: TObject);
-begin
-  fParentFont := False;
-end;
+ Procedure TMessageDialog.FontChange(Sender : TObject);
+  Begin
+   fParentFont := False;
+  End;
 
-procedure TMessageDialog.DialogShow(Sender: TObject);
-begin
-  DoShow;
-end;
+ Procedure TMessageDialog.DialogShow(Sender : TObject);
+  Begin
+   DoShow;
+  End;
 
-procedure TMessageDialog.DialogClose(Sender: TObject; var Action: TCloseAction);
-begin
-  DoClose;
-end;
+ Procedure TMessageDialog.DialogClose(Sender : TObject; Var Action : TCloseAction);
+  Begin
+   DoClose;
+  End;
 
-procedure TMessageDialog.DialogKeyDown(Sender: TObject; var Key: Word;
-  Shift: TShiftState);
-begin
-  if (Shift = [ssCtrl]) and (Key = Word('C')) then
-  begin
-    Beep;
-    Clipboard.AsText := GetDialogText;
-  end;
-end;
+ Procedure TMessageDialog.DialogKeyDown(Sender : TObject; Var Key : Word; Shift : TShiftState);
+  Begin
+   If (Shift = [ssCtrl]) And (Key = Word('C')) Then
+    Begin
+     Beep;
+     Clipboard.AsText := GetDialogText;
+    End;
+  End;
 
-procedure TMessageDialog.HelpButtonClick(Sender: TObject);
-begin
-  Application.HelpContext(Dialog.HelpContext);
-end;
+ Procedure TMessageDialog.HelpButtonClick(Sender : TObject);
+  Begin
+   Application.HelpContext(Dialog.HelpContext);
+  End;
 
-procedure TMessageDialog.CheckBoxClicked(Sender: TObject);
-begin
-  if Assigned(CheckBox.Control) then
+ Procedure TMessageDialog.CheckBoxClicked(Sender : TObject);
+  Begin
+   If Assigned(CheckBox.Control) Then
     CheckBox.State := CheckBox.Control.State;
-end;
+  End;
 
-procedure TMessageDialog.CallbackTimerTrigger(Sender: TObject);
-begin
-  DoCallbackTimer;
-end;
+ Procedure TMessageDialog.CallbackTimerTrigger(Sender : TObject);
+  Begin
+   DoCallbackTimer;
+  End;
 
-procedure TMessageDialog.DoShow;
-begin
-  if Assigned(OnShow) then
+ Procedure TMessageDialog.DoShow;
+  Begin
+   If Assigned(OnShow) Then
     OnShow(Self);
-end;
+  End;
 
-procedure TMessageDialog.DoClose;
-begin
-  if Assigned(OnClose) then
+ Procedure TMessageDialog.DoClose;
+  Begin
+   If Assigned(OnClose) Then
     OnClose(Self);
-end;
+  End;
 
-procedure TMessageDialog.DoCallbackTimer;
-begin
-  if Assigned(OnCallbackTimer) then
+ Procedure TMessageDialog.DoCallbackTimer;
+  Begin
+   If Assigned(OnCallbackTimer) Then
     OnCallbackTimer(Self);
-end;
+  End;
 
-function TMessageDialog.GetDialogText: String;
-var
-  DividerLine, ButtonCaptions, MessageCaption: String;
-  I: Integer;
-begin
-  if Assigned(Dialog) then
-  begin
-    ButtonCaptions := '';
-    MessageCaption := '';
-    DividerLine := StringOfChar('-', 27) + sLineBreak;
-    for I := 0 to Dialog.ComponentCount - 1 do
-      if Dialog.Components[I] is TButton then
-        ButtonCaptions := ButtonCaptions + TButton(Dialog.Components[I])
-          .Caption + StringOfChar(' ', 3)
-      else if Dialog.Components[I] is TStaticText then
-        MessageCaption := TStaticText(Dialog.Components[I]).Caption;
-    ButtonCaptions := StringReplace(ButtonCaptions, '&', '', [rfReplaceAll]);
-    Result := DividerLine + Dialog.Caption + sLineBreak + DividerLine +
-      MessageCaption + sLineBreak + DividerLine + ButtonCaptions + sLineBreak +
-      DividerLine;
-  end
-  else
+ Function TMessageDialog.GetDialogText : String;
+  Var
+   DividerLine, ButtonCaptions, MessageCaption : String;
+   i                                           : Integer;
+  Begin
+   If Assigned(Dialog) Then
+    Begin
+     ButtonCaptions := '';
+     MessageCaption := '';
+     DividerLine    := StringOfChar('-', 27) + sLineBreak;
+     For i          := 0 To Dialog.ComponentCount - 1 Do
+      If Dialog.Components[i] Is TButton Then
+       ButtonCaptions := ButtonCaptions + TButton(Dialog.Components[i])
+       .Caption + StringOfChar(' ', 3)
+      Else If Dialog.Components[i] Is TStaticText Then
+       MessageCaption := TStaticText(Dialog.Components[i]).Caption;
+     ButtonCaptions   := StringReplace(ButtonCaptions, '&', '', [rfReplaceAll]);
+     Result           := DividerLine + Dialog.Caption + sLineBreak + DividerLine +
+     MessageCaption + sLineBreak + DividerLine + ButtonCaptions + sLineBreak +
+     DividerLine;
+    End
+   Else
     Result := '';
-end;
+  End;
 
-function TMessageDialog.Show(const Msg: String; DlgType: TMsgDlgType;
-  Buttons: TMsgDlgButtons; DefaultButton: TMsgDlgBtn;
-  HelpContext: THelpContext): Integer;
-const
-  mcHorzMargin = 8;
-  mcVertMargin = 6;
-  mcHorzSpacing = 8;
-  mcVertSpacing = 5;
-  mcButtonWidth = 60;
-  mcButtonHeight = 14;
-  mcButtonSpacing = 4;
-  mcMinDialogWidth = 260;
-var
-  DC: HDC;
-  tm: TTextMetric;
-  TextRect: TRect;
-  TextSize, IconSize, CheckSize: TSize;
-  HorzMargin, VertMargin: Integer;
-  HorzSpacing, VertSpacing: Integer;
-  ButtonWidth, ButtonHeight, ButtonSpacing: Integer;
-  ButtonCount, ButtonGroupWidth: Integer;
-  IconTextWidth, IconTextHeight: Integer;
-  B, CancelButton: TMsgDlgBtn;
-  X, MinDialogWidth: Integer;
-  ButtonsPanel: TPanel;
-  Button: TButton;
-  HotKeys: TButtonHotKeys;
-begin
-  fDialog := TForm.CreateNew(Application);
-  try
+ Function TMessageDialog.Show(Const Msg : String; DlgType : TMsgDlgType; Buttons : TMsgDlgButtons; DefaultButton : TMsgDlgBtn; HelpContext : THelpContext) : Integer;
+  Const
+   mcHorzMargin     = 8;
+   mcVertMargin     = 6;
+   mcHorzSpacing    = 8;
+   mcVertSpacing    = 5;
+   mcButtonWidth    = 60;
+   mcButtonHeight   = 14;
+   mcButtonSpacing  = 4;
+   mcMinDialogWidth = 260;
+  Var
+   DC                                       : HDC;
+   tm                                       : TTextMetric;
+   TextRect                                 : TRect;
+   TextSize, IconSize, CheckSize            : TSize;
+   HorzMargin, VertMargin                   : Integer;
+   HorzSpacing, VertSpacing                 : Integer;
+   ButtonWidth, ButtonHeight, ButtonSpacing : Integer;
+   ButtonCount, ButtonGroupWidth            : Integer;
+   IconTextWidth, IconTextHeight            : Integer;
+   b, CancelButton                          : TMsgDlgBtn;
+   x, MinDialogWidth                        : Integer;
+   ButtonsPanel                             : TPanel;
+   Button                                   : TButton;
+   HotKeys                                  : TButtonHotKeys;
+  Begin
+   fDialog := TForm.CreateNew(Application);
+   Try
     // init dialog
-    Dialog.BiDiMode := BiDiMode;
-    Dialog.Color := clWindow;
-    Dialog.Font := Font;
-    Dialog.ShowHint := True;
-    Dialog.KeyPreview := True;
+    Dialog.BiDiMode    := BiDiMode;
+    Dialog.Color       := clWindow;
+    Dialog.Font        := Font;
+    Dialog.ShowHint    := True;
+    Dialog.KeyPreview  := True;
     Dialog.BorderStyle := bsToolWindow;
-    Dialog.Position := poScreenCenter;
+    Dialog.Position    := poScreenCenter;
     Dialog.HelpContext := HelpContext;
-    Dialog.Icon := Application.Icon;
-    Dialog.OnShow := DialogShow;
-    Dialog.OnClose := DialogClose;
-    Dialog.OnKeyDown := DialogKeyDown;
+    Dialog.Icon        := Application.Icon;
+    Dialog.OnShow      := DialogShow;
+    Dialog.OnClose     := DialogClose;
+    Dialog.OnKeyDown   := DialogKeyDown;
     Dialog.Canvas.Font := Dialog.Font;
-    Dialog.Caption := Captions[DlgType];
-    if Dialog.Caption = '' then
-      Dialog.Caption := Application.Title;
+    Dialog.Caption     := Captions[DlgType];
+    If Dialog.Caption = '' Then
+     Dialog.Caption := Application.Title;
     // calculate metrics
     DC := Dialog.Canvas.Handle;
     GetTextMetrics(DC, tm);
-    HorzMargin := MulDiv(mcHorzMargin, tm.tmAveCharWidth, 4);
-    VertMargin := MulDiv(mcVertMargin, tm.tmHeight, 8);
-    HorzSpacing := MulDiv(mcHorzSpacing, tm.tmAveCharWidth, 4);
-    VertSpacing := MulDiv(mcVertSpacing, tm.tmHeight, 8);
-    ButtonWidth := MulDiv(mcButtonWidth, tm.tmAveCharWidth, 4);
-    ButtonHeight := MulDiv(mcButtonHeight, tm.tmHeight, 8);
-    ButtonSpacing := MulDiv(mcButtonSpacing, tm.tmAveCharWidth, 4);
+    HorzMargin     := MulDiv(mcHorzMargin, tm.tmAveCharWidth, 4);
+    VertMargin     := MulDiv(mcVertMargin, tm.tmHeight, 8);
+    HorzSpacing    := MulDiv(mcHorzSpacing, tm.tmAveCharWidth, 4);
+    VertSpacing    := MulDiv(mcVertSpacing, tm.tmHeight, 8);
+    ButtonWidth    := MulDiv(mcButtonWidth, tm.tmAveCharWidth, 4);
+    ButtonHeight   := MulDiv(mcButtonHeight, tm.tmHeight, 8);
+    ButtonSpacing  := MulDiv(mcButtonSpacing, tm.tmAveCharWidth, 4);
     MinDialogWidth := MulDiv(mcMinDialogWidth, tm.tmAveCharWidth, 4);
     // calculate size of buttons
     ButtonCount := ButtonCaptions.GetMetrics(DC, Buttons, ButtonWidth, ButtonWidth);
-    if ButtonCount > 0 then
-      ButtonGroupWidth := ButtonWidth * ButtonCount + ButtonSpacing * (ButtonCount - 1)
-    else
-      ButtonGroupWidth := 0;
+    If ButtonCount > 0 Then
+     ButtonGroupWidth := ButtonWidth * ButtonCount + ButtonSpacing * (ButtonCount - 1)
+    Else
+     ButtonGroupWidth := 0;
     // calculate size of message
-    SetRect(TextRect, 0, 0, Screen.Width div 3, 0);
+    SetRect(TextRect, 0, 0, Screen.Width Div 3, 0);
     DrawText(DC, PChar(Msg), Length(Msg), TextRect,
-      DT_EXPANDTABS or DT_CALCRECT or DT_WORDBREAK);
+    DT_EXPANDTABS Or DT_CALCRECT Or DT_WORDBREAK);
     OffsetRect(TextRect, HorzMargin, VertMargin);
-    TextSize.cx := TextRect.Right - TextRect.Left;
-    TextSize.cy := TextRect.Bottom - TextRect.Top;
-    IconTextWidth := TextSize.cx + 2 * HorzMargin;
+    TextSize.cx    := TextRect.Right - TextRect.Left;
+    TextSize.cy    := TextRect.Bottom - TextRect.Top;
+    IconTextWidth  := TextSize.cx + 2 * HorzMargin;
     IconTextHeight := TextSize.cy + 2 * VertMargin;
     // calculate size of icon
-    if not Icons[DlgType].Empty then
-    begin
+    If Not Icons[DlgType].Empty Then
+     Begin
       IconSize.cx := Icons[DlgType].Width;
       IconSize.cy := Icons[DlgType].Height;
-    end
-    else
-    begin
+     End
+    Else
+     Begin
       IconSize.cx := 0;
       IconSize.cy := 0;
-    end;
-    if IconSize.cx <> 0 then
-    begin
+     End;
+    If IconSize.cx <> 0 Then
+     Begin
       OffsetRect(TextRect, IconSize.cx + HorzSpacing, 0);
       Inc(IconTextWidth, IconSize.cx + HorzSpacing);
-      if IconSize.cy > TextSize.cy then
-      begin
-        OffsetRect(TextRect, 0, (IconSize.cy - TextSize.cy) div 2);
+      If IconSize.cy > TextSize.cy Then
+       Begin
+        OffsetRect(TextRect, 0, (IconSize.cy - TextSize.cy) Div 2);
         Inc(IconTextHeight, IconSize.cy - TextSize.cy);
-      end;
-    end;
+       End;
+     End;
     // adjust size
-    if IconTextWidth < ButtonGroupWidth + 2 * HorzMargin then
-    begin
+    If IconTextWidth < ButtonGroupWidth + 2 * HorzMargin Then
+     Begin
       Inc(TextSize.cx, ButtonGroupWidth + 2 * HorzMargin - IconTextWidth);
       IconTextWidth := ButtonGroupWidth + 2 * HorzMargin;
-    end;
-    if IconTextWidth < MinDialogWidth then
-    begin
+     End;
+    If IconTextWidth < MinDialogWidth Then
+     Begin
       Inc(TextSize.cx, MinDialogWidth - IconTextWidth);
       IconTextWidth := MinDialogWidth;
-    end;
+     End;
     // calculate size of check box
-    if CheckBox.Visible then
-    begin
+    If CheckBox.Visible Then
+     Begin
       CheckSize := CheckBox.GetMetrics(DC, TextSize.cx);
-      if CheckSize.cx > TextSize.cx then
-      begin
+      If CheckSize.cx > TextSize.cx Then
+       Begin
         Inc(IconTextWidth, CheckSize.cx - TextSize.cx);
         Inc(TextSize.cx, CheckSize.cx - TextSize.cx);
-      end;
-    end
-    else
-    begin
+       End;
+     End
+    Else
+     Begin
       CheckSize.cx := 0;
       CheckSize.cy := 0;
-    end;
+     End;
     // create icon
-    if IconSize.cx <> 0 then
-      with TImage.Create(Dialog) do
-      begin
-        Name := 'Image';
-        Parent := Dialog;
-        Center := True;
-        Proportional := True;
-        Picture.Icon.Assign(Icons[DlgType]);
-        SetBounds(HorzMargin, VertMargin, IconSize.cx, IconSize.cy);
-      end;
+    If IconSize.cx <> 0 Then
+     With TImage.Create(Dialog) Do
+      Begin
+       Name         := 'Image';
+       Parent       := Dialog;
+       Center       := True;
+       Proportional := True;
+       Picture.Icon.Assign(Icons[DlgType]);
+       SetBounds(HorzMargin, VertMargin, IconSize.cx, IconSize.cy);
+      End;
     // create message
-    if Msg <> '' then
-      with TStaticText.Create(Dialog) do
-      begin
-        Name := 'Message';
-        Parent := Dialog;
-        AutoSize := False;
-        ShowAccelChar := False;
-        Caption := Msg;
-        BoundsRect := TextRect;
-      end;
+    If Msg <> '' Then
+     With TStaticText.Create(Dialog) Do
+      Begin
+       Name          := 'Message';
+       Parent        := Dialog;
+       AutoSize      := False;
+       ShowAccelChar := False;
+       Caption       := Msg;
+       BoundsRect    := TextRect;
+      End;
     // create checkbox
-    if CheckBox.Visible then
-    begin
+    If CheckBox.Visible Then
+     Begin
       CheckBox.Control := TCheckBox.Create(Dialog);
-      with CheckBox.Control do
-      begin
-        Parent := Dialog;
+      With CheckBox.Control Do
+       Begin
+        Parent   := Dialog;
         WordWrap := True;
-        OnClick := CheckBoxClicked;
+        OnClick  := CheckBoxClicked;
         SetBounds(TextRect.Left, IconTextHeight, CheckSize.cx, CheckSize.cy);
         Inc(IconTextHeight, VertMargin + CheckSize.cy);
-      end;
-    end;
+       End;
+     End;
     // create buttons
-    if ButtonCount > 0 then
-    begin
+    If ButtonCount > 0 Then
+     Begin
       ButtonsPanel := TPanel.Create(Dialog);
-      with ButtonsPanel do
-      begin
-        Name := 'ButtonsPanel';
-        Parent := Dialog;
-        Caption := '';
-        ShowCaption := False;
-        BevelOuter := bvNone;
+      With ButtonsPanel Do
+       Begin
+        Name             := 'ButtonsPanel';
+        Parent           := Dialog;
+        Caption          := '';
+        ShowCaption      := False;
+        BevelOuter       := bvNone;
         ParentBackground := False;
         SetBounds(0, IconTextHeight, IconTextWidth, ButtonHeight + 2 * VertSpacing - 1);
-      end;
-      with TBevel.Create(Dialog) do
-      begin
+       End;
+      With TBevel.Create(Dialog) Do
+       Begin
         Parent := ButtonsPanel;
         SetBounds(0, 0, ButtonsPanel.Width, 1);
         Shape := bsTopLine;
-      end;
+       End;
       FillChar(HotKeys, SizeOf(HotKeys), 0);
-      if mbCancel in Buttons then
-        CancelButton := mbCancel
-      else if mbNo in Buttons then
-        CancelButton := mbNo
-      else
-        CancelButton := mbOK;
-      X := ButtonsPanel.ClientWidth - ButtonGroupWidth - HorzMargin;
-      for B := Low(TMsgDlgBtn) to High(TMsgDlgBtn) do
-        if B in Buttons then
-        begin
-          Button := TButton.Create(Dialog);
-          with Button do
-          begin
-            Name := ButtonNames[B];
-            Parent := ButtonsPanel;
-            if AutoHotKeys then
-              Caption := GetAutoHotKey(ButtonCaptions[B], B, HotKeys)
-            else
-              Caption := ButtonCaptions[B];
-            ModalResult := ModalResults[B];
-            if B = DefaultButton then
-            begin
-              Default := True;
-              Dialog.ActiveControl := Button;
-            end;
-            if B = CancelButton then
-              Cancel := True;
-            if B = mbHelp then
-              OnClick := HelpButtonClick;
-            SetBounds(X, VertSpacing, ButtonWidth, ButtonHeight);
-            Inc(X, ButtonWidth + ButtonSpacing);
-          end;
-        end;
-    end;
+      If mbCancel In Buttons Then
+       CancelButton := mbCancel
+      Else If mbNo In Buttons Then
+       CancelButton := mbNo
+      Else
+       CancelButton := mbOK;
+      x             := ButtonsPanel.ClientWidth - ButtonGroupWidth - HorzMargin;
+      For b         := Low(TMsgDlgBtn) To High(TMsgDlgBtn) Do
+       If b In Buttons Then
+        Begin
+         Button := TButton.Create(Dialog);
+         With Button Do
+          Begin
+           Name   := ButtonNames[b];
+           Parent := ButtonsPanel;
+           If AutoHotKeys Then
+            Caption := GetAutoHotKey(ButtonCaptions[b], b, HotKeys)
+           Else
+            Caption    := ButtonCaptions[b];
+           ModalResult := ModalResults[b];
+           If b = DefaultButton Then
+            Begin
+             Default              := True;
+             Dialog.ActiveControl := Button;
+            End;
+           If b = CancelButton Then
+            Cancel := True;
+           If b = mbHelp Then
+            OnClick := HelpButtonClick;
+           SetBounds(x, VertSpacing, ButtonWidth, ButtonHeight);
+           Inc(x, ButtonWidth + ButtonSpacing);
+          End;
+        End;
+     End;
     // adjust dialog size
     Dialog.ClientWidth := IconTextWidth;
-    if ButtonCount > 0 then
-      Dialog.ClientHeight := IconTextHeight + ButtonHeight + 2 * VertSpacing
-    else
-      Dialog.ClientHeight := IconTextHeight;
+    If ButtonCount > 0 Then
+     Dialog.ClientHeight := IconTextHeight + ButtonHeight + 2 * VertSpacing
+    Else
+     Dialog.ClientHeight := IconTextHeight;
     // do the flip if needed
-    if Dialog.UseRightToLeftAlignment then
-      Dialog.FlipChildren(True);
+    If Dialog.UseRightToLeftAlignment Then
+     Dialog.FlipChildren(True);
     // create callback timer
-    if CallbackTimer then
-      with TTimer.Create(Dialog) do
-      begin
-        Name := 'Timer';
-        OnTimer := CallbackTimerTrigger;
-      end;
+    If CallbackTimer Then
+     With TTimer.Create(Dialog) Do
+      Begin
+       Name    := 'Timer';
+       OnTimer := CallbackTimerTrigger;
+      End;
     // show the dialog
     fShowTicks := GetTickCount;
-    Result := Dialog.ShowModal;
+    Result     := Dialog.ShowModal;
     fShowTicks := GetTickCount - fShowTicks;
-  finally
-    CheckBox.Control := nil;
+   Finally
+    CheckBox.Control := Nil;
     FreeAndNil(fDialog);
-  end;
-end;
+   End;
+  End;
 
-function TMessageDialog.Show(const Fmt: String; const Args: array of const;
-  DlgType: TMsgDlgType; Buttons: TMsgDlgButtons; DefaultButton: TMsgDlgBtn;
-  HelpContext: THelpContext): Integer;
-begin
-  Result := Show(Format(Fmt, Args), DlgType, Buttons, DefaultButton, HelpContext);
-end;
+ Function TMessageDialog.Show(Const Fmt : String; Const Args : Array Of Const; DlgType : TMsgDlgType; Buttons : TMsgDlgButtons; DefaultButton : TMsgDlgBtn; HelpContext : THelpContext) : Integer;
+  Begin
+   Result := Show(Format(Fmt, Args), DlgType, Buttons, DefaultButton, HelpContext);
+  End;
 
-function TMessageDialog.Show(const Msg: String; DlgType: TMsgDlgType;
-  Buttons: TMsgDlgButtons; HelpContext: THelpContext): Integer;
-var
-  DefaultButton: TMsgDlgBtn;
-begin
-  if mbOK in Buttons then
+ Function TMessageDialog.Show(Const Msg : String; DlgType : TMsgDlgType; Buttons : TMsgDlgButtons; HelpContext : THelpContext) : Integer;
+  Var
+   DefaultButton : TMsgDlgBtn;
+  Begin
+   If mbOK In Buttons Then
     DefaultButton := mbOK
-  else if mbYes in Buttons then
+   Else If mbYes In Buttons Then
     DefaultButton := mbYes
-  else
+   Else
     DefaultButton := mbRetry;
-  Result := Show(Msg, DlgType, Buttons, DefaultButton, HelpContext);
-end;
+   Result         := Show(Msg, DlgType, Buttons, DefaultButton, HelpContext);
+  End;
 
-function TMessageDialog.Show(const Fmt: String; const Args: array of const;
-  DlgType: TMsgDlgType; Buttons: TMsgDlgButtons;
-  HelpContext: THelpContext): Integer;
-begin
-  Result := Show(Format(Fmt, Args), DlgType, Buttons, HelpContext)
-end;
+ Function TMessageDialog.Show(Const Fmt : String; Const Args : Array Of Const; DlgType : TMsgDlgType; Buttons : TMsgDlgButtons; HelpContext : THelpContext) : Integer;
+  Begin
+   Result := Show(Format(Fmt, Args), DlgType, Buttons, HelpContext)
+  End;
 
-procedure TMessageDialog.ShowMessage(const Msg: String;
-  HelpContext: THelpContext);
-var
-  Buttons: TMsgDlgButtons;
-begin
-  Buttons := [mbOK];
-  if HelpContext <> 0 then
+ Procedure TMessageDialog.ShowMessage(Const Msg : String; HelpContext : THelpContext);
+  Var
+   Buttons : TMsgDlgButtons;
+  Begin
+   Buttons := [mbOK];
+   If HelpContext <> 0 Then
     Include(Buttons, mbHelp);
-  Show(Msg, mtCustom, Buttons, HelpContext);
-end;
+   Show(Msg, mtCustom, Buttons, HelpContext);
+  End;
 
-procedure TMessageDialog.ShowWarning(const Msg: String;
-  HelpContext: THelpContext);
-var
-  Buttons: TMsgDlgButtons;
-begin
-  Buttons := [mbOK];
-  if HelpContext <> 0 then
+ Procedure TMessageDialog.ShowWarning(Const Msg : String; HelpContext : THelpContext);
+  Var
+   Buttons : TMsgDlgButtons;
+  Begin
+   Buttons := [mbOK];
+   If HelpContext <> 0 Then
     Include(Buttons, mbHelp);
-  Show(Msg, mtWarning, Buttons, HelpContext);
-end;
+   Show(Msg, mtWarning, Buttons, HelpContext);
+  End;
 
-procedure TMessageDialog.ShowError(const Msg: String;
-  HelpContext: THelpContext);
-var
-  Buttons: TMsgDlgButtons;
-begin
-  Buttons := [mbOK];
-  if HelpContext <> 0 then
+ Procedure TMessageDialog.ShowError(Const Msg : String; HelpContext : THelpContext);
+  Var
+   Buttons : TMsgDlgButtons;
+  Begin
+   Buttons := [mbOK];
+   If HelpContext <> 0 Then
     Include(Buttons, mbHelp);
-  Show(Msg, mtError, Buttons, HelpContext);
-end;
+   Show(Msg, mtError, Buttons, HelpContext);
+  End;
 
-procedure TMessageDialog.Inform(const Msg: String; HelpContext: THelpContext);
-var
-  Buttons: TMsgDlgButtons;
-begin
-  Buttons := [mbOK];
-  if HelpContext <> 0 then
+ Procedure TMessageDialog.Inform(Const Msg : String; HelpContext : THelpContext);
+  Var
+   Buttons : TMsgDlgButtons;
+  Begin
+   Buttons := [mbOK];
+   If HelpContext <> 0 Then
     Include(Buttons, mbHelp);
-  Show(Msg, mtInformation, Buttons, HelpContext);
-end;
+   Show(Msg, mtInformation, Buttons, HelpContext);
+  End;
 
-function TMessageDialog.Confirm(const Msg: String; DefaultButton: TMsgDlgBtn;
-  HelpContext: THelpContext): Boolean;
-var
-  Buttons: TMsgDlgButtons;
-begin
-  Buttons := [mbYes, mbNo];
-  if HelpContext <> 0 then
+ Function TMessageDialog.Confirm(Const Msg : String; DefaultButton : TMsgDlgBtn; HelpContext : THelpContext) : Boolean;
+  Var
+   Buttons : TMsgDlgButtons;
+  Begin
+   Buttons := [mbYes, mbNo];
+   If HelpContext <> 0 Then
     Include(Buttons, mbHelp);
-  Result := (Show(Msg, mtConfirmation, Buttons, DefaultButton, HelpContext) = mrYes);
-end;
+   Result := (Show(Msg, mtConfirmation, Buttons, DefaultButton, HelpContext) = mrYes);
+  End;
 
-function TMessageDialog.YesNoCancel(const Msg: String;
-  DefaultButton: TMsgDlgBtn; HelpContext: THelpContext): Integer;
-var
-  Buttons: TMsgDlgButtons;
-begin
-  Buttons := [mbYes, mbNo, mbCancel];
-  if HelpContext <> 0 then
+ Function TMessageDialog.YesNoCancel(Const Msg : String; DefaultButton : TMsgDlgBtn; HelpContext : THelpContext) : Integer;
+  Var
+   Buttons : TMsgDlgButtons;
+  Begin
+   Buttons := [mbYes, mbNo, mbCancel];
+   If HelpContext <> 0 Then
     Include(Buttons, mbHelp);
-  Result := Show(Msg, mtConfirmation, Buttons, DefaultButton, HelpContext);
-end;
+   Result := Show(Msg, mtConfirmation, Buttons, DefaultButton, HelpContext);
+  End;
 
-function TMessageDialog.YesNoAllCancel(const Msg: String;
-  DefaultButton: TMsgDlgBtn; HelpContext: THelpContext): Integer;
-var
-  Buttons: TMsgDlgButtons;
-begin
-  Buttons := [mbYes, mbNo, mbYesToAll, mbNoToAll, mbCancel];
-  if HelpContext <> 0 then
+ Function TMessageDialog.YesNoAllCancel(Const Msg : String; DefaultButton : TMsgDlgBtn; HelpContext : THelpContext) : Integer;
+  Var
+   Buttons : TMsgDlgButtons;
+  Begin
+   Buttons := [mbYes, mbNo, mbYesToAll, mbNoToAll, mbCancel];
+   If HelpContext <> 0 Then
     Include(Buttons, mbHelp);
-  Result := Show(Msg, mtConfirmation, Buttons, DefaultButton, HelpContext);
-end;
+   Result := Show(Msg, mtConfirmation, Buttons, DefaultButton, HelpContext);
+  End;
 
-function TMessageDialog.RetryIgnoreAbort(const Msg: String;
-  DefaultButton: TMsgDlgBtn; HelpContext: THelpContext): Integer;
-var
-  Buttons: TMsgDlgButtons;
-begin
-  Buttons := [mbRetry, mbIgnore, mbAbort];
-  if HelpContext <> 0 then
+ Function TMessageDialog.RetryIgnoreAbort(Const Msg : String; DefaultButton : TMsgDlgBtn; HelpContext : THelpContext) : Integer;
+  Var
+   Buttons : TMsgDlgButtons;
+  Begin
+   Buttons := [mbRetry, mbIgnore, mbAbort];
+   If HelpContext <> 0 Then
     Include(Buttons, mbHelp);
-  Result := Show(Msg, mtWarning, Buttons, DefaultButton, HelpContext);
-end;
+   Result := Show(Msg, mtWarning, Buttons, DefaultButton, HelpContext);
+  End;
 
 { TInputDialog }
 
-constructor TInputQueryDialog.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  fButtonCaptions := TInputQueryDlgBtnCaptions.Create;
-  fFont := TFont.Create;
-  fFont.OnChange := FontChange;
-  ParentBiDiMode := True;
-  ParentFont := True;
-end;
+ Constructor TInputQueryDialog.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   fButtonCaptions := TInputQueryDlgBtnCaptions.Create;
+   fFont           := TFont.Create;
+   fFont.OnChange  := FontChange;
+   ParentBiDiMode  := True;
+   ParentFont      := True;
+  End;
 
-destructor TInputQueryDialog.Destroy;
-begin
-  fButtonCaptions.Free;
-  fFont.Free;
-  inherited Destroy;
-end;
+ Destructor TInputQueryDialog.Destroy;
+  Begin
+   fButtonCaptions.Free;
+   fFont.Free;
+   Inherited Destroy;
+  End;
 
-procedure TInputQueryDialog.SetButtonCaptions(Value: TInputQueryDlgBtnCaptions);
-begin
-  fButtonCaptions.Assign(Value);
-end;
+ Procedure TInputQueryDialog.SetButtonCaptions(Value : TInputQueryDlgBtnCaptions);
+  Begin
+   fButtonCaptions.Assign(Value);
+  End;
 
-procedure TInputQueryDialog.SetFont(Value: TFont);
-begin
-  fFont.Assign(Value);
-end;
+ Procedure TInputQueryDialog.SetFont(Value : TFont);
+  Begin
+   fFont.Assign(Value);
+  End;
 
-function TInputQueryDialog.GetBiDiMode: TBiDiMode;
-begin
-  if ParentBiDiMode then
+ Function TInputQueryDialog.GetBiDiMode : TBiDiMode;
+  Begin
+   If ParentBiDiMode Then
     fBiDiMode := Application.BiDiMode;
-  Result := fBiDiMode;
-end;
+   Result     := fBiDiMode;
+  End;
 
-procedure TInputQueryDialog.SetBiDiMode(Value: TBiDiMode);
-begin
-  fBiDiMode := Value;
-  fParentBiDiMode := False;
-end;
+ Procedure TInputQueryDialog.SetBiDiMode(Value : TBiDiMode);
+  Begin
+   fBiDiMode       := Value;
+   fParentBiDiMode := False;
+  End;
 
-procedure TInputQueryDialog.SetParentFont(Value: Boolean);
-begin
-  if ParentFont <> Value then
-  begin
-    if Value then
+ Procedure TInputQueryDialog.SetParentFont(Value : Boolean);
+  Begin
+   If ParentFont <> Value Then
+    Begin
+     If Value Then
       fFont.Assign(Application.DefaultFont);
-    fParentFont := Value;
-  end;
-end;
+     fParentFont := Value;
+    End;
+  End;
 
-procedure TInputQueryDialog.SetParentBiDiMode(Value: Boolean);
-begin
-  if ParentBiDiMode <> Value then
-  begin
-    fBiDiMode := Application.BiDiMode;
-    fParentBiDiMode := Value;
-  end;
-end;
+ Procedure TInputQueryDialog.SetParentBiDiMode(Value : Boolean);
+  Begin
+   If ParentBiDiMode <> Value Then
+    Begin
+     fBiDiMode       := Application.BiDiMode;
+     fParentBiDiMode := Value;
+    End;
+  End;
 
-function TInputQueryDialog.IsStoredFont: Boolean;
-begin
-  Result := not ParentFont;
-end;
+ Function TInputQueryDialog.IsStoredFont : Boolean;
+  Begin
+   Result := Not ParentFont;
+  End;
 
-function TInputQueryDialog.IsStoredBiDiMode: Boolean;
-begin
-  Result := not ParentBiDiMode;
-end;
+ Function TInputQueryDialog.IsStoredBiDiMode : Boolean;
+  Begin
+   Result := Not ParentBiDiMode;
+  End;
 
-procedure TInputQueryDialog.FontChange(Sender: TObject);
-begin
-  fParentFont := False;
-end;
+ Procedure TInputQueryDialog.FontChange(Sender : TObject);
+  Begin
+   fParentFont := False;
+  End;
 
-procedure TInputQueryDialog.DialogShow(Sender: TObject);
-begin
-  DoShow;
-  if EditBox.ReadOnly then
+ Procedure TInputQueryDialog.DialogShow(Sender : TObject);
+  Begin
+   DoShow;
+   If EditBox.ReadOnly Then
     Windows.SetFocus(GetNextDlgTabItem(Dialog.Handle, EditBox.Handle, False));
-end;
+  End;
 
-procedure TInputQueryDialog.DialogClose(Sender: TObject; var Action: TCloseAction);
-begin
-  DoClose;
-end;
+ Procedure TInputQueryDialog.DialogClose(Sender : TObject; Var Action : TCloseAction);
+  Begin
+   DoClose;
+  End;
 
-procedure TInputQueryDialog.DialogCloseQuery(Sender: TObject; var CanClose: Boolean);
-var
-  Value: String;
-begin
-  if (Dialog.ModalResult = mrOk) and not EditBox.ReadOnly then
-  begin
-    Value := EditBox.Text;
-    if not DoValidate(Value) then
-    begin
-      EditBox.SetFocus;
-      CanClose := False;
-    end;
-    EditBox.Text := Value;
-  end;
-end;
+ Procedure TInputQueryDialog.DialogCloseQuery(Sender : TObject; Var CanClose : Boolean);
+  Var
+   Value : String;
+  Begin
+   If (Dialog.ModalResult = mrOk) And Not EditBox.ReadOnly Then
+    Begin
+     Value := EditBox.Text;
+     If Not DoValidate(Value) Then
+      Begin
+       EditBox.SetFocus;
+       CanClose := False;
+      End;
+     EditBox.Text := Value;
+    End;
+  End;
 
-procedure TInputQueryDialog.HelpButtonClick(Sender: TObject);
-begin
-  Application.HelpContext(Dialog.HelpContext);
-end;
+ Procedure TInputQueryDialog.HelpButtonClick(Sender : TObject);
+  Begin
+   Application.HelpContext(Dialog.HelpContext);
+  End;
 
-procedure TInputQueryDialog.DoShow;
-begin
-  if Assigned(OnShow) then
+ Procedure TInputQueryDialog.DoShow;
+  Begin
+   If Assigned(OnShow) Then
     OnShow(Self);
-end;
+  End;
 
-procedure TInputQueryDialog.DoClose;
-begin
-  if Assigned(OnClose) then
+ Procedure TInputQueryDialog.DoClose;
+  Begin
+   If Assigned(OnClose) Then
     OnClose(Self);
-end;
+  End;
 
-function TInputQueryDialog.DoValidate(var Value: String): Boolean;
-begin
-  if Assigned(OnValidate) then
+ Function TInputQueryDialog.DoValidate(Var Value : String) : Boolean;
+  Begin
+   If Assigned(OnValidate) Then
     Result := OnValidate(Self, Value)
-  else
-  begin
-    try
-      case InputType of
-        itInteger: StrToInt(Value);
-        itFloat: StrToFloat(Value);
-      end;
+   Else
+    Begin
+     Try
+      Case InputType Of
+       itInteger : StrToInt(Value);
+       itFloat   : StrToFloat(Value);
+      End;
       Result := True;
-    except
+     Except
       Result := False;
-    end;
-  end;
-end;
+     End;
+    End;
+  End;
 
-function TInputQueryDialog.Prompt(const ACaption, APrompt: String;
-  var Value: String; AInputType: TInputType; HelpContext: THelpContext): Boolean;
-const
-  mcHorzMargin = 8;
-  mcVertMargin = 6;
-  mcButtonWidth = 60;
-  mcButtonHeight = 14;
-  mcButtonSpacing = 4;
-  mcEditBoxWidth = 300;
-var
-  DC: HDC;
-  tm: TTextMetric;
-  TextRect: TRect;
-  HorzMargin, VertMargin: Integer;
-  ButtonWidth, ButtonHeight, ButtonSpacing: Integer;
-  ButtonCount, ButtonGroupWidth: Integer;
-  EditBoxWidth, TextEditHeight: Integer;
-  Buttons: TMsgDlgButtons;
-  B: TMsgDlgBtn;
-  X: Integer;
-  ButtonAnchors: TAnchors;
-begin
-  Result := False;
-  fInputType := AInputType;
-  fDialog := TForm.CreateNew(Application);
-  try
+ Function TInputQueryDialog.Prompt(Const ACaption, APrompt : String; Var Value : String; AInputType : TInputType; HelpContext : THelpContext) : Boolean;
+  Const
+   mcHorzMargin    = 8;
+   mcVertMargin    = 6;
+   mcButtonWidth   = 60;
+   mcButtonHeight  = 14;
+   mcButtonSpacing = 4;
+   mcEditBoxWidth  = 300;
+  Var
+   DC                                       : HDC;
+   tm                                       : TTextMetric;
+   TextRect                                 : TRect;
+   HorzMargin, VertMargin                   : Integer;
+   ButtonWidth, ButtonHeight, ButtonSpacing : Integer;
+   ButtonCount, ButtonGroupWidth            : Integer;
+   EditBoxWidth, TextEditHeight             : Integer;
+   Buttons                                  : TMsgDlgButtons;
+   b                                        : TMsgDlgBtn;
+   x                                        : Integer;
+   ButtonAnchors                            : TAnchors;
+  Begin
+   Result     := False;
+   fInputType := AInputType;
+   fDialog    := TForm.CreateNew(Application);
+   Try
     // init dialog
-    Dialog.Caption := ACaption;
+    Dialog.Caption  := ACaption;
     Dialog.BiDiMode := BiDiMode;
-    Dialog.Font := Font;
-    if InputType = itMultiLineText then
-    begin
+    Dialog.Font     := Font;
+    If InputType = itMultiLineText Then
+     Begin
       Dialog.BorderStyle := bsSizeable;
       Dialog.BorderIcons := [biSystemMenu, biMaximize];
-    end
-    else
-      Dialog.BorderStyle := bsDialog;
-    Dialog.ShowHint := True;
-    Dialog.Position := poScreenCenter;
-    Dialog.HelpContext := HelpContext;
-    Dialog.OnShow := DialogShow;
-    Dialog.OnClose := DialogClose;
+     End
+    Else
+     Dialog.BorderStyle := bsDialog;
+    Dialog.ShowHint     := True;
+    Dialog.Position     := poScreenCenter;
+    Dialog.HelpContext  := HelpContext;
+    Dialog.OnShow       := DialogShow;
+    Dialog.OnClose      := DialogClose;
     Dialog.OnCloseQuery := DialogCloseQuery;
-    Dialog.Canvas.Font := Dialog.Font;
+    Dialog.Canvas.Font  := Dialog.Font;
     // calculate metrics
     DC := Dialog.Canvas.Handle;
     GetTextMetrics(DC, tm);
-    HorzMargin := MulDiv(mcHorzMargin, tm.tmAveCharWidth, 4);
-    VertMargin := MulDiv(mcVertMargin, tm.tmHeight, 8);
-    ButtonWidth := MulDiv(mcButtonWidth, tm.tmAveCharWidth, 4);
-    ButtonHeight := MulDiv(mcButtonHeight, tm.tmHeight, 8);
+    HorzMargin    := MulDiv(mcHorzMargin, tm.tmAveCharWidth, 4);
+    VertMargin    := MulDiv(mcVertMargin, tm.tmHeight, 8);
+    ButtonWidth   := MulDiv(mcButtonWidth, tm.tmAveCharWidth, 4);
+    ButtonHeight  := MulDiv(mcButtonHeight, tm.tmHeight, 8);
     ButtonSpacing := MulDiv(mcButtonSpacing, tm.tmAveCharWidth, 4);
-    EditBoxWidth := MulDiv(mcEditBoxWidth, tm.tmAveCharWidth, 4);
-    if InputType = itMultiLineText then
-      EditBoxWidth := MulDiv(EditBoxWidth, 150, 100);
+    EditBoxWidth  := MulDiv(mcEditBoxWidth, tm.tmAveCharWidth, 4);
+    If InputType = itMultiLineText Then
+     EditBoxWidth := MulDiv(EditBoxWidth, 150, 100);
     // calculate size of buttons
     Buttons := [mbOK];
-    if not ReadOnly then
-      Include(Buttons, mbCancel);
-    if HelpContext <> 0 then
-      Include(Buttons, mbHelp);
-    ButtonCount := ButtonCaptions.GetMetrics(DC, Buttons, ButtonWidth,  ButtonHeight);
+    If Not ReadOnly Then
+     Include(Buttons, mbCancel);
+    If HelpContext <> 0 Then
+     Include(Buttons, mbHelp);
+    ButtonCount      := ButtonCaptions.GetMetrics(DC, Buttons, ButtonWidth, ButtonHeight);
     ButtonGroupWidth := ButtonWidth * ButtonCount + ButtonSpacing * (ButtonCount - 1);
-    if EditBoxWidth < ButtonGroupWidth then
-      EditBoxWidth := ButtonGroupWidth;
+    If EditBoxWidth < ButtonGroupWidth Then
+     EditBoxWidth := ButtonGroupWidth;
     // calculate size of prompt
     SetRect(TextRect, 0, 0, EditBoxWidth, 0);
     DrawText(DC, PChar(APrompt), Length(APrompt), TextRect,
-      DT_CALCRECT or DT_WORDBREAK or Dialog.DrawTextBiDiModeFlagsReadingOnly);
+    DT_CALCRECT Or DT_WORDBREAK Or Dialog.DrawTextBiDiModeFlagsReadingOnly);
     TextEditHeight := TextRect.Bottom;
     OffsetRect(TextRect, HorzMargin, VertMargin);
     // create edit box
-    if InputType = itMultiLineText then
-      fEditBox := TMemo.Create(Dialog)
-    else
-    begin
+    If InputType = itMultiLineText Then
+     fEditBox := TMemo.Create(Dialog)
+    Else
+     Begin
       fEditBox := TEdit.Create(Dialog);
-      if InputType in [itInteger, itFloat] then
-      begin
+      If InputType In [itInteger, itFloat] Then
+       Begin
         TEdit(fEditBox).NumbersOnly := True;
-        if BiDiMode = bdRightToLeft then
-          fEditBox.BiDiMode := bdRightToLeftNoAlign;
-      end;
-    end;
+        If BiDiMode = bdRightToLeft Then
+         fEditBox.BiDiMode := bdRightToLeftNoAlign;
+       End;
+     End;
     EditBox.ReadOnly := ReadOnly;
-    with EditBox do
-    begin
-      Name := 'EditBox';
+    With EditBox Do
+     Begin
+      Name   := 'EditBox';
       Parent := Dialog;
-      Text := Value;
-      Left := TextRect.Left;
-      Top := TextRect.Bottom + tm.tmInternalLeading;
-      Width := EditBoxWidth;
-      if InputType = itMultiLineText then
-      begin
-        ClientHeight := (tm.tmHeight + tm.tmInternalLeading) * 15;
+      Text   := Value;
+      Left   := TextRect.Left;
+      Top    := TextRect.Bottom + tm.tmInternalLeading;
+      Width  := EditBoxWidth;
+      If InputType = itMultiLineText Then
+       Begin
+        ClientHeight               := (tm.tmHeight + tm.tmInternalLeading) * 15;
         TMemo(EditBox).WantReturns := True;
-        TMemo(EditBox).WordWrap := False;
-        TMemo(EditBox).ScrollBars := ssVertical;
-      end;
+        TMemo(EditBox).WordWrap    := False;
+        TMemo(EditBox).ScrollBars  := ssVertical;
+       End;
       Inc(TextEditHeight, Height + tm.tmInternalLeading);
-    end;
+     End;
     // create prompt
-    if APrompt <> '' then
-      with TStaticText.Create(Dialog) do
-      begin
-        Name := 'EditBoxLabel';
-        Parent := Dialog;
-        AutoSize := False;
-        Caption := APrompt;
-        FocusControl := EditBox;
-        BoundsRect := TextRect;
-      end;
+    If APrompt <> '' Then
+     With TStaticText.Create(Dialog) Do
+      Begin
+       Name         := 'EditBoxLabel';
+       Parent       := Dialog;
+       AutoSize     := False;
+       Caption      := APrompt;
+       FocusControl := EditBox;
+       BoundsRect   := TextRect;
+      End;
     // set dialog's size and adjust anchors
-    Dialog.ClientWidth := EditBoxWidth + 2 * HorzMargin;
-    Dialog.ClientHeight := TextEditHeight + 3 * VertMargin + ButtonHeight;
+    Dialog.ClientWidth          := EditBoxWidth + 2 * HorzMargin;
+    Dialog.ClientHeight         := TextEditHeight + 3 * VertMargin + ButtonHeight;
     Dialog.Constraints.MinWidth := ButtonWidth + ButtonGroupWidth + 2 *
-      HorzMargin + Dialog.Width - Dialog.ClientWidth;
+    HorzMargin + Dialog.Width - Dialog.ClientWidth;
     Dialog.Constraints.MinHeight := Dialog.Height -
-      (tm.tmHeight + tm.tmInternalLeading) * 10;
+    (tm.tmHeight + tm.tmInternalLeading) * 10;
     EditBox.Anchors := [akLeft, akTop, akRight, akBottom];
-    if Dialog.UseRightToLeftAlignment then
-      ButtonAnchors := [akLeft, akBottom]
-    else
-      ButtonAnchors := [akRight, akBottom];
+    If Dialog.UseRightToLeftAlignment Then
+     ButtonAnchors := [akLeft, akBottom]
+    Else
+     ButtonAnchors := [akRight, akBottom];
     // create buttons
-    X := Dialog.ClientWidth - ButtonGroupWidth - HorzMargin;
-    for B := Low(TMsgDlgBtn) to High(TMsgDlgBtn) do
-      if B in Buttons then
-      begin
-        with TButton.Create(Dialog) do
-        begin
-          Name := ButtonNames[B];
-          Parent := Dialog;
-          Caption := ButtonCaptions[B];
-          ModalResult := ModalResults[B];
-          Anchors := ButtonAnchors;
-          if B = mbOK then
-            Default := True;
-          if B = mbCancel then
-            Cancel := True;
-          if B = mbHelp then
-            OnClick := HelpButtonClick;
-          SetBounds(X, TextEditHeight + 2 * VertMargin, ButtonWidth,
-            ButtonHeight);
-          Inc(X, ButtonWidth + ButtonSpacing);
-        end;
-      end;
-    // do the flip if needed
-    if Dialog.UseRightToLeftAlignment then
-      Dialog.FlipChildren(True);
+    x     := Dialog.ClientWidth - ButtonGroupWidth - HorzMargin;
+    For b := Low(TMsgDlgBtn) To High(TMsgDlgBtn) Do
+     If b In Buttons Then
+      Begin
+       With TButton.Create(Dialog) Do
+        Begin
+         Name        := ButtonNames[b];
+         Parent      := Dialog;
+         Caption     := ButtonCaptions[b];
+         ModalResult := ModalResults[b];
+         Anchors     := ButtonAnchors;
+         If b = mbOK Then
+          Default := True;
+         If b = mbCancel Then
+          Cancel := True;
+         If b = mbHelp Then
+          OnClick := HelpButtonClick;
+         SetBounds(x, TextEditHeight + 2 * VertMargin, ButtonWidth,
+         ButtonHeight);
+         Inc(x, ButtonWidth + ButtonSpacing);
+        End;
+      End;
+     // do the flip if needed
+    If Dialog.UseRightToLeftAlignment Then
+     Dialog.FlipChildren(True);
     // show the dialog
-    if Dialog.ShowModal = mrOk then
-    begin
-      Value := EditBox.Text;
+    If Dialog.ShowModal = mrOk Then
+     Begin
+      Value  := EditBox.Text;
       Result := True;
-    end;
-  finally
+     End;
+   Finally
     FreeAndNil(fDialog);
-  end;
-end;
+   End;
+  End;
 
-function TInputQueryDialog.Execute(const ACaption, APrompt: String;
-  var Value: String; Multiline: Boolean; HelpContext: THelpContext): Boolean;
-begin
-  if Multiline then
+ Function TInputQueryDialog.Execute(Const ACaption, APrompt : String; Var Value : String; Multiline : Boolean; HelpContext : THelpContext) : Boolean;
+  Begin
+   If Multiline Then
     Result := Prompt(ACaption, APrompt, Value, itMultiLineText, HelpContext)
-  else
+   Else
     Result := Prompt(ACaption, APrompt, Value, itSingleLineText, HelpContext);
-end;
+  End;
 
-function TInputQueryDialog.Execute(const ACaption, APrompt: String;
-  var Value: Integer; HelpContext: THelpContext): Boolean;
-var
-  StrValue: String;
-begin
-  Result := False;
-  StrValue := IntToStr(Value);
-  if Prompt(ACaption, APrompt, StrValue, itInteger, HelpContext) then
-  begin
-    try
-      Value := StrToInt(StrValue);
+ Function TInputQueryDialog.Execute(Const ACaption, APrompt : String; Var Value : Integer; HelpContext : THelpContext) : Boolean;
+  Var
+   StrValue : String;
+  Begin
+   Result   := False;
+   StrValue := IntToStr(Value);
+   If Prompt(ACaption, APrompt, StrValue, itInteger, HelpContext) Then
+    Begin
+     Try
+      Value  := StrToInt(StrValue);
       Result := True;
-    except
+     Except
       // no exception
-    end;
-  end;
-end;
+     End;
+    End;
+  End;
 
-function TInputQueryDialog.Execute(const ACaption, APrompt: String;
-  var Value: Double; HelpContext: THelpContext): Boolean;
-var
-  StrValue: String;
-begin
-  Result := False;
-  StrValue := Format('%g', [Value]);
-  if Prompt(ACaption, APrompt, StrValue, itInteger, HelpContext) then
-  begin
-    try
-      Value := StrToFloat(StrValue);
+ Function TInputQueryDialog.Execute(Const ACaption, APrompt : String; Var Value : Double; HelpContext : THelpContext) : Boolean;
+  Var
+   StrValue : String;
+  Begin
+   Result   := False;
+   StrValue := Format('%g', [Value]);
+   If Prompt(ACaption, APrompt, StrValue, itInteger, HelpContext) Then
+    Begin
+     Try
+      Value  := StrToFloat(StrValue);
       Result := True;
-    except
+     Except
       // no exception
-    end;
-  end;
-end;
+     End;
+    End;
+  End;
 
-end.
+End.

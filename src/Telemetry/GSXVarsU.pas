@@ -6,9 +6,11 @@ Interface
  Uses
   System.JSON, AircraftLVarReaderU;
 
+{ FLD+ }
+
  Const
-  GSXVarCount                                       = 16;
-  GSXNames : Array [0 .. GSXVarCount - 1] Of String =
+  GSXVarCount = 20;
+  GSXNames : Array [0..GSXVarCount - 1] Of String =
    (
     'FSDT_GSX_BOARDING_STATE',
     'FSDT_GSX_DEBOARDING_STATE',
@@ -25,11 +27,49 @@ Interface
     'FSDT_GSX_DEBOARDING_CARGO',
     'FSDT_GSX_BOARDING_CARGO_PERCENT',
     'FSDT_GSX_DEBOARDING_CARGO_PERCENT',
-    'FSDT_GSX_DEICING_TYPE'
+    'FSDT_GSX_DEICING_TYPE',
+    'FSDT_GSX_NUMPASSENGERS',
+    'FSDT_GSX_FUEL_COUNTER',
+    'FSDT_GSX_FUEL_COUNTER_MAX',
+    'FSDT_GSX_FUELHOSE_CONNECTED'
    );
+{ FLD- }
 
  Type
+  TGSXField = Record
+   Name         : String;
+   DisplayValue : String;
+  End;
 
+{ FLD+ }
+
+ Const
+  GSXFields : Array [0..GSXVarCount - 1] Of TGSXField =
+   (
+    (Name: 'FSDT_GSX_BOARDING_STATE';                 DisplayValue: '1=Available\r\n2=Unavailable\r\n3=Bypassed\r\n4=Requested\r\n5=In progress\r\n6=Completed'),
+    (Name: 'FSDT_GSX_DEBOARDING_STATE';               DisplayValue: '1=Available\r\n2=Unavailable\r\n3=Bypassed\r\n4=Requested\r\n5=In progress\r\n6=Completed'),
+    (Name: 'FSDT_GSX_CATERING_STATE';                 DisplayValue: '1=Available\r\n2=Unavailable\r\n3=Bypassed\r\n4=Requested\r\n5=In progress\r\n6=Completed'),
+    (Name: 'FSDT_GSX_REFUELING_STATE';                DisplayValue: '1=Available\r\n2=Unavailable\r\n3=Bypassed\r\n4=Requested\r\n5=In progress\r\n6=Completed'),
+    (Name: 'FSDT_GSX_DEPARTURE_STATE';                DisplayValue: '1=Available\r\n2=Unavailable\r\n3=Bypassed\r\n4=Requested\r\n5=In progress\r\n6=Completed'),
+    (Name: 'FSDT_GSX_DEICE_STATE';                    DisplayValue: '1=Available\r\n2=Unavailable\r\n3=Bypassed\r\n4=Requested\r\n5=In progress\r\n6=Completed'),
+    (Name: 'FSDT_VAR_Frozen';                         DisplayValue: '0=Inactive\r\n1=Active'),
+    (Name: 'FSDT_GSX_NUMPASSENGERS_BOARDING';         DisplayValue: ''),
+    (Name: 'FSDT_GSX_NUMPASSENGERS_DEBOARDING';       DisplayValue: ''),
+    (Name: 'FSDT_GSX_NUMPASSENGERS_BOARDING_TOTAL';   DisplayValue: ''),
+    (Name: 'FSDT_GSX_NUMPASSENGERS_DEBOARDING_TOTAL'; DisplayValue: ''),
+    (Name: 'FSDT_GSX_BOARDING_CARGO';                 DisplayValue: '0=Inactive\r\n1=Active'),
+    (Name: 'FSDT_GSX_DEBOARDING_CARGO';               DisplayValue: '0=Inactive\r\n1=Active'),
+    (Name: 'FSDT_GSX_BOARDING_CARGO_PERCENT';         DisplayValue: ''),
+    (Name: 'FSDT_GSX_DEBOARDING_CARGO_PERCENT';       DisplayValue: ''),
+    (Name: 'FSDT_GSX_DEICING_TYPE';                   DisplayValue: '1=I\r\n2=II\r\n3=III\r\n4=IV'),
+    (Name: 'FSDT_GSX_NUMPASSENGERS';                  DisplayValue: ''),
+    (Name: 'FSDT_GSX_FUEL_COUNTER';                   DisplayValue: ''),
+    (Name: 'FSDT_GSX_FUEL_COUNTER_MAX';               DisplayValue: ''),
+    (Name: 'FSDT_GSX_FUELHOSE_CONNECTED';             DisplayValue: '0=Inactive\r\n1=Active')
+   );
+{ FLD- }
+
+ Type
   TGSXVars = Class
    Private
     fReader : TAircraftLVarReader;

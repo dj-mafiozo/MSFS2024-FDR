@@ -1,43 +1,105 @@
-﻿program VerifyReport;
+﻿Program VerifyReport;
 
 {$APPTYPE CONSOLE}
+{$STRONGLINKTYPES ON}
+{$RTTI EXPLICIT METHODS([vcPublic])}
 
-uses LocalizationU,Winapi.Windows,System.SysUtils,Vcl.Forms,frmReportU,ReportMarkdownU;
+Uses
+ TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ LocalizationU, Winapi.Windows, System.SysUtils, Vcl.Forms, frmReportU, ReportMarkdownU, HelpScreenshotU In 'HelpScreenshotU.pas', Vcl.Graphics;
 
-procedure Require(B:Boolean;const S:string);begin if not B then raise Exception.Create(S);end;
+Procedure Require(b : Boolean; Const s : String);
+ Begin
+  If Not b Then
+   Raise Exception.Create(s);
+ End;
 
-type TProbe=class Closed:Boolean;procedure Destroyed(Sender:TObject);end;
+Type
+ TProbe = Class
+  Closed : Boolean;
+  Procedure Destroyed(Sender : TObject);
+ End;
 
-procedure TProbe.Destroyed(Sender:TObject);begin Closed:=True;end;
+Procedure TProbe.Destroyed(Sender : TObject);
+ Begin
+  Closed := True;
+ End;
 
-var F:TfrmReport;P:TProbe;H:string;Started:UInt64;
+Var
+ f       : TfrmReport;
+ p       : TProbe;
+ h       : String;
+ Started : UInt64;
+ Image   : TBitmap;
 
-begin
+Type
 
- H:=ReportHTML('# Ocena'+sLineBreak+'**Dobrze** i `IAS`'+sLineBreak+'- punkt'+sLineBreak+'1. wskazowka'+sLineBreak+'<script>alert(1)</script>');
+ [TestFixture]
+ TVerifyReportTests = Class
+  Public
+   [Test]
+   Procedure Regression;
+ End;
 
- Require(Pos('<h1>Ocena</h1>',H)>0,'Heading');Require(Pos('<strong>Dobrze</strong>',H)>0,'Bold');Require(Pos('<code>IAS</code>',H)>0,'Inline code');Require(Pos('<ul><li>punkt</li></ul>',H)>0,'Bullet list');Require(Pos('<ol>',H)>0,'Ordered list');Require(Pos('<script>',H)=0,'Raw HTML must be escaped');
+Procedure TVerifyReportTests.Regression;
+ Begin
 
- Application.Initialize;P:=TProbe.Create;F:=TfrmReport.Create(nil);
+  h := ReportHTML('# Ocena' + sLineBreak + '**Dobrze** i `IAS`' + sLineBreak + '- punkt' + sLineBreak + '1. wskazowka' + sLineBreak + '<script>alert(1)</script>');
 
- F.SetReport('Takeoff',False);Require(F.Caption='Analiza startu','Takeoff title');
- SetLanguage('en-US');Require(F.Caption='Takeoff analysis','Live takeoff title');
- F.SetReport('Landing',True);Require(F.Caption='Landing analysis','Landing title');
- SetLanguage('de-DE');Require(F.Caption='Landeanalyse','German landing title');
- SetLanguage('es-ES');Require(F.Caption='Análisis del aterrizaje','Spanish landing title');
- F.SetReport('Takeoff again',False);Require(F.Caption='Análisis del despegue','Reused report title');
- F.Caption:='SimBrief OFP';F.SetHTMLDocument('<p>OFP</p>');SetLanguage('pl-PL');Require(F.Caption='SimBrief OFP','External HTML title preserved');
- F.OnDestroy:=P.Destroyed;F.SetReport('# Analiza'+sLineBreak+'**Manewr prawidlowy.**');F.Show;
+  Require(Pos('<h1>Ocena</h1>', h) > 0, 'Heading');
+  Require(Pos('<strong>Dobrze</strong>', h) > 0, 'Bold');
+  Require(Pos('<code>IAS</code>', h) > 0, 'Inline code');
+  Require(Pos('<ul><li>punkt</li></ul>', h) > 0, 'Bullet list');
+  Require(Pos('<ol>', h) > 0, 'Ordered list');
+  Require(Pos('<script>', h) = 0, 'Raw HTML must be escaped');
 
- Started:=GetTickCount64;
+  Application.Initialize;
+  p := TProbe.Create;
+  f := TfrmReport.Create(Nil);
 
- while (GetTickCount64-Started<1500) do begin Application.ProcessMessages;Sleep(10);end;
+  f.SetReport('Takeoff', False);
+  Require(f.Caption = 'Analiza startu', 'Takeoff title');
+  SetLanguage('en-US');
+  Require(f.Caption = 'Takeoff analysis', 'Live takeoff title');
+  f.SetReport('Landing', True);
+  Require(f.Caption = 'Landing analysis', 'Landing title');
+  SetLanguage('de-DE');
+  Require(f.Caption = 'Landeanalyse', 'German landing title');
+  SetLanguage('es-ES');
+  Require(f.Caption = 'Análisis del aterrizaje', 'Spanish landing title');
+  f.SetReport('Takeoff again', False);
+  Require(f.Caption = 'Análisis del despegue', 'Reused report title');
+  f.Caption := 'SimBrief OFP';
+  f.SetHTMLDocument('<p>OFP</p>');
+  SetLanguage('pl-PL');
+  Require(f.Caption = 'SimBrief OFP', 'External HTML title preserved');
+  f.OnDestroy := p.Destroyed;
+  f.SetReport('# Analiza' + sLineBreak + '**Manewr prawidlowy.**');
+  f.Show;
+  Application.ProcessMessages;
+  Require(HelpReportText(f).GetTextLen > 20, 'Native report content retained');
+  Image := CaptureHelpWindow(f);
+  Image.Free;
 
- F.btnClose.Click;Application.ProcessMessages;
+  Started := GetTickCount64;
 
- Require(P.Closed,'Nonmodal report close did not destroy form');P.Free;
+  While (GetTickCount64 - Started < 1500) Do
+   Begin
+    Application.ProcessMessages;
+    Sleep(10);
+   End;
 
- Writeln('PASS: Markdown formatting, escaped HTML and nonmodal Close button.');
+  f.btnClose.Click;
+  Application.ProcessMessages;
 
-end.
+  Require(p.Closed, 'Nonmodal report close did not destroy form');
+  p.Free;
 
+  System.Writeln('PASS: Markdown formatting, escaped HTML and nonmodal Close button.');
+
+ End;
+
+Begin
+ RunNativeTests(TVerifyReportTests);
+
+End.

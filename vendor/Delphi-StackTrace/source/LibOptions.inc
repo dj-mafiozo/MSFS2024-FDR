@@ -7,21 +7,21 @@
 // - Release: RELEASE;NOASSERT
 //
 
-{$ifdef LIB_DEBUG}
+{$Ifdef LIB_DEBUG}
   {$DebugInfo on}
   {$OverflowChecks on}
   {$RangeChecks on}
-{$else}
+{$Else}
   {$DebugInfo off}
   {$OverflowChecks off}
   {$RangeChecks off}
-{$endif}
+{$Endif}
 
-{$ifdef NOASSERT}
+{$Ifdef NOASSERT}
   {$Assertions off}
-{$else}
+{$Else}
   {$Assertions on}
-{$endif}
+{$Endif}
 
 {$Align on}
 {$BoolEval off}
@@ -42,13 +42,13 @@
 {$Warnings on}
 {$WriteableConst off}
 
-{$warn SYMBOL_PLATFORM off}
-{$warn UNIT_PLATFORM off}
+{$Warn SYMBOL_PLATFORM off}
+{$Warn UNIT_PLATFORM off}
 
-{$include AdditionalSymbols.inc}
+{$Include AdditionalSymbols.inc}
 
-{$ifndef UNICODE} {$message error 'Unicode required'} {$endif}
-{$ifndef D2009} {$message error 'D2009 required'} {$endif}
+{$Ifndef UNICODE} {$Message error 'Unicode required'} {$Endif}
+{$Ifndef D2009} {$Message error 'D2009 required'} {$Endif}
 
 {$Inline on}
 {$MethodInfo off}
@@ -56,8 +56,8 @@
 {$ScopedEnums off}
 {$StringChecks off}
 
-{$ifdef D2011}
+{$Ifdef D2011}
   {$StrongLinkTypes off}	// Because this directive defeats the smart linker to a large degree, it can cause inflation of the executable size.
   {$RTTI EXPLICIT METHODS([]) PROPERTIES([]) FIELDS([])}	// Extended RTTI => off => smaller EXE
   {$WeakLinkRTTI ON}		// enables more Smart Linking => smaller EXE
-{$endif}
+{$Endif}

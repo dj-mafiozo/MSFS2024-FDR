@@ -1,0 +1,11 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+ <PropertyGroup><ProjectGuid>{B7F94EB5-1A7E-5C83-B7A2-9034DC741FC1}</ProjectGuid><MainSource>VerifySubscriptions.dpr</MainSource><ProjectVersion>18.4</ProjectVersion><Base>True</Base><Config Condition="'$(Config)'==''">Debug</Config><Platform Condition="'$(Platform)'==''">Win64</Platform><AppType>Console</AppType><FrameworkType>VCL</FrameworkType></PropertyGroup>
+ <PropertyGroup><FDRVerifyTest>true</FDRVerifyTest></PropertyGroup>
+    <ItemGroup><BuildConfiguration Include="Base"><Key>Base</Key></BuildConfiguration></ItemGroup>
+    <ItemGroup><BuildConfiguration Include="Debug"><Key>Cfg_1</Key><CfgParent>Base</CfgParent></BuildConfiguration></ItemGroup><PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''"><Cfg_1>true</Cfg_1><CfgParent>Base</CfgParent></PropertyGroup>
+    <ItemGroup><BuildConfiguration Include="Release"><Key>Cfg_2</Key><CfgParent>Base</CfgParent></BuildConfiguration></ItemGroup><PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''"><Cfg_2>true</Cfg_2><CfgParent>Base</CfgParent></PropertyGroup>
+    <ProjectExtensions><Borland.Personality>Delphi.Personality.12</Borland.Personality><Borland.ProjectType/><BorlandProject><Delphi.Personality><Source><Source Name="MainSource">VerifySubscriptions.dpr</Source></Source></Delphi.Personality><Platforms><Platform value="Win32">True</Platform><Platform value="Win64">True</Platform></Platforms></BorlandProject><ProjectFileVersion>12</ProjectFileVersion></ProjectExtensions>
+    <ItemGroup><DelphiCompile Include="$(MainSource)"><MainSource>MainSource</MainSource></DelphiCompile></ItemGroup>
+    <Import Project="Tests.Shared.props"/>
+    <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
+</Project>

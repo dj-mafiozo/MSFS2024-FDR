@@ -1,0 +1,111 @@
+<SimBase.Document>
+  <FlightPlan.FlightPlan>
+    <DepartureID>EPLL</DepartureID>
+    <DestinationID>EPLL</DestinationID>
+    <Title>EPLL - EPLL / DEMO</Title>
+    <Descr>Anonymized demonstration route</Descr>
+    <FPType>IFR</FPType>
+    <CruisingAlt>13000</CruisingAlt>
+    <DepartureDetails>
+      <RunwayNumberFP>25</RunwayNumberFP>
+      <DepartureFP>ADOX2W</DepartureFP>
+    </DepartureDetails>
+    <ArrivalDetails>
+      <RunwayNumberFP>25</RunwayNumberFP>
+      <ArrivalFP>SOXE2T</ArrivalFP>
+    </ArrivalDetails>
+    <ApproachDetails>
+      <ApproachTypeFP>ILS</ApproachTypeFP>
+      <RunwayNumberFP>25</RunwayNumberFP>
+      <SuffixFP>Z</SuffixFP>
+      <TransitionFP>LL501</TransitionFP>
+    </ApproachDetails>
+    <ATCWaypoint id="EPLL.25">
+      <WorldPosition>51.7277,19.4180,0</WorldPosition>
+      <ATCWaypointType>Intersection</ATCWaypointType>
+    </ATCWaypoint>
+    <ATCWaypoint id="LL601">
+      <WorldPosition>51.694083,19.271111,0</WorldPosition>
+      <ATCWaypointType>Intersection</ATCWaypointType>
+      <DepartureFP>ADOX2W</DepartureFP>
+      <AltDescFP>ALT_DESC_AT_OR_ABOVE</AltDescFP>
+      <Alt1FP>2600</Alt1FP>
+      <SpeedMaxFP>200</SpeedMaxFP>
+    </ATCWaypoint>
+    <ATCWaypoint id="LL602">
+      <WorldPosition>51.772583,19.226444,0</WorldPosition>
+      <ATCWaypointType>Intersection</ATCWaypointType>
+      <DepartureFP>ADOX2W</DepartureFP>
+      <SpeedMaxFP>220</SpeedMaxFP>
+    </ATCWaypoint>
+    <ATCWaypoint id="LL536">
+      <WorldPosition>51.881000,19.376278,0</WorldPosition>
+      <ATCWaypointType>Intersection</ATCWaypointType>
+      <DepartureFP>ADOX2W</DepartureFP>
+      <AltDescFP>ALT_DESC_AT_OR_ABOVE</AltDescFP>
+      <Alt1FP>6000</Alt1FP>
+    </ATCWaypoint>
+    <ATCWaypoint id="LL604">
+      <WorldPosition>51.943611,19.463278,0</WorldPosition>
+      <ATCWaypointType>Intersection</ATCWaypointType>
+      <DepartureFP>ADOX2W</DepartureFP>
+      <AltDescFP>ALT_DESC_AT_OR_BELOW</AltDescFP>
+      <Alt1FP>8000</Alt1FP>
+    </ATCWaypoint>
+    <ATCWaypoint id="ADOXO">
+      <WorldPosition>52.103056,19.507222,0</WorldPosition>
+      <ATCWaypointType>Intersection</ATCWaypointType>
+      <DepartureFP>ADOX2W</DepartureFP>
+      <AltDescFP>ALT_DESC_AT_OR_ABOVE</AltDescFP>
+      <Alt1FP>10000</Alt1FP>
+    </ATCWaypoint>
+    <ATCWaypoint id="SOXER">
+      <WorldPosition>52.043833,19.934972,0</WorldPosition>
+      <ATCWaypointType>Intersection</ATCWaypointType>
+      <ArrivalFP>SOXE2T</ArrivalFP>
+      <AltDescFP>ALT_DESC_AT_OR_ABOVE</AltDescFP>
+      <Alt1FP>8000</Alt1FP>
+    </ATCWaypoint>
+    <ATCWaypoint id="LL523">
+      <WorldPosition>51.819639,19.827806,0</WorldPosition>
+      <ATCWaypointType>Intersection</ATCWaypointType>
+      <ArrivalFP>SOXE2T</ArrivalFP>
+      <AltDescFP>ALT_DESC_AT_OR_ABOVE</AltDescFP>
+      <Alt1FP>6000</Alt1FP>
+    </ATCWaypoint>
+    <ATCWaypoint id="LL522">
+      <WorldPosition>51.797917,19.726250,0</WorldPosition>
+      <ATCWaypointType>Intersection</ATCWaypointType>
+      <ArrivalFP>SOXE2T</ArrivalFP>
+      <SpeedMaxFP>220</SpeedMaxFP>
+    </ATCWaypoint>
+    <ATCWaypoint id="LL501">
+      <WorldPosition>51.776083,19.624806,0</WorldPosition>
+      <ATCWaypointType>Intersection</ATCWaypointType>
+      <ArrivalFP>SOXE2T</ArrivalFP>
+      <AltDescFP>ALT_DESC_AT_OR_ABOVE</AltDescFP>
+      <Alt1FP>3000</Alt1FP>
+    </ATCWaypoint>
+    <ATCWaypoint id="LL531">
+      <WorldPosition>51.760667,19.576750,0</WorldPosition>
+      <ATCWaypointType>Intersection</ATCWaypointType>
+      <ArrivalFP>ILS Z 25</ArrivalFP>
+      <AltDescFP>ALT_DESC_AT_OR_ABOVE</AltDescFP>
+      <Alt1FP>2300</Alt1FP>
+    </ATCWaypoint>
+    <ATCWaypoint id="LL532">
+      <WorldPosition>51.748611,19.521028,0</WorldPosition>
+      <ATCWaypointType>Intersection</ATCWaypointType>
+      <ArrivalFP>ILS Z 25</ArrivalFP>
+      <AltDescFP>ALT_DESC_AT</AltDescFP>
+      <Alt1FP>2100</Alt1FP>
+    </ATCWaypoint>
+    <ATCWaypoint id="RW25">
+      <WorldPosition>51.723669,19.406319,0</WorldPosition>
+      <ATCWaypointType>Intersection</ATCWaypointType>
+      <ArrivalFP>ILS Z 25</ArrivalFP>
+      <AltDescFP>ALT_DESC_AT</AltDescFP>
+      <Alt1FP>607</Alt1FP>
+    </ATCWaypoint>
+    </FlightPlan.FlightPlan>
+</SimBase.Document>

@@ -1,4 +1,5 @@
-object frmTripInfo: TfrmTripInfo
+﻿object frmTripInfo: TfrmTripInfo
+  HelpContext = 1410
   Left = 0
   Top = 0
   Caption = 'Informacje o nagraniu'

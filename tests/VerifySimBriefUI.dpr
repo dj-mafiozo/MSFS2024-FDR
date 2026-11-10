@@ -1,245 +1,355 @@
-﻿program VerifySimBriefUI;
+﻿Program VerifySimBriefUI;
 
 {$APPTYPE CONSOLE}
+{$STRONGLINKTYPES ON}
+{$RTTI EXPLICIT METHODS([vcPublic])}
 
-uses Winapi.Windows, System.SysUtils, System.Classes, System.IOUtils, System.IniFiles,
+Uses
+ TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ Winapi.Windows, System.SysUtils, System.Classes, System.IOUtils, System.IniFiles,
 
-  Vcl.Forms, Vcl.Controls, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Graphics, Vcl.Imaging.pngimage,
+ Vcl.Forms, Vcl.Controls, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Graphics, Vcl.Imaging.pngimage,
 
-  frmSimBriefFrameU, frmSimBriefU;
+ frmSimBriefFrameU, frmSimBriefU;
 
-type TPopupProbe=class
+Type
+ TPopupProbe = Class
 
-  Frame:TfraSimBrief;Checked:Boolean;Error:string;
+  Frame   : TfraSimBrief;
+  Checked : Boolean;
+  Error   : String;
 
-  procedure Tick(Sender:TObject);
+  Procedure Tick(Sender : TObject);
 
-end;
+ End;
 
-var Host:TForm;F:TfraSimBrief;C:TMemIniFile;G:TGroupBox;B:TButton;I,J:Integer;
+Var
+ Host : TForm;
+ f    : TfraSimBrief;
+ c    : TMemIniFile;
+ g    : TGroupBox;
+ b    : TButton;
+ i    : Integer;
+ j    : Integer;
 
-  Probe:TPopupProbe;PopupTimer:TTimer;Msg:TMsg;Handled:Boolean;P:TPoint;
+ Probe      : TPopupProbe;
+ PopupTimer : TTimer;
+ Msg        : TMsg;
+ Handled    : Boolean;
+ p          : TPoint;
 
-  Path,Payload:string;Bitmap:TBitmap;PNG:TPngImage;
+ Path    : String;
+ Payload : String;
+ Bitmap  : TBitmap;
+ PNG     : TPngImage;
 
-procedure Check(Value:Boolean;const MessageText:string);
+Procedure Check(Value : Boolean; Const MessageText : String);
+ Begin
+  If Not Value Then
+   Raise Exception.Create(MessageText);
+ End;
 
-begin if not Value then raise Exception.Create(MessageText);end;
+Procedure TPopupProbe.Tick(Sender : TObject);
+ Var
+  i : Integer;
+  w : TfrmSimBrief;
+ Begin
 
-procedure TPopupProbe.Tick(Sender:TObject);
+  For i := 0 To Screen.FormCount - 1 Do
+   If Screen.Forms[i] Is TfrmSimBrief Then
+    Begin
 
-var I:Integer;W:TfrmSimBrief;
+     TTimer(Sender).Enabled := False;
+     w                      := TfrmSimBrief(Screen.Forms[i]);
 
-begin
+     Try
 
-  for I:=0 to Screen.FormCount-1 do if Screen.Forms[I] is TfrmSimBrief then begin
+      Check(Frame.Parent = w.ViewHost, 'Same live frame in separate window');
 
-    TTimer(Sender).Enabled:=False;W:=TfrmSimBrief(Screen.Forms[I]);
+      Check(w.BorderStyle = bsSizeable, 'Resizable window');
 
-    try
+      w.Width  := 1100;
+      w.Height := 750;
+      Checked  := True;
 
-      Check(Frame.Parent=W.ViewHost,'Same live frame in separate window');
+     Except
+      On E : Exception Do
+       Error := E.Message;
+     End;
 
-      Check(W.BorderStyle=bsSizeable,'Resizable window');
+     w.ModalResult := mrCancel;
+     Exit;
 
-      W.Width:=1100;W.Height:=750;Checked:=True;
+    End;
 
-    except on E:Exception do Error:=E.Message;end;
+ End;
 
-    W.ModalResult:=mrCancel;Exit;
+Function Content(c : TWinControl) : String;
+ Var
+  i : Integer;
+ Begin
 
-  end;
+  Result := '';
 
-end;
+  For i := 0 To c.ControlCount - 1 Do
+   Begin
 
-function Content(C:TWinControl):string;
+    If c.Controls[i] Is TLabel Then
+     Result := Result + TLabel(c.Controls[i]).Caption + sLineBreak;
 
-var I:Integer;
+    If c.Controls[i] Is TMemo Then
+     Result := Result + TMemo(c.Controls[i]).Text + sLineBreak;
 
-begin
+    If c.Controls[i] Is TWinControl Then
+     Result := Result + Content(TWinControl(c.Controls[i]));
 
-  Result:='';
+   End;
 
-  for I:=0 to C.ControlCount-1 do begin
+ End;
 
-    if C.Controls[I] is TLabel then Result:=Result+TLabel(C.Controls[I]).Caption+sLineBreak;
+Type
 
-    if C.Controls[I] is TMemo then Result:=Result+TMemo(C.Controls[I]).Text+sLineBreak;
+ [TestFixture]
+ TVerifySimBriefUITests = Class
+  Public
+   [Test]
+   Procedure Regression;
+ End;
 
-    if C.Controls[I] is TWinControl then Result:=Result+Content(TWinControl(C.Controls[I]));
-
-  end;
-
-end;
-
-begin
+Procedure TVerifySimBriefUITests.Regression;
+ Begin
 
   Application.Initialize;
 
-  Probe:=nil;PopupTimer:=nil;
+  Probe      := Nil;
+  PopupTimer := Nil;
 
-  Path:=TPath.Combine(TPath.GetTempPath,'simbrief-ui-'+IntToStr(GetTickCount64)+'.ini');
+  Path := TPath.Combine(TPath.GetTempPath, 'simbrief-ui-' + IntToStr(GetTickCount64) + '.ini');
 
-  C:=TMemIniFile.Create(Path);Host:=TForm.Create(nil);Bitmap:=TBitmap.Create;PNG:=TPngImage.Create;
+  c      := TMemIniFile.Create(Path);
+  Host   := TForm.Create(Nil);
+  Bitmap := TBitmap.Create;
+  PNG    := TPngImage.Create;
 
-  try
+  Try
 
-    Host.SetBounds(-4000,0,800,950);Host.Caption:='SimBrief Dispatch preview';
+   Host.SetBounds( -4000, 0, 800, 950);
+   Host.Caption := 'SimBrief Dispatch preview';
 
-    F:=TfraSimBrief.Create(Host);F.Parent:=Host;F.Align:=alClient;
+   f        := TfraSimBrief.Create(Host);
+   f.Parent := Host;
+   f.Align  := alClient;
 
-    F.Configure(C);F.SetTrip(nil,0);
+   f.Configure(c);
+   f.SetTrip(Nil, 0);
 
-    Payload:='{"origin":{"icao_code":"EPLL","plan_rwy":"25"},"destination":{"icao_code":"EGLL"},'+
+   Payload := '{"origin":{"icao_code":"EPLL","plan_rwy":"25"},"destination":{"icao_code":"EGLL"},' +
 
-      '"general":{"icao_airline":"LOT","flight_number":"131","route":"TEST ROUTE","dx_rmk":["REMARK TEST &ft &amp; DATA"],"initial_altitude":"36000","costindex":"15"},'+
+   '"general":{"icao_airline":"LOT","flight_number":"131","route":"TEST ROUTE","dx_rmk":["REMARK TEST &ft &amp; DATA"],"initial_altitude":"36000","costindex":"15"},' +
 
-      '"alternate":[{"icao_code":"EGSS"},{"icao_code":"EGKK"}],'+
+   '"alternate":[{"icao_code":"EGSS"},{"icao_code":"EGKK"}],' +
 
-      '"aircraft":{"reg":"SP-LVA","name":"B737 MAX 8"},"atc":{"callsign":"LOT131","flightplan_text":"FPL TEST"},'+
+   '"aircraft":{"reg":"SP-LVA","name":"B737 MAX 8"},"atc":{"callsign":"LOT131","flightplan_text":"FPL TEST"},' +
 
-      '"params":{"time_generated":"2026-10-04T18:34:56Z","units":"kgs"},'+
+   '"params":{"time_generated":"2026-10-04T18:34:56Z","units":"kgs"},' +
 
-      '"weights":{"pax_count":"125","est_tow":"66583"},'+
+   '"weights":{"pax_count":"125","est_tow":"66583"},' +
 
-      '"text":{"plan_html":"<pre>LIDO OFP &amp; TEST\n  FUEL    TIME\n  1234    0100</pre>"}}';
+   '"text":{"plan_html":"<pre>LIDO OFP &amp; TEST\n  FUEL    TIME\n  1234    0100</pre>"}}';
 
-    F.LoadPayload(Payload,'Synthetic Dispatch');Host.Show;Application.ProcessMessages;
+   f.LoadPayload(Payload, 'Synthetic Dispatch');
+   Host.Show;
+   Application.ProcessMessages;
 
-    Check(F.Sections.ControlCount=15,'Dispatch sections');
+   Check(f.Sections.ControlCount = 14, 'Dispatch sections without network filing');
 
-    Check(F.FindComponent('SB_downloads')=nil,'Downloads removed');
+   Check(f.FindComponent('SB_downloads') = Nil, 'Downloads removed');
+   Check(f.FindComponent('SB_prefile') = Nil, 'Network filing removed');
+   Check(Assigned(f.WheelEvents.OnMessage), 'Loaded connects application mouse-wheel events without designer binding');
 
-    F.Sections.VertScrollBar.Position:=0;
+   f.Sections.VertScrollBar.Position := 0;
 
-    FillChar(Msg,SizeOf(Msg),0);Msg.message:=$020A;Msg.hwnd:=F.eAccount.Handle;
+   FillChar(Msg, SizeOf(Msg), 0);
+   Msg.Message := $020A;
+   Msg.hwnd    := f.eAccount.Handle;
 
-    P:=F.eAccount.ClientToScreen(Point(5,5));
+   p := f.eAccount.ClientToScreen(Point(5, 5));
 
-    Msg.lParam:=MakeLong(Word(P.X),Word(P.Y));Msg.wParam:=WPARAM(Word(SmallInt(-120))) shl 16;
+   Msg.lParam := MakeLong(Word(p.X), Word(p.Y));
+   Msg.wParam := wParam(Word(SmallInt( -120))) Shl 16;
 
-    Handled:=False;F.WheelMessage(Msg,Handled);
+   Handled := False;
+   f.WheelMessage(Msg, Handled);
 
-    Check(Handled and (F.Sections.VertScrollBar.Position>0),'Wheel over input scrolls whole Dispatch');
+   Check(Handled And (f.Sections.VertScrollBar.Position > 0), 'Wheel over input scrolls whole Dispatch');
+   f.Sections.VertScrollBar.Position := 0;
+   PostMessage(f.eAccount.Handle, Msg.Message, Msg.wParam, Msg.lParam);
+   Application.ProcessMessages;
+   Check(f.Sections.VertScrollBar.Position > 0, 'Queued Windows mouse wheel reaches the Loaded event handler');
 
-    Msg.hwnd:=Host.Handle;Handled:=False;F.WheelMessage(Msg,Handled);
+   Msg.hwnd := Host.Handle;
+   Handled  := False;
+   f.WheelMessage(Msg, Handled);
 
-    Check(not Handled,'Unrelated control wheel is ignored');
+   Check(Handled, 'Wheel follows hovered Dispatch even when another control has focus');
 
-    F.Sections.VertScrollBar.Position:=0;
+   f.Sections.VertScrollBar.Position := 0;
 
-    Check(Pos('EPLL - EGLL',F.lStatus.Caption)>0,'Actual payload airports, independent of test recordings');
+   Check(Pos('EPLL - EGLL', f.lStatus.Caption) > 0, 'Actual payload airports, independent of test recordings');
 
-    Check(not F.btnAttach.Enabled,'Preview cannot attach without trip');
+   Check(Not f.btnAttach.Enabled, 'Preview cannot attach without trip');
 
-    Check(Pos('EGSS, EGKK',Content(F))>0,'v2 alternate array');
+   Check(Pos('EGSS, EGKK', Content(f)) > 0, 'v2 alternate array');
 
-    Check(Pos('LOT131',Content(F))>0,'Airline and flight number');
+   Check(Pos('LOT131', Content(f)) > 0, 'Airline and flight number');
 
-    Check(Pos('LIDO',Content(F))>0,'Default OFP layout');
+   Check(Pos('LIDO', Content(f)) > 0, 'Default OFP layout');
 
-    Check((Pos('REMARK TEST &ft & DATA',Content(F))>0) and (Pos('FPL TEST',Content(F))>0),'Remarks and ATC text preserved');
+   Check((Pos('REMARK TEST &ft & DATA', Content(f)) > 0) And (Pos('FPL TEST', Content(f)) > 0), 'Remarks and ATC text preserved');
 
-    Check((Pos('dx_rmk',Content(F))=0) and (Pos('flightplan_text',Content(F))=0) and
+   Check((Pos('dx_rmk', Content(f)) = 0) And (Pos('flightplan_text', Content(f)) = 0) And
 
-      (Pos('atc /',Content(F))=0),'No technical API prefixes');
+   (Pos('atc /', Content(f)) = 0), 'No technical API prefixes');
 
-    Probe:=TPopupProbe.Create;Probe.Frame:=F;PopupTimer:=TTimer.Create(nil);
+   Probe       := TPopupProbe.Create;
+   Probe.Frame := f;
+   PopupTimer  := TTimer.Create(Nil);
 
-    PopupTimer.Enabled:=False;PopupTimer.Interval:=20;PopupTimer.OnTimer:=Probe.Tick;PopupTimer.Enabled:=True;
+   PopupTimer.Enabled  := False;
+   PopupTimer.Interval := 20;
+   PopupTimer.OnTimer  := Probe.Tick;
+   PopupTimer.Enabled  := True;
 
-    F.aWindowExecute(F.aWindow);
+   f.aWindowExecute(f.aWindow);
 
-    Check(Probe.Checked and (Probe.Error=''),'Separate window: '+Probe.Error);
+   Check(Probe.Checked And (Probe.Error = ''), 'Separate window: ' + Probe.Error);
 
-    Check((F.Parent=Host) and F.btnWindow.Enabled,'Frame restored after close');
+   Check((f.Parent = Host) And f.btnWindow.Enabled, 'Frame restored after close');
 
-    Check(F.btnOFP.Enabled,'OFP action available');
+   Check(f.btnOFP.Enabled, 'OFP action available');
 
-    G:=F.FindComponent('SB_ofp') as TGroupBox;
+   g := f.FindComponent('SB_ofp') As TGroupBox;
 
-    F.ToggleSection(G.Controls[0]);
+   f.ToggleSection(g.Controls[0]);
 
-    Check((G.Height>49) and (G.Height<200),'Short briefing fits content');
+   Check((g.Height > 49) And (g.Height < 200), 'Short briefing fits content');
 
-    for I:=0 to G.ControlCount-1 do if G.Controls[I] is TMemo then begin
+   For i := 0 To g.ControlCount - 1 Do
+    If g.Controls[i] Is TMemo Then
+     Begin
 
-      Check(TMemo(G.Controls[I]).Lines.Count>=3,'LF source displayed as separate Windows lines');
+      Check(TMemo(g.Controls[i]).Lines.Count >= 3, 'LF source displayed as separate Windows lines');
 
-      Check(TMemo(G.Controls[I]).Lines[1]='  FUEL    TIME','Preserve column spacing and indentation');
+      Check(TMemo(g.Controls[i]).Lines[1] = '  FUEL    TIME', 'Preserve column spacing and indentation');
 
-      Msg.hwnd:=TMemo(G.Controls[I]).Handle;Handled:=False;
+      Msg.hwnd := TMemo(g.Controls[i]).Handle;
+      Handled  := False;
 
-      F.Sections.VertScrollBar.Position:=0;F.WheelMessage(Msg,Handled);
+      f.Sections.VertScrollBar.Position := 0;
+      f.WheelMessage(Msg, Handled);
 
-      Check(Handled and (F.Sections.VertScrollBar.Position>0),'Wheel from memo scrolls whole Dispatch');
+      Check(Handled And (f.Sections.VertScrollBar.Position > 0), 'Wheel from memo scrolls whole Dispatch');
 
-      F.Sections.VertScrollBar.Position:=0;
+      f.Sections.VertScrollBar.Position := 0;
 
-    end;
+     End;
 
-    F.ToggleSection(G.Controls[0]);F.ToggleSection(G.Controls[0]);
+   f.ToggleSection(g.Controls[0]);
+   f.ToggleSection(g.Controls[0]);
 
-    Check((G.Height>49) and (G.Height<200),'Content height restored on expand');
+   Check((g.Height > 49) And (g.Height < 200), 'Content height restored on expand');
 
-    G:=F.FindComponent('SB_summary') as TGroupBox;
+   g := f.FindComponent('SB_summary') As TGroupBox;
 
-    Check(G<>nil,'Summary group');Check(G.Height>49,'Expanded summary');
+   Check(g <> Nil, 'Summary group');
+   Check(g.Height > 49, 'Expanded summary');
 
-    B:=G.Controls[0] as TButton;F.ToggleSection(B);
+   b := g.Controls[0] As TButton;
+   f.ToggleSection(b);
 
-    Check(G.Height=49,'Collapse summary');Check(not C.ReadBool('simbrief_sections','summary',True),'Collapse saved');
+   Check(g.Height = 49, 'Collapse summary');
+   Check(Not c.ReadBool('simbrief_sections', 'summary', True), 'Collapse saved');
 
-    F.LoadPayload(Payload,'Reload');G:=F.FindComponent('SB_summary') as TGroupBox;
+   f.LoadPayload(Payload, 'Reload');
+   g := f.FindComponent('SB_summary') As TGroupBox;
 
-    Check(G.Height=49,'Collapse restored after reload');F.ToggleSection(G.Controls[0]);
+   Check(g.Height = 49, 'Collapse restored after reload');
+   f.ToggleSection(g.Controls[0]);
 
-    for I:=0 to F.Sections.ControlCount-1 do begin
+   For i := 0 To f.Sections.ControlCount - 1 Do
+    Begin
 
-      G:=F.Sections.Controls[I] as TGroupBox;
+     g := f.Sections.Controls[i] As TGroupBox;
 
-      Check(G.Controls[0] is TButton,'Each group has toggle');
+     Check(g.Controls[0] Is TButton, 'Each group has toggle');
 
-      for J:=0 to G.ControlCount-1 do
+     For j := 0 To g.ControlCount - 1 Do
 
-        if G.Controls[J] is TMemo then Check(TMemo(G.Controls[J]).ReadOnly,'Read-only content');
+      If g.Controls[j] Is TMemo Then
+       Check(TMemo(g.Controls[j]).ReadOnly, 'Read-only content');
 
-    end;
+    End;
 
-    Host.Width:=240;Application.ProcessMessages;F.ResizeCards(nil);
+   Host.Width := 240;
+   Application.ProcessMessages;
+   f.ResizeCards(Nil);
 
-    Check((F.eAccount.Parent=F.Tools) and (F.eAccount.Width<=F.Tools.ClientWidth),'Account field fits narrow frame');
-    Check(F.btnOlder.Left+F.btnOlder.Width<=F.ToolBar1.ClientWidth,'Toolbar fits narrow frame');
+   Check((f.eAccount.Parent = f.Tools) And (f.eAccount.Width <= f.Tools.ClientWidth), 'Account field fits narrow frame');
+   Check(f.btnOlder.Left + f.btnOlder.Width <= f.ToolBar1.ClientWidth, 'Toolbar fits narrow frame');
 
-    Host.Width:=800;Application.ProcessMessages;F.ResizeCards(nil);
+   Host.Width := 800;
+   Application.ProcessMessages;
+   f.ResizeCards(Nil);
 
-    Bitmap.SetSize(Host.ClientWidth,Host.ClientHeight);Host.PaintTo(Bitmap.Canvas,0,0);
+   Bitmap.SetSize(Host.ClientWidth, Host.ClientHeight);
+   Host.PaintTo(Bitmap.Canvas, 0, 0);
 
-    PNG.Assign(Bitmap);PNG.SaveToFile(ExtractFilePath(ParamStr(0))+'simbrief-preview.png');
+   PNG.Assign(Bitmap);
+   PNG.SaveToFile(ExtractFilePath(ParamStr(0)) + 'simbrief-preview.png');
 
-    Check(F.Payload=Payload,'Full payload retained');
+   Check(f.Payload = Payload, 'Full payload retained');
 
-    F.LoadPayload(Payload.Replace('LIDO OFP &amp; TEST',StringReplace(StringOfChar('X',100),'X','LINE\n',[rfReplaceAll])),'Long briefing');
+   f.LoadPayload(Payload.Replace('LIDO OFP &amp; TEST', StringReplace(StringOfChar('X', 100), 'X', 'LINE\n', [rfReplaceAll])), 'Long briefing');
 
-    G:=F.FindComponent('SB_ofp') as TGroupBox;
+   g := f.FindComponent('SB_ofp') As TGroupBox;
 
-    if G.Height=49 then F.ToggleSection(G.Controls[0]);
+   If g.Height = 49 Then
+    f.ToggleSection(g.Controls[0]);
 
-    Check(G.Height>1000,'Long briefing expands to all lines');
+   Check(g.Height > 1000, 'Long briefing expands to all lines');
 
-    for I:=0 to G.ControlCount-1 do if G.Controls[I] is TMemo then
+   For i := 0 To g.ControlCount - 1 Do
+    If g.Controls[i] Is TMemo Then
 
-      Check(TMemo(G.Controls[I]).ScrollBars=ssHorizontal,'No nested vertical memo scrolling');
+     Check(TMemo(g.Controls[i]).ScrollBars = ssNone, 'No nested vertical memo scrolling');
 
-    F.LoadPayload(Payload,'Restore');
+   f.LoadPayload(Payload, 'Restore');
 
-    try F.LoadPayload('{}','bad');except on E:Exception do ;end;
+   Try
+    f.LoadPayload('{}', 'bad');
+   Except
+    On E : Exception Do
+     ;
+   End;
 
-    Check(F.Payload=Payload,'Malformed response preserves preview');
+   Check(f.Payload = Payload, 'Malformed response preserves preview');
 
-  finally PopupTimer.Free;Probe.Free;PNG.Free;Bitmap.Free;Host.Free;C.Free;TFile.Delete(Path);end;
+  Finally
+   PopupTimer.Free;
+   Probe.Free;
+   PNG.Free;
+   Bitmap.Free;
+   Host.Free;
+   c.Free;
+   If TFile.Exists(Path) Then
+    TFile.Delete(Path);
+  End;
 
-  Writeln('PASS: SimBrief native Dispatch frame, 15 groups, EPLL-EGLL preview, collapse persistence, responsive toolbar, read-only sections, independent preview and original OFP action.');
+  System.Writeln('PASS: SimBrief native Dispatch frame, 14 groups, EPLL-EGLL preview, collapse persistence, responsive toolbar, read-only sections, independent preview and original OFP action.');
 
-end.
+ End;
 
+Begin
+ RunNativeTests(TVerifySimBriefUITests);
+
+End.

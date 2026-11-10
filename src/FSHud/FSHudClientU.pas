@@ -8,10 +8,9 @@ Interface
 
  Type
   TFSHudMessage = Record
-   Public
-    CapturedUTC : String;
-    Payload     : String;
-    Kind        : String;
+   CapturedUTC : String;
+   Payload     : String;
+   Kind        : String;
   End;
 
   TFSHudClient = Class(TThread)
@@ -44,16 +43,26 @@ Implementation
   HINTERNET = Pointer;
 
  Function WinHttpOpen(Agent : PWideChar; Access : DWORD; Proxy, Bypass : PWideChar; Flags : DWORD) : HINTERNET; Stdcall; External 'winhttp.dll';
- Function WinHttpConnect(H : HINTERNET; Server : PWideChar; Port : Word; Reserved : DWORD) : HINTERNET; Stdcall; External 'winhttp.dll';
- Function WinHttpOpenRequest(H : HINTERNET; Verb, Path, Version, Referrer : PWideChar; Accept : Pointer; Flags : DWORD) : HINTERNET; Stdcall; External 'winhttp.dll';
- Function WinHttpSetTimeouts(H : HINTERNET; Resolve, Connect, Send, Receive : Integer) : BOOL; Stdcall; External 'winhttp.dll';
- Function WinHttpSetOption(H : HINTERNET; Option : DWORD; Data : Pointer; Size : DWORD) : BOOL; Stdcall; External 'winhttp.dll';
- Function WinHttpSendRequest(H : HINTERNET; Headers : PWideChar; Length : DWORD; Data : Pointer; Size, Total : DWORD; Context : NativeUInt) : BOOL; Stdcall; External 'winhttp.dll';
- Function WinHttpReceiveResponse(H : HINTERNET; Reserved : Pointer) : BOOL; Stdcall; External 'winhttp.dll';
- Function WinHttpWebSocketCompleteUpgrade(H : HINTERNET; Context : NativeUInt) : HINTERNET; Stdcall; External 'winhttp.dll';
- Function WinHttpWebSocketSend(H : HINTERNET; Kind : Integer; Buffer : Pointer; Length : DWORD) : DWORD; Stdcall; External 'winhttp.dll';
- Function WinHttpWebSocketReceive(H : HINTERNET; Buffer : Pointer; Length : DWORD; Out Received : DWORD; Out Kind : Integer) : DWORD; Stdcall; External 'winhttp.dll';
- Function WinHttpCloseHandle(H : HINTERNET) : BOOL; Stdcall; External 'winhttp.dll';
+
+ Function WinHttpConnect(h : HINTERNET; Server : PWideChar; Port : Word; Reserved : DWORD) : HINTERNET; Stdcall; External 'winhttp.dll';
+
+ Function WinHttpOpenRequest(h : HINTERNET; Verb, Path, Version, Referrer : PWideChar; Accept : Pointer; Flags : DWORD) : HINTERNET; Stdcall; External 'winhttp.dll';
+
+ Function WinHttpSetTimeouts(h : HINTERNET; Resolve, Connect, Send, Receive : Integer) : BOOL; Stdcall; External 'winhttp.dll';
+
+ Function WinHttpSetOption(h : HINTERNET; Option : DWORD; Data : Pointer; Size : DWORD) : BOOL; Stdcall; External 'winhttp.dll';
+
+ Function WinHttpSendRequest(h : HINTERNET; Headers : PWideChar; Length : DWORD; Data : Pointer; Size, Total : DWORD; Context : NativeUInt) : BOOL; Stdcall; External 'winhttp.dll';
+
+ Function WinHttpReceiveResponse(h : HINTERNET; Reserved : Pointer) : BOOL; Stdcall; External 'winhttp.dll';
+
+ Function WinHttpWebSocketCompleteUpgrade(h : HINTERNET; Context : NativeUInt) : HINTERNET; Stdcall; External 'winhttp.dll';
+
+ Function WinHttpWebSocketSend(h : HINTERNET; Kind : Integer; Buffer : Pointer; Length : DWORD) : DWORD; Stdcall; External 'winhttp.dll';
+
+ Function WinHttpWebSocketReceive(h : HINTERNET; Buffer : Pointer; Length : DWORD; Out Received : DWORD; Out Kind : Integer) : DWORD; Stdcall; External 'winhttp.dll';
+
+ Function WinHttpCloseHandle(h : HINTERNET) : BOOL; Stdcall; External 'winhttp.dll';
 
  Function RecordFSHudKind(Const Kind : String) : Boolean;
   Begin
@@ -113,15 +122,15 @@ Implementation
 
  Procedure TFSHudClient.Accept(Const JSON : String);
   Var
-   V       : TJSONValue;
+   v       : TJSONValue;
    Data    : TJSONValue;
    Message : TFSHudMessage;
   Begin
-   V := TJSONObject.ParseJSONValue(JSON);
+   v := TJSONObject.ParseJSONValue(JSON);
    Try
-    If Not(V Is TJSONObject) Then
+    If Not(v Is TJSONObject) Then
      Raise Exception.Create(Tr('Invalid FSHud JSON'));
-    Data := TJSONObject(V).GetValue('MessageData');
+    Data := TJSONObject(v).GetValue('MessageData');
     If Not(Data Is TJSONObject) Then
      Exit;
     Message.Kind := TJSONObject(Data).GetValue<String>('DataType', '');
@@ -155,19 +164,19 @@ Implementation
      fLock.Leave;
     End;
    Finally
-    V.Free;
+    v.Free;
    End;
   End;
 
  Function TFSHudClient.Take : TArray<TFSHudMessage>;
   Var
-   I : Integer;
+   i : Integer;
   Begin
    fLock.Enter;
    Try
     SetLength(Result, fQueue.Count);
-    For I      := 0 To High(Result) Do
-     Result[I] := fQueue.Dequeue;
+    For i      := 0 To High(Result) Do
+     Result[i] := fQueue.Dequeue;
    Finally
     fLock.Leave;
    End;
@@ -181,12 +190,12 @@ Implementation
    Key      : String;
    Version  : String;
    Frame    : String;
-   M        : TMatch;
+   m        : TMatch;
    Session  : HINTERNET;
    Server   : HINTERNET;
    Request  : HINTERNET;
    WS       : HINTERNET;
-   Buffer   : Array [0 .. 65535] Of Byte;
+   Buffer   : Array [0..65535] Of Byte;
    Bytes    : TBytes;
    Stream   : TMemoryStream;
    Received : DWORD;
@@ -202,18 +211,18 @@ Implementation
     HTTP.ConnectionTimeout := 3000;
     HTTP.ResponseTimeout   := 3000;
     HTML                   := HTTP.Get('http://localhost:19786/').ContentAsString;
-    M                      := TRegEx.Match(HTML, 'src="(main\.[a-zA-Z0-9]+\.js)"');
-    If Not M.Success Then
+    m                      := TRegEx.Match(HTML, 'src="(main\.[a-zA-Z0-9]+\.js)"');
+    If Not m.Success Then
      Raise Exception.Create(Tr('Unsupported FSHud panel entry'));
-    JS := HTTP.Get('http://localhost:19786/' + M.Groups[1].Value).ContentAsString;
-    M  := TRegEx.Match(JS, 'encryptionKey="([^"]{16})"');
-    If Not M.Success Then
+    JS := HTTP.Get('http://localhost:19786/' + m.Groups[1].Value).ContentAsString;
+    m  := TRegEx.Match(JS, 'encryptionKey="([^"]{16})"');
+    If Not m.Success Then
      Raise Exception.Create(Tr('Unsupported FSHud panel codec'));
-    Key := M.Groups[1].Value;
-    M   := TRegEx.Match(JS, '"name":"fshud-panel","version":"([^"]+)"');
-    If Not M.Success Then
+    Key := m.Groups[1].Value;
+    m   := TRegEx.Match(JS, '"name":"fshud-panel","version":"([^"]+)"');
+    If Not m.Success Then
      Raise Exception.Create(Tr('FSHud panel version not found'));
-    Version := M.Groups[1].Value;
+    Version := m.Groups[1].Value;
     Session := WinHttpOpen('MSFS FDR read-only FSHud', 1, Nil, Nil, 0);
     If Session = Nil Then
      RaiseLastOSError;
@@ -291,7 +300,7 @@ Implementation
 
  Procedure TFSHudClient.Execute;
   Var
-   I : Integer;
+   i : Integer;
   Begin
    While Not Terminated Do
     Begin
@@ -303,7 +312,7 @@ Implementation
       On E : Exception Do
        Status('unavailable: ' + E.Message);
      End;
-     For I := 1 To 50 Do
+     For i := 1 To 50 Do
       Begin
        If Terminated Then
         Exit;

@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -12,18 +12,18 @@
 /// This unit implements data-aware controls for displaying and editing data
 /// fields that represent date and time values.
 /// </summary>
-unit i18nDBDateCtrls;
+Unit i18nDBDateCtrls;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-uses
+ Uses
   SysUtils, Types, Windows, Messages, Classes, Graphics, Controls, DB,
   DBCtrls, i18nDateCtrls, i18nCalendar;
 
-type
-  {$region 'xmldoc'}
+ Type
+  {$Region 'xmldoc'}
   /// <summary>
   /// TCustomDBIntlDateTimeLabel is the base class for data-aware label controls
   /// that display the value of a date-time field.
@@ -51,78 +51,78 @@ type
   /// the date-time value.
   /// </para>
   /// </remarks>
-  {$endregion}
-  TCustomDBIntlDateTimeLabel = class(TCustomIntlDateTimeLabel)
-  private
-    fDataLink: TFieldDataLink;
-    procedure DataChange(Sender: TObject);
-    function GetDataField: WideString; inline;
-    procedure SetDataField(const Value: WideString); inline;
-    function GetDataSource: TDataSource; inline;
-    procedure SetDataSource(Value: TDataSource); inline;
-    function GetField: TField;
-    procedure CMGetDataLink(var Message: TMessage); message CM_GETDATALINK;
-  protected
-    {$region 'xmldoc'}
+  {$Endregion}
+  TCustomDBIntlDateTimeLabel = Class(TCustomIntlDateTimeLabel)
+   Private
+    fDataLink : TFieldDataLink;
+    Procedure DataChange(Sender : TObject);
+    Function GetDataField : WideString; Inline;
+    Procedure SetDataField(Const Value : WideString); Inline;
+    Function GetDataSource : TDataSource; Inline;
+    Procedure SetDataSource(Value : TDataSource); Inline;
+    Function GetField : TField;
+    Procedure CMGetDataLink(Var Message : TMessage); Message CM_GETDATALINK;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Updates the control when it is first loaded into memory.
     /// </summary>
-    {$endregion}
-    procedure Loaded; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Loaded; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines the string that appears as the text of the label.
     /// </summary>
     /// <returns>
     /// The text that appears on the label.
     /// </returns>
-    {$endregion}
-    function GetLabelText: String; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetLabelText : String; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets the <see cref="AutoSize"/> property.
     /// </summary>
     /// <param name="Value">
     /// Indicates whether the auto size should be on or off.
     /// </param>
-    {$endregion}
-    procedure SetAutoSize(Value: Boolean); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure SetAutoSize(Value : Boolean); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Helps the data-aware control manage its link to the data source and respond
     /// to data events.
     /// </summary>
-    {$endregion}
-    property DataLink: TFieldDataLink read fDataLink;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DataLink : TFieldDataLink Read fDataLink;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the name of field whose value is displayed by the control.
     /// </summary>
-    {$endregion}
-    property DataField: WideString read GetDataField write SetDataField;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DataField : WideString Read GetDataField Write SetDataField;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Links the control to the dataset that contains the field it represents.
     /// </summary>
-    {$endregion}
-    property DataSource: TDataSource read GetDataSource write SetDataSource;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DataSource : TDataSource Read GetDataSource Write SetDataSource;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the control and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Specifies whether the control's alignment is in a right-to-left mode.
     /// </summary>
@@ -130,126 +130,127 @@ type
     /// Returns <see langword="true"/> if the control's alignment is in a right-to-left
     /// mode, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function UseRightToLeftAlignment: Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function UseRightToLeftAlignment : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TField"/> object for the database field the control
     /// represents.
     /// </summary>
-    {$endregion}
-    property Field: TField read GetField;
-  end;
+    {$Endregion}
+    Property Field : TField Read GetField;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TDBIntlDateTimeLabel is a data-aware label control to display the value of a
-  /// date-time field.
-  /// </summary>
-  /// <remarks>
-  /// <para>
-  /// Use TDBIntlDateTimeLabel to display localized value of a date-time database
-  /// field on a form.
-  /// </para>
-  ///
-  /// <para>
-  /// TDBIntlDateTimeLabel can use different calendar systems for displaying the dates.
-  /// The <see cref="CalendarType"/> property is the main property that specifies which
-  /// calendar system should be used by the control. If the <see cref="CalendarType"/>
-  /// property is not set, the <see cref="Culture"/> property can do this task. In addition,
-  /// the <see cref="Culture"/> property provides the locale specific settings of the control.
-  /// If none of these two properties are set the <see cref="DefaultCalendar"/> global
-  /// variable determines the calendar system used by the control.
-  /// </para>
-  ///
-  /// <para>
-  /// TDBIntlDateTimeLabel can be linked to a <see cref="TLocalizer"/> component.
-  /// In this case, the <see cref="TLocalizer"/> component determines the localized
-  /// strings and the calendar system that should be used for displaying the date-time
-  /// value.
-  /// </para>
-  ///
-  /// <para>
-  /// TDBIntlDateTimeLabel publishes many of the properties, events, and methods of
-  /// <see cref="TCustomDBIntlDateTimeLabel"/>, but does not introduce any new behavior.
-  /// </para>
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TDBIntlDateTimeLabel is a data-aware label control to display the value of a
+/// date-time field.
+/// </summary>
+/// <remarks>
+/// <para>
+/// Use TDBIntlDateTimeLabel to display localized value of a date-time database
+/// field on a form.
+/// </para>
+///
+/// <para>
+/// TDBIntlDateTimeLabel can use different calendar systems for displaying the dates.
+/// The <see cref="CalendarType"/> property is the main property that specifies which
+/// calendar system should be used by the control. If the <see cref="CalendarType"/>
+/// property is not set, the <see cref="Culture"/> property can do this task. In addition,
+/// the <see cref="Culture"/> property provides the locale specific settings of the control.
+/// If none of these two properties are set the <see cref="DefaultCalendar"/> global
+/// variable determines the calendar system used by the control.
+/// </para>
+///
+/// <para>
+/// TDBIntlDateTimeLabel can be linked to a <see cref="TLocalizer"/> component.
+/// In this case, the <see cref="TLocalizer"/> component determines the localized
+/// strings and the calendar system that should be used for displaying the date-time
+/// value.
+/// </para>
+///
+/// <para>
+/// TDBIntlDateTimeLabel publishes many of the properties, events, and methods of
+/// <see cref="TCustomDBIntlDateTimeLabel"/>, but does not introduce any new behavior.
+/// </para>
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TDBIntlDateTimeLabel = class(TCustomDBIntlDateTimeLabel)
-  published
-    {$region 'xmldoc'}
+  TDBIntlDateTimeLabel = Class(TCustomDBIntlDateTimeLabel)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control aligns within its container (parent control).
     /// </summary>
-    {$endregion}
-    property Align;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Align;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the horizontal placement of the text within the label.
     /// </summary>
-    {$endregion}
-    property Alignment;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Alignment;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
     /// </summary>
-    {$endregion}
-    property AlignWithMargins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AlignWithMargins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control is anchored to its parent.
     /// </summary>
-    {$endregion}
-    property Anchors;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Anchors;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control sizes itself automatically to accommodate
     /// its contents.
     /// </summary>
-    {$endregion}
-    property AutoSize default False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoSize Default False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the control.
     /// </summary>
-    {$endregion}
-    property BiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the color of the control's border.
     /// </summary>
-    {$endregion}
-    property BorderColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the width of the control's border.
     /// </summary>
-    {$endregion}
-    property BorderWidth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderWidth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.
     /// </summary>
     /// <seealso cref="Culture"/>
-    {$endregion}
-    property CalendarType;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CalendarType;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color nodefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Nodefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size constraints for the control.
     /// </summary>
-    {$endregion}
-    property Constraints;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Constraints;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCultureInfo"/> object that provides the locale specific
     /// settings of the calendar.
@@ -267,9 +268,9 @@ type
     /// <seealso cref="CultureDigits"/>
     /// <seealso cref="CalendarType"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property Culture;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Culture;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the calendar system used by the control should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.
@@ -283,9 +284,9 @@ type
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property CultureCalendar;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CultureCalendar;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the way the control renders digits should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.
@@ -293,383 +294,384 @@ type
     /// <seealso cref="UsingCultureDigits"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property CultureDigits;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CultureDigits;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the name of field whose value is displayed by the control.
     /// </summary>
-    {$endregion}
-    property DataField;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DataField;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Links the control to the dataset that contains the field it represents.
     /// </summary>
-    {$endregion}
-    property DataSource;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DataSource;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the format string that determines how the date-time value
     /// should be displayed on the control. See <see cref="TCalendar.Format"/> for details.
     /// </summary>
-    {$endregion}
-    property DateTimeFormat;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateTimeFormat;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
     /// into the region covered by the control.
     /// </summary>
-    {$endregion}
-    property DragCursor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragCursor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control is being dragged normally or for docking.
     /// </summary>
-    {$endregion}
-    property DragKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
     /// </summary>
-    {$endregion}
-    property DragMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets a windowed control associated with the label.
     /// </summary>
-    {$endregion}
-    property FocusControl;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FocusControl;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the radius of the glow around the label.
     /// NOTE: This feature is only available in Windows Vista and later.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property GlowSize;
+    Property GlowSize;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which image is displayed as the icon on the label.
     /// </summary>
-    {$endregion}
-    property ImageIndex;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImageIndex;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the images that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Images;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Images;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
     /// </summary>
-    {$endregion}
-    property Localizer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Localizer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the margins of the control.
     /// </summary>
-    {$endregion}
-    property Margins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Margins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the distance between the image and the text from the control's border.
     /// </summary>
-    {$endregion}
-    property Padding;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Padding;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
     /// </summary>
-    {$endregion}
-    property ParentColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the pop-up menu associated with the control.
     /// </summary>
-    {$endregion}
-    property PopupMenu;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PopupMenu;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how an ampersand in the label text is displayed.
     /// </summary>
-    {$endregion}
-    property ShowAccelChar default False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowAccelChar Default False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of pixels between the image and the text of the control.
     /// </summary>
-    {$endregion}
-    property Spacing;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Spacing;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the touch manager component associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property Touch;
+    Property Touch;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether controls that sit below the label on a form can be seen
     /// through the label.
     /// </summary>
-    {$endregion}
-    property Transparent;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Transparent;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the vertical placement of the text within the label.
     /// </summary>
-    {$endregion}
-    property Layout;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Layout;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the label text wraps when it is too long for the
     /// width of the label.
     /// </summary>
-    {$endregion}
-    property WordWrap;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property WordWrap;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user clicks the control.
     /// </summary>
-    {$endregion}
-    property OnClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
     /// menu (such as using the keyboard).
     /// </summary>
-    {$endregion}
-    property OnContextPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnContextPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
     /// is over the control.
     /// </summary>
-    {$endregion}
-    property OnDblClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDblClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drops an object being dragged on the control.
     /// </summary>
-    {$endregion}
-    property OnDragDrop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragDrop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drags an object over the control.
     /// </summary>
-    {$endregion}
-    property OnDragOver;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragOver;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDrag;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDrag;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when user performs a gesture associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnGesture;
+    Property OnGesture;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control and the parent form is not active.
     /// </summary>
-    {$endregion}
-    property OnMouseActivate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseActivate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control.
     /// </summary>
-    {$endregion}
-    property OnMouseDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
     /// the control.
     /// </summary>
-    {$endregion}
-    property OnMouseMove;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseMove;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
     /// pointer over the control.
     /// </summary>
-    {$endregion}
-    property OnMouseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse into the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseEnter;
+    Property OnMouseEnter;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse outside of the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseLeave;
+    Property OnMouseLeave;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated.
     /// </summary>
-    {$endregion}
-    property OnMouseWheel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated downward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated upward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the control is resized.
     /// </summary>
-    {$endregion}
-    property OnResize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnResize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDock"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnStartDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDrag"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDrag;
-  end;
+    {$Endregion}
+    Property OnStartDrag;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomDBIntlDatePicker is the base class for data-aware controls that request
-  /// a localized date from the user and update a date field.
-  /// </summary>
-  /// <remarks>
-  /// <para>
-  /// Use TCustomDBIntlDatePicker as a base class when defining objects that enable
-  /// users to enter a localized date for a database field.
-  /// </para>
-  ///
-  /// <para>
-  /// TCustomDBIntlDatePicker can use different calendar systems for getting the input
-  /// date. The <see cref="CalendarType"/> property is the main property that specifies
-  /// which calendar system should be used by the control. If the <see cref="CalendarType"/>
-  /// property is not set, the <see cref="Culture"/> property can do this task. In addition,
-  /// the <see cref="Culture"/> property provides the locale specific settings of the control.
-  /// If none of these two properties are set, the <see cref="DefaultCalendar"/> global
-  /// variable determines the calendar system used by the control.
-  /// </para>
-  ///
-  /// <para>
-  /// TCustomDBIntlDatePicker can be linked to a <see cref="TLocalizer"/> component.
-  /// In this case, the linked <see cref="TLocalizer"/> component can provide both the
-  /// locale specific settings and the calendar system of the control.
-  /// </para>
-  /// </remarks>
-  {$endregion}
-  TCustomDBIntlDatePicker = class(TCustomIntlDatePicker)
-  private
-    fDataLink: TFieldDataLink;
-    fChanging: Boolean;
-    procedure DataChange(Sender: TObject);
-    procedure UpdateData(Sender: TObject); inline;
-    function GetDataField: WideString; inline;
-    procedure SetDataField(const Value: WideString); inline;
-    function GetDataSource: TDataSource; inline;
-    procedure SetDataSource(Value: TDataSource); inline;
-    function GetReadOnly: Boolean; inline;
-    procedure SetReadOnly(Value: Boolean); inline;
-    function GetField: TField; inline;
-    procedure CMExit(var Message: TCMExit); message CM_EXIT;
-    procedure CMGetDataLink(var Message: TMessage); message CM_GETDATALINK;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomDBIntlDatePicker is the base class for data-aware controls that request
+/// a localized date from the user and update a date field.
+/// </summary>
+/// <remarks>
+/// <para>
+/// Use TCustomDBIntlDatePicker as a base class when defining objects that enable
+/// users to enter a localized date for a database field.
+/// </para>
+///
+/// <para>
+/// TCustomDBIntlDatePicker can use different calendar systems for getting the input
+/// date. The <see cref="CalendarType"/> property is the main property that specifies
+/// which calendar system should be used by the control. If the <see cref="CalendarType"/>
+/// property is not set, the <see cref="Culture"/> property can do this task. In addition,
+/// the <see cref="Culture"/> property provides the locale specific settings of the control.
+/// If none of these two properties are set, the <see cref="DefaultCalendar"/> global
+/// variable determines the calendar system used by the control.
+/// </para>
+///
+/// <para>
+/// TCustomDBIntlDatePicker can be linked to a <see cref="TLocalizer"/> component.
+/// In this case, the linked <see cref="TLocalizer"/> component can provide both the
+/// locale specific settings and the calendar system of the control.
+/// </para>
+/// </remarks>
+{$Endregion}
+
+  TCustomDBIntlDatePicker = Class(TCustomIntlDatePicker)
+   Private
+    fDataLink : TFieldDataLink;
+    fChanging : Boolean;
+    Procedure DataChange(Sender : TObject);
+    Procedure UpdateData(Sender : TObject); Inline;
+    Function GetDataField : WideString; Inline;
+    Procedure SetDataField(Const Value : WideString); Inline;
+    Function GetDataSource : TDataSource; Inline;
+    Procedure SetDataSource(Value : TDataSource); Inline;
+    Function GetReadOnly : Boolean; Inline;
+    Procedure SetReadOnly(Value : Boolean); Inline;
+    Function GetField : TField; Inline;
+    Procedure CMExit(Var Message : TCMExit); Message CM_EXIT;
+    Procedure CMGetDataLink(Var Message : TMessage); Message CM_GETDATALINK;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds when either of <see cref="Date"/> or <see cref="Checked"/> properties
     /// changes.
     /// </summary>
-    {$endregion}
-    procedure Change; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Change; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines whether the user can enter a different date in the control.
     /// </summary>
@@ -677,59 +679,59 @@ type
     /// Returns <see langword="true"/> if the user can enter a date, otherwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function CanModify: Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function CanModify : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds when the user presses a key while the control has focus.
     /// </summary>
     /// <param name="Key">
     /// The key code of the key that was pressed.
     /// </param>
-    {$endregion}
-    procedure KeyPress(var Key: Char); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure KeyPress(Var Key : Char); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Helps the data-aware control manage its link to the data source and respond
     /// to data events.
     /// </summary>
-    {$endregion}
-    property DataLink: TFieldDataLink read fDataLink;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DataLink : TFieldDataLink Read fDataLink;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the name of the date field that is represented by the control.
     /// </summary>
-    {$endregion}
-    property DataField: WideString read GetDataField write SetDataField;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DataField : WideString Read GetDataField Write SetDataField;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Links the control to the dataset that contains the field it represents.
     /// </summary>
-    {$endregion}
-    property DataSource: TDataSource read GetDataSource write SetDataSource;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DataSource : TDataSource Read GetDataSource Write SetDataSource;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines whether the user can change the field value using the control.
     /// </summary>
-    {$endregion}
-    property Readonly: Boolean read GetReadOnly write SetReadOnly default False;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Readonly : Boolean Read GetReadOnly Write SetReadOnly Default False;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the control and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Invokes an action with the control as its target.
     /// </summary>
@@ -741,9 +743,9 @@ type
     /// and <see langword="false"/> if the control could not handle the action.
     /// </returns>
     /// <seealso cref="UpdateAction"/>
-    {$endregion}
-    function ExecuteAction(Action: TBasicAction): Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ExecuteAction(Action : TBasicAction) : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Updates an action to reflect the current state of the control.
     /// </summary>
@@ -756,9 +758,9 @@ type
     /// to update the action.
     /// </returns>
     /// <seealso cref="ExecuteAction"/>
-    {$endregion}
-    function UpdateAction(Action: TBasicAction): Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function UpdateAction(Action : TBasicAction) : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Specifies whether the control's alignment is in a right-to-left mode.
     /// </summary>
@@ -766,148 +768,149 @@ type
     /// Returns <see langword="true"/> if the control's alignment is in a right-to-left
     /// mode, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function UseRightToLeftAlignment: Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function UseRightToLeftAlignment : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TField"/> object for the database field the control
     /// represents.
     /// </summary>
-    {$endregion}
-    property Field: TField read GetField;
-  end;
+    {$Endregion}
+    Property Field : TField Read GetField;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TDBIntlDatePicker is a data-aware control that enables the user to enter a localized
-  /// date for a date field.
-  /// </summary>
-  /// <remarks>
-  /// <para>
-  /// Use TDBIntlDatePicker to enable the user to enter a localized date in a database field.
-  /// </para>
-  ///
-  /// <para>
-  /// TDBIntlDatePicker can use different calendar systems for getting the input date. The
-  /// <see cref="CalendarType"/> property is the main property that specifies which calendar
-  /// system should be used by the control. If the <see cref="CalendarType"/> property is not
-  /// set, the <see cref="Culture"/> property can do this task. In addition, the <see cref="Culture"/>
-  /// property provides the locale specific settings of the control. If none of these two
-  /// properties are set, the <see cref="DefaultCalendar"/> global variable determines the calendar
-  /// system used by the control.
-  /// </para>
-  ///
-  /// <para>
-  /// TDBIntlDatePicker can be linked to a <see cref="TLocalizer"/> component. In this
-  /// case, the linked <see cref="TLocalizer"/> component can provide both the locale
-  /// specific settings and the calendar system of the control.
-  /// </para>
-  ///
-  /// <para>
-  /// TDBIntlDatePicker publishes many of the properties, events, and methods of
-  /// <see cref="TCustomDBIntlDatePicker"/>, but does not introduce any new behavior.
-  /// </para>
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TDBIntlDatePicker is a data-aware control that enables the user to enter a localized
+/// date for a date field.
+/// </summary>
+/// <remarks>
+/// <para>
+/// Use TDBIntlDatePicker to enable the user to enter a localized date in a database field.
+/// </para>
+///
+/// <para>
+/// TDBIntlDatePicker can use different calendar systems for getting the input date. The
+/// <see cref="CalendarType"/> property is the main property that specifies which calendar
+/// system should be used by the control. If the <see cref="CalendarType"/> property is not
+/// set, the <see cref="Culture"/> property can do this task. In addition, the <see cref="Culture"/>
+/// property provides the locale specific settings of the control. If none of these two
+/// properties are set, the <see cref="DefaultCalendar"/> global variable determines the calendar
+/// system used by the control.
+/// </para>
+///
+/// <para>
+/// TDBIntlDatePicker can be linked to a <see cref="TLocalizer"/> component. In this
+/// case, the linked <see cref="TLocalizer"/> component can provide both the locale
+/// specific settings and the calendar system of the control.
+/// </para>
+///
+/// <para>
+/// TDBIntlDatePicker publishes many of the properties, events, and methods of
+/// <see cref="TCustomDBIntlDatePicker"/>, but does not introduce any new behavior.
+/// </para>
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TDBIntlDatePicker = class(TCustomDBIntlDatePicker)
-  published
-    {$region 'xmldoc'}
+  TDBIntlDatePicker = Class(TCustomDBIntlDatePicker)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control aligns within its container (parent control).
     /// </summary>
-    {$endregion}
-    property Align;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Align;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
     /// </summary>
-    {$endregion}
-    property AlignWithMargins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AlignWithMargins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control is anchored to its parent.
     /// </summary>
-    {$endregion}
-    property Anchors;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Anchors;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control sizes itself automatically to accommodate
     /// its contents.
     /// </summary>
-    {$endregion}
-    property AutoSize default True;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoSize Default True;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which edges of the control are beveled.
     /// </summary>
-    {$endregion}
-    property BevelEdges;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelEdges;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the inner bevel.
     /// </summary>
-    {$endregion}
-    property BevelInner;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelInner;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the control's bevel style.
     /// </summary>
-    {$endregion}
-    property BevelKind default bkNone;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelKind Default bkNone;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the outer bevel.
     /// </summary>
-    {$endregion}
-    property BevelOuter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelOuter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the control.
     /// </summary>
-    {$endregion}
-    property BiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the border style for the control.
     /// </summary>
-    {$endregion}
-    property BorderStyle;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderStyle;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Provides access to the pop-up calendar's settings.
     /// </summary>
-    {$endregion}
-    property CalendarPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CalendarPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.
     /// </summary>
     /// <seealso cref="Culture"/>
-    {$endregion}
-    property CalendarType;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CalendarType;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color default clWindow;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Default clWindow;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size constraints for the control.
     /// </summary>
-    {$endregion}
-    property Constraints;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Constraints;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control has a three-dimensional look.
     /// </summary>
-    {$endregion}
-    property Ctl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Ctl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCultureInfo"/> object that provides the locale specific
     /// settings of the calendar.
@@ -925,9 +928,9 @@ type
     /// <seealso cref="CultureDigits"/>
     /// <seealso cref="CalendarType"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property Culture;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Culture;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the calendar system used by the control should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.
@@ -941,9 +944,9 @@ type
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property CultureCalendar;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CultureCalendar;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the way the control renders digits should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.
@@ -951,614 +954,613 @@ type
     /// <seealso cref="UsingCultureDigits"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property CultureDigits;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CultureDigits;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the name of the date field that is represented by the control.
     /// </summary>
-    {$endregion}
-    property DataField;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DataField;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Links the control to the dataset that contains the field it represents.
     /// </summary>
-    {$endregion}
-    property DataSource;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DataSource;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the format string that determines how the <see cref="Date"/> property
     /// should be displayed on the control. See <see cref="TCalendar.Format"/> for details.
     /// </summary>
     /// <seealso cref="TCalendar.Format"/>
-    {$endregion}
-    property DateFormat;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateFormat;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the smallest date that is allowed for the calendar.
     /// </summary>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="DateMax"/>
-    {$endregion}
-    property DateMin;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateMin;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the largest date that is allowed for the calendar.
     /// </summary>
     /// <seealso cref="ActualDateMax"/>
     /// <seealso cref="DateMin"/>
-    {$endregion}
-    property DateMax;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateMax;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
     /// painted to an in-memory bitmap first.
     /// </summary>
-    {$endregion}
-    property DoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
     /// into the region covered by the control.
     /// </summary>
-    {$endregion}
-    property DragCursor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragCursor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control is being dragged normally or for docking.
     /// </summary>
-    {$endregion}
-    property DragKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
     /// </summary>
-    {$endregion}
-    property DragMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the behavior of the input method editor (IME).
     /// </summary>
-    {$endregion}
-    property ImeMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the input method editor (IME) to use for converting keyboard input.
     /// </summary>
-    {$endregion}
-    property ImeName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the
     /// control.
     /// </summary>
-    {$endregion}
-    property Localizer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Localizer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the margins of the control.
     /// </summary>
-    {$endregion}
-    property Margins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Margins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
     /// </summary>
-    {$endregion}
-    property ParentColor default False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentColor Default False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
     /// </summary>
-    {$endregion}
-    property ParentCtl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentCtl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
     /// </summary>
-    {$endregion}
-    property ParentDoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentDoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the pop-up menu associated with the control.
     /// </summary>
-    {$endregion}
-    property PopupMenu;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PopupMenu;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines whether the user can change the field value using the control.
     /// </summary>
-    {$endregion}
-    property Readonly;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Readonly;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a check box next to the date should be displayed.
     /// </summary>
-    {$endregion}
-    property ShowCheckBox;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowCheckBox;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the position of the control in its parent's tab order.
     /// </summary>
-    {$endregion}
-    property TabOrder;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabOrder;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can tab to a control.
     /// </summary>
-    {$endregion}
-    property TabStop default True;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabStop Default True;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the touch manager component associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property Touch;
+    Property Touch;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when either of <see cref="Date"/> or <see cref="Checked"/> properties change.
     /// </summary>
-    {$endregion}
-    property OnChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user clicks the control.
     /// </summary>
-    {$endregion}
-    property OnClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
     /// menu (such as using the keyboard).
     /// </summary>
-    {$endregion}
-    property OnContextPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnContextPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
     /// is over the control.
     /// </summary>
-    {$endregion}
-    property OnDblClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDblClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drops an object being dragged on the control.
     /// </summary>
-    {$endregion}
-    property OnDragDrop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragDrop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drags an object over the control.
     /// </summary>
-    {$endregion}
-    property OnDragOver;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragOver;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDrag;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDrag;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a control receives the input focus.
     /// </summary>
-    {$endregion}
-    property OnEnter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEnter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the input focus shifts away from one control to another.
     /// </summary>
-    {$endregion}
-    property OnExit;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnExit;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when user performs a gesture associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnGesture;
+    Property OnGesture;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a user presses any key while the control has focus.
     /// </summary>
-    {$endregion}
-    property OnKeyDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when key pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyPress;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyPress;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a key that has been pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control and the parent form is not active.
     /// </summary>
-    {$endregion}
-    property OnMouseActivate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseActivate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control.
     /// </summary>
-    {$endregion}
-    property OnMouseDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
     /// the control.
     /// </summary>
-    {$endregion}
-    property OnMouseMove;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseMove;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
     /// pointer over the control.
     /// </summary>
-    {$endregion}
-    property OnMouseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse into the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseEnter;
+    Property OnMouseEnter;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse outside of the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseLeave;
+    Property OnMouseLeave;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated.
     /// </summary>
-    {$endregion}
-    property OnMouseWheel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated downward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated upward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the control is resized.
     /// </summary>
-    {$endregion}
-    property OnResize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnResize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDock"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnStartDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDrag"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDrag;
-  end;
+    {$Endregion}
+    Property OnStartDrag;
+  End;
 
-implementation
+Implementation
 
-uses
+ Uses
   VDBConsts;
 
 { TCustomDBIntlDateTimeLabel }
 
-constructor TCustomDBIntlDateTimeLabel.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  ControlStyle := ControlStyle + [csReplicatable];
-  fDataLink := TFieldDataLink.Create;
-  fDataLink.Control := Self;
-  fDataLink.OnDataChange := DataChange;
-  AutoSize := False;
-end;
+ Constructor TCustomDBIntlDateTimeLabel.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   ControlStyle           := ControlStyle + [csReplicatable];
+   fDataLink              := TFieldDataLink.Create;
+   fDataLink.Control      := Self;
+   fDataLink.OnDataChange := DataChange;
+   AutoSize               := False;
+  End;
 
-destructor TCustomDBIntlDateTimeLabel.Destroy;
-begin
-  FreeAndNil(fDataLink);
-  inherited Destroy;
-end;
+ Destructor TCustomDBIntlDateTimeLabel.Destroy;
+  Begin
+   FreeAndNil(fDataLink);
+   Inherited Destroy;
+  End;
 
-procedure TCustomDBIntlDateTimeLabel.Loaded;
-begin
-  inherited Loaded;
-  if csDesigning in ComponentState then
+ Procedure TCustomDBIntlDateTimeLabel.Loaded;
+  Begin
+   Inherited Loaded;
+   If csDesigning In ComponentState Then
     DataChange(Self);
-end;
+  End;
 
-function TCustomDBIntlDateTimeLabel.GetDataField: WideString;
-begin
-  Result := DataLink.FieldName;
-end;
+ Function TCustomDBIntlDateTimeLabel.GetDataField : WideString;
+  Begin
+   Result := DataLink.FieldName;
+  End;
 
-procedure TCustomDBIntlDateTimeLabel.SetDataField(const Value: WideString);
-begin
-  DataLink.FieldName := Value;
-end;
+ Procedure TCustomDBIntlDateTimeLabel.SetDataField(Const Value : WideString);
+  Begin
+   DataLink.FieldName := Value;
+  End;
 
-function TCustomDBIntlDateTimeLabel.GetDataSource: TDataSource;
-begin
-  Result := DataLink.DataSource;
-end;
+ Function TCustomDBIntlDateTimeLabel.GetDataSource : TDataSource;
+  Begin
+   Result := DataLink.DataSource;
+  End;
 
-procedure TCustomDBIntlDateTimeLabel.SetDataSource(Value: TDataSource);
-begin
-  DataLink.DataSource := Value;
-end;
+ Procedure TCustomDBIntlDateTimeLabel.SetDataSource(Value : TDataSource);
+  Begin
+   DataLink.DataSource := Value;
+  End;
 
-function TCustomDBIntlDateTimeLabel.GetField: TField;
-begin
-  if Assigned(DataLink) then
+ Function TCustomDBIntlDateTimeLabel.GetField : TField;
+  Begin
+   If Assigned(DataLink) Then
     Result := DataLink.Field
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-function TCustomDBIntlDateTimeLabel.GetLabelText: String;
-begin
-  if Assigned(Field) then
-    Result := inherited GetLabelText
-  else if csDesigning in ComponentState then
+ Function TCustomDBIntlDateTimeLabel.GetLabelText : String;
+  Begin
+   If Assigned(Field) Then
+    Result := Inherited GetLabelText
+   Else If csDesigning In ComponentState Then
     Result := Name
-  else
+   Else
     Result := '';
-end;
+  End;
 
-procedure TCustomDBIntlDateTimeLabel.SetAutoSize(Value: Boolean);
-begin
-  if AutoSize <> Value then
-  begin
-    if Value and FDataLink.DataSourceFixed then
+ Procedure TCustomDBIntlDateTimeLabel.SetAutoSize(Value : Boolean);
+  Begin
+   If AutoSize <> Value Then
+    Begin
+     If Value And fDataLink.DataSourceFixed Then
       DatabaseError(SDataSourceFixed);
-    inherited SetAutoSize(Value);
-  end;
-end;
+     Inherited SetAutoSize(Value);
+    End;
+  End;
 
-procedure TCustomDBIntlDateTimeLabel.CMGetDataLink(var Message: TMessage);
-begin
-  Message.Result := Integer(DataLink);
-end;
+ Procedure TCustomDBIntlDateTimeLabel.CMGetDataLink(Var Message : TMessage);
+  Begin
+   Message.Result := Integer(DataLink);
+  End;
 
-procedure TCustomDBIntlDateTimeLabel.DataChange(Sender: TObject);
-begin
-  if Assigned(Field) and not Field.IsNull then
+ Procedure TCustomDBIntlDateTimeLabel.DataChange(Sender : TObject);
+  Begin
+   If Assigned(Field) And Not Field.IsNull Then
     DateTime := Field.AsDateTime
-  else
+   Else
     DateTime := TCalendar.NoDate;
-end;
+  End;
 
-function TCustomDBIntlDateTimeLabel.UseRightToLeftAlignment: Boolean;
-begin
-  Result := DBUseRightToLeftAlignment(Self, Field);
-end;
+ Function TCustomDBIntlDateTimeLabel.UseRightToLeftAlignment : Boolean;
+  Begin
+   Result := DBUseRightToLeftAlignment(Self, Field);
+  End;
 
 { TCustomDBIntlDatePicker }
 
-constructor TCustomDBIntlDatePicker.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  fDataLink := TFieldDataLink.Create;
-  fDataLink.Control := Self;
-  fDataLink.OnDataChange := DataChange;
-  fDataLink.OnUpdateData := UpdateData;
-  Checked := False;
-end;
+ Constructor TCustomDBIntlDatePicker.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   fDataLink              := TFieldDataLink.Create;
+   fDataLink.Control      := Self;
+   fDataLink.OnDataChange := DataChange;
+   fDataLink.OnUpdateData := UpdateData;
+   Checked                := False;
+  End;
 
-destructor TCustomDBIntlDatePicker.Destroy;
-begin
-  FreeAndNil(fDataLink);
-  inherited Destroy;
-end;
+ Destructor TCustomDBIntlDatePicker.Destroy;
+  Begin
+   FreeAndNil(fDataLink);
+   Inherited Destroy;
+  End;
 
-procedure TCustomDBIntlDatePicker.Change;
-begin
-  if not fChanging and DataLink.Edit then
-  begin
-    inherited Change;
-    DataLink.Modified;
-  end;
-end;
+ Procedure TCustomDBIntlDatePicker.Change;
+  Begin
+   If Not fChanging And DataLink.Edit Then
+    Begin
+     Inherited Change;
+     DataLink.Modified;
+    End;
+  End;
 
-function TCustomDBIntlDatePicker.CanModify: Boolean;
-begin
-  Result := fChanging or DataLink.CanModify;
-end;
+ Function TCustomDBIntlDatePicker.CanModify : Boolean;
+  Begin
+   Result := fChanging Or DataLink.CanModify;
+  End;
 
-procedure TCustomDBIntlDatePicker.KeyPress(var Key: Char);
-begin
-  if not DataLink.CanModify then
+ Procedure TCustomDBIntlDatePicker.KeyPress(Var Key : Char);
+  Begin
+   If Not DataLink.CanModify Then
     Key := #0
-  else if Key = #27 then
+   Else If Key = #27 Then
     DataLink.Reset;
-  inherited KeyPress(Key);
-end;
+   Inherited KeyPress(Key);
+  End;
 
-function TCustomDBIntlDatePicker.GetDataField: WideString;
-begin
-  Result := DataLink.FieldName;
-end;
+ Function TCustomDBIntlDatePicker.GetDataField : WideString;
+  Begin
+   Result := DataLink.FieldName;
+  End;
 
-procedure TCustomDBIntlDatePicker.SetDataField(const Value: WideString);
-begin
-  DataLink.FieldName := Value;
-end;
+ Procedure TCustomDBIntlDatePicker.SetDataField(Const Value : WideString);
+  Begin
+   DataLink.FieldName := Value;
+  End;
 
-function TCustomDBIntlDatePicker.GetDataSource: TDataSource;
-begin
-  Result := DataLink.DataSource;
-end;
+ Function TCustomDBIntlDatePicker.GetDataSource : TDataSource;
+  Begin
+   Result := DataLink.DataSource;
+  End;
 
-procedure TCustomDBIntlDatePicker.SetDataSource(Value: TDataSource);
-begin
-  DataLink.DataSource := Value;
-end;
+ Procedure TCustomDBIntlDatePicker.SetDataSource(Value : TDataSource);
+  Begin
+   DataLink.DataSource := Value;
+  End;
 
-function TCustomDBIntlDatePicker.GetField: TField;
-begin
-  Result := DataLink.Field;
-end;
+ Function TCustomDBIntlDatePicker.GetField : TField;
+  Begin
+   Result := DataLink.Field;
+  End;
 
-function TCustomDBIntlDatePicker.GetReadOnly: Boolean;
-begin
-  Result := DataLink.ReadOnly;
-end;
+ Function TCustomDBIntlDatePicker.GetReadOnly : Boolean;
+  Begin
+   Result := DataLink.ReadOnly;
+  End;
 
-procedure TCustomDBIntlDatePicker.SetReadOnly(Value: Boolean);
-begin
-  DataLink.ReadOnly := Value;
-end;
+ Procedure TCustomDBIntlDatePicker.SetReadOnly(Value : Boolean);
+  Begin
+   DataLink.ReadOnly := Value;
+  End;
 
-procedure TCustomDBIntlDatePicker.CMExit(var Message: TCMExit);
-begin
-  try
+ Procedure TCustomDBIntlDatePicker.CMExit(Var Message : TCMExit);
+  Begin
+   Try
     DataLink.UpdateRecord;
-  except
+   Except
     SetFocus;
-    raise;
-  end;
-  inherited;
-end;
+    Raise;
+   End;
+   Inherited;
+  End;
 
-procedure TCustomDBIntlDatePicker.CMGetDataLink(var Message: TMessage);
-begin
-  Message.Result := Integer(DataLink);
-end;
+ Procedure TCustomDBIntlDatePicker.CMGetDataLink(Var Message : TMessage);
+  Begin
+   Message.Result := Integer(DataLink);
+  End;
 
-procedure TCustomDBIntlDatePicker.DataChange(Sender: TObject);
-begin
-  fChanging := True;
-  try
-    if Assigned(Field) then
-    begin
-      if Field.IsNull then
-        Checked := False
-      else
-      begin
+ Procedure TCustomDBIntlDatePicker.DataChange(Sender : TObject);
+  Begin
+   fChanging := True;
+   Try
+    If Assigned(Field) Then
+     Begin
+      If Field.IsNull Then
+       Checked := False
+      Else
+       Begin
         Checked := True;
-        Date := Field.AsDateTime;
-      end;
-    end
-    else
-    begin
-      Date := Calendar.Today;
+        Date    := Field.AsDateTime;
+       End;
+     End
+    Else
+     Begin
+      Date    := Calendar.Today;
       Checked := False;
-    end;
-  finally
+     End;
+   Finally
     fChanging := False;
-  end;
-end;
+   End;
+  End;
 
-procedure TCustomDBIntlDatePicker.UpdateData(Sender: TObject);
-begin
-  if Assigned(Field) then
-  begin
-    if Checked then
+ Procedure TCustomDBIntlDatePicker.UpdateData(Sender : TObject);
+  Begin
+   If Assigned(Field) Then
+    Begin
+     If Checked Then
       Field.AsDateTime := Date
-    else
+     Else
       Field.Clear;
-  end;
-end;
+    End;
+  End;
 
-function TCustomDBIntlDatePicker.ExecuteAction(Action: TBasicAction): Boolean;
-begin
-  Result := inherited ExecuteAction(Action)
-         or Assigned(DataLink) and DataLink.ExecuteAction(Action);
-end;
+ Function TCustomDBIntlDatePicker.ExecuteAction(Action : TBasicAction) : Boolean;
+  Begin
+   Result := Inherited ExecuteAction(Action)
+   Or Assigned(DataLink) And DataLink.ExecuteAction(Action);
+  End;
 
-function TCustomDBIntlDatePicker.UpdateAction(Action: TBasicAction): Boolean;
-begin
-  Result := inherited UpdateAction(Action)
-         or Assigned(DataLink) and DataLink.UpdateAction(Action);
-end;
+ Function TCustomDBIntlDatePicker.UpdateAction(Action : TBasicAction) : Boolean;
+  Begin
+   Result := Inherited UpdateAction(Action)
+   Or Assigned(DataLink) And DataLink.UpdateAction(Action);
+  End;
 
-function TCustomDBIntlDatePicker.UseRightToLeftAlignment: Boolean;
-begin
-  Result := DBUseRightToLeftAlignment(Self, Field);
-end;
+ Function TCustomDBIntlDatePicker.UseRightToLeftAlignment : Boolean;
+  Begin
+   Result := DBUseRightToLeftAlignment(Self, Field);
+  End;
 
-end.
-
+End.

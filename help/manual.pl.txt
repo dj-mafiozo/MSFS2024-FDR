@@ -1,0 +1,375 @@
+﻿@overview|Pierwsze kroki
+Zacznij od wyboru zadania: nowe nagranie wymaga uruchomionego MSFS 2024, natomiast analizę pliku można prowadzić offline. Po wypakowaniu zachowaj strukturę katalogów paczki. Uruchom MSFS24-FDR.exe, wybierz język i sprawdź pasek stanu. W symulatorze wczytaj samolot i zakończ ekran przygotowania przyciskiem Ready for flight. Dopiero wtedy oczekuj aktywnego nagrywania.
+Do pierwszego odtwarzania wybierz zakończone nagranie z drzewa po lewej. Powiększ interesującą ramkę lub wypnij ją do osobnego okna, ustaw kursor czasu i porównuj te same chwile na mapie, PFD oraz w danych. W tej instrukcji planowane trasy i OFP przedstawiają zanonimizowaną pętlę EPLL.25 ADOX2W SOXE2T LL501 ILSZ.25 EPLL.25. Telemetria ilustracyjna jest syntetyczna, a nie dowodem wykonania tego lotu.
+MSFS24-FDR nagrywa i odtwarza dane Microsoft Flight Simulator 2024. MSFS 2020, FSX i Prepar3D nie są obsługiwane. Przyrządy służą analizie nagrania, nie sterowaniu symulatorem.
+Pierwsze nagranie :: Wypakuj cały pakiet Win64 portable, uruchom EXE, wczytaj lot w MSFS 2024 i wybierz Ready for flight. Zaczekaj na połączenie przed ręcznym lub automatycznym nagrywaniem.
+Pierwsze odtworzenie :: Wybierz ukończony lot z biblioteki. Mapa, wykresy, instrumenty i zakładki danych mają wspólny czas. Użyj odtwarzania, suwaka lub przycisków początku/końca.
+Dane użytkownika :: Ustawienia, indeks, nagrania i logi są w %LocalAppData%\MSFS24-FDR. Kopiuj zapasowo cały katalog razem z Recordings. Wymiana plików programu nie wymaga usuwania danych.
+Praca offline :: Zapisana telemetria, plany, komunikaty i mapy SimBrief działają bez MSFS. Nowe kafelki mapy, pobieranie pogody/SimBrief i chmurowa AI wymagają odpowiednich usług sieciowych.
+Pomoc :: F1 otwiera temat aktywnego panelu. Korzystaj z drzewa rozdziałów i wyszukiwania CHM. Dla pozostałych języków interfejsu używana jest pomoc angielska.
+@recordings|Biblioteka, import i odzyskiwanie nagrań
+Przed importem wykonaj kopię źródła i wskaż bazę legacy albo pojedynczy MFZR. Po migracji każdy lot ma własny plik, natomiast indeks przechowuje metadane i ścieżkę względną. Gdy plik zniknie, nagranie nie jest pokazywane, ale wpis indeksu nie jest automatycznie kasowany. Najpierw sprawdź lokalizację i przywróć plik, zamiast usuwać metadane. Wyszukiwanie tekstowe i grupa działają łącznie; brak wyniku może wynikać z obu filtrów.
+Drzewo grupuje loty według ICAO samolotu, ICAO odlotu, roku i lokalizowanej nazwy miesiąca; najnowsze są na górze. Brak pliku nie usuwa jego metadanych z indeksu.
+Wyszukiwanie i grupy :: Filtry tekstu i grupy działają razem. Wyczyść je, aby przywrócić wyniki. Katalog w drzewie nie jest pojedynczym nagraniem.
+Otwórz i odśwież :: Otwórz wybiera bazę/indeks; Odśwież ponownie odczytuje bibliotekę i wykrywa pliki .mfzr w magazynie nagrań.
+Import :: Obsługuje .mfzr, legacy flight_data.db i bazę pierwotnego rejestratora Qt. Stare loty trafiają do osobnych plików, źródło pozostaje zachowane, ponowny import rozpoznaje już zaimportowane wpisy.
+Eksport legacy :: Jeden lot jest eksportowany z polami obsługiwanymi przez pierwowzór. SDK, FMC, pogoda i inne rozszerzenia FDR są pomijane; to nie pełna kopia zapasowa.
+Grupy :: Twórz, zmieniaj nazwy, usuwaj i przypisuj grupy. Przypisanie zatwierdź OK. Usunięcie grupy jest czymś innym niż usunięcie lotu.
+Informacje o locie :: Sprawdzaj/edytuj metadane dostępne w oknie. Typ i odlot określają grupowanie; źródłem odtwarzania pozostaje telemetria.
+Usuń lot :: Po potwierdzeniu usuwa plik nagrania i wpis indeksu. Najpierw zakończ jego nagrywanie. Nie jest to tylko ukrycie wiersza.
+Odzyskiwanie :: Po awarii program może zapytać o przywrócenie. Lot może być niepełny lub uszkodzony. Zachowaj kopię przed naprawą cennych danych; odzyskany plik nie gwarantuje kompletnego lotu.
+Podgląd pojedynczego pliku :: Uruchom EXE z istniejącą ścieżką .mfzr. Biblioteka znika, nagrywanie i zarządzanie są wyłączone, SimConnect nie jest otwierany.
+@recording|Nagrywanie lotu symulatora
+Przy automatycznym nagrywaniu samo połączenie, AircraftLoaded lub ekran przygotowania nie wystarczają. Rejestrator czeka na właściwy początek lotu. Zakończenie sesji zamyka zapis i finalizuje plik; nie traktuj stanu finalizing jako zakończonego completed. Krótszy interwał zwiększa liczbę próbek, obciążenie i rozmiar, lecz nie zmusza dodatku do częstszego publikowania SDK. Po CTD nie nadpisuj odzyskiwanego pliku przed sprawdzeniem jego końca.
+Akcje wymagają obsługiwanego MSFS 2024 i połączenia. Samo wczytanie samolotu lub ekran przygotowań nie oznacza gotowego lotu.
+Start :: Rozpoczyna zapis aktywnego, gotowego lotu, gdy akcja jest dostępna. W przeciwnym razie sprawdź wersję symulatora, połączenie i Ready for flight.
+Stop :: Kończy zapis i finalizuje plik. Zaczekaj przed zamknięciem programu lub przenoszeniem pliku. Aktywnego nagrania nie można usuwać ani otwierać jak ukończonego.
+Nagrywanie automatyczne :: Czeka na aktywny lot po Ready for flight. Uwzględnia zdarzenia sesji i samolotu. Po CTD sprawdź status i odzyskiwanie przy kolejnym starcie.
+Próbkowanie :: Wartość na pasku jest w milisekundach. Krótszy interwał to więcej danych i obciążenia. Nowe pliki zachowują ustawienie; stare używają wyliczonego odstępu lub 500 ms.
+Dane samolotu :: Subskrypcje zależą od aktywnego samolotu i silników. Zmiana renderera nie tworzy brakującej telemetrii SDK/L:Var.
+Statusy :: recording oznacza zapis, finalizing kończenie pliku, completed prawidłowe zakończenie. interrupted/error wymagają sprawdzenia. Nagłówek Recording oznacza niedostępny aktywny wpis.
+Offline :: Brak połączenia z wyłączonym MSFS nie unieważnia nagrania już otwartego do analizy.
+@workspace|Panele, dokowanie i układ okien
+Najpierw dobierz szerokość biblioteki i zakładek danych, a następnie wysokość mapy, wykresów i instrumentów za pomocą splitterów. Podczas zmiany rozmiaru okna zachowywane są proporcje dostępnych paneli. Instrumenty zachowują geometrię, więc wolne pasy po bokach są poprawne; rozciągnięty horyzont byłby błędny.
+Aby wydzielić zakładkę, przeciągnij jej nagłówek poza panel. Aby połączyć ją z innym oknem, przeciągnij do celu dokowania. Akcja okna przy ramce przełącza między widokiem dokowanym i odłączonym; ikona wskazuje stan. Zamknięcie odłączonego widoku przywraca jego zawartość. Po wypięciu wszystkich kart pusty panel nie powinien zabierać szerokości. Stan i geometria są zapamiętywane osobno dla każdego widoku.
+W środku są mapa, wykresy, instrumenty i czas. Biblioteka jest po lewej, dane po prawej. Splittery rozdzielają dostępne miejsce.
+Osobne okno :: Akcja okna przenosi tę samą ramkę i zmienia ikonę. Dane oraz synchronizacja czasu zostają zachowane.
+Zakładki :: Przeciągnij nagłówek, aby wypiąć. Dokuj do paska kart lub dostępnej krawędzi. Zamknięcie okna zakładki przywraca ją do macierzystego panelu.
+Połączone instrumenty :: PFD i EICAS/ECAM mogą współdzielić wyciągnięte okno instrumentów. Używaj celów dokowania.
+Rozmiar :: Panele zachowują proporcje. Przyrządy utrzymują geometrię i mogą pozostawiać marginesy zamiast rozciągać obraz.
+Zapamiętany układ :: Zachowywany jest stan dokowania i osobno pozycja/rozmiar każdego okna. Panel bez zadokowanych zakładek powinien się zwinąć.
+Reset :: Przywróć domyślny układ paneli w ustawieniach po zmianie monitorów lub nieudanym rozmieszczeniu. Nie usuwa to danych lotów.
+@playback|Odtwarzanie i czas nagrania
+Prędkość 1x oznacza bieg według czasu nagrania, a nie jedną próbkę na każde wywołanie timera. Interpolacja wygładza wielkości ciągłe i kąty; przełączniki muszą zachować skokową zmianę. Na pauzie wybierz dokładny moment suwakiem lub wykresem. Stop wraca do początku i 1x. Skoki zwykłego odtwarzania mają 30 sekund, a osobne akcje ghosta po 10 sekund — nie są to te same kontrolki.
+Zwykłe odtwarzanie steruje analizą, nie samolotem w symulatorze. Ghost jest osobną funkcją.
+Odtwórz / pauza :: Włącza lub zatrzymuje bieg czasu. Mapa, wykresy, instrumenty, FMC i komunikaty śledzą wspólny kursor.
+Stop :: Zatrzymuje, wraca na początek i ustawia 1x.
+Początek / koniec :: Pierwsza/ostatnia próbka. Cofnij/Dalej przesuwają o 30 sekund w granicach nagrania.
+Prędkość :: 0.125, 0.25, 0.5, 0.75, 1, 2, 4, 8 lub 16x; etykieta pokazuje wybór. Szybsze odtwarzanie nie dodaje nieistniejących próbek.
+Suwak i mysz :: Suwak wybiera czas bezpośrednio. W trakcie odtwarzania hover wykresu nie przewija czasu; zatrzymaj, aby analizować myszą.
+Interpolacja :: Dane ciągłe i kąty mogą poruszać się płynnie. Przełączniki/tryby SDK pozostają skokowe. Luka lub brak wartości nie jest poprawnym zerem.
+Napis ATC :: Ostatni właściwy komunikat jest widoczny około 30 sekund czasu nagrania. Cofanie wybiera historyczny kontekst.
+@ghost|Odtwarzanie samolotu ghost w MSFS 2024
+Najpierw wczytaj lot w obsługiwanym MSFS 2024, następnie wybierz nagranie do odtworzenia. Ghost ma własne połączenie i wątek; zwykły odtwarzacz analizy pozostaje osobny. Przed zmianą pliku lub sesji zatrzymaj ghosta, aby usunąć jego obiekt. Dopasowanie AIG/FSLTL korzysta z modeli rzeczywiście zainstalowanych w Community; sam plik VMR ich nie instaluje. Niezgodny model może mieć mniej animacji, nawet przy kompletnych próbkach.
+Ghost jest wizualnym samolotem AI w działającym symulatorze. Nie steruje samolotem użytkownika i nie uruchamia awioniki oryginalnego dodatku.
+Odtwórz / pauza :: Uruchamia/zatrzymuje wstrzyknięty samolot. Wymaga załadowanego lotu i SimConnect, w odróżnieniu od analizy offline.
+Stop :: Zatrzymuje i usuwa obiekt. Użyj przed zmianą nagrania lub sesji.
+Wstecz / naprzód :: Przesunięcie ghosta o 10 sekund, niezależnie od skoków 30-sekundowych zwykłego odtwarzania.
+Odświeżanie :: 5–60 Hz, domyślnie 30. Wyższe wartości zwiększają liczbę aktualizacji, nie gęstość oryginalnych próbek i nie gwarantują wydajności symulatora.
+Model :: Dobierane są zainstalowane AIG/FSLTL według typu i malowania, z fallbackiem do modeli AI. Model musi faktycznie istnieć w Community.
+VMR :: Opcjonalny FSLTL_Rules.vmr podaje reguły dopasowania. Puste pole oznacza automatyczny dobór. VMR nie instaluje modeli.
+Animacje :: Pozycja, orientacja, podwozie/klapy/spoilery, stery, silniki, światła i reversy zależą od danych oraz zapisywalnych wejść modelu. Zastępczy model może pokazywać mniej.
+@map|Mapa i warstwy trasy
+Podkład OpenStreetMap pozwala odnieść zapis pozycji do terenu, a linie mają różne znaczenie: ślad to pomiary nagrania, magenta to plan. Wspólny przebieg nie musi być rysowany dwukrotnie; pozostają nazwy punktów i dostępne ograniczenia. Nie utożsamiaj ciągłej linii między próbkami z dokładną trajektorią każdego metra lotu.
+Przykład przedstawia pętlę z RWY 25 EPLL przez ADOX2W, ADOXO, SOXER, SOXE2T i LL501 do ILS Z 25 EPLL. Nazwy LL601, LL602, LL536 i kolejnych punktów oraz ich jawne ograniczenia są częścią demonstracji trasy, nie zamiennikiem aktualnych map nawigacyjnych. Przeciągaj mapę, użyj kółka do skali i Dopasuj do powrotu do całego śladu/planu. Przy braku sieci dostępne są uprzednio zapisane kafelki; świeży podkład wymaga pobrania.
+Trasa rzeczywista to zapis pozycji, magenta to zapisany plan. To różne źródła.
+Nawigacja :: Przeciągaj mapę, użyj kółka/przycisków zoom i Dopasuj. Przegląd pokazuje bibliotekę tras, a nie przyrządy jednego lotu.
+Kafelki :: Włącz/wyłącz podkład online. Cache może działać offline; pusty podkład nie oznacza braku GPS.
+Plan :: Magenta, nazwy punktów i dostępne ograniczenia. Pokrywający się odcinek nie wymaga podwójnej linii.
+Procedury :: SID, STAR i podejście są rozwijane po odczycie EFB i zapisywane do replay. Missed approach jest ciemnoszare; holdingi zachowują parametry i schematyczne symbole.
+Punkty GPS :: Dopasowany SimBrief może uzupełnić nazwę przy różnicy AIRAC. Nie jest to aktualizacja bazy nawigacyjnej.
+Eksport :: PNG to ilustracja, KML to trasa dla zewnętrznego programu. Żadne nie zastępuje pełnego .mfzr.
+@flight-plan|Plan lotu, EFB i procedury
+Odczyt planu i odzyskanie nawigacji są dwoma etapami. Najpierw aplikacja zna opis EFB, lotniska i nazwy procedur, następnie zapytania facility dostarczają geometrię, punkty i ograniczenia, które zostają zapisane z lotem. Sam ciąg ADOX2W lub ILSZ.25 nie zawiera wszystkich współrzędnych. SimBrief może pomóc nazwać anonimowy punkt przy różnicy AIRAC, lecz nie należy zgadywać ograniczenia, którego nie ma w żadnym źródle. Po zapisaniu rozwiniętej trasy mapa odtwarza ją offline.
+Zakładka pokazuje plan zapisany z lotem. Nie jest edytorem FMS samolotu.
+Pobieranie :: Po rozpoczęciu lotu czytany jest plan EFB/SimConnect, następnie dane facility rozwiązują procedury i współrzędne; wynik jest zapisywany.
+Lotniska :: Odlot/cel mogą być znane przed uruchomieniem silników, jeśli są w planie. UNKNOWN oznacza brak lub nierozwiązane dane tego nagrania.
+Import PLN :: Dołącz PLN akcją importu planu. Sprawdź odlot, cel i źródło przed użyciem nakładki mapy.
+Ograniczenia :: Punkt może mieć prędkość, wysokość, pozycję i rolę w procedurze. Brakujące dane pozostają brakujące; plan nie dowodzi zezwolenia ATC.
+Offline :: Zapisane snapshoty nie wymagają nowego zapytania do MSFS. Stare pliki z samym tekstem/punktami nie zawsze pozwalają rozwinąć procedury.
+@charts|Wykresy i inspekcja parametrów
+Najpierw wybierz wielkości odpowiadające na pytanie: IAS, V/S i pochylenie do analizy przyziemienia albo N1/EGT/FF do obserwacji zmiany mocy. Nie trzeba pokazywać wszystkich parametrów naraz. Kolejność wykresów ustala okno konfiguracji. Skale i jednostki należą do prezentacji; plik zachowuje pomiary źródłowe.
+Przy zatrzymanym odtwarzaniu ruch myszy nad wykresem może zmieniać wspólny kursor. Podczas odtwarzania ten mechanizm jest wyłączony, aby przypadkowy ruch nie cofał czasu. Zatrzymaj odtwarzanie przed szczegółowym badaniem próbek. Luki danych pozostają lukami, nie linią do zera.
+Wykresy pokazują parametry w czasie, wspólnie z resztą obszaru roboczego.
+Wybór :: Konfiguracja ustala parametry i ich kolejność. Wyszukuj na liście dostępnych; lista wyświetlanych określa sekwencję.
+Zoom i przesuwanie :: Zoom zmienia zakres czasu, przesuwanie pozycję w nim, Pełny widok przywraca całość.
+Kursor :: Hover przewija na pauzie. W trakcie odtwarzania jest wyłączony, aby przypadkowy ruch myszy nie przerywał czasu.
+Jednostki i enumy :: Podpis zawiera jednostkę prezentacji. Sprawdzone mapowania pokazują etykiety kokpitu, nieznane wartości pozostają liczbami. Nie zmienia to zapisu.
+Luki :: Brak linii/wartości może oznaczać niedostępny lub niezapisany parametr, nie zmierzone zero.
+@chart-options|Wybór i kolejność wykresów
+Lista po lewej przedstawia parametry dostępne w bieżącym kontekście, a prawa tylko uporządkowany zestaw wykresów. Wyszukiwanie zawęża lewą listę; po dodaniu wybranych pozycji wyczyść filtr, jeżeli chcesz znaleźć inne grupy. Przyciski oraz przeciąganie pomiędzy listami wykonują tę samą operację pokazywania/ukrywania.
+Aby zmienić kolejność, zaznacz pozycję po prawej i użyj przesunięcia góra/dół lub początek/koniec. Ctrl podczas przeciągania w obrębie listy wyświetlanych służy do reorder; miejsce upuszczenia określa nową pozycję. OK zatwierdza cały zestaw, Anuluj odrzuca edycję. Zrzut ma pełny podstawowy katalog FDR, nie pięć sztucznych pozycji; pełne zestawienie jest w rozdziale Katalog SimVar.
+Okno rozdziela parametry dostępne i uporządkowaną listę wyświetlanych.
+Szukaj :: Fragment nazwy; wyczyść, aby wrócić do całości. Filtr nie usuwa telemetrii.
+Pokaż / ukryj :: Dodaje/usuwa wykres z prezentacji, bez zmiany lotu.
+Drag między listami :: Przenoś, aby pokazać/ukryć. Tylko zaakceptowany cel zmienia wybór; feedback wskazuje poprawność.
+Kolejność :: Góra/dół/początek/koniec lub Ctrl-drag w liście wyświetlanych. Upuść między wierszami, aby określić miejsce.
+OK / Anuluj :: OK stosuje wybór i kolejność, Anuluj odrzuca zmiany okna.
+@data|Wartości, zdarzenia, starty i lądowania
+Wartości odpowiadają na pytanie „jaki był stan w tej chwili”, Zdarzenia „co zostało zarejestrowane”, a Starty i lądowania pozwalają wybrać konkretny kontakt. To różne widoki tego samego nagrania. Wypnij je osobno, jeżeli chcesz porównać kilka tabel obok instrumentów. Wyszukiwanie w Wartościach nie filtruje biblioteki lotów, a wyszukiwanie nagrań nie usuwa parametrów. Szczegóły każdego z trzech widoków są w rozdziałach podrzędnych.
+Dane opisują wybrane nagranie i czas, nie bieżący samolot w symulatorze.
+Wyszukiwanie :: Filtruje opisy i surowe identyfikatory. Puste pole pokazuje całość, wartości podążają za kursorem.
+Przełączniki :: Sprawdzone enumy pokazują UP/1/2/5 czy RTO/DISARMED. Oznaczeń kokpitu celowo nie tłumaczymy. Nieznane liczby zostają liczbami.
+Zdarzenia :: Odczytuj historyczny typ/czas zdarzenia.
+Kontakty :: Wybierz oderwanie/przyziemienie dla pogody lub AI. To niekoniecznie początek rotacji czy flare.
+Metadane :: Grupowanie typu/lotniska jest oddzielne od telemetrii i aktywnej sesji MSFS.
+@instruments|Wizualizacja przyrządów
+To rekonstrukcja do analizy, nie certyfikowana awionika ani aktywne sterowanie kokpitem.
+Automatyka :: Typ/kategoria wybiera GA analog, glass/classic, generic lub dedykowany airliner. Override zmienia wizualizację, nie tożsamość samolotu.
+Six-pack :: Prędkość, horyzont, wysokość, zakręt/ślizg, kurs i VSI z nagrania. ILS LOC/GS i baro, gdy są ważne/dostępne.
+Skale :: Analogowe VSI ma stały zakres dla nagrania/profilu. Jednostka tekstu jest czymś innym niż mechanika klasycznego stopowego wysokościomierza.
+Brak danych :: Kreski odróżniają brak od prawdziwego zera. Stare loty nie zyskują niezapisanych stanów SDK.
+Render :: Proporcje i antyaliasing działają poniżej/powyżej 100%; odłączona ramka zachowuje źródło i czas.
+@engines|Zegary silnikowe i konfiguracja
+Panel zależy od typu/liczby silników. Dla odpowiednich trybów zastępuje go B38M EICAS lub A320 ECAM.
+Tłokowe :: Dostępne RPM, EGT/CHT, ciśnienie/temperatura oleju, paliwo lewo/prawo, elektryka/vacuum oraz stany condition/reverse.
+Turboprop :: Torque, prop RPM, ITT, Ng/N1 gazogeneratora, olej, fuel flow i dostępne condition/beta/reverse.
+Jet :: N1, N2, EGT, fuel flow, olej i dostępne wibracje. Tryb ciągu/A/T uzupełnia wskazania, nie zastępuje danych silnika.
+Jednostki :: Olej w psi zamiast psf. Temperatura, przepływ i ilość mają właściwe jednostki prezentacji. Braki pozostają niedostępne.
+Okno :: Wypnij, skaluj proporcjonalnie i zadokuj. Panel nie jest przewijanym wycinkiem zegarów.
+@boeing|B38M PFD, EICAS i informacje o locie
+Dedykowane ramki MAX są wybierane dla B38M; to nie pełna emulacja awioniki B736–B739.
+PFD :: Zapisane taśmy IAS/Mach/wysokości, horyzont, kurs, VSI, cele, baro/STD, ILS, radioaltitude i dostępne minima.
+Informacje :: Numer lotu, squawk z zerami, SELCAL, rejestracja, zapisane UTC/data i czas od początku. CPT po lewej, FO po prawej. Widoczność w Debug.
+Flight Director :: Belki korzystają z ważnych zapisanych komend pitch/bank. Bez sensownych danych dodatku nie da się wiarygodnie odtworzyć FD; można go wyłączyć.
+FMA :: iFly jest rekonstruowane z SDK/MCP i danych standardowych, z odpowiednim oznaczeniem. Historyczny brak SDK nie potwierdza OFF. VNAV/flare/ciąg mogą być przybliżone.
+Wiatr / VOR / ADF :: Strzałka względem kursu; bloki 1/2 pokazują strojenie i dostępne DME. Brak stacji nie oznacza zerowej odległości.
+AoA / minima :: Opcjonalne AoA używa incidence i ground inhibit. Minima wymagają danych nastawy pilota; projektowe DECISION HEIGHT nie jest wybraną wartością.
+EICAS :: Silniki, paliwo, klapy i dostępne kontrolki z nagrania. Stare loty mogą mieć puste pola.
+@airbus|A320 PFD oraz górny i dolny ECAM
+Dostępność Fenixa/FBW zależy od wersji dodatku i zarejestrowanych danych.
+PFD :: Horyzont, taśmy, kurs, FMA, FD, ILS i tryby baro/prędkości. Respektowana jest ważność obsługiwanych słów ARINC FBW.
+Minima :: BARO, RADIO i NO DH, gdy dostępne. RADIO odnosi się do wysokości radiowej, nie dowolnego znacznika MSL. Brakujących nastaw nie zgadujemy.
+E/WD :: Dostępne N1, EGT, N2, przepływ/ilość paliwa, konfiguracja, ostrzeżenia i memo. Brak danych nie oznacza bezbłędnego kokpitu.
+Recorded :: Dolny ECAM śledzi stronę zapisaną w danej chwili. Bez telemetrii stanu strony nie można jej pewnie ustalić.
+Strony ręczne :: ENG, BLEED, PRESS, ELEC, HYD, FUEL, APU, COND, DOOR, WHEEL, F/CTL, STS, CRUISE pokazują wybraną stronę w aktualnym czasie. Nie wysyłają poleceń do samolotu.
+Ostrzeżenia / STS :: Rekonstrukcja z obsługiwanych flag i katalogów; nie zrzut pikselowy ani gwarancja kompletu własnych komunikatów dodatku.
+@fmc|Odtwarzanie FMC/MCDU
+Treść ekranów i dostępne kontrolki są zsynchronizowane z czasem. Ramka nie steruje zdalnie aktywnym kokpitem.
+Urządzenie :: Format A320/B737/dostępnego B777 wynika z danych samolotu; ręczny wybór urządzenia nie jest potrzebny.
+Lewa / prawa jednostka :: Wybierz jej zakładkę. Ekrany mogą mieć różne strony i czasy; braków jednej strony nie zastępujemy drugą bez dowodu.
+Formatowanie :: Dostępne kolory, rozmiar/styl i kontrolki są zachowane z właściwym tłem. Sama pozycja samolotu nie odtworzy historii ekranów.
+Przewijanie :: Wstecz wybiera ostatni ekran zaobserwowany do tego czasu. Długo niezmienna strona może być poprawna; zapis może obejmować tylko zmiany.
+Odłączanie :: Akcja okna i dokowanie zachowują synchronizację.
+@simbrief|SimBrief, OFP i mapy
+Plan w podręczniku to zanonimizowany przykład pętli EPLL–EPLL. Numer lotu i rejestracja są demonstracyjne; dane konta, załogi oraz osobiste odnośniki nie są częścią przykładu. Obliczenia OFP są planem, nie pomiarem zużycia, prędkości lub masy z telemetrii.
+Sekcje briefingu rozwijaj osobno. W długim OFP kółko myszy przewija kontener także nad tekstem monospace. Mapy briefingu są zapisywane jako obrazy przy locie, dzięki czemu późniejszy podgląd nie wymaga aktywnego linku do GIF. Nie ma akcji zgłaszania starego planu do VATSIM ani innych sieci. Przed przypisaniem planu do nagrania porównaj lotniska, samolot i czas — ostatni plan na koncie może dotyczyć innego lotu.
+SimBrief jest źródłem planu/briefingu, nie pomiarem telemetrii. Import wymaga identyfikatora konta i sieci.
+Import :: Pobierz OFP kontrolkami SimBrief i sprawdź samolot, trasę i planowany czas przed przypisaniem do lotu.
+OFP :: Tekst natywny monospace tylko do odczytu. Kółko przewija kontener briefingu także nad tekstem OFP.
+Mapy :: Dostępne mapy są pobierane do nagrania, zamiast pozostawać linkami GIF. Zapisana mapa nie wymaga później aktywnego adresu zdalnego.
+Porównanie :: Planowana masa, paliwo i wiatr nie są danymi rzeczywistymi. Nazwy planu mogą pomóc przy punktach GPS EFB z innym AIRAC.
+Bez zgłaszania :: Otwarcie starego OFP nie zgłasza planu do VATSIM ani innej sieci; nie ma takiej akcji dla historycznych planów.
+@atc|Komunikacja ATC i FSHud
+Zakładka przechowuje historię rozmów, a napis przy suwaku pokazuje ostatnią właściwą wiadomość przez około 30 sekund czasu nagrania. Cofnięcie wybiera dawny komunikat, nie odtwarza nowej transmisji. Źródła FSHud i MSFS ATC są odrębne i mogą mieć różny zakres danych. Standardowe zmienne zezwoleń lub przydzielonej wysokości są stanem, nie tekstem rozmowy. Gdy bridge/listener nie dostarczył tekstu, sam odczyt częstotliwości nie pozwala go odtworzyć.
+Komunikaty są kontekstem historycznym. FSHud i standardowe ATC MSFS to osobne źródła.
+Historia :: Czas, dostępna częstotliwość/znak i tekst. Przewijanie nie nadaje nowego komunikatu radiowego.
+MSFS ATC :: Opcjonalny bridge zbiera tekst listenera, jeśli MSFS go udostępnia. Standardowe clearance/runway/agent/COM to stan, nie transkrypcja rozmów.
+FSHud :: Wymaga działającego FSHud i interfejsu podczas zapisu. Sama częstotliwość nie odtworzy wypowiedzi.
+Napis czasu :: Ostatnia właściwa linia jest przy suwaku przez około 30 sekund nagrania; cała historia zostaje w zakładce.
+Braki :: Mogą wynikać z bridge/listenera/braku obsługi, nie dowodzą ciszy ani braku zezwolenia.
+@gsx|GSX Pro: usługi i postęp
+Usługa przechodzi przez żądanie, realizację i zakończenie według zmiennych GSX dostępnych przy nagrywaniu. Pasek pojawia się od Requested; gdy nie ma znanego celu, nie należy czytać animacji jako procentu wykonania. Boarding może równolegle pokazywać pasażerów i cargo/bagaże, a tankowanie ilość przekazaną i docelową. Po zmianie cysterny licznik może się zresetować. Przewijanie przywraca stan usługi i liczniki z przeszłości, bez uzupełniania ich danymi z końca lotu.
+GSX musi być zainstalowany i wystawiać obsługiwane zmienne w chwili nagrywania.
+Requested :: Pasek pojawia się po żądaniu usługi. To nie potwierdza przyjazdu pojazdu ani rozpoczęcia mierzonej pracy.
+Boarding / deboarding :: Dostępne liczniki pasażerów/bagażu/cargo i znane cele. Brak celu historycznego nie jest uzupełniany przyszłymi próbkami.
+Tankowanie :: Dostępne ilości przekazane/docelowe i stan cysterny. Możliwe są kolejne cysterny i reset licznika; licznik nie zawsze oznacza sumę dla lotu.
+Pozostałe :: Catering, odlot/pushback i deicing według danych. Zakończenie bez pomiaru może być pokazane bez wymyślania pośrednich liczników.
+Replay :: Cofanie przywraca dawny stan. Opisy są tłumaczone, surowe pola SDK można sprawdzić w Wartościach.
+@weather|METAR, TAF i porównanie źródeł
+Najpierw wybierz start lub lądowanie. Odlotowy snapshot jest związany ze zmianą ziemia–powietrze, a docelowy z przyziemieniem. Raport symulatora i aviationweather.gov są zapisywane oddzielnie, wraz ze źródłem i czasem. Okno pokazuje surowy raport, dekodowanie oraz różnice. Sprawdzaj stację i czas obserwacji przed porównaniem: inne lotnisko albo późniejszy raport mogą wyjaśnić rozbieżność. Brak TAF nie jest prognozą dobrej pogody; stacja mogła go nie opublikować.
+Pogoda dotyczy wybranego startu/lądowania. Raporty MSFS i aviationweather.gov są zapisywane osobno ze źródłem i czasem.
+Symulator :: Opcjonalny MSFS24-FDR-Bridge korzysta z dostępnych usług awioniki. Dostępność zależy od MSFS/stacji; bridge nie stworzy TAF niepublikowanego przez stację.
+Moment :: Odlot przy zmianie ziemia–powietrze, przylot przy przyziemieniu, według dostępnego planu/lotniska. To snapshoty zdarzeń, nie ciągłe obserwacje urzędowe.
+Realne raporty :: Sprawdź czas obserwacji i pobrania. Późniejsze pobranie nie musi odzyskać dokładnej pogody dawnego lotu.
+Dekodowanie :: Stacja/czas, wiatr/porywy, widzialność, zjawiska, chmury, temperatura/punkt rosy, ciśnienie, gdy raportowane. Brakujące grupy zostają puste.
+Różnice :: Przyczyną może być inna stacja/czas lub ustawienia symulatora. Ciśnienie przy samolocie na wysokości nie jest QNH lotniska.
+Offline :: Zapisane raporty zostają z lotem. Nowe pobranie wymaga sieci i dostępnych akcji.
+@analysis|Analiza AI startów i lądowań
+Zacznij od wybrania właściwego startu lub lądowania, zwłaszcza po touch-and-go. Sprawdź zakres próbek, pogodę i plan, a dopiero potem uruchom żądanie. Model otrzymuje instrukcję odpowiedzi w języku aplikacji oraz rozdzielenia danych planowanych od pomiarów. Gotowy raport jest zapisywany przy zdarzeniu; ponowne otwarcie nie wysyła nowego zapytania. Shift z akcją analizy służy nowemu raportowi. Weryfikuj wnioski na wykresach — brak próbki szczytu nie jest dowodem łagodnego kontaktu.
+Wybierz zdarzenie, skonfiguruj dostawcę i poproś o analizę. To pomoc szkoleniowa symulatora; model może się mylić.
+Okna :: Osobno przed/po kontakcie. Start domyślnie 60/30 s, lądowanie 180/30 s. Każde pole 1–300 s, ograniczone zakresem danych.
+Dane :: Dostępna telemetria i kontekst planu/FMC/pogody. Plan jest oddzielony od pomiaru; braków nie dopisuje się dla kompletności raportu.
+Język :: Prompt żąda języka aplikacji, zachowując identyfikatory lotnicze. Model może nie wykonać instrukcji.
+Dostawca :: Codex CLI, Gemini lub Ollama; logowanie/usługę skonfiguruj osobno. Kontekst i timeout ograniczają zapytanie.
+Raport :: Natywnie formatowany Markdown, zapisywany przy zdarzeniu przez analizę. Odczyt zapisanego raportu nie wymaga nowej odpowiedzi.
+Ocena :: Sprawdź oś czasu. Próbkowanie może pominąć szczyt uderzenia; oderwanie to nie początek rotacji, stabilna IAS nie jest automatycznie VREF.
+@settings|Przewodnik po ustawieniach
+Ustawienia są pogrupowane w zakładki Ogólne, Jednostki, Analiza, Silniki AI, Debug i Ghost. Zmieniaj opcje dotyczące konkretnego zadania, następnie użyj Zapisz. Anuluj pozostawia wcześniejsze wartości. Zmiana wyglądu nie przepisuje telemetrii zapisanej w pliku lotu. Jeżeli po zmianie monitorów okna są poza ekranem lub układ jest nieczytelny, przywróć domyślne dokowanie zamiast kasować nagrania albo cały katalog danych.
+Zapisz stosuje wartości, Anuluj odrzuca edycję. Prezentacja nie przepisuje danych telemetrii.
+Ogólne :: Język, changelog, reset układu i nieaktywne aktualizacje portable.
+Jednostki :: Obsługiwane jednostki prezentacji; zapis pozostaje w źródłowych.
+Analiza :: Niezależne okna czasu startu i lądowania.
+Silniki AI :: Połączenie/model dostawcy, kontekst i limit czasu.
+Debug :: Rodzaj instrumentów oraz informacje B38M, strona, AoA i FD.
+Ghost :: Częstotliwość odświeżania i opcjonalny VMR.
+@settings-general|Ustawienia ogólne i język
+Automatycznie rozpoznaje język interfejsu Windows z uwzględnieniem wariantu regionalnego. Wybrany ręcznie język zastępuje automat do czasu ponownego wybrania tej opcji. Dla języków bez osobnej pomocy używany jest angielski CHM. Wydanie portable ma celowo wyłączone aktualizacje: zaznaczenie starego wpisu INI nie uruchamia pobierania. Setup dostarczony z tą wersją jest tylko komunikatem o pracach. Aktualizuj przez ręczną wymianę plików po zamknięciu programu.
+Język :: Automatyczny rozpoznaje język UI Windows i wariant regionalny, z fallbackiem do angielskiego. Nazwany język zastępuje autodetekcję i jest zapamiętywany.
+RTL :: Arabski/hebrajski zmienia kierunek zwykłego UI, nie geometrię kokpitu. Powrót do LTR przywraca normalny kierunek.
+Autoaktualizacje :: Wyłączone w portable; INI nie aktywuje updatera. Setup jest tylko informacyjnym placeholderem.
+Sprawdź aktualizacje :: Również wyłączone. Pobierz nowe wydanie ręcznie, zachowując dane użytkownika.
+Historia zmian :: Po polsku dla polskiego UI, inaczej po angielsku. ShowChangeLog otwiera okno przy starcie.
+Układ domyślny :: Przywraca dokowanie i rozmiary; nie kasuje nagrań.
+@settings-units|Jednostki prezentacji
+Wybierz jednostkę przy konkretnej kategorii, np. wysokości, prędkości, temperatury, masy lub ciśnienia. Sprawdź podpis wskaźnika po zmianie; niektóre klasyczne instrumenty zachowują mechanikę stopową, mimo zmiany tekstu na metry. Ciśnienie barometryczne, oleju i hydrauliki to różne wielkości. Dla oleju naturalnym odczytem jest psi. Etykiety pozycji przełączników są słownikiem enumów, a nie konwersją jednostek: FLAPS 5 pozostaje oznaczeniem klapy, nie liczbą stopni.
+Wiersze :: Wybierz jednostkę danej wielkości. Inspektor/wykresy zmieniają wartość i podpis, nie źródłowy zapis.
+Wysokość / prędkość :: Tekst po konwersji nie musi zmieniać klasycznej geometrii instrumentu.
+Ciśnienie / paliwo :: Odróżniaj olej od baro oraz ilość od przepływu. Zegary oleju używają psi.
+Enumy :: Etykieta przełącznika jest słownikiem, nie konwersją jednostek; nieznana wartość zostaje liczbą.
+@settings-analysis|Okna czasu analizy
+Cztery pola opisują niezależnie czas przed i po oderwaniu oraz przed i po przyziemieniu. Wszystkie wartości są sekundami. Większe okno pomaga zobaczyć konfigurację i stabilizację, ale zwiększa dane wejściowe oraz może przekroczyć kontekst modelu. Granica pliku ogranicza faktyczny zakres — wpisanie 180 sekund nie doda brakujących próbek sprzed początku nagrania. Po zmianie tych pól nowy raport korzysta z nowego zakresu; istniejący zapisany raport nie zmienia treści automatycznie.
+Przed startem :: Domyślnie 60 s, zakres 1–300, przed oderwaniem. Dłuższy kontekst pokazuje rozbieg, ale zwiększa dane wejściowe.
+Po starcie :: Domyślnie 30 s, zakres 1–300; początkowe wznoszenie, nie ocena całego lotu.
+Przed lądowaniem :: Domyślnie 180 s, zakres 1–300. Większe okno nie odzyska niezapisanych próbek podejścia.
+Po lądowaniu :: Domyślnie 30 s, zakres 1–300; dobieg i kolejne kontakty.
+Limity :: Granice nagrania, kontekst modelu i timeout ograniczają faktyczne wejście.
+@settings-ai|Dostawcy AI, modele i połączenie
+Najpierw wybierz dostawcę, potem skonfiguruj jego zakładkę. Codex wymaga zainstalowanego natywnego CLI i osobnego logowania; pole EXE służy wskazaniu programu, nie skryptu-wrappera. Gemini wymaga poprawnego klucza i nazwy modelu. Ollama wymaga działającego serwera i modelu już dostępnego na tym serwerze. Odświeżenie listy nie pobiera modelu. Limit czasu ogranicza czekanie aplikacji, a nie gwarantuje anulowania żądania po stronie usługi. Nie udostępniaj osobistego settings.ini z kluczami.
+Dostawca :: Codex, Gemini lub Ollama. Edycja pól nie zakłada konta w innej usłudze.
+Limit czasu :: 1–1800 s, domyślnie 180. Kończy oczekiwanie; nie dowodzi, że chmura nie otrzymała zapytania.
+Codex EXE :: Puste pole wykrywa natywny codex.exe. Wrapper .cmd/.ps1 nie jest obsługiwany. Zaloguj CLI osobno.
+Model Codex :: Puste używa domyślnego CLI; wskazany model musi być dostępny dla konta/CLI.
+Gemini :: Identyfikator modelu i klucz API. Nie udostępniaj osobistego settings.ini z kluczem.
+Serwer Ollama :: Domyślnie http://localhost:11434. Podaj osiągalny serwer, nie stronę pobierania modelu.
+Model / Odśwież :: Lista modeli zainstalowanych na serwerze. Odśwież nie pobiera wag.
+Kontekst Ollama :: 2048–262144 tokenów, domyślnie 32768; rzeczywista pojemność zależy od modelu, konfiguracji i pamięci.
+Język :: Każdy backend dostaje aktualny język w prompcie, z zachowaniem oznaczeń kokpitu.
+@settings-instruments|Override instrumentów i opcje B38M
+Pozostaw Automatycznie do zwykłej analizy: aplikacja wybierze układ według ICAO i danych nagrania. Override służy porównaniu rendererów, a nie zmianie samolotu. Możesz przełączyć ten sam lot między six-pack, generic PFD, B38M i A320, ale brakujące SDK pozostaną brakujące. Opcje B38M sterują widocznością informacji o locie, stroną CPT/FO, AoA i FD. Wyłączenie FD jest przydatne, jeśli dany dodatek nie zasila standardowych komend prowadzenia mimo włączonego przełącznika FD.
+Automatyczny :: Wybiera ramkę z nagrania. Override nie tworzy SDK innego samolotu.
+Rodzaj :: GA analog, GA glass, klasyczny airliner, generic PFD, B38M PFD/EICAS lub A320 PFD/ECAM. Metadane lotu zostają bez zmian.
+Panel informacji :: Numer lotu, squawk, rejestracja, SELCAL i czas; domyślnie włączony.
+Strona :: Zaznaczone = lewa/CPT, odznaczone = prawa/FO, niezależnie od widoczności panelu.
+AoA :: Domyślnie wyłączone, wymaga ważnego incidence i respektuje ground inhibit.
+Flight Director :: Domyślnie włączony; zapisane komendy standardowe SimConnect. Wyłącz, gdy dodatek nie dostarcza sensownych danych.
+@about|O programie, wersja i pomoc
+Przy zgłoszeniu problemu przepisz pełny numer wersji z okna O programie, nie tylko numer wydania 0.1.1. Dodaj wersję symulatora i dodatku, typ ICAO, język, skalowanie oraz kroki odtworzenia. Numer pochodzi z VersionInfo uruchomionego EXE, więc pozwala odróżnić rzeczywistą kompilację od nazwy ZIP. Pomoc F1 bierze temat aktywnej kontrolki lub jej rodzica; odłączony panel nadal ma własny HelpContext.
+O programie :: Dane wersji EXE i autorstwo. Podaj pełny numer przy zgłaszaniu błędu.
+F1 :: HelpContext aktywnego elementu i jego rodziców w DFM. Wyciągnięta ramka zachowuje temat.
+Języki :: CHM polski, angielski, niemiecki i hiszpański; pozostałe UI używają angielskiego.
+Zakres :: Niezależny program symulatorowy; komercyjne samoloty, GSX, FSHud i modele AI wymagają własnych instalacji.
+@release|Wydania portable i historia zmian
+Rozpakuj cały ZIP do jednego katalogu, zachowując podkatalogi grafik, fontów i pomocy. Przed ręczną aktualizacją zamknij aplikację. Ustawienia i nagrania pozostają w LocalAppData, ale nadal warto mieć ich kopię zapasową. Nie kopiuj ustawień przykładowych na osobiste INI. Stub Setup nie instaluje ani nie usuwa programu; nie ma jeszcze działającej aktualizacji automatycznej. Historia zmian jest grupowana według wydań, a pełny Build służy diagnostyce.
+Paczka :: Pełny ZIP Win64 bez hasła. Zachowaj względny układ DLL, fontów, grafik i CHM.
+Aktualizacja ręczna :: Zamknij program, wymień pliki aplikacji, zachowaj %LocalAppData%\MSFS24-FDR. Nie nadpisuj ustawień przykładowym INI.
+Stub Setup :: Wyłącznie komunikat o pracach. Nie instaluje, nie naprawia, nie usuwa i nie aktualizuje.
+Historia :: Preview, 0.1.0, 0.1.1 i kolejne wydania, bez osobnej sekcji każdego buildu.
+@troubleshooting|Rozwiązywanie problemów i zgłoszenia
+Rozdziel problem połączenia od odtwarzania pliku. Nieuruchomiony MSFS może powodować oczekiwanie na SimConnect, ale nie powinien unieważniać offline replay. Gdy brakuje lotu, sprawdź grupę, tekst wyszukiwania, indeks i istnienie MFZR. Gdy brakuje parametru, sprawdź typ samolotu oraz dostępność zmiennej przy zapisie. W zgłoszeniu podaj oczekiwany i rzeczywisty efekt oraz ostatnie istotne logi. Przejrzyj je przed udostępnieniem pod kątem danych osobistych i kluczy.
+Nagrywanie nieaktywne :: Sprawdź MSFS 2024, połączenie i Ready for flight. Podgląd celowo wyłącza zapis.
+Brak lotu :: Sprawdź filtry, indeks i plik; odśwież/importuj. Zrób kopię przed zmianą indeksu.
+Brak danych instrumentu :: ICAO, override i dostępność w chwili zapisu. Puste pole nie potwierdza zera.
+Układ :: Przywróć domyślny. W zgłoszeniu podaj skalowanie monitorów i położenie okien.
+AI :: Logowanie/klucz/serwer/model, kontekst i timeout. Nie wysyłaj danych logowania w logach.
+Zgłoszenie :: Pełna wersja EXE i dodatków, kroki, zrzuty i odpowiednie logi. Sprawdź dane osobowe przed udostępnieniem nagrania.
+
+@sixpack|Klasyczny six-pack
+Zestaw obejmuje prędkościomierz IAS, sztuczny horyzont, wysokościomierz, zakrętomierz ze wskaźnikiem ślizgu, żyrokompas oraz wariometr. Czytaj je razem: wzrost wysokości powinien zgadzać się ze znakiem V/S, a przechylenie z kierunkiem zmiany kursu. Horyzont pokazuje zapisane pochylenie i przechylenie, nie obraca mapy. Wskazanie baro przy wysokościomierzu pochodzi z chwili wybranej na osi czasu.
+Wariometr ma zakres ustalony dla nagrania/profilu, więc jego wskazówka nie przeskakuje wskutek automatycznej zmiany skali. Klasyczna geometria wysokościomierza pozostaje stopowa także po zmianie jednostek tekstu. Odchylenia LOC i GS pojawiają się, jeśli nagrano ważne dane ILS. Wypnij panel, powiększ okno i przewijaj lot, aby porównać przyrządy bez pomniejszania ich do miniatur.
+
+@ga-glass|GA glass: układ zintegrowany
+Ten układ łączy podstawowe dane lotu wokół horyzontu i jest przeznaczony dla lekkich samolotów z wyświetlaczami glass. Nie jest repliką konkretnego G1000 ani systemu SF50. Rozmieszczenie pomaga porównywać IAS, wysokość, kurs i prędkość pionową w jednym panelu. Ustawienia autopilota i jego stan są odczytem historycznym, a nie przyciskami sterującymi.
+Typ silnika nie wynika z samego wyglądu PFD. Otwórz równolegle panel silników, aby zobaczyć właściwy zestaw tłokowy, turboprop lub jet. Wymuszenie tego układu w ustawieniach Debug nie dostarcza brakujących danych nagrania.
+
+@airliner-classic|Klasyczny układ liniowy
+Układ klasyczny zachowuje podstawowe przyrządy pilotażowe bez przypisywania im wyglądu konkretnego producenta. Służy między innymi do porównywania nagrań samolotów, dla których nie ma dedykowanego PFD. Obserwuj IAS, wysokość, horyzont, kurs i V/S w tym samym czasie.
+Silniki są osobną ramką: można je ustawić obok przyrządów albo zadokować we wspólnym oknie. Wybranie klasycznego układu nie zmienia typu ICAO ani liczby silników zapisanych w pliku.
+
+@generic-pfd|Uniwersalny PFD
+Taśmy IAS i wysokości przewijają się wokół aktualnego wskazania, a skala V/S ma wskazówkę po prawej stronie. Kurs znajduje się przy horyzoncie zamiast w dużym osobnym polu. Układ jest wspólną wizualizacją standardowej telemetrii; nie należy utożsamiać jego symboliki z certyfikowanym PFD danego samolotu.
+Porównuj aktualną wartość z zapisaną nastawą AP i stanem FD/AP/A/T. Dane sterowania Flight Director muszą być dostępne i ważne. Puste pole lub brak belki nie oznacza komendy zerowej. Przy nagraniu ILS możliwa jest obserwacja lokalizera i ścieżki schodzenia.
+
+@engine-piston|Silniki tłokowe
+Zacznij od RPM i porównaj obciążenie z temperaturą EGT/CHT oraz ciśnieniem i temperaturą oleju. Niski RPM przy zimnym silniku oznacza inny stan niż spadek obrotów podczas lotu; wybierz na osi czasu kilka chwil przed i po zmianie. Zestaw powtarza się dla zapisanej liczby silników. Ciśnienie oleju jest prezentowane w psi, nie w psf.
+Poziom paliwa lewy/prawy pokazuje zapas w zbiornikach, a nie chwilowy przepływ. Dodatkowe wskaźniki elektryczne, vacuum/suction oraz condition/beta/reverse są widoczne tylko przy dostępnych danych. Nie wszystkie samoloty tłokowe mają te układy. Brak EGT/CHT lub pusty wskaźnik w starym locie nie oznacza temperatury zerowej.
+
+@engine-turboprop|Silniki turbośmigłowe
+Torque opisuje obciążenie wału, prop RPM obroty śmigła, a Ng/N1 obroty gazogeneratora. To trzy różne wielkości: nie traktuj RPM śmigła jako N1. ITT pozwala obserwować temperaturę podczas rozruchu i zmian mocy. Obok pozostają ciśnienie/temperatura oleju i przepływ paliwa.
+Porównuj zmianę torque z ustawieniem condition lever i stanami beta/reverse, o ile je zapisano. Sama mała prędkość lotu nie dowodzi włączenia reverse. Jednostkę odczytaj przy danym wskaźniku. Zmiana typu panelu w Debug nie przelicza brakującej telemetrii jet na turbośmigłową.
+
+@engine-jet|Silniki odrzutowe
+N1 i N2 pokazują obroty odpowiednich zespołów silnika, EGT temperaturę gazów, a fuel flow chwilowy przepływ paliwa. Śledź je razem podczas rozruchu, wzrostu ciągu i wyłączania. Nie sumuj wskazania przepływu tak, jakby było zużytym paliwem. Ciśnienie i temperatura oleju pomagają porównać stan silników przy zbliżonej mocy.
+Vibration i thrust mode/A/T są dodatkowymi polami zależnymi od danych samolotu. Zapisy starsze od obsługi SDK mogą mieć podstawowe N1/N2, lecz nie mieć wiarygodnego trybu ciągu. Dla B38M i A320 aplikacja wybiera osobne EICAS/ECAM; panel ogólny służy pozostałym typom lub wymuszeniu Debug.
+
+@b38m-pfd|B38M PFD: FMA, prowadzenie i informacje o locie
+Trzy pola FMA nad horyzontem rozdzielają ciąg, prowadzenie boczne i pionowe. W iFly aplikacja rekonstruuje ich treść z zapisanych flag AFDS, nastaw MCP i danych standardowych. Stan uzbrojony nie jest tym samym co tryb aktywny. Jeżeli stary lot nie zawiera danych SDK, zerowej wartości standardowego AUTOPILOT MASTER nie należy uznawać za dowód wyłączonego CMD.
+Belki FD używają zapisanych komend pitch/bank, a nie kierunku rzeczywistego ruchu. IAS/Mach i BARO/STD zależą od zapisanych nastaw. Minima BARO/RADIO są pokazywane tylko przy dostępnej wybranej wartości; znacznik na taśmie wymaga odpowiedniego odniesienia wysokości. Wskaźnik AoA jest opcjonalny i wymaga ważnych danych.
+Panel dodatkowy pokazuje numer lotu, XPDR z zerami wiodącymi, SELCAL, rejestrację, datę/UTC z nagrania i elapsed. W ustawieniach Debug można go ukryć i wybrać stronę: CPT po lewej, FO po prawej. Strzałka wiatru jest względem kursu; bloki VOR/ADF po obu stronach heading pokazują zapisane źródła, identyfikatory, strojenie i dostępne DME.
+
+@b38m-eicas|B38M EICAS: silniki, paliwo i konfiguracja
+EICAS jest dedykowany typowi B38M. N1, EGT i N2 przedstawiono jako analogowe łuki z wartościami liczbowymi. Niżej znajdują się przepływ paliwa, olej i wibracje, a obok konfiguracja klap oraz paliwo w zbiornikach i suma. Czytaj jednostki: ilość paliwa w tysiącach kg nie jest tą samą skalą co przepływ kg/h.
+Kontrolki zaworów, ciśnienia oleju i stanów silnika wynikają z zapisanych danych. Brak ostrzeżenia w dawnym pliku nie potwierdza jego nieobecności w kokpicie. Panel nie jest przeznaczony jako docelowy EICAS dla B736–B739. Można odłączyć go osobno lub zadokować obok PFD w jednym oknie, zachowując wspólny kursor czasu.
+
+@a320-pfd|A320 PFD: FMA, FD, ILS i minima
+Górny FMA rozdziela tryby ciągu, pionowe i boczne oraz możliwości podejścia i stan AP/FD/A/THR. Interpretuj pola razem: przechwycenie LOC lub G/S nie oznacza automatycznie pełnego autolandu. Dla FBW ważność słów ARINC jest częścią danych, więc nieprawidłowa transmisja nie powinna wyglądać jak normalny odczyt zera. Dla Fenixa zakres zależy od wersji dodatku i zapisanych zmiennych.
+Taśmy IAS/ALT pokazują wartości aktualne i dostępne cele. Belki FD są komendami prowadzenia. Symbole ILS pokazują odchylenia LOC/GS, jeśli zapis jest ważny. Minima BARO używają wysokości barometrycznej, RADIO wysokości radiowej; NO DH to osobny wybór, nie wartość zero. Na taśmie wysokości pojawia się znacznik minimum barometrycznego w odpowiednim zakresie. QNH i STD oraz IAS/Mach odtwarzają nastawy w nagraniu.
+Zrzut ma dane demonstracyjne, dzięki którym widać elementy geometrii. Gdy otwierasz własny lot, brakujące FMA, FD lub minima pozostają brakujące; wymuszenie A320 w Debug nie tworzy danych FBW/Fenix.
+
+@a320-ewd|A320 górny ECAM: E/WD
+Górny ekran łączy N1, EGT, N2 i przepływ paliwa dla obu silników z FOB, konfiguracją klap oraz obszarem komunikatów. N1 i EGT mają łuki oraz odczyt cyfrowy; N2 i FF pozwalają porównać pracę silników. FOB jest pozostałą ilością paliwa, nie sumą zużycia.
+Dolna część E/WD zawiera ostrzeżenia i memo odtworzone z obsługiwanych flag oraz katalogów. Nie jest przechwyconym obrazem oryginalnego ECAM. Komunikat zależy od danych i fazy lotu; stary plik bez odpowiednich flag nie potwierdza braku awarii. Ten ekran śledzi oś czasu niezależnie od ręcznie wybranej strony dolnego ECAM.
+
+@ecam-recorded|Dolny ECAM: Recorded i wybór stron
+Przyciski pod dolnym ekranem wybierają ENG, BLEED, PRESS, ELEC, HYD, FUEL, APU, COND, DOOR, WHEEL, F/CTL, STS i CRUISE. Wybór jest lokalny dla odtwarzacza: nie wysyła komend do MSFS ani nie zmienia nagranego przełącznika w kokpicie. Po ręcznej zmianie strony wartości nadal podążają za wspólnym czasem.
+Recorded (w polskim interfejsie „Z nagrania”) przywraca stronę, którą pilot miał wyświetloną w danej chwili, jeśli jej identyfikator zapisano. Podczas przewijania może więc automatycznie zmieniać stronę. Bez tej zmiennej nie można wiarygodnie ustalić wyświetlanej strony. Rozdziały podrzędne pokazują każdą stronę osobno w czytelnym rozmiarze.
+Stała stopka obejmuje dostępne TAT, SAT, czas oraz gross weight. Nie wszystkie samoloty wystawiają komplet danych systemowych, a część stron może zawierać kreski. Wypnij ECAM, jeśli chcesz obejrzeć schematy obok PFD.
+
+@ecam-engine|ENG: parametry pomocnicze silników
+Na ENG porównuj fuel used obu silników, ilość oleju, ciśnienie, temperaturę i wibracje N1/N2. Zużycie jest ilością, a nie bieżącym przepływem FF z E/WD. Schemat uzupełniają dostępne dane rozruchowe. Wybierz ten sam moment co na E/WD i porównaj oba źródła. Puste wartości pozostają nieznane, szczególnie w starych nagraniach bez katalogu SDK.
+
+@ecam-bleed|BLEED: pneumatyka
+Schemat przedstawia dostępne temperatury i ciśnienia bleed, zawory silników, APU, crossbleed oraz packi. Sprawdzaj połączenia razem ze stanem źródeł, a nie tylko kolor pojedynczej linii. Zmiana strony nie otwiera zaworu. Brak danych zaworu nie pozwala wywnioskować jego pozycji z samej temperatury.
+
+@ecam-press|PRESS: ciśnienie kabiny
+Wysokość kabinowa, cabin V/S i różnica ciśnień opisują kabinę, nie ruch samolotu widoczny na PFD. Porównaj je z LDG ELEV oraz stanem układu i zaworu outflow, jeśli zapisano. Nie myl cabin altitude z radio altitude. Wyświetlenie wartości nie dowodzi ręcznego lub automatycznego trybu bez odpowiedniej flagi.
+
+@ecam-elec|ELEC: zasilanie elektryczne
+BAT, generatory, TR i szyny AC/DC tworzą schemat przepływu zasilania. Czytaj napięcie, prąd, częstotliwość i obciążenie z ich jednostkami. Napięcie obecne na generatorze nie dowodzi, że zasila on daną szynę — do tego potrzebny jest zapis styczników lub połączeń. Dostępność EXT PWR nie jest równoznaczna z jego podłączeniem.
+
+@ecam-hyd|HYD: hydraulika
+GREEN, BLUE i YELLOW są trzema układami. Porównuj ich ciśnienia, zasoby oraz stany pomp z połączeniami PTU/RAT, o ile dostępne. PTU przekazuje moc pomiędzy układami, a nie jest zwykłym wspólnym zbiornikiem. Brak ciśnienia i brak zarejestrowanego ciśnienia muszą pozostać rozróżnione.
+
+@ecam-fuel|FUEL: zbiorniki i przepływ
+Strona rozdziela ilości w zbiornikach, pozycje pomp/zaworów, fuel used i łączny flow. FOB pozwala porównać sumę paliwa z górnym ECAM. Ilość w zbiorniku, zużycie i przepływ mają inne znaczenie oraz mogą mieć inne jednostki. Sam spadek paliwa nie wystarcza do ustalenia pozycji crossfeed bez danych zaworu.
+
+@ecam-apu|APU: rozruch i obciążenie
+Prędkość N i EGT pomagają prześledzić rozruch APU; dostępne generator i bleed uzupełniają stan układu. AVAIL, klapa dolotowa oraz zawór bleed opisują różne elementy. Nie wyciągaj wniosku o podłączonym obciążeniu tylko z N bliskiego 100%. Przewiń początek rozruchu i porównaj kolejność wzrostu N, EGT i pojawienia się dostępności.
+
+@ecam-cond|COND: temperatury stref
+CKPT, FWD i AFT rozdzielają temperatury stref kabiny i dostępne temperatury kanałów. Porównuj temperaturę rzeczywistą z dostępną nastawą i stanem dopływu gorącego powietrza. Powolna odpowiedź temperatury jest normalnie inną wielkością niż natychmiastowa zmiana pozycji przełącznika. Nie przypisuj jednej zmierzonej temperatury wszystkim strefom przy brakach danych.
+
+@ecam-door|DOOR/OXY: drzwi i tlen
+Schemat kadłuba pokazuje zapisane stany drzwi pasażerskich, serwisowych i cargo oraz dostępne dane tlenu. Pozycja drzwi i uzbrojenie slide są odrębnymi stanami. Nie używaj tej wizualizacji jako potwierdzenia procedury zamknięcia, jeżeli dany dodatek nie wystawia odpowiednich pól. Przewijanie odtwarza stany historyczne i nie otwiera drzwi w symulatorze.
+
+@ecam-wheel|WHEEL: podwozie i hamulce
+Na tej stronie zestawione są pozycje podwozia, dostępne informacje o blokadach i temperaturach hamulców. Rozróżniaj polecenie dźwigni od rzeczywistego położenia goleni. Podczas analizy lądowania porównaj ten ekran z chwilą touchdown, prędkością i hamowaniem na wykresach. Sama temperatura hamulca nie określa ustawienia autobrake; potrzebna jest zapisana nastawa.
+
+@ecam-fctl|F/CTL: sterowanie lotem
+Obserwuj lotki, ster wysokości, ster kierunku, spoilery i pitch trim. Dostępne flagi ELAC/SEC oraz zasilania hydraulicznego opisują zaplecze układu. Wychylenie powierzchni nie jest tym samym co pozycja joysticka ani komenda FD. Do porównania reakcji wybierz odpowiednie parametry na wykresach. Położenia nie dowodzą sprawności komputera bez jego zapisanych stanów.
+
+@ecam-sts|STS: status i systemy niedostępne
+STS jest tekstowym podsumowaniem obsługiwanych ograniczeń, zaleceń i INOP SYS. Teksty są rekonstruowane z dostępnych flag katalogu, a nie rozpoznawane ze zrzutu ekranu kokpitu. Zestaw może być niepełny dla wersji dodatku innej niż katalog rejestratora. Nie dopisujemy procedur z samego przypuszczenia, że jakiś system zawiódł.
+Aby prześledzić zdarzenie, porównaj STS z komunikatami E/WD, stroną odpowiedniego systemu i wartościami SDK przed oraz po zmianie. Pusta strona nie jest gwarancją braku ograniczeń w rzeczywistym dodatku.
+
+@ecam-cruise|CRUISE: przegląd w locie
+CRUISE łączy wybrane dane silników i kabiny: fuel used, olej, wibracje, temperatury stref, różnicę ciśnień, cabin altitude i cabin V/S. To skrót, nie dodatkowe źródło pomiarów. Te same dane oglądane na ENG, COND lub PRESS powinny odpowiadać tej samej chwili. W Recorded strona może pojawiać się zgodnie z wyborem zapisanym w kokpicie.
+
+@fmc-b737|B737 CDU
+Ekran pokazuje tekst zapisany z B737 CDU, wraz z dostępnymi kolorami, małym/dużym fontem i kontrolkami. Lewą i prawą jednostkę wybiera się zakładkami; każda może mieć inną stronę. Klawisze na tle są elementem prezentacji i nie służą programowaniu FMS.
+Przewijanie wybiera ostatni ekran znany do wskazanej chwili. Dłuższy brak zmian treści może być prawidłowy, jeśli zapis obejmuje tylko zmiany. Dane INIT/PERF/LEGS są treścią historyczną, nie automatycznie wyliczonym planem mapy. Brak jednej jednostki nie upoważnia do skopiowania stanu drugiej. Dostępność B777 i szczegółów formatowania zależy od wersji SDK. Oba poniższe zrzuty pokazują osobne jednostki w odłączonym panelu.
+
+@fmc-a320|A320 MCDU
+Ekran pokazuje tekst zapisany z A320 MCDU, wraz z dostępnymi kolorami, małym/dużym fontem i kontrolkami. Lewą i prawą jednostkę wybiera się zakładkami; każda może mieć inną stronę. Klawisze na tle są elementem prezentacji i nie służą programowaniu FMS.
+Przewijanie wybiera ostatni ekran znany do wskazanej chwili. Dłuższy brak zmian treści może być prawidłowy, jeśli zapis obejmuje tylko zmiany. Dane INIT/PERF/LEGS są treścią historyczną, nie automatycznie wyliczonym planem mapy. Brak jednej jednostki nie upoważnia do skopiowania stanu drugiej. Dostępność B777 i szczegółów formatowania zależy od wersji SDK. Oba poniższe zrzuty pokazują osobne jednostki w odłączonym panelu.
+
+@fmc-b777|B777 CDU
+Ekran pokazuje tekst zapisany z B777 CDU, wraz z dostępnymi kolorami, małym/dużym fontem i kontrolkami. Lewą i prawą jednostkę wybiera się zakładkami; każda może mieć inną stronę. Klawisze na tle są elementem prezentacji i nie służą programowaniu FMS.
+Przewijanie wybiera ostatni ekran znany do wskazanej chwili. Dłuższy brak zmian treści może być prawidłowy, jeśli zapis obejmuje tylko zmiany. Dane INIT/PERF/LEGS są treścią historyczną, nie automatycznie wyliczonym planem mapy. Brak jednej jednostki nie upoważnia do skopiowania stanu drugiej. Dostępność B777 i szczegółów formatowania zależy od wersji SDK. Oba poniższe zrzuty pokazują osobne jednostki w odłączonym panelu.
+
+@values|Wartości: odczyt i wyszukiwanie
+Wartości to inspektor pojedynczej chwili nagrania. Wyszukiwarka filtruje nazwy opisowe i identyfikatory, więc można szukać zarówno „olej”, jak i fragmentu eng_oil_pressure. Wyczyszczenie pola przywraca pełną listę. Filtr nie zmienia danych ani zestawu nagrywanych zmiennych.
+Liczby są prezentowane według jednostek aplikacji. Znane enumy mają opisy kokpitowe, np. UP/1/2/5/10/15/25/30/40 lub RTO/DISARMED/1/2/3/MAX; takie etykiety nie są tłumaczone. Mapowanie zależy od typu samolotu i źródła. Nieznana wartość pozostaje liczbą, a brak wartości nie staje się zerem. Zmiana kursora na mapie lub osi czasu odświeża tę samą chwilę tutaj.
+
+@events|Zdarzenia nagrania
+Lista zdarzeń porządkuje zapisane zmiany i zdarzenia sesji. Czas wiersza odnosi się do nagrania; porównuj go z kursorem odtwarzania i odpowiednimi parametrami na wykresie. Zdarzenie nie zastępuje próbek poprzedzających zmianę.
+W razie przerwania lotu sprawdź końcowy fragment i status pliku. CTD może pozostawić zapis niepełny, a ostatnie zdarzenie nie musi wskazywać przyczyny awarii. Treści historyczne pochodzą z chwili zapisu i nie wszystkie są tłumaczone przy późniejszej zmianie języka aplikacji.
+
+@contacts|Starty i lądowania: wybór zdarzenia
+Wiersze rozróżniają oderwanie i przyziemienie oraz przechowują dostępne wartości w chwili kontaktu. W locie z touch-and-go może być kilka par. Wybierz właściwy kontakt przed otwarciem pogody lub analizą AI. Lotnisko odlotu i celu z planu jest kontekstem, nie gwarancją miejsca każdego kontaktu.
+Oderwanie nie oznacza początku rotacji, a próbka przyziemienia przy interwale 500 ms może nie zawierać szczytu przeciążenia. Dlatego analizuj także wcześniejsze i późniejsze próbki. Okna przed/po dla startu i lądowania ustawia się niezależnie w Ustawieniach.
+
+@simvars|Katalog standardowych parametrów SimVar
+Poniższy katalog pochodzi bezpośrednio z deklaracji standardowej telemetrii aplikacji: parametrów liczbowych, logicznych i pól silników. W oknie konfiguracji demonstracyjnej znajdują się wszystkie te parametry, z polami silników 1–4. To katalog obsługiwany przez FDR, a nie obietnica obsługi każdej zmiennej istniejącej w SDK Microsoft. Zmienne SDK dodatków i GSX mają własne katalogi.
+Identyfikator jest stabilną nazwą wewnętrzną FDR; podpis i jednostka odpowiadają bieżącemu językowi oraz ustawieniom prezentacji. W prawdziwym nagraniu lista może być mniejsza: zależy od samolotu, silników i zapisanych subskrypcji. Nie subskrybujemy na siłę parametrów silnika tłokowego dla jet. Dodanie parametru do wykresów nie odtworzy wartości, których nie zapisano.
+Aby znaleźć parametr, użyj wyszukiwania CHM lub wyszukiwarki w oknie wykresów. Najpierw zaznacz potrzebne wartości, przenieś je na listę wyświetlanych, ustal kolejność i zatwierdź OK. Surowe identyfikatory pomagają porównać ten katalog z zakładką Wartości i raportem diagnostycznym.

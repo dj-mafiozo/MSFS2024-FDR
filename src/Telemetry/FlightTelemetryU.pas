@@ -16,13 +16,13 @@ Interface
     DataSources  : TJSONObject;
     AirlinerData : TJSONObject;
     GSXData      : TJSONObject;
-    FSHudDataU   : TJSONObject;
+    fSHudDataU   : TJSONObject;
     Numbers      : Array Of Double;
     Texts        : Array Of String;
     Procedure OverrideNumber(Const Name : String; Value : Double; Const Source : String);
     Constructor Create;
     Destructor Destroy; Override;
-    Procedure Decode(P : Pointer; Size : Integer);
+    Procedure Decode(p : Pointer; Size : Integer);
     Function N(Const Name : String) : Double;
     Function S(Const Name : String) : String;
     Function Time(Const Prefix : String) : String;
@@ -40,13 +40,15 @@ Implementation
    fIndex := TDictionary<String, Integer>.Create;
    SetLength(Numbers, FieldCount);
    SetLength(Texts, FieldCount);
-   For i := 0 To FieldCount - 1 Do
+   For i       := 709 To FieldCount - 1 Do
+    Numbers[i] := NaN;
+   For i       := 0 To FieldCount - 1 Do
     fIndex.Add(SimFields[i].Name, i);
   End;
 
  Destructor TFlightSample.Destroy;
   Begin
-   FSHudDataU.Free;
+   fSHudDataU.Free;
    GSXData.Free;
    AirlinerData.Free;
    AircraftData.Free;
@@ -55,13 +57,13 @@ Implementation
    Inherited;
   End;
 
- Procedure TFlightSample.Decode(P : Pointer; Size : Integer);
+ Procedure TFlightSample.Decode(p : Pointer; Size : Integer);
   Var
    i : Integer;
-   Z : Integer;
-   A : AnsiString;
+   z : Integer;
+   a : AnsiString;
   Begin
-   FreeAndNil(FSHudDataU);
+   FreeAndNil(fSHudDataU);
    FreeAndNil(GSXData);
    FreeAndNil(AirlinerData);
    FreeAndNil(AircraftData);
@@ -70,14 +72,14 @@ Implementation
     Raise Exception.Create(Tr('Truncated SimConnect telemetry'));
    For i := 0 To FieldCount - 1 Do
     If SimFields[i].DataType = 4 Then
-     Move(PByte(NativeUInt(P) + NativeUInt(SimFields[i].Offset))^, Numbers[i], 8)
+     Move(PByte(NativeUInt(p) + NativeUInt(SimFields[i].Offset))^, Numbers[i], 8)
     Else
      Begin
-      SetString(A, PAnsiChar(NativeUInt(P) + NativeUInt(SimFields[i].Offset)), SimFields[i].Size);
-      Z := Pos(#0, String(A));
-      If Z > 0 Then
-       SetLength(A, Z - 1);
-      Texts[i] := UTF8ToString(UTF8String(A));
+      SetString(a, PAnsiChar(NativeUInt(p) + NativeUInt(SimFields[i].Offset)), SimFields[i].Size);
+      z := Pos(#0, String(a));
+      If z > 0 Then
+       SetLength(a, z - 1);
+      Texts[i] := UTF8ToString(UTF8String(a));
      End;
   End;
 
@@ -118,7 +120,7 @@ Implementation
    Seconds : Double;
    Offset  : Double;
    Sign    : String;
-   M       : Integer;
+   m       : Integer;
   Begin
    Seconds := N(Prefix + '.seconds');
    Offset  := 0;
@@ -130,18 +132,18 @@ Implementation
    Sign := '+';
    If Offset > 0 Then
     Sign  := '-';
-   M      := Abs(Trunc(Offset / 60));
-   Result := FormatDateTime('yyyy-mm-dd"T"hh:nn:ss.zzz', DT) + Sign + Format('%.2d:%.2d', [M Div 60, M Mod 60]) + '_' + IntToStr(Trunc(N(Prefix + '.weekday')));
+   m      := Abs(Trunc(Offset / 60));
+   Result := FormatDateTime('yyyy-mm-dd"T"hh:nn:ss.zzz', DT) + Sign + Format('%.2d:%.2d', [m Div 60, m Mod 60]) + '_' + IntToStr(Trunc(N(Prefix + '.weekday')));
   End;
 
  Function TFlightSample.EngineCount : Integer;
   Var
-   V : Double;
+   v : Double;
   Begin
-   V := N('number_of_engines');
-   If IsNan(V) Or IsInfinite(V) Then
+   v := N('number_of_engines');
+   If IsNan(v) Or IsInfinite(v) Then
     Exit(0);
-   Result := EnsureRange(Trunc(V), 0, 16);
+   Result := EnsureRange(Trunc(v), 0, 16);
   End;
 
  Function TFlightSample.EngineRunning : Boolean;

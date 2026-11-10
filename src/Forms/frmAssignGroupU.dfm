@@ -1,4 +1,5 @@
-object frmAssignGroup: TfrmAssignGroup
+﻿object frmAssignGroup: TfrmAssignGroup
+  HelpContext = 1420
   Left = 0
   Top = 0
   BorderStyle = bsDialog

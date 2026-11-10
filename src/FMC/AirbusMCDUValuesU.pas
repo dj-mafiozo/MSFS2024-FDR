@@ -14,21 +14,21 @@ Implementation
  Uses
   System.SysUtils, System.RegularExpressions;
 
- Function Compact(Const S : String) : String;
+ Function Compact(Const s : String) : String;
   Begin
-   Result := TRegEx.Replace(UpperCase(Trim(S)), '\s+', '');
+   Result := TRegEx.Replace(UpperCase(Trim(s)), '\s+', '');
   End;
 
  Function AirbusMCDUPage(Lines : TStrings) : String;
   Var
-   T : String;
-   I : Integer;
+   t : String;
+   i : Integer;
   Begin
    Result := '';
    If Lines.Count = 0 Then
     Exit;
-   T := Compact(Lines[0]);
-   If Pos('TAKEOFF', T) > 0 Then
+   t := Compact(Lines[0]);
+   If Pos('TAKEOFF', t) > 0 Then
     Result := 'AIRBUS_PERF_TAKEOFF'
    Else If TRegEx.IsMatch(UpperCase(Lines[0]), '\b(APPR|APPROACH)\b') Then
     Result := 'AIRBUS_PERF_APPR'
@@ -43,8 +43,8 @@ Implementation
    Else If TRegEx.IsMatch(UpperCase(Lines[0]), '\bINIT(?:\s*[AB])?\b') Then
     Begin
      Result := 'AIRBUS_INIT_A';
-     For I  := 1 To Lines.Count - 2 Do
-      If (Pos('ZFW', Compact(Lines[I])) > 0) Or (Pos('BLOCK', Compact(Lines[I])) > 0) Then
+     For i  := 1 To Lines.Count - 2 Do
+      If (Pos('ZFW', Compact(Lines[i])) > 0) Or (Pos('BLOCK', Compact(Lines[i])) > 0) Then
        Result := 'AIRBUS_INIT_B';
      If TRegEx.IsMatch(UpperCase(Lines[0]), '\bINIT\s*B\b') Then
       Result := 'AIRBUS_INIT_B';
@@ -56,51 +56,52 @@ Implementation
    Page  : String;
    Value : String;
    FS    : TFormatSettings;
-   M     : TMatch;
-   A     : Double;
-   B     : Double;
+   m     : TMatch;
+   a     : Double;
+   b     : Double;
 
    Function Group(Index : Integer) : String;
     Begin
      Result := '';
-     If Index < M.Groups.Count Then
-      Result := M.Groups[Index].Value;
+     If Index < m.Groups.Count Then
+      Result := m.Groups[Index].Value;
     End;
 
   // Read only label/data rows, never row 13 (scratchpad). Exact half-screen
   // boundaries prevent an unrelated value in the other column being borrowed.
-   Function Field(Const LabelText : String; Out V : String) : Boolean;
+
+   Function Field(Const LabelText : String; Out v : String) : Boolean;
     Var
-     R        : Integer;
-     C        : Integer;
+     r        : Integer;
+     c        : Integer;
      Half     : String;
      LabelKey : String;
-     H        : String;
+     h        : String;
     Begin
      Result   := False;
-     V        := '';
+     v        := '';
      LabelKey := Compact(LabelText);
-     R        := 1;
-     While (R + 1 < Lines.Count) And (R + 1 <= 12) Do
+     r        := 1;
+     While (r + 1 < Lines.Count) And (r + 1 <= 12) Do
       Begin
-       For C := 0 To 1 Do
+       For c := 0 To 1 Do
         Begin
-         Half := Copy(Lines[R], C * 12 + 1, 12);
+         Half := Copy(Lines[r], c * 12 + 1, 12);
          If Compact(Half) = LabelKey Then
           Begin
-           V := Trim(UpperCase(Copy(Lines[R + 1], C * 12 + 1, 12)));
+           v := Trim(UpperCase(Copy(Lines[r + 1], c * 12 + 1, 12)));
            Exit(True);
           End;
-         H := Trim(UpperCase(Half));
-         If (Copy(H, 1, Length(LabelText)) = UpperCase(LabelText)) And (Length(H) > Length(LabelText)) And CharInSet(H[Length(LabelText) + 1], [' ', ':', '=']) Then
+         h := Trim(UpperCase(Half));
+         If (Copy(h, 1, Length(LabelText)) = UpperCase(LabelText)) And (Length(h) > Length(LabelText)) And CharInSet(h[Length(LabelText) + 1], [' ', ':', '=']) Then
           Begin
-           V := Trim(Copy(H, Length(LabelText) + 1, MaxInt));
-           If (V <> '') And CharInSet(V[1], [':', '=']) Then
-            V := Trim(Copy(V, 2, MaxInt));
+           v := Trim(Copy(h, Length(LabelText) + 1, MaxInt));
+           If (v <> '') And CharInSet(v[1], [':', '=']) Then
+            v := Trim(Copy(v, 2, MaxInt));
            Exit(True);
           End;
         End;
-       Inc(R, 2);
+       Inc(r, 2);
       End;
     End;
 
@@ -110,10 +111,10 @@ Implementation
      Result.AddPair(Key, TJSONNull.Create);
     End;
 
-   Procedure Number(Const Key : String; N : Double);
+   Procedure Number(Const Key : String; n : Double);
     Begin
      Result.RemovePair(Key).Free;
-     Result.AddPair(Key, TJSONNumber.Create(N));
+     Result.AddPair(Key, TJSONNumber.Create(n));
     End;
 
    Procedure TextField(Const LabelText, Key : String);
@@ -131,37 +132,37 @@ Implementation
 
    Procedure NumericField(Const LabelText, Key : String; Low, High : Double);
     Var
-     V     : String;
-     N     : Double;
+     v     : String;
+     n     : Double;
      Match : TMatch;
     Begin
-     If Not Field(LabelText, V) Then
+     If Not Field(LabelText, v) Then
       Exit;
      Null(Key);
-     Match := TRegEx.Match(V, '^\s*([+-]?\d+(?:[.,]\d+)?)\s*(?:KT|KTS|FT|' + WideChar($B0) + '?C)?\s*$');
-     If Match.Success And TryStrToFloat(Match.Groups[1].Value.Replace(',', '.'), N, FS) And (N >= Low) And (N <= High) Then
-      Number(Key, N);
+     Match := TRegEx.Match(v, '^\s*([+-]?\d+(?:[.,]\d+)?)\s*(?:KT|KTS|FT|' + WideChar($B0) + '?C)?\s*$');
+     If Match.Success And TryStrToFloat(Match.Groups[1].Value.Replace(',', '.'), n, FS) And (n >= Low) And (n <= High) Then
+      Number(Key, n);
     End;
 
    Procedure Altitudes(Const LabelText, Key1, Key2 : String);
     Var
-     V     : String;
+     v     : String;
      Match : TMatch;
-     N     : Double;
+     n     : Double;
     Begin
-     If Not Field(LabelText, V) Then
+     If Not Field(LabelText, v) Then
       Exit;
      Null(Key1);
      Null(Key2);
-     Match := TRegEx.Match(V, '^(\d{1,5})\s*/\s*(\d{1,5})$');
+     Match := TRegEx.Match(v, '^(\d{1,5})\s*/\s*(\d{1,5})$');
      If Not Match.Success Then
       Exit;
-     N := StrToInt(Match.Groups[1].Value);
-     If N <= 60000 Then
-      Number(Key1, N);
-     N := StrToInt(Match.Groups[2].Value);
-     If N <= 60000 Then
-      Number(Key2, N);
+     n := StrToInt(Match.Groups[1].Value);
+     If n <= 60000 Then
+      Number(Key1, n);
+     n := StrToInt(Match.Groups[2].Value);
+     If n <= 60000 Then
+      Number(Key2, n);
     End;
 
   Begin
@@ -195,29 +196,29 @@ Implementation
       Begin
        Null('approach_qnh_hpa');
        Null('approach_qnh_inhg');
-       M := TRegEx.Match(Value, '^(\d{3,4}(?:\.\d+)?)\s*(?:HPA)?$');
-       If M.Success And TryStrToFloat(M.Groups[1].Value, A, FS) And (A >= 800) And (A <= 1100) Then
-        Number('approach_qnh_hpa', A)
+       m := TRegEx.Match(Value, '^(\d{3,4}(?:\.\d+)?)\s*(?:HPA)?$');
+       If m.Success And TryStrToFloat(m.Groups[1].Value, a, FS) And (a >= 800) And (a <= 1100) Then
+        Number('approach_qnh_hpa', a)
        Else
         Begin
-         M := TRegEx.Match(Value, '^(\d{2}\.\d{2})\s*(?:INHG)?$');
-         If M.Success And TryStrToFloat(M.Groups[1].Value, A, FS) And (A >= 23) And (A <= 33) Then
-          Number('approach_qnh_inhg', A);
+         m := TRegEx.Match(Value, '^(\d{2}\.\d{2})\s*(?:INHG)?$');
+         If m.Success And TryStrToFloat(m.Groups[1].Value, a, FS) And (a >= 23) And (a <= 33) Then
+          Number('approach_qnh_inhg', a);
         End;
       End;
      If Field('MAG WIND', Value) Then
       Begin
        Null('approach_wind_magnetic_deg');
        Null('approach_wind_kt');
-       M := TRegEx.Match(Value, '^(\d{1,3})\s*/\s*(\d{1,3})$');
-       If M.Success Then
+       m := TRegEx.Match(Value, '^(\d{1,3})\s*/\s*(\d{1,3})$');
+       If m.Success Then
         Begin
-         A := StrToInt(M.Groups[1].Value);
-         B := StrToInt(M.Groups[2].Value);
-         If (A <= 360) And (B <= 250) Then
+         a := StrToInt(m.Groups[1].Value);
+         b := StrToInt(m.Groups[2].Value);
+         If (a <= 360) And (b <= 250) Then
           Begin
-           Number('approach_wind_magnetic_deg', A);
-           Number('approach_wind_kt', B);
+           Number('approach_wind_magnetic_deg', a);
+           Number('approach_wind_kt', b);
           End;
         End;
       End;
@@ -225,16 +226,16 @@ Implementation
       Begin
        Null('takeoff_flaps');
        Null('takeoff_ths_nose_up_deg');
-       M := TRegEx.Match(Value, '^([123])\s*/\s*(?:(UP|DN)\s*)?(\d(?:[.,]\d+)?)\s*(UP|DN)?$');
-       If M.Success Then
+       m := TRegEx.Match(Value, '^([123])\s*/\s*(?:(UP|DN)\s*)?(\d(?:[.,]\d+)?)\s*(UP|DN)?$');
+       If m.Success Then
         Begin
-         Number('takeoff_flaps', StrToInt(M.Groups[1].Value));
+         Number('takeoff_flaps', StrToInt(m.Groups[1].Value));
          // Direction is required; an unsigned trim value is ambiguous.
-         If ((Group(2) = '') Xor (Group(4) = '')) And TryStrToFloat(M.Groups[3].Value.Replace(',', '.'), A, FS) And (A <= 15) Then
+         If ((Group(2) = '') Xor (Group(4) = '')) And TryStrToFloat(m.Groups[3].Value.Replace(',', '.'), a, FS) And (a <= 15) Then
           Begin
            If (Group(2) = 'DN') Or (Group(4) = 'DN') Then
-            A := -A;
-           Number('takeoff_ths_nose_up_deg', A);
+            a := -a;
+           Number('takeoff_ths_nose_up_deg', a);
           End;
         End;
       End;
@@ -250,9 +251,9 @@ Implementation
      If (Pos('APPR', Page) > 0) And (Result.GetValue('vapp_kt') Is TJSONNumber) And (Result.GetValue('vls_kt') Is TJSONNumber) Then
       Begin
        Null('approach_speed_additive_kt');
-       A := TJSONNumber(Result.GetValue('vapp_kt')).AsDouble - TJSONNumber(Result.GetValue('vls_kt')).AsDouble;
-       If (A >= 0) And (A <= 99) Then
-        Number('approach_speed_additive_kt', A);
+       a := TJSONNumber(Result.GetValue('vapp_kt')).AsDouble - TJSONNumber(Result.GetValue('vls_kt')).AsDouble;
+       If (a >= 0) And (a <= 99) Then
+        Number('approach_speed_additive_kt', a);
       End
      Else If (Pos('APPR', Page) > 0) And ((Result.GetValue('vapp_kt') <> Nil) Or (Result.GetValue('vls_kt') <> Nil)) Then
       Null('approach_speed_additive_kt');
@@ -270,14 +271,14 @@ Implementation
       Begin
        Null('cruise_flight_level');
        Null('cruise_temperature_c');
-       M := TRegEx.Match(Value, '^(?:FL)?(\d{2,3})\s*/\s*([+-]?\d{1,2})$');
-       If M.Success Then
+       m := TRegEx.Match(Value, '^(?:FL)?(\d{2,3})\s*/\s*([+-]?\d{1,2})$');
+       If m.Success Then
         Begin
-         A := StrToInt(M.Groups[1].Value);
-         B := StrToInt(M.Groups[2].Value);
-         If A <= 600 Then
-          Number('cruise_flight_level', A);
-         Number('cruise_temperature_c', B);
+         a := StrToInt(m.Groups[1].Value);
+         b := StrToInt(m.Groups[2].Value);
+         If a <= 600 Then
+          Number('cruise_flight_level', a);
+         Number('cruise_temperature_c', b);
         End;
       End;
     End;

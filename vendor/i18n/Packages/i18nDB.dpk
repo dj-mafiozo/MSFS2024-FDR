@@ -3,14 +3,15 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
-package i18nDB;
+Package i18nDB;
 
 {$R *.res}
+{$R *.otares}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
 {$ASSERTIONS ON}
@@ -19,34 +20,34 @@ package i18nDB;
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
-{$LOCALSYMBOLS OFF}
+{$LOCALSYMBOLS ON}
 {$LONGSTRINGS ON}
 {$OPENSTRINGS ON}
-{$OPTIMIZATION ON}
+{$OPTIMIZATION OFF}
 {$OVERFLOWCHECKS OFF}
 {$RANGECHECKS OFF}
-{$REFERENCEINFO OFF}
+{$REFERENCEINFO ON}
 {$SAFEDIVIDE OFF}
-{$STACKFRAMES OFF}
+{$STACKFRAMES ON}
 {$TYPEDADDRESS OFF}
 {$VARSTRINGCHECKS ON}
 {$WRITEABLECONST OFF}
 {$MINENUMSIZE 1}
 {$IMAGEBASE $400000}
-{$DEFINE RELEASE}
+{$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
 {$DESCRIPTION 'i18n Internationalization Components - DB Controls'}
 {$RUNONLY}
 {$IMPLICITBUILD ON}
 
-requires
-  rtl,
-  i18n,
-  dbrtl,
-  vcldb;
+Requires
+ rtl,
+ i18n,
+ dbrtl,
+ vcldb;
 
-contains
-  i18nDBDateCtrls in 'i18nDBDateCtrls.pas',
-  i18nDBCtrls in 'i18nDBCtrls.pas';
+Contains
+ i18nDBDateCtrls In 'i18nDBDateCtrls.pas',
+ i18nDBCtrls     In 'i18nDBCtrls.pas';
 
-end.
+End.

@@ -2,6 +2,243 @@
 
 [Polski](Testy.md) | [English](Testy.en.md) | [Deutsch](Testy.de.md) | [Español](Testy.es.md)
 
+## Zgodność symulatora i wartości przełączników
+
+VerifyFlapsHandle, VerifyParameterValues, VerifyUI i VerifyChartView — PASS: wydzielony case ICAO, A320 standard 6 kontra SDK 5 pozycji, 1+F, profile GA i ujemne detenty Stemme, różnice TFDi/SkySim MD-11, warunkowy Draco/ULAC, niezgodna liczba pozycji, brak danych i pusty fallback. Piąty test Python sprawdza zgodność danych z generowanym unitem. To weryfikacja syntetyczna, nie loty wszystkimi samolotami; 60 kodów pozostaje jawnie niepotwierdzonych.
+
+Ponowny audyt DisplayValue — PASS: 4 testy Python parsera, pochodzenia i zgodności generatorów; VerifyParameterValues oraz VerifyAircraftSDK, VerifyFenix, VerifyFBW, VerifyAddonLVars, VerifyPMDG i VerifyPMDG777. Sprawdzono m.in. chińskie separatory, zakres cyfr zamiast fałszywego enuma, brak interpolacji nieopisanych pozycji, etykiety XML, kody znaków RTP, CSS press/release oraz zachowanie liczbowego fallbacku. 335 XML sprawdzonych, w 14 niepoprawnych XML użyto wyłącznie poprawnych samodzielnych fragmentów UseTemplate. Próby statyczne i atrapy, bez lotu na żywo.
+
+VerifyUI i VerifyGSX — PASS: paski zdefiniowane w DFM, pojawienie w Requested, aktywny/zakończony stan, cofanie czasu, brak danych, odrębne liczniki pasażerów/bagażu oraz postęp i reset cysterny. Testy syntetyczne i atrapa SDK; bez próby z działającym GSX.
+
+VerifySimulatorVersion, VerifySubscriptions, VerifyRecorderWorker, VerifySession, VerifySimBacklog, VerifyFlightPlan i VerifyRecordingWorker: PASS na atrapach/syntetycznej telemetrii. MSFS24 jest akceptowany dopiero po OPEN, MSFS20/FSX/P3D, nieznana i skrócona odpowiedź są odrzucane bez subskrypcji; ponowne połączenie przywraca zgodność. VerifyParameterValues, VerifyParameterNames i VerifyGSX: PASS dla pozycji klap/autobrake, ON/OFF, odrębnych detentów A320/737/777, nieznanych liczb, NaN, niezmiennych oznaczeń kokpitowych oraz tłumaczonych etapów i postępu GSX. Postęp bagażu jest procentem, nie liczbą sztuk. Brak nowych prób z działającym symulatorem lub GSX.
+
+## A320 PFD i ECAM — Fenix / FBW
+
+VerifyAirbusDisplays — PASS: wszystkie 13 stron i podglądy PNG, wybór Recorded kontra manual selector, mapowanie 11/12, zmiana czasu w obie strony, ręczna strona utrzymana podczas seek, pełna ważność ARINC/zero/SSM, aktywny CPC, priorytet rzeczywistych N1 FBW, zapis i odtworzenie SDK delta z SQLite, brak dawnych danych po clear, odłączanie i ikony 0/1, RTL/LTR i resize. VerifyInstrumentFrames — PASS: Fenix/FBW ↔ B38M przy obu odłączonych slotach, zachowana geometria i synchronizacja trzech ekranów. VerifyFBW — PASS po przebudowie MockFenixSim z nowym katalogiem; test utraty ostatniego batcha uogólniony na dowolną liczbę pól. VerifySixPack i VerifyViewState — PASS. Przejrzano PNG PFD, E/WD i HYD; brak lotu na żywo, porównania z działającym Fenix/FBW lub próby projektanta IDE.
+
+Recorded / Z nagrania śledzi zapisane `A32NX_ECAM_SD_PAGE_TO_DISPLAY`, nie przycisk selektora; 11 oznacza CRUISE, 12 STS. Ręczny wybór strony pozostaje aktywny przy przewijaniu, powrót do Recorded przywraca śledzenie. Dopisano 47 odczytywanych pól FBW. Dane ARINC429 wymagają SSM normal operation, brakujące/nieprawidłowe są `--`. To pierwsza rekonstrukcja na podstawie danych, nie pełna emulacja DMC/FWC. Nie są wymyślane tryby FMA, komendy FD, teksty ostrzeżeń/STS, statusy zaworów ani sprawność układów. Z dostępnego XML Fenixa nie potwierdzono faktycznie wyświetlanej strony automatycznej; Recorded pokazuje wtedy brak danych, wszystkie strony można wybrać ręcznie. Olej pokazywany w procentach, bez zgadywania pojemności w kwartach. ECAM używa oznaczonych jednostek Airbus (kg, kg/h, psi, C); PFD zachowuje skonfigurowane jednostki taśm.
+
+[ECAM](https://docs.flybywiresim.com/pilots-corner/a32nx/a32nx-briefing/ecam/), [E/WD](https://docs.flybywiresim.com/pilots-corner/a32nx/a32nx-briefing/ecam/ecam-e-wd/), [SD](https://docs.flybywiresim.com/pilots-corner/a32nx/a32nx-briefing/ecam/sd/), [PFD](https://docs.flybywiresim.com/pilots-corner/a32nx/a32nx-briefing/pfd/), [FBW SD source](https://github.com/flybywiresim/aircraft/tree/master/fbw-a32nx/src/systems/instruments/src/SD).
+
+## Import baz Qt
+
+`VerifyLegacyExport` — PASS: import pliku zgodnego z Qt do biblioteki, odtwarzanie 3 próbek i 6 wierszy silników, dokładność N1, brakujące rozszerzenia jako NaN i zachowane +02:00. Wielolotowy fixture Qt rozdzielony na dwa `.mfzr`, po 3 próbki każdego lotu bez przecieków; powtórny import nie duplikuje wpisów, oba źródła zachowują SHA-256. Dialog/menu DFM w VerifyInstrumentFrames; regresja starszego importu/podglądu w VerifyRecordingImport. Syntetyczne SQLite/VCL, bez próby na żywo.
+
+## Eksport lotu do pierwowzoru Qt
+
+`VerifyLegacyExport` — PASS: dwa loty źródłowe, wyeksportowany tylko wskazany; 3 próbki, 6 powiązanych wierszy silników, jeden komplet kontaktów i zdarzenie, tylko używana grupa; Unicode i niezaokrąglone N1. Siedem tabel, 130 kolumn trip_data i 35 trip_engine_data, brak rozszerzeń i raportów. SHA-256 źródła bez zmian przy podglądzie read-only; odrzucone nadpisanie źródła, nieistniejący lot i błąd NOT NULL w środku kopiowania zachowują poprzedni cel oraz usuwają plik tymczasowy. Niezależny odczyt Python sqlite3 porównał nazwy, typy i kolejność wszystkich kolumn telemetrii z nagłówkiem klonu Qt. Test DFM menu/dialogu w VerifyInstrumentFrames. Bez ręcznego otwarcia w GUI Qt; zgodność zweryfikowana schematem i zapytaniami SQLite.
+
+## Stabilny układ instrumentów i osi czasu
+
+Panel suwaków pozostaje bezpośrednio w CenterPanel, a mapa, wykresy, instrumenty i ich splittery mają osobny ViewsPanel w DFM. Splitter instrumentów nie może już wybierać panelu suwaków jako sąsiada do zmiany rozmiaru. Przy powrocie widoków porządkowane są pozycje instrumentów i separatorów.
+
+VerifyInstrumentFrames: PASS — osobne kontenery, brak nakładania widoków na oś czasu, splitter bezpośrednio nad instrumentami po zmianach wysokości okna 650/750/850 oraz po odłączeniu/powrocie PFD/EICAS. VerifyDetachedViews i VerifyViewState: regresje odłączania, synchronizacji i konfiguracji. Próby syntetyczne VCL/SQLite/INI; bez próby na żywo i bez ręcznego testu projektanta IDE.
+
+## Skalowanie panelu silników i EICAS
+
+Usunięto ScrollBox z obu framów i odziedziczone wpisy z frmMain DFM. Widok zajmuje dostępny obszar klienta pod toolbarem. EICAS zachowuje proporcje; ogólne zegary renderują pełny układ do bufora, dobierają kolumny do rozmiaru panelu i skalują całość. Próbki nie zmieniają rozmiaru kontrolki. Splitter PFD/EICAS ma jawne alLeft, szerokość 6, MinSize 100, AutoSnap=False, rsUpdate i zapis szerokości po przesunięciu.
+
+`VerifyInstrumentFrames`, `VerifyEngineGauges`, `VerifyB38MEICAS`, `VerifyViewState` — PASS. Dodatkowe asercje sprawdzają brak ScrollBox, alClient i dokładną wysokość pozostałą pod toolbarem, kolejność panel–splitter–panel, wyłączone AutoSnap oraz synchronizację i odłączanie. Testy syntetyczne VCL/SQLite/INI; bez lotu na żywo ani ręcznej próby projektanta IDE.
+
+## Dobór framów według ICAO i wspólne skale PFD
+
+- `VerifyInstrumentFrames` — PASS: ICAO B38M wybiera `ikB38MPFD`; sam tytuł MAX 8 tego nie robi; B736/B737/B738/B739 pozostają ogólne. Dwa osobne framy zadeklarowane w DFM zastępują six-pack i panel silników. Zmiana B38M → B738 → B38M z dwoma odłączonymi oknami zachowuje geometrię, właściwego rodzica, synchronizację i ikony 0/1. Powrót przyciskiem i X, przejście do GA oraz piksele taśmy IAS zaliczone.
+- `VerifySixPack`, `VerifyPFD737`, `VerifyB38MEICAS`, `VerifyEngineGauges`, `VerifyDetachedViews`, `VerifyViewState` — PASS. Testy pikselowe ILS dostosowane do nowego układu, bez zmiany oczekiwanych kierunków odchylenia, niezależnych flag, GPS exclusion ani pustych rombów na krańcach. Test 1000 zmian kursora przy 3003 etykietach nadal nie wykonuje wyszukiwań indeksów; zmiana ICAO unieważnia pamięć profilu. Sześć miejsc odłączania zastępuje poprzednie siedem, bez osobnego `view.pfd737`.
+- Naprawiono `sync_test_projects.py`: nowy projekt musi zawierać `DelphiCompile`, inaczej MSBuild może zgłosić sukces bez EXE. Nowy test i regresje skompilowano i uruchomiono po naprawie. Test zarejestrowany w `Tests.groupproj`; jednostki i metadane framów w DPR/DPROJ.
+- Debug/Release Win64 i Setup skompilowane; kontrole projektu, wersji, dokumentacji i tłumaczeń zaliczone. Weryfikacja syntetyczna VCL/SQLite/INI oraz renderów; bez lotu na żywo i bez próby projektanta IDE. Poniższe wcześniejsze sekcje opisują poprzednie etapy; aktualny dobór framów obowiązuje jak wyżej.
+
+## EICAS B38M i dodatkowe parametry
+
+- `VerifyB38MEICAS` — PASS: automatyczny wybór po tytule iFly MAX 8 lub zapisanym ICAO B38M niezależnie od livery, powrót do zwykłych zegarów dla innych samolotów; niezależne N1/N2/EGT/FF/olej/wibracje obu silników. Sprawdzono surowe psf i odczyt 53 psi, detenty klap i nieliniowe położenie wskazówki, przeliczenie galonów na masę tylko przy znanej dodatniej gęstości, NaN zamiast zgadywanego zera.
+- Ten sam test — PASS: piksele bursztynowej lampki FUEL FILTER BYPASS z SDK i niezależnego ENG FAIL, zanik komunikatu po utracie flagi, brak ostrzeżenia silnikowego z lampki APU lub samego zerowego ciśnienia. Starter ma etykietę STARTER ACTIVE, nie START VALVE OPEN. Przejrzano wygenerowany `tests/b38m-eicas-preview.png`. Zmiana proporcji, RTL/LTR, przewijanie w obie strony, odłączanie i powrót tej samej instancji z ikonami 0/1 przeszły.
+- SQLite — PASS w `VerifyB38MEICAS`: zapis i odtworzenie 0,813 ilości oleju, TAT 24,37 i paliwa centralnego 1250,75. Utworzono starszą strukturę bez nowych kolumn, zachowując próbki; odczyt i kontekst AI działają z NaN/NULL, N1 pozostaje 84,7. SHA-256 pliku przed/po podglądzie jest identyczny. Ponowne otwarcie do zapisu migruje schemat, a brakujące historyczne wartości pozostają NULL.
+- `VerifySubscriptions` — PASS: nowe ilości oleju tylko dla istniejących silników, TAT i zbiornik centralny w aktywnym locie; na postoju menu nadal tylko trzy zmienne identyfikacyjne. Kolejność AircraftLoaded/SimStart/FlightLoaded, usuwanie subskrypcji i odrzucanie starych pakietów nadal przechodzą na atrapie DLL. `VerifyPort`, `VerifyRecordingImport`, `VerifyDetachedViews`, `VerifyViewState`, `VerifyPFD737`, `VerifyEngineGauges` i `VerifyContext` również przeszły.
+- Katalog rozszerzono na końcu: dotychczasowe indeksy nie zmienione; nowe pola mają REAL, nazwy interfejsu w 32 językach. Nowy unit jest w DPR/DPROJ, nowy test w Tests.groupproj. Bez lotu na żywo i bez porównania pełnej logiki ostrzeżeń z iFly. Nie ma potwierdzonych źródeł START VALVE OPEN, THRUST ani FUEL FLOW w sprawdzonym SDK 1.5. Ilość oleju jako stosunek pojemności i jednostki pomiarów sprawdzono w [oficjalnym SDK](https://docs.flightsimulator.com/msfs2024/retail/programming-apis/simvars/aircraft-simvars/aircraft-engine-variables/); nie oznacza to litrów ani limitów silnika.
+
+## Skalowanie PFD i osobny PFD 737
+
+- `VerifySixPack` — PASS: render w szerokim panelu 900×200 wykorzystuje wysokość na horyzont, V/S ma tarczę i wskazówkę z odczytem −677 ft/min. Dotychczasowe testy geometrii wysokościomierza, stałego VSI, cache, ILS, braków danych, jednostek i dokowania przechodzą. Skale i napisy nie zmieniają zakresu wraz z próbką. Przejrzano `tests/pfd-wide-preview.png`.
+- `VerifyPFD737` — PASS: nowy natywny frame DFM i renderer. Sprawdzono surowe wartości IAS/ALT i znak pitch, piksele rombów LOC/GS, stałą nieliniową skalę V/S (1000 → 0,5; 2000 → 0,75; 6000 → 1), znak i ograniczenie, NaN, zmianę proporcji 600×640 / szeroką / wąską / miniaturową, przewijanie do przodu i do tyłu, tę samą instancję w osobnym oknie, ikonę 0/1 i LTR przy języku hebrajskim. Przejrzano `tests/pfd737-preview.png`.
+- `VerifyDetachedViews` — PASS: zakładka PFD 737 jest w frmMain.dfm, główna oś czasu aktualizuje ją także po odłączeniu, zamknięcie przywraca zakładkę i ikonę. `VerifyViewState` — PASS: rozszerzony na siedem widoków, z `view.pfd737`, niezależnymi rozmiarami i automatycznym odtwarzaniem stanu po ponownym utworzeniu frmMain.
+- Nowy test dopisano do `tests/Tests.groupproj`; oba unity oraz metadane TFrame są w DPR i DPROJ. Testy są syntetyczne; nie wykonywano lotu ani porównania z działającą awioniką 737 i nie otwierano projektanta IDE. FMA jest obecnie opisem dostępnych flag AP/FD/A/T; renderer nie odtwarza nieznanych trybów ani komend FD.
+
+## Przebudowany frmMain, ikony i prezentacja danych
+
+- Po wizualnej kontroli `native-preview.png` usunięto duplikat silników z SixPack w frmMain: osobny EnginePanel pozostaje aktywny, a przyrządy zachowują wysokość w nowym niskim panelu. Regresja `VerifyDetachedViews` sprawdza tę wysokość. Dodatkowo przeszły `VerifyFMCReplay`, `VerifySimBriefUI`, `VerifySixPack` i `VerifyUI` po zmianach toolbarów.
+- `VerifyDetachedViews` — PASS: nowe panele zamiast usuniętych zakładek, odłączanie i powrót tej samej instancji, ukrywanie kontenera/splitterów po odłączeniu obu przyrządów, odtwarzanie po zamknięciu. Ikony 0/1 zmieniają się także po zamknięciu krzyżykiem. Sprawdzono render obu ikon wszystkich sześciu framów na białym i czarnym tle, bez nieprzezroczystych narożników.
+- `VerifyRecordingTree` — PASS: pełny i obcięty klucz lokalizacyjny ATCCOM z tytułem iFly MAX 8 daje B38M; A32NX daje A20N; istniejący poprawny ICAO pozostaje bez zmian, nierozpoznany klucz daje UNKNOWN, nazwa urządzenia Windows jest odrzucana. Dotychczasowe filtrowanie, sortowanie, lokalizacja i brakujące pliki nadal działają. Surowe metadane i ścieżki istniejących nagrań nie są przepisywane.
+- `VerifyEngineGauges` — PASS: 7632 surowych psf daje 53 psi dla wskaźnika oleju, a wartość przechowywana w modelu pozostaje 7632; NaN nie staje się zerem. Dotychczasowe typy silników, synchronizacja, dokowanie i odczyt NULL nadal przechodzą.
+- `VerifyRecorderWorker` — PASS: atrapa samego otwarcia SimConnect zgłasza E_FAIL, worker pozostaje gotowy, bez Failed/Error i wyświetla lokalizowane Oczekiwanie na MSFS; ponowienia są ograniczone interwałem. Dotychczasowy test błędów poleceń, SQLite i responsywności VCL przechodzi. Nie testowano działającego symulatora ani realnego zerwania transmisji.
+- `VerifyRecordingImport` — PASS: nowa hierarchia paneli w DFM, migracja/import i tryb podglądu bez worker/SimConnect. `VerifyViewState` sprawdza sześć niezależnych okien oraz zapis nowych wymiarów dolnych paneli. Wszystkie próby używają izolowanych plików i atrap; nie otwierano projektanta IDE.
+
+## SixPack i ILS na uproszczonym PFD
+
+- `VerifySixPack` — PASS: rzeczywisty render VCL do bitmapy. Sprawdzono piksele rombów LOC/GS po obu stronach środka, stałość skal przy zmianach pitch/bank, niezależną utratę sygnału LOC i GS, wyłączenie ILS przy GPS, NaN, ograniczenie zakresu i puste romby na końcach skali. Test kilku kolejnych klatek kontroluje również usuwanie poprzednich wskazań. Przejrzano wygenerowany `tests/pfd-ils-preview.png`.
+- Ten sam test — PASS: bezpośrednia klasa bazowa SixPack to `TFrame`; wcześniejsze testy stałego zakresu VSI, cache indeksów, mechaniki wysokościomierza, baro, metrycznych wskazań, dokowania, synchronizacji i migracji brakujących pól nadal przechodzą.
+- `VerifyDetachedViews` — PASS: odczyt głównego DFM, obecność i odłączanie/ponowne dokowanie SixPack oraz pozostałych framów, zachowana synchronizacja. `check_project.py` sprawdza teraz także bezpośrednie dziedziczenie po `TFrame` wszystkich klas użytych jako `inline` w DFM.
+- Próby syntetyczne; nie sprawdzano lotu z rzeczywistym ILS ani ponownego otwierania formularza w projektancie Delphi. DFM zakładki SixPack pozostaje zachowany; nie odtwarzano zmian zapisanych po wybraniu Ignore.
+- Zakresy HSI CDI ±127 i GSI ±119 oraz flagi sygnału potwierdzono w [oficjalnym SDK MSFS 2024](https://docs.flightsimulator.com/msfs2024/html/6_Programming_APIs/SimVars/Aircraft_SimVars/Aircraft_RadioNavigation_Variables.htm). To wychylenia wskazówki, nie kąty w stopniach.
+
+## Mutex rejestratora i zgodność framów z projektantem
+
+- `VerifySetup`: rzeczywisty nazwany obiekt Windows `MSFS24-FDR-Run_Once`; pierwsze uruchomienie uzyskuje uchwyt, drugie zostaje odrzucone, zamknięcie uchwytu pozwala uruchomić ponownie. Sprawdzono wykrywanie mutexu przez instalator.
+- `VerifySetupUI`: rzeczywisty modalny formularz DFM `frmSetupRunning`, `bsDialog`, `mrRetry` i `mrCancel`. Timer testowy trzykrotnie wybiera Ponów; dopiero zwolnienie mutexu dopuszcza kontynuację. Anuluj zgłasza przerwanie operacji i pozostawia mutex rejestratora aktywny. Regresja małego aktualizatora i awarii API również przeszła.
+- `VerifyUI`: odczyt DFM frmMain, utworzenie i pokazanie interfejsu VCL, wykresy, mapa i synchronizacja przeszły po zmianie baz framów przyrządów i silników na bezpośredni `TFrame`. Nie wykonano ręcznego ponownego otwarcia formularza w projektancie Delphi; zgodność projektanta wymaga jeszcze potwierdzenia w IDE.
+- Bez zamykania rzeczywistego rejestratora, bez instalowania do Program Files i bez zmian produkcyjnego rejestru. Test wykrywania procesu starszego EXE bez mutexu nie był wykonywany jako osobna próba procesu.
+
+## 0.1.1 — Instalator w Setup, i18n, konserwacja i PEM
+
+Wykonano w Delphi 10.2 Win64, na izolowanych plikach i formularzach VCL. Nie uruchamiano produkcyjnego instalatora na prawdziwej instalacji ani nie zmieniano prywatnych danych użytkownika.
+
+- `VerifySetupMaintenance`: lista Auto + 32 identyczne kody językowe jak w aplikacji; Windows autodetect przy braku preferencji, zapis i ponowny odczyt `[ui] language`, tłumaczenia kreatora i dialogu danych we wszystkich językach, RTL dla arabskiego/hebrajskiego i powrót do LTR. Weryfikowano rzeczywiste formularze z DFM.
+- Ten sam test w wariancie `SETUP_RESOURCE_TEST` uruchomiono z kopii EXE w katalogu bez zewnętrznych fontów i katalogu i18n. Potwierdził osadzony katalog oraz rejestrację pięciu fontów z pamięci, następnie ponownie sprawdził 32 języki i BiDiMode.
+- Konserwacja: wykrycie istniejącej instalacji i strony radiobuttonów, wybór naprawy, powrót do wyboru, odczyt wersji z metadanych przy brakującym EXE. Naprawa odtworzyła brakujący EXE i uszkodzony plik; znacznik czasu zdrowego pliku pozostał bez zmian. Osobny test listy wydań potwierdził wybór dokładnej wersji i brak cichego przejścia na nowszą przy jej niedostępności.
+- Zachowanie danych: wszystkie cztery kombinacje ustawienia/nagrania, katalog Recordings, indeks, logi i WAL luźnego nagrania. Operacje wykonywano wyłącznie w `TestPathsU`.
+- `tests/VerifyReleasePEM.dpr`: efemeryczny RSA-3072 zapisany jako zaszyfrowany AES-256 PKCS#8 PEM poza repozytorium, jawne hasło testowe przekazane przez stdin. Skompilowano izolowany natywny PackageRelease z kluczem publicznym tej pary; zebrał rzeczywiste binaria runtime z testowego bin, utworzył zaszyfrowany ZIP i manifest, podpisał oba przez OpenSSL i zweryfikował przez CNG. Porównano SHA-256 i wypakowane bajty EXE. Ustawienia, cache i private.pem nie trafiły do paczki, a congratulations.mfz nie został wypakowany.
+- Po kompilacji podmieniono public.pem w źródłach i przy EXE: poprawny podpis nadal przeszedł, ponieważ używany jest klucz wkompilowany. Zmieniona sygnatura manifestu została odrzucona przed utworzeniem katalogu rozpakowania. Błędne hasło PEM przerwało pełne pakowanie i nie pozostawiło ZIP-a ani jego niekompletnych plików publikacji.
+- Regresja: VerifySetup, VerifySetupUI, VerifySetupSignature, VerifySetupMaintenance, VerifyGlobalLocales, VerifyLocaleExpansion, VerifyVersionLanguage, VerifyRTLReturn, VerifyReport, VerifyFMCReplay, VerifyUI, VerifyAppStorage, VerifyRecordingImport — przeszły. Dodatkowo skompilowano osobny PackageRelease.dproj w MSBuild oraz aplikację Debug/Release i Setup 0.1.1.19. Kontrole projektu, zależności, wersji, 1076 definicji tłumaczeń w 32 językach i dokumentacji przeszły.
+
+Operacje rejestru, skrótów i uruchamiania procesów instalacyjnych były atrapami. Nie sprawdzano rzeczywistego UAC, systemowych skojarzeń, pełnej instalacji/naprawy/dezinstalacji, certyfikatu Authenticode ani lotu w MSFS. Hasło i klucz produkcyjny nie zostały wygenerowane; generator wymaga lokalnego wyboru hasła. Nie opublikowano wydania. Test podpisanego ZIP-a dotyczył pary testowej, nie gotowej produkcyjnej paczki. Pozostałe wpisy poniżej opisują wcześniejszy stan, w tym poprzedni klucz CNG.
+
+## 0.1.1 - Menu Start
+
+Menu Start: folder DJ M@fi0z0™ zawiera skr?t aplikacji oraz Odinstaluj MSFS24-FDR wskazuj?cy Setup.exe z /uninstall. Oba podlegaj? istniej?cej opcji Menu Start. VerifySetup sprawdzi? migracj? starego skr?tu, cele i argumenty, wy??czenie opcji oraz usuwanie w?asnych skr?t?w z zachowaniem plik?w innych produkt?w. Operacje skr?t?w by?y atrapami w izolowanym katalogu, bez zmiany prawdziwego Menu Start.
+
+## 0.1.1 ? OmniXML
+
+Edycja exe.xml u?ywa teraz interfejs?w IXMLDocument/IXMLNode i natywnego backendu OmniXML, bez automatyzacji OLE i bez MSXML. VerifySetup sprawdza XML przed CoInitialize: dodanie/usuni?cie w?asnego wpisu, idempotencj?, zachowanie obcych wpis?w i komentarzy, pusty dokument, Unicode i znaki specjalne w ?cie?ce, deklaracj? UTF-8 oraz odrzucanie DTD i uszkodzonego XML. Test instalacji dzia?a na izolowanych plikach i atrapach operacji systemowych; nie zmieniano produkcyjnego exe.xml.
+
+## 0.1.1 — Podpisy wydań
+
+Instalator testowano na syntetycznych plikach w izolowanym katalogu; rejestr, procesy i skróty zastąpiono atrapami. Nie instalowano aplikacji w rzeczywistym Program Files ani nie zmieniano systemowego exe.xml.
+
+- `VerifySetup`: numeryczne porównanie wersji, wybór paczki GitHub i odrzucanie draftów/obcych URL; szyfrowanie i odczyt ZIP, błędne hasło, korupcja CRC, archiwum bez szyfrowania, traversal/ADS/nazwy urządzeń. `congratulations.mfz` nie jest wypakowywany. MSXML zachowuje obce wpisy, nie duplikuje własnego i odrzuca DTD. Instalacja/aktualizacja/dezinstalacja działają na prawdziwych plikach testowych; sprawdzono rollback kopiowanych plików, manifest i wymianę setup.upd. Sprawdzono też DFM changeloga i zapis opcji aktualizacji.
+- `VerifySetupUI`: formularz kreatora, opcje i cofanie, mały layout 440×130; lokalny serwer HTTP zwraca błąd API, brak nowszego wydania i błąd pobrania. Test potwierdza aktywność pętli VCL i uruchomienie starej aplikacji bez ponownego sprawdzania aktualizacji.
+- `VerifySetupSignature`: prawdziwe Windows CNG i efemeryczny klucz testowy RSA-3072; poprawny PSS/SHA-256/sól32 oraz odrzucanie zmienionego podpisu, skrótu, soli20 i pustego klucza. Izolowana zapamiętana wersja nie może zostać zmniejszona.
+- Paczka wydania: podpisanie .NET RSACng i weryfikacja natywnym kodem Delphi/CNG, kontrola CRC i wszystkich bajtów po rozpakowaniu, brak wypakowanego decoya. Niezależny Python zipfile potwierdził zgodność ZipCrypto na jawnym haśle testowym.
+- Regresja: VerifyReport, VerifyFMCReplay, VerifyUI, VerifyRecordingImport, VerifyAppStorage, VerifyRTLReturn. Debug/Release Win64 i osobny Setup kompilowane w Delphi 10.2; kontrola jawnych unitów, projektów testowych i tłumaczeń.
+
+Nie sprawdzano rzeczywistego UAC, certyfikatu Authenticode, publikacji ani lotu w MSFS. Test kopiowania nie oznacza pełnej transakcyjności rejestru, skrótów i XML przy awarii zasilania. Klucz produkcyjny pozostaje w magazynie CNG profilu wydawcy; test RSA używa klucza efemerycznego.
+
+Weryfikacja ko?cowa w docelowym repozytorium: Debug i Release Win64 oraz Setup 0.1.1.16. Wszystkie dziewi?? wymienionych test?w i kontrole projektu, zale?no?ci, wersji, 1048 definicji t?umacze?/32 j?zyk?w oraz dokumentacji przesz?y. Gotowa paczka ma 80 szyfrowanych wpis?w. Osobna pr?ba na kopii paczki odrzuci?a zmieniony ZIP, podpis ZIP, manifest, podpis manifestu oraz brak podpisu manifestu ? katalog rozpakowania nie powsta? w ?adnym przypadku. Przeniesiono sze?? grup ustawie? kompilatora wygenerowanych przez IDE przed import CodeGear.Delphi.Targets; w trzech DFM frame ponownie usuni?to w?a?ciwo?ci zastrze?one dla TForm, zachowuj?c wymiary.
+
+## 0.1.2.15 — Import, podgląd i zasoby DFM
+
+Wykonano testy na syntetycznych danych SQLite i formularzach VCL, bez uruchamiania produkcyjnego EXE na prywatnej bazie ani połączenia z MSFS.
+
+- `VerifyRecordingImport`: migracja jednego lotu, dopisanie następnego do już oznaczonej jako przetworzona bazy legacy, ponowny import bez duplikacji, porównanie SHA-256 oryginału; wykrywanie luźnego `.mfzr`, powtórny skan bez duplikacji oraz izolacja błędnego pliku. Import pliku już należącego do indeksu nie duplikuje nagrania.
+- Ten sam test uruchamia osobny proces z jednym argumentem wskazującym rzeczywisty syntetyczny `.mfzr`. Sprawdza parametry lotu, trzy zakładki przyrządów z DFM, ukrycie LeftPanel i splittera, wyłączenie nagrywania i zarządzania, bezpieczne bezpośrednie wywołanie zablokowanych handlerów oraz brak domyślnego indeksu i blokady rejestratora. Osobno próbuje usunąć dane przez połączenie read-only: SQLite odrzuca zapis, a SHA-256 nagrania pozostaje identyczny. Renderowanie obu ikon importu na jasnym tle ma przezroczysty narożnik.
+- Regresja: `VerifyUI`, `VerifyDetachedViews`, `VerifyHelpAbout`, `VerifyGroups`, `VerifyPort`, `VerifyLegacy`, `VerifyRecorderWorker`, `VerifySession`, `VerifyViewState`, `VerifyFMCReplay`, `VerifyMetar`, `VerifyRecordingFiles`, `VerifyRecordingTree`, `VerifyRecordingUI`, `VerifyRecordingWorker`, `VerifyTripInfo` — wszystkie przeszły. Zakres wcześniejszych testów opisano poniżej.
+
+Nie wykonywano rzeczywistego lotu ani ręcznego klikania systemowego dialogu wyboru pliku. Użyto rzeczywistego SQLite i procesów potomnych; nie sprawdzano każdej możliwej fizycznej korupcji pliku. Nowy test zarejestrowano w Tests.groupproj i domyślnym test.ps1.
+
+Weryfikacja końcowa w docelowym repozytorium: Debug i Release Win64 skompilowane w Delphi 10.2, VersionInfo 0.1.2.15. Powtórnie przeszły VerifyRecordingImport, VerifyRecordingUI i VerifyViewState oraz kontrole projektu, wersji, katalogu 1044 tłumaczeń w 32 językach i dokumentacji. Kopia katalogu w bin jest identyczna ze źródłową. Poprawiono kolejność ustawień MSBuild i hooka wdrażania tłumaczeń; pliki pomocnicze osobnego instalatora nie są traktowane jako unity aplikacji rejestratora.
+
+## 0.1.0.14 — indeks i osobne pliki lotów
+
+Wykonano na syntetycznych danych SQLite/VCL, z izolowanymi katalogami `TestPathsU`:
+
+- `VerifyRecordingFiles`: dwa kolejne nagrania w oddzielnych plikach; indeks bez tabel telemetrii; przejścia recording/finalizing/completed; ścieżki ICAO i nazwy z datą; rozdzielenie próbek/zdarzeń; brakujący plik zachowuje metadane; odrzucanie wyjścia ścieżką poza magazyn. Migracja trzech lotów z jednej bazy: grupy, kolizje nazw, surowe teksty FMC, JSON formatowania i kontrolek, dodatkowa tabela `trip`, wersja schematu, ponowne otwarcie bez powtórnego upgrade oraz idempotencja. Oryginał porównany bajt po bajcie.
+- Ten sam test uruchamia proces potomny i kończy go przez `TerminateProcess`, bez destruktorów i checkpointu. Sprawdzono istniejący WAL, odzyskanie zatwierdzonej próbki, stan interupted, awarię pomiędzy rename a zapisem ścieżki w indeksie oraz zachowanie uszkodzonego pliku i metadanych przy błędzie integralności.
+- `VerifyRecordingTree`: kolejność wszystkich poziomów według najnowszego potomka, kolejność rodzeństwa, pełne miesiące PL/DE, identyfikatory nowych tłumaczeń, zerowane składniki czasu, ikony 29/63, prefiks aktywnego nagrania, zachowanie zaznaczenia, grupa + wyszukiwanie bez rozróżniania wielkości liter, puste filtry i usuwanie pustych gałęzi z prezentacji, ukrycie brakującego pliku bez usuwania metadanych.
+- `VerifyRecordingUI`: rzeczywisty formularz z migrowanym plikiem, zaznaczenie/dwuklik, parametry i ramki przyrządów, niedostępny aktywny węzeł, reset wyszukiwania i wybór folderu. Zautomatyzowany dialog odzyskiwania: odmowa nie usuwa pliku ani metadanych, następny start pyta ponownie, zgoda umożliwia otwarcie odzyskanego nagrania.
+- `VerifyRecordingWorker`: rzeczywisty wątek rejestratora, syntetyczny SimConnect, blokada zapisu SQLite w pojedynczym pliku; heartbeat VCL i nieblokujące polecenia, wiele próbek, finalizacja ścieżki/statusu oraz poprawne zamknięcie.
+
+Nowe programy dodano do `tests/Tests.groupproj` i domyślnego `test.ps1`. Testy poprzedniego interfejsu używają drzewa zamiast usuniętego DBGrid. `VerifyFMCReplay` przeniesiono z globalnego TEMP do izolowanego katalogu testu. Nie uruchamiano produkcyjnego EXE na prywatnej bazie użytkownika, nie wykonywano lotu w MSFS ani nie certyfikowano odzyskiwania wszystkich fizycznie uszkodzonych baz. Historia poprzednich testów poniżej pozostaje aktualna dla opisanych tam wersji.
+
+Weryfikacja końcowa: przeszło 15 zestawów regresyjnych (`VerifyUI`, `VerifyDetachedViews`, `VerifyHelpAbout`, `VerifyGroups`, `VerifyPort`, `VerifyLegacy`, `VerifyRecorderWorker`, `VerifySession`, `VerifyViewState`, `VerifyFMCReplay`, `VerifyMetar` oraz cztery nowe testy nagrań). Miesiące sprawdzono też dla ar-SA i he-IL z kalendarzem gregoriańskim. Test UI obejmuje potwierdzone usunięcie tylko wybranego pliku oraz odmowę usunięcia zajętego pliku bez utraty metadanych i z bezpiecznym wyczyszczeniem inspektora. Debug i Release Win64 kompilują się w Delphi 10.2; VersionInfo: 0.1.0.14. Kontrole projektu, wersji, katalogu tłumaczeń i dokumentacji przeszły.
+
+
+Lista nagrań używa `vstRecordings: TVirtualStringTree` zgodnie z nowym układem formularza. Stan wyłączenia węzłów jest natywny; odświeżanie zachowuje wybór, rozwinięte katalogi i pozycję przewijania. Do budowania potrzebne są źródła Virtual TreeView V8: domyślnie sąsiedni `..\Virtual-TreeView\Source`, ewentualnie `vendor\Virtual-TreeView\Source`. Można podać `-VirtualTreeRoot` do `build.ps1`/`test.ps1` lub `/p:VirtualTreeRoot=...` do MSBuild. Ta sama ścieżka obowiązuje w projekcie IDE i grupie testów. Wersja EXE nie wymaga dodatkowej biblioteki uruchomieniowej tego komponentu.
+
+
+Ponowiono komplet 16 wymienionych zestawów po przejściu na TVirtualStringTree (łącznie z VerifyTripInfo). Dodatkowo w docelowym repozytorium przeszły VerifyRTLReturn i VerifyGlobalLocales: 32 języki, fonty i przełączanie RTL/LTR. Razem 18 zestawów regresyjnych. Obejrzano syntetyczny native-preview.png z VerifyUI: widoczne drzewo, lokalizowany miesiąc, ikony i zaznaczone nagranie. Końcowe Debug/Release Win64 oraz pięć izolowanych testów magazynu/informacji o locie w docelowym repozytorium: PASS.
+
+
+## 0.1.0.13 — zakresy, indeksy i wysokościomierz (2026-10-21)
+
+Rozszerzono istniejący `VerifySixPack` (już wpisany w `Tests.groupproj`). Syntetyczne nagranie zawiera VSI 100 i -5600 ft/min, NaN, Infinity oraz krótszą tablicę wartości. Zakres od pierwszej próbki wynosi 6000 ft/min i pozostaje stały podczas przewijania w obu kierunkach. Przy braku VSI minimum wynosi 2000. Także IAS ma zakres stały dla podpiętych danych. Zmiana ft/min→m/s zachowuje iloraz wartości i zakresu. Nie oceniano wskazań w locie MSFS.
+
+Testowa podklasa listy liczy wywołania IndexOf: 3003 etykiety i 1000 kolejnych SetPoint nie powodują kolejnych wyszukiwań. Sprawdzono zmianę kolejności przy tej samej liczbie etykiet, przemianowanie na nieznany parametr, zmianę obiektu nagrania oraz Clear. Revision zachowuje działanie klienta OnChange. To kontrola ścieżki TSixPackDisplay, nie pomiar czasu całej aplikacji ani panelu silników. Przy niezmiennych etykietach edycja samych wartości wymaga Clear do ponownego wyznaczenia zakresów; normalny replay nie modyfikuje podpiętych próbek.
+
+Dla 12500 ft test sprawdza kąty trzech wskazówek 180°/90°/45°, niezmienność po ft→m i odczyt 3810 m. Porównuje także piksel na rzeczywistej długiej wskazówce renderu przed/po konwersji, a nie samą funkcję pomocniczą. Dodatkowo -500 ft (zawijanie wskazówki), NaN, dotychczasowe ILS/baro, odłączanie, mały rozmiar, RTL i NULL po migracji. Obejrzano `tests/six-pack-metric-preview.bmp`: legenda FT i metryczny odczyt z zachowaną mechaniką stopową.
+
+Zaliczone testy regresji: VerifySixPack, VerifyDetachedViews, VerifyViewState, VerifyDisplayUnits, VerifyEngineGauges, VerifyPort, VerifyUI. Nie powtarzano całej listy 53 Verify. Zmiana TPlotLabels dotyczy modelu pamięci; definicje SQL i zapis surowych danych pozostają bez zmian. Build zwiększony raz do 0.1.0.13; kontrole projektu i istniejącej grupy testów wymagane jak poprzednio.
+
+
+Końcowa próba w docelowym repozytorium: wszystkie siedem wymienionych testów ponownie PASS. Debug i Release Win64 zbudowane z VersionInfo 0.1.0.13. Brak zmian konfiguracji/bazy użytkownika; produkcyjnego EXE nie uruchamiano.
+
+
+## 0.1.0.12 — zapis stanu widoków (2026-10-21)
+
+Nowy `VerifyViewState` zarejestrowany w `tests/Tests.groupproj` i domyślnej liście `test.ps1`. Test syntetyczny VCL/INI/SQLite, bez lotu ani otwierania prywatnej konfiguracji. Przechodzi wielokrotne utworzenie i zniszczenie frmMain na izolowanej konfiguracji: sześć odłączanych frame'ów (w tym SimBrief), różne pozycje/rozmiary, zamknięcie aplikacji bez utraty stanu odłączenia, automatyczne odtworzenie, powrót przyciskiem i przez X, niezależność pozostałych okien oraz zachowanie geometrii po zwinięciu. Dodatkowy nieznany wcześniej frame `future_hud` potwierdza rozszerzalność rejestru bez osobnego kodu zapisu.
+
+Dalsze asercje: maksymalizacja zachowuje normalne wymiary, minimalizacja nie zapisuje wymiarów ikony i nie odtwarza zminimalizowanego okna, ponowny `Restore` nie otwiera zwiniętego widoku, reset zwija widoki i usuwa ich sekcje, błędne/powtórzone ID są odrzucane, przeliczanie rozmiaru po emulowanej zmianie DPI oraz naprawa współrzędnych poza ekranem/MaxInt i nieprawidłowego rozmiaru/PPI. Nie odłączano fizycznie monitorów ani nie zmieniano DPI Windows — test emuluje wartości INI.
+
+Zaliczone testy regresji: VerifyViewState, VerifyDetachedViews, VerifyUI, VerifySimBriefUI, VerifyRTLReturn, VerifySixPack, VerifyEngineGauges. Nie uruchamiano ponownie całego zestawu 53 Verify; wpis o 52 testach poprzedniej wersji opisuje tamten przebieg. Kontrole DPR/DPROJ, grupy testów, i18n, wersji, fontów i dokumentacji przechodzą. Usunięto ponownie właściwości TForm zapisane przez IDE w DFM six-packa, zachowując ręczne wymiary i wygląd. Numer Build zwiększono raz do 0.1.0.12.
+
+
+Końcowa weryfikacja w docelowym repozytorium: wszystkie siedem powyższych testów ponownie PASS; aplikacja zbudowana jako Debug i Release Win64 z VersionInfo 0.1.0.12. Nowy test zbudowano również przez docelowy target `Tests.groupproj` w kopii roboczej i uruchomiono powstały EXE. Nie uruchamiano produkcyjnego EXE ani migracji prywatnych danych.
+
+
+## 0.1.0.11 — izolacja baz i panele przyrządów (2026-10-21)
+
+Wykonano pełny zestaw **52 programów Verify** przez `test.ps1`: wszystkie zakończyły się kodem 0/PASS. To testy syntetyczne SQLite/VCL i atrapy SimConnect/IPC/HTTP/CLI; nie wykonano lotu ani walidacji wskazań z uruchomionym MSFS. Zachowano istniejące testy regresji nagrywania, katalogów samolotów, FMC, FSHud, GSX, analizy, SimBrief, wykresów, jednostek, języków, RTL, migracji i wersji.
+
+- `TestPathsU`, pierwszy unit Verify*, tworzy osobny katalog `.build/test-data/<nazwa>/<PID>-<tick>`. Przekierowuje bazy i ustawienia `PORT_TEST`; kopiuje tylko zależności testowe i fixtures. Testy migracji nadal pracują na własnych tymczasowych drzewach. VerifyPort, VerifyLegacy i testy VCL sprawdzono ponownie na nowych ścieżkach. Dane użytkownika z `bin`/LocalAppData nie są otwierane przez te testy.
+- `VerifySixPack`: valid LOC/GS z niezależną normalizacją ±127/±119, blokada CDI GPS, utrata GS przy zachowanym LOC, brak flag/NaN, aktualne baro 1026 hPa, fallback 29.92 inHg→hPa i STD. Dotychczasowe próby obejmują znak pitch, heading wrap, pomiar turn/ball, jednostki, resize, odłączanie i migrację brakujących kolumn. Ograniczenie: kierunek wskazań i wygląd wymagają jeszcze porównania w locie.
+- Nowy `VerifyEngineGauges`: klasyfikacja czterech układów, tłokowy/turboprop/jet, 0/1/2/4/16 silników i błędna liczba, osobne wartości N1, RPM/CHT/ITT/condition, odrzucanie niepasujących grup, poprawne zero paliwa i ukrywanie brakujących opcjonalnych wskazań, jednostka A, odłączanie/przywracanie tego samego frame, zmiana próbki, RTL→LTR, mały rozmiar i render bitmapy. Zapis/odczyt nowych pól i tytułu samolotu, precyzyjne ITT oraz SQL NULL→NaN dla nieodczytanych silników/ILS. Obejrzano `tests/engine-gauges-preview.bmp`.
+- `VerifyDetachedViews`: dodatkowo panel silników w frmMain, przycisk powrotu, Close i synchronizacja z etykietą czasu. `VerifySubscriptions`: istniejąca atrapa potwierdza dobór typu/liczby silników i wyłączenie odczytu po zakończeniu sesji.
+- Poprawka FireDAC: brakujący parametr silnika dostaje typ przed Clear/NULL. Wcześniej nowy test ujawnił błąd „Parameter V32 data type is unknown”; po poprawce PASS. Nie maskuje się brakujących danych zerami.
+
+Dodane 123 pola SimConnect zachowują stare offsety: 11 wspólnych i 7 rodzin ×16 silników. Nowe kolumny są nullable; wcześniejsze nagrania nie zyskują wstecznie brakujących danych. Katalog ma 834 pola / 7080 bajtów, 123 kolumny liczbowe i 39 rodzin kolumn silników. Kontrole projektu potwierdzają 88 unitów w DPR/DPROJ, 1034 definicje i18n ×32 locale, fonty/licencje, dokumentację, katalogi add-on/AIRLINER i spójność wersji 0.1.0.11. Kontrola i18n weryfikuje strukturę/placeholdery/Unicode, nie poprawność terminologii przez native speakera; nowe opisy parametrów mają także techniczny fallback angielski.
+
+Zegary mają ogólne skale, bez odwzorowania limitów konkretnego samolotu. `ikGaGlass` i `ikAirlinerPFD` są uproszczonym wspólnym widokiem, bez pełnego FMA, FD/PFD/ND Boeinga/Airbusa. Klasyfikacja używa dostępnego tytułu i danych silnika; niestandardowe nazwy mogą wymagać rozszerzenia. Referencje jednostek/flag: [engine SimVars](https://docs.flightsimulator.com/msfs2024/retail/programming-apis/simvars/aircraft-simvars/aircraft-engine-variables/), [radio/navigation SimVars](https://docs.flightsimulator.com/msfs2024/retail/programming-apis/simvars/aircraft-simvars/aircraft-radio-navigation-variables/).
+
+
+Weryfikacja końcowa: wszystkie 63 projekty w `tests/Tests.groupproj` zbudowano przez MSBuild Delphi 10.2 (Debug/Win64, wydawca IPC Win32). Dodatkowo sprawdzono domyślne ustawienia grupy bez parametru Platform i uruchomiono jej EXE VerifyEngineGauges/VerifySixPack. Poprawiono ścieżkę zasobów VCL oraz flagi dostępności platform w metadanych IDE. Po scaleniu ręcznego formatowania ponownie PASS: VerifyEngineGauges, VerifySixPack, VerifyDetachedViews, VerifyPort, VerifyLegacy, VerifyDisplayUnits. Nowy test sprawdza też przejścia NULL→wartość→NULL na przygotowanym zapytaniu, ułamkowe baro 1026.35 i tłumaczenia nowych podpisów. Skale silników są wspólne dla porównywanych silników; baro zapisuje się jako REAL bez obcinania części ułamkowej.
+
+
+Końcowa próba w docelowym repozytorium wykazała także trzy problemy checkoutu/zapisu IDE: porównywanie rekordów Name bez tolerancji spacji, sumy licencji OFL wrażliwe na CRLF oraz właściwości TForm (ClientHeight/ClientWidth/OldCreateOrder/PixelsPerInch/TextHeight) w DFM six-packa. Kontrole nazw i licencji poprawiono bez osłabiania weryfikacji nazw/treści/fontów; DFM zachowuje ręczne wymiary i wygląd jako poprawny TFrame. Kontrola licencji w ZIP też toleruje wyłącznie różnicę LF/CRLF. W repozytorium powtórzono siedem testów, dodając VerifyAddonLVars. Debug i Release Win64 0.1.0.11 przebudowano; programu produkcyjnego nie uruchamiano, bez migracji prywatnych danych podczas testowania.
+
+
+## 0.1.0.10 — subskrypcje lotu i natywny six-pack (21.10.2026)
+
+Pełny `test.ps1`: **51 programów PASS**, Delphi 10.2 Win64, odizolowane dane. Kontrole: 85 unitów DPR/DPROJ, 1014 definicji × 32 locale, fonty, wersja i dokumentacja: PASS. Nie uruchamiano produkcyjnego EXE ani migracji prywatnej bazy. Starsze wyniki poniżej są historią.
+
+- `VerifySubscriptions` + nowy `MockLifecycleSim.dll`: po połączeniu tylko trzy pola identyfikacyjne; brak pełnego odczytu w menu; aktywacja przez AircraftLoaded/SimStart bez FlightLoaded; różne kolejności FlightLoaded/SimStart; 2 silniki odrzutowe, 4 tłokowe i 1 turbośmigłowy; odrzucanie nadmiarowych indeksów i niepasujących rodzin; przebudowa przy ponownym AircraftLoaded tego samego modelu; zmiana tytułu wykryta także w pakiecie pełnej telemetrii; anulowanie żądań i czyszczenie definicji; odrzucenie starego pakietu po zakończeniu; sam cached AircraftLoaded nie wznawia lotu; SimStart korzysta ze świeżego potwierdzenia FlightLoaded, odrzuca MAINMENU. Tylko mock DLL, bez symulatora.
+- `VerifyAddonLVars`: osiem katalogów i 5050 pól, selekcja wyłącznie providera TFDi dla tego tytułu; zamknięcie przy nieaktywnym locie; izolacja brakującego pola, ograniczona kolejka ONCE, null, zapis zmian i odczyt na wykresie. Po scaleniu formatowania rozszerzono test o jawny standardowy binding `A:LIGHT NAV`: usunięcie prefiksu A i przekazanie jednostki bool do transportu.
+- `VerifySixPack`: rzeczywisty natywny render VCL, ta sama próbka na osi czasu, odwrócenie znaku pitch, normalizacja 361° → 1°, wskazywana wysokość, rzeczywista prędkość zakrętu i kulka; ta sama instancja frame po odłączeniu/zamknięciu; RTL/LTR; jednostki i zachowanie surowych danych; nieprawidłowy indeks i brak pola; mały rozmiar; odtworzenie starego schematu bez dwóch kolumn i migracja; NULL zachowany jako NaN podczas replay. `six-pack-preview.bmp` obejrzano; PNG w `docs/screenshots/six-pack.png` jest syntetyczną próbką, nie zrzutem lotu na żywo.
+- Rozszerzony `VerifyDetachedViews`: zakładka głównego okna, odłączenie i powrót przyciskiem/Close, synchronizacja czasu i odczyt indicated_altitude. Asercje six-pack umieszczono w osobnej procedurze po błędzie generatora kodu Delphi 10.2 w rozbudowanym programie testowym; zakres asercji zachowano.
+- Powtarzalny audyt lokalny: **120 pakietów, 2046 locpaków**, wyłącznie jawne dane; metadane i SHA-256 w `support/official-aircraft/locpak-audit.json`. Przetłumaczonych nazw kodu nie użyto jako SimVarów. Bell 407: 72 bindingi, EC135: 234. **18 wariantów** sześciu rodzin komercyjnych, 39 XML: poprzednie pięć rodzin nadal 3298 L-varów; TFDi MD-11 GE/PW/pasażerski/towarowy dodaje 1446. Katalog rodzinny to suma dostępnych nazw, nie dowód działania każdego pola w każdym wariancie.
+
+Definicje nowych wskazań sprawdzono w [oficjalnych szablonach przyrządów SDK](https://docs.flightsimulator.com/msfs2024/html/5_Content_Configuration/Models/ModelBehaviors/TemplateExplorer/Asobo_EX1/Common/Interior/Templates/ParametersFn/Instrument_ParametersFn.html) i [SimVars](https://docs.flightsimulator.com/msfs2024/retail/programming-apis/simvars/aircraft-simvars/aircraft-system-variables/). Odbiór danych podczas rzeczywistego lotu i wszystkie warianty samolotów pozostają **nieprzetestowane na żywo**. TFDi korzysta z literalnych L-varów modeli, bez niedostarczonego nagłówka/binarnego SDK. Zera nie potwierdzają dostępności L-varów; six-pack nie emuluje awarii ani dynamiki fizycznych przyrządów.
+
+Końcowa kompilacja wdrożonego repozytorium **Debug i Release Win64 PASS**, FileVersion **0.1.0.10**, zgodny katalog tłumaczeń i symbole PDB. Zachowano równoległe ręczne formatowanie czterech plików. Po scaleniu ponownie wykonano VerifyAddonLVars (w tym standardowy binding z jednostką), VerifyDetachedViews i VerifySixPack: PASS. Plików zainstalowanych samolotów ani prywatnych nagrań/ustawień nie zmieniano.
+
+## 0.1.0.9 — rozszerzony eksport A320 i integracje samolotów
+
+Pełny `test.ps1`: **49 programów PASS** (Delphi 10.2, izolowane dane). Nowe `VerifyPMDG777`, `VerifyAddonLVars` i `VerifyFlightPadAppearance` sprawdzają 522 pola SDK i trzy CDU, 3298 L-varów pięciu rodzin, izolowanie błędów, kolejkę odczytu, zapis tylko zmian oraz rzeczywisty IPC Win32 → Win64 z kolorami, małą czcionką, kontrolkami, zmianami samego formatowania i niedostępnością ekranu. Rozszerzony `VerifyFMCReplay` sprawdza automatyczne rozpoznanie rodziny oraz zakładki CDU.
+
+Układ wszystkich pól oryginalnego nagłówka PMDG 777 zweryfikowano niezależnie przez clang-cl (offsetof/sizeof): PASS. FlightPad: `ExportTests` i `ExportAppearanceTests` Win32 PASS; cztery aplikacje Fenix/FBW MCDU/Screen skompilowane. Kontrole projektu (73 unity), wersji, tłumaczeń i katalogów SDK/L-varów: PASS. Nie wykonano testu na żywo w symulatorze: testy DLL są mockami; zera nie dowodzą dostępności L-vara. Nie zmieniano plików samolotów ani prywatnych danych.
+
+Kompilacja wdrożonego repozytorium Debug i Release Win64: PASS, FileVersion 0.1.0.9; zgodność katalogu tłumaczeń i symbole PDB: PASS. Końcowy `check_project.py`: 73 unity PASS. Przy kontroli wykryto właściwości formularza w aktualnym DFM SimBrief; zamieniono ClientHeight/ClientWidth na Height/Width i usunięto trzy właściwości dostępne tylko dla TForm, zachowując aktualny układ. Produkcyjnego EXE nie uruchamiano.
+
+## 0.1.0.8 — natywne widoki, dane w AppData, FMC/MCDU (21.10.2026)
+
+**Pełny `test.ps1`: 46 programów Delphi — PASS** w odizolowanej kopii roboczej, Delphi 10.2 Win64. Kontrole katalogu 32 języków (1011 definicji), 68 unitów w DPR/DPROJ, fontów, wersji i dokumentacji: PASS. Starsze sekcje poniżej są historią, a nie wymaganiami bieżącej wersji.
+
+Kompilacja zainstalowanych źródeł Debug i Release Win64: PASS, FileVersion 0.1.0.8, zgodny katalog tłumaczeń i symbole PDB. Kontrola importów PE i braku odwołań do loadera WebView2: PASS. Paczka `dist/native-storage-fmc-0.1.0.8/MSFS2024-FDR-Win64-0.1.0.8.zip`: 72 pliki, CRC/odczyt zwrotny, x64, załadowanie obu DLL z rozpakowanej paczki (SQLite 3.45.3), trzy tła FMC, cztery CHM; bez WebView2, Community, prywatnej konfiguracji i bazy. Nie uruchamiano produkcyjnego EXE, aby nie migrować prywatnych danych podczas testów.
+
+- `VerifyAppStorage`: rzeczywista baza SQLite z zatwierdzonym rekordem w WAL, zamrożona rodzina DB/WAL/SHM jak po awaryjnym wyjściu; migracja i odczyt rekordu 12345; przeniesienie ustawień/logów; blokada przez uchwyt zapisujący bez częściowego celu; brak nadpisania istniejącej bazy/ustawień; ponowne wywołanie; odzyskanie publikacji `migration.pending`; plik źródłowy z atrybutem tylko do odczytu pozostaje, a kopia użytkownika jest zapisywalna. Wyłącznie katalogi testowe; nie migrowano prywatnej bazy ani prawdziwego Program Files. Produkcja wybiera LocalAppData, natomiast `PORT_TEST` izoluje dane obok testowego EXE.
+- `VerifyFMCReplay`: dwa urządzenia, wybór ostatniego ekranu bez sięgania w przyszłość, przeliczenie UTC z offsetem i sufiksem dnia tygodnia, rozstrzygnięcie wspólnego czasu przez ID, przejścia power-off/unavailable, niezależność urządzeń, czyszczenie po zmianie lotu, przeniesienie tej samej instancji frame i powrót przez Close. Sprawdzenie LTR fizycznego CDU po hebrajskim i powrocie do PL. Natywny zrzut `tests/fmc-replay-preview.bmp` obejmuje tło B737, kolory, małą czcionkę i kontrolki EXEC/MSG; zrzut został obejrzany.
+- `VerifyDetachedViews`: dodatkowo prawdziwe podpięcie FMC do `frmMain`, aktualizacja przez TimelineChange, wybór drugiego nagrania przy odłączeniu, przycisk powrotu, Close i zamknięcie głównego okna z odłączonym FMC. Dotychczasowe próby mapy/wykresów nadal PASS.
+- `VerifyReport`, `VerifyFMCReplay`, `VerifySimBriefUI`: natywne TMemo bez wewnętrznych pasków i obramowania, Consolas, ReadOnly, zachowanie spacji/encje HTML, wzrost wysokości przy ponad 100 liniach, przewijanie kontenera; natywne pogrubienia/nagłówki/listy/kursywa/kod w TRichEdit, poprawne tytuły i zamykanie raportu. Zaktualizowano stary warunek testu ssHorizontal do wymaganego ssNone.
+- `VerifyHelpAbout`: własny jawny lot testowy zamiast zależności od ostatniego nagrania pozostawionego przez wcześniejszy test. Pozostałe testy obejmują recorder/worker/WAL, parsery FMC, SDK na atrapach, SimBrief, pogodę, precyzję, jednostki, ikony, języki i RTL/LTR.
+
+Nie wykonano lotu na żywo ani testu instalatora (nie jest jeszcze dodany). Starsze nagrania i tekstowy eksport FlightPad Fenix/FBW nie zawierają brakujących styli/kontrolek; renderer ich nie odtwarza przez zgadywanie. B777 to obsługa grafiki, nie nowa integracja SDK. Testy nie potwierdzają wszystkich wersji komercyjnych dodatków.
+
+
 Po ostatniej poprawce ponowiono VerifyDetachedViews, VerifyChartsConfigure, VerifyLocalization i VerifyUI: PASS. Dodatkowo sprawdzono odwrotną kolejność zamykania okien, zachowanie opisu zakresu po zmianie języka, brak przechwytywania scrolla osobnego okna przez główne oraz wszystkie 43 ikony niezależnym porównaniem PNG.
 
 
@@ -82,7 +319,7 @@ Ostatnie pelne uruchomienie: **18.10.2026**, wyswietlacze iFly i metadane FMC. *
 
 ## Wyświetlacze iFly i metadane ekranów — 18 października 2026
 
-Przygotowanie repozytorium `C:\Users\Mateusz\Documents\GIT\MSFS2024-FDR`: sprawdzono przez git check-ignore 13 ścieżek lokalnych/wygenerowanych, które mają być pomijane, oraz 15 ścieżek źródeł, zasobów, dokumentacji i konfiguracji przykładowej, które mają pozostać dostępne do importu. Wszystkie reguły przeszły. git ls-files --others --exclude-standard wskazał 151 nowych plików kandydujących do importu; wśród nich nie było baz, lokalnych konfiguracji, bibliotek ani wyników kompilacji. Zmiany dotyczą .gitignore i opisów, bez zmiany kodu aplikacji; nie powtarzano pełnych testów Delphi. Nie wykonano git add, commita ani push. Reguły ignorowania nie usuwają plików wcześniej śledzonych przez Git.
+Przygotowanie repozytorium `.`: sprawdzono przez git check-ignore 13 ścieżek lokalnych/wygenerowanych, które mają być pomijane, oraz 15 ścieżek źródeł, zasobów, dokumentacji i konfiguracji przykładowej, które mają pozostać dostępne do importu. Wszystkie reguły przeszły. git ls-files --others --exclude-standard wskazał 151 nowych plików kandydujących do importu; wśród nich nie było baz, lokalnych konfiguracji, bibliotek ani wyników kompilacji. Zmiany dotyczą .gitignore i opisów, bez zmiany kodu aplikacji; nie powtarzano pełnych testów Delphi. Nie wykonano git add, commita ani push. Reguły ignorowania nie usuwają plików wcześniej śledzonych przez Git.
 
 Ustalenie zakresu PMDG NG/MAX: sprawdzono ścieżkę ParseFMCValues — zarówno iFly737MAX, jak i PMDGNG3 korzystają ze wspólnego ParseBoeingPerformance oraz wspólnego odczytu V-speeds. Zapisano to jako założenie robocze w Boeing-performance.md. Nie zmieniano zachowania parsera ani transportów i nie wykonano dodatkowego testu na żywo w PMDG. Nie zweryfikowano numeracji aktualizacji oprogramowania FMC; nie jest ona używana do wyboru parsera.
 
@@ -118,7 +355,7 @@ Pierwszy test wykazał różnicę lokalnego zapisu przecinka przy odczycie TJSON
 
 ## Próbki lotu i parser iFly FMC — 18 października 2026
 
-Sprawdzono bazę z `F:\Tools\Mfz\MSFS24_FDR_Delphi-mfz` oraz log rejestratora. Źródło otwarto przez SQLite w trybie tylko do odczytu i wykonano spójną kopię diagnostyczną w `.build`. Nie zmieniano oryginalnych danych, konfiguracji ani plików wykonywalnych w tym katalogu. Prywatna kopia i surowe logi diagnostyczne nie są dołączane do paczek.
+Sprawdzono bazę z `katalog źródłowego legacy flight_data.db` oraz log rejestratora. Źródło otwarto przez SQLite w trybie tylko do odczytu i wykonano spójną kopię diagnostyczną w `.build`. Nie zmieniano oryginalnych danych, konfiguracji ani plików wykonywalnych w tym katalogu. Prywatna kopia i surowe logi diagnostyczne nie są dołączane do paczek.
 
 Trip 4 zawiera 5256 próbek: 5251 z flagą ziemi i tylko 5 z flagą powietrza. Pierwsze 5250 próbek obejmuje czas symulatora 11:28:04–11:33:58; log pokazuje przetwarzanie od 23:51 do około 00:46 czasu komputera. Kolejne próbki mają czasy 11:39:28, 11:44:35, 11:49:51, 11:53:28, 11:55:58 i 12:02:00. Największa luka wynosi 362,512 s. Kontakty startu i lądowania zapisano osobno o 11:36:53 i 11:58:53. To nie jest poprawny przebieg zapisu co 250 ms; układ wskazuje na zaległą kolejkę ramek. Interwał był liczony według czasu przetwarzania, więc kosztowny callback mógł utrwalać po kolei stare ramki zamiast bieżącego stanu. Zewnętrzny EXE miał datę 17.10.2026 21:57 i nie zawierał późniejszego przeniesienia rejestratora do wątku.
 
@@ -604,3 +841,112 @@ VerifyVersionLanguage — PASS (EXE VersionInfo 0.1.0.6).
 
 
 0.1.0.7 — pakowanie: usunięto dodatek mateusz-efb-ifly i katalogi Community/Optional-Community z pakietów, parametr --addon oraz instrukcje jego instalacji. Walidacja ZIP sprawdza brak dodatku; zmiana dotyczy dystrybucji, bez dodatkowych testów zachowania VCL.
+
+Dodano dekodowanie zapisanych trybów FMA FBW i katalog tekstów E/WD z formatowaniem, zegarem migania z nagrania i zachowaniem nieznanych kodów. Ustawienia Debug pozwalają wymusić rodzinę instrumentów. Mapa pokazuje ograniczenia PLN i uzupełnia bezimienne punkty z navlogu SimBrief po GPS. Pełne STS, FMA iFly/B38M oraz rozwinięcie procedur/holdingów/missed approach wymagają dodatkowego źródła danych; zakres opisuje `support/fbw/display-protocol.md`.
+
+Synthetic coverage: VerifyAirbusDisplays (FMA words, EWD codes, missing/unknown data, debug override), VerifyFlightPlan (PLN constraints and OFP coordinates). Live simulator validation not performed.
+
+Rozwijanie wybranych SID/STAR/APP przez SimConnect Facilities: przejścia pasa/enroute/IAF, ograniczenia, odcinki RF/AF i missed approach. Snapshot navdata jest zapisywany wraz z oryginalnym planem w nagraniu i odtwarzany offline. Holdingi HA/HF/HM zachowują parametry i mają schematyczny symbol na mapie, missed approach jest ciemnoszare. FMA B38M/iFly jest rekonstruowane z zapisanych lampek MCP i SimVarów; podpis FMA RECONSTRUCTED wskazuje, że to przybliżenie, szczególnie VNAV, THR HLD i FLARE. Nie jest to bezpośredni odczyt FMA z dodatku.
+
+VerifyProcedureRoute: mock Facilities API exports and headers, out-of-order parents, ItemIndex ordering, wrong runway exclusion, RF geometry, holding/missed constraints, repeated expansion, SQLite and offline replay. VerifyIFlyFMA: lamp encoding, mode priorities, AP/FD, ILS/armed GS, altitude capture and missing data. VerifyPFD737, VerifyFlightPlan, VerifySimBrief, VerifySubscriptions: regression checks. No live simulator or IDE designer validation. VerifyProcedureRoute disables the Delphi 10.2 Win64 optimizer to avoid compiler internal error URW1237; application builds retain their normal settings. DLL mock projects now explicitly set GenDll, preventing stale .dll use when the compiler otherwise writes a library to .exe.
+
+Dodano odtwarzanie Flight Directora w PFD A320 i B38M, zapis standardowych komend FD/EX1 w radianach i opcję wyłączenia FD B38M. Brakujące dane historyczne pozostają niedostępne; rzeczywiste zero nie jest brakiem danych. Źródła i ograniczenia: `support/fbw/flight-director.md`.
+VerifyFlightDirector, ProbeFlightDirector, VerifyAirbusDisplays, VerifyPFD737: synthetic replay tests; live simulator channels not verified.
+
+PFD B38M dopasowano do wzorców: krzyżowy FD, wspólne tło horyzontu, wyrównane taśmy i półróża kursowa, GS/TAS/wiatr. Opcjonalny AoA w ustawieniach Debug korzysta z zapisywanego INCIDENCE ALPHA. Nastawy MCP odzyskiwane są również z cyfr SDK iFly; rekonstrukcja N1/MCP SPD nie wymaga prawdziwej standardowej flagi A/T, jeżeli stan potwierdzają SDK ARM i lampka trybu. FMA nadal jest estymowane.
+VerifyPFD737: synthetic AoA/radians/ground/missing/optional/render checks. VerifyIFlyFMA: 22 recorded AFDS configurations plus synthetic cases; no authoritative recorded FMA text, no live comparison.
+
+Opcjonalny panel informacji MAX przy PFD pokazuje numer lotu, kod transpondera SDK (z zerami wiodącymi), rejestrację, SELCAL jeśli dostępny oraz UTC, datę i czas od początku nagrania. Panel można ukryć w ustawieniach Debug. Brakujące dane pozostają oznaczone --; czas nie korzysta z zegara komputera.
+VerifyPFD737: synthetic panel rendering/hide, recorded midnight crossing, reverse seek, invalid time, missing SELCAL and squawk leading zero. VerifyFlightDirector: SQLite flight metadata roundtrip. No live test.
+
+Minima FBW A320: BARO, RADIO i NO DH z ważnych słów ARINC, opis na PFD i znacznik na taśmie wysokości w widocznym zakresie. RADIO używa bieżącej wysokości radiowej, nie jest traktowane jako wysokość MSL. Panel informacji B38M można przenosić lewo/prawo (CPT/FO) niezależnie od jego ukrycia. Wartości minimów iFly/Fenix nie są obecnie potwierdzone w dostępnych katalogach; projektowe DECISION HEIGHT nie jest używane jako nastawa pilota.
+VerifyPFDMinima: synthetic ARINC BARO/RADIO/NO DH, zero/missing, relative RA, off-scale/amber marker. VerifyPFD737: CPT/FO panel position and return. VerifyAirbusDisplays: BARO visual fixture. No live comparison.
+
+PFD B38M: strzałka kierunku przepływu wiatru względem kursu TRUE oraz bloki VOR/ADF 1 i 2 z częstotliwością i dostępnym DME. Nowe kanały NAV/ADF zapisywane są jako nullable REAL; stare nagrania nie otrzymują sztucznych wartości. Oba PFD przełączają wybraną prędkość IAS/Mach i pokazują STD niezależnie od dostępności liczbowego ciśnienia; FBW korzysta z natywnych stanów STD/QNH/QFE. Chwilowe przyciski STD/SPD-MACH nie są traktowane jako trwałe stany.
+VerifyPFDReadouts: synthetic native/standard mode priority, STD vs QNH 1013, QFE/invalid ARINC, IAS/Mach/blank MCP, VOR/ADF/OFF/zero/missing DME, TRUE-relative wind and SQLite NULL/frequency roundtrip. VerifyPFD737/VerifyAirbusDisplays snapshots; VerifySubscriptions checks NAV/ADF only during flight. No live test.
+
+Odtwarzanie nagrań: start/pauza, stop z resetem do początku i 1x, początek/koniec, skoki ±30 s oraz tempo 0.125/0.25/0.5/0.75/1/2/4/8/16x. Mapa, wykresy i odłączone przyrządy korzystają ze wspólnej osi czasu. Nowe nagrania zachowują skonfigurowany początkowy interwał próbkowania; dla starszych jest estymowany z mediany poprawnych odstępów, z rezerwą 500 ms. Poprawiono alfa ikon obu list, zachowując ręcznie dodane grafiki i ich indeksy.
+VerifyPlayback: deterministic playback clock/rates/pause/seek/gaps/end/stop, stored and inferred cadence, SQLite and read-only legacy schema. VerifyInstrumentFrames: DFM actions, timer/glyph switching and transparent icon drawing in both sizes. Synthetic only, no simulator required.
+
+
+FSHud ATC: VerifyFSHud sprawdza tekst legacy i MessageItems, częstotliwość, znak nadawcy, cofanie czasu i zachowanie historii po Removed na sztucznych pakietach. Schemat potwierdzony odczytem lokalnego panelu FSHud. Nie wykonano próby transmisji ATC podczas lotu. Nagrania bez sim_utc i wiadomości sprzed dostępnej historii nie są odtwarzane; audio nie jest zapisywane.
+
+Blokada kursora wykresów podczas odtwarzania: kompilacja formularza i regresja VerifyInstrumentFrames; ręczna próba ruchu myszy podczas odtwarzania pozostaje do wykonania.
+
+
+Dokowanie VCL: VerifyNativeDocking testuje rzeczywiste komponenty VCL na syntetycznych kontrolkach: wypinanie zakładki, dokowanie boczne, zapis/odczyt hosta i drzewa DockManager, zamknięcie z powrotem do zakładek oraz zachowanie kontrolek podczas zamykania aplikacji. VerifyDetachedViews i VerifyViewState sprawdzają zgodność dotychczasowych sześciu odłączanych widoków i stanów po restarcie. Próba ręczna przeciągania w działającym symulatorze nie została wykonana.
+
+
+VerifyNativeDocking dodatkowo sprawdza 50 przesunięć jednego okna podglądu, ujemne współrzędne ekranowe, pusty środek regionu, ukrycie po zakończeniu/anulowaniu i usunięcie HWND po zniszczeniu obiektu przeciągania. Test syntetyczny WinAPI/VCL; ręczna próba na konfiguracji monitorów ze zgłoszenia nie została wykonana.
+
+
+VerifyPlayback: interpolacja w połowie odstępu i przy niezmienionym indeksie próbki, kurs 359→1°, pozycja przez południk 180°, zachowanie zer/bool/SDK i NaN, brak zmiany oryginalnych tablic oraz blokada interpolacji przez przerwę nagrania. Dane syntetyczne; płynność wizualna na rzeczywistym nagraniu nie została oceniona ręcznie.
+
+
+VerifyInstrumentRender: rzeczywiste piksele krawędzi, clipping i przywracanie stanu DC dla skal 25/50/75/100/125/150/200/300%, plus render PFD B38M/A320, six-pack i EICAS do PNG z kontrolą wizualną podglądu. Test syntetyczny WinAPI/VCL, nie jest próbą zmiany DPI między fizycznymi monitorami. VerifyInstrumentFrames sprawdza regresję osadzonych i odłączanych przyrządów.
+
+
+VerifyPanelProportions: wielokrotny resize zagnieżdżonych paneli bez narastającego błędu zaokrągleń, nowe proporcje po splitterze, ukryte panele i minimalna przestrzeń środkowa. Rzeczywiste okna VCL PFD/EICAS: dokowanie boczne i pionowe, wielokrotne skalowanie oraz bezpieczne zamknięcie hosta bez zamykania silników. Testy syntetyczne; ręczne przeciąganie podczas lotu nie było wykonywane.
+
+
+Zweryfikowano offline: VerifySimWeather (osobne źródła, kolejka HTTP, rozkodowanie i porównanie, DFM), test_weather_bridge.js (atrapa Coherent), VerifyReplayExtras (FLIGHT_START i 30 s ATC), VerifyUI (filtrowanie i wypięcie wszystkich zakładek), VerifySimBriefUI, VerifyRecordingFiles (cel z zapisanego PLN). Bez próby pogody i geometrii procedur na żywym MSFS; symulator nie był uruchomiony. Pełnego dumpa CTD nie analizowano.
+
+Regresja migania: VerifyUI mierzy zdarzenia OnResize paneli i paska stanu podczas 100 niezmienionych odświeżeń. Przed poprawką: 400; po poprawce: 0. Test obejmuje również wypięcie wszystkich zakładek i ponowne dokowanie. Próba syntetyczna VCL.
+
+
+VerifySimBriefMaps: lokalny HTTP zwraca GIF i błędny HTML; sprawdzono BLOB, zgodność z wersją planu, odtwarzanie DFM po zatrzymaniu serwera, brak ponownego pobierania i usuwanie obrazów wraz z lotem. VerifySimBriefUI wysyła WM_MOUSEWHEEL przez kolejkę Windows i sprawdza runtime binding po Loaded; w DFM nie ma OnMessage. VerifyNativeDocking i VerifyUI sprawdzają alClient bez wypinania oraz brak cyklicznych resize. VerifyIFlyDisplays sprawdza brak delty przy zmianie samego Tick18. Jedna rzeczywista mapa z zapisanych linków SimBrief: HTTP 200, poprawny nagłówek GIF, 32904 bajty, bez przekierowania (próba pobrania przez Python, nie pełny test live GUI). Designer IDE nie był sterowany automatycznie.
+
+
+Fenix 3.0.0.7454: statyczny audyt 176 XML w pakietach common i aircraft-320, 3826 deklaracji w 55 plikach, 1748 bieżących kandydatów i 300 nazw historycznych. VerifyCatalogSources.dpr sprawdza przenoszenie pól do attachmentów, duplikaty, hashe, rozdzielenie historii i wybór wyłącznie pakietów tej samej wersji (bez liveries). VerifyFenix używa przebudowanej atrapy DLL i sprawdza 1748 odczytów, null/zero/przeterminowanie, historię starych nieznanych nazw i brak subskrypcji wycofanych breakerów. Bez próby na uruchomionym nowym Fenixie; deklaracje nie dowodzą dostępności runtime, jednostek ani pełnego FMA/FD.
+
+- CSS Classic: VerifyFlapsHandle obejmuje B733/B734/B735; test syntetyczny etykiet, bez próby na żywo z wariantami 300/400.
+
+Ghost/ATC: VerifyGhostReplay + MockGhostSim sprawdza SQLite :memory:, właściciela połączenia, tworzenie/freeze/animacje/usuwanie, pauzę, ±10 s, brak danych i MSFS24-only. VerifyNativeATC sprawdza HTTP, SQLite, deduplikację, czas replay i wygaszanie komunikatu; VerifyATCBridge.js parsowanie payloadów. VerifyIDEProjectSave sprawdza zapis kopii DPROJ przez TXmlIniFile. Próby syntetyczne, bez walidacji na żywo FSLTL/ATC ani zapisu z otwartego IDE (niedostępny kanał pulpitu).
+
+Grupy IDE: check_project_groups.py — PASS dla 2 grup i 101 projektów (GUID, ścieżki, targety, wersje i węzły IDE). VerifyIDEProjectSave — PASS: zapis/ponowny odczyt 103 izolowanych kopii grup/projektów przez TXmlIniFile. Build głównego groupproj Release Win64 — PASS (aplikacja + instalator). Rzeczywisty zapis w otwartym IDE nadal wymaga potwierdzenia po przeładowaniu grupy; sam test XML nie dowodzi usunięcia crasha IDE.
+
+Bridge/FSLTL: VerifyBridgeInstall — PASS dla wykrywania Community, instalacji/aktualizacji/naprawy, pozostawienia zdrowych plików i usuwania tylko własnych plików. VerifyBridgeSignature — PASS: dwie szyfrowane warstwy ZIP, osobne podpisy RSA-3072/PSS i manifesty, błędne hasło/produkt oraz uszkodzony payload, wyłącznie efemeryczny klucz CNG. VerifyAIModelMatching i rozszerzony VerifyGhostReplay — PASS dla FSLTL/AIG, typu/livery i fallbacku bez zainstalowanej biblioteki. VerifySetupUI, VerifySetupMaintenance, VerifySetupSignature, VerifyUI i VerifySubscriptions — PASS. Profile FSLTL: 75 rodzin, 134 hashe XML z lokalnego klona Base; bez modeli/tekstur w dystrybucji. Wszystkie próby są izolowane/syntetyczne; bez instalowania do prawdziwego Community i bez potwierdzenia animacji na żywo. Początkowe błędy testu kryptograficznego wynikały z pełnego woluminu montowanego pod Dane_HDD; po oczyszczeniu wyłącznie wygenerowanych fixture/DCU test przeszedł.
+
+
+## Installer source split
+
+`VerifySetupArchitecture` creates the base DFM wizard for two unrelated synthetic
+products, checks independent Program Files/release identities and navigation,
+and links no FDR units. `VerifySetupUI` exercises the inherited MSFS page, back
+navigation, default Community checkbox, modal retry/cancel and asynchronous
+update fallback. `VerifySetupMaintenance` covers all 32 locales, RTL/LTR,
+retention choices and exact-version repair. Signature, bridge ownership and
+IDE XML-save probes remain isolated tests. The signed/encrypted full packager
+interop test generates an encrypted ephemeral RSA key outside all repositories;
+production private keys are not used. Windows installation and registry writes
+are test doubles; no live installation, MSFS or Community directory is changed.
+
+Shared sources live beside the recorder repository in `setup-common`,
+`setup-core` and `MSFS24-FDR-Setup`. Version information comes directly from the
+Common submodule (`src/Common/VersionU.pas`), without modifying that submodule.
+The core's final license text will be supplied by the author. No new Git
+repositories were created.
+
+
+Release update gate: VerifySetup now checks disabled controls, forced false on save, legacy/manual INI opt-in rejection and a blocked programmatic check request. The distributed Setup is a native message-only stub, built without installer/private inputs. The real installer remains development code and requires explicit `tools/build_setup.ps1 -RealInstaller`.
+
+
+Compiled resources: *.res are ignored and absent from the Git index. Main, stub
+and i18n resources rebuild from checked-in *.rc (and original bitmap/icon inputs)
+using tools/build_resources.py and the Windows SDK Resource Compiler. Independent
+MSBuild test projects rebuild these resources through Tests.Shared.props.
+
+
+Installer separation: recorder Core no longer contains the product/key unit and the
+recorder DPR has no installer/common updater imports. VerifySetup uses the recorder
+mutex and confirms the independent installer detects it; disabled update settings
+and programmatic requests remain covered by the same isolated regression.
+
+
+Regresje `Verify*.dpr` używają DUnitX (91 projektów, w tym nowy VerifyCatalogSources). Testy Python z tests przeniesiono do DPR: asercje są natywne; testowane narzędzia importu Python są uruchamiane przez CLI z izolowanymi fixture. Mocki i sondy pozostają samodzielnymi programami/DLL. Każdy DPR ma DPROJ i wpis w Tests.groupproj, synchronizowane przez tools/sync_test_projects.py. test.ps1 buduje projekty MSBuild, uruchamia formatter przed kompilacją i usuwa testowe MAP/RSM w finally. Pełny wynik bieżącego przebiegu opisano w docs/releases/0.1.1-review.md. Test języka AI obejmuje wszystkie 32 lokalizacje bez wywoływania modelu; test PFD sprawdza piksele panelu po lewej dla CPT i po prawej dla FO.
+
+Pomoc: VerifyHelpContexts sprawdza 62 rozdziały w czterech językach, wszystkie HelpContext z DFM, zgodny język ilustracji i katalog 398 parametrów. build_help.py dodatkowo dekompiluje każdy CHM i porównuje bajty stron/obrazów ze źródłami. Galeria obejmuje 228 ilustracji; dane telemetrii są syntetyczne, plan/OFP to zanonimizowany przykład pętli EPLL–EPLL. VerifyPFD737 obejmuje tworzenie ramek we wszystkich 32 językach, VerifyRTLReturn stabilność położenia menu podczas aktualizacji akcji, VerifySimWeather chmury METAR bez CB/TCU.
+
+Kodowanie pomocy: VerifyHelpContexts czyta HTML/HHC właściwą stroną Windows, sprawdza polskie znaki i brak encji w nazwach spisu. build_help.py sprawdza wszystkie 248 etykiet bezpośrednio w skompilowanych strumieniach #STRINGS oraz obecność #TOCIDX, korzystając z CLI 7-Zip.
+
+Regresja raportu: VerifyReport korzysta z tego samego HelpScreenshotU co generator pomocy. Sprawdza zachowanie treści i render RichEdit do bitmapy przez EM_FORMATRANGE; generator weryfikuje też obecność pikseli tekstu w ilustracji. Raport demonstracyjny PL/EN/DE/ES ma osobne zrzuty początku i dalszych wniosków. Dane lotu mają monotoniczne znaczniki co 20 s i jawnie zapisany interwał, fazy lotu oraz zmienną konfigurację/GSX/ATC.

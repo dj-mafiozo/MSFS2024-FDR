@@ -12,18 +12,21 @@ Interface
 Implementation
 
  Type
-  TCrashHandler = Function(Info : Pointer) : Longint; Stdcall;
+  TCrashHandler = Function(Info : Pointer) : LongInt;
+
+  Stdcall;
 
  Var
-  FileName       : String;
-  MaxLevel       : Integer = 2;
-  Lock           : TCriticalSection;
-  DumpPath       : String;
-  DebugLib       : HMODULE;
-  WriteDump      : Function(Process : THandle; PID : DWORD; FileHandle : THandle; Kind : DWORD; ExceptionInfo, UserStreams, Callback : Pointer) : BOOL; Stdcall;
+  FileName  : String;
+  MaxLevel  : Integer = 2;
+  Lock      : TCriticalSection;
+  DumpPath  : String;
+  DebugLib  : HMODULE;
+  WriteDump : Function(Process : THandle; PID : DWORD; FileHandle : THandle; Kind : DWORD; ExceptionInfo, UserStreams, Callback : Pointer) : BOOL;
+  Stdcall;
   PreviousFilter : TCrashHandler;
 
- Function CrashFilter(Info : Pointer) : Longint; Stdcall;
+ Function CrashFilter(Info : Pointer) : LongInt; Stdcall;
   Type
    TDumpException = Record
     Public
@@ -32,21 +35,21 @@ Implementation
      ClientPointers : BOOL;
    End;
   Var
-   H : THandle;
-   E : TDumpException;
+   h : THandle;
+   e : TDumpException;
   Begin
-   H := CreateFile(PChar(DumpPath), GENERIC_WRITE, FILE_SHARE_READ, Nil, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
-   If H <> INVALID_HANDLE_VALUE Then
+   h := CreateFile(PChar(DumpPath), GENERIC_WRITE, FILE_SHARE_READ, Nil, CREATE_ALWAYS, FILE_ATTRIBUTE_NORMAL, 0);
+   If h <> INVALID_HANDLE_VALUE Then
     Begin
-     E.ThreadID       := GetCurrentThreadId;
-     E.Pointers       := Info;
-     E.ClientPointers := False;
+     e.ThreadID       := GetCurrentThreadId;
+     e.Pointers       := Info;
+     e.ClientPointers := False;
      If Assigned(WriteDump) Then
       If Info = Nil Then
-       WriteDump(GetCurrentProcess, GetCurrentProcessId, H, 0, Nil, Nil, Nil)
+       WriteDump(GetCurrentProcess, GetCurrentProcessId, h, 0, Nil, Nil, Nil)
       Else
-       WriteDump(GetCurrentProcess, GetCurrentProcessId, H, 0, @E, Nil, Nil);
-     CloseHandle(H);
+       WriteDump(GetCurrentProcess, GetCurrentProcessId, h, 0, @e, Nil, Nil);
+     CloseHandle(h);
     End;
    Result := 0;
    If Assigned(PreviousFilter) Then
@@ -60,7 +63,7 @@ Implementation
     Begin
      DebugLib := LoadLibrary('dbghelp.dll');
      If DebugLib <> 0 Then
-      @WriteDump    := GetProcAddress(DebugLib, 'MiniDumpWriteDump');
+      @WriteDump := GetProcAddress(DebugLib, 'MiniDumpWriteDump');
      PreviousFilter := TCrashHandler(SetUnhandledExceptionFilter(@CrashFilter));
     End;
    FileName := Path;
@@ -79,7 +82,7 @@ Implementation
 
  Procedure Log(Level : Integer; Const Message : String);
   Var
-   F     : TFileStream;
+   f     : TFileStream;
    Bytes : TBytes;
   Begin
    If (FileName = '') Or (Level > MaxLevel) Then
@@ -88,15 +91,15 @@ Implementation
    Try
     Try
      If FileExists(FileName) Then
-      F := TFileStream.Create(FileName, fmOpenReadWrite Or fmShareDenyWrite)
+      f := TFileStream.Create(FileName, fmOpenReadWrite Or fmShareDenyWrite)
      Else
-      F := TFileStream.Create(FileName, fmCreate);
+      f := TFileStream.Create(FileName, fmCreate);
      Try
-      F.Seek(0, soEnd);
+      f.Seek(0, soEnd);
       Bytes := TEncoding.UTF8.GetBytes(FormatDateTime('yyyy-mm-dd hh:nn:ss.zzz', Now) + ' [' + IntToStr(Level) + '] ' + Message + sLineBreak);
-      F.WriteBuffer(Bytes[0], Length(Bytes));
+      f.WriteBuffer(Bytes[0], Length(Bytes));
      Finally
-      F.Free;
+      f.Free;
      End;
     Except
      OutputDebugString(PChar(Message));

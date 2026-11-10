@@ -17,14 +17,21 @@ Implementation
  Type
   TBCHandle = Pointer;
 
- Function BCryptOpenAlgorithmProvider(Out H : TBCHandle; Algorithm, Provider : PWideChar; Flags : ULONG) : LongInt; Stdcall; External 'bcrypt.dll';
- Function BCryptSetProperty(H : TBCHandle; Name : PWideChar; Data : Pointer; Size, Flags : ULONG) : LongInt; Stdcall; External 'bcrypt.dll';
- Function BCryptGetProperty(H : TBCHandle; Name : PWideChar; Data : Pointer; Size : ULONG; Out Used : ULONG; Flags : ULONG) : LongInt; Stdcall; External 'bcrypt.dll';
- Function BCryptGenerateSymmetricKey(H : TBCHandle; Out K : TBCHandle; Obj : Pointer; ObjSize : ULONG; Secret : Pointer; SecretSize, Flags : ULONG) : LongInt; Stdcall; External 'bcrypt.dll';
- Function BCryptEncrypt(K : TBCHandle; Input : Pointer; InputSize : ULONG; Padding, IV : Pointer; IVSize : ULONG; Output : Pointer; OutputSize : ULONG; Out Used : ULONG; Flags : ULONG) : LongInt; Stdcall; External 'bcrypt.dll';
- Function BCryptDecrypt(K : TBCHandle; Input : Pointer; InputSize : ULONG; Padding, IV : Pointer; IVSize : ULONG; Output : Pointer; OutputSize : ULONG; Out Used : ULONG; Flags : ULONG) : LongInt; Stdcall; External 'bcrypt.dll';
- Function BCryptDestroyKey(K : TBCHandle) : LongInt; Stdcall; External 'bcrypt.dll';
- Function BCryptCloseAlgorithmProvider(H : TBCHandle; Flags : ULONG) : LongInt; Stdcall; External 'bcrypt.dll';
+ Function BCryptOpenAlgorithmProvider(Out h : TBCHandle; Algorithm, Provider : PWideChar; Flags : ULONG) : LongInt; Stdcall; External 'bcrypt.dll';
+
+ Function BCryptSetProperty(h : TBCHandle; Name : PWideChar; Data : Pointer; Size, Flags : ULONG) : LongInt; Stdcall; External 'bcrypt.dll';
+
+ Function BCryptGetProperty(h : TBCHandle; Name : PWideChar; Data : Pointer; Size : ULONG; Out Used : ULONG; Flags : ULONG) : LongInt; Stdcall; External 'bcrypt.dll';
+
+ Function BCryptGenerateSymmetricKey(h : TBCHandle; Out k : TBCHandle; Obj : Pointer; ObjSize : ULONG; Secret : Pointer; SecretSize, Flags : ULONG) : LongInt; Stdcall; External 'bcrypt.dll';
+
+ Function BCryptEncrypt(k : TBCHandle; Input : Pointer; InputSize : ULONG; Padding, IV : Pointer; IVSize : ULONG; Output : Pointer; OutputSize : ULONG; Out Used : ULONG; Flags : ULONG) : LongInt; Stdcall; External 'bcrypt.dll';
+
+ Function BCryptDecrypt(k : TBCHandle; Input : Pointer; InputSize : ULONG; Padding, IV : Pointer; IVSize : ULONG; Output : Pointer; OutputSize : ULONG; Out Used : ULONG; Flags : ULONG) : LongInt; Stdcall; External 'bcrypt.dll';
+
+ Function BCryptDestroyKey(k : TBCHandle) : LongInt; Stdcall; External 'bcrypt.dll';
+
+ Function BCryptCloseAlgorithmProvider(h : TBCHandle; Flags : ULONG) : LongInt; Stdcall; External 'bcrypt.dll';
 
  Procedure Check(Status : LongInt);
   Begin
@@ -34,8 +41,8 @@ Implementation
 
  Function Transform(Const Input : TBytes; Const Key : String; Encrypt : Boolean) : TBytes;
   Var
-   H      : TBCHandle;
-   K      : TBCHandle;
+   h      : TBCHandle;
+   k      : TBCHandle;
    Secret : TBytes;
    IV     : TBytes;
    Obj    : TBytes;
@@ -43,32 +50,32 @@ Implementation
    Size   : ULONG;
    Used   : ULONG;
   Begin
-   H      := Nil;
-   K      := Nil;
+   h      := Nil;
+   k      := Nil;
    Secret := TEncoding.UTF8.GetBytes(Key);
    If Length(Secret) <> 16 Then
     Raise Exception.Create(Tr('Unsupported FSHud panel protocol key size'));
    If Length(Input) = 0 Then
     Raise Exception.Create(Tr('Empty FSHud frame'));
    Try
-    Check(BCryptOpenAlgorithmProvider(H, 'AES', Nil, 0));
+    Check(BCryptOpenAlgorithmProvider(h, 'AES', Nil, 0));
     Mode := 'ChainingModeCBC';
-    Check(BCryptSetProperty(H, 'ChainingMode', PWideChar(Mode), (Length(Mode) + 1) * 2, 0));
-    Check(BCryptGetProperty(H, 'ObjectLength', @Size, SizeOf(Size), Used, 0));
+    Check(BCryptSetProperty(h, 'ChainingMode', PWideChar(Mode), (Length(Mode) + 1) * 2, 0));
+    Check(BCryptGetProperty(h, 'ObjectLength', @Size, SizeOf(Size), Used, 0));
     SetLength(Obj, Size);
-    Check(BCryptGenerateSymmetricKey(H, K, @Obj[0], Length(Obj), @Secret[0], Length(Secret), 0));
+    Check(BCryptGenerateSymmetricKey(h, k, @Obj[0], Length(Obj), @Secret[0], Length(Secret), 0));
     IV := Copy(Secret);
     SetLength(Result, Length(Input) + 32);
     If Encrypt Then
-     Check(BCryptEncrypt(K, @Input[0], Length(Input), Nil, @IV[0], Length(IV), @Result[0], Length(Result), Used, 1))
+     Check(BCryptEncrypt(k, @Input[0], Length(Input), Nil, @IV[0], Length(IV), @Result[0], Length(Result), Used, 1))
     Else
-     Check(BCryptDecrypt(K, @Input[0], Length(Input), Nil, @IV[0], Length(IV), @Result[0], Length(Result), Used, 1));
+     Check(BCryptDecrypt(k, @Input[0], Length(Input), Nil, @IV[0], Length(IV), @Result[0], Length(Result), Used, 1));
     SetLength(Result, Used);
    Finally
-    If K <> Nil Then
-     BCryptDestroyKey(K);
-    If H <> Nil Then
-     BCryptCloseAlgorithmProvider(H, 0);
+    If k <> Nil Then
+     BCryptDestroyKey(k);
+    If h <> Nil Then
+     BCryptCloseAlgorithmProvider(h, 0);
    End;
   End;
 

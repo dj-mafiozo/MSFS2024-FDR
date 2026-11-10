@@ -4,7 +4,7 @@
 
 Pierwsza implementacja MSFS2024-FDR bazowała na dostarczonym projekcie MSFS-Flight-Data-Recorder-master, napisanym w Qt. Od tego czasu architektura, nagrywanie, interfejs, integracje samolotów, baza i analiza zostały rozlegle przebudowane, poprawione i rozszerzone. Obecna aplikacja jest znacząco inną implementacją, z zachowaniem informacji o pierwowzorze i pochodzeniu wykorzystanych elementów.
 
-Pierwotny projekt: GNU Affero General Public License v3; tekst licencji w LICENSE. Katalogi telemetrii/zdarzeń i fundamenty schematu SQLite pochodzą z jego makr/definicji. Qt/QML/Qt Graphs/Qt WebEngine/Qt WebChannel nie są używane ani dystrybuowane. Aplikacja korzysta z Delphi VCL/FireDAC, SQLite i Microsoft SimConnect. Mapa zachowuje atrybucję OpenStreetMap. Raporty używają WebView4Delphi i Microsoft WebView2; zachowaj licencje tych zależności przy dystrybucji.
+Pierwotny projekt: GNU Affero General Public License v3; tekst licencji w LICENSE. Katalogi telemetrii/zdarzeń i fundamenty schematu SQLite pochodzą z jego makr/definicji. Qt/QML/Qt Graphs/Qt WebEngine/Qt WebChannel nie są używane ani dystrybuowane. Aplikacja korzysta z Delphi VCL/FireDAC, SQLite i Microsoft SimConnect. Mapa zachowuje atrybucję OpenStreetMap. Raporty i podgląd FMC używają kontrolek VCL; WebView2 nie jest zależnością aplikacji.
 
 Katalog iFly: 2411 pól, pack(8), 3240 bajtów, dostarczony oficjalny SDK 1.5 SDK_Defines.h. SHA-256 nagłówka: 0de480c86c173b0e69a79a406bfe4d90671a5417e0d88a2a9779a36fc0de02d4. Nie dołączamy binariów iFly ani pełnego SDK.
 

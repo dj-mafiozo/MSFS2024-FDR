@@ -10,26 +10,25 @@ Interface
 
  Type
   TfraGraph = Class(TFrame)
-   Published
+    aChartsConfigure   : TAction;
     Actions            : TActionList;
-    ImageList          : TImageList;
+    aFullView          : TAction;
+    aGraphWindow       : TAction;
+    AppTranslator      : TTranslator;
     aZoomIn            : TAction;
     aZoomOut           : TAction;
-    aFullView          : TAction;
-    aChartsConfigure   : TAction;
-    aGraphWindow       : TAction;
-    ToolBar2           : TToolBar;
+    btnChartsConfigure : TToolButton;
+    btnFullView        : TToolButton;
+    btnGraphWindow     : TToolButton;
     btnZoomIn          : TToolButton;
     btnZoomOut         : TToolButton;
-    btnFullView        : TToolButton;
-    Separator1         : TToolButton;
-    btnChartsConfigure : TToolButton;
-    Separator2         : TToolButton;
-    btnGraphWindow     : TToolButton;
-    Separator3         : TToolButton;
-    lView              : TLabel;
     ChartsHost         : TScrollBox;
-    AppTranslator      : TTranslator;
+    ImageList          : TImageList;
+    lView              : TLabel;
+    Separator1         : TToolButton;
+    Separator2         : TToolButton;
+    Separator3         : TToolButton;
+    ToolBar2           : TToolBar;
     Procedure TranslateView(Sender : TObject);
     Procedure Wheel(Sender : TObject; Shift : TShiftState; WheelDelta : Integer; MousePos : TPoint; Var Handled : Boolean);
     Procedure WindowExecute(Sender : TObject);
@@ -52,7 +51,7 @@ Interface
 
 Implementation
 
- {$R *.dfm}
+{$R *.dfm}
 
  Procedure TfraGraph.SetParent(AParent : TWinControl);
   Begin
@@ -115,12 +114,12 @@ Implementation
 
  Procedure TfraGraph.Wheel(Sender : TObject; Shift : TShiftState; WheelDelta : Integer; MousePos : TPoint; Var Handled : Boolean);
   Var
-   P : TPoint;
+   p : TPoint;
   Begin
    If Handled Or (fCharts = Nil) Or Not ChartsHost.Showing Then
     Exit;
-   P := ChartsHost.ScreenToClient(MousePos);
-   If Not PtInRect(ChartsHost.ClientRect, P) Then
+   p := ChartsHost.ScreenToClient(MousePos);
+   If Not PtInRect(ChartsHost.ClientRect, p) Then
     Exit;
    If ssCtrl In Shift Then
     Begin

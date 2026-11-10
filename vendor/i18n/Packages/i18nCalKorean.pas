@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -11,18 +11,18 @@
 /// <summary>
 /// This unit implements the Korean Tangun Era calendar.
 /// </summary>
-unit i18nCalKorean;
+Unit i18nCalKorean;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-uses
+ Uses
   SysUtils, i18nCalendar, i18nCalGregorian;
 
-type
+ Type
 
-  {$region 'xmldoc'}
+  {$Region 'xmldoc'}
   /// <summary>
   /// This class implements the Korean Tangun Era calendar.
   /// </summary>
@@ -39,41 +39,41 @@ type
   /// TKoreanCalendar supports both the Common Era (C.E.) and the Korean Tangun Era.
   /// </para>
   /// </remarks>
-  {$endregion}
-  TKoreanCalendar = class(TGregorianCalendar)
-  protected
-    {$region 'xmldoc'}
+  {$Endregion}
+  TKoreanCalendar = Class(TGregorianCalendar)
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// The difference between years in the Korean Era and the Common Era.
     /// </summary>
-    {$endregion}
-    const KOREAN_YEAR_OFFSET = -2333;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const KOREAN_YEAR_OFFSET = -2333;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Specifies the index of the Korean Era.
     /// </summary>
-    {$endregion}
-    const KoreanEra = 2;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const KoreanEra = 2;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the unique identifier of the calendar.
     /// </summary>
     /// <returns>
     /// Returns <see cref="CAL_KOREA"/>.
     /// </returns>
-    {$endregion}
-    class function CalendarID: Cardinal; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function CalendarID : Cardinal; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of eras that the calendar class supports.
     /// </summary>
     /// <returns>
     /// Returns 2.
     /// </returns>
-    {$endregion}
-    class function MaxEra: Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MaxEra : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the minimum <see cref="TDateTime"/> value that can be managed by
     /// the calendar.
@@ -82,9 +82,9 @@ type
     /// The minimum supported <see cref="TDateTime"/> value.
     /// </returns>
     /// <seealso cref="MaxSupportedDateTime"/>
-    {$endregion}
-    class function MinSupportedDateTime: TDateTime; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MinSupportedDateTime : TDateTime; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the maximum <see cref="TDateTime"/> value that can be managed by
     /// the calendar.
@@ -93,9 +93,9 @@ type
     /// The maximum supported <see cref="TDateTime"/> value.
     /// </returns>
     /// <seealso cref="MinSupportedDateTime"/>
-    {$endregion}
-    class function MaxSupportedDateTime: TDateTime; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MaxSupportedDateTime : TDateTime; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TCalendarSettings"/> class that provides locale-
     /// specific settings for the calendar.
@@ -103,9 +103,9 @@ type
     /// <returns>
     /// Returns the <see cref="TKoreanCalendarSettings"/> class.
     /// </returns>
-    {$endregion}
-    class function SettingsClass: TCalendarSettingsClass; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function SettingsClass : TCalendarSettingsClass; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a year from one era to another.
     /// </summary>
@@ -121,23 +121,24 @@ type
     /// <returns>
     /// The year expressed in the target era.
     /// </returns>
-    {$endregion}
-    function ConvertYear(Year, FromEra, ToEra: Integer): Integer; override;
-  end;
+    {$Endregion}
+    Function ConvertYear(Year, FromEra, ToEra : Integer) : Integer; Override;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This class provides locale-specific settings for the <see cref="TKoreanCalendar"/>
-  /// class.
-  /// </summary>
-  /// <remarks>
-  /// The TKoreanCalendarSettings class collects the Korean calendar's locale-specific
-  /// settings, which are required by the <see cref="TKoreanCalendar"/> class.
-  /// </remarks>
-  {$endregion}
-  TKoreanCalendarSettings = class(TGregorianCalendarSettings)
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// This class provides locale-specific settings for the <see cref="TKoreanCalendar"/>
+/// class.
+/// </summary>
+/// <remarks>
+/// The TKoreanCalendarSettings class collects the Korean calendar's locale-specific
+/// settings, which are required by the <see cref="TKoreanCalendar"/> class.
+/// </remarks>
+{$Endregion}
+
+  TKoreanCalendarSettings = Class(TGregorianCalendarSettings)
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="EraNames"/> and <see cref="ShortEraNames"/> properties for
     /// the specified era based on the given locale and calendar identifier.
@@ -151,88 +152,100 @@ type
     /// <param name="CalendarID">
     /// The identifier of the calendar system.
     /// </param>
-    {$endregion}
-    procedure PrepareEraName(Era: Integer; const Locale: String; CalendarID: Cardinal); override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure PrepareEraName(Era : Integer; Const Locale : String; CalendarID : Cardinal); Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines the calendar system that this settings is provided for.
     /// </summary>
     /// <returns>
     /// Returns the <see cref="TKoreanCalendar"/> class.
     /// </returns>
-    {$endregion}
-    class function CalendarClass: TCalendarClass; override;
-  end;
+    {$Endregion}
+    Class Function CalendarClass : TCalendarClass; Override;
+  End;
 
-implementation
+Implementation
 
-uses
+ Uses
   Math, Types, i18nWinNLS;
 
 { TKoreanCalendar }
 
-class function TKoreanCalendar.CalendarID: Cardinal;
-begin
-  Result := CAL_KOREA;
-end;
+  Class Function TKoreanCalendar.CalendarID : Cardinal;
 
-class function TKoreanCalendar.SettingsClass: TCalendarSettingsClass;
-begin
-  Result := TKoreanCalendarSettings;
-end;
+Begin
+ Result := CAL_KOREA;
 
-class function TKoreanCalendar.MaxEra: Integer;
-begin
-  Result := KoreanEra;
-end;
+End;
 
-class function TKoreanCalendar.MinSupportedDateTime: TDateTime;
-begin
-  Result := Max({0001/01/01 Korean} -1545704.0, inherited);
-end;
+  Class Function TKoreanCalendar.SettingsClass : TCalendarSettingsClass;
 
-class function TKoreanCalendar.MaxSupportedDateTime: TDateTime;
-begin
-  Result := Min({9999/12/31 Korean} 2106355.99999, inherited);
-end;
+Begin
+ Result := TKoreanCalendarSettings;
 
-function TKoreanCalendar.ConvertYear(Year, FromEra, ToEra: Integer): Integer;
-begin
-  if Year = 0 then
+End;
+
+  Class Function TKoreanCalendar.MaxEra : Integer;
+
+Begin
+ Result := KoreanEra;
+
+End;
+
+  Class Function TKoreanCalendar.MinSupportedDateTime : TDateTime;
+
+Begin
+ Result := Max({0001/01/01 Korean} -1545704.0, Inherited);
+
+End;
+
+  Class Function TKoreanCalendar.MaxSupportedDateTime : TDateTime;
+
+Begin
+ Result := Min({9999/12/31 Korean} 2106355.99999, Inherited);
+
+End;
+
+ Function TKoreanCalendar.ConvertYear(Year, FromEra, ToEra : Integer) : Integer;
+  Begin
+   If Year = 0 Then
     YearError(FromEra, 0)
-  else if FromEra <> ToEra then
-  begin
-    if FromEra = KoreanEra then
+   Else If FromEra <> ToEra Then
+    Begin
+     If FromEra = KoreanEra Then
       Year := OffsetYear(Year, +KOREAN_YEAR_OFFSET, FromEra, CommonEra)
-    else if FromEra <> CommonEra then
+     Else If FromEra <> CommonEra Then
       EraError(FromEra);
-    if ToEra = KoreanEra then
+     If ToEra = KoreanEra Then
       Year := OffsetYear(Year, -KOREAN_YEAR_OFFSET, CommonEra, ToEra)
-    else if ToEra <> CommonEra then
+     Else If ToEra <> CommonEra Then
       EraError(ToEra);
-  end
-  else if not (FromEra in [CommonEra, KoreanEra]) then
+    End
+   Else If Not(FromEra In [CommonEra, KoreanEra]) Then
     EraError(FromEra);
-  Result := Year;
-end;
+   Result := Year;
+  End;
 
 { TKoreanCalendarSettings }
 
-class function TKoreanCalendarSettings.CalendarClass: TCalendarClass;
-begin
-  Result := TKoreanCalendar;
-end;
+  Class Function TKoreanCalendarSettings.CalendarClass : TCalendarClass;
 
-procedure TKoreanCalendarSettings.PrepareEraName(Era: Integer;
-  const Locale: String; CalendarID: Cardinal);
-begin
-  if Era = TKoreanCalendar.CommonEra then
-    inherited PrepareEraName(Era, Locale, CAL_GREGORIAN)
-  else
-    inherited PrepareEraName(Era, Locale, CalendarID);
-end;
+Begin
+ Result := TKoreanCalendar;
 
-initialization
-  CalendarTypes.Register(TKoreanCalendar, ['ko-KR']);
-end.
+End;
+
+ Procedure TKoreanCalendarSettings.PrepareEraName(Era : Integer; Const Locale : String; CalendarID : Cardinal);
+  Begin
+   If Era = TKoreanCalendar.CommonEra Then
+    Inherited PrepareEraName(Era, Locale, CAL_GREGORIAN)
+   Else
+    Inherited PrepareEraName(Era, Locale, CalendarID);
+  End;
+
+Initialization
+ CalendarTypes.Register(TKoreanCalendar, ['ko-KR']);
+
+End.

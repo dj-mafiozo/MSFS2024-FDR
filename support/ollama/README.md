@@ -43,7 +43,7 @@ przez serwer. Większy kontekst trzeba dopasować do objętości danych analizy.
 ## Zachowanie
 
 `analysis/OllamaAnalysisU.pas` wywołuje natywne WinHTTP; nie wymaga dodatkowego EXE
-klienta. Żądanie `POST /api/chat` zawiera model, ten sam polski prompt co
+klienta. Żądanie `POST /api/chat` zawiera model, ten sam kontekst analizy i żądanie języka odpowiedzi co
 pozostałe silniki, `stream=false` i `options.num_ctx`. Wynikiem jest wyłącznie
 `message.content`, bez osobnego tekstu rozumowania modelu. Raport przechodzi
 przez dotychczasowy zapis w bazie i renderowanie Markdown.

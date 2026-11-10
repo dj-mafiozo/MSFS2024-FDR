@@ -1,0 +1,434 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+ <PropertyGroup><ProjectGuid>{FF251C45-F63D-4B19-9AF9-5FDC13A28CB9}</ProjectGuid><Platform Condition="'$(Platform)'==''">Win64</Platform><Config Condition="'$(Config)'==''">Debug</Config></PropertyGroup>
+ <ItemGroup>
+  <Projects Include="CaptureHelpScreenshots.dproj"><Dependencies/></Projects>
+  <Projects Include="CheckDFM.dproj"><Dependencies/></Projects>
+  <Projects Include="MockAddonSim.dproj"><Dependencies/></Projects>
+  <Projects Include="MockFenixSim.dproj"><Dependencies/></Projects>
+  <Projects Include="MockFlightPad32.dproj"><Dependencies/></Projects>
+  <Projects Include="MockGhostSim.dproj"><Dependencies/></Projects>
+  <Projects Include="MockLifecycleSim.dproj"><Dependencies/></Projects>
+  <Projects Include="MockPMDG777Sim.dproj"><Dependencies/></Projects>
+  <Projects Include="MockPMDGSim.dproj"><Dependencies/></Projects>
+  <Projects Include="ProbeFlightDirector.dproj"><Dependencies/></Projects>
+  <Projects Include="ProbeFMCScreens.dproj"><Dependencies/></Projects>
+  <Projects Include="ProbeFSHud.dproj"><Dependencies/></Projects>
+  <Projects Include="ProbePMDG.dproj"><Dependencies/></Projects>
+  <Projects Include="ProbeSavedFMC.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyAddonLVars.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyAIModelMatching.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyAirbusDisplays.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyAirbusMCDU.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyAircraftSDK.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyAirliner.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyAnalysis.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyAppStorage.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyB38MEICAS.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyBoeingFMC.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyBridgeInstall.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyBridgeSignature.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyCatalogSources.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyChartDrag.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyChartsConfigure.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyChartView.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyContext.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyDetachedViews.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyDiagnostics.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyDisplayUnits.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyEngineGauges.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyFBW.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyFenix.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyFlapsHandle.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyFlightDirector.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyFlightPad.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyFlightPadAppearance.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyFlightPlan.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyFMC.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyFMCReplay.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyFSHud.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyGhostReplay.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyGlobalLocales.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyGroundWeather.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyGroups.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyGSX.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyHelpAbout.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyHelpContexts.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyIDEProjectSave.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyIFlyDisplays.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyIFlyFMA.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyInstrumentFrames.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyInstrumentRender.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyLegacy.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyLegacyExport.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyLocaleExpansion.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyLocalization.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyMetar.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyNativeATC.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyNativeDocking.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyOllama.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyOllamaModels.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyPanelProportions.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyParameterNames.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyParameterValues.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyPFD737.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyPFDMinima.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyPFDReadouts.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyPlayback.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyPMDG.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyPMDG777.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyPort.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyPrecision.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyProcedureRoute.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyRecorderWorker.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyRecordingFiles.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyRecordingImport.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyRecordingTree.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyRecordingUI.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyRecordingWorker.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyReleasePEM.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyReplayExtras.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyReport.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyRTLReturn.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifySession.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifySetup.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifySetupArchitecture.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifySetupMaintenance.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifySetupSignature.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifySetupUI.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifySimBacklog.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifySimBrief.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifySimBriefMaps.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifySimBriefUI.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifySimulatorVersion.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifySimWeather.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifySixPack.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifySubscriptions.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyTripInfo.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyUI.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyVersionLanguage.dproj"><Dependencies/></Projects>
+  <Projects Include="VerifyViewState.dproj"><Dependencies/></Projects>
+ </ItemGroup>
+ <Target Name="CaptureHelpScreenshots"><MSBuild Projects="CaptureHelpScreenshots.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="CaptureHelpScreenshots:Make"><MSBuild Projects="CaptureHelpScreenshots.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="CaptureHelpScreenshots:Clean"><MSBuild Projects="CaptureHelpScreenshots.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="CheckDFM"><MSBuild Projects="CheckDFM.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="CheckDFM:Make"><MSBuild Projects="CheckDFM.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="CheckDFM:Clean"><MSBuild Projects="CheckDFM.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="MockAddonSim"><MSBuild Projects="MockAddonSim.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="MockAddonSim:Make"><MSBuild Projects="MockAddonSim.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="MockAddonSim:Clean"><MSBuild Projects="MockAddonSim.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="MockFenixSim"><MSBuild Projects="MockFenixSim.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="MockFenixSim:Make"><MSBuild Projects="MockFenixSim.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="MockFenixSim:Clean"><MSBuild Projects="MockFenixSim.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="MockFlightPad32"><MSBuild Projects="MockFlightPad32.dproj" Properties="Platform=Win32"/></Target>
+ <Target Name="MockFlightPad32:Make"><MSBuild Projects="MockFlightPad32.dproj" Properties="Platform=Win32" Targets="Make"/></Target>
+ <Target Name="MockFlightPad32:Clean"><MSBuild Projects="MockFlightPad32.dproj" Properties="Platform=Win32" Targets="Clean"/></Target>
+ <Target Name="MockGhostSim"><MSBuild Projects="MockGhostSim.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="MockGhostSim:Make"><MSBuild Projects="MockGhostSim.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="MockGhostSim:Clean"><MSBuild Projects="MockGhostSim.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="MockLifecycleSim"><MSBuild Projects="MockLifecycleSim.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="MockLifecycleSim:Make"><MSBuild Projects="MockLifecycleSim.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="MockLifecycleSim:Clean"><MSBuild Projects="MockLifecycleSim.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="MockPMDG777Sim"><MSBuild Projects="MockPMDG777Sim.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="MockPMDG777Sim:Make"><MSBuild Projects="MockPMDG777Sim.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="MockPMDG777Sim:Clean"><MSBuild Projects="MockPMDG777Sim.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="MockPMDGSim"><MSBuild Projects="MockPMDGSim.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="MockPMDGSim:Make"><MSBuild Projects="MockPMDGSim.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="MockPMDGSim:Clean"><MSBuild Projects="MockPMDGSim.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="ProbeFlightDirector"><MSBuild Projects="ProbeFlightDirector.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="ProbeFlightDirector:Make"><MSBuild Projects="ProbeFlightDirector.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="ProbeFlightDirector:Clean"><MSBuild Projects="ProbeFlightDirector.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="ProbeFMCScreens"><MSBuild Projects="ProbeFMCScreens.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="ProbeFMCScreens:Make"><MSBuild Projects="ProbeFMCScreens.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="ProbeFMCScreens:Clean"><MSBuild Projects="ProbeFMCScreens.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="ProbeFSHud"><MSBuild Projects="ProbeFSHud.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="ProbeFSHud:Make"><MSBuild Projects="ProbeFSHud.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="ProbeFSHud:Clean"><MSBuild Projects="ProbeFSHud.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="ProbePMDG"><MSBuild Projects="ProbePMDG.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="ProbePMDG:Make"><MSBuild Projects="ProbePMDG.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="ProbePMDG:Clean"><MSBuild Projects="ProbePMDG.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="ProbeSavedFMC"><MSBuild Projects="ProbeSavedFMC.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="ProbeSavedFMC:Make"><MSBuild Projects="ProbeSavedFMC.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="ProbeSavedFMC:Clean"><MSBuild Projects="ProbeSavedFMC.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyAddonLVars"><MSBuild Projects="VerifyAddonLVars.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyAddonLVars:Make"><MSBuild Projects="VerifyAddonLVars.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyAddonLVars:Clean"><MSBuild Projects="VerifyAddonLVars.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyAIModelMatching"><MSBuild Projects="VerifyAIModelMatching.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyAIModelMatching:Make"><MSBuild Projects="VerifyAIModelMatching.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyAIModelMatching:Clean"><MSBuild Projects="VerifyAIModelMatching.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyAirbusDisplays"><MSBuild Projects="VerifyAirbusDisplays.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyAirbusDisplays:Make"><MSBuild Projects="VerifyAirbusDisplays.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyAirbusDisplays:Clean"><MSBuild Projects="VerifyAirbusDisplays.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyAirbusMCDU"><MSBuild Projects="VerifyAirbusMCDU.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyAirbusMCDU:Make"><MSBuild Projects="VerifyAirbusMCDU.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyAirbusMCDU:Clean"><MSBuild Projects="VerifyAirbusMCDU.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyAircraftSDK"><MSBuild Projects="VerifyAircraftSDK.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyAircraftSDK:Make"><MSBuild Projects="VerifyAircraftSDK.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyAircraftSDK:Clean"><MSBuild Projects="VerifyAircraftSDK.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyAirliner"><MSBuild Projects="VerifyAirliner.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyAirliner:Make"><MSBuild Projects="VerifyAirliner.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyAirliner:Clean"><MSBuild Projects="VerifyAirliner.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyAnalysis"><MSBuild Projects="VerifyAnalysis.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyAnalysis:Make"><MSBuild Projects="VerifyAnalysis.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyAnalysis:Clean"><MSBuild Projects="VerifyAnalysis.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyAppStorage"><MSBuild Projects="VerifyAppStorage.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyAppStorage:Make"><MSBuild Projects="VerifyAppStorage.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyAppStorage:Clean"><MSBuild Projects="VerifyAppStorage.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyB38MEICAS"><MSBuild Projects="VerifyB38MEICAS.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyB38MEICAS:Make"><MSBuild Projects="VerifyB38MEICAS.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyB38MEICAS:Clean"><MSBuild Projects="VerifyB38MEICAS.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyBoeingFMC"><MSBuild Projects="VerifyBoeingFMC.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyBoeingFMC:Make"><MSBuild Projects="VerifyBoeingFMC.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyBoeingFMC:Clean"><MSBuild Projects="VerifyBoeingFMC.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyBridgeInstall"><MSBuild Projects="VerifyBridgeInstall.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyBridgeInstall:Make"><MSBuild Projects="VerifyBridgeInstall.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyBridgeInstall:Clean"><MSBuild Projects="VerifyBridgeInstall.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyBridgeSignature"><MSBuild Projects="VerifyBridgeSignature.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyBridgeSignature:Make"><MSBuild Projects="VerifyBridgeSignature.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyBridgeSignature:Clean"><MSBuild Projects="VerifyBridgeSignature.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyCatalogSources"><MSBuild Projects="VerifyCatalogSources.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyCatalogSources:Make"><MSBuild Projects="VerifyCatalogSources.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyCatalogSources:Clean"><MSBuild Projects="VerifyCatalogSources.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyChartDrag"><MSBuild Projects="VerifyChartDrag.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyChartDrag:Make"><MSBuild Projects="VerifyChartDrag.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyChartDrag:Clean"><MSBuild Projects="VerifyChartDrag.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyChartsConfigure"><MSBuild Projects="VerifyChartsConfigure.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyChartsConfigure:Make"><MSBuild Projects="VerifyChartsConfigure.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyChartsConfigure:Clean"><MSBuild Projects="VerifyChartsConfigure.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyChartView"><MSBuild Projects="VerifyChartView.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyChartView:Make"><MSBuild Projects="VerifyChartView.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyChartView:Clean"><MSBuild Projects="VerifyChartView.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyContext"><MSBuild Projects="VerifyContext.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyContext:Make"><MSBuild Projects="VerifyContext.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyContext:Clean"><MSBuild Projects="VerifyContext.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyDetachedViews"><MSBuild Projects="VerifyDetachedViews.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyDetachedViews:Make"><MSBuild Projects="VerifyDetachedViews.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyDetachedViews:Clean"><MSBuild Projects="VerifyDetachedViews.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyDiagnostics"><MSBuild Projects="VerifyDiagnostics.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyDiagnostics:Make"><MSBuild Projects="VerifyDiagnostics.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyDiagnostics:Clean"><MSBuild Projects="VerifyDiagnostics.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyDisplayUnits"><MSBuild Projects="VerifyDisplayUnits.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyDisplayUnits:Make"><MSBuild Projects="VerifyDisplayUnits.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyDisplayUnits:Clean"><MSBuild Projects="VerifyDisplayUnits.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyEngineGauges"><MSBuild Projects="VerifyEngineGauges.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyEngineGauges:Make"><MSBuild Projects="VerifyEngineGauges.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyEngineGauges:Clean"><MSBuild Projects="VerifyEngineGauges.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyFBW"><MSBuild Projects="VerifyFBW.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyFBW:Make"><MSBuild Projects="VerifyFBW.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyFBW:Clean"><MSBuild Projects="VerifyFBW.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyFenix"><MSBuild Projects="VerifyFenix.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyFenix:Make"><MSBuild Projects="VerifyFenix.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyFenix:Clean"><MSBuild Projects="VerifyFenix.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyFlapsHandle"><MSBuild Projects="VerifyFlapsHandle.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyFlapsHandle:Make"><MSBuild Projects="VerifyFlapsHandle.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyFlapsHandle:Clean"><MSBuild Projects="VerifyFlapsHandle.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyFlightDirector"><MSBuild Projects="VerifyFlightDirector.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyFlightDirector:Make"><MSBuild Projects="VerifyFlightDirector.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyFlightDirector:Clean"><MSBuild Projects="VerifyFlightDirector.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyFlightPad"><MSBuild Projects="VerifyFlightPad.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyFlightPad:Make"><MSBuild Projects="VerifyFlightPad.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyFlightPad:Clean"><MSBuild Projects="VerifyFlightPad.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyFlightPadAppearance"><MSBuild Projects="VerifyFlightPadAppearance.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyFlightPadAppearance:Make"><MSBuild Projects="VerifyFlightPadAppearance.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyFlightPadAppearance:Clean"><MSBuild Projects="VerifyFlightPadAppearance.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyFlightPlan"><MSBuild Projects="VerifyFlightPlan.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyFlightPlan:Make"><MSBuild Projects="VerifyFlightPlan.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyFlightPlan:Clean"><MSBuild Projects="VerifyFlightPlan.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyFMC"><MSBuild Projects="VerifyFMC.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyFMC:Make"><MSBuild Projects="VerifyFMC.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyFMC:Clean"><MSBuild Projects="VerifyFMC.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyFMCReplay"><MSBuild Projects="VerifyFMCReplay.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyFMCReplay:Make"><MSBuild Projects="VerifyFMCReplay.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyFMCReplay:Clean"><MSBuild Projects="VerifyFMCReplay.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyFSHud"><MSBuild Projects="VerifyFSHud.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyFSHud:Make"><MSBuild Projects="VerifyFSHud.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyFSHud:Clean"><MSBuild Projects="VerifyFSHud.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyGhostReplay"><MSBuild Projects="VerifyGhostReplay.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyGhostReplay:Make"><MSBuild Projects="VerifyGhostReplay.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyGhostReplay:Clean"><MSBuild Projects="VerifyGhostReplay.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyGlobalLocales"><MSBuild Projects="VerifyGlobalLocales.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyGlobalLocales:Make"><MSBuild Projects="VerifyGlobalLocales.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyGlobalLocales:Clean"><MSBuild Projects="VerifyGlobalLocales.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyGroundWeather"><MSBuild Projects="VerifyGroundWeather.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyGroundWeather:Make"><MSBuild Projects="VerifyGroundWeather.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyGroundWeather:Clean"><MSBuild Projects="VerifyGroundWeather.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyGroups"><MSBuild Projects="VerifyGroups.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyGroups:Make"><MSBuild Projects="VerifyGroups.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyGroups:Clean"><MSBuild Projects="VerifyGroups.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyGSX"><MSBuild Projects="VerifyGSX.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyGSX:Make"><MSBuild Projects="VerifyGSX.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyGSX:Clean"><MSBuild Projects="VerifyGSX.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyHelpAbout"><MSBuild Projects="VerifyHelpAbout.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyHelpAbout:Make"><MSBuild Projects="VerifyHelpAbout.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyHelpAbout:Clean"><MSBuild Projects="VerifyHelpAbout.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyHelpContexts"><MSBuild Projects="VerifyHelpContexts.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyHelpContexts:Make"><MSBuild Projects="VerifyHelpContexts.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyHelpContexts:Clean"><MSBuild Projects="VerifyHelpContexts.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyIDEProjectSave"><MSBuild Projects="VerifyIDEProjectSave.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyIDEProjectSave:Make"><MSBuild Projects="VerifyIDEProjectSave.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyIDEProjectSave:Clean"><MSBuild Projects="VerifyIDEProjectSave.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyIFlyDisplays"><MSBuild Projects="VerifyIFlyDisplays.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyIFlyDisplays:Make"><MSBuild Projects="VerifyIFlyDisplays.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyIFlyDisplays:Clean"><MSBuild Projects="VerifyIFlyDisplays.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyIFlyFMA"><MSBuild Projects="VerifyIFlyFMA.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyIFlyFMA:Make"><MSBuild Projects="VerifyIFlyFMA.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyIFlyFMA:Clean"><MSBuild Projects="VerifyIFlyFMA.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyInstrumentFrames"><MSBuild Projects="VerifyInstrumentFrames.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyInstrumentFrames:Make"><MSBuild Projects="VerifyInstrumentFrames.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyInstrumentFrames:Clean"><MSBuild Projects="VerifyInstrumentFrames.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyInstrumentRender"><MSBuild Projects="VerifyInstrumentRender.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyInstrumentRender:Make"><MSBuild Projects="VerifyInstrumentRender.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyInstrumentRender:Clean"><MSBuild Projects="VerifyInstrumentRender.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyLegacy"><MSBuild Projects="VerifyLegacy.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyLegacy:Make"><MSBuild Projects="VerifyLegacy.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyLegacy:Clean"><MSBuild Projects="VerifyLegacy.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyLegacyExport"><MSBuild Projects="VerifyLegacyExport.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyLegacyExport:Make"><MSBuild Projects="VerifyLegacyExport.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyLegacyExport:Clean"><MSBuild Projects="VerifyLegacyExport.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyLocaleExpansion"><MSBuild Projects="VerifyLocaleExpansion.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyLocaleExpansion:Make"><MSBuild Projects="VerifyLocaleExpansion.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyLocaleExpansion:Clean"><MSBuild Projects="VerifyLocaleExpansion.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyLocalization"><MSBuild Projects="VerifyLocalization.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyLocalization:Make"><MSBuild Projects="VerifyLocalization.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyLocalization:Clean"><MSBuild Projects="VerifyLocalization.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyMetar"><MSBuild Projects="VerifyMetar.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyMetar:Make"><MSBuild Projects="VerifyMetar.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyMetar:Clean"><MSBuild Projects="VerifyMetar.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyNativeATC"><MSBuild Projects="VerifyNativeATC.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyNativeATC:Make"><MSBuild Projects="VerifyNativeATC.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyNativeATC:Clean"><MSBuild Projects="VerifyNativeATC.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyNativeDocking"><MSBuild Projects="VerifyNativeDocking.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyNativeDocking:Make"><MSBuild Projects="VerifyNativeDocking.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyNativeDocking:Clean"><MSBuild Projects="VerifyNativeDocking.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyOllama"><MSBuild Projects="VerifyOllama.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyOllama:Make"><MSBuild Projects="VerifyOllama.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyOllama:Clean"><MSBuild Projects="VerifyOllama.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyOllamaModels"><MSBuild Projects="VerifyOllamaModels.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyOllamaModels:Make"><MSBuild Projects="VerifyOllamaModels.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyOllamaModels:Clean"><MSBuild Projects="VerifyOllamaModels.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyPanelProportions"><MSBuild Projects="VerifyPanelProportions.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyPanelProportions:Make"><MSBuild Projects="VerifyPanelProportions.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyPanelProportions:Clean"><MSBuild Projects="VerifyPanelProportions.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyParameterNames"><MSBuild Projects="VerifyParameterNames.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyParameterNames:Make"><MSBuild Projects="VerifyParameterNames.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyParameterNames:Clean"><MSBuild Projects="VerifyParameterNames.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyParameterValues"><MSBuild Projects="VerifyParameterValues.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyParameterValues:Make"><MSBuild Projects="VerifyParameterValues.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyParameterValues:Clean"><MSBuild Projects="VerifyParameterValues.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyPFD737"><MSBuild Projects="VerifyPFD737.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyPFD737:Make"><MSBuild Projects="VerifyPFD737.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyPFD737:Clean"><MSBuild Projects="VerifyPFD737.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyPFDMinima"><MSBuild Projects="VerifyPFDMinima.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyPFDMinima:Make"><MSBuild Projects="VerifyPFDMinima.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyPFDMinima:Clean"><MSBuild Projects="VerifyPFDMinima.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyPFDReadouts"><MSBuild Projects="VerifyPFDReadouts.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyPFDReadouts:Make"><MSBuild Projects="VerifyPFDReadouts.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyPFDReadouts:Clean"><MSBuild Projects="VerifyPFDReadouts.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyPlayback"><MSBuild Projects="VerifyPlayback.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyPlayback:Make"><MSBuild Projects="VerifyPlayback.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyPlayback:Clean"><MSBuild Projects="VerifyPlayback.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyPMDG"><MSBuild Projects="VerifyPMDG.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyPMDG:Make"><MSBuild Projects="VerifyPMDG.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyPMDG:Clean"><MSBuild Projects="VerifyPMDG.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyPMDG777"><MSBuild Projects="VerifyPMDG777.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyPMDG777:Make"><MSBuild Projects="VerifyPMDG777.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyPMDG777:Clean"><MSBuild Projects="VerifyPMDG777.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyPort"><MSBuild Projects="VerifyPort.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyPort:Make"><MSBuild Projects="VerifyPort.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyPort:Clean"><MSBuild Projects="VerifyPort.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyPrecision"><MSBuild Projects="VerifyPrecision.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyPrecision:Make"><MSBuild Projects="VerifyPrecision.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyPrecision:Clean"><MSBuild Projects="VerifyPrecision.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyProcedureRoute"><MSBuild Projects="VerifyProcedureRoute.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyProcedureRoute:Make"><MSBuild Projects="VerifyProcedureRoute.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyProcedureRoute:Clean"><MSBuild Projects="VerifyProcedureRoute.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyRecorderWorker"><MSBuild Projects="VerifyRecorderWorker.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyRecorderWorker:Make"><MSBuild Projects="VerifyRecorderWorker.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyRecorderWorker:Clean"><MSBuild Projects="VerifyRecorderWorker.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyRecordingFiles"><MSBuild Projects="VerifyRecordingFiles.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyRecordingFiles:Make"><MSBuild Projects="VerifyRecordingFiles.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyRecordingFiles:Clean"><MSBuild Projects="VerifyRecordingFiles.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyRecordingImport"><MSBuild Projects="VerifyRecordingImport.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyRecordingImport:Make"><MSBuild Projects="VerifyRecordingImport.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyRecordingImport:Clean"><MSBuild Projects="VerifyRecordingImport.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyRecordingTree"><MSBuild Projects="VerifyRecordingTree.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyRecordingTree:Make"><MSBuild Projects="VerifyRecordingTree.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyRecordingTree:Clean"><MSBuild Projects="VerifyRecordingTree.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyRecordingUI"><MSBuild Projects="VerifyRecordingUI.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyRecordingUI:Make"><MSBuild Projects="VerifyRecordingUI.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyRecordingUI:Clean"><MSBuild Projects="VerifyRecordingUI.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyRecordingWorker"><MSBuild Projects="VerifyRecordingWorker.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyRecordingWorker:Make"><MSBuild Projects="VerifyRecordingWorker.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyRecordingWorker:Clean"><MSBuild Projects="VerifyRecordingWorker.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyReleasePEM"><MSBuild Projects="VerifyReleasePEM.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyReleasePEM:Make"><MSBuild Projects="VerifyReleasePEM.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyReleasePEM:Clean"><MSBuild Projects="VerifyReleasePEM.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyReplayExtras"><MSBuild Projects="VerifyReplayExtras.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyReplayExtras:Make"><MSBuild Projects="VerifyReplayExtras.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyReplayExtras:Clean"><MSBuild Projects="VerifyReplayExtras.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyReport"><MSBuild Projects="VerifyReport.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyReport:Make"><MSBuild Projects="VerifyReport.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyReport:Clean"><MSBuild Projects="VerifyReport.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyRTLReturn"><MSBuild Projects="VerifyRTLReturn.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyRTLReturn:Make"><MSBuild Projects="VerifyRTLReturn.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyRTLReturn:Clean"><MSBuild Projects="VerifyRTLReturn.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifySession"><MSBuild Projects="VerifySession.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifySession:Make"><MSBuild Projects="VerifySession.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifySession:Clean"><MSBuild Projects="VerifySession.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifySetup"><MSBuild Projects="VerifySetup.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifySetup:Make"><MSBuild Projects="VerifySetup.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifySetup:Clean"><MSBuild Projects="VerifySetup.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifySetupArchitecture"><MSBuild Projects="VerifySetupArchitecture.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifySetupArchitecture:Make"><MSBuild Projects="VerifySetupArchitecture.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifySetupArchitecture:Clean"><MSBuild Projects="VerifySetupArchitecture.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifySetupMaintenance"><MSBuild Projects="VerifySetupMaintenance.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifySetupMaintenance:Make"><MSBuild Projects="VerifySetupMaintenance.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifySetupMaintenance:Clean"><MSBuild Projects="VerifySetupMaintenance.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifySetupSignature"><MSBuild Projects="VerifySetupSignature.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifySetupSignature:Make"><MSBuild Projects="VerifySetupSignature.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifySetupSignature:Clean"><MSBuild Projects="VerifySetupSignature.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifySetupUI"><MSBuild Projects="VerifySetupUI.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifySetupUI:Make"><MSBuild Projects="VerifySetupUI.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifySetupUI:Clean"><MSBuild Projects="VerifySetupUI.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifySimBacklog"><MSBuild Projects="VerifySimBacklog.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifySimBacklog:Make"><MSBuild Projects="VerifySimBacklog.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifySimBacklog:Clean"><MSBuild Projects="VerifySimBacklog.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifySimBrief"><MSBuild Projects="VerifySimBrief.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifySimBrief:Make"><MSBuild Projects="VerifySimBrief.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifySimBrief:Clean"><MSBuild Projects="VerifySimBrief.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifySimBriefMaps"><MSBuild Projects="VerifySimBriefMaps.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifySimBriefMaps:Make"><MSBuild Projects="VerifySimBriefMaps.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifySimBriefMaps:Clean"><MSBuild Projects="VerifySimBriefMaps.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifySimBriefUI"><MSBuild Projects="VerifySimBriefUI.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifySimBriefUI:Make"><MSBuild Projects="VerifySimBriefUI.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifySimBriefUI:Clean"><MSBuild Projects="VerifySimBriefUI.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifySimulatorVersion"><MSBuild Projects="VerifySimulatorVersion.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifySimulatorVersion:Make"><MSBuild Projects="VerifySimulatorVersion.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifySimulatorVersion:Clean"><MSBuild Projects="VerifySimulatorVersion.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifySimWeather"><MSBuild Projects="VerifySimWeather.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifySimWeather:Make"><MSBuild Projects="VerifySimWeather.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifySimWeather:Clean"><MSBuild Projects="VerifySimWeather.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifySixPack"><MSBuild Projects="VerifySixPack.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifySixPack:Make"><MSBuild Projects="VerifySixPack.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifySixPack:Clean"><MSBuild Projects="VerifySixPack.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifySubscriptions"><MSBuild Projects="VerifySubscriptions.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifySubscriptions:Make"><MSBuild Projects="VerifySubscriptions.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifySubscriptions:Clean"><MSBuild Projects="VerifySubscriptions.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyTripInfo"><MSBuild Projects="VerifyTripInfo.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyTripInfo:Make"><MSBuild Projects="VerifyTripInfo.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyTripInfo:Clean"><MSBuild Projects="VerifyTripInfo.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyUI"><MSBuild Projects="VerifyUI.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyUI:Make"><MSBuild Projects="VerifyUI.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyUI:Clean"><MSBuild Projects="VerifyUI.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyVersionLanguage"><MSBuild Projects="VerifyVersionLanguage.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyVersionLanguage:Make"><MSBuild Projects="VerifyVersionLanguage.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyVersionLanguage:Clean"><MSBuild Projects="VerifyVersionLanguage.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="VerifyViewState"><MSBuild Projects="VerifyViewState.dproj" Properties="Platform=$(Platform)"/></Target>
+ <Target Name="VerifyViewState:Make"><MSBuild Projects="VerifyViewState.dproj" Properties="Platform=$(Platform)" Targets="Make"/></Target>
+ <Target Name="VerifyViewState:Clean"><MSBuild Projects="VerifyViewState.dproj" Properties="Platform=$(Platform)" Targets="Clean"/></Target>
+ <Target Name="Build"><CallTarget Targets="CaptureHelpScreenshots;CheckDFM;MockAddonSim;MockFenixSim;MockFlightPad32;MockGhostSim;MockLifecycleSim;MockPMDG777Sim;MockPMDGSim;ProbeFlightDirector;ProbeFMCScreens;ProbeFSHud;ProbePMDG;ProbeSavedFMC;VerifyAddonLVars;VerifyAIModelMatching;VerifyAirbusDisplays;VerifyAirbusMCDU;VerifyAircraftSDK;VerifyAirliner;VerifyAnalysis;VerifyAppStorage;VerifyB38MEICAS;VerifyBoeingFMC;VerifyBridgeInstall;VerifyBridgeSignature;VerifyCatalogSources;VerifyChartDrag;VerifyChartsConfigure;VerifyChartView;VerifyContext;VerifyDetachedViews;VerifyDiagnostics;VerifyDisplayUnits;VerifyEngineGauges;VerifyFBW;VerifyFenix;VerifyFlapsHandle;VerifyFlightDirector;VerifyFlightPad;VerifyFlightPadAppearance;VerifyFlightPlan;VerifyFMC;VerifyFMCReplay;VerifyFSHud;VerifyGhostReplay;VerifyGlobalLocales;VerifyGroundWeather;VerifyGroups;VerifyGSX;VerifyHelpAbout;VerifyHelpContexts;VerifyIDEProjectSave;VerifyIFlyDisplays;VerifyIFlyFMA;VerifyInstrumentFrames;VerifyInstrumentRender;VerifyLegacy;VerifyLegacyExport;VerifyLocaleExpansion;VerifyLocalization;VerifyMetar;VerifyNativeATC;VerifyNativeDocking;VerifyOllama;VerifyOllamaModels;VerifyPanelProportions;VerifyParameterNames;VerifyParameterValues;VerifyPFD737;VerifyPFDMinima;VerifyPFDReadouts;VerifyPlayback;VerifyPMDG;VerifyPMDG777;VerifyPort;VerifyPrecision;VerifyProcedureRoute;VerifyRecorderWorker;VerifyRecordingFiles;VerifyRecordingImport;VerifyRecordingTree;VerifyRecordingUI;VerifyRecordingWorker;VerifyReleasePEM;VerifyReplayExtras;VerifyReport;VerifyRTLReturn;VerifySession;VerifySetup;VerifySetupArchitecture;VerifySetupMaintenance;VerifySetupSignature;VerifySetupUI;VerifySimBacklog;VerifySimBrief;VerifySimBriefMaps;VerifySimBriefUI;VerifySimulatorVersion;VerifySimWeather;VerifySixPack;VerifySubscriptions;VerifyTripInfo;VerifyUI;VerifyVersionLanguage;VerifyViewState"/></Target>
+ <Target Name="Make"><CallTarget Targets="CaptureHelpScreenshots:Make;CheckDFM:Make;MockAddonSim:Make;MockFenixSim:Make;MockFlightPad32:Make;MockGhostSim:Make;MockLifecycleSim:Make;MockPMDG777Sim:Make;MockPMDGSim:Make;ProbeFlightDirector:Make;ProbeFMCScreens:Make;ProbeFSHud:Make;ProbePMDG:Make;ProbeSavedFMC:Make;VerifyAddonLVars:Make;VerifyAIModelMatching:Make;VerifyAirbusDisplays:Make;VerifyAirbusMCDU:Make;VerifyAircraftSDK:Make;VerifyAirliner:Make;VerifyAnalysis:Make;VerifyAppStorage:Make;VerifyB38MEICAS:Make;VerifyBoeingFMC:Make;VerifyBridgeInstall:Make;VerifyBridgeSignature:Make;VerifyCatalogSources:Make;VerifyChartDrag:Make;VerifyChartsConfigure:Make;VerifyChartView:Make;VerifyContext:Make;VerifyDetachedViews:Make;VerifyDiagnostics:Make;VerifyDisplayUnits:Make;VerifyEngineGauges:Make;VerifyFBW:Make;VerifyFenix:Make;VerifyFlapsHandle:Make;VerifyFlightDirector:Make;VerifyFlightPad:Make;VerifyFlightPadAppearance:Make;VerifyFlightPlan:Make;VerifyFMC:Make;VerifyFMCReplay:Make;VerifyFSHud:Make;VerifyGhostReplay:Make;VerifyGlobalLocales:Make;VerifyGroundWeather:Make;VerifyGroups:Make;VerifyGSX:Make;VerifyHelpAbout:Make;VerifyHelpContexts:Make;VerifyIDEProjectSave:Make;VerifyIFlyDisplays:Make;VerifyIFlyFMA:Make;VerifyInstrumentFrames:Make;VerifyInstrumentRender:Make;VerifyLegacy:Make;VerifyLegacyExport:Make;VerifyLocaleExpansion:Make;VerifyLocalization:Make;VerifyMetar:Make;VerifyNativeATC:Make;VerifyNativeDocking:Make;VerifyOllama:Make;VerifyOllamaModels:Make;VerifyPanelProportions:Make;VerifyParameterNames:Make;VerifyParameterValues:Make;VerifyPFD737:Make;VerifyPFDMinima:Make;VerifyPFDReadouts:Make;VerifyPlayback:Make;VerifyPMDG:Make;VerifyPMDG777:Make;VerifyPort:Make;VerifyPrecision:Make;VerifyProcedureRoute:Make;VerifyRecorderWorker:Make;VerifyRecordingFiles:Make;VerifyRecordingImport:Make;VerifyRecordingTree:Make;VerifyRecordingUI:Make;VerifyRecordingWorker:Make;VerifyReleasePEM:Make;VerifyReplayExtras:Make;VerifyReport:Make;VerifyRTLReturn:Make;VerifySession:Make;VerifySetup:Make;VerifySetupArchitecture:Make;VerifySetupMaintenance:Make;VerifySetupSignature:Make;VerifySetupUI:Make;VerifySimBacklog:Make;VerifySimBrief:Make;VerifySimBriefMaps:Make;VerifySimBriefUI:Make;VerifySimulatorVersion:Make;VerifySimWeather:Make;VerifySixPack:Make;VerifySubscriptions:Make;VerifyTripInfo:Make;VerifyUI:Make;VerifyVersionLanguage:Make;VerifyViewState:Make"/></Target>
+ <Target Name="Clean"><CallTarget Targets="CaptureHelpScreenshots:Clean;CheckDFM:Clean;MockAddonSim:Clean;MockFenixSim:Clean;MockFlightPad32:Clean;MockGhostSim:Clean;MockLifecycleSim:Clean;MockPMDG777Sim:Clean;MockPMDGSim:Clean;ProbeFlightDirector:Clean;ProbeFMCScreens:Clean;ProbeFSHud:Clean;ProbePMDG:Clean;ProbeSavedFMC:Clean;VerifyAddonLVars:Clean;VerifyAIModelMatching:Clean;VerifyAirbusDisplays:Clean;VerifyAirbusMCDU:Clean;VerifyAircraftSDK:Clean;VerifyAirliner:Clean;VerifyAnalysis:Clean;VerifyAppStorage:Clean;VerifyB38MEICAS:Clean;VerifyBoeingFMC:Clean;VerifyBridgeInstall:Clean;VerifyBridgeSignature:Clean;VerifyCatalogSources:Clean;VerifyChartDrag:Clean;VerifyChartsConfigure:Clean;VerifyChartView:Clean;VerifyContext:Clean;VerifyDetachedViews:Clean;VerifyDiagnostics:Clean;VerifyDisplayUnits:Clean;VerifyEngineGauges:Clean;VerifyFBW:Clean;VerifyFenix:Clean;VerifyFlapsHandle:Clean;VerifyFlightDirector:Clean;VerifyFlightPad:Clean;VerifyFlightPadAppearance:Clean;VerifyFlightPlan:Clean;VerifyFMC:Clean;VerifyFMCReplay:Clean;VerifyFSHud:Clean;VerifyGhostReplay:Clean;VerifyGlobalLocales:Clean;VerifyGroundWeather:Clean;VerifyGroups:Clean;VerifyGSX:Clean;VerifyHelpAbout:Clean;VerifyHelpContexts:Clean;VerifyIDEProjectSave:Clean;VerifyIFlyDisplays:Clean;VerifyIFlyFMA:Clean;VerifyInstrumentFrames:Clean;VerifyInstrumentRender:Clean;VerifyLegacy:Clean;VerifyLegacyExport:Clean;VerifyLocaleExpansion:Clean;VerifyLocalization:Clean;VerifyMetar:Clean;VerifyNativeATC:Clean;VerifyNativeDocking:Clean;VerifyOllama:Clean;VerifyOllamaModels:Clean;VerifyPanelProportions:Clean;VerifyParameterNames:Clean;VerifyParameterValues:Clean;VerifyPFD737:Clean;VerifyPFDMinima:Clean;VerifyPFDReadouts:Clean;VerifyPlayback:Clean;VerifyPMDG:Clean;VerifyPMDG777:Clean;VerifyPort:Clean;VerifyPrecision:Clean;VerifyProcedureRoute:Clean;VerifyRecorderWorker:Clean;VerifyRecordingFiles:Clean;VerifyRecordingImport:Clean;VerifyRecordingTree:Clean;VerifyRecordingUI:Clean;VerifyRecordingWorker:Clean;VerifyReleasePEM:Clean;VerifyReplayExtras:Clean;VerifyReport:Clean;VerifyRTLReturn:Clean;VerifySession:Clean;VerifySetup:Clean;VerifySetupArchitecture:Clean;VerifySetupMaintenance:Clean;VerifySetupSignature:Clean;VerifySetupUI:Clean;VerifySimBacklog:Clean;VerifySimBrief:Clean;VerifySimBriefMaps:Clean;VerifySimBriefUI:Clean;VerifySimulatorVersion:Clean;VerifySimWeather:Clean;VerifySixPack:Clean;VerifySubscriptions:Clean;VerifyTripInfo:Clean;VerifyUI:Clean;VerifyVersionLanguage:Clean;VerifyViewState:Clean"/></Target>
+<ProjectExtensions><Borland.Personality>Default.Personality.12</Borland.Personality><Borland.ProjectType/><BorlandProject><Default.Personality/></BorlandProject></ProjectExtensions>
+ <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

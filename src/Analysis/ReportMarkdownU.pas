@@ -10,49 +10,51 @@ Implementation
  Uses
   System.SysUtils, System.Classes, System.StrUtils;
 
- Function Escape(Const S : String) : String;
+ Function Escape(Const s : String) : String;
   Begin
-   Result := S.Replace('&', '&amp;').Replace('<', '&lt;').Replace('>', '&gt;').Replace('"', '&quot;');
+   Result := s.Replace('&', '&amp;').Replace('<', '&lt;').Replace('>', '&gt;').Replace('"', '&quot;');
   End;
 
- Function RenderInline(Const S : String) : String;
+ Function RenderInline(Const s : String) : String;
   Var
-   I, J       : Integer;
-   Token, Tag : String;
+   i     : Integer;
+   j     : Integer;
+   Token : String;
+   Tag   : String;
   Begin
    Result := '';
-   I      := 1;
-   While I <= Length(S) Do
+   i      := 1;
+   While i <= Length(s) Do
     Begin
      Token := '';
      Tag   := '';
-     If Copy(S, I, 2) = '**' Then
+     If Copy(s, i, 2) = '**' Then
       Begin
        Token := '**';
        Tag   := 'strong';
       End
-     Else If S[I] = '`' Then
+     Else If s[i] = '`' Then
       Begin
        Token := '`';
        Tag   := 'code';
       End
-     Else If S[I] = '*' Then
+     Else If s[i] = '*' Then
       Begin
        Token := '*';
        Tag   := 'em';
       End;
      If Token <> '' Then
       Begin
-       J := PosEx(Token, S, I + Length(Token));
-       If J > I + Length(Token) Then
+       j := PosEx(Token, s, i + Length(Token));
+       If j > i + Length(Token) Then
         Begin
-         Result := Result + '<' + Tag + '>' + Escape(Copy(S, I + Length(Token), J - I - Length(Token))) + '</' + Tag + '>';
-         I      := J + Length(Token);
+         Result := Result + '<' + Tag + '>' + Escape(Copy(s, i + Length(Token), j - i - Length(Token))) + '</' + Tag + '>';
+         i      := j + Length(Token);
          Continue;
         End;
       End;
-     Result := Result + Escape(S[I]);
-     Inc(I);
+     Result := Result + Escape(s[i]);
+     Inc(i);
     End;
   End;
 
@@ -65,8 +67,8 @@ Implementation
    NewList : String;
    Text    : String;
    Level   : Integer;
-   I       : Integer;
-   J       : Integer;
+   i       : Integer;
+   j       : Integer;
    Fence   : Boolean;
   Begin
    Lines := TStringList.Create;
@@ -75,9 +77,9 @@ Implementation
     Body       := '';
     ListTag    := '';
     Fence      := False;
-    For I      := 0 To Lines.Count - 1 Do
+    For i      := 0 To Lines.Count - 1 Do
      Begin
-      Line := Trim(Lines[I]);
+      Line := Trim(Lines[i]);
       If StartsStr('```', Line) Then
        Begin
         If ListTag <> '' Then
@@ -94,7 +96,7 @@ Implementation
        End;
       If Fence Then
        Begin
-        Body := Body + Escape(Lines[I]) + #10;
+        Body := Body + Escape(Lines[i]) + #10;
         Continue;
        End;
       NewList := '';
@@ -106,13 +108,13 @@ Implementation
        End
       Else
        Begin
-        J := 1;
-        While (J <= Length(Line)) And CharInSet(Line[J], ['0' .. '9']) Do
-         Inc(J);
-        If (J > 1) And (Copy(Line, J, 2) = '. ') Then
+        j := 1;
+        While (j <= Length(Line)) And CharInSet(Line[j], ['0'..'9']) Do
+         Inc(j);
+        If (j > 1) And (Copy(Line, j, 2) = '. ') Then
          Begin
           NewList := 'ol';
-          Text    := Copy(Line, J + 2, MaxInt);
+          Text    := Copy(Line, j + 2, MaxInt);
          End;
        End;
       If NewList <> ListTag Then

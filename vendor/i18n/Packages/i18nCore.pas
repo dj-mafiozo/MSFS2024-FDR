@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -15,278 +15,283 @@
 /// of numbers and date-time values, digit substitution, string verification,
 /// and code page conversions.
 /// </summary>
-unit i18nCore;
+Unit i18nCore;
 
 {$I DELPHIAREA.INC}
 
 {-$DEFINE EXCLUDE_TERRITORIES_WITH_NO_CULTURE_INFO}
 {$DEFINE EXCLUDE_TERRITORIES_WITH_X_CODE}
 
-interface
+Interface
 
-uses
+ Uses
   Windows, SysUtils, Classes, i18nHashList, i18nUnicode, i18nPlurals,
   i18nCalendar, i18nCalendars, i18nWinNLS;
 
-const
-  {$region 'xmldoc'}
+ Const
+  {$Region 'xmldoc'}
   /// <summary>
   /// Specifies the start range of custom primary language identifiers.
   /// </summary>
-  {$endregion}
+  {$Endregion}
   CUSTOM_LANG = $0200;
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Specifies the end range of custom primary language identifiers.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Specifies the end range of custom primary language identifiers.
+/// </summary>
+{$Endregion}
   CUSTOM_LANG_LAST = $03FF;
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Specifies the start range of custom secondary language identifiers.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Specifies the start range of custom secondary language identifiers.
+/// </summary>
+{$Endregion}
   CUSTOM_SUBLANG = $20;
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Specifies the end range of custom secondary language identifiers.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Specifies the end range of custom secondary language identifiers.
+/// </summary>
+{$Endregion}
   CUSTOM_SUBLANG_LAST = $3F;
 
-const
-  {$region 'xmldoc'}
+ Const
+  {$Region 'xmldoc'}
   /// <summary>
   /// Lists nominal digits as a string of characters.
   /// </summary>
-  {$endregion}
+  {$Endregion}
   NOMINAL_DIGITS = '0123456789';
 
-type
+ Type
+  TCultureInfo           = Class;
+  TReadonlyCultureList   = Class;
+  TCultureList           = Class;
+  TTerritoryInfo         = Class;
+  TReadonlyTerritoryList = Class;
+  TTerritoryList         = Class;
+  TCurrencyInfo          = Class;
+  TReadonlyCurrencyList  = Class;
+  TCurrencyList          = Class;
 
-  TCultureInfo = class;
-  TReadonlyCultureList = class;
-  TCultureList = class;
-  TTerritoryInfo = class;
-  TReadonlyTerritoryList = class;
-  TTerritoryList = class;
-  TCurrencyInfo = class;
-  TReadonlyCurrencyList = class;
-  TCurrencyList = class;
+{$Region 'xmldoc'}
+/// <summary>
+/// This data type represents a pointer to <see cref="TFormatSettings"/> record.
+/// </summary>
+{$Endregion}
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This data type represents a pointer to <see cref="TFormatSettings"/> record.
-  /// </summary>
-  {$endregion}
   PFormatSettings = ^TFormatSettings;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the type of code pages.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the type of code pages.
+/// </summary>
+{$Endregion}
+
   TCodePageType = (
-    {$region 'xmldoc'}
-    /// OEM code page
-    {$endregion}
-    cpOEM,
-    {$region 'xmldoc'}
-    /// ANSI code page
-    {$endregion}
-    cpANSI,
-    {$region 'xmldoc'}
-    /// MAC code page
-    {$endregion}
-    cpMAC
+  {$Region 'xmldoc'}
+  /// OEM code page
+  {$Endregion}
+  cpOEM,
+  {$Region 'xmldoc'}
+  /// ANSI code page
+  {$Endregion}
+  cpANSI,
+  {$Region 'xmldoc'}
+  /// MAC code page
+  {$Endregion}
+  cpMAC
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the measurement systems.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the measurement systems.
+/// </summary>
+{$Endregion}
+
   TMeasurementSystem = (
-    {$region 'xmldoc'}
-    /// S.I. system
-    {$endregion}
-    msMetric,
-    {$region 'xmldoc'}
-    /// U.S. system
-    {$endregion}
-    msUS
+  {$Region 'xmldoc'}
+  /// S.I. system
+  {$Endregion}
+  msMetric,
+  {$Region 'xmldoc'}
+  /// U.S. system
+  {$Endregion}
+  msUS
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the reading direction of languages.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the reading direction of languages.
+/// </summary>
+{$Endregion}
+
   TReadingLayout = (
-    {$region 'xmldoc'}
-    /// Read from left to right, as for the English (United States) locale.
-    {$endregion}
-    rlLeftToRight,
-    {$region 'xmldoc'}
-    /// Read from right to left, as for Arabic locales.
-    {$endregion}
-    rlRightToLeft,
-    {$region 'xmldoc'}
-    /// Read vertically from top to bottom with columns to the right, and read
-    /// from right to left, as for the Japanese (Japan) locale.
-    {$endregion}
-    rlTopToBottomColRightToLeft,
-    {$region 'xmldoc'}
-    /// Read vertically from top to bottom with columns proceeding to the right,
-    /// as for the Mongolian (Mongolian) locale.
-    {$endregion}
-    rlTopToBottomColLeftToRight
+  {$Region 'xmldoc'}
+  /// Read from left to right, as for the English (United States) locale.
+  {$Endregion}
+  rlLeftToRight,
+  {$Region 'xmldoc'}
+  /// Read from right to left, as for Arabic locales.
+  {$Endregion}
+  rlRightToLeft,
+  {$Region 'xmldoc'}
+  /// Read vertically from top to bottom with columns to the right, and read
+  /// from right to left, as for the Japanese (Japan) locale.
+  {$Endregion}
+  rlTopToBottomColRightToLeft,
+  {$Region 'xmldoc'}
+  /// Read vertically from top to bottom with columns proceeding to the right,
+  /// as for the Mongolian (Mongolian) locale.
+  {$Endregion}
+  rlTopToBottomColLeftToRight
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the possible display names for
-  /// <see cref="TCultureInfo"/> objects.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the possible display names for
+/// <see cref="TCultureInfo"/> objects.
+/// </summary>
+{$Endregion}
+
   TCultureDisplayName = (
-    {$region 'xmldoc'}
-    /// Nothing
-    {$endregion}
-    cnNone,
-    {$region 'xmldoc'}
-    /// Locale name, a multi-part tag to uniquely identify the locale.
-    {$endregion}
-    cnLocale,
-    {$region 'xmldoc'}
-    /// Two characters of the international language code specified in ISO 639-1.
-    {$endregion}
-    cnLanguage,
-    {$region 'xmldoc'}
-    /// Three characters of the international language code specified in ISO 639-2/T.
-    {$endregion}
-    cnLanguage3,
-    {$region 'xmldoc'}
-    /// Full localized (in Windows user's language) name of the locale, for example,
-    /// Deutsch (Deutschland) for German (Germany).
-    {$endregion}
-    cnLocalizedDisplayName,
-    {$region 'xmldoc'}
-    /// Display name of the locale in English. Usually the display name consists of
-    /// the language and the country/region, for example, German (Germany) for
-    /// Deutsch (Deutschland).
-    {$endregion}
-    cnEnglishDisplayName,
-    {$region 'xmldoc'}
-    /// Display name of the locale in its native language, for example, Deutsch
-    /// (Deutschland) for the locale German (Germany).
-    {$endregion}
-    cnNativeDisplayName,
-    {$region 'xmldoc'}
-    /// Full localized (in Windows user's language) name of the language, for example,
-    /// Deutsch representing German.
-    {$endregion}
-    cnLocalizedLanguageName,
-    {$region 'xmldoc'}
-    /// English name of the language, for example, German for Deutsch, from
-    /// International ISO Standard 639.
-    {$endregion}
-    cnEnglishLanguageName,
-    {$region 'xmldoc'}
-    /// Native name of the language, for example, Deutsch for German (Germany).
-    {$endregion}
-    cnNativeLanguageName,
-    {$region 'xmldoc'}
-    /// Native name of the country/region associated with the locale, in the native
-    /// language of the locale.
-    {$endregion}
-    cnNativeCountryName,
-    {$region 'xmldoc'}
-    /// Native name of the currency associated with the locale, in the native language
-    /// of the locale.
-    {$endregion}
-    cnNativeCurrencyName
+  {$Region 'xmldoc'}
+  /// Nothing
+  {$Endregion}
+  cnNone,
+  {$Region 'xmldoc'}
+  /// Locale name, a multi-part tag to uniquely identify the locale.
+  {$Endregion}
+  cnLocale,
+  {$Region 'xmldoc'}
+  /// Two characters of the international language code specified in ISO 639-1.
+  {$Endregion}
+  cnLanguage,
+  {$Region 'xmldoc'}
+  /// Three characters of the international language code specified in ISO 639-2/T.
+  {$Endregion}
+  cnLanguage3,
+  {$Region 'xmldoc'}
+  /// Full localized (in Windows user's language) name of the locale, for example,
+  /// Deutsch (Deutschland) for German (Germany).
+  {$Endregion}
+  cnLocalizedDisplayName,
+  {$Region 'xmldoc'}
+  /// Display name of the locale in English. Usually the display name consists of
+  /// the language and the country/region, for example, German (Germany) for
+  /// Deutsch (Deutschland).
+  {$Endregion}
+  cnEnglishDisplayName,
+  {$Region 'xmldoc'}
+  /// Display name of the locale in its native language, for example, Deutsch
+  /// (Deutschland) for the locale German (Germany).
+  {$Endregion}
+  cnNativeDisplayName,
+  {$Region 'xmldoc'}
+  /// Full localized (in Windows user's language) name of the language, for example,
+  /// Deutsch representing German.
+  {$Endregion}
+  cnLocalizedLanguageName,
+  {$Region 'xmldoc'}
+  /// English name of the language, for example, German for Deutsch, from
+  /// International ISO Standard 639.
+  {$Endregion}
+  cnEnglishLanguageName,
+  {$Region 'xmldoc'}
+  /// Native name of the language, for example, Deutsch for German (Germany).
+  {$Endregion}
+  cnNativeLanguageName,
+  {$Region 'xmldoc'}
+  /// Native name of the country/region associated with the locale, in the native
+  /// language of the locale.
+  {$Endregion}
+  cnNativeCountryName,
+  {$Region 'xmldoc'}
+  /// Native name of the currency associated with the locale, in the native language
+  /// of the locale.
+  {$Endregion}
+  cnNativeCurrencyName
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This class represents a culture (locale).
-  /// </summary>
-  /// <remarks>
-  /// Each instance of TCultureInfo class represents a specific locale. This class has
-  /// properties and methods to query information about the locale, and perform the
-  /// locale specific tasks.
-  ///
-  /// NOTE: Do not create or destroy an instance of TCultureInfo class. Use <see cref="CultureOf"/>
-  /// global function to get TCultureInfo instance of a locale.
-  /// </remarks>
-  /// <seealso cref="CultureOf"/>
-  /// <seealso cref="World.Cultures"/>
-  {$endregion}
-  TCultureInfo = class sealed(TObject)
-  private
-    fLocaleID: LCID;
-    fGeoID: GEOID;
-    fLocale: String;
-    fLanguage2: String;
-    fLanguage3: String;
-    fScriptCodes: String;
-    fNativeDigits: String;
-    fNativeCalendarType: TCalendarClass;
-    fCalendarTypes: TCalendarClassList;
-    fScripts: TUnicodeScripts;
-    fReadingLayout: TReadingLayout;
-    fMeasurementSystem: TMeasurementSystem;
-    fDefaultCodePages: array[TCodePageType] of Integer;
-    fNativeCalendar: TCalendar;
-    fLocalizedDisplayName: String;
-    fEnglishDisplayName: String;
-    fNativeDisplayName: String;
-    fLocalizedLanguageName: String;
-    fEnglishLanguageName: String;
-    fNativeLanguageName: String;
-    fNativeCountryName: String;
-    fNativeCurrencyName: String;
-    fPercentNegative: String;
-    fPercentPositive: String;
-    fPluralRule: String;
-    fCountry: TTerritoryInfo;
-    fCurrency: TCurrencyInfo;
-    fFormatSettings: PFormatSettings;
-    function GetLangID: LANGID; inline;
-    function GetPrimaryLangID: LANGID; inline;
-    function GetSubLangID: LANGID; inline;
-    function GetBiDiMode: TBiDiMode; inline;
-    function GetDefaultCodePages(CodePageType: TCodePageType): Integer;
-    function GetDisplayNames(DisplayName: TCultureDisplayName): String;
-    function GetFormatSettings: PFormatSettings;
-    function GetNativeCalendar: TCalendar;
-  public
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// This class represents a culture (locale).
+/// </summary>
+/// <remarks>
+/// Each instance of TCultureInfo class represents a specific locale. This class has
+/// properties and methods to query information about the locale, and perform the
+/// locale specific tasks.
+///
+/// NOTE: Do not create or destroy an instance of TCultureInfo class. Use <see cref="CultureOf"/>
+/// global function to get TCultureInfo instance of a locale.
+/// </remarks>
+/// <seealso cref="CultureOf"/>
+/// <seealso cref="World.Cultures"/>
+{$Endregion}
+
+    TCultureInfo = Class Sealed(TObject)
+   Private
+    fLocaleID              : LCID;
+    fGeoID                 : GEOID;
+    fLocale                : String;
+    fLanguage2             : String;
+    fLanguage3             : String;
+    fScriptCodes           : String;
+    fNativeDigits          : String;
+    fNativeCalendarType    : TCalendarClass;
+    fCalendarTypes         : TCalendarClassList;
+    fScripts               : TUnicodeScripts;
+    fReadingLayout         : TReadingLayout;
+    fMeasurementSystem     : TMeasurementSystem;
+    fDefaultCodePages      : Array[TCodePageType] Of Integer;
+    fNativeCalendar        : TCalendar;
+    fLocalizedDisplayName  : String;
+    fEnglishDisplayName    : String;
+    fNativeDisplayName     : String;
+    fLocalizedLanguageName : String;
+    fEnglishLanguageName   : String;
+    fNativeLanguageName    : String;
+    fNativeCountryName     : String;
+    fNativeCurrencyName    : String;
+    fPercentNegative       : String;
+    fPercentPositive       : String;
+    fPluralRule            : String;
+    fCountry               : TTerritoryInfo;
+    fCurrency              : TCurrencyInfo;
+    fFormatSettings        : PFormatSettings;
+    Function GetLangID : LANGID; Inline;
+    Function GetPrimaryLangID : LANGID; Inline;
+    Function GetSubLangID : LANGID; Inline;
+    Function GetBiDiMode : TBiDiMode; Inline;
+    Function GetDefaultCodePages(CodePageType : TCodePageType) : Integer;
+    Function GetDisplayNames(DisplayName : TCultureDisplayName) : String;
+    Function GetFormatSettings : PFormatSettings;
+    Function GetNativeCalendar : TCalendar;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class for the locale specified by its identifier.
     /// </summary>
     /// <param name="ALocaleID">
     /// The identifier of the locale.
     /// </param>
-    {$endregion}
-    constructor Create(ALocaleID: LCID); overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(ALocaleID : LCID); Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class for the locale specified by its name.
     /// </summary>
     /// <param name="ALocale">
     /// The name of the locale.
     /// </param>
-    {$endregion}
-    constructor Create(const ALocale: String); overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(Const ALocale : String); Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the object and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a string that its embedded nominal digits (0-9) are substituted with
     /// their corresponding digits in this culture.
@@ -315,9 +320,9 @@ type
     /// <seealso cref="FreezeDigits"/>
     /// <seealso cref="UnfreezeDigits"/>
     /// <see cref="UCC_NODS"/>
-    {$endregion}
-    function NominalDigitsToNative(const Str: String; IgnoreUCCs: Boolean = False): String;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function NominalDigitsToNative(Const Str : String; IgnoreUCCs : Boolean = False) : String;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a string that its embedded native digits are substituted with their
     /// corresponding nominal digits (0-9).
@@ -347,9 +352,9 @@ type
     /// <seealso cref="FreezeDigits"/>
     /// <seealso cref="UnfreezeDigits"/>
     /// <see cref="UCC_NADS"/>
-    {$endregion}
-    function NativeDigitsToNominal(const Str: String; IgnoreUCCs: Boolean = False): String;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function NativeDigitsToNominal(Const Str : String; IgnoreUCCs : Boolean = False) : String;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a string that its embedded digits will always be displayed as either native
     /// or nominal, regardless of Windows settings.
@@ -380,9 +385,9 @@ type
     /// <seealso cref="UnfreezeDigits"/>
     /// <seealso cref="NominalDigitsToNative"/>
     /// <seealso cref="NativeDigitsToNominal"/>
-    {$endregion}
-    function FreezeDigits(const Str: String; UseNativeDigits: Boolean): String;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function FreezeDigits(Const Str : String; UseNativeDigits : Boolean) : String;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a string that its embedded digits can be displayed automatically as either
     /// native or nominal by Windows.
@@ -406,9 +411,9 @@ type
     /// The string that its digits can be displayed as either native or nominal.
     /// </returns>
     /// <seealso cref="FreezeDigits"/>
-    {$endregion}
-    function UnfreezeDigits(const Str: String): String;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function UnfreezeDigits(Const Str : String) : String;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a formatted string assembled from a format string and an array of
     /// arguments.
@@ -434,10 +439,9 @@ type
     /// <returns>
     /// The formatted string.
     /// </returns>
-    {$endregion}
-    function Format(const Fmt: String; const Args: array of const;
-      UseNativeDigits: Boolean = True): String;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Format(Const Fmt : String; Const Args : Array Of Const; UseNativeDigits : Boolean = True) : String;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Formats a floating point value.
     /// </summary>
@@ -462,10 +466,9 @@ type
     /// <returns>
     /// The formatted string.
     /// </returns>
-    {$endregion}
-    function FormatNumber(const Fmt: String; const Value: Extended;
-      UseNativeDigits: Boolean = True): String;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function FormatNumber(Const Fmt : String; Const Value : Extended; UseNativeDigits : Boolean = True) : String;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Formats a floating point value as a percentage.
     /// </summary>
@@ -490,10 +493,9 @@ type
     /// <returns>
     /// The formatted string.
     /// </returns>
-    {$endregion}
-    function FormatPercent(const Value: Extended; Decimals: Integer = 2;
-      UseNativeDigits: Boolean = True): String;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function FormatPercent(Const Value : Extended; Decimals : Integer = 2; UseNativeDigits : Boolean = True) : String;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Formats a <see cref="TDateTime"/> value.
     /// </summary>
@@ -525,10 +527,9 @@ type
     /// <seealso cref="NativeCalendar"/>
     /// <seealso cref="TryParseDateTime"/>
     /// <seealso cref="ParseDateTime"/>
-    {$endregion}
-    function FormatDateTime(const Fmt: String; const Value: TDateTime;
-      UseNativeDigits: Boolean = True): String;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function FormatDateTime(Const Fmt : String; Const Value : TDateTime; UseNativeDigits : Boolean = True) : String;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a string to a <see cref="TDateTime"/> value using a specified format
     /// string.
@@ -558,9 +559,9 @@ type
     /// </exception>
     /// <seealso cref="TryParseDateTime"/>
     /// <seealso cref="FormatDateTime"/>
-    {$endregion}
-    function ParseDateTime(const Fmt: String; const Str: String): TDateTime;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ParseDateTime(Const Fmt : String; Const Str : String) : TDateTime;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a string to a <see cref="TDateTime"/> value using a specified format
     /// string.
@@ -591,10 +592,9 @@ type
     /// </returns>
     /// <seealso cref="ParseDateTime"/>
     /// <seealso cref="FormatDateTime"/>
-    {$endregion}
-    function TryParseDateTime(const Fmt: String; const Str: String;
-      var DateTime: TDateTime): Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function TryParseDateTime(Const Fmt : String; Const Str : String; Var DateTime : TDateTime) : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Verifies whether a specified string used the scripts of this culture.
     /// </summary>
@@ -610,9 +610,9 @@ type
     /// </returns>
     /// <seealso cref="ScriptCodes"/>
     /// <seealso cref="Scripts"/>
-    {$endregion}
-    function VerifyString(const Str: String; AllowLatin: Boolean = True): Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function VerifyString(Const Str : String; AllowLatin : Boolean = True) : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a string in default OEM code page of this culture's language to Unicode.
     /// </summary>
@@ -626,9 +626,9 @@ type
     /// <seealso cref="AnsiToUnicode"/>
     /// <seealso cref="MacToUnicode"/>
     /// <seealso cref="DefaultCodePages"/>
-    {$endregion}
-    function OemToUnicode(const Str: RawByteString): String;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function OemToUnicode(Const Str : RawByteString) : String;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a string from Unicode to default OEM code page of this culture's language.
     /// </summary>
@@ -642,9 +642,9 @@ type
     /// <seealso cref="UnicodeToAnsi"/>
     /// <seealso cref="UnicodeToMac"/>
     /// <seealso cref="DefaultCodePages"/>
-    {$endregion}
-    function UnicodeToOem(const Str: String): RawByteString;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function UnicodeToOem(Const Str : String) : RawByteString;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a string in default ANSI code page of this culture's language to Unicode.
     /// </summary>
@@ -658,9 +658,9 @@ type
     /// <seealso cref="OemToUnicode"/>
     /// <seealso cref="MacToUnicode"/>
     /// <seealso cref="DefaultCodePages"/>
-    {$endregion}
-    function AnsiToUnicode(const Str: RawByteString): String;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function AnsiToUnicode(Const Str : RawByteString) : String;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a string from Unicode to default ANSI code page of this culture's language.
     /// </summary>
@@ -674,9 +674,9 @@ type
     /// <seealso cref="UnicodeToOem"/>
     /// <seealso cref="UnicodeToMac"/>
     /// <seealso cref="DefaultCodePages"/>
-    {$endregion}
-    function UnicodeToAnsi(const Str: String): RawByteString;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function UnicodeToAnsi(Const Str : String) : RawByteString;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a string in default MAC code page of this culture's language to Unicode.
     /// </summary>
@@ -690,9 +690,9 @@ type
     /// <seealso cref="AnsiToUnicode"/>
     /// <seealso cref="OemToUnicode"/>
     /// <seealso cref="DefaultCodePages"/>
-    {$endregion}
-    function MacToUnicode(const Str: RawByteString): String;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function MacToUnicode(Const Str : RawByteString) : String;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a string from Unicode to default MAC code page of this culture's language.
     /// </summary>
@@ -706,9 +706,9 @@ type
     /// <seealso cref="UnicodeToAnsi"/>
     /// <seealso cref="UnicodeToOem"/>
     /// <seealso cref="DefaultCodePages"/>
-    {$endregion}
-    function UnicodeToMac(const Str: String): RawByteString;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function UnicodeToMac(Const Str : String) : RawByteString;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the adjusted DrawText flags based on the language direction of this
     /// culture.
@@ -720,9 +720,9 @@ type
     /// The adjusted DrawText flags.
     /// </returns>
     /// <seealso cref="DrawTextBiDiModeFlagsReadingOnly"/>
-    {$endregion}
-    function DrawTextBiDiModeFlags(Flags: Cardinal): Integer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DrawTextBiDiModeFlags(Flags : Cardinal) : Integer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the DrawText reading order flag based on the language direction of
     /// this culture.
@@ -731,9 +731,9 @@ type
     /// The DrawText reading order flag.
     /// </returns>
     /// <seealso cref="DrawTextBiDiModeFlags"/>
-    {$endregion}
-    function DrawTextBiDiModeFlagsReadingOnly: Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DrawTextBiDiModeFlagsReadingOnly : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified culture object has the same primary language
     /// as this culture.
@@ -745,9 +745,9 @@ type
     /// Returns <see langword="true"/> if primary languages are identical, otherwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsDialectOf(Culture: TCultureInfo): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsDialectOf(Culture : TCultureInfo) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified locale name represents the primary language
     /// of this culture.
@@ -759,9 +759,9 @@ type
     /// Returns <see langword="true"/> if primary languages are identical, otherwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsDialectOf(const Locale: String): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsDialectOf(Const Locale : String) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified language identifier represents the primary
     /// language of this culture.
@@ -773,9 +773,9 @@ type
     /// Returns <see langword="true"/> if primary languages are identical, otherwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsDialectOf(LangID: LANGID): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsDialectOf(LANGID : LANGID) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the nominal digits (0-9) are the native digits of this culture.
     /// </summary>
@@ -784,9 +784,9 @@ type
     /// culture, otherwise returns <see langword="false"/>.
     /// </returns>
     /// <see cref="NativeDigits"/>
-    {$endregion}
-    function IsUsingNominalDigits: Boolean; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsUsingNominalDigits : Boolean; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the Gregorian calendar in Common Era (C.E.) is the native calendar
     /// of this culture.
@@ -796,9 +796,9 @@ type
     /// calendar of this culture, otherwise returns <see langword="false"/>.
     /// </returns>
     /// <see cref="NativeCalendar"/>
-    {$endregion}
-    function IsUsingCommonEraCalendar: Boolean; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsUsingCommonEraCalendar : Boolean; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the language direction of this culture is from right to left.
     /// </summary>
@@ -807,9 +807,9 @@ type
     /// is from right to left, otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="ReadingLayout"/>
-    {$endregion}
-    function IsRightToLeft: Boolean; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsRightToLeft : Boolean; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the language represented by this culture is the default
     /// dialect (sub-language) of its main language (primary language).
@@ -818,119 +818,119 @@ type
     /// Returns <see langword="true"/> if this culture's language is the default
     /// dialect of its primary language, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsDefault: Boolean; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsDefault : Boolean; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the locale identifier of the culture.
     /// </summary>
-    {$endregion}
-    property LocaleID: LCID read fLocaleID;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property LocaleID : LCID Read fLocaleID;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the language identifier of the culture.
     /// </summary>
-    {$endregion}
-    property LangID: LANGID read GetLangID;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property LANGID : LANGID Read GetLangID;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the primary language identifier of the culture.
     /// </summary>
-    {$endregion}
-    property PrimaryLangID: LANGID read GetPrimaryLangID;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PrimaryLangID : LANGID Read GetPrimaryLangID;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the sub-language identifier of the culture.
     /// </summary>
-    {$endregion}
-    property SubLangID: LANGID read GetSubLangID;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property SubLangID : LANGID Read GetSubLangID;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the geographical identifier of the culture.
     /// </summary>
-    {$endregion}
-    property GeoID: GEOID read fGeoID;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property GEOID : GEOID Read fGeoID;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the locale name of the culture.
     /// </summary>
-    {$endregion}
-    property Locale: String read fLocale;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Locale : String Read fLocale;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the two-character ISO 639-1 international language code of the culture.
     /// </summary>
-    {$endregion}
-    property Language2: String read fLanguage2;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Language2 : String Read fLanguage2;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the three-character ISO 639-2/T international language code of the culture.
     /// </summary>
-    {$endregion}
-    property Language3: String read fLanguage3;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Language3 : String Read fLanguage3;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets country information of the culture.
     /// </summary>
-    {$endregion}
-    property Country: TTerritoryInfo read fCountry;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Country : TTerritoryInfo Read fCountry;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets currency information of the culture.
     /// </summary>
-    {$endregion}
-    property Currency: TCurrencyInfo read fCurrency;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Currency : TCurrencyInfo Read fCurrency;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the four-character ISO 15924 script codes of the culture separated by
     /// semicolon.
     /// </summary>
-    {$endregion}
-    property ScriptCodes: String read fScriptCodes;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ScriptCodes : String Read fScriptCodes;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the set of culture's scripts.
     /// </summary>
-    {$endregion}
-    property Scripts: TUnicodeScripts read fScripts;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Scripts : TUnicodeScripts Read fScripts;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the default measurement system used by the culture.
     /// </summary>
-    {$endregion}
-    property MeasurementSystem: TMeasurementSystem read fMeasurementSystem;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property MeasurementSystem : TMeasurementSystem Read fMeasurementSystem;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the native digits of the culture starting from 0 to 9.
     /// </summary>
-    {$endregion}
-    property NativeDigits: String read fNativeDigits;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property NativeDigits : String Read fNativeDigits;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TCalendar"/> class that manages the default calendar system
     /// used by the culture.
     /// </summary>
-    {$endregion}
-    property NativeCalendarType: TCalendarClass read fNativeCalendarType;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property NativeCalendarType : TCalendarClass Read fNativeCalendarType;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the native calendar used by the culture.
     /// </summary>
-    {$endregion}
-    property NativeCalendar: TCalendar read GetNativeCalendar;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property NativeCalendar : TCalendar Read GetNativeCalendar;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the reading order of the scripts in the culture.
     /// </summary>
-    {$endregion}
-    property ReadingLayout: TReadingLayout read fReadingLayout;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ReadingLayout : TReadingLayout Read fReadingLayout;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the TBiDiMode value of the culture's reading order.
     /// </summary>
-    {$endregion}
-    property BiDiMode: TBiDiMode read GetBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode : TBiDiMode Read GetBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the language's plural rule that determines how the language handles
     /// plurals of nouns or unit expressions.
@@ -946,94 +946,95 @@ type
     /// </para>
     /// </remarks>
     /// <seealso cref="TPluralForms"/>
-    {$endregion}
-    property PluralRule: String read fPluralRule;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PluralRule : String Read fPluralRule;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the localized (in Windows user's language) name of the culture.
     /// </summary>
-    {$endregion}
-    property LocalizedDisplayName: String read fLocalizedDisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property LocalizedDisplayName : String Read fLocalizedDisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the English name of the culture.
     /// </summary>
-    {$endregion}
-    property EnglishDisplayName: String read fEnglishDisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property EnglishDisplayName : String Read fEnglishDisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the native name of the culture.
     /// </summary>
-    {$endregion}
-    property NativeDisplayName: String read fNativeDisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property NativeDisplayName : String Read fNativeDisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the localized (in Windows user's language) name of the culture's language.
     /// </summary>
-    {$endregion}
-    property LocalizedLanguageName: String read fLocalizedLanguageName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property LocalizedLanguageName : String Read fLocalizedLanguageName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the English name of the culture's language.
     /// </summary>
-    {$endregion}
-    property EnglishLanguageName: String read fEnglishLanguageName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property EnglishLanguageName : String Read fEnglishLanguageName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the native name of the culture's language.
     /// </summary>
-    {$endregion}
-    property NativeLanguageName: String read fNativeLanguageName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property NativeLanguageName : String Read fNativeLanguageName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the native name of the culture's country.
     /// </summary>
-    {$endregion}
-    property NativeCountryName: String read fNativeCountryName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property NativeCountryName : String Read fNativeCountryName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the native name of the culture's currency.
     /// </summary>
-    {$endregion}
-    property NativeCurrencyName: String read fNativeCurrencyName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property NativeCurrencyName : String Read fNativeCurrencyName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets pointer to the culture's format settings.
     /// </summary>
-    {$endregion}
-    property FormatSettings: PFormatSettings read GetFormatSettings;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FormatSettings : PFormatSettings Read GetFormatSettings;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the default ANSI, OEM, and MAC codepages of the culture.
     /// </summary>
-    {$endregion}
-    property DefaultCodePages[CodePageType: TCodePageType]: Integer read GetDefaultCodePages;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DefaultCodePages[CodePageType : TCodePageType] : Integer Read GetDefaultCodePages;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists display names of the culture.
     /// </summary>
-    {$endregion}
-    property DisplayNames[DisplayName: TCultureDisplayName]: String read GetDisplayNames;
-  end;
+    {$Endregion}
+    Property DisplayNames[DisplayName : TCultureDisplayName] : String Read GetDisplayNames;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCultureEnumerator enumerates through the <see cref="TCultureInfo"/> objects
-  /// of an instance of <see cref="TReadonlyCultureList"/> or its descendent class.
-  /// </summary>
-  {$endregion}
-  TCultureEnumerator = class(TListEnumerator)
-  public
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCultureEnumerator enumerates through the <see cref="TCultureInfo"/> objects
+/// of an instance of <see cref="TReadonlyCultureList"/> or its descendent class.
+/// </summary>
+{$Endregion}
+
+  TCultureEnumerator = Class(TListEnumerator)
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class for a specified list.
     /// </summary>
     /// <param name="list">
     /// The list to enumerate its items.
     /// </param>
-    {$endregion}
-    constructor Create(List: TReadonlyCultureList);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(List : TReadonlyCultureList);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the current <see cref="TCultureInfo"/> object of the list being
     /// enumerated.
@@ -1041,43 +1042,44 @@ type
     /// <returns>
     /// Returns the current <see cref="TCultureInfo"/> object.
     /// </returns>
-    {$endregion}
-    function GetCurrent: TCultureInfo; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetCurrent : TCultureInfo; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the current <see cref="TCultureInfo"/> object.
     /// </summary>
-    {$endregion}
-    property Current: TCultureInfo read GetCurrent;
-  end;
+    {$Endregion}
+    Property Current : TCultureInfo Read GetCurrent;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This class maintains a read-only list of <see cref="TCultureInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// TReadonlyCultureList maintains a read-only list of <see cref="TCultureInfo"/>
-  /// objects, and provides properties and methods to locate and access the objects.
-  /// The objects in the list are hashed and can be located quickly.
-  /// </remarks>
-  /// <see cref="TCultureList"/>
-  {$endregion}
-  TReadonlyCultureList = class(TPersistent)
-  private
-    Lookup_LocaleID: TKeyLookup<LCID,Integer>;
-    Lookup_Locale: TKeyLookup<String,Integer>;
-    IsLookupTableValid_LocaleID: Boolean;
-    IsLookupTableValid_Locale: Boolean;
-    function GetCount: Integer; inline;
-    function GetItems(Index: Integer): TCultureInfo; inline;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// This class maintains a read-only list of <see cref="TCultureInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// TReadonlyCultureList maintains a read-only list of <see cref="TCultureInfo"/>
+/// objects, and provides properties and methods to locate and access the objects.
+/// The objects in the list are hashed and can be located quickly.
+/// </remarks>
+/// <see cref="TCultureList"/>
+{$Endregion}
+
+  TReadonlyCultureList = Class(TPersistent)
+   Private
+    Lookup_LocaleID             : TKeyLookup<LCID, Integer>;
+    Lookup_Locale               : TKeyLookup<String, Integer>;
+    IsLookupTableValid_LocaleID : Boolean;
+    IsLookupTableValid_Locale   : Boolean;
+    Function GetCount : Integer; Inline;
+    Function GetItems(Index : Integer) : TCultureInfo; Inline;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Provides direct access to the individual <see cref="TCultureInfo"/> objects.
     /// </summary>
-    {$endregion}
-    List: TList;
-    {$region 'xmldoc'}
+    {$Endregion}
+    List : TList;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Attaches a specified <see cref="TCultureInfo"/> object with a specified index
     /// in the list.
@@ -1095,9 +1097,9 @@ type
     /// The index of the <see cref="TCultureInfo"/> object in the list.
     /// </param>
     /// <seealso cref="RemoveLookupEntries"/>
-    {$endregion}
-    procedure AddLookupEntries(Culture: TCultureInfo; Index: Integer);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure AddLookupEntries(Culture : TCultureInfo; Index : Integer);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Detaches a specified <see cref="TCultureInfo"/> object from the previously attached
     /// index.
@@ -1112,46 +1114,46 @@ type
     /// The <see cref="TCultureInfo"/> object to remove from the lookup tables.
     /// </param>
     /// <seealso cref="AddLookupEntries"/>
-    {$endregion}
-    procedure RemoveLookupEntries(Culture: TCultureInfo);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RemoveLookupEntries(Culture : TCultureInfo);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Clears all entries from all lookup tables.
     /// </summary>
-    {$endregion}
-    procedure ClearLookupTables;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ClearLookupTables;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Schedules rebuilding of all lookup tables.
     /// </summary>
-    {$endregion}
-    procedure InvalidateLookupTables; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure InvalidateLookupTables; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Validates lookup table for <see cref="TCultureInfo.LocaleID"/> values.
     /// </summary>
-    {$endregion}
-    procedure ValidateLookupTable_LocaleID;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ValidateLookupTable_LocaleID;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Validates lookup table for <see cref="TCultureInfo.Locale"/> values.
     /// </summary>
-    {$endregion}
-    procedure ValidateLookupTable_Locale;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ValidateLookupTable_Locale;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class.
     /// </summary>
-    {$endregion}
-    constructor Create; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the instance and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TCultureEnumerator"/> reference, which enumerates
     /// all <see cref="TCultureInfo"/> objects in the list.
@@ -1159,9 +1161,9 @@ type
     /// <returns>
     /// Returns a reference to a <see cref="TCultureEnumerator"/> instance.
     /// </returns>
-    {$endregion}
-    function GetEnumerator: TCultureEnumerator;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetEnumerator : TCultureEnumerator;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the first <see cref="TCultureInfo"/> object in the list.
     /// </summary>
@@ -1169,9 +1171,9 @@ type
     /// The first <see cref="TCultureInfo"/> object in the list.
     /// </returns>
     /// <seealso cref="Last"/>
-    {$endregion}
-    function First: TCultureInfo;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function First : TCultureInfo;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the last <see cref="TCultureInfo"/> object in the list.
     /// </summary>
@@ -1179,9 +1181,9 @@ type
     /// The last <see cref="TCultureInfo"/> object in the list.
     /// </returns>
     /// <seealso cref="First"/>
-    {$endregion}
-    function Last: TCultureInfo;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Last : TCultureInfo;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies <see cref="TCultureInfo"/> objects in the list to another object.
     /// </summary>
@@ -1189,9 +1191,9 @@ type
     /// The destination object.
     /// </param>
     /// <seealso cref="AssignLabelsTo"/>
-    {$endregion}
-    procedure AssignTo(Dest: TPersistent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure AssignTo(Dest : TPersistent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies display name of <see cref="TCultureInfo"/> objects in the list to
     /// a <see cref="TStrings"/> object.
@@ -1204,9 +1206,9 @@ type
     /// </param>
     /// <seealso cref="AssignTo"/>
     /// <seealso cref="TCultureInfo.DisplayNames"/>
-    {$endregion}
-    procedure AssignLabelsTo(Dest: TStrings; DisplayName: TCultureDisplayName);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure AssignLabelsTo(Dest : TStrings; DisplayName : TCultureDisplayName);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Locates a <see cref="TCultureInfo"/> object in the list by its locale identifier.
     /// </summary>
@@ -1218,9 +1220,9 @@ type
     /// or <see langword="nil"/> if the object is not found.
     /// </returns>
     /// <seealso cref="FindNearest"/>
-    {$endregion}
-    function Find(LocaleID: LCID): TCultureInfo; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Find(LocaleID : LCID) : TCultureInfo; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Locates a <see cref="TCultureInfo"/> object in the list by its locale name.
     /// </summary>
@@ -1232,9 +1234,9 @@ type
     /// or <see langword="nil"/> if the object is not found.
     /// </returns>
     /// <seealso cref="FindNearest"/>
-    {$endregion}
-    function Find(const Locale: String): TCultureInfo; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Find(Const Locale : String) : TCultureInfo; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Locates a <see cref="TCultureInfo"/> object in the list, which is either
     /// identical to or a dialect of a specified <see cref="TCultureInfo"/> object.
@@ -1247,9 +1249,9 @@ type
     /// the object is not found.
     /// </returns>
     /// <seealso cref="Find"/>
-    {$endregion}
-    function FindNearest(Culture: TCultureInfo): TCultureInfo; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function FindNearest(Culture : TCultureInfo) : TCultureInfo; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Locates a <see cref="TCultureInfo"/> object in the list, which is either
     /// identical to or a dialect of a specified locale identifier.
@@ -1262,9 +1264,9 @@ type
     /// the object is not found.
     /// </returns>
     /// <seealso cref="Find"/>
-    {$endregion}
-    function FindNearest(LocaleID: LCID): TCultureInfo; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function FindNearest(LocaleID : LCID) : TCultureInfo; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Locates a <see cref="TCultureInfo"/> object in the list, which is either
     /// identical to or a dialect of a specified locale name.
@@ -1277,9 +1279,9 @@ type
     /// the object is not found.
     /// </returns>
     /// <seealso cref="Find"/>
-    {$endregion}
-    function FindNearest(const Locale: String): TCultureInfo; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function FindNearest(Const Locale : String) : TCultureInfo; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds index of a specified <see cref="TCultureInfo"/> object in the list.
     /// </summary>
@@ -1291,9 +1293,9 @@ type
     /// </returns>
     /// <seealso cref="IndexOfName"/>
     /// <seealso cref="NearestIndexOf"/>
-    {$endregion}
-    function IndexOf(Culture: TCultureInfo): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IndexOf(Culture : TCultureInfo) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TCultureInfo"/> object in the list by its locale
     /// identifier.
@@ -1306,9 +1308,9 @@ type
     /// </returns>
     /// <seealso cref="IndexOfName"/>
     /// <seealso cref="NearestIndexOf"/>
-    {$endregion}
-    function IndexOf(LocaleID: LCID): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IndexOf(LocaleID : LCID) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TCultureInfo"/> object in the list by its locale
     /// name.
@@ -1321,9 +1323,9 @@ type
     /// </returns>
     /// <seealso cref="IndexOfName"/>
     /// <seealso cref="NearestIndexOf"/>
-    {$endregion}
-    function IndexOf(const Locale: String): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IndexOf(Const Locale : String) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TCultureInfo"/> object in the list by its display name.
     /// </summary>
@@ -1337,9 +1339,9 @@ type
     /// The index of <see cref="TCultureInfo"/> object or -1 if the object is not found.
     /// </returns>
     /// <seealso cref="IndexOf"/>
-    {$endregion}
-    function IndexOfName(const AName: String; DisplayName: TCultureDisplayName): Integer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IndexOfName(Const AName : String; DisplayName : TCultureDisplayName) : Integer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TCultureInfo"/> object in the list, which is either
     /// identical to or a dialect of a specified <see cref="TCultureInfo"/> object.
@@ -1352,9 +1354,9 @@ type
     /// object is not found.
     /// </returns>
     /// <seealso cref="IndexOf"/>
-    {$endregion}
-    function NearestIndexOf(Culture: TCultureInfo): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function NearestIndexOf(Culture : TCultureInfo) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TCultureInfo"/> object in the list, which is either
     /// identical to or a dialect of a specified locale identifier.
@@ -1367,9 +1369,9 @@ type
     /// object is not found.
     /// </returns>
     /// <seealso cref="IndexOf"/>
-    {$endregion}
-    function NearestIndexOf(LocaleID: LCID): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function NearestIndexOf(LocaleID : LCID) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TCultureInfo"/> object in the list, which is either
     /// identical to or a dialect of a specified locale name.
@@ -1382,9 +1384,9 @@ type
     /// object is not found.
     /// </returns>
     /// <seealso cref="IndexOf"/>
-    {$endregion}
-    function NearestIndexOf(const Locale: String): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function NearestIndexOf(Const Locale : String) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified <see cref="TCultureInfo"/> object is in the list.
     /// </summary>
@@ -1395,9 +1397,9 @@ type
     /// Returns <see langword="true"/> if the <see cref="TCultureInfo"/> object is in the
     /// list, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function Exists(Culture: TCultureInfo): Boolean; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Exists(Culture : TCultureInfo) : Boolean; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a <see cref="TCultureInfo"/> object with a specified locale
     /// identifier is in the list.
@@ -1409,9 +1411,9 @@ type
     /// Returns <see langword="true"/> if a <see cref="TCultureInfo"/> object with the
     /// specified locale identifier is in the list, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function Exists(LocaleID: LCID): Boolean; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Exists(LocaleID : LCID) : Boolean; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a <see cref="TCultureInfo"/> object with a specified locale
     /// name is in the list.
@@ -1423,44 +1425,45 @@ type
     /// Returns <see langword="true"/> if a <see cref="TCultureInfo"/> object with the
     /// specified locale name is in the list, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function Exists(const Locale: String): Boolean; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Exists(Const Locale : String) : Boolean; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the number of <see cref="TCultureInfo"/> objects in the list.
     /// </summary>
-    {$endregion}
-    property Count: Integer read GetCount;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Count : Integer Read GetCount;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TCultureInfo"/> objects in the list.
     /// </summary>
-    {$endregion}
-    property Items[Index: Integer]: TCultureInfo read GetItems; default;
-  end;
+    {$Endregion}
+    Property Items[Index : Integer] : TCultureInfo Read GetItems; Default;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This class maintains a list of <see cref="TCultureInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TCultureList to store and maintain a list of <see cref="TCultureInfo"/>
-  /// objects. TCultureList provides properties and methods to add, delete, rearrange,
-  /// locate, access, and sort <see cref="TCultureInfo"/> objects.
-  /// </remarks>
-  {$endregion}
-  TCultureList = class(TReadonlyCultureList)
-  private
-    fDuplicates: TDuplicates;
-    fUpdateCount: Integer;
-    fOnChange: TNotifyEvent;
-    fOnChanging: TNotifyEvent;
-    function GetCapacity: Integer; inline;
-    procedure SetCapacity(Value: Integer);
-    procedure ReadLocales(Reader: TReader);
-    procedure WriteLocales(Writer: TWriter);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// This class maintains a list of <see cref="TCultureInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// Use TCultureList to store and maintain a list of <see cref="TCultureInfo"/>
+/// objects. TCultureList provides properties and methods to add, delete, rearrange,
+/// locate, access, and sort <see cref="TCultureInfo"/> objects.
+/// </remarks>
+{$Endregion}
+
+  TCultureList = Class(TReadonlyCultureList)
+   Private
+    fDuplicates  : TDuplicates;
+    fUpdateCount : Integer;
+    fOnChange    : TNotifyEvent;
+    fOnChanging  : TNotifyEvent;
+    Function GetCapacity : Integer; Inline;
+    Procedure SetCapacity(Value : Integer);
+    Procedure ReadLocales(Reader : TReader);
+    Procedure WriteLocales(Writer : TWriter);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reads and writes the <see cref="Items"/> property as if it were published.
     /// </summary>
@@ -1468,52 +1471,52 @@ type
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
     /// loading or saving the list.
     /// </param>
-    {$endregion}
-    procedure DefineProperties(Filer: TFiler); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DefineProperties(Filer : TFiler); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnChanging"/> event.
     /// </summary>
     /// <seealso cref="Change"/>
-    {$endregion}
-    procedure Changing; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Changing; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnChange"/> event.
     /// </summary>
     /// <seealso cref="Changing"/>
-    {$endregion}
-    procedure Change; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Change; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the update level.
     /// </summary>
-    {$endregion}
-    property UpdateCount: Integer read fUpdateCount;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property UpdateCount : Integer Read fUpdateCount;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Prevents generating of the <see cref="OnChanging"/> and <see cref="OnChange"/>
     /// events until the <see cref="EndUpdate"/> method is called.
     /// </summary>
     /// <seealso cref="EndUpdate"/>
-    {$endregion}
-    procedure BeginUpdate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure BeginUpdate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reenables <see cref="OnChanging"/> and <see cref="OnChange"/> events generation
     /// that was turned off with the <see cref="BeginUpdate"/> method.
     /// </summary>
     /// <seealso cref="BeginUpdate"/>
-    {$endregion}
-    procedure EndUpdate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure EndUpdate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes all items from the list.
     /// </summary>
-    {$endregion}
-    procedure Clear;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Clear;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sorts the items in the list by a specified display name.
     /// </summary>
@@ -1521,9 +1524,9 @@ type
     /// Determines which <see cref="TCultureInfo.DisplayNames"/> value should the
     /// list be sorted by.
     /// </param>
-    {$endregion}
-    procedure Sort(OrderBy: TCultureDisplayName);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Sort(OrderBy : TCultureDisplayName);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies the list of <see cref="TCultureInfo"/> objects from another object.
     /// </summary>
@@ -1531,9 +1534,9 @@ type
     /// The source list.
     /// </param>
     /// <seealso cref="Apply"/>
-    {$endregion}
-    procedure Assign(Source: TPersistent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Assign(Source : TPersistent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies <see cref="TCultureInfo"/> objects of one list to another.
     /// </summary>
@@ -1591,10 +1594,9 @@ type
     /// The optional and aditional source list.
     /// </param>
     /// <seealso cref="Assign"/>
-    {$endregion}
-    procedure Apply(ListA: TReadonlyCultureList; Op: TListAssignOp = laCopy;
-      ListB: TReadonlyCultureList = nil);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Apply(ListA : TReadonlyCultureList; Op : TListAssignOp = laCopy; ListB : TReadonlyCultureList = Nil);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Adds a specified <see cref="TCultureInfo"/> object to the list.
     /// </summary>
@@ -1604,9 +1606,9 @@ type
     /// <returns>
     /// The index of new <see cref="TCultureInfo"/> object in the list.
     /// </returns>
-    {$endregion}
-    function Add(Culture: TCultureInfo): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Add(Culture : TCultureInfo) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Adds a <see cref="TCultureInfo"/> object to the list by its locale identifier.
     /// </summary>
@@ -1616,9 +1618,9 @@ type
     /// <returns>
     /// The index of new <see cref="TCultureInfo"/> object in the list.
     /// </returns>
-    {$endregion}
-    function Add(LocaleID: LCID): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Add(LocaleID : LCID) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Adds a <see cref="TCultureInfo"/> object to the list by its locale name.
     /// </summary>
@@ -1628,9 +1630,9 @@ type
     /// <returns>
     /// The index of new <see cref="TCultureInfo"/> object in the list.
     /// </returns>
-    {$endregion}
-    function Add(const Locale: String): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Add(Const Locale : String) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes a specified <see cref="TCultureInfo"/> object from the list.
     /// </summary>
@@ -1642,9 +1644,9 @@ type
     /// is not found.
     /// </returns>
     /// <seealso cref="Delete"/>
-    {$endregion}
-    function Remove(Culture: TCultureInfo): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Remove(Culture : TCultureInfo) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes a <see cref="TCultureInfo"/> object from the list by its locale identifier.
     /// </summary>
@@ -1656,9 +1658,9 @@ type
     /// is not found.
     /// </returns>
     /// <seealso cref="Delete"/>
-    {$endregion}
-    function Remove(LocaleID: LCID): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Remove(LocaleID : LCID) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes a <see cref="TCultureInfo"/> object from the list by its locale name.
     /// </summary>
@@ -1670,9 +1672,9 @@ type
     /// is not found.
     /// </returns>
     /// <seealso cref="Delete"/>
-    {$endregion}
-    function Remove(const Locale: String): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Remove(Const Locale : String) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes a <see cref="TCultureInfo"/> object at a specified index of the list.
     /// </summary>
@@ -1680,109 +1682,111 @@ type
     /// The index of <see cref="TCultureInfo"/> object to removed.
     /// </param>
     /// <seealso cref="Remove"/>
-    {$endregion}
-    procedure Delete(Index: Integer);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Delete(Index : Integer);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of <see cref="TCultureInfo"/> objects the TCultureList object can hold.
     /// </summary>
-    {$endregion}
-    property Capacity: Integer read GetCapacity write SetCapacity;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Capacity : Integer Read GetCapacity Write SetCapacity;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether duplicate <see cref="TCultureInfo"/> objects can be added to the list.
     /// </summary>
-    {$endregion}
-    property Duplicates: TDuplicates read fDuplicates write fDuplicates;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Duplicates : TDuplicates Read fDuplicates Write fDuplicates;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the list of <see cref="TCultureInfo"/> objects changes.
     /// </summary>
-    {$endregion}
-    property OnChange: TNotifyEvent read fOnChange write fOnChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnChange : TNotifyEvent Read fOnChange Write fOnChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately before the list of <see cref="TCultureInfo"/> objects changes.
     /// </summary>
-    {$endregion}
-    property OnChanging: TNotifyEvent read fOnChanging write fOnChanging;
-  end;
+    {$Endregion}
+    Property OnChanging : TNotifyEvent Read fOnChanging Write fOnChanging;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the possible display names for
-  /// <see cref="TTerritoryInfo"/> objects.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the possible display names for
+/// <see cref="TTerritoryInfo"/> objects.
+/// </summary>
+{$Endregion}
+
   TTerritoryDisplayName = (
-    {$region 'xmldoc'}
-    /// Nothing
-    {$endregion}
-    tnNone,
-    {$region 'xmldoc'}
-    /// Two characters of the international country code specified in ISO 3166-2.
-    {$endregion}
-    tnCode2,
-    {$region 'xmldoc'}
-    /// Three characters of the international country code specified in ISO 3166-3.
-    {$endregion}
-    tnCode3,
-    {$region 'xmldoc'}
-    /// The friendly name of the nation, for example, Germany.
-    {$endregion}
-    tnFriendlyName,
-    {$region 'xmldoc'}
-    /// The official name of the nation, for example, Federal Republic of Germany.
-    {$endregion}
-    tnOfficialName,
-    {$region 'xmldoc'}
-    /// Full localized (in Windows user's language) name of the country/region, for
-    /// example, Deutschland for Germany.
-    {$endregion}
-    tnLocalizedName,
-    {$region 'xmldoc'}
-    /// English name of the country/region, for example, Germany for Deutschland.
-    {$endregion}
-    tnEnglishName,
-    {$region 'xmldoc'}
-    /// Native name of the country/region, for example, Deutschland for Germany.
-    {$endregion}
-    tnNativeName
+  {$Region 'xmldoc'}
+  /// Nothing
+  {$Endregion}
+  tnNone,
+  {$Region 'xmldoc'}
+  /// Two characters of the international country code specified in ISO 3166-2.
+  {$Endregion}
+  tnCode2,
+  {$Region 'xmldoc'}
+  /// Three characters of the international country code specified in ISO 3166-3.
+  {$Endregion}
+  tnCode3,
+  {$Region 'xmldoc'}
+  /// The friendly name of the nation, for example, Germany.
+  {$Endregion}
+  tnFriendlyName,
+  {$Region 'xmldoc'}
+  /// The official name of the nation, for example, Federal Republic of Germany.
+  {$Endregion}
+  tnOfficialName,
+  {$Region 'xmldoc'}
+  /// Full localized (in Windows user's language) name of the country/region, for
+  /// example, Deutschland for Germany.
+  {$Endregion}
+  tnLocalizedName,
+  {$Region 'xmldoc'}
+  /// English name of the country/region, for example, Germany for Deutschland.
+  {$Endregion}
+  tnEnglishName,
+  {$Region 'xmldoc'}
+  /// Native name of the country/region, for example, Deutschland for Germany.
+  {$Endregion}
+  tnNativeName
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This class represents a country/region.
-  /// </summary>
-  /// <remarks>
-  /// Each instance of TTerritoryInfo class represents a specific geographical location,
-  /// and has properties and methods to query information about it.
-  ///
-  /// NOTE: Do not create or destroy an instance of TTerritoryInfo class. Use <see cref="TerritoryOf"/>
-  /// global function to get TTerritoryInfo instance of a geographical location.
-  /// </remarks>
-  /// <seealso cref="TerritoryOf"/>
-  /// <seealso cref="World.Territories"/>
-  {$endregion}
-  TTerritoryInfo = class sealed(TObject)
-  private
-    fGeoID: GEOID;
-    fCode2: String;
-    fCode3: String;
-    fLatitude: Double;
-    fLongitude: Double;
-    fFriendlyName: String;
-    fOfficialName: String;
-    fLocalizedName: String;
-    fEnglishName: String;
-    fCurrencies: TCurrencyList;
-    fCultures: TCultureList;
-    function GetNativeName: String;
-    function GetCultures: TReadonlyCultureList; inline;
-    function GetCurrencies: TReadonlyCurrencyList; inline;
-    function GetDisplayNames(DisplayName: TTerritoryDisplayName): String;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// This class represents a country/region.
+/// </summary>
+/// <remarks>
+/// Each instance of TTerritoryInfo class represents a specific geographical location,
+/// and has properties and methods to query information about it.
+///
+/// NOTE: Do not create or destroy an instance of TTerritoryInfo class. Use <see cref="TerritoryOf"/>
+/// global function to get TTerritoryInfo instance of a geographical location.
+/// </remarks>
+/// <seealso cref="TerritoryOf"/>
+/// <seealso cref="World.Territories"/>
+{$Endregion}
+
+    TTerritoryInfo = Class Sealed(TObject)
+   Private
+    fGeoID         : GEOID;
+    fCode2         : String;
+    fCode3         : String;
+    fLatitude      : Double;
+    fLongitude     : Double;
+    fFriendlyName  : String;
+    fOfficialName  : String;
+    fLocalizedName : String;
+    fEnglishName   : String;
+    fCurrencies    : TCurrencyList;
+    fCultures      : TCultureList;
+    Function GetNativeName : String;
+    Function GetCultures : TReadonlyCultureList; Inline;
+    Function GetCurrencies : TReadonlyCurrencyList; Inline;
+    Function GetDisplayNames(DisplayName : TTerritoryDisplayName) : String;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Associates the specified <see cref="TCultureInfo"/> and <see cref="TCurrencyInfo"/>
     /// objects to this TTerritoryInfo object.
@@ -1793,10 +1797,10 @@ type
     /// <param name="Currency">
     /// The <see cref="TCurrencyInfo"/> object.
     /// </param>
-    {$endregion}
-    procedure Associate(Culture: TCultureInfo; Currency: TCurrencyInfo);
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Associate(Culture : TCultureInfo; Currency : TCurrencyInfo);
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the object for a specified geographical identifier.
     /// </summary>
@@ -1805,9 +1809,9 @@ type
     /// </param>
     /// <seealso cref="CreateByLocaleID"/>
     /// <seealso cref="CreateByLocale"/>
-    {$endregion}
-    constructor Create(AGeoID: GEOID);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AGeoID : GEOID);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the object for a specified locale identifier.
     /// </summary>
@@ -1819,9 +1823,9 @@ type
     /// </param>
     /// <seealso cref="Create"/>
     /// <seealso cref="CreateByLocale"/>
-    {$endregion}
-    constructor CreateByLocaleID(LocaleID: LCID; Dummy: Integer = 0);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor CreateByLocaleID(LocaleID : LCID; Dummy : Integer = 0);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the object for a specified locale name.
     /// </summary>
@@ -1830,112 +1834,113 @@ type
     /// </param>
     /// <seealso cref="Create"/>
     /// <seealso cref="CreateByLocaleID"/>
-    {$endregion}
-    constructor CreateByLocale(const Locale: String);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor CreateByLocale(Const Locale : String);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the object and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the geographical identifier of the country/region.
     /// </summary>
-    {$endregion}
-    property GeoID: GEOID read fGeoID;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property GEOID : GEOID Read fGeoID;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the two-character ISO 3166-2 international country code.
     /// </summary>
-    {$endregion}
-    property Code2: String read fCode2;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Code2 : String Read fCode2;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the three-character ISO 3166-3 international country code.
     /// </summary>
-    {$endregion}
-    property Code3: String read fCode3;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Code3 : String Read fCode3;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the geographical latitude of the territory's capital, in degrees.
     /// </summary>
-    {$endregion}
-    property Latitude: Double read fLatitude;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Latitude : Double Read fLatitude;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the geographical longitude of the territory's capital, in degrees.
     /// </summary>
-    {$endregion}
-    property Longitude: Double read fLongitude;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Longitude : Double Read fLongitude;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the friendly name of the nation.
     /// </summary>
-    {$endregion}
-    property FriendlyName: String read fFriendlyName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FriendlyName : String Read fFriendlyName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the official name of the nation.
     /// </summary>
-    {$endregion}
-    property OfficialName: String read fOfficialName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OfficialName : String Read fOfficialName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the localized (in Windows user's language) name of the country/region.
     /// </summary>
-    {$endregion}
-    property LocalizedName: String read fLocalizedName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property LocalizedName : String Read fLocalizedName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the English name of the country/region.
     /// </summary>
-    {$endregion}
-    property EnglishName: String read fEnglishName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property EnglishName : String Read fEnglishName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the Native name of the country/region.
     /// </summary>
-    {$endregion}
-    property NativeName: String read GetNativeName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property NativeName : String Read GetNativeName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists different cultures in this country/region.
     /// </summary>
-    {$endregion}
-    property Cultures: TReadonlyCultureList read GetCultures;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Cultures : TReadonlyCultureList Read GetCultures;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists authoritative currencies in this country/region.
     /// </summary>
-    {$endregion}
-    property Currencies: TReadonlyCurrencyList read GetCurrencies;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Currencies : TReadonlyCurrencyList Read GetCurrencies;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists display names of the country/region.
     /// </summary>
-    {$endregion}
-    property DisplayNames[DisplayName: TTerritoryDisplayName]: String read GetDisplayNames;
-  end;
+    {$Endregion}
+    Property DisplayNames[DisplayName : TTerritoryDisplayName] : String Read GetDisplayNames;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TTerritoryEnumerator enumerates through the <see cref="TTerritoryInfo"/> objects
-  /// of an instance of <see cref="TReadonlyTerritoryList"/> or its descendent class.
-  /// </summary>
-  {$endregion}
-  TTerritoryEnumerator = class(TListEnumerator)
-  public
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TTerritoryEnumerator enumerates through the <see cref="TTerritoryInfo"/> objects
+/// of an instance of <see cref="TReadonlyTerritoryList"/> or its descendent class.
+/// </summary>
+{$Endregion}
+
+  TTerritoryEnumerator = Class(TListEnumerator)
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class for a specified list.
     /// </summary>
     /// <param name="list">
     /// The list to enumerate its items.
     /// </param>
-    {$endregion}
-    constructor Create(List: TReadonlyTerritoryList);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(List : TReadonlyTerritoryList);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the current <see cref="TTerritoryInfo"/> object of the list being
     /// enumerated.
@@ -1943,45 +1948,46 @@ type
     /// <returns>
     /// Returns the current <see cref="TTerritoryInfo"/> object.
     /// </returns>
-    {$endregion}
-    function GetCurrent: TTerritoryInfo; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetCurrent : TTerritoryInfo; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the current <see cref="TTerritoryInfo"/> object.
     /// </summary>
-    {$endregion}
-    property Current: TTerritoryInfo read GetCurrent;
-  end;
+    {$Endregion}
+    Property Current : TTerritoryInfo Read GetCurrent;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This class maintains a read-only list of <see cref="TTerritoryInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// TReadonlyTerritoryList maintains a read-only list of <see cref="TTerritoryInfo"/>
-  /// objects, and provides properties and methods to locate and access the objects.
-  /// The objects in the list are hashed and can be located quickly.
-  /// </remarks>
-  /// <see cref="TTerritoryList"/>
-  {$endregion}
-  TReadonlyTerritoryList = class(TPersistent)
-  private
-    LookupTable_GeoID: TKeyLookup<GEOID,Integer>;
-    LookupTable_Code2: TKeyLookup<String,Integer>;
-    LookupTable_Code3: TKeyLookup<String,Integer>;
-    IsLookupTableValid_GeoID: Boolean;
-    IsLookupTableValid_Code2: Boolean;
-    IsLookupTableValid_Code3: Boolean;
-    function GetCount: Integer; inline;
-    function GetItems(Index: Integer): TTerritoryInfo; inline;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// This class maintains a read-only list of <see cref="TTerritoryInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// TReadonlyTerritoryList maintains a read-only list of <see cref="TTerritoryInfo"/>
+/// objects, and provides properties and methods to locate and access the objects.
+/// The objects in the list are hashed and can be located quickly.
+/// </remarks>
+/// <see cref="TTerritoryList"/>
+{$Endregion}
+
+  TReadonlyTerritoryList = Class(TPersistent)
+   Private
+    LookupTable_GeoID        : TKeyLookup<GEOID, Integer>;
+    LookupTable_Code2        : TKeyLookup<String, Integer>;
+    LookupTable_Code3        : TKeyLookup<String, Integer>;
+    IsLookupTableValid_GeoID : Boolean;
+    IsLookupTableValid_Code2 : Boolean;
+    IsLookupTableValid_Code3 : Boolean;
+    Function GetCount : Integer; Inline;
+    Function GetItems(Index : Integer) : TTerritoryInfo; Inline;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Provides direct access to the individual <see cref="TTerritoryInfo"/> objects.
     /// </summary>
-    {$endregion}
-    List: TList;
-    {$region 'xmldoc'}
+    {$Endregion}
+    List : TList;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Attaches a specified <see cref="TTerritoryInfo"/> object with a specified index
     /// in the list.
@@ -1999,9 +2005,9 @@ type
     /// The index of the <see cref="TTerritoryInfo"/> object in the list.
     /// </param>
     /// <seealso cref="RemoveLookupEntries"/>
-    {$endregion}
-    procedure AddLookupEntries(Territory: TTerritoryInfo; Index: Integer);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure AddLookupEntries(Territory : TTerritoryInfo; Index : Integer);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Detaches a specified <see cref="TTerritoryInfo"/> object from the previously attached
     /// index.
@@ -2016,52 +2022,52 @@ type
     /// The <see cref="TTerritoryInfo"/> object to remove from the lookup tables.
     /// </param>
     /// <seealso cref="AddLookupEntries"/>
-    {$endregion}
-    procedure RemoveLookupEntries(Territory: TTerritoryInfo);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RemoveLookupEntries(Territory : TTerritoryInfo);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Clears all entries from all lookup tables.
     /// </summary>
-    {$endregion}
-    procedure ClearLookupTables;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ClearLookupTables;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Schedules rebuilding of all lookup tables.
     /// </summary>
-    {$endregion}
-    procedure InvalidateLookupTables; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure InvalidateLookupTables; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Validates lookup table for <see cref="TTerritoryInfo.GeoID"/> values.
     /// </summary>
-    {$endregion}
-    procedure ValidateLookupTable_GeoID;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ValidateLookupTable_GeoID;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Validates lookup table for <see cref="TTerritoryInfo.Code2"/> values.
     /// </summary>
-    {$endregion}
-    procedure ValidateLookupTable_Code2;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ValidateLookupTable_Code2;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Validates lookup table for <see cref="TTerritoryInfo.Code3"/> values.
     /// </summary>
-    {$endregion}
-    procedure ValidateLookupTable_Code3;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ValidateLookupTable_Code3;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class.
     /// </summary>
-    {$endregion}
-    constructor Create; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the instance and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TTerritoryEnumerator"/> reference, which enumerates
     /// all <see cref="TTerritoryInfo"/> objects in the list.
@@ -2069,9 +2075,9 @@ type
     /// <returns>
     /// Returns an instance of <see cref="TTerritoryEnumerator"/> class.
     /// </returns>
-    {$endregion}
-    function GetEnumerator: TTerritoryEnumerator;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetEnumerator : TTerritoryEnumerator;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the first <see cref="TTerritoryInfo"/> object in the list.
     /// </summary>
@@ -2079,9 +2085,9 @@ type
     /// The first <see cref="TTerritoryInfo"/> object in the list.
     /// </returns>
     /// <seealso cref="Last"/>
-    {$endregion}
-    function First: TTerritoryInfo;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function First : TTerritoryInfo;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the last <see cref="TTerritoryInfo"/> object in the list.
     /// </summary>
@@ -2089,9 +2095,9 @@ type
     /// The last <see cref="TTerritoryInfo"/> object in the list.
     /// </returns>
     /// <seealso cref="First"/>
-    {$endregion}
-    function Last: TTerritoryInfo;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Last : TTerritoryInfo;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies <see cref="TTerritoryInfo"/> objects in the list to another object.
     /// </summary>
@@ -2099,9 +2105,9 @@ type
     /// The destination object.
     /// </param>
     /// <seealso cref="AssignLabelsTo"/>
-    {$endregion}
-    procedure AssignTo(Dest: TPersistent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure AssignTo(Dest : TPersistent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies display name of <see cref="TTerritoryInfo"/> objects in the list to
     /// a <see cref="TStrings"/> object.
@@ -2114,9 +2120,9 @@ type
     /// </param>
     /// <seealso cref="AssignTo"/>
     /// <seealso cref="TTerritoryInfo.DisplayNames"/>
-    {$endregion}
-    procedure AssignLabelsTo(Dest: TStrings; DisplayName: TTerritoryDisplayName);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure AssignLabelsTo(Dest : TStrings; DisplayName : TTerritoryDisplayName);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Locates a <see cref="TTerritoryInfo"/> object in the list by its geographical identifier.
     /// </summary>
@@ -2127,9 +2133,9 @@ type
     /// The <see cref="TTerritoryInfo"/> object with the specified geographical identifier
     /// or <see langword="nil"/> if the object is not found.
     /// </returns>
-    {$endregion}
-    function Find(GeoID: GEOID): TTerritoryInfo; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Find(GEOID : GEOID) : TTerritoryInfo; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Locates a <see cref="TTerritoryInfo"/> object in the list by its two or three
     /// characters international country/region code.
@@ -2141,9 +2147,9 @@ type
     /// The <see cref="TTerritoryInfo"/> object with the specified international code
     /// or <see langword="nil"/> if the object is not found.
     /// </returns>
-    {$endregion}
-    function Find(const Code: String): TTerritoryInfo; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Find(Const Code : String) : TTerritoryInfo; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds index of a specified <see cref="TTerritoryInfo"/> object in the list.
     /// </summary>
@@ -2154,9 +2160,9 @@ type
     /// The index of <see cref="TTerritoryInfo"/> object or -1 if the object is not found.
     /// </returns>
     /// <seealso cref="IndexOfName"/>
-    {$endregion}
-    function IndexOf(Territory: TTerritoryInfo): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IndexOf(Territory : TTerritoryInfo) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TTerritoryInfo"/> object in the list by its geographical
     /// identifier.
@@ -2168,9 +2174,9 @@ type
     /// The index of <see cref="TTerritoryInfo"/> object or -1 if the object is not found.
     /// </returns>
     /// <seealso cref="IndexOfName"/>
-    {$endregion}
-    function IndexOf(GeoID: GEOID): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IndexOf(GEOID : GEOID) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TTerritoryInfo"/> object in the list by its two or three
     /// characters international code.
@@ -2182,9 +2188,9 @@ type
     /// The index of <see cref="TTerritoryInfo"/> object or -1 if the object is not found.
     /// </returns>
     /// <seealso cref="IndexOfName"/>
-    {$endregion}
-    function IndexOf(const Code: String): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IndexOf(Const Code : String) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TTerritoryInfo"/> object in the list by its display name.
     /// </summary>
@@ -2198,9 +2204,9 @@ type
     /// The index of <see cref="TTerritoryInfo"/> object or -1 if the object is not found.
     /// </returns>
     /// <seealso cref="IndexOf"/>
-    {$endregion}
-    function IndexOfName(const AName: String; DisplayName: TTerritoryDisplayName): Integer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IndexOfName(Const AName : String; DisplayName : TTerritoryDisplayName) : Integer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified <see cref="TTerritoryInfo"/> object is in the list.
     /// </summary>
@@ -2211,9 +2217,9 @@ type
     /// Returns <see langword="true"/> if the <see cref="TTerritoryInfo"/> object is in the
     /// list, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function Exists(Territory: TTerritoryInfo): Boolean; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Exists(Territory : TTerritoryInfo) : Boolean; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a <see cref="TTerritoryInfo"/> object with a specified geographical
     /// identifier is in the list.
@@ -2225,9 +2231,9 @@ type
     /// Returns <see langword="true"/> if a <see cref="TTerritoryInfo"/> object with the
     /// specified geographical identifier is in the list, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function Exists(GeoID: GEOID): Boolean; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Exists(GEOID : GEOID) : Boolean; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a <see cref="TTerritoryInfo"/> object with a specified two or three
     /// characters international code is in the list.
@@ -2239,44 +2245,45 @@ type
     /// Returns <see langword="true"/> if a <see cref="TTerritoryInfo"/> object with the
     /// specified international code is in the list, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function Exists(const Code: String): Boolean; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Exists(Const Code : String) : Boolean; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the number of <see cref="TTerritoryInfo"/> objects in the list.
     /// </summary>
-    {$endregion}
-    property Count: Integer read GetCount;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Count : Integer Read GetCount;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TTerritoryInfo"/> objects in the list.
     /// </summary>
-    {$endregion}
-    property Items[Index: Integer]: TTerritoryInfo read GetItems; default;
-  end;
+    {$Endregion}
+    Property Items[Index : Integer] : TTerritoryInfo Read GetItems; Default;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This class maintains a list of <see cref="TTerritoryInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TTerritoryList to store and maintain a list of <see cref="TTerritoryInfo"/>
-  /// objects. TTerritoryList provides properties and methods to add, delete, rearrange,
-  /// locate, access, and sort <see cref="TTerritoryInfo"/> objects.
-  /// </remarks>
-  {$endregion}
-  TTerritoryList = class(TReadonlyTerritoryList)
-  private
-    fDuplicates: TDuplicates;
-    fUpdateCount: Integer;
-    fOnChanging: TNotifyEvent;
-    fOnChange: TNotifyEvent;
-    function GetCapacity: Integer; inline;
-    procedure SetCapacity(Value: Integer);
-    procedure ReadTerritory(Reader: TReader);
-    procedure WriteTerritory(Writer: TWriter);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// This class maintains a list of <see cref="TTerritoryInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// Use TTerritoryList to store and maintain a list of <see cref="TTerritoryInfo"/>
+/// objects. TTerritoryList provides properties and methods to add, delete, rearrange,
+/// locate, access, and sort <see cref="TTerritoryInfo"/> objects.
+/// </remarks>
+{$Endregion}
+
+  TTerritoryList = Class(TReadonlyTerritoryList)
+   Private
+    fDuplicates  : TDuplicates;
+    fUpdateCount : Integer;
+    fOnChanging  : TNotifyEvent;
+    fOnChange    : TNotifyEvent;
+    Function GetCapacity : Integer; Inline;
+    Procedure SetCapacity(Value : Integer);
+    Procedure ReadTerritory(Reader : TReader);
+    Procedure WriteTerritory(Writer : TWriter);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reads and writes the <see cref="Items"/> property as if it were published.
     /// </summary>
@@ -2284,52 +2291,52 @@ type
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
     /// loading or saving the list.
     /// </param>
-    {$endregion}
-    procedure DefineProperties(Filer: TFiler); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DefineProperties(Filer : TFiler); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnChanging"/> event.
     /// </summary>
     /// <seealso cref="Change"/>
-    {$endregion}
-    procedure Changing; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Changing; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnChange"/> event.
     /// </summary>
     /// <seealso cref="Changing"/>
-    {$endregion}
-    procedure Change; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Change; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the update level.
     /// </summary>
-    {$endregion}
-    property UpdateCount: Integer read fUpdateCount;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property UpdateCount : Integer Read fUpdateCount;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Prevents generating of the <see cref="OnChanging"/> and <see cref="OnChange"/>
     /// events until the <see cref="EndUpdate"/> method is called.
     /// </summary>
     /// <seealso cref="EndUpdate"/>
-    {$endregion}
-    procedure BeginUpdate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure BeginUpdate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reenables <see cref="OnChanging"/> and <see cref="OnChange"/> events generation
     /// that was turned off with the <see cref="BeginUpdate"/> method.
     /// </summary>
     /// <seealso cref="BeginUpdate"/>
-    {$endregion}
-    procedure EndUpdate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure EndUpdate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes all items from the list.
     /// </summary>
-    {$endregion}
-    procedure Clear;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Clear;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sorts the items in the list by a specified display name.
     /// </summary>
@@ -2337,9 +2344,9 @@ type
     /// Determines which <see cref="TTerritoryInfo.DisplayNames"/> value should the
     /// list be sorted by.
     /// </param>
-    {$endregion}
-    procedure Sort(OrderBy: TTerritoryDisplayName);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Sort(OrderBy : TTerritoryDisplayName);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies the list of <see cref="TTerritoryInfo"/> objects from another object.
     /// </summary>
@@ -2347,9 +2354,9 @@ type
     /// The source list.
     /// </param>
     /// <seealso cref="Apply"/>
-    {$endregion}
-    procedure Assign(Source: TPersistent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Assign(Source : TPersistent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies <see cref="TTerritoryInfo"/> objects of one list to another.
     /// </summary>
@@ -2407,10 +2414,9 @@ type
     /// The optional and aditional source list.
     /// </param>
     /// <seealso cref="Assign"/>
-    {$endregion}
-    procedure Apply(ListA: TReadonlyTerritoryList; Op: TListAssignOp = laCopy;
-      ListB: TReadonlyTerritoryList = nil);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Apply(ListA : TReadonlyTerritoryList; Op : TListAssignOp = laCopy; ListB : TReadonlyTerritoryList = Nil);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Adds a specified <see cref="TTerritoryInfo"/> object to the list.
     /// </summary>
@@ -2420,9 +2426,9 @@ type
     /// <returns>
     /// The index of new <see cref="TTerritoryInfo"/> object in the list.
     /// </returns>
-    {$endregion}
-    function Add(Territory: TTerritoryInfo): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Add(Territory : TTerritoryInfo) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Adds a <see cref="TTerritoryInfo"/> object to the list by its geographical identifier.
     /// </summary>
@@ -2432,9 +2438,9 @@ type
     /// <returns>
     /// The index of new <see cref="TTerritoryInfo"/> object in the list.
     /// </returns>
-    {$endregion}
-    function Add(GeoID: GEOID): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Add(GEOID : GEOID) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Adds a <see cref="TTerritoryInfo"/> object to the list by its two or three
     /// character international code.
@@ -2445,9 +2451,9 @@ type
     /// <returns>
     /// The index of new <see cref="TTerritoryInfo"/> object in the list.
     /// </returns>
-    {$endregion}
-    function Add(const Code: String): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Add(Const Code : String) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes a specified <see cref="TTerritoryInfo"/> object from the list.
     /// </summary>
@@ -2459,9 +2465,9 @@ type
     /// is not found.
     /// </returns>
     /// <seealso cref="Delete"/>
-    {$endregion}
-    function Remove(Territory: TTerritoryInfo): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Remove(Territory : TTerritoryInfo) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes a <see cref="TTerritoryInfo"/> object from the list by its geographical
     /// identifier.
@@ -2474,9 +2480,9 @@ type
     /// is not found.
     /// </returns>
     /// <seealso cref="Delete"/>
-    {$endregion}
-    function Remove(GeoID: GEOID): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Remove(GEOID : GEOID) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes a <see cref="TTerritoryInfo"/> object from the list by its two or three
     /// characters international code.
@@ -2489,9 +2495,9 @@ type
     /// is not found.
     /// </returns>
     /// <seealso cref="Delete"/>
-    {$endregion}
-    function Remove(const Code: String): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Remove(Const Code : String) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes a <see cref="TTerritoryInfo"/> object at a specified index of the list.
     /// </summary>
@@ -2499,87 +2505,89 @@ type
     /// The index of <see cref="TTerritoryInfo"/> object to remove.
     /// </param>
     /// <seealso cref="Remove"/>
-    {$endregion}
-    procedure Delete(Index: Integer);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Delete(Index : Integer);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of <see cref="TTerritoryInfo"/> objects the TTerritoryList object can hold.
     /// </summary>
-    {$endregion}
-    property Capacity: Integer read GetCapacity write SetCapacity;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Capacity : Integer Read GetCapacity Write SetCapacity;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether duplicate <see cref="TTerritoryInfo"/> objects can be added to the list.
     /// </summary>
-    {$endregion}
-    property Duplicates: TDuplicates read fDuplicates write fDuplicates;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Duplicates : TDuplicates Read fDuplicates Write fDuplicates;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the list of <see cref="TTerritoryInfo"/> objects changes.
     /// </summary>
-    {$endregion}
-    property OnChange: TNotifyEvent read fOnChange write fOnChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnChange : TNotifyEvent Read fOnChange Write fOnChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately before the list of <see cref="TTerritoryInfo"/> objects changes.
     /// </summary>
-    {$endregion}
-    property OnChanging: TNotifyEvent read fOnChanging write fOnChanging;
-  end;
+    {$Endregion}
+    Property OnChanging : TNotifyEvent Read fOnChanging Write fOnChanging;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the possible display names for
-  /// <see cref="TCurrencyInfo"/> objects.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the possible display names for
+/// <see cref="TCurrencyInfo"/> objects.
+/// </summary>
+{$Endregion}
+
   TCurrencyDisplayName = (
-    {$region 'xmldoc'}
-    /// Nothing
-    {$endregion}
-    crnNone,
-    {$region 'xmldoc'}
-    /// Three characters of the international monetary symbol specified in ISO 4217.
-    {$endregion}
-    crnIntlSymbol,
-    {$region 'xmldoc'}
-    /// The full English name of the currency.
-    {$endregion}
-    crnEnglishName,
-    {$region 'xmldoc'}
-    /// The native name of the currency.
-    {$endregion}
-    crnNativeName
+  {$Region 'xmldoc'}
+  /// Nothing
+  {$Endregion}
+  crnNone,
+  {$Region 'xmldoc'}
+  /// Three characters of the international monetary symbol specified in ISO 4217.
+  {$Endregion}
+  crnIntlSymbol,
+  {$Region 'xmldoc'}
+  /// The full English name of the currency.
+  {$Endregion}
+  crnEnglishName,
+  {$Region 'xmldoc'}
+  /// The native name of the currency.
+  {$Endregion}
+  crnNativeName
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This class represents a currency.
-  /// </summary>
-  /// <remarks>
-  /// Each instance of TCurrencyInfo class represents a specific currency and has properties
-  /// and methods to query information about it.
-  ///
-  /// NOTE: Do not create or destroy an instance of TCurrencyInfo class. Use <see cref="CurrencyOf"/>
-  /// global function to get TCurrencyInfo instance of a currency.
-  /// </remarks>
-  /// <seealso cref="CurrencyOf"/>
-  /// <seealso cref="World.Currencies"/>
-  {$endregion}
-  TCurrencyInfo = class sealed(TObject)
-  private
-    fIntlSymbol: String;
-    fLocalSymbol: String;
-    fEnglishName: String;
-    fCultures: TCultureList;
-    fCountries: TTerritoryList;
-    fOriginCountry: TTerritoryInfo;
-    function GetNativeName: String; inline;
-    function GetCultures: TReadonlyCultureList; inline;
-    function GetCountries: TReadonlyTerritoryList; inline;
-    function GetDisplayNames(DisplayName: TCurrencyDisplayName): String;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// This class represents a currency.
+/// </summary>
+/// <remarks>
+/// Each instance of TCurrencyInfo class represents a specific currency and has properties
+/// and methods to query information about it.
+///
+/// NOTE: Do not create or destroy an instance of TCurrencyInfo class. Use <see cref="CurrencyOf"/>
+/// global function to get TCurrencyInfo instance of a currency.
+/// </remarks>
+/// <seealso cref="CurrencyOf"/>
+/// <seealso cref="World.Currencies"/>
+{$Endregion}
+
+    TCurrencyInfo = Class Sealed(TObject)
+   Private
+    fIntlSymbol    : String;
+    fLocalSymbol   : String;
+    fEnglishName   : String;
+    fCultures      : TCultureList;
+    fCountries     : TTerritoryList;
+    fOriginCountry : TTerritoryInfo;
+    Function GetNativeName : String; Inline;
+    Function GetCultures : TReadonlyCultureList; Inline;
+    Function GetCountries : TReadonlyTerritoryList; Inline;
+    Function GetDisplayNames(DisplayName : TCurrencyDisplayName) : String;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Associates the specified <see cref="TCultureInfo"/> and <see cref="TTerritoryInfo"/>
     /// objects to this TCurrencyInfo object.
@@ -2590,103 +2598,104 @@ type
     /// <param name="Territory">
     /// The <see cref="TTerritoryInfo"/> object.
     /// </param>
-    {$endregion}
-    procedure Associate(Culture: TCultureInfo; Territory: TTerritoryInfo);
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Associate(Culture : TCultureInfo; Territory : TTerritoryInfo);
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the object for a specified locale identifier.
     /// </summary>
     /// <param name="LocaleID">
     /// The locale identifier.
     /// </param>
-    {$endregion}
-    constructor Create(LocaleID: LCID); overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(LocaleID : LCID); Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the object for a specified locale name.
     /// </summary>
     /// <param name="Locale">
     /// The locale name.
     /// </param>
-    {$endregion}
-    constructor Create(const Locale: String); overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(Const Locale : String); Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroyes the object and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Specifies the three-character ISO 4217 international monetary symbol of
     /// the currency.
     /// </summary>
-    {$endregion}
-    property IntlSymbol: String read fIntlSymbol;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property IntlSymbol : String Read fIntlSymbol;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the local monetary symbol of the currency.
     /// </summary>
-    {$endregion}
-    property LocalSymbol: String read fLocalSymbol;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property LocalSymbol : String Read fLocalSymbol;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the English name of the currency.
     /// </summary>
-    {$endregion}
-    property EnglishName: String read fEnglishName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property EnglishName : String Read fEnglishName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the native name of the currency.
     /// </summary>
-    {$endregion}
-    property NativeName: String read GetNativeName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property NativeName : String Read GetNativeName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists cultures that this currency is authoritative in.
     /// </summary>
-    {$endregion}
-    property Cultures: TReadonlyCultureList read GetCultures;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Cultures : TReadonlyCultureList Read GetCultures;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists countries/regions that this currency is authoritative in.
     /// </summary>
-    {$endregion}
-    property Countries: TReadonlyTerritoryList read GetCountries;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Countries : TReadonlyTerritoryList Read GetCountries;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the main country/region of the currency. The value of this property
     /// can be <see langword="nil"/>. For example, Euro has no main country.
     /// </summary>
-    {$endregion}
-    property OriginCountry: TTerritoryInfo read fOriginCountry;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OriginCountry : TTerritoryInfo Read fOriginCountry;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists display names of the currency.
     /// </summary>
-    {$endregion}
-    property DisplayNames[DisplayName: TCurrencyDisplayName]: String read GetDisplayNames;
-  end;
+    {$Endregion}
+    Property DisplayNames[DisplayName : TCurrencyDisplayName] : String Read GetDisplayNames;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCurrencyEnumerator enumerates through the <see cref="TCurrencyInfo"/> objects
-  /// of an instance of <see cref="TReadonlyCurrencyList"/> or its descendent class.
-  /// </summary>
-  {$endregion}
-  TCurrencyEnumerator = class(TListEnumerator)
-  public
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCurrencyEnumerator enumerates through the <see cref="TCurrencyInfo"/> objects
+/// of an instance of <see cref="TReadonlyCurrencyList"/> or its descendent class.
+/// </summary>
+{$Endregion}
+
+  TCurrencyEnumerator = Class(TListEnumerator)
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class for a specified list.
     /// </summary>
     /// <param name="list">
     /// The list to enumerate its items.
     /// </param>
-    {$endregion}
-    constructor Create(List: TReadonlyCurrencyList);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(List : TReadonlyCurrencyList);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the current <see cref="TCurrencyInfo"/> object of the list being
     /// enumerated.
@@ -2694,41 +2703,42 @@ type
     /// <returns>
     /// Returns the current <see cref="TCurrencyInfo"/> object.
     /// </returns>
-    {$endregion}
-    function GetCurrent: TCurrencyInfo; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetCurrent : TCurrencyInfo; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the current <see cref="TCurrencyInfo"/> object.
     /// </summary>
-    {$endregion}
-    property Current: TCurrencyInfo read GetCurrent;
-  end;
+    {$Endregion}
+    Property Current : TCurrencyInfo Read GetCurrent;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This class maintains a read-only list of <see cref="TCurrencyInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// TReadonlyCurrencyList maintains a read-only list of <see cref="TCurrencyInfo"/>
-  /// objects, and provides properties and methods to locate and access the objects.
-  /// The objects in the list are hashed and can be located quickly.
-  /// </remarks>
-  /// <see cref="TCurrencyList"/>
-  {$endregion}
-  TReadonlyCurrencyList = class(TPersistent)
-  private
-    LookupTable_IntlSymbol: TKeyLookup<String,Integer>;
-    IsLookupTableValid_IntlSymbol: Boolean;
-    function GetCount: Integer; inline;
-    function GetItems(Index: Integer): TCurrencyInfo; inline;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// This class maintains a read-only list of <see cref="TCurrencyInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// TReadonlyCurrencyList maintains a read-only list of <see cref="TCurrencyInfo"/>
+/// objects, and provides properties and methods to locate and access the objects.
+/// The objects in the list are hashed and can be located quickly.
+/// </remarks>
+/// <see cref="TCurrencyList"/>
+{$Endregion}
+
+  TReadonlyCurrencyList = Class(TPersistent)
+   Private
+    LookupTable_IntlSymbol        : TKeyLookup<String, Integer>;
+    IsLookupTableValid_IntlSymbol : Boolean;
+    Function GetCount : Integer; Inline;
+    Function GetItems(Index : Integer) : TCurrencyInfo; Inline;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Provides direct accress to the individual <see cref="TCurrencyInfo"/> objects.
     /// </summary>
-    {$endregion}
-    List: TList;
-    {$region 'xmldoc'}
+    {$Endregion}
+    List : TList;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Attaches a specified <see cref="TCurrencyInfo"/> object with a specified index
     /// in the list.
@@ -2743,9 +2753,9 @@ type
     /// The index of the <see cref="TCurrencyInfo"/> object in the list.
     /// </param>
     /// <seealso cref="RemoveLookupEntries"/>
-    {$endregion}
-    procedure AddLookupEntries(Currency: TCurrencyInfo; Index: Integer);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure AddLookupEntries(Currency : TCurrencyInfo; Index : Integer);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Detaches a specified <see cref="TCurrencyInfo"/> object from the previosuly
     /// attached index.
@@ -2757,40 +2767,40 @@ type
     /// The <see cref="TCurrencyInfo"/> object to remove from the lookup tables.
     /// </param>
     /// <seealso cref="AddLookupEntries"/>
-    {$endregion}
-    procedure RemoveLookupEntries(Currency: TCurrencyInfo);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RemoveLookupEntries(Currency : TCurrencyInfo);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Clears all entries from all lookup tables.
     /// </summary>
-    {$endregion}
-    procedure ClearLookupTables;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ClearLookupTables;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Schedules rebuilding of all lookup tables.
     /// </summary>
-    {$endregion}
-    procedure InvalidateLookupTables; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure InvalidateLookupTables; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Validates lookup table for <see cref="TCurrencyInfo.IntlSymbol"/> values.
     /// </summary>
-    {$endregion}
-    procedure ValidateLookupTable_IntlSymbol;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ValidateLookupTable_IntlSymbol;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creats an instance of the class.
     /// </summary>
-    {$endregion}
-    constructor Create; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the instance and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TCurrencyEnumerator"/> reference, which enumerates
     /// all <see cref="TCurrencyInfo"/> objects in the list.
@@ -2798,9 +2808,9 @@ type
     /// <returns>
     /// Returns an instance of <see cref="TCurrencyEnumerator"/> class.
     /// </returns>
-    {$endregion}
-    function GetEnumerator: TCurrencyEnumerator;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetEnumerator : TCurrencyEnumerator;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the first <see cref="TCurrencyInfo"/> object in the list.
     /// </summary>
@@ -2808,9 +2818,9 @@ type
     /// The first <see cref="TCurrencyInfo"/> object in the list.
     /// </returns>
     /// <seealso cref="Last"/>
-    {$endregion}
-    function First: TCurrencyInfo;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function First : TCurrencyInfo;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the last <see cref="TCurrencyInfo"/> object in the list.
     /// </summary>
@@ -2818,9 +2828,9 @@ type
     /// The last <see cref="TCurrencyInfo"/> object in the list.
     /// </returns>
     /// <seealso cref="First"/>
-    {$endregion}
-    function Last: TCurrencyInfo;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Last : TCurrencyInfo;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies <see cref="TCurrencyInfo"/> objects in the list to another object.
     /// </summary>
@@ -2828,9 +2838,9 @@ type
     /// The destination object.
     /// </param>
     /// <seealso cref="AssignLabelsTo"/>
-    {$endregion}
-    procedure AssignTo(Dest: TPersistent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure AssignTo(Dest : TPersistent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies display name of <see cref="TCurrencyInfo"/> objects in the list to
     /// a <see cref="TStrings"/> object.
@@ -2843,9 +2853,9 @@ type
     /// </param>
     /// <seealso cref="AssignTo"/>
     /// <seealso cref="TCurrencyInfo.DisplayNames"/>
-    {$endregion}
-    procedure AssignLabelsTo(Dest: TStrings; DisplayName: TCurrencyDisplayName);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure AssignLabelsTo(Dest : TStrings; DisplayName : TCurrencyDisplayName);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Locates a <see cref="TCurrencyInfo"/> object in the list by its three characters
     /// international monetary symbol.
@@ -2857,9 +2867,9 @@ type
     /// The <see cref="TCurrencyInfo"/> object with the specified international monetary
     /// sumbol or <see langword="nil"/> if the object is not found.
     /// </returns>
-    {$endregion}
-    function Find(const IntlSymbol: String): TCurrencyInfo;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Find(Const IntlSymbol : String) : TCurrencyInfo;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds index of a specified <see cref="TCurrencyInfo"/> object in the list.
     /// </summary>
@@ -2870,9 +2880,9 @@ type
     /// The index of <see cref="TCurrencyInfo"/> object or -1 if the object is not found.
     /// </returns>
     /// <seealso cref="IndexOfName"/>
-    {$endregion}
-    function IndexOf(Currency: TCurrencyInfo): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IndexOf(Currency : TCurrencyInfo) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TCurrencyInfo"/> object in the list by its three
     /// characters international monetary symbol.
@@ -2884,9 +2894,9 @@ type
     /// The index of <see cref="TCurrencyInfo"/> object or -1 if the object is not found.
     /// </returns>
     /// <seealso cref="IndexOfName"/>
-    {$endregion}
-    function IndexOf(const IntlSymbol: String): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IndexOf(Const IntlSymbol : String) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds index of a <see cref="TCurrencyInfo"/> object in the list by its display name.
     /// </summary>
@@ -2900,9 +2910,9 @@ type
     /// The index of <see cref="TCurrencyInfo"/> object or -1 if the object is not found.
     /// </returns>
     /// <seealso cref="IndexOf"/>
-    {$endregion}
-    function IndexOfName(const AName: String; DisplayName: TCurrencyDisplayName): Integer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IndexOfName(Const AName : String; DisplayName : TCurrencyDisplayName) : Integer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified <see cref="TCurrencyInfo"/> object is in the list.
     /// </summary>
@@ -2913,9 +2923,9 @@ type
     /// Returns <see langword="true"/> if the <see cref="TCurrencyInfo"/> object is in the
     /// list, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function Exists(Currency: TCurrencyInfo): Boolean; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Exists(Currency : TCurrencyInfo) : Boolean; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a <see cref="TCurrencyInfo"/> object with a specified three characters
     /// international monetary symbol is in the list.
@@ -2927,44 +2937,45 @@ type
     /// Returns <see langword="true"/> if a <see cref="TCurrencyInfo"/> object with the
     /// specified international monetary symbol is in the list, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function Exists(const IntlSymbol: String): Boolean; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Exists(Const IntlSymbol : String) : Boolean; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the number of <see cref="TCurrencyInfo"/> objects in the list.
     /// </summary>
-    {$endregion}
-    property Count: Integer read GetCount;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Count : Integer Read GetCount;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TCurrencyInfo"/> objects in the list.
     /// </summary>
-    {$endregion}
-    property Items[Index: Integer]: TCurrencyInfo read GetItems; default;
-  end;
+    {$Endregion}
+    Property Items[Index : Integer] : TCurrencyInfo Read GetItems; Default;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This class maintains a list of <see cref="TCurrencyInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TCurrencyList to store and maintain a list of <see cref="TCurrencyInfo"/>
-  /// objects. TCurrencyList provides properties and methods to add, delete, rearrange,
-  /// locate, access, and sort <see cref="TCurrencyInfo"/> objects.
-  /// </remarks>
-  {$endregion}
-  TCurrencyList = class(TReadonlyCurrencyList)
-  private
-    fDuplicates: TDuplicates;
-    fUpdateCount: Integer;
-    fOnChanging: TNotifyEvent;
-    fOnChange: TNotifyEvent;
-    function GetCapacity: Integer; inline;
-    procedure SetCapacity(Value: Integer);
-    procedure ReadCurrencies(Reader: TReader);
-    procedure WriteCurrencies(Writer: TWriter);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// This class maintains a list of <see cref="TCurrencyInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// Use TCurrencyList to store and maintain a list of <see cref="TCurrencyInfo"/>
+/// objects. TCurrencyList provides properties and methods to add, delete, rearrange,
+/// locate, access, and sort <see cref="TCurrencyInfo"/> objects.
+/// </remarks>
+{$Endregion}
+
+  TCurrencyList = Class(TReadonlyCurrencyList)
+   Private
+    fDuplicates  : TDuplicates;
+    fUpdateCount : Integer;
+    fOnChanging  : TNotifyEvent;
+    fOnChange    : TNotifyEvent;
+    Function GetCapacity : Integer; Inline;
+    Procedure SetCapacity(Value : Integer);
+    Procedure ReadCurrencies(Reader : TReader);
+    Procedure WriteCurrencies(Writer : TWriter);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reads and writes the <see cref="Items"/> property as if it were published.
     /// </summary>
@@ -2972,52 +2983,52 @@ type
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
     /// loading or saving the list.
     /// </param>
-    {$endregion}
-    procedure DefineProperties(Filer: TFiler); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DefineProperties(Filer : TFiler); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnChanging"/> event.
     /// </summary>
     /// <seealso cref="Change"/>
-    {$endregion}
-    procedure Changing; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Changing; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnChange"/> event.
     /// </summary>
     /// <seealso cref="Changing"/>
-    {$endregion}
-    procedure Change; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Change; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the update level.
     /// </summary>
-    {$endregion}
-    property UpdateCount: Integer read fUpdateCount;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property UpdateCount : Integer Read fUpdateCount;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Prevents generating of the <see cref="OnChanging"/> and <see cref="OnChange"/>
     /// events until the <see cref="EndUpdate"/> method is called.
     /// </summary>
     /// <seealso cref="EndUpdate"/>
-    {$endregion}
-    procedure BeginUpdate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure BeginUpdate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reenables <see cref="OnChanging"/> and <see cref="OnChange"/> events generation
     /// that was turned off with the <see cref="BeginUpdate"/> method.
     /// </summary>
     /// <seealso cref="BeginUpdate"/>
-    {$endregion}
-    procedure EndUpdate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure EndUpdate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes all items from the list.
     /// </summary>
-    {$endregion}
-    procedure Clear;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Clear;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sorts the items in the list by a specified display name.
     /// </summary>
@@ -3025,9 +3036,9 @@ type
     /// Determines which <see cref="TCurrencyInfo.DisplayNames"/> value should the
     /// list be sorted by.
     /// </param>
-    {$endregion}
-    procedure Sort(OrderBy: TCurrencyDisplayName);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Sort(OrderBy : TCurrencyDisplayName);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies the list of <see cref="TCurrencyInfo"/> objects from another object.
     /// </summary>
@@ -3035,9 +3046,9 @@ type
     /// The source list.
     /// </param>
     /// <seealso cref="Apply"/>
-    {$endregion}
-    procedure Assign(Source: TPersistent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Assign(Source : TPersistent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies <see cref="TCurrencyInfo"/> objects of one list to another.
     /// </summary>
@@ -3095,10 +3106,9 @@ type
     /// The optional and aditional source list.
     /// </param>
     /// <seealso cref="Assign"/>
-    {$endregion}
-    procedure Apply(ListA: TReadonlyCurrencyList; Op: TListAssignOp = laCopy;
-      ListB: TReadonlyCurrencyList = nil);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Apply(ListA : TReadonlyCurrencyList; Op : TListAssignOp = laCopy; ListB : TReadonlyCurrencyList = Nil);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Adds a specified <see cref="TCurrencyInfo"/> object to the list.
     /// </summary>
@@ -3108,9 +3118,9 @@ type
     /// <returns>
     /// The index of new <see cref="TCurrencyInfo"/> object in the list.
     /// </returns>
-    {$endregion}
-    function Add(Currency: TCurrencyInfo): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Add(Currency : TCurrencyInfo) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Adds a <see cref="TCurrencyInfo"/> object to the list by its three characters
     /// international monetary symbol.
@@ -3121,9 +3131,9 @@ type
     /// <returns>
     /// The index of new <see cref="TCurrencyInfo"/> object in the list.
     /// </returns>
-    {$endregion}
-    function Add(const IntlSymbol: String): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Add(Const IntlSymbol : String) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes a specified <see cref="TCurrencyInfo"/> object from the list.
     /// </summary>
@@ -3135,9 +3145,9 @@ type
     /// is not found.
     /// </returns>
     /// <seealso cref="Delete"/>
-    {$endregion}
-    function Remove(Currency: TCurrencyInfo): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Remove(Currency : TCurrencyInfo) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes a <see cref="TCurrencyInfo"/> object from the list by its three characters
     /// international monetry symbol.
@@ -3150,9 +3160,9 @@ type
     /// is not found.
     /// </returns>
     /// <seealso cref="Delete"/>
-    {$endregion}
-    function Remove(const IntlSymbol: String): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Remove(Const IntlSymbol : String) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes a <see cref="TCurrencyInfo"/> object at a specified index of the list.
     /// </summary>
@@ -3160,84 +3170,85 @@ type
     /// The index of <see cref="TCurrencyInfo"/> object to remove.
     /// </param>
     /// <seealso cref="Remove"/>
-    {$endregion}
-    procedure Delete(Index: Integer);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Delete(Index : Integer);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of <see cref="TCurrencyInfo"/> objects the TCurrencyList object can hold.
     /// </summary>
-    {$endregion}
-    property Capacity: Integer read GetCapacity write SetCapacity;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Capacity : Integer Read GetCapacity Write SetCapacity;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether duplicate <see cref="TCurrencyInfo"/> objects can be added to the list.
     /// </summary>
-    {$endregion}
-    property Duplicates: TDuplicates read fDuplicates write fDuplicates;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Duplicates : TDuplicates Read fDuplicates Write fDuplicates;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the list of <see cref="TCurrencyInfo"/> objects changes.
     /// </summary>
-    {$endregion}
-    property OnChange: TNotifyEvent read fOnChange write fOnChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnChange : TNotifyEvent Read fOnChange Write fOnChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately before the list of <see cref="TCurrencyInfo"/> objects changes.
     /// </summary>
-    {$endregion}
-    property OnChanging: TNotifyEvent read fOnChanging write fOnChanging;
-  end;
+    {$Endregion}
+    Property OnChanging : TNotifyEvent Read fOnChanging Write fOnChanging;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// World class provides information about all cultures, territories, and
-  /// currencies.
-  /// </summary>
-  /// <remarks>
-  /// World class provides properties to locate and access all available
-  /// <see cref="TCultureInfo"/>, <see cref="TTerritoryInfo"/>, and
-  /// <see cref="TCurrencyInfo"/> objects.
-  /// </remarks>
-  {$endregion}
-  World = class
-  private
-    class var Changing: Boolean;
-    class var CultureList: TCultureList;
-    class var TerritoryList: TTerritoryList;
-    class var CurrencyList: TCurrencyList;
-    class procedure Startup; static;
-    class procedure Cleanup; static;
-  public
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// World class provides information about all cultures, territories, and
+/// currencies.
+/// </summary>
+/// <remarks>
+/// World class provides properties to locate and access all available
+/// <see cref="TCultureInfo"/>, <see cref="TTerritoryInfo"/>, and
+/// <see cref="TCurrencyInfo"/> objects.
+/// </remarks>
+{$Endregion}
+
+  World = Class
+   Private
+    Class Var Changing : Boolean;
+    Class Var CultureList : TCultureList;
+    Class Var TerritoryList : TTerritoryList;
+    Class Var CurrencyList : TCurrencyList;
+    Class Procedure Startup; Static;
+    Class Procedure Cleanup; Static;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the read-only list of all available <see cref="TCultureInfo"/> objects.
     /// </summary>
     /// <returns>
     /// The read-only list of all available <see cref="TCultureInfo"/> objects.
     /// </returns>
-    {$endregion}
-    class function Cultures: TReadonlyCultureList; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function Cultures : TReadonlyCultureList; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the read-only list of all available <see cref="TTerritoryInfo"/> objects.
     /// </summary>
     /// <returns>
     /// The read-only list of all available <see cref="TTerritoryInfo"/> objects.
     /// </returns>
-    {$endregion}
-    class function Territories: TReadonlyTerritoryList; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function Territories : TReadonlyTerritoryList; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the read-only list of all available <see cref="TCurrencyInfo"/> objects.
     /// </summary>
     /// <returns>
     /// The read-only list of all available <see cref="TCurrencyInfo"/> objects.
     /// </returns>
-    {$endregion}
-    class function Currencies: TReadonlyCurrencyList; static;
-  end;
+    {$Endregion}
+    Class Function Currencies : TReadonlyCurrencyList; Static;
+  End;
 
-{$region 'xmldoc'}
+{$Region 'xmldoc'}
 /// <summary>
 /// Indicates whether the i18n package functionality is available for the current
 /// version of Windows.
@@ -3251,2624 +3262,2603 @@ type
 /// Returns <see langword="true"/> if the i18n package can be used, otherwise returns
 /// <see langword="false"/>.
 /// </returns>
-{$endregion}
-function i18nAvailable: Boolean; inline;
+{$Endregion}
 
-{$region 'xmldoc'}
-/// <summary>
-/// Returns the <see cref="TCultureInfo"/> object that represents the application's
-/// default locale.
-/// </summary>
-/// <returns>
-/// The <see cref="TCultureInfo"/> object.
-/// </returns>
-/// <seealso cref="GetSystemDefaultCulture"/>
-/// <seealso cref="GetUserDefaultCulture"/>
-/// <seealso cref="GetUserDefaultUICulture"/>
-{$endregion}
-function GetApplicationDefaultCulture: TCultureInfo;
+ Function i18nAvailable : Boolean; Inline;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Returns the <see cref="TCultureInfo"/> object that represents the system
-/// default locale.
-/// </summary>
-/// <returns>
-/// The <see cref="TCultureInfo"/> object.
-/// </returns>
-/// <seealso cref="GetUserDefaultCulture"/>
-/// <seealso cref="GetUserDefaultUICulture"/>
-{$endregion}
-function GetSystemDefaultCulture: TCultureInfo; inline;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Returns the <see cref="TCultureInfo"/> object that represents the application's
+ /// default locale.
+ /// </summary>
+ /// <returns>
+ /// The <see cref="TCultureInfo"/> object.
+ /// </returns>
+ /// <seealso cref="GetSystemDefaultCulture"/>
+ /// <seealso cref="GetUserDefaultCulture"/>
+ /// <seealso cref="GetUserDefaultUICulture"/>
+ {$Endregion}
+ Function GetApplicationDefaultCulture : TCultureInfo;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Returns the <see cref="TCultureInfo"/> object that represents the user's
-/// default locale.
-/// </summary>
-/// <returns>
-/// The <see cref="TCultureInfo"/> object.
-/// </returns>
-/// <seealso cref="GetUserDefaultUICulture"/>
-/// <seealso cref="GetSystemDefaultCulture"/>
-{$endregion}
-function GetUserDefaultCulture: TCultureInfo; inline;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Returns the <see cref="TCultureInfo"/> object that represents the system
+ /// default locale.
+ /// </summary>
+ /// <returns>
+ /// The <see cref="TCultureInfo"/> object.
+ /// </returns>
+ /// <seealso cref="GetUserDefaultCulture"/>
+ /// <seealso cref="GetUserDefaultUICulture"/>
+ {$Endregion}
+ Function GetSystemDefaultCulture : TCultureInfo; Inline;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Returns the <see cref="TCultureInfo"/> object that represents the user's
-/// default user interface locale.
-/// </summary>
-/// <returns>
-/// The <see cref="TCultureInfo"/> object.
-/// </returns>
-/// <seealso cref="GetUserDefaultCulture"/>
-/// <seealso cref="GetSystemDefaultCulture"/>
-{$endregion}
-function GetUserDefaultUICulture: TCultureInfo;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Returns the <see cref="TCultureInfo"/> object that represents the user's
+ /// default locale.
+ /// </summary>
+ /// <returns>
+ /// The <see cref="TCultureInfo"/> object.
+ /// </returns>
+ /// <seealso cref="GetUserDefaultUICulture"/>
+ /// <seealso cref="GetSystemDefaultCulture"/>
+ {$Endregion}
+ Function GetUserDefaultCulture : TCultureInfo; Inline;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Returns the <see cref="TTerritoryInfo"/> object that represents the geographical
-/// location of the user.
-/// </summary>
-/// <returns>
-/// The <see cref="TTerritoryInfo"/> object.
-/// </returns>
-{$endregion}
-function GetUserTerritory: TTerritoryInfo; inline;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Returns the <see cref="TCultureInfo"/> object that represents the user's
+ /// default user interface locale.
+ /// </summary>
+ /// <returns>
+ /// The <see cref="TCultureInfo"/> object.
+ /// </returns>
+ /// <seealso cref="GetUserDefaultCulture"/>
+ /// <seealso cref="GetSystemDefaultCulture"/>
+ {$Endregion}
+ Function GetUserDefaultUICulture : TCultureInfo;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Returns the <see cref="TCultureInfo"/> object that represents a locale specified
-/// by its identifier.
-/// </summary>
-/// <remarks>
-/// <para>
-/// Use CultureOf to get information about a locale specified by its identifier.
-/// </para>
-/// <para>
-/// When the argument passed as <paramref name="Exact"/> parameter is <see langword="true"/>,
-/// the returned <see cref="TCultureInfo"/> object has the same locale as the locale
-/// specified by the <paramref name="LocaleID"/> parameter.
-/// </para>
-/// <para>
-/// When the argument passed as <paramref name="Exact"/> parameter is <see langword="false"/>,
-/// the returned <see cref="TCultureInfo"/> object is the nearest locale to the locale
-/// specified by the <paramref name="LocaleID"/> parameter if the exact match is not found.
-/// </para>
-/// </remarks>
-/// <param name="LocaleID">
-/// The locale identifier.
-/// </param>
-/// <param name="Exact">
-/// Indicates whether a dialect of the locale can be a match.
-/// </param>
-/// <returns>
-/// The <see cref="TCultureInfo"/> object or <see langword="nil"/> if the locale
-/// identifier is undefined.
-/// </returns>
-{$endregion}
-function CultureOf(LocaleID: LCID; Exact: Boolean = True): TCultureInfo; overload; inline;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Returns the <see cref="TTerritoryInfo"/> object that represents the geographical
+ /// location of the user.
+ /// </summary>
+ /// <returns>
+ /// The <see cref="TTerritoryInfo"/> object.
+ /// </returns>
+ {$Endregion}
+ Function GetUserTerritory : TTerritoryInfo; Inline;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Returns the <see cref="TCultureInfo"/> object that represents a locale specified
-/// by its name.
-/// </summary>
-/// <remarks>
-/// <para>
-/// Use CultureOf to get information about a locale specified by its name.
-/// </para>
-/// <para>
-/// When the argument passed as <paramref name="Exact"/> parameter is <see langword="true"/>,
-/// the returned <see cref="TCultureInfo"/> object has the same locale as the locale
-/// specified by the <paramref name="Locale"/> parameter.
-/// </para>
-/// <para>
-/// When the argument passed as <paramref name="Exact"/> parameter is <see langword="false"/>,
-/// the returned <see cref="TCultureInfo"/> object is the nearest locale to the locale
-/// specified by the <paramref name="Locale"/> parameter if the exact match is not found.
-/// </para>
-/// </remarks>
-/// <param name="Locale">
-/// The locale name.
-/// </param>
-/// <param name="Exact">
-/// Indicates whether a dialect of the locale can be a match.
-/// </param>
-/// <returns>
-/// The <see cref="TCultureInfo"/> object or <see langword="nil"/> if the locale
-/// identifier is undefined.
-/// </returns>
-{$endregion}
-function CultureOf(const Locale: String; Exact: Boolean = True): TCultureInfo; overload; inline;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Returns the <see cref="TCultureInfo"/> object that represents a locale specified
+ /// by its identifier.
+ /// </summary>
+ /// <remarks>
+ /// <para>
+ /// Use CultureOf to get information about a locale specified by its identifier.
+ /// </para>
+ /// <para>
+ /// When the argument passed as <paramref name="Exact"/> parameter is <see langword="true"/>,
+ /// the returned <see cref="TCultureInfo"/> object has the same locale as the locale
+ /// specified by the <paramref name="LocaleID"/> parameter.
+ /// </para>
+ /// <para>
+ /// When the argument passed as <paramref name="Exact"/> parameter is <see langword="false"/>,
+ /// the returned <see cref="TCultureInfo"/> object is the nearest locale to the locale
+ /// specified by the <paramref name="LocaleID"/> parameter if the exact match is not found.
+ /// </para>
+ /// </remarks>
+ /// <param name="LocaleID">
+ /// The locale identifier.
+ /// </param>
+ /// <param name="Exact">
+ /// Indicates whether a dialect of the locale can be a match.
+ /// </param>
+ /// <returns>
+ /// The <see cref="TCultureInfo"/> object or <see langword="nil"/> if the locale
+ /// identifier is undefined.
+ /// </returns>
+ {$Endregion}
+ Function CultureOf(LocaleID : LCID; Exact : Boolean = True) : TCultureInfo; Overload; Inline;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Returns the <see cref="TTerritoryInfo"/> object that represents a country/region
-/// specified by its geographical identifier.
-/// </summary>
-/// <param name="GeoID">
-/// The geographical identifier.
-/// </param>
-/// <returns>
-/// The <see cref="TTerritoryInfo"/> object or <see langword="nil"/> if the geographical
-/// identifier is undefined.
-/// </returns>
-{$endregion}
-function TerritoryOf(GeoID: GEOID): TTerritoryInfo; overload; inline;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Returns the <see cref="TCultureInfo"/> object that represents a locale specified
+ /// by its name.
+ /// </summary>
+ /// <remarks>
+ /// <para>
+ /// Use CultureOf to get information about a locale specified by its name.
+ /// </para>
+ /// <para>
+ /// When the argument passed as <paramref name="Exact"/> parameter is <see langword="true"/>,
+ /// the returned <see cref="TCultureInfo"/> object has the same locale as the locale
+ /// specified by the <paramref name="Locale"/> parameter.
+ /// </para>
+ /// <para>
+ /// When the argument passed as <paramref name="Exact"/> parameter is <see langword="false"/>,
+ /// the returned <see cref="TCultureInfo"/> object is the nearest locale to the locale
+ /// specified by the <paramref name="Locale"/> parameter if the exact match is not found.
+ /// </para>
+ /// </remarks>
+ /// <param name="Locale">
+ /// The locale name.
+ /// </param>
+ /// <param name="Exact">
+ /// Indicates whether a dialect of the locale can be a match.
+ /// </param>
+ /// <returns>
+ /// The <see cref="TCultureInfo"/> object or <see langword="nil"/> if the locale
+ /// identifier is undefined.
+ /// </returns>
+ {$Endregion}
+ Function CultureOf(Const Locale : String; Exact : Boolean = True) : TCultureInfo; Overload; Inline;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Returns the <see cref="TTerritoryInfo"/> object that represents a country/region
-/// specified by its two or three characters international code.
-/// </summary>
-/// <param name="Code">
-/// The two or three characters of the international code.
-/// </param>
-/// <returns>
-/// The <see cref="TTerritoryInfo"/> object or <see langword="nil"/> if the international
-/// code is undefined.
-/// </returns>
-{$endregion}
-function TerritoryOf(const Code: String): TTerritoryInfo; overload; inline;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Returns the <see cref="TTerritoryInfo"/> object that represents a country/region
+ /// specified by its geographical identifier.
+ /// </summary>
+ /// <param name="GeoID">
+ /// The geographical identifier.
+ /// </param>
+ /// <returns>
+ /// The <see cref="TTerritoryInfo"/> object or <see langword="nil"/> if the geographical
+ /// identifier is undefined.
+ /// </returns>
+ {$Endregion}
+ Function TerritoryOf(GEOID : GEOID) : TTerritoryInfo; Overload; Inline;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Returns the <see cref="TCurrencyInfo"/> object that represents a currency specified
-/// by its international monetary symbol.
-/// </summary>
-/// <param name="IntlSymbol">
-/// The three characters of the international monetary symbol.
-/// </param>
-/// <returns>
-/// The <see cref="TCurrencyInfo"/> object or <see langword="nil"/> if the international
-/// monetary symbol is undefined.
-/// </returns>
-{$endregion}
-function CurrencyOf(const IntlSymbol: String): TCurrencyInfo; inline;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Returns the <see cref="TTerritoryInfo"/> object that represents a country/region
+ /// specified by its two or three characters international code.
+ /// </summary>
+ /// <param name="Code">
+ /// The two or three characters of the international code.
+ /// </param>
+ /// <returns>
+ /// The <see cref="TTerritoryInfo"/> object or <see langword="nil"/> if the international
+ /// code is undefined.
+ /// </returns>
+ {$Endregion}
+ Function TerritoryOf(Const Code : String) : TTerritoryInfo; Overload; Inline;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Indicates whether two locale names represent the same primary language.
-/// </summary>
-/// <param name="Locale1">
-/// The first locale name.
-/// </param>
-/// <param name="Locale2">
-/// The second locale name.
-/// </param>
-/// <returns>
-/// Returns <see langword="true"/> if both locales represent the same primary
-/// language, otherwise returns <see langword="false"/>.
-/// </returns>
-/// <seealso cref="SameCountry"/>
-{$endregion}
-function SameLanguage(const Locale1, Locale2: String): Boolean;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Returns the <see cref="TCurrencyInfo"/> object that represents a currency specified
+ /// by its international monetary symbol.
+ /// </summary>
+ /// <param name="IntlSymbol">
+ /// The three characters of the international monetary symbol.
+ /// </param>
+ /// <returns>
+ /// The <see cref="TCurrencyInfo"/> object or <see langword="nil"/> if the international
+ /// monetary symbol is undefined.
+ /// </returns>
+ {$Endregion}
+ Function CurrencyOf(Const IntlSymbol : String) : TCurrencyInfo; Inline;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Indicates whether two locale names represent the same country.
-/// </summary>
-/// <param name="Locale1">
-/// The first locale name.
-/// </param>
-/// <param name="Locale2">
-/// The second locale name.
-/// </param>
-/// <returns>
-/// Returns <see langword="true"/> if both locales represent the same country,
-/// otherwise returns <see langword="false"/>.
-/// </returns>
-/// <seealso cref="SameLanguage"/>
-{$endregion}
-function SameCountry(const Locale1, Locale2: String): Boolean;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Indicates whether two locale names represent the same primary language.
+ /// </summary>
+ /// <param name="Locale1">
+ /// The first locale name.
+ /// </param>
+ /// <param name="Locale2">
+ /// The second locale name.
+ /// </param>
+ /// <returns>
+ /// Returns <see langword="true"/> if both locales represent the same primary
+ /// language, otherwise returns <see langword="false"/>.
+ /// </returns>
+ /// <seealso cref="SameCountry"/>
+ {$Endregion}
+ Function SameLanguage(Const Locale1, Locale2 : String) : Boolean;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Call DefaultCalendar to get the <see cref="TCalendar"/> object that indicates
-/// the default calendar of the application.
-/// </summary>
-/// <returns>
-/// Returns a <see cref="TCalendar"/> object.
-/// </returns>
-/// <seealso cref="ChangeDefaultCalendarType"/>
-{$endregion}
-function DefaultCalendar: TCalendar;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Indicates whether two locale names represent the same country.
+ /// </summary>
+ /// <param name="Locale1">
+ /// The first locale name.
+ /// </param>
+ /// <param name="Locale2">
+ /// The second locale name.
+ /// </param>
+ /// <returns>
+ /// Returns <see langword="true"/> if both locales represent the same country,
+ /// otherwise returns <see langword="false"/>.
+ /// </returns>
+ /// <seealso cref="SameLanguage"/>
+ {$Endregion}
+ Function SameCountry(Const Locale1, Locale2 : String) : Boolean;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Call ChangeDefaultCalendarType to change the default calendar system of the
-/// application.
-/// </summary>
-/// <param name="CalendarClass">
-/// The <see cref="TCalendar"/> class that represents the new calendar system.
-/// </param>
-/// <seealso cref="DefaultCalendar"/>
-{$endregion}
-procedure ChangeDefaultCalendarType(CalendarClass: TCalendarClass);
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Call DefaultCalendar to get the <see cref="TCalendar"/> object that indicates
+ /// the default calendar of the application.
+ /// </summary>
+ /// <returns>
+ /// Returns a <see cref="TCalendar"/> object.
+ /// </returns>
+ /// <seealso cref="ChangeDefaultCalendarType"/>
+ {$Endregion}
+ Function DefaultCalendar : TCalendar;
 
-implementation
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Call ChangeDefaultCalendarType to change the default calendar system of the
+ /// application.
+ /// </summary>
+ /// <param name="CalendarClass">
+ /// The <see cref="TCalendar"/> class that represents the new calendar system.
+ /// </param>
+ /// <seealso cref="DefaultCalendar"/>
+ {$Endregion}
+ Procedure ChangeDefaultCalendarType(CalendarClass : TCalendarClass);
 
-uses
+Implementation
+
+ Uses
   Types, i18nUtils, i18nCalGregorian;
 
-resourcestring
-  SInstanceCreateError  = 'You cannot create an instance of %s class.';
+ Resourcestring
+  SInstanceCreateError = 'You cannot create an instance of %s class.';
   SInstanceDestroyError = 'You cannot destroy an instance of %s class.';
-  SDuplicateItemError   = 'List does not allow duplicates (%u)';
+  SDuplicateItemError = 'List does not allow duplicates (%u)';
 
 { Helper Functions }
 
-var
-  TheDefaultCalendar: TCalendar = nil;
-  TheDefaultCalendarClass: TCalendarClass = TGregorianCalendar;
+ Var
+  TheDefaultCalendar      : TCalendar      = Nil;
+  TheDefaultCalendarClass : TCalendarClass = TGregorianCalendar;
 
-function i18nAvailable: Boolean;
-begin
-  Result := (WinVer >= $0501); // Windows XP or Later
-end;
+ Function i18nAvailable : Boolean;
+  Begin
+   Result := (WinVer >= $0501); // Windows XP or Later
+  End;
 
-function DefaultCalendar: TCalendar;
-begin
-  if not Assigned(TheDefaultCalendar) then
+ Function DefaultCalendar : TCalendar;
+  Begin
+   If Not Assigned(TheDefaultCalendar) Then
     TheDefaultCalendar := TheDefaultCalendarClass.Create(LOCALE_USER_DEFAULT);
-  Result := TheDefaultCalendar;
-end;
+   Result              := TheDefaultCalendar;
+  End;
 
-procedure ChangeDefaultCalendarType(CalendarClass: TCalendarClass);
-begin
-  if TheDefaultCalendarClass <> CalendarClass then
-  begin
-    TheDefaultCalendarClass := CalendarClass;
-    if Assigned(TheDefaultCalendar) then
+ Procedure ChangeDefaultCalendarType(CalendarClass : TCalendarClass);
+  Begin
+   If TheDefaultCalendarClass <> CalendarClass Then
+    Begin
+     TheDefaultCalendarClass := CalendarClass;
+     If Assigned(TheDefaultCalendar) Then
       FreeAndNil(TheDefaultCalendar);
-  end;
-end;
+    End;
+  End;
 
-function GetApplicationDefaultCulture: TCultureInfo;
-var
-  AppFileName: String;
-  VerInfoSize, Dummy: Cardinal;
-  VerInfo, Trans: Pointer;
-begin
-  Result := nil;
-  AppFileName := ParamStr(0);
-  VerInfoSize := GetFileVersioninfoSize(PChar(AppFileName), Dummy);
-  if VerInfoSize <> 0 then
-  begin
-    GetMem(VerInfo, VerInfoSize);
-    try
-      if GetFileVersionInfo(PChar(PChar(AppFileName)), Dummy, VerInfoSize, VerInfo) and
-         VerQueryValue(VerInfo, '\VarFileInfo\Translation', Trans, Dummy)
-      then
-        Result := CultureOf(LoWord(PDWORD(Trans)^));
-    finally
+ Function GetApplicationDefaultCulture : TCultureInfo;
+  Var
+   AppFileName        : String;
+   VerInfoSize, Dummy : Cardinal;
+   VerInfo, Trans     : Pointer;
+  Begin
+   Result      := Nil;
+   AppFileName := ParamStr(0);
+   VerInfoSize := GetFileVersioninfoSize(PChar(AppFileName), Dummy);
+   If VerInfoSize <> 0 Then
+    Begin
+     GetMem(VerInfo, VerInfoSize);
+     Try
+      If GetFileVersionInfo(PChar(PChar(AppFileName)), Dummy, VerInfoSize, VerInfo) And
+      VerQueryValue(VerInfo, '\VarFileInfo\Translation', Trans, Dummy)
+      Then
+       Result := CultureOf(LoWord(PDWORD(Trans)^));
+     Finally
       FreeMem(VerInfo);
-    end;
-  end;
-  if not Assigned(Result) then
+     End;
+    End;
+   If Not Assigned(Result) Then
     Result := CultureOf('en-US');
-end;
+  End;
 
-function GetSystemDefaultCulture: TCultureInfo;
-begin
-  Result := World.Cultures.Find(GetSystemDefaultLCID);
-end;
+ Function GetSystemDefaultCulture : TCultureInfo;
+  Begin
+   Result := World.Cultures.Find(GetSystemDefaultLCID);
+  End;
 
-function GetUserDefaultCulture: TCultureInfo;
-begin
-  Result := World.Cultures.Find(GetUserDefaultLCID);
-end;
+ Function GetUserDefaultCulture : TCultureInfo;
+  Begin
+   Result := World.Cultures.Find(GetUserDefaultLCID);
+  End;
 
 {$INLINE OFF}
-function GetUserDefaultUICulture: TCultureInfo;
-begin
-  Result := World.Cultures.Find(GetUserDefaultUILanguage);
-end;
+
+ Function GetUserDefaultUICulture : TCultureInfo;
+  Begin
+   Result := World.Cultures.Find(GetUserDefaultUILanguage);
+  End;
 {$INLINE AUTO}
 
-function GetUserTerritory: TTerritoryInfo;
-begin
-  Result := World.Territories.Find(GetUserGeoID(GEOCLASS_NATION));
-end;
+ Function GetUserTerritory : TTerritoryInfo;
+  Begin
+   Result := World.Territories.Find(GetUserGeoID(GEOCLASS_NATION));
+  End;
 
-function CultureOf(LocaleID: LCID; Exact: Boolean): TCultureInfo;
-begin
-  if Exact then
+ Function CultureOf(LocaleID : LCID; Exact : Boolean) : TCultureInfo;
+  Begin
+   If Exact Then
     Result := World.Cultures.Find(LocaleID)
-  else
+   Else
     Result := World.Cultures.FindNearest(LocaleID);
-end;
+  End;
 
-function CultureOf(const Locale: String; Exact: Boolean): TCultureInfo;
-begin
-  if Exact then
+ Function CultureOf(Const Locale : String; Exact : Boolean) : TCultureInfo;
+  Begin
+   If Exact Then
     Result := World.Cultures.Find(Locale)
-  else
+   Else
     Result := World.Cultures.FindNearest(Locale);
-end;
+  End;
 
-function TerritoryOf(GeoID: GEOID): TTerritoryInfo;
-begin
-  Result := World.Territories.Find(GeoID);
-end;
+ Function TerritoryOf(GEOID : GEOID) : TTerritoryInfo;
+  Begin
+   Result := World.Territories.Find(GEOID);
+  End;
 
-function TerritoryOf(const Code: String): TTerritoryInfo;
-begin
-  Result := World.Territories.Find(Code);
-end;
+ Function TerritoryOf(Const Code : String) : TTerritoryInfo;
+  Begin
+   Result := World.Territories.Find(Code);
+  End;
 
-function CurrencyOf(const IntlSymbol: String): TCurrencyInfo;
-begin
-  Result := World.Currencies.Find(IntlSymbol);
-end;
+ Function CurrencyOf(Const IntlSymbol : String) : TCurrencyInfo;
+  Begin
+   Result := World.Currencies.Find(IntlSymbol);
+  End;
 
-function SameLanguage(const Locale1, Locale2: String): Boolean;
-var
-  S1, S2: PChar;
-begin
-  Result := False;
-  S1 := PChar(Locale1);
-  S2 := PChar(Locale2);
-  while (S1^ <> #0) and (S1^ <> '-') do
-  begin
-    if UpCase(S1^) <> UpCase(S2^) then
+ Function SameLanguage(Const Locale1, Locale2 : String) : Boolean;
+  Var
+   S1, S2 : PChar;
+  Begin
+   Result := False;
+   S1     := PChar(Locale1);
+   S2     := PChar(Locale2);
+   While (S1^ <> #0) And (S1^ <> '-') Do
+    Begin
+     If UpCase(S1^) <> UpCase(S2^) Then
       Exit;
-    Inc(S1);
-    Inc(S2);
-  end;
-  Result := (S2^ = #0) or (S2^ = '-');
-end;
+     Inc(S1);
+     Inc(S2);
+    End;
+   Result := (S2^ = #0) Or (S2^ = '-');
+  End;
 
-function SameCountry(const Locale1, Locale2: String): Boolean;
-var
-  P1, P2: PChar;
-begin
-  P1 := StrRScan(PChar(Locale1), '-');
-  P2 := StrRScan(PChar(Locale2), '-');
-  Result := (P1 <> nil) and (P2 <> nil) and (StrIComp(P1, P2) = 0);
-end;
+ Function SameCountry(Const Locale1, Locale2 : String) : Boolean;
+  Var
+   P1, P2 : PChar;
+  Begin
+   P1     := StrRScan(PChar(Locale1), '-');
+   P2     := StrRScan(PChar(Locale2), '-');
+   Result := (P1 <> Nil) And (P2 <> Nil) And (StrIComp(P1, P2) = 0);
+  End;
 
-function IsRightToLeftLanguage(LocaleID: LCID): Boolean;
-var
-  I: Integer;
-  BufferA: array [128 .. 255] of AnsiChar;
-  BufferW: array [128 .. 256] of WideChar;
-begin
-  Result := False;
-  for I := Low(BufferA) to High(BufferA) do
-    BufferA[I] := AnsiChar(I);
-  GetStringTypeExA(LocaleID, CT_CTYPE2, @BufferA,
-    High(BufferA) - Low(BufferA) + 1, BufferW);
-  for I := Low(BufferA) to High(BufferA) do
-    if Ord(BufferW[I]) = C2_RIGHTTOLEFT then
-    begin
+ Function IsRightToLeftLanguage(LocaleID : LCID) : Boolean;
+  Var
+   i       : Integer;
+   BufferA : Array [128..255] Of AnsiChar;
+   BufferW : Array [128..256] Of WideChar;
+  Begin
+   Result      := False;
+   For i       := Low(BufferA) To High(BufferA) Do
+    BufferA[i] := AnsiChar(i);
+   GetStringTypeExA(LocaleID, CT_CTYPE2, @BufferA,
+   High(BufferA) - Low(BufferA) + 1, BufferW);
+   For i := Low(BufferA) To High(BufferA) Do
+    If Ord(BufferW[i]) = C2_RIGHTTOLEFT Then
+     Begin
       Result := True;
       Exit;
-    end;
-end;
+     End;
+  End;
 
 { TCulture }
 
-constructor TCultureInfo.Create(ALocaleID: LCID);
-var
-  CurrencySymbol: String;
-  PercentSign: String;
-begin
-  if not World.Changing then
-    raise Exception.CreateResFmt(@SInstanceCreateError, [ClassName]);
-  fLocaleID := ALocaleID;
-  fLocale := LCIDToLocaleName(LocaleID);
-  fLanguage2 := GetLocaleStr(LocaleID, LOCALE_SISO639LANGNAME, '');
-  fLanguage3 := GetLocaleStr(LocaleID, LOCALE_SISO639LANGNAME2, '');
-  fGeoID := GetLocaleInt(LocaleID, LOCALE_IGEOID, 0);
-  fLocalizedDisplayName := GetLocaleStr(LocaleID, LOCALE_SLOCALIZEDDISPLAYNAME, '');
-  fEnglishDisplayName := GetLocaleStr(LocaleID, LOCALE_SENGLISHDISPLAYNAME, '');
-  fNativeDisplayName := GetLocaleStr(LocaleID, LOCALE_SNATIVEDISPLAYNAME, '');
-  fLocalizedLanguageName := GetLocaleStr(LocaleID, LOCALE_SLOCALIZEDLANGUAGENAME, '');
-  fEnglishLanguageName := GetLocaleStr(LocaleID, LOCALE_SENGLISHLANGUAGENAME, '');
-  fNativeLanguageName := GetLocaleStr(LocaleID, LOCALE_SNATIVELANGUAGENAME, '');
-  fNativeCountryName := GetLocaleStr(LocaleID, LOCALE_SNATIVECOUNTRYNAME, '');
-  fNativeCurrencyName := GetLocaleStr(LocaleID, LOCALE_SNATIVECURRNAME, '');
-  fScriptCodes := GetLocaleScripts(Locale);
-  fScripts := ScriptCodesToScripts(ScriptCodes);
-  case GetLocaleInt(LocaleID, LOCALE_IREADINGLAYOUT, -1) of
-    0: fReadingLayout := rlLeftToRight;
-    1: fReadingLayout := rlRightToLeft;
-    2: fReadingLayout := rlTopToBottomColRightToLeft;
-    3: fReadingLayout := rlTopToBottomColLeftToRight;
-  else if IsRightToLeftLanguage(LocaleID) then
-    fReadingLayout := rlRightToLeft;
-  end;
-  if GetLocaleInt(LocaleID, LOCALE_IMEASURE, 0) = 0 then
+ Constructor TCultureInfo.Create(ALocaleID : LCID);
+  Var
+   CurrencySymbol : String;
+   PercentSign    : String;
+  Begin
+   If Not World.Changing Then
+    Raise Exception.CreateResFmt(@SInstanceCreateError, [ClassName]);
+   fLocaleID              := ALocaleID;
+   fLocale                := LCIDToLocaleName(LocaleID);
+   fLanguage2             := GetLocaleStr(LocaleID, LOCALE_SISO639LANGNAME, '');
+   fLanguage3             := GetLocaleStr(LocaleID, LOCALE_SISO639LANGNAME2, '');
+   fGeoID                 := GetLocaleInt(LocaleID, LOCALE_IGEOID, 0);
+   fLocalizedDisplayName  := GetLocaleStr(LocaleID, LOCALE_SLOCALIZEDDISPLAYNAME, '');
+   fEnglishDisplayName    := GetLocaleStr(LocaleID, LOCALE_SENGLISHDISPLAYNAME, '');
+   fNativeDisplayName     := GetLocaleStr(LocaleID, LOCALE_SNATIVEDISPLAYNAME, '');
+   fLocalizedLanguageName := GetLocaleStr(LocaleID, LOCALE_SLOCALIZEDLANGUAGENAME, '');
+   fEnglishLanguageName   := GetLocaleStr(LocaleID, LOCALE_SENGLISHLANGUAGENAME, '');
+   fNativeLanguageName    := GetLocaleStr(LocaleID, LOCALE_SNATIVELANGUAGENAME, '');
+   fNativeCountryName     := GetLocaleStr(LocaleID, LOCALE_SNATIVECOUNTRYNAME, '');
+   fNativeCurrencyName    := GetLocaleStr(LocaleID, LOCALE_SNATIVECURRNAME, '');
+   fScriptCodes           := GetLocaleScripts(Locale);
+   fScripts               := ScriptCodesToScripts(ScriptCodes);
+   Case GetLocaleInt(LocaleID, LOCALE_IREADINGLAYOUT, -1) Of
+    0 :
+     fReadingLayout := rlLeftToRight;
+    1 :
+     fReadingLayout := rlRightToLeft;
+    2 :
+     fReadingLayout := rlTopToBottomColRightToLeft;
+    3 :
+     fReadingLayout := rlTopToBottomColLeftToRight;
+   Else
+     If IsRightToLeftLanguage(LocaleID) Then
+      fReadingLayout := rlRightToLeft;
+   End;
+   If GetLocaleInt(LocaleID, LOCALE_IMEASURE, 0) = 0 Then
     fMeasurementSystem := msMetric
-  else
-    fMeasurementSystem := msUS;
-  fDefaultCodePages[cpOEM] := GetLocaleInt(LocaleID, LOCALE_IDEFAULTCODEPAGE, 0);
-  fDefaultCodePages[cpANSI] := GetLocaleInt(LocaleID, LOCALE_IDEFAULTANSICODEPAGE, 0);
-  fDefaultCodePages[cpMAC] := GetLocaleInt(LocaleID, LOCALE_IDEFAULTMACCODEPAGE, 0);
-  fNativeDigits := GetLocaleStr(LocaleID, LOCALE_SNATIVEDIGITS, NOMINAL_DIGITS);
-  fNativeCalendarType := CalendarTypes.ByLocale(Locale);
-  if not Assigned(fNativeCalendarType) then
+   Else
+    fMeasurementSystem       := msUS;
+   fDefaultCodePages[cpOEM]  := GetLocaleInt(LocaleID, LOCALE_IDEFAULTCODEPAGE, 0);
+   fDefaultCodePages[cpANSI] := GetLocaleInt(LocaleID, LOCALE_IDEFAULTANSICODEPAGE, 0);
+   fDefaultCodePages[cpMAC]  := GetLocaleInt(LocaleID, LOCALE_IDEFAULTMACCODEPAGE, 0);
+   fNativeDigits             := GetLocaleStr(LocaleID, LOCALE_SNATIVEDIGITS, NOMINAL_DIGITS);
+   fNativeCalendarType       := CalendarTypes.ByLocale(Locale);
+   If Not Assigned(fNativeCalendarType) Then
     fNativeCalendarType := TGregorianCalendar;
-  if GeoID <> 0 then
-  begin
-    fCountry := World.TerritoryList.Find(GeoID);
-    if not Assigned(fCountry) then
-    begin
-      fCountry := TTerritoryInfo.CreateByLocaleID(LocaleID);
-      World.TerritoryList.Add(fCountry);
-    end;
-  end;
-  CurrencySymbol := GetLocaleStr(LocaleID, LOCALE_SINTLSYMBOL, '');
-  if CurrencySymbol <> '' then
-  begin
-    fCurrency := World.CurrencyList.Find(CurrencySymbol);
-    if not Assigned(fCurrency) then
-    begin
-      fCurrency := TCurrencyInfo.Create(LocaleID);
-      World.CurrencyList.Add(fCurrency);
-    end;
-  end;
-  if Assigned(fCountry) then
+   If GEOID <> 0 Then
+    Begin
+     fCountry := World.TerritoryList.Find(GEOID);
+     If Not Assigned(fCountry) Then
+      Begin
+       fCountry := TTerritoryInfo.CreateByLocaleID(LocaleID);
+       World.TerritoryList.Add(fCountry);
+      End;
+    End;
+   CurrencySymbol := GetLocaleStr(LocaleID, LOCALE_SINTLSYMBOL, '');
+   If CurrencySymbol <> '' Then
+    Begin
+     fCurrency := World.CurrencyList.Find(CurrencySymbol);
+     If Not Assigned(fCurrency) Then
+      Begin
+       fCurrency := TCurrencyInfo.Create(LocaleID);
+       World.CurrencyList.Add(fCurrency);
+      End;
+    End;
+   If Assigned(fCountry) Then
     fCountry.Associate(Self, fCurrency);
-  if Assigned(fCurrency) then
+   If Assigned(fCurrency) Then
     fCurrency.Associate(Self, fCountry);
-  case GetLocaleInt(LocaleID, LOCALE_IPOSITIVEPERCENT, 0) of
-    0: fPercentPositive := '# %';
-    1: fPercentPositive := '#%';
-    2: fPercentPositive := '%#';
-    3: fPercentPositive := '% #';
-  end;
-  case GetLocaleInt(LocaleID, LOCALE_INEGATIVEPERCENT, 0) of
-    0: fPercentNegative := '-# %';
-    1: fPercentNegative := '-#%';
-    2: fPercentNegative := '-%#';
-    3: fPercentNegative := '%-#';
-    4: fPercentNegative := '%#-';
-    5: fPercentNegative := '#-%';
-    6: fPercentNegative := '#%-';
-    7: fPercentNegative := '-% #';
-    8: fPercentNegative := '# %-';
-    9: fPercentNegative := '% #-';
-   10: fPercentNegative := '% -#';
-   11: fPercentNegative := '#- %';
-  end;
-  PercentSign := GetLocaleStr(LocaleID, LOCALE_SPERCENT, '%');
-  if PercentSign <> '%' then
-  begin
-    fPercentPositive := StringReplace(fPercentPositive, '%', PercentSign, []);
-    fPercentNegative := StringReplace(fPercentNegative, '%', PercentSign, []);
-  end;
-  fPluralRule := TPluralForms.RuleOf(Locale, 'nplurals=1; plural=0; ASSUMED');
-end;
+   Case GetLocaleInt(LocaleID, LOCALE_IPOSITIVEPERCENT, 0) Of
+    0 : fPercentPositive := '# %';
+    1 : fPercentPositive := '#%';
+    2 : fPercentPositive := '%#';
+    3 : fPercentPositive := '% #';
+   End;
+   Case GetLocaleInt(LocaleID, LOCALE_INEGATIVEPERCENT, 0) Of
+    0  : fPercentNegative := '-# %';
+    1  : fPercentNegative := '-#%';
+    2  : fPercentNegative := '-%#';
+    3  : fPercentNegative := '%-#';
+    4  : fPercentNegative := '%#-';
+    5  : fPercentNegative := '#-%';
+    6  : fPercentNegative := '#%-';
+    7  : fPercentNegative := '-% #';
+    8  : fPercentNegative := '# %-';
+    9  : fPercentNegative := '% #-';
+    10 : fPercentNegative := '% -#';
+    11 : fPercentNegative := '#- %';
+   End;
+   PercentSign := GetLocaleStr(LocaleID, LOCALE_SPERCENT, '%');
+   If PercentSign <> '%' Then
+    Begin
+     fPercentPositive := StringReplace(fPercentPositive, '%', PercentSign, []);
+     fPercentNegative := StringReplace(fPercentNegative, '%', PercentSign, []);
+    End;
+   fPluralRule := TPluralForms.RuleOf(Locale, 'nplurals=1; plural=0; ASSUMED');
+  End;
 
-constructor TCultureInfo.Create(const ALocale: String);
-begin
-  Create(LocaleNameToLCID(ALocale));
-end;
+ Constructor TCultureInfo.Create(Const ALocale : String);
+  Begin
+   Create(LocaleNameToLCID(ALocale));
+  End;
 
-destructor TCultureInfo.Destroy;
-begin
-  if not World.Changing then
-    raise Exception.CreateResFmt(@SInstanceDestroyError, [ClassName]);
-  if Assigned(fFormatSettings) then
+ Destructor TCultureInfo.Destroy;
+  Begin
+   If Not World.Changing Then
+    Raise Exception.CreateResFmt(@SInstanceDestroyError, [ClassName]);
+   If Assigned(fFormatSettings) Then
     Dispose(fFormatSettings);
-  if Assigned(fNativeCalendar) then
+   If Assigned(fNativeCalendar) Then
     fNativeCalendar.Free;
-  if Assigned(fCalendarTypes) then
+   If Assigned(fCalendarTypes) Then
     fCalendarTypes.Free;
-  inherited Destroy;
-end;
+   Inherited Destroy;
+  End;
 
-function TCultureInfo.GetDisplayNames(DisplayName: TCultureDisplayName): String;
-begin
-  case DisplayName of
-    cnLocale:
-      Result := Locale;
-    cnLanguage:
-      Result := Language2;
-    cnLanguage3:
-      Result := Language3;
-    cnLocalizedDisplayName:
-      Result := LocalizedDisplayName;
-    cnEnglishDisplayName:
-      Result := EnglishDisplayName;
-    cnNativeDisplayName:
-      Result := NativeDisplayName;
-    cnLocalizedLanguageName:
-      Result := LocalizedLanguageName;
-    cnEnglishLanguageName:
-      Result := EnglishLanguageName;
-    cnNativeLanguageName:
-      Result := NativeLanguageName;
-    cnNativeCountryName:
-      Result := NativeCountryName;
-    cnNativeCurrencyName:
-      Result := NativeCurrencyName;
-  else
-    Result := '';
-  end;
-end;
+ Function TCultureInfo.GetDisplayNames(DisplayName : TCultureDisplayName) : String;
+  Begin
+   Case DisplayName Of
+    cnLocale                : Result := Locale;
+    cnLanguage              : Result := Language2;
+    cnLanguage3             : Result := Language3;
+    cnLocalizedDisplayName  : Result := LocalizedDisplayName;
+    cnEnglishDisplayName    : Result := EnglishDisplayName;
+    cnNativeDisplayName     : Result := NativeDisplayName;
+    cnLocalizedLanguageName : Result := LocalizedLanguageName;
+    cnEnglishLanguageName   : Result := EnglishLanguageName;
+    cnNativeLanguageName    : Result := NativeLanguageName;
+    cnNativeCountryName     : Result := NativeCountryName;
+    cnNativeCurrencyName    : Result := NativeCurrencyName;
+   Else Result := '';
+   End;
+  End;
 
-function TCultureInfo.GetDefaultCodePages(CodePageType: TCodePageType): Integer;
-begin
-  Result := fDefaultCodePages[CodePageType];
-end;
+ Function TCultureInfo.GetDefaultCodePages(CodePageType : TCodePageType) : Integer;
+  Begin
+   Result := fDefaultCodePages[CodePageType];
+  End;
 
-function TCultureInfo.GetLangID: LANGID;
-begin
-  Result := Windows.LANGID(LocaleID);
-end;
+ Function TCultureInfo.GetLangID : LANGID;
+  Begin
+   Result := Windows.LANGID(LocaleID);
+  End;
 
-function TCultureInfo.GetPrimaryLangID: LANGID;
-begin
-  Result := Windows.PRIMARYLANGID(LocaleID);
-end;
+ Function TCultureInfo.GetPrimaryLangID : LANGID;
+  Begin
+   Result := Windows.PrimaryLangID(LocaleID);
+  End;
 
-function TCultureInfo.GetSubLangID: LANGID;
-begin
-  Result := Windows.SUBLANGID(LocaleID);
-end;
+ Function TCultureInfo.GetSubLangID : LANGID;
+  Begin
+   Result := Windows.SubLangID(LocaleID);
+  End;
 
-function TCultureInfo.GetBiDiMode: TBiDiMode;
-begin
-  if IsRightToLeft then
+ Function TCultureInfo.GetBiDiMode : TBiDiMode;
+  Begin
+   If IsRightToLeft Then
     Result := bdRightToLeft
-  else
+   Else
     Result := bdLeftToRight;
-end;
+  End;
 
-function TCultureInfo.GetFormatSettings: PFormatSettings;
-begin
-  if not Assigned(fFormatSettings) then
-  begin
-    New(fFormatSettings);
-    {$IFDEF COMPILER_XE2_UP}
-    {$WARN SYMBOL_PLATFORM OFF}
-    fFormatSettings^ := TFormatSettings.Create(LocaleID);
-    {$WARN SYMBOL_PLATFORM ON}
-    {$ELSE}
-    GetLocaleFormatSettings(LocaleID, fFormatSettings^);
-    {$ENDIF}
-  end;
-  Result := fFormatSettings;
-end;
+ Function TCultureInfo.GetFormatSettings : PFormatSettings;
+  Begin
+   If Not Assigned(fFormatSettings) Then
+    Begin
+     New(fFormatSettings);
+     {$IFDEF COMPILER_XE2_UP}
+     {$WARN SYMBOL_PLATFORM OFF}
+     fFormatSettings^ := TFormatSettings.Create(LocaleID);
+     {$WARN SYMBOL_PLATFORM ON}
+     {$ELSE}
+     GetLocaleFormatSettings(LocaleID, fFormatSettings^);
+     {$ENDIF}
+    End;
+   Result := fFormatSettings;
+  End;
 
-function TCultureInfo.GetNativeCalendar: TCalendar;
-begin
-  if not Assigned(fNativeCalendar) then
+ Function TCultureInfo.GetNativeCalendar : TCalendar;
+  Begin
+   If Not Assigned(fNativeCalendar) Then
     fNativeCalendar := NativeCalendarType.Create(Locale);
-  Result := fNativeCalendar;
-end;
+   Result           := fNativeCalendar;
+  End;
 
-function TCultureInfo.IsRightToLeft: Boolean;
-begin
-  Result := (ReadingLayout = rlRightToLeft);
-end;
+ Function TCultureInfo.IsRightToLeft : Boolean;
+  Begin
+   Result := (ReadingLayout = rlRightToLeft);
+  End;
 
-function TCultureInfo.IsDefault: Boolean;
-begin
-  Result := (SubLangID = SUBLANG_DEFAULT);
-end;
+ Function TCultureInfo.IsDefault : Boolean;
+  Begin
+   Result := (SubLangID = SUBLANG_DEFAULT);
+  End;
 
-function TCultureInfo.IsDialectOf(Culture: TCultureInfo): Boolean;
-begin
-  Result := (Culture.PrimaryLangID = PrimaryLangID);
-end;
+ Function TCultureInfo.IsDialectOf(Culture : TCultureInfo) : Boolean;
+  Begin
+   Result := (Culture.PrimaryLangID = PrimaryLangID);
+  End;
 
-function TCultureInfo.IsDialectOf(const Locale: String): Boolean;
-begin
-  Result := (Pos(Language2, LowerCase(Locale)) = 1) and
-    ((Length(Language2) = Length(Locale)) or
-     (Locale[Length(Language2) + 1] = '-'));
-end;
+ Function TCultureInfo.IsDialectOf(Const Locale : String) : Boolean;
+  Begin
+   Result := (Pos(Language2, LowerCase(Locale)) = 1) And
+   ((Length(Language2) = Length(Locale)) Or
+   (Locale[Length(Language2) + 1] = '-'));
+  End;
 
-function TCultureInfo.IsDialectOf(LangID: LANGID): Boolean;
-begin
-  Result := (Windows.PRIMARYLANGID(LangID) = PrimaryLangID);
-end;
+ Function TCultureInfo.IsDialectOf(LANGID : LANGID) : Boolean;
+  Begin
+   Result := (Windows.PrimaryLangID(LANGID) = PrimaryLangID);
+  End;
 
-function TCultureInfo.IsUsingNominalDigits: Boolean;
-begin
-  Result := (Pos('0', NativeDigits) = 1);
-end;
+ Function TCultureInfo.IsUsingNominalDigits : Boolean;
+  Begin
+   Result := (Pos('0', NativeDigits) = 1);
+  End;
 
-function TCultureInfo.IsUsingCommonEraCalendar: Boolean;
-begin
-  Result := (NativeCalendarType = TGregorianCalendar);
-end;
+ Function TCultureInfo.IsUsingCommonEraCalendar : Boolean;
+  Begin
+   Result := (NativeCalendarType = TGregorianCalendar);
+  End;
 
-function TCultureInfo.DrawTextBiDiModeFlags(Flags: Cardinal): Integer;
-begin
-  Result := Flags;
-  if IsRightToLeft then
-  begin
-    if (Result and DT_RIGHT) = DT_RIGHT then
-      Result := Result and not DT_RIGHT
-    else if (Result and DT_CENTER) <> DT_CENTER then
-      Result := Result or DT_RIGHT;
-  end;
-  Result := Result or DrawTextBiDiModeFlagsReadingOnly;
-end;
+ Function TCultureInfo.DrawTextBiDiModeFlags(Flags : Cardinal) : Integer;
+  Begin
+   Result := Flags;
+   If IsRightToLeft Then
+    Begin
+     If (Result And DT_RIGHT) = DT_RIGHT Then
+      Result := Result And Not DT_RIGHT
+     Else If (Result And DT_CENTER) <> DT_CENTER Then
+      Result := Result Or DT_RIGHT;
+    End;
+   Result := Result Or DrawTextBiDiModeFlagsReadingOnly;
+  End;
 
-function TCultureInfo.DrawTextBiDiModeFlagsReadingOnly: Integer;
-begin
-  if IsRightToLeft then
+ Function TCultureInfo.DrawTextBiDiModeFlagsReadingOnly : Integer;
+  Begin
+   If IsRightToLeft Then
     Result := DT_RTLREADING
-  else
+   Else
     Result := 0;
-end;
+  End;
 
-function TCultureInfo.VerifyString(const Str: String; AllowLatin: Boolean): Boolean;
-begin
-  Result := VerifyScripts(ScriptCodes, GetStringScripts(Str));
-end;
+ Function TCultureInfo.VerifyString(Const Str : String; AllowLatin : Boolean) : Boolean;
+  Begin
+   Result := VerifyScripts(ScriptCodes, GetStringScripts(Str));
+  End;
 
-function TCultureInfo.OemToUnicode(const Str: RawByteString): String;
-begin
-  Result := CodePageToUnicode(DefaultCodePages[cpOEM], Str);
-end;
+ Function TCultureInfo.OemToUnicode(Const Str : RawByteString) : String;
+  Begin
+   Result := CodePageToUnicode(DefaultCodePages[cpOEM], Str);
+  End;
 
-function TCultureInfo.UnicodeToOem(const Str: String): RawByteString;
-begin
-  Result := UnicodeToCodePage(DefaultCodePages[cpOEM], Str);
-end;
+ Function TCultureInfo.UnicodeToOem(Const Str : String) : RawByteString;
+  Begin
+   Result := UnicodeToCodePage(DefaultCodePages[cpOEM], Str);
+  End;
 
-function TCultureInfo.AnsiToUnicode(const Str: RawByteString): String;
-begin
-  Result := CodePageToUnicode(DefaultCodePages[cpANSI], Str);
-end;
+ Function TCultureInfo.AnsiToUnicode(Const Str : RawByteString) : String;
+  Begin
+   Result := CodePageToUnicode(DefaultCodePages[cpANSI], Str);
+  End;
 
-function TCultureInfo.UnicodeToAnsi(const Str: String): RawByteString;
-begin
-  Result := UnicodeToCodePage(DefaultCodePages[cpANSI], Str);
-end;
+ Function TCultureInfo.UnicodeToAnsi(Const Str : String) : RawByteString;
+  Begin
+   Result := UnicodeToCodePage(DefaultCodePages[cpANSI], Str);
+  End;
 
-function TCultureInfo.MacToUnicode(const Str: RawByteString): String;
-begin
-  Result := CodePageToUnicode(DefaultCodePages[cpMAC], Str);
-end;
+ Function TCultureInfo.MacToUnicode(Const Str : RawByteString) : String;
+  Begin
+   Result := CodePageToUnicode(DefaultCodePages[cpMAC], Str);
+  End;
 
-function TCultureInfo.UnicodeToMac(const Str: String): RawByteString;
-begin
-  Result := UnicodeToCodePage(DefaultCodePages[cpMAC], Str);
-end;
+ Function TCultureInfo.UnicodeToMac(Const Str : String) : RawByteString;
+  Begin
+   Result := UnicodeToCodePage(DefaultCodePages[cpMAC], Str);
+  End;
 
-function TCultureInfo.NominalDigitsToNative(const Str: String;
-  IgnoreUCCs: Boolean): String;
-var
-  S: PChar;
-  Zero: Char;
-  CanChange: Boolean;
-begin
-  Result := Str;
-  Zero := PChar(NativeDigits)^;
-  if Zero <> '0' then
-  begin
-    CanChange := True;
-    S := PChar(Result);
-    while S^ <> #0 do
-    begin
-      if S^ = UCC_NODS then
+ Function TCultureInfo.NominalDigitsToNative(Const Str : String; IgnoreUCCs : Boolean) : String;
+  Var
+   s         : PChar;
+   Zero      : Char;
+   CanChange : Boolean;
+  Begin
+   Result := Str;
+   Zero   := PChar(NativeDigits)^;
+   If Zero <> '0' Then
+    Begin
+     CanChange := True;
+     s         := PChar(Result);
+     While s^ <> #0 Do
+      Begin
+       If s^ = UCC_NODS Then
         CanChange := IgnoreUCCs
-      else if S^ = UCC_NADS then
+       Else If s^ = UCC_NADS Then
         CanChange := True
-      else if CanChange and (S^ >= '0') and (S^ <= '9') then
-        S^ := Chr(Ord(Zero) + Ord(S^) - Ord('0'));
-      Inc(S);
-    end;
-  end;
-end;
+       Else If CanChange And (s^ >= '0') And (s^ <= '9') Then
+        s^ := Chr(Ord(Zero) + Ord(s^) - Ord('0'));
+       Inc(s);
+      End;
+    End;
+  End;
 
-function TCultureInfo.NativeDigitsToNominal(const Str: String;
-  IgnoreUCCs: Boolean): String;
-var
-  S: PChar;
-  Zero: Char;
-  CanChange: Boolean;
-begin
-  Result := Str;
-  Zero := PChar(NativeDigits)^;
-  if Zero <> '0' then
-  begin
-    CanChange := True;
-    S := PChar(Result);
-    while S^ <> #0 do
-    begin
-      if S^ = UCC_NADS then
+ Function TCultureInfo.NativeDigitsToNominal(Const Str : String; IgnoreUCCs : Boolean) : String;
+  Var
+   s         : PChar;
+   Zero      : Char;
+   CanChange : Boolean;
+  Begin
+   Result := Str;
+   Zero   := PChar(NativeDigits)^;
+   If Zero <> '0' Then
+    Begin
+     CanChange := True;
+     s         := PChar(Result);
+     While s^ <> #0 Do
+      Begin
+       If s^ = UCC_NADS Then
         CanChange := IgnoreUCCs
-      else if S^ = UCC_NODS then
+       Else If s^ = UCC_NODS Then
         CanChange := True
-      else if CanChange and (Cardinal(Ord(S^) - Ord(Zero)) <= 9) then
-        S^ := Chr(Ord('0') + Ord(S^) - Ord(Zero));
-      Inc(S);
-    end;
-  end;
-end;
+       Else If CanChange And (Cardinal(Ord(s^) - Ord(Zero)) <= 9) Then
+        s^ := Chr(Ord('0') + Ord(s^) - Ord(Zero));
+       Inc(s);
+      End;
+    End;
+  End;
 
-function TCultureInfo.FreezeDigits(const Str: String; UseNativeDigits: Boolean): String;
-begin
-  if UseNativeDigits then
+ Function TCultureInfo.FreezeDigits(Const Str : String; UseNativeDigits : Boolean) : String;
+  Begin
+   If UseNativeDigits Then
     Result := UCC_NODS + NominalDigitsToNative(Str, False)
-  else
+   Else
     Result := UCC_NODS + Str;
-end;
+  End;
 
-function TCultureInfo.UnfreezeDigits(const Str: String): String;
-begin
-  Result := Str;
-  if PChar(Result)^ = UCC_NODS then
-  begin
-    Delete(Result, 1, 1);
-    Result := NativeDigitsToNominal(Result, False);
-  end;
-end;
+ Function TCultureInfo.UnfreezeDigits(Const Str : String) : String;
+  Begin
+   Result := Str;
+   If PChar(Result)^ = UCC_NODS Then
+    Begin
+     Delete(Result, 1, 1);
+     Result := NativeDigitsToNominal(Result, False);
+    End;
+  End;
 
-function TCultureInfo.Format(const Fmt: String; const Args: array of const;
-  UseNativeDigits: Boolean): String;
-begin
-  Result := FreezeDigits(SysUtils.Format(Fmt, Args, FormatSettings^), UseNativeDigits);
-end;
+ Function TCultureInfo.Format(Const Fmt : String; Const Args : Array Of Const; UseNativeDigits : Boolean) : String;
+  Begin
+   Result := FreezeDigits(SysUtils.Format(Fmt, Args, FormatSettings^), UseNativeDigits);
+  End;
 
-function TCultureInfo.FormatNumber(const Fmt: String; const Value: Extended;
-  UseNativeDigits: Boolean): String;
-begin
-  Result := FreezeDigits(SysUtils.FormatFloat(Fmt, Value, FormatSettings^), UseNativeDigits);
-end;
+ Function TCultureInfo.FormatNumber(Const Fmt : String; Const Value : Extended; UseNativeDigits : Boolean) : String;
+  Begin
+   Result := FreezeDigits(SysUtils.FormatFloat(Fmt, Value, FormatSettings^), UseNativeDigits);
+  End;
 
-function TCultureInfo.FormatPercent(const Value: Extended; Decimals: Integer;
-  UseNativeDigits: Boolean): String;
-var
-  Str, Fmt: String;
-begin
-  if Decimals < 0 then
+ Function TCultureInfo.FormatPercent(Const Value : Extended; Decimals : Integer; UseNativeDigits : Boolean) : String;
+  Var
+   Str, Fmt : String;
+  Begin
+   If Decimals < 0 Then
     Fmt := '#,##0.' + StringOfChar('0', Abs(Decimals))
-  else
+   Else
     Fmt := '#,##0.' + StringOfChar('#', Decimals);
-  Str := FormatNumber(Fmt, Abs(Value * 100.0), UseNativeDigits);
-  if Value < 0 then
+   Str  := FormatNumber(Fmt, Abs(Value * 100.0), UseNativeDigits);
+   If Value < 0 Then
     Result := StringReplace(fPercentNegative, '#', Str, [])
-  else
+   Else
     Result := StringReplace(fPercentPositive, '#', Str, []);
-end;
+  End;
 
-function TCultureInfo.FormatDateTime(const Fmt: String; const Value: TDateTime;
-  UseNativeDigits: Boolean): String;
-begin
-  Result := FreezeDigits(NativeCalendar.Format(Fmt, Value), UseNativeDigits);
-end;
+ Function TCultureInfo.FormatDateTime(Const Fmt : String; Const Value : TDateTime; UseNativeDigits : Boolean) : String;
+  Begin
+   Result := FreezeDigits(NativeCalendar.Format(Fmt, Value), UseNativeDigits);
+  End;
 
-function TCultureInfo.ParseDateTime(const Fmt: String;
-  const Str: String): TDateTime;
-begin
-  Result := NativeCalendar.Parse(Fmt, UnfreezeDigits(Str));
-end;
+ Function TCultureInfo.ParseDateTime(Const Fmt : String; Const Str : String) : TDateTime;
+  Begin
+   Result := NativeCalendar.Parse(Fmt, UnfreezeDigits(Str));
+  End;
 
-function TCultureInfo.TryParseDateTime(const Fmt: String; const Str: String;
-  var DateTime: TDateTime): Boolean;
-begin
-  Result := NativeCalendar.TryParse(Fmt, UnfreezeDigits(Str), DateTime);
-end;
+ Function TCultureInfo.TryParseDateTime(Const Fmt : String; Const Str : String; Var DateTime : TDateTime) : Boolean;
+  Begin
+   Result := NativeCalendar.TryParse(Fmt, UnfreezeDigits(Str), DateTime);
+  End;
 
 { TCultureEnumerator }
 
-constructor TCultureEnumerator.Create(List: TReadonlyCultureList);
-begin
-  inherited Create(List.List);
-end;
+ Constructor TCultureEnumerator.Create(List : TReadonlyCultureList);
+  Begin
+   Inherited Create(List.List);
+  End;
 
-function TCultureEnumerator.GetCurrent: TCultureInfo;
-begin
-  Result := TCultureInfo(inherited GetCurrent);
-end;
+ Function TCultureEnumerator.GetCurrent : TCultureInfo;
+  Begin
+   Result := TCultureInfo(Inherited GetCurrent);
+  End;
 
 { TReadonlyCultureList }
 
-constructor TReadonlyCultureList.Create;
-begin
-  List := TList.Create;
-end;
+ Constructor TReadonlyCultureList.Create;
+  Begin
+   List := TList.Create;
+  End;
 
-destructor TReadonlyCultureList.Destroy;
-begin
-  List.Free;
-  if Assigned(Lookup_LocaleID) then
+ Destructor TReadonlyCultureList.Destroy;
+  Begin
+   List.Free;
+   If Assigned(Lookup_LocaleID) Then
     Lookup_LocaleID.Free;
-  if Assigned(Lookup_Locale) then
+   If Assigned(Lookup_Locale) Then
     Lookup_Locale.Free;
-  inherited;
-end;
+   Inherited;
+  End;
 
-function TReadonlyCultureList.GetCount: Integer;
-begin
-  Result := List.Count;
-end;
+ Function TReadonlyCultureList.GetCount : Integer;
+  Begin
+   Result := List.Count;
+  End;
 
-function TReadonlyCultureList.GetItems(Index: Integer): TCultureInfo;
-begin
-  Result := TCultureInfo(List[Index]);
-end;
+ Function TReadonlyCultureList.GetItems(Index : Integer) : TCultureInfo;
+  Begin
+   Result := TCultureInfo(List[Index]);
+  End;
 
-function TReadonlyCultureList.GetEnumerator: TCultureEnumerator;
-begin
-  Result := TCultureEnumerator.Create(Self);
-end;
+ Function TReadonlyCultureList.GetEnumerator : TCultureEnumerator;
+  Begin
+   Result := TCultureEnumerator.Create(Self);
+  End;
 
-procedure TReadonlyCultureList.AddLookupEntries(Culture: TCultureInfo; Index: Integer);
-begin
-  if IsLookupTableValid_LocaleID then
+ Procedure TReadonlyCultureList.AddLookupEntries(Culture : TCultureInfo; Index : Integer);
+  Begin
+   If IsLookupTableValid_LocaleID Then
     Lookup_LocaleID.Add(Culture.LocaleID, Index);
-  if IsLookupTableValid_Locale then
+   If IsLookupTableValid_Locale Then
     Lookup_Locale.Add(AnsiLowerCase(Culture.Locale), Index);
-end;
+  End;
 
-procedure TReadonlyCultureList.RemoveLookupEntries(Culture: TCultureInfo);
-begin
-  if IsLookupTableValid_LocaleID then
+ Procedure TReadonlyCultureList.RemoveLookupEntries(Culture : TCultureInfo);
+  Begin
+   If IsLookupTableValid_LocaleID Then
     Lookup_LocaleID.Remove(Culture.LocaleID);
-  if IsLookupTableValid_Locale then
+   If IsLookupTableValid_Locale Then
     Lookup_Locale.Remove(AnsiLowerCase(Culture.Locale));
-end;
+  End;
 
-procedure TReadonlyCultureList.ClearLookupTables;
-begin
-  if Assigned(Lookup_LocaleID) then
-  begin
-    Lookup_LocaleID.Clear;
-    IsLookupTableValid_LocaleID := False;
-  end;
-  if Assigned(Lookup_Locale) then
-  begin
-    Lookup_Locale.Clear;
-    IsLookupTableValid_Locale := False;
-  end;
-end;
+ Procedure TReadonlyCultureList.ClearLookupTables;
+  Begin
+   If Assigned(Lookup_LocaleID) Then
+    Begin
+     Lookup_LocaleID.Clear;
+     IsLookupTableValid_LocaleID := False;
+    End;
+   If Assigned(Lookup_Locale) Then
+    Begin
+     Lookup_Locale.Clear;
+     IsLookupTableValid_Locale := False;
+    End;
+  End;
 
-procedure TReadonlyCultureList.InvalidateLookupTables;
-begin
-  IsLookupTableValid_LocaleID := False;
-  IsLookupTableValid_Locale := False;
-end;
+ Procedure TReadonlyCultureList.InvalidateLookupTables;
+  Begin
+   IsLookupTableValid_LocaleID := False;
+   IsLookupTableValid_Locale   := False;
+  End;
 
-procedure TReadonlyCultureList.ValidateLookupTable_LocaleID;
-var
-  I: Integer;
-begin
-  if not IsLookupTableValid_LocaleID then
-  begin
-    if Assigned(Lookup_LocaleID) then
+ Procedure TReadonlyCultureList.ValidateLookupTable_LocaleID;
+  Var
+   i : Integer;
+  Begin
+   If Not IsLookupTableValid_LocaleID Then
+    Begin
+     If Assigned(Lookup_LocaleID) Then
       Lookup_LocaleID.Clear
-    else
-      Lookup_LocaleID := TKeyLookup<LCID,Integer>.Create;
-    for I := 0 to Count - 1 do
-      Lookup_LocaleID.Add(Items[I].LocaleID, I);
-    IsLookupTableValid_LocaleID := True;
-  end;
-end;
+     Else
+      Lookup_LocaleID := TKeyLookup<LCID, Integer>.Create;
+     For i            := 0 To Count - 1 Do
+      Lookup_LocaleID.Add(Items[i].LocaleID, i);
+     IsLookupTableValid_LocaleID := True;
+    End;
+  End;
 
-procedure TReadonlyCultureList.ValidateLookupTable_Locale;
-var
-  I: Integer;
-begin
-  if not IsLookupTableValid_Locale then
-  begin
-    if Assigned(Lookup_Locale) then
+ Procedure TReadonlyCultureList.ValidateLookupTable_Locale;
+  Var
+   i : Integer;
+  Begin
+   If Not IsLookupTableValid_Locale Then
+    Begin
+     If Assigned(Lookup_Locale) Then
       Lookup_Locale.Clear
-    else
-      Lookup_Locale := TKeyLookup<String,Integer>.Create;
-    for I := 0 to Count - 1 do
-      Lookup_Locale.Add(LowerCase(Items[I].Locale), I);
-    IsLookupTableValid_Locale := True;
-  end;
-end;
+     Else
+      Lookup_Locale := TKeyLookup<String, Integer>.Create;
+     For i          := 0 To Count - 1 Do
+      Lookup_Locale.Add(LowerCase(Items[i].Locale), i);
+     IsLookupTableValid_Locale := True;
+    End;
+  End;
 
-function TReadonlyCultureList.First: TCultureInfo;
-begin
-  if Count <> 0 then
+ Function TReadonlyCultureList.First : TCultureInfo;
+  Begin
+   If Count <> 0 Then
     Result := Items[0]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-function TReadonlyCultureList.Last: TCultureInfo;
-begin
-  if Count <> 0 then
+ Function TReadonlyCultureList.Last : TCultureInfo;
+  Begin
+   If Count <> 0 Then
     Result := Items[Count - 1]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-procedure TReadonlyCultureList.AssignTo(Dest: TPersistent);
-var
-  Strings: TStrings absolute Dest;
-  I: Integer;
-begin
-  if Dest is TStrings then
-  begin
-    Strings.BeginUpdate;
-    try
+ Procedure TReadonlyCultureList.AssignTo(Dest : TPersistent);
+  Var
+   Strings : TStrings Absolute Dest;
+   i       : Integer;
+  Begin
+   If Dest Is TStrings Then
+    Begin
+     Strings.BeginUpdate;
+     Try
       Strings.Clear;
-      for I := 0 to Count - 1 do
-        Strings.AddObject(Items[I].Locale, Items[I]);
-    finally
+      For i := 0 To Count - 1 Do
+       Strings.AddObject(Items[i].Locale, Items[i]);
+     Finally
       Strings.EndUpdate;
-    end;
-  end
-  else
-    inherited AssignTo(Dest);
-end;
+     End;
+    End
+   Else
+    Inherited AssignTo(Dest);
+  End;
 
-procedure TReadonlyCultureList.AssignLabelsTo(Dest: TStrings;
-  DisplayName: TCultureDisplayName);
-var
-  I: Integer;
-begin
-  Dest.BeginUpdate;
-  try
+ Procedure TReadonlyCultureList.AssignLabelsTo(Dest : TStrings; DisplayName : TCultureDisplayName);
+  Var
+   i : Integer;
+  Begin
+   Dest.BeginUpdate;
+   Try
     Dest.Clear;
-    for I := 0 to Count - 1 do
-      Dest.AddObject(Items[I].DisplayNames[DisplayName], Items[I]);
-  finally
+    For i := 0 To Count - 1 Do
+     Dest.AddObject(Items[i].DisplayNames[DisplayName], Items[i]);
+   Finally
     Dest.EndUpdate;
-  end;
-end;
+   End;
+  End;
 
-function TReadonlyCultureList.Find(LocaleID: LCID): TCultureInfo;
-var
-  Index: Integer;
-begin
-  if not IsLookupTableValid_LocaleID then
+ Function TReadonlyCultureList.Find(LocaleID : LCID) : TCultureInfo;
+  Var
+   Index : Integer;
+  Begin
+   If Not IsLookupTableValid_LocaleID Then
     ValidateLookupTable_LocaleID;
-  if Lookup_LocaleID.Retrieve(LocaleID, Index) then
+   If Lookup_LocaleID.Retrieve(LocaleID, Index) Then
     Result := Items[Index]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-function TReadonlyCultureList.Find(const Locale: String): TCultureInfo;
-var
-  Index: Integer;
-begin
-  if not IsLookupTableValid_Locale then
+ Function TReadonlyCultureList.Find(Const Locale : String) : TCultureInfo;
+  Var
+   Index : Integer;
+  Begin
+   If Not IsLookupTableValid_Locale Then
     ValidateLookupTable_Locale;
-  if Lookup_Locale.Retrieve(LowerCase(Locale), Index) then
+   If Lookup_Locale.Retrieve(LowerCase(Locale), Index) Then
     Result := Items[Index]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-function TReadonlyCultureList.FindNearest(Culture: TCultureInfo): TCultureInfo;
-var
-  Index: Integer;
-begin
-  Index := NearestIndexOf(Culture);
-  if Index >= 0 then
+ Function TReadonlyCultureList.FindNearest(Culture : TCultureInfo) : TCultureInfo;
+  Var
+   Index : Integer;
+  Begin
+   Index := NearestIndexOf(Culture);
+   If Index >= 0 Then
     Result := Items[Index]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-function TReadonlyCultureList.FindNearest(LocaleID: LCID): TCultureInfo;
-var
-  Index: Integer;
-begin
-  Index := NearestIndexOf(LocaleID);
-  if Index >= 0 then
+ Function TReadonlyCultureList.FindNearest(LocaleID : LCID) : TCultureInfo;
+  Var
+   Index : Integer;
+  Begin
+   Index := NearestIndexOf(LocaleID);
+   If Index >= 0 Then
     Result := Items[Index]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-function TReadonlyCultureList.FindNearest(const Locale: String): TCultureInfo;
-var
-  Index: Integer;
-begin
-  Index := NearestIndexOf(Locale);
-  if Index >= 0 then
+ Function TReadonlyCultureList.FindNearest(Const Locale : String) : TCultureInfo;
+  Var
+   Index : Integer;
+  Begin
+   Index := NearestIndexOf(Locale);
+   If Index >= 0 Then
     Result := Items[Index]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-function TReadonlyCultureList.IndexOf(Culture: TCultureInfo): Integer;
-begin
-  if Assigned(Culture) then
+ Function TReadonlyCultureList.IndexOf(Culture : TCultureInfo) : Integer;
+  Begin
+   If Assigned(Culture) Then
     Result := IndexOf(Culture.LocaleID)
-  else
+   Else
     Result := -1;
-end;
+  End;
 
-function TReadonlyCultureList.IndexOf(LocaleID: LCID): Integer;
-begin
-  if not IsLookupTableValid_LocaleID then
+ Function TReadonlyCultureList.IndexOf(LocaleID : LCID) : Integer;
+  Begin
+   If Not IsLookupTableValid_LocaleID Then
     ValidateLookupTable_LocaleID;
-  if not Lookup_LocaleID.Retrieve(LocaleID, Result) then
+   If Not Lookup_LocaleID.Retrieve(LocaleID, Result) Then
     Result := -1;
-end;
+  End;
 
-function TReadonlyCultureList.IndexOf(const Locale: String): Integer;
-begin
-  if not IsLookupTableValid_Locale then
+ Function TReadonlyCultureList.IndexOf(Const Locale : String) : Integer;
+  Begin
+   If Not IsLookupTableValid_Locale Then
     ValidateLookupTable_Locale;
-  if not Lookup_Locale.Retrieve(LowerCase(Locale), Result) then
+   If Not Lookup_Locale.Retrieve(LowerCase(Locale), Result) Then
     Result := -1;
-end;
+  End;
 
-function TReadonlyCultureList.IndexOfName(const AName: String;
-  DisplayName: TCultureDisplayName): Integer;
-var
-  I: Integer;
-begin
-  for I := 0 to Count - 1 do
-    if AnsiSameText(Items[I].DisplayNames[DisplayName], AName) then
-    begin
-      Result := I;
+ Function TReadonlyCultureList.IndexOfName(Const AName : String; DisplayName : TCultureDisplayName) : Integer;
+  Var
+   i : Integer;
+  Begin
+   For i := 0 To Count - 1 Do
+    If AnsiSameText(Items[i].DisplayNames[DisplayName], AName) Then
+     Begin
+      Result := i;
       Exit;
-    end;
-  Result := -1;
-end;
+     End;
+   Result := -1;
+  End;
 
-function TReadonlyCultureList.NearestIndexOf(Culture: TCultureInfo): Integer;
-begin
-  if Assigned(Culture) then
+ Function TReadonlyCultureList.NearestIndexOf(Culture : TCultureInfo) : Integer;
+  Begin
+   If Assigned(Culture) Then
     Result := NearestIndexOf(Culture.LocaleID)
-  else
+   Else
     Result := -1;
-end;
+  End;
 
-function TReadonlyCultureList.NearestIndexOf(LocaleID: LCID): Integer;
-var
-  PriID, SubID: LANGID;
-  I: Integer;
-begin
-  Result := IndexOf(LocaleID);
-  if Result >= 0 then Exit;
-  PriID := Windows.PRIMARYLANGID(LocaleID);
-  if PriID = 0 then Exit;
-  SubID := High(LANGID);
-  for I := 0 to Count - 1 do
-    with Items[I] do
-    begin
-      if PrimaryLangID <> PriID then
-        Continue;
-      if IsDefault then
-      begin
-        Result := I;
+ Function TReadonlyCultureList.NearestIndexOf(LocaleID : LCID) : Integer;
+  Var
+   PriID, SubID : LANGID;
+   i            : Integer;
+  Begin
+   Result := IndexOf(LocaleID);
+   If Result >= 0 Then
+    Exit;
+   PriID := Windows.PrimaryLangID(LocaleID);
+   If PriID = 0 Then
+    Exit;
+   SubID := High(LANGID);
+   For i := 0 To Count - 1 Do
+    With Items[i] Do
+     Begin
+      If PrimaryLangID <> PriID Then
+       Continue;
+      If IsDefault Then
+       Begin
+        Result := i;
         Exit;
-      end;
-      if (Result < 0) or (SubLangID < SubID) then
-      begin
-        Result := I;
-        SubID := SubLangID;
-      end;
-    end;
-end;
+       End;
+      If (Result < 0) Or (SubLangID < SubID) Then
+       Begin
+        Result := i;
+        SubID  := SubLangID;
+       End;
+     End;
+  End;
 
-function TReadonlyCultureList.NearestIndexOf(const Locale: String): Integer;
-var
-  Lang: String;
-  SubID: LANGID;
-  I: Integer;
-begin
-  Result := IndexOf(Locale);
-  if Result >= 0 then Exit;
-  I := Pos('-', Locale);
-  if I <> 0 then
-    Lang := LowerCase(Copy(Locale, 1, I - 1))
-  else
+ Function TReadonlyCultureList.NearestIndexOf(Const Locale : String) : Integer;
+  Var
+   Lang  : String;
+   SubID : LANGID;
+   i     : Integer;
+  Begin
+   Result := IndexOf(Locale);
+   If Result >= 0 Then
+    Exit;
+   i := Pos('-', Locale);
+   If i <> 0 Then
+    Lang := LowerCase(Copy(Locale, 1, i - 1))
+   Else
     Lang := LowerCase(Locale);
-  if Lang = '' then Exit;
-  SubID := High(LANGID);
-  for I := 0 to Count - 1 do
-    with Items[I] do
-    begin
-      if Language2 <> Lang then
-        Continue;
-      if IsDefault then
-      begin
-        Result := I;
+   If Lang = '' Then
+    Exit;
+   SubID := High(LANGID);
+   For i := 0 To Count - 1 Do
+    With Items[i] Do
+     Begin
+      If Language2 <> Lang Then
+       Continue;
+      If IsDefault Then
+       Begin
+        Result := i;
         Exit;
-      end;
-      if (Result < 0) or (SubLangID < SubID) then
-      begin
-        Result := I;
-        SubID := SubLangID;
-      end;
-    end;
-end;
+       End;
+      If (Result < 0) Or (SubLangID < SubID) Then
+       Begin
+        Result := i;
+        SubID  := SubLangID;
+       End;
+     End;
+  End;
 
-function TReadonlyCultureList.Exists(Culture: TCultureInfo): Boolean;
-begin
-  Result := Assigned(Culture) and Exists(Culture.LocaleID);
-end;
+ Function TReadonlyCultureList.Exists(Culture : TCultureInfo) : Boolean;
+  Begin
+   Result := Assigned(Culture) And Exists(Culture.LocaleID);
+  End;
 
-function TReadonlyCultureList.Exists(LocaleID: LCID): Boolean;
-begin
-  if not IsLookupTableValid_LocaleID then
+ Function TReadonlyCultureList.Exists(LocaleID : LCID) : Boolean;
+  Begin
+   If Not IsLookupTableValid_LocaleID Then
     ValidateLookupTable_LocaleID;
-  Result := Lookup_LocaleID.Exists(LocaleID);
-end;
+   Result := Lookup_LocaleID.Exists(LocaleID);
+  End;
 
-function TReadonlyCultureList.Exists(const Locale: String): Boolean;
-begin
-  if not IsLookupTableValid_Locale then
+ Function TReadonlyCultureList.Exists(Const Locale : String) : Boolean;
+  Begin
+   If Not IsLookupTableValid_Locale Then
     ValidateLookupTable_Locale;
-  Result := Lookup_Locale.Exists(LowerCase(Locale));
-end;
+   Result := Lookup_Locale.Exists(LowerCase(Locale));
+  End;
 
 { TCultureList }
 
-function TCultureList.GetCapacity: Integer;
-begin
-  Result := List.Capacity;
-end;
+ Function TCultureList.GetCapacity : Integer;
+  Begin
+   Result := List.Capacity;
+  End;
 
-procedure TCultureList.SetCapacity(Value: Integer);
-begin
-  List.Capacity := Value;
-  if Value < Count then
+ Procedure TCultureList.SetCapacity(Value : Integer);
+  Begin
+   List.Capacity := Value;
+   If Value < Count Then
     InvalidateLookupTables;
-end;
+  End;
 
-procedure TCultureList.ReadLocales(Reader: TReader);
-var
-  Locale: String;
-begin
-  BeginUpdate;
-  try
+ Procedure TCultureList.ReadLocales(Reader : TReader);
+  Var
+   Locale : String;
+  Begin
+   BeginUpdate;
+   Try
     Clear;
     Reader.ReadListBegin;
-    while not Reader.EndOfList do
-    begin
+    While Not Reader.EndOfList Do
+     Begin
       Locale := Reader.ReadString;
-      if Locale = '*' then
-      begin
+      If Locale = '*' Then
+       Begin
         Assign(World.Cultures);
         Break;
-      end;
+       End;
       Add(Locale);
-    end;
+     End;
     Reader.ReadListEnd;
-  finally
+   Finally
     EndUpdate;
-  end;
-end;
+   End;
+  End;
 
-procedure TCultureList.WriteLocales(Writer: TWriter);
-var
-  I: Integer;
-begin
-  Writer.WriteListBegin;
-  if (Duplicates <> dupAccept) and (Count = World.Cultures.Count) then
+ Procedure TCultureList.WriteLocales(Writer : TWriter);
+  Var
+   i : Integer;
+  Begin
+   Writer.WriteListBegin;
+   If (Duplicates <> dupAccept) And (Count = World.Cultures.Count) Then
     Writer.WriteString('*') // all cultures
-  else
-    for I := 0 to Count - 1 do
-      Writer.WriteString(Items[I].Locale);
-  Writer.WriteListEnd;
-end;
+   Else
+    For i := 0 To Count - 1 Do
+     Writer.WriteString(Items[i].Locale);
+   Writer.WriteListEnd;
+  End;
 
-procedure TCultureList.DefineProperties(Filer: TFiler);
-begin
-  inherited DefineProperties(Filer);
-  Filer.DefineProperty('Cultures', ReadLocales, WriteLocales, Count <> 0);
-end;
+ Procedure TCultureList.DefineProperties(Filer : TFiler);
+  Begin
+   Inherited DefineProperties(Filer);
+   Filer.DefineProperty('Cultures', ReadLocales, WriteLocales, Count <> 0);
+  End;
 
-procedure TCultureList.Change;
-begin
-  if (UpdateCount = 0) and Assigned(OnChange) then
+ Procedure TCultureList.Change;
+  Begin
+   If (UpdateCount = 0) And Assigned(OnChange) Then
     OnChange(Self);
-end;
+  End;
 
-procedure TCultureList.Changing;
-begin
-  if (UpdateCount = 0) and Assigned(OnChanging) then
+ Procedure TCultureList.Changing;
+  Begin
+   If (UpdateCount = 0) And Assigned(OnChanging) Then
     OnChanging(Self);
-end;
+  End;
 
-procedure TCultureList.BeginUpdate;
-begin
-  if UpdateCount = 0 then
+ Procedure TCultureList.BeginUpdate;
+  Begin
+   If UpdateCount = 0 Then
     Changing;
-  Inc(fUpdateCount);
-end;
+   Inc(fUpdateCount);
+  End;
 
-procedure TCultureList.EndUpdate;
-begin
-  Dec(fUpdateCount);
-  if UpdateCount = 0 then
+ Procedure TCultureList.EndUpdate;
+  Begin
+   Dec(fUpdateCount);
+   If UpdateCount = 0 Then
     Change;
-end;
+  End;
 
-procedure TCultureList.Clear;
-begin
-  if Count <> 0 then
-  begin
-    Changing;
-    try
+ Procedure TCultureList.Clear;
+  Begin
+   If Count <> 0 Then
+    Begin
+     Changing;
+     Try
       List.Clear;
       ClearLookupTables;
-    finally
+     Finally
       Change;
-    end;
-  end;
-end;
+     End;
+    End;
+  End;
 
-procedure TCultureList.Sort(OrderBy: TCultureDisplayName);
+ Procedure TCultureList.Sort(OrderBy : TCultureDisplayName);
 
-  procedure QuickSort(L, R: Integer);
-  var
-    I, J, P: Integer;
-    Pivot: String;
-  begin
-    repeat
-      I := L;
-      J := R;
-      P := (L + R) shr 1;
-      repeat
-        Pivot := Items[P].DisplayNames[OrderBy];
-        while AnsiCompareText(Items[I].DisplayNames[OrderBy], Pivot) < 0 do
-          Inc(I);
-        while AnsiCompareText(Items[J].DisplayNames[OrderBy], Pivot) > 0 do
-          Dec(J);
-        if I <= J then
-        begin
-          if I <> J then
-          begin
-            List.Exchange(I, J);
-            InvalidateLookupTables;
-          end;
-          if P = I then
-            P := J
-          else if P = J then
-            P := I;
-          Inc(I);
-          Dec(J);
-        end;
-      until I > J;
-      if L < J then
-        QuickSort(L, J);
-      L := I;
-    until I >= R;
-  end;
+   Procedure QuickSort(l, r : Integer);
+    Var
+     i, j, p : Integer;
+     Pivot   : String;
+    Begin
+     Repeat
+      i := l;
+      j := r;
+      p := (l + r) Shr 1;
+      Repeat
+       Pivot := Items[p].DisplayNames[OrderBy];
+       While AnsiCompareText(Items[i].DisplayNames[OrderBy], Pivot) < 0 Do
+        Inc(i);
+       While AnsiCompareText(Items[j].DisplayNames[OrderBy], Pivot) > 0 Do
+        Dec(j);
+       If i <= j Then
+        Begin
+         If i <> j Then
+          Begin
+           List.Exchange(i, j);
+           InvalidateLookupTables;
+          End;
+         If p = i Then
+          p := j
+         Else If p = j Then
+          p := i;
+         Inc(i);
+         Dec(j);
+        End;
+      Until i > j;
+      If l < j Then
+       QuickSort(l, j);
+      l := i;
+     Until i >= r;
+    End;
 
-begin
-  if (OrderBy <> cnNone) and (Count > 1) then
-  begin
-    Changing;
-    try
+  Begin
+   If (OrderBy <> cnNone) And (Count > 1) Then
+    Begin
+     Changing;
+     Try
       QuickSort(0, Count - 1);
-    finally
+     Finally
       Change;
-    end;
-  end;
-end;
+     End;
+    End;
+  End;
 
-procedure TCultureList.Assign(Source: TPersistent);
-begin
-  if Source is TReadonlyCultureList then
+ Procedure TCultureList.Assign(Source : TPersistent);
+  Begin
+   If Source Is TReadonlyCultureList Then
     Apply(TReadonlyCultureList(Source), laCopy)
-  else
-    inherited Assign(Source);
-end;
+   Else
+    Inherited Assign(Source);
+  End;
 
-procedure TCultureList.Apply(ListA: TReadonlyCultureList;
-  Op: TListAssignOp; ListB: TReadonlyCultureList);
-begin
-  Changing;
-  try
-    if Assigned(ListB) then
-      List.Assign(ListA.List, Op, ListB.List)
-    else
-      List.Assign(ListA.List, Op, nil);
+ Procedure TCultureList.Apply(ListA : TReadonlyCultureList; Op : TListAssignOp; ListB : TReadonlyCultureList);
+  Begin
+   Changing;
+   Try
+    If Assigned(ListB) Then
+     List.Assign(ListA.List, Op, ListB.List)
+    Else
+     List.Assign(ListA.List, Op, Nil);
     InvalidateLookupTables;
-  finally
+   Finally
     Change;
-  end;
-end;
+   End;
+  End;
 
-function TCultureList.Add(Culture: TCultureInfo): Integer;
-begin
-  Result := -1;
-  if Assigned(Culture) then
-  begin
-    if Duplicates <> dupAccept then
-    begin
-      Result := IndexOf(Culture);
-      if Result >= 0 then
-      begin
-        if Duplicates = dupError then
-          raise EListError.CreateResFmt(@SDuplicateItemError, [Result]);
-        Exit;
-      end;
-    end;
-    Changing;
-    try
+ Function TCultureList.Add(Culture : TCultureInfo) : Integer;
+  Begin
+   Result := -1;
+   If Assigned(Culture) Then
+    Begin
+     If Duplicates <> dupAccept Then
+      Begin
+       Result := IndexOf(Culture);
+       If Result >= 0 Then
+        Begin
+         If Duplicates = dupError Then
+          Raise EListError.CreateResFmt(@SDuplicateItemError, [Result]);
+         Exit;
+        End;
+      End;
+     Changing;
+     Try
       Result := List.Add(Culture);
       AddLookupEntries(Culture, Result);
-    finally
+     Finally
       Change;
-    end;
-  end;
-end;
+     End;
+    End;
+  End;
 
-function TCultureList.Add(LocaleID: LCID): Integer;
-begin
-  Result := Add(World.Cultures.Find(LocaleID));
-end;
+ Function TCultureList.Add(LocaleID : LCID) : Integer;
+  Begin
+   Result := Add(World.Cultures.Find(LocaleID));
+  End;
 
-function TCultureList.Add(const Locale: String): Integer;
-begin
-  Result := Add(World.Cultures.Find(Locale));
-end;
+ Function TCultureList.Add(Const Locale : String) : Integer;
+  Begin
+   Result := Add(World.Cultures.Find(Locale));
+  End;
 
-function TCultureList.Remove(Culture: TCultureInfo): Integer;
-begin
-  Result := IndexOf(Culture);
-  if Result >= 0 then
+ Function TCultureList.Remove(Culture : TCultureInfo) : Integer;
+  Begin
+   Result := IndexOf(Culture);
+   If Result >= 0 Then
     Delete(Result);
-end;
+  End;
 
-function TCultureList.Remove(LocaleID: LCID): Integer;
-begin
-  Result := IndexOf(LocaleID);
-  if Result >= 0 then
+ Function TCultureList.Remove(LocaleID : LCID) : Integer;
+  Begin
+   Result := IndexOf(LocaleID);
+   If Result >= 0 Then
     Delete(Result);
-end;
+  End;
 
-function TCultureList.Remove(const Locale: String): Integer;
-begin
-  Result := IndexOf(Locale);
-  if Result >= 0 then
+ Function TCultureList.Remove(Const Locale : String) : Integer;
+  Begin
+   Result := IndexOf(Locale);
+   If Result >= 0 Then
     Delete(Result);
-end;
+  End;
 
-procedure TCultureList.Delete(Index: Integer);
-begin
-  Changing;
-  try
+ Procedure TCultureList.Delete(Index : Integer);
+  Begin
+   Changing;
+   Try
     RemoveLookupEntries(Items[Index]);
     List.Delete(Index);
-  finally
+   Finally
     Change;
-  end;
-end;
+   End;
+  End;
 
 { TTerritory }
 
-constructor TTerritoryInfo.Create(AGeoID: GEOID);
-begin
-  if not World.Changing then
-    raise Exception.CreateResFmt(@SInstanceCreateError, [ClassName]);
-  fCultures := TCultureList.Create;
-  fCurrencies := TCurrencyList.Create;
-  fGeoID := AGeoID;
-  fCode2 := GetGeoStr(GeoID, GEO_ISO2, '');
-  fCode3 := GetGeoStr(GeoID, GEO_ISO3, '');
-  fLatitude := StrToFloatDef(GetGeoStr(GeoID, GEO_LATITUDE, '0'), 0);
-  fLongitude := StrToFloatDef(GetGeoStr(GeoID, GEO_LONGITUDE, '0'), 0);
-  fFriendlyName := GetGeoStr(GeoID, GEO_FRIENDLYNAME, '');
-  fOfficialName := GetGeoStr(GeoID, GEO_OFFICIALNAME, '');
-  fLocalizedName := FriendlyName;
-  fEnglishName := FriendlyName;
-end;
+ Constructor TTerritoryInfo.Create(AGeoID : GEOID);
+  Begin
+   If Not World.Changing Then
+    Raise Exception.CreateResFmt(@SInstanceCreateError, [ClassName]);
+   fCultures      := TCultureList.Create;
+   fCurrencies    := TCurrencyList.Create;
+   fGeoID         := AGeoID;
+   fCode2         := GetGeoStr(GEOID, GEO_ISO2, '');
+   fCode3         := GetGeoStr(GEOID, GEO_ISO3, '');
+   fLatitude      := StrToFloatDef(GetGeoStr(GEOID, GEO_LATITUDE, '0'), 0);
+   fLongitude     := StrToFloatDef(GetGeoStr(GEOID, GEO_LONGITUDE, '0'), 0);
+   fFriendlyName  := GetGeoStr(GEOID, GEO_FRIENDLYNAME, '');
+   fOfficialName  := GetGeoStr(GEOID, GEO_OFFICIALNAME, '');
+   fLocalizedName := FriendlyName;
+   fEnglishName   := FriendlyName;
+  End;
 
-constructor TTerritoryInfo.CreateByLocaleID(LocaleID: LCID; Dummy: Integer);
-begin
-  Create(GetLocaleInt(LocaleID, LOCALE_IGEOID, 0));
-  fLocalizedName := GetLocaleStr(LocaleID, LOCALE_SLOCALIZEDCOUNTRYNAME, '');
-  fEnglishName := GetLocaleStr(LocaleID, LOCALE_SENGLISHCOUNTRYNAME, '');
-end;
+ Constructor TTerritoryInfo.CreateByLocaleID(LocaleID : LCID; Dummy : Integer);
+  Begin
+   Create(GetLocaleInt(LocaleID, LOCALE_IGEOID, 0));
+   fLocalizedName := GetLocaleStr(LocaleID, LOCALE_SLOCALIZEDCOUNTRYNAME, '');
+   fEnglishName   := GetLocaleStr(LocaleID, LOCALE_SENGLISHCOUNTRYNAME, '');
+  End;
 
-constructor TTerritoryInfo.CreateByLocale(const Locale: String);
-begin
-  CreateByLocaleID(LocaleNameToLCID(Locale));
-end;
+ Constructor TTerritoryInfo.CreateByLocale(Const Locale : String);
+  Begin
+   CreateByLocaleID(LocaleNameToLCID(Locale));
+  End;
 
-destructor TTerritoryInfo.Destroy;
-begin
-  if not World.Changing then
-    raise Exception.CreateResFmt(@SInstanceDestroyError, [ClassName]);
-  fCultures.Free;
-  fCurrencies.Free;
-  inherited Destroy;
-end;
+ Destructor TTerritoryInfo.Destroy;
+  Begin
+   If Not World.Changing Then
+    Raise Exception.CreateResFmt(@SInstanceDestroyError, [ClassName]);
+   fCultures.Free;
+   fCurrencies.Free;
+   Inherited Destroy;
+  End;
 
-function TTerritoryInfo.GetDisplayNames(DisplayName: TTerritoryDisplayName): String;
-begin
-  case DisplayName of
-    tnCode2:
-      Result := Code2;
-    tnCode3:
-      Result := Code3;
-    tnFriendlyName:
-      Result := FriendlyName;
-    tnOfficialName:
-      Result := OfficialName;
-    tnLocalizedName:
-      Result := LocalizedName;
-    tnEnglishName:
-      Result := EnglishName;
-    tnNativeName:
-      Result := NativeName;
-  else
-    Result := '';
-  end;
-end;
+ Function TTerritoryInfo.GetDisplayNames(DisplayName : TTerritoryDisplayName) : String;
+  Begin
+   Case DisplayName Of
+    tnCode2         : Result := Code2;
+    tnCode3         : Result := Code3;
+    tnFriendlyName  : Result := FriendlyName;
+    tnOfficialName  : Result := OfficialName;
+    tnLocalizedName : Result := LocalizedName;
+    tnEnglishName   : Result := EnglishName;
+    tnNativeName    : Result := NativeName;
+   Else Result := '';
+   End;
+  End;
 
-function TTerritoryInfo.GetNativeName: String;
-begin
-  if Cultures.Count <> 0 then
+ Function TTerritoryInfo.GetNativeName : String;
+  Begin
+   If Cultures.Count <> 0 Then
     Result := Cultures[0].NativeCountryName
-  else
+   Else
     Result := '';
-end;
+  End;
 
-function TTerritoryInfo.GetCurrencies: TReadonlyCurrencyList;
-begin
-  Result := fCurrencies;
-end;
+ Function TTerritoryInfo.GetCurrencies : TReadonlyCurrencyList;
+  Begin
+   Result := fCurrencies;
+  End;
 
-function TTerritoryInfo.GetCultures: TReadonlyCultureList;
-begin
-  Result := fCultures;
-end;
+ Function TTerritoryInfo.GetCultures : TReadonlyCultureList;
+  Begin
+   Result := fCultures;
+  End;
 
-procedure TTerritoryInfo.Associate(Culture: TCultureInfo; Currency: TCurrencyInfo);
-begin
-  if Assigned(Culture) and not fCultures.Exists(Culture) then
+ Procedure TTerritoryInfo.Associate(Culture : TCultureInfo; Currency : TCurrencyInfo);
+  Begin
+   If Assigned(Culture) And Not fCultures.Exists(Culture) Then
     fCultures.Add(Culture);
-  if Assigned(Currency) and not fCurrencies.Exists(Currency) then
+   If Assigned(Currency) And Not fCurrencies.Exists(Currency) Then
     fCurrencies.Add(Currency);
-end;
+  End;
 
 { TTerritoryEnumerator }
 
-constructor TTerritoryEnumerator.Create(List: TReadonlyTerritoryList);
-begin
-  inherited Create(List.List);
-end;
+ Constructor TTerritoryEnumerator.Create(List : TReadonlyTerritoryList);
+  Begin
+   Inherited Create(List.List);
+  End;
 
-function TTerritoryEnumerator.GetCurrent: TTerritoryInfo;
-begin
-  Result := TTerritoryInfo(inherited GetCurrent);
-end;
+ Function TTerritoryEnumerator.GetCurrent : TTerritoryInfo;
+  Begin
+   Result := TTerritoryInfo(Inherited GetCurrent);
+  End;
 
 { TReadonlyTerritoryList }
 
-constructor TReadonlyTerritoryList.Create;
-begin
-  List := TList.Create;
-end;
+ Constructor TReadonlyTerritoryList.Create;
+  Begin
+   List := TList.Create;
+  End;
 
-destructor TReadonlyTerritoryList.Destroy;
-begin
-  List.Free;
-  if Assigned(LookupTable_GeoID) then
+ Destructor TReadonlyTerritoryList.Destroy;
+  Begin
+   List.Free;
+   If Assigned(LookupTable_GeoID) Then
     LookupTable_GeoID.Free;
-  if Assigned(LookupTable_Code2) then
+   If Assigned(LookupTable_Code2) Then
     LookupTable_Code2.Free;
-  if Assigned(LookupTable_Code3) then
+   If Assigned(LookupTable_Code3) Then
     LookupTable_Code3.Free;
-  inherited Destroy;
-end;
+   Inherited Destroy;
+  End;
 
-function TReadonlyTerritoryList.GetCount;
-begin
-  Result := List.Count;
-end;
+ Function TReadonlyTerritoryList.GetCount;
+  Begin
+   Result := List.Count;
+  End;
 
-function TReadonlyTerritoryList.GetItems(Index: Integer): TTerritoryInfo;
-begin
-  Result := TTerritoryInfo(List[Index]);
-end;
+ Function TReadonlyTerritoryList.GetItems(Index : Integer) : TTerritoryInfo;
+  Begin
+   Result := TTerritoryInfo(List[Index]);
+  End;
 
-function TReadonlyTerritoryList.GetEnumerator: TTerritoryEnumerator;
-begin
-  Result := TTerritoryEnumerator.Create(Self);
-end;
+ Function TReadonlyTerritoryList.GetEnumerator : TTerritoryEnumerator;
+  Begin
+   Result := TTerritoryEnumerator.Create(Self);
+  End;
 
-procedure TReadonlyTerritoryList.AddLookupEntries(Territory: TTerritoryInfo; Index: Integer);
-begin
-  if IsLookupTableValid_GeoID then
-    LookupTable_GeoID.Add(Territory.GeoID, Index);
-  if IsLookupTableValid_Code2 then
+ Procedure TReadonlyTerritoryList.AddLookupEntries(Territory : TTerritoryInfo; Index : Integer);
+  Begin
+   If IsLookupTableValid_GeoID Then
+    LookupTable_GeoID.Add(Territory.GEOID, Index);
+   If IsLookupTableValid_Code2 Then
     LookupTable_Code2.Add(Territory.Code2, Index);
-  if IsLookupTableValid_Code3 then
+   If IsLookupTableValid_Code3 Then
     LookupTable_Code3.Add(Territory.Code3, Index);
-end;
+  End;
 
-procedure TReadonlyTerritoryList.RemoveLookupEntries(Territory: TTerritoryInfo);
-begin
-  if IsLookupTableValid_GeoID then
-    LookupTable_GeoID.Remove(Territory.GeoID);
-  if IsLookupTableValid_Code2 then
+ Procedure TReadonlyTerritoryList.RemoveLookupEntries(Territory : TTerritoryInfo);
+  Begin
+   If IsLookupTableValid_GeoID Then
+    LookupTable_GeoID.Remove(Territory.GEOID);
+   If IsLookupTableValid_Code2 Then
     LookupTable_Code2.Remove(Territory.Code2);
-  if IsLookupTableValid_Code3 then
+   If IsLookupTableValid_Code3 Then
     LookupTable_Code3.Remove(Territory.Code3);
-end;
+  End;
 
-procedure TReadonlyTerritoryList.ClearLookupTables;
-begin
-  if Assigned(LookupTable_GeoID) then
-  begin
-    LookupTable_GeoID.Clear;
-    IsLookupTableValid_GeoID := False;
-  end;
-  if Assigned(LookupTable_Code2) then
-  begin
-    LookupTable_Code2.Clear;
-    IsLookupTableValid_Code2 := False;
-  end;
-  if Assigned(LookupTable_Code3) then
-  begin
-    LookupTable_Code3.Clear;
-    IsLookupTableValid_Code3 := False;
-  end;
-end;
+ Procedure TReadonlyTerritoryList.ClearLookupTables;
+  Begin
+   If Assigned(LookupTable_GeoID) Then
+    Begin
+     LookupTable_GeoID.Clear;
+     IsLookupTableValid_GeoID := False;
+    End;
+   If Assigned(LookupTable_Code2) Then
+    Begin
+     LookupTable_Code2.Clear;
+     IsLookupTableValid_Code2 := False;
+    End;
+   If Assigned(LookupTable_Code3) Then
+    Begin
+     LookupTable_Code3.Clear;
+     IsLookupTableValid_Code3 := False;
+    End;
+  End;
 
-procedure TReadonlyTerritoryList.InvalidateLookupTables;
-begin
-  IsLookupTableValid_GeoID := False;
-  IsLookupTableValid_Code2 := False;
-  IsLookupTableValid_Code3 := False;
-end;
+ Procedure TReadonlyTerritoryList.InvalidateLookupTables;
+  Begin
+   IsLookupTableValid_GeoID := False;
+   IsLookupTableValid_Code2 := False;
+   IsLookupTableValid_Code3 := False;
+  End;
 
-procedure TReadonlyTerritoryList.ValidateLookupTable_GeoID;
-var
-  I: Integer;
-begin
-  if not IsLookupTableValid_GeoID then
-  begin
-    if Assigned(LookupTable_GeoID) then
+ Procedure TReadonlyTerritoryList.ValidateLookupTable_GeoID;
+  Var
+   i : Integer;
+  Begin
+   If Not IsLookupTableValid_GeoID Then
+    Begin
+     If Assigned(LookupTable_GeoID) Then
       LookupTable_GeoID.Clear
-    else
-      LookupTable_GeoID := TKeyLookup<GEOID,Integer>.Create;
-    for I := 0 to Count - 1 do
-      LookupTable_GeoID.Add(Items[I].GeoID, I);
-    IsLookupTableValid_GeoID := True;
-  end;
-end;
+     Else
+      LookupTable_GeoID := TKeyLookup<GEOID, Integer>.Create;
+     For i              := 0 To Count - 1 Do
+      LookupTable_GeoID.Add(Items[i].GEOID, i);
+     IsLookupTableValid_GeoID := True;
+    End;
+  End;
 
-procedure TReadonlyTerritoryList.ValidateLookupTable_Code2;
-var
-  I: Integer;
-begin
-  if not IsLookupTableValid_Code2 then
-  begin
-    if Assigned(LookupTable_Code2) then
+ Procedure TReadonlyTerritoryList.ValidateLookupTable_Code2;
+  Var
+   i : Integer;
+  Begin
+   If Not IsLookupTableValid_Code2 Then
+    Begin
+     If Assigned(LookupTable_Code2) Then
       LookupTable_Code2.Clear
-    else
-      LookupTable_Code2 := TKeyLookup<String,Integer>.Create;
-    for I := 0 to Count - 1 do
-      LookupTable_Code2.Add(Items[I].Code2, I);
-    IsLookupTableValid_Code2 := True;
-  end;
-end;
+     Else
+      LookupTable_Code2 := TKeyLookup<String, Integer>.Create;
+     For i              := 0 To Count - 1 Do
+      LookupTable_Code2.Add(Items[i].Code2, i);
+     IsLookupTableValid_Code2 := True;
+    End;
+  End;
 
-procedure TReadonlyTerritoryList.ValidateLookupTable_Code3;
-var
-  I: Integer;
-begin
-  if not IsLookupTableValid_Code3 then
-  begin
-    if Assigned(LookupTable_Code3) then
+ Procedure TReadonlyTerritoryList.ValidateLookupTable_Code3;
+  Var
+   i : Integer;
+  Begin
+   If Not IsLookupTableValid_Code3 Then
+    Begin
+     If Assigned(LookupTable_Code3) Then
       LookupTable_Code3.Clear
-    else
-      LookupTable_Code3 := TKeyLookup<String,Integer>.Create;
-    for I := 0 to Count - 1 do
-      LookupTable_Code3.Add(Items[I].Code3, I);
-    IsLookupTableValid_Code3 := True;
-  end;
-end;
+     Else
+      LookupTable_Code3 := TKeyLookup<String, Integer>.Create;
+     For i              := 0 To Count - 1 Do
+      LookupTable_Code3.Add(Items[i].Code3, i);
+     IsLookupTableValid_Code3 := True;
+    End;
+  End;
 
-function TReadonlyTerritoryList.First: TTerritoryInfo;
-begin
-  if Count <> 0 then
+ Function TReadonlyTerritoryList.First : TTerritoryInfo;
+  Begin
+   If Count <> 0 Then
     Result := Items[0]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-function TReadonlyTerritoryList.Last: TTerritoryInfo;
-begin
-  if Count <> 0 then
+ Function TReadonlyTerritoryList.Last : TTerritoryInfo;
+  Begin
+   If Count <> 0 Then
     Result := Items[Count - 1]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-procedure TReadonlyTerritoryList.AssignTo(Dest: TPersistent);
-var
-  Strings: TStrings absolute Dest;
-  I: Integer;
-begin
-  if Dest is TStrings then
-  begin
-    Strings.BeginUpdate;
-    try
+ Procedure TReadonlyTerritoryList.AssignTo(Dest : TPersistent);
+  Var
+   Strings : TStrings Absolute Dest;
+   i       : Integer;
+  Begin
+   If Dest Is TStrings Then
+    Begin
+     Strings.BeginUpdate;
+     Try
       Strings.Clear;
-      for I := 0 to Count - 1 do
-        Strings.AddObject(Items[I].Code2, Items[I]);
-    finally
+      For i := 0 To Count - 1 Do
+       Strings.AddObject(Items[i].Code2, Items[i]);
+     Finally
       Strings.EndUpdate;
-    end;
-  end
-  else
-    inherited AssignTo(Dest);
-end;
+     End;
+    End
+   Else
+    Inherited AssignTo(Dest);
+  End;
 
-procedure TReadonlyTerritoryList.AssignLabelsTo(Dest: TStrings;
-  DisplayName: TTerritoryDisplayName);
-var
-  I: Integer;
-begin
-  Dest.BeginUpdate;
-  try
+ Procedure TReadonlyTerritoryList.AssignLabelsTo(Dest : TStrings; DisplayName : TTerritoryDisplayName);
+  Var
+   i : Integer;
+  Begin
+   Dest.BeginUpdate;
+   Try
     Dest.Clear;
-    for I := 0 to Count - 1 do
-      Dest.AddObject(Items[I].DisplayNames[DisplayName], Items[I]);
-  finally
+    For i := 0 To Count - 1 Do
+     Dest.AddObject(Items[i].DisplayNames[DisplayName], Items[i]);
+   Finally
     Dest.EndUpdate;
-  end;
-end;
+   End;
+  End;
 
-function TReadonlyTerritoryList.Find(GeoID: GEOID): TTerritoryInfo;
-var
-  Index: Integer;
-begin
-  if not IsLookupTableValid_GeoID then
+ Function TReadonlyTerritoryList.Find(GEOID : GEOID) : TTerritoryInfo;
+  Var
+   Index : Integer;
+  Begin
+   If Not IsLookupTableValid_GeoID Then
     ValidateLookupTable_GeoID;
-  if LookupTable_GeoID.Retrieve(GeoID, Index) then
+   If LookupTable_GeoID.Retrieve(GEOID, Index) Then
     Result := Items[Index]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-function TReadonlyTerritoryList.Find(const Code: String): TTerritoryInfo;
-var
-  Index: Integer;
-begin
-  Result := nil;
-  case Length(Code) of
-    2:
-    begin
-      if not IsLookupTableValid_Code2 then
-        ValidateLookupTable_Code2;
-      if LookupTable_Code2.Retrieve(UpperCase(Code), Index) then
-        Result := Items[Index];
-    end;
-    3:
-    begin
-      if not IsLookupTableValid_Code3 then
-        ValidateLookupTable_Code3;
-      if LookupTable_Code3.Retrieve(UpperCase(Code), Index) then
-        Result := Items[Index];
-    end;
-  end;
-end;
+ Function TReadonlyTerritoryList.Find(Const Code : String) : TTerritoryInfo;
+  Var
+   Index : Integer;
+  Begin
+   Result := Nil;
+   Case Length(Code) Of
+    2 :
+     Begin
+      If Not IsLookupTableValid_Code2 Then
+       ValidateLookupTable_Code2;
+      If LookupTable_Code2.Retrieve(UpperCase(Code), Index) Then
+       Result := Items[Index];
+     End;
+    3 :
+     Begin
+      If Not IsLookupTableValid_Code3 Then
+       ValidateLookupTable_Code3;
+      If LookupTable_Code3.Retrieve(UpperCase(Code), Index) Then
+       Result := Items[Index];
+     End;
+   End;
+  End;
 
-function TReadonlyTerritoryList.IndexOf(Territory: TTerritoryInfo): Integer;
-begin
-  if Assigned(Territory) then
-    Result := IndexOf(Territory.GeoID)
-  else
+ Function TReadonlyTerritoryList.IndexOf(Territory : TTerritoryInfo) : Integer;
+  Begin
+   If Assigned(Territory) Then
+    Result := IndexOf(Territory.GEOID)
+   Else
     Result := -1;
-end;
+  End;
 
-function TReadonlyTerritoryList.IndexOf(GeoID: GEOID): Integer;
-begin
-  if not IsLookupTableValid_GeoID then
+ Function TReadonlyTerritoryList.IndexOf(GEOID : GEOID) : Integer;
+  Begin
+   If Not IsLookupTableValid_GeoID Then
     ValidateLookupTable_GeoID;
-  if not LookupTable_GeoID.Retrieve(GeoID, Result) then
+   If Not LookupTable_GeoID.Retrieve(GEOID, Result) Then
     Result := -1;
-end;
+  End;
 
-function TReadonlyTerritoryList.IndexOf(const Code: String): Integer;
-begin
-  case Length(Code) of
-    2:
-    begin
-      if not IsLookupTableValid_Code2 then
-        ValidateLookupTable_Code2;
-      if not LookupTable_Code2.Retrieve(UpperCase(Code), Result) then
-        Result := -1;
-    end;
-    3:
-    begin
-      if not IsLookupTableValid_Code3 then
-        ValidateLookupTable_Code3;
-      if not LookupTable_Code3.Retrieve(UpperCase(Code), Result) then
-        Result := -1;
-    end;
-  else
-    Result := -1;
-  end;
-end;
+ Function TReadonlyTerritoryList.IndexOf(Const Code : String) : Integer;
+  Begin
+   Case Length(Code) Of
+    2 :
+     Begin
+      If Not IsLookupTableValid_Code2 Then
+       ValidateLookupTable_Code2;
+      If Not LookupTable_Code2.Retrieve(UpperCase(Code), Result) Then
+       Result := -1;
+     End;
+    3 :
+     Begin
+      If Not IsLookupTableValid_Code3 Then
+       ValidateLookupTable_Code3;
+      If Not LookupTable_Code3.Retrieve(UpperCase(Code), Result) Then
+       Result := -1;
+     End;
+   Else
+     Result := -1;
+   End;
+  End;
 
-function TReadonlyTerritoryList.IndexOfName(const AName: String;
-  DisplayName: TTerritoryDisplayName): Integer;
-var
-  I: Integer;
-begin
-  for I := 0 to Count - 1 do
-    if AnsiSameText(Items[I].DisplayNames[DisplayName], AName) then
-    begin
-      Result := I;
+ Function TReadonlyTerritoryList.IndexOfName(Const AName : String; DisplayName : TTerritoryDisplayName) : Integer;
+  Var
+   i : Integer;
+  Begin
+   For i := 0 To Count - 1 Do
+    If AnsiSameText(Items[i].DisplayNames[DisplayName], AName) Then
+     Begin
+      Result := i;
       Exit;
-    end;
-  Result := -1;
-end;
+     End;
+   Result := -1;
+  End;
 
-function TReadonlyTerritoryList.Exists(Territory: TTerritoryInfo): Boolean;
-begin
-  Result := Assigned(Territory) and Exists(Territory.GeoID);
-end;
+ Function TReadonlyTerritoryList.Exists(Territory : TTerritoryInfo) : Boolean;
+  Begin
+   Result := Assigned(Territory) And Exists(Territory.GEOID);
+  End;
 
-function TReadonlyTerritoryList.Exists(GeoID: GEOID): Boolean;
-begin
-  if not IsLookupTableValid_GeoID then
+ Function TReadonlyTerritoryList.Exists(GEOID : GEOID) : Boolean;
+  Begin
+   If Not IsLookupTableValid_GeoID Then
     ValidateLookupTable_GeoID;
-  Result := LookupTable_GeoID.Exists(GeoID);
-end;
+   Result := LookupTable_GeoID.Exists(GEOID);
+  End;
 
-function TReadonlyTerritoryList.Exists(const Code: String): Boolean;
-begin
-  case Length(Code) of
-    2:
-    begin
-      if not IsLookupTableValid_Code2 then
-        ValidateLookupTable_Code2;
+ Function TReadonlyTerritoryList.Exists(Const Code : String) : Boolean;
+  Begin
+   Case Length(Code) Of
+    2 :
+     Begin
+      If Not IsLookupTableValid_Code2 Then
+       ValidateLookupTable_Code2;
       Result := LookupTable_Code2.Exists(UpperCase(Code));
-    end;
-    3:
-    begin
-      if not IsLookupTableValid_Code3 then
-        ValidateLookupTable_Code3;
+     End;
+    3 :
+     Begin
+      If Not IsLookupTableValid_Code3 Then
+       ValidateLookupTable_Code3;
       Result := LookupTable_Code3.Exists(UpperCase(Code));
-    end;
-  else
-    Result := False;
-  end;
-end;
+     End;
+   Else
+     Result := False;
+   End;
+  End;
 
 { TTerritoryList }
 
-function TTerritoryList.GetCapacity: Integer;
-begin
-  Result := List.Capacity;
-end;
+ Function TTerritoryList.GetCapacity : Integer;
+  Begin
+   Result := List.Capacity;
+  End;
 
-procedure TTerritoryList.SetCapacity(Value: Integer);
-begin
-  List.Capacity := Value;
-  if Value < Count then
+ Procedure TTerritoryList.SetCapacity(Value : Integer);
+  Begin
+   List.Capacity := Value;
+   If Value < Count Then
     InvalidateLookupTables;
-end;
+  End;
 
-procedure TTerritoryList.ReadTerritory(Reader: TReader);
-var
-  Code2: String;
-begin
-  BeginUpdate;
-  try
+ Procedure TTerritoryList.ReadTerritory(Reader : TReader);
+  Var
+   Code2 : String;
+  Begin
+   BeginUpdate;
+   Try
     Clear;
     Reader.ReadListBegin;
-    while not Reader.EndOfList do
-    begin
+    While Not Reader.EndOfList Do
+     Begin
       Code2 := Reader.ReadString;
-      if Code2 = '*' then
-      begin
+      If Code2 = '*' Then
+       Begin
         Assign(World.Territories);
         Break;
-      end;
+       End;
       Add(Code2);
-    end;
+     End;
     Reader.ReadListEnd;
-  finally
+   Finally
     EndUpdate;
-  end;
-end;
+   End;
+  End;
 
-procedure TTerritoryList.WriteTerritory(Writer: TWriter);
-var
-  I: Integer;
-begin
-  Writer.WriteListBegin;
-  if (Duplicates <> dupAccept) and (Count = World.Territories.Count) then
+ Procedure TTerritoryList.WriteTerritory(Writer : TWriter);
+  Var
+   i : Integer;
+  Begin
+   Writer.WriteListBegin;
+   If (Duplicates <> dupAccept) And (Count = World.Territories.Count) Then
     Writer.WriteString('*') // all territories
-  else
-    for I := 0 to Count - 1 do
-      Writer.WriteString(Items[I].Code2);
-  Writer.WriteListEnd;
-end;
+   Else
+    For i := 0 To Count - 1 Do
+     Writer.WriteString(Items[i].Code2);
+   Writer.WriteListEnd;
+  End;
 
-procedure TTerritoryList.DefineProperties(Filer: TFiler);
-begin
-  inherited DefineProperties(Filer);
-  Filer.DefineProperty('Territories', ReadTerritory, WriteTerritory, Count <> 0);
-end;
+ Procedure TTerritoryList.DefineProperties(Filer : TFiler);
+  Begin
+   Inherited DefineProperties(Filer);
+   Filer.DefineProperty('Territories', ReadTerritory, WriteTerritory, Count <> 0);
+  End;
 
-procedure TTerritoryList.Changing;
-begin
-  if (UpdateCount = 0) and Assigned(OnChanging) then
+ Procedure TTerritoryList.Changing;
+  Begin
+   If (UpdateCount = 0) And Assigned(OnChanging) Then
     OnChanging(Self);
-end;
+  End;
 
-procedure TTerritoryList.Change;
-begin
-  if (UpdateCount = 0) and Assigned(OnChange) then
+ Procedure TTerritoryList.Change;
+  Begin
+   If (UpdateCount = 0) And Assigned(OnChange) Then
     OnChange(Self);
-end;
+  End;
 
-procedure TTerritoryList.BeginUpdate;
-begin
-  if UpdateCount = 0 then
+ Procedure TTerritoryList.BeginUpdate;
+  Begin
+   If UpdateCount = 0 Then
     Changing;
-  Inc(fUpdateCount);
-end;
+   Inc(fUpdateCount);
+  End;
 
-procedure TTerritoryList.EndUpdate;
-begin
-  Dec(fUpdateCount);
-  if UpdateCount = 0 then
+ Procedure TTerritoryList.EndUpdate;
+  Begin
+   Dec(fUpdateCount);
+   If UpdateCount = 0 Then
     Change;
-end;
+  End;
 
-procedure TTerritoryList.Clear;
-begin
-  if Count <> 0 then
-  begin
-    Changing;
-    try
+ Procedure TTerritoryList.Clear;
+  Begin
+   If Count <> 0 Then
+    Begin
+     Changing;
+     Try
       List.Clear;
       ClearLookupTables;
-    finally
+     Finally
       Change;
-    end;
-  end;
-end;
+     End;
+    End;
+  End;
 
-procedure TTerritoryList.Sort(OrderBy: TTerritoryDisplayName);
+ Procedure TTerritoryList.Sort(OrderBy : TTerritoryDisplayName);
 
-  procedure QuickSort(L, R: Integer);
-  var
-    I, J, P: Integer;
-    Pivot: String;
-  begin
-    repeat
-      I := L;
-      J := R;
-      P := (L + R) shr 1;
-      repeat
-        Pivot := Items[P].DisplayNames[OrderBy];
-        while AnsiCompareText(Items[I].DisplayNames[OrderBy], Pivot) < 0 do
-          Inc(I);
-        while AnsiCompareText(Items[J].DisplayNames[OrderBy], Pivot) > 0 do
-          Dec(J);
-        if I <= J then
-        begin
-          if I <> J then
-          begin
-            List.Exchange(I, J);
-            InvalidateLookupTables;
-          end;
-          if P = I then
-            P := J
-          else if P = J then
-            P := I;
-          Inc(I);
-          Dec(J);
-        end;
-      until I > J;
-      if L < J then
-        QuickSort(L, J);
-      L := I;
-    until I >= R;
-  end;
+   Procedure QuickSort(l, r : Integer);
+    Var
+     i, j, p : Integer;
+     Pivot   : String;
+    Begin
+     Repeat
+      i := l;
+      j := r;
+      p := (l + r) Shr 1;
+      Repeat
+       Pivot := Items[p].DisplayNames[OrderBy];
+       While AnsiCompareText(Items[i].DisplayNames[OrderBy], Pivot) < 0 Do
+        Inc(i);
+       While AnsiCompareText(Items[j].DisplayNames[OrderBy], Pivot) > 0 Do
+        Dec(j);
+       If i <= j Then
+        Begin
+         If i <> j Then
+          Begin
+           List.Exchange(i, j);
+           InvalidateLookupTables;
+          End;
+         If p = i Then
+          p := j
+         Else If p = j Then
+          p := i;
+         Inc(i);
+         Dec(j);
+        End;
+      Until i > j;
+      If l < j Then
+       QuickSort(l, j);
+      l := i;
+     Until i >= r;
+    End;
 
-begin
-  if (OrderBy <> tnNone) and (Count > 1) then
-  begin
-    Changing;
-    try
+  Begin
+   If (OrderBy <> tnNone) And (Count > 1) Then
+    Begin
+     Changing;
+     Try
       QuickSort(0, Count - 1);
-    finally
+     Finally
       Change;
-    end;
-  end;
-end;
+     End;
+    End;
+  End;
 
-procedure TTerritoryList.Assign(Source: TPersistent);
-begin
-  if Source is TReadonlyTerritoryList then
+ Procedure TTerritoryList.Assign(Source : TPersistent);
+  Begin
+   If Source Is TReadonlyTerritoryList Then
     Apply(TReadonlyTerritoryList(Source), laCopy)
-  else
-    inherited Assign(Source);
-end;
+   Else
+    Inherited Assign(Source);
+  End;
 
-procedure TTerritoryList.Apply(ListA: TReadonlyTerritoryList; Op: TListAssignOp;
-  ListB: TReadonlyTerritoryList);
-begin
-  Changing;
-  try
-    if Assigned(ListB) then
-      List.Assign(ListA.List, Op, ListB.List)
-    else
-      List.Assign(ListA.List, Op, nil);
+ Procedure TTerritoryList.Apply(ListA : TReadonlyTerritoryList; Op : TListAssignOp; ListB : TReadonlyTerritoryList);
+  Begin
+   Changing;
+   Try
+    If Assigned(ListB) Then
+     List.Assign(ListA.List, Op, ListB.List)
+    Else
+     List.Assign(ListA.List, Op, Nil);
     InvalidateLookupTables;
-  finally
+   Finally
     Change;
-  end;
-end;
+   End;
+  End;
 
-function TTerritoryList.Add(Territory: TTerritoryInfo): Integer;
-begin
-  if Assigned(Territory) then
-  begin
-    if Duplicates <> dupAccept then
-    begin
-      Result := IndexOf(Territory);
-      if Result >= 0 then
-      begin
-        if Duplicates = dupError then
-          raise EListError.CreateResFmt(@SDuplicateItemError, [Result]);
-        Exit;
-      end;
-    end;
-    Changing;
-    try
+ Function TTerritoryList.Add(Territory : TTerritoryInfo) : Integer;
+  Begin
+   If Assigned(Territory) Then
+    Begin
+     If Duplicates <> dupAccept Then
+      Begin
+       Result := IndexOf(Territory);
+       If Result >= 0 Then
+        Begin
+         If Duplicates = dupError Then
+          Raise EListError.CreateResFmt(@SDuplicateItemError, [Result]);
+         Exit;
+        End;
+      End;
+     Changing;
+     Try
       Result := List.Add(Territory);
       AddLookupEntries(Territory, Result);
-    finally
+     Finally
       Change;
-    end;
-  end
-  else
+     End;
+    End
+   Else
     Result := -1;
-end;
+  End;
 
-function TTerritoryList.Add(GeoID: GEOID): Integer;
-begin
-  Result := Add(World.Territories.Find(GeoID));
-end;
+ Function TTerritoryList.Add(GEOID : GEOID) : Integer;
+  Begin
+   Result := Add(World.Territories.Find(GEOID));
+  End;
 
-function TTerritoryList.Add(const Code: String): Integer;
-begin
-  Result := Add(World.Territories.Find(Code));
-end;
+ Function TTerritoryList.Add(Const Code : String) : Integer;
+  Begin
+   Result := Add(World.Territories.Find(Code));
+  End;
 
-function TTerritoryList.Remove(Territory: TTerritoryInfo): Integer;
-begin
-  Result := IndexOf(Territory);
-  if Result >= 0 then
+ Function TTerritoryList.Remove(Territory : TTerritoryInfo) : Integer;
+  Begin
+   Result := IndexOf(Territory);
+   If Result >= 0 Then
     Delete(Result);
-end;
+  End;
 
-function TTerritoryList.Remove(GeoID: GEOID): Integer;
-begin
-  Result := IndexOf(GeoID);
-  if Result >= 0 then
+ Function TTerritoryList.Remove(GEOID : GEOID) : Integer;
+  Begin
+   Result := IndexOf(GEOID);
+   If Result >= 0 Then
     Delete(Result);
-end;
+  End;
 
-function TTerritoryList.Remove(const Code: String): Integer;
-begin
-  Result := IndexOf(Code);
-  if Result >= 0 then
+ Function TTerritoryList.Remove(Const Code : String) : Integer;
+  Begin
+   Result := IndexOf(Code);
+   If Result >= 0 Then
     Delete(Result);
-end;
+  End;
 
-procedure TTerritoryList.Delete(Index: Integer);
-begin
-  Changing;
-  try
+ Procedure TTerritoryList.Delete(Index : Integer);
+  Begin
+   Changing;
+   Try
     RemoveLookupEntries(Items[Index]);
     List.Delete(Index);
-  finally
+   Finally
     Change;
-  end;
-end;
+   End;
+  End;
 
 { TCurrency }
 
-constructor TCurrencyInfo.Create(LocaleID: LCID);
-begin
-  if not World.Changing then
-    raise Exception.CreateResFmt(@SInstanceCreateError, [ClassName]);
-  fCultures := TCultureList.Create;
-  fCountries := TTerritoryList.Create;
-  fIntlSymbol := GetLocaleStr(LocaleID, LOCALE_SINTLSYMBOL, '');
-  fLocalSymbol := GetLocaleStr(LocaleID, LOCALE_SCURRENCY, '');
-  fEnglishName := GetLocaleStr(LocaleID, LOCALE_SENGCURRNAME, '');
-end;
+ Constructor TCurrencyInfo.Create(LocaleID : LCID);
+  Begin
+   If Not World.Changing Then
+    Raise Exception.CreateResFmt(@SInstanceCreateError, [ClassName]);
+   fCultures    := TCultureList.Create;
+   fCountries   := TTerritoryList.Create;
+   fIntlSymbol  := GetLocaleStr(LocaleID, LOCALE_SINTLSYMBOL, '');
+   fLocalSymbol := GetLocaleStr(LocaleID, LOCALE_SCURRENCY, '');
+   fEnglishName := GetLocaleStr(LocaleID, LOCALE_SENGCURRNAME, '');
+  End;
 
-constructor TCurrencyInfo.Create(const Locale: String);
-begin
-  Create(LocaleNameToLCID(Locale));
-end;
+ Constructor TCurrencyInfo.Create(Const Locale : String);
+  Begin
+   Create(LocaleNameToLCID(Locale));
+  End;
 
-destructor TCurrencyInfo.Destroy;
-begin
-  if not World.Changing then
-    raise Exception.CreateResFmt(@SInstanceDestroyError, [ClassName]);
-  fCultures.Free;
-  fCountries.Free;
-  inherited Destroy;
-end;
+ Destructor TCurrencyInfo.Destroy;
+  Begin
+   If Not World.Changing Then
+    Raise Exception.CreateResFmt(@SInstanceDestroyError, [ClassName]);
+   fCultures.Free;
+   fCountries.Free;
+   Inherited Destroy;
+  End;
 
-function TCurrencyInfo.GetDisplayNames(DisplayName: TCurrencyDisplayName): String;
-begin
-  case DisplayName of
-    crnIntlSymbol:
-      Result := IntlSymbol;
-    crnEnglishName:
-      Result := EnglishName;
-    crnNativeName:
-      Result := NativeName;
-  else
-    Result := '';
-  end;
-end;
+ Function TCurrencyInfo.GetDisplayNames(DisplayName : TCurrencyDisplayName) : String;
+  Begin
+   Case DisplayName Of
+    crnIntlSymbol  : Result := IntlSymbol;
+    crnEnglishName : Result := EnglishName;
+    crnNativeName  : Result := NativeName;
+   Else Result := '';
+   End;
+  End;
 
-function TCurrencyInfo.GetNativeName: String;
-begin
-  if Assigned(OriginCountry) then
+ Function TCurrencyInfo.GetNativeName : String;
+  Begin
+   If Assigned(OriginCountry) Then
     Result := OriginCountry.Cultures[0].NativeCurrencyName
-  else
+   Else
     Result := '';
-end;
+  End;
 
-function TCurrencyInfo.GetCultures: TReadonlyCultureList;
-begin
-  Result := fCultures;
-end;
+ Function TCurrencyInfo.GetCultures : TReadonlyCultureList;
+  Begin
+   Result := fCultures;
+  End;
 
-function TCurrencyInfo.GetCountries: TReadonlyTerritoryList;
-begin
-  Result := fCountries;
-end;
+ Function TCurrencyInfo.GetCountries : TReadonlyTerritoryList;
+  Begin
+   Result := fCountries;
+  End;
 
-procedure TCurrencyInfo.Associate(Culture: TCultureInfo; Territory: TTerritoryInfo);
-begin
-  if Assigned(Culture) and not fCultures.Exists(Culture) then
+ Procedure TCurrencyInfo.Associate(Culture : TCultureInfo; Territory : TTerritoryInfo);
+  Begin
+   If Assigned(Culture) And Not fCultures.Exists(Culture) Then
     fCultures.Add(Culture);
-  if Assigned(Territory) and not fCountries.Exists(Territory) then
-  begin
-    fCountries.Add(Territory);
-    if Assigned(fOriginCountry) and (Pos(fOriginCountry.Code2, IntlSymbol) = 0) then
-      fOriginCountry := nil;
-    if (fCountries.Count = 1) or (Pos(Territory.Code2, IntlSymbol) <> 0) then
+   If Assigned(Territory) And Not fCountries.Exists(Territory) Then
+    Begin
+     fCountries.Add(Territory);
+     If Assigned(fOriginCountry) And (Pos(fOriginCountry.Code2, IntlSymbol) = 0) Then
+      fOriginCountry := Nil;
+     If (fCountries.Count = 1) Or (Pos(Territory.Code2, IntlSymbol) <> 0) Then
       fOriginCountry := Territory;
-  end;
-end;
+    End;
+  End;
 
 { TCurrencyEnumerator }
 
-constructor TCurrencyEnumerator.Create(List: TReadonlyCurrencyList);
-begin
-  inherited Create(List.List);
-end;
+ Constructor TCurrencyEnumerator.Create(List : TReadonlyCurrencyList);
+  Begin
+   Inherited Create(List.List);
+  End;
 
-function TCurrencyEnumerator.GetCurrent: TCurrencyInfo;
-begin
-  Result := TCurrencyInfo(inherited GetCurrent);
-end;
+ Function TCurrencyEnumerator.GetCurrent : TCurrencyInfo;
+  Begin
+   Result := TCurrencyInfo(Inherited GetCurrent);
+  End;
 
 { TReadonlyCurrencyList }
 
-constructor TReadonlyCurrencyList.Create;
-begin
-  List := TList.Create;
-end;
+ Constructor TReadonlyCurrencyList.Create;
+  Begin
+   List := TList.Create;
+  End;
 
-destructor TReadonlyCurrencyList.Destroy;
-begin
-  List.Free;
-  if Assigned(LookupTable_IntlSymbol) then
+ Destructor TReadonlyCurrencyList.Destroy;
+  Begin
+   List.Free;
+   If Assigned(LookupTable_IntlSymbol) Then
     LookupTable_IntlSymbol.Free;
-  inherited Destroy;
-end;
+   Inherited Destroy;
+  End;
 
-function TReadonlyCurrencyList.GetCount: Integer;
-begin
-  Result := List.Count;
-end;
+ Function TReadonlyCurrencyList.GetCount : Integer;
+  Begin
+   Result := List.Count;
+  End;
 
-function TReadonlyCurrencyList.GetItems(Index: Integer): TCurrencyInfo;
-begin
-  Result := TCurrencyInfo(List[Index]);
-end;
+ Function TReadonlyCurrencyList.GetItems(Index : Integer) : TCurrencyInfo;
+  Begin
+   Result := TCurrencyInfo(List[Index]);
+  End;
 
-function TReadonlyCurrencyList.GetEnumerator: TCurrencyEnumerator;
-begin
-  Result := TCurrencyEnumerator.Create(Self);
-end;
+ Function TReadonlyCurrencyList.GetEnumerator : TCurrencyEnumerator;
+  Begin
+   Result := TCurrencyEnumerator.Create(Self);
+  End;
 
-procedure TReadonlyCurrencyList.AddLookupEntries(Currency: TCurrencyInfo; Index: Integer);
-begin
-  if IsLookupTableValid_IntlSymbol then
+ Procedure TReadonlyCurrencyList.AddLookupEntries(Currency : TCurrencyInfo; Index : Integer);
+  Begin
+   If IsLookupTableValid_IntlSymbol Then
     LookupTable_IntlSymbol.Add(Currency.IntlSymbol, Index);
-end;
+  End;
 
-procedure TReadonlyCurrencyList.RemoveLookupEntries(Currency: TCurrencyInfo);
-begin
-  if IsLookupTableValid_IntlSymbol then
+ Procedure TReadonlyCurrencyList.RemoveLookupEntries(Currency : TCurrencyInfo);
+  Begin
+   If IsLookupTableValid_IntlSymbol Then
     LookupTable_IntlSymbol.Remove(Currency.IntlSymbol);
-end;
+  End;
 
-procedure TReadonlyCurrencyList.ClearLookupTables;
-begin
-  if Assigned(LookupTable_IntlSymbol) then
-  begin
-    LookupTable_IntlSymbol.Clear;
-    IsLookupTableValid_IntlSymbol := False;
-  end;
-end;
+ Procedure TReadonlyCurrencyList.ClearLookupTables;
+  Begin
+   If Assigned(LookupTable_IntlSymbol) Then
+    Begin
+     LookupTable_IntlSymbol.Clear;
+     IsLookupTableValid_IntlSymbol := False;
+    End;
+  End;
 
-procedure TReadonlyCurrencyList.InvalidateLookupTables;
-begin
-  IsLookupTableValid_IntlSymbol := False;
-end;
+ Procedure TReadonlyCurrencyList.InvalidateLookupTables;
+  Begin
+   IsLookupTableValid_IntlSymbol := False;
+  End;
 
-procedure TReadonlyCurrencyList.ValidateLookupTable_IntlSymbol;
-var
-  I: Integer;
-begin
-  if not IsLookupTableValid_IntlSymbol then
-  begin
-    if Assigned(LookupTable_IntlSymbol) then
+ Procedure TReadonlyCurrencyList.ValidateLookupTable_IntlSymbol;
+  Var
+   i : Integer;
+  Begin
+   If Not IsLookupTableValid_IntlSymbol Then
+    Begin
+     If Assigned(LookupTable_IntlSymbol) Then
       LookupTable_IntlSymbol.Clear
-    else
-      LookupTable_IntlSymbol := TKeyLookup<String,Integer>.Create;
-    for I := 0 to Count - 1 do
-      LookupTable_IntlSymbol.Add(Items[I].IntlSymbol, I);
-    IsLookupTableValid_IntlSymbol := True;
-  end;
-end;
+     Else
+      LookupTable_IntlSymbol := TKeyLookup<String, Integer>.Create;
+     For i                   := 0 To Count - 1 Do
+      LookupTable_IntlSymbol.Add(Items[i].IntlSymbol, i);
+     IsLookupTableValid_IntlSymbol := True;
+    End;
+  End;
 
-function TReadonlyCurrencyList.First: TCurrencyInfo;
-begin
-  if Count <> 0 then
+ Function TReadonlyCurrencyList.First : TCurrencyInfo;
+  Begin
+   If Count <> 0 Then
     Result := Items[0]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-function TReadonlyCurrencyList.Last: TCurrencyInfo;
-begin
-  if Count <> 0 then
+ Function TReadonlyCurrencyList.Last : TCurrencyInfo;
+  Begin
+   If Count <> 0 Then
     Result := Items[Count - 1]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-procedure TReadonlyCurrencyList.AssignTo(Dest: TPersistent);
-var
-  Strings: TStrings absolute Dest;
-  I: Integer;
-begin
-  if Dest is TStrings then
-  begin
-    Strings.BeginUpdate;
-    try
+ Procedure TReadonlyCurrencyList.AssignTo(Dest : TPersistent);
+  Var
+   Strings : TStrings Absolute Dest;
+   i       : Integer;
+  Begin
+   If Dest Is TStrings Then
+    Begin
+     Strings.BeginUpdate;
+     Try
       Strings.Clear;
-      for I := 0 to Count - 1 do
-        Strings.AddObject(Items[I].IntlSymbol, Items[I]);
-    finally
+      For i := 0 To Count - 1 Do
+       Strings.AddObject(Items[i].IntlSymbol, Items[i]);
+     Finally
       Strings.EndUpdate;
-    end;
-  end
-  else
-    inherited AssignTo(Dest);
-end;
+     End;
+    End
+   Else
+    Inherited AssignTo(Dest);
+  End;
 
-procedure TReadonlyCurrencyList.AssignLabelsTo(Dest: TStrings;
-  DisplayName: TCurrencyDisplayName);
-var
-  I: Integer;
-begin
-  Dest.BeginUpdate;
-  try
+ Procedure TReadonlyCurrencyList.AssignLabelsTo(Dest : TStrings; DisplayName : TCurrencyDisplayName);
+  Var
+   i : Integer;
+  Begin
+   Dest.BeginUpdate;
+   Try
     Dest.Clear;
-    for I := 0 to Count - 1 do
-      Dest.AddObject(Items[I].DisplayNames[DisplayName], Items[I]);
-  finally
+    For i := 0 To Count - 1 Do
+     Dest.AddObject(Items[i].DisplayNames[DisplayName], Items[i]);
+   Finally
     Dest.EndUpdate;
-  end;
-end;
+   End;
+  End;
 
-function TReadonlyCurrencyList.Find(const IntlSymbol: String): TCurrencyInfo;
-var
-  Index: Integer;
-begin
-  if not IsLookupTableValid_IntlSymbol then
+ Function TReadonlyCurrencyList.Find(Const IntlSymbol : String) : TCurrencyInfo;
+  Var
+   Index : Integer;
+  Begin
+   If Not IsLookupTableValid_IntlSymbol Then
     ValidateLookupTable_IntlSymbol;
-  if LookupTable_IntlSymbol.Retrieve(UpperCase(IntlSymbol), Index) then
+   If LookupTable_IntlSymbol.Retrieve(UpperCase(IntlSymbol), Index) Then
     Result := Items[Index]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-function TReadonlyCurrencyList.IndexOf(Currency: TCurrencyInfo): Integer;
-begin
-  if Assigned(Currency) then
+ Function TReadonlyCurrencyList.IndexOf(Currency : TCurrencyInfo) : Integer;
+  Begin
+   If Assigned(Currency) Then
     Result := IndexOf(Currency.IntlSymbol)
-  else
+   Else
     Result := -1;
-end;
+  End;
 
-function TReadonlyCurrencyList.IndexOf(const IntlSymbol: String): Integer;
-begin
-  if not IsLookupTableValid_IntlSymbol then
+ Function TReadonlyCurrencyList.IndexOf(Const IntlSymbol : String) : Integer;
+  Begin
+   If Not IsLookupTableValid_IntlSymbol Then
     ValidateLookupTable_IntlSymbol;
-  if not LookupTable_IntlSymbol.Retrieve(UpperCase(IntlSymbol), Result) then
+   If Not LookupTable_IntlSymbol.Retrieve(UpperCase(IntlSymbol), Result) Then
     Result := -1;
-end;
+  End;
 
-function TReadonlyCurrencyList.IndexOfName(const AName: String;
-  DisplayName: TCurrencyDisplayName): Integer;
-var
-  I: Integer;
-begin
-  for I := 0 to Count - 1 do
-    if AnsiSameText(Items[I].DisplayNames[DisplayName], AName) then
-    begin
-      Result := I;
+ Function TReadonlyCurrencyList.IndexOfName(Const AName : String; DisplayName : TCurrencyDisplayName) : Integer;
+  Var
+   i : Integer;
+  Begin
+   For i := 0 To Count - 1 Do
+    If AnsiSameText(Items[i].DisplayNames[DisplayName], AName) Then
+     Begin
+      Result := i;
       Exit;
-    end;
-  Result := -1;
-end;
+     End;
+   Result := -1;
+  End;
 
-function TReadonlyCurrencyList.Exists(Currency: TCurrencyInfo): Boolean;
-begin
-  Result := Assigned(Currency) and Exists(Currency.IntlSymbol);
-end;
+ Function TReadonlyCurrencyList.Exists(Currency : TCurrencyInfo) : Boolean;
+  Begin
+   Result := Assigned(Currency) And Exists(Currency.IntlSymbol);
+  End;
 
-function TReadonlyCurrencyList.Exists(const IntlSymbol: String): Boolean;
-begin
-  if not IsLookupTableValid_IntlSymbol then
+ Function TReadonlyCurrencyList.Exists(Const IntlSymbol : String) : Boolean;
+  Begin
+   If Not IsLookupTableValid_IntlSymbol Then
     ValidateLookupTable_IntlSymbol;
-  Result := LookupTable_IntlSymbol.Exists(UpperCase(IntlSymbol));
-end;
+   Result := LookupTable_IntlSymbol.Exists(UpperCase(IntlSymbol));
+  End;
 
 { TCurrencyList }
 
-function TCurrencyList.GetCapacity: Integer;
-begin
-  Result := List.Capacity;
-end;
+ Function TCurrencyList.GetCapacity : Integer;
+  Begin
+   Result := List.Capacity;
+  End;
 
-procedure TCurrencyList.SetCapacity(Value: Integer);
-begin
-  List.Capacity := Value;
-  if Value < Count then
+ Procedure TCurrencyList.SetCapacity(Value : Integer);
+  Begin
+   List.Capacity := Value;
+   If Value < Count Then
     InvalidateLookupTables;
-end;
+  End;
 
-procedure TCurrencyList.ReadCurrencies(Reader: TReader);
-var
-  IntlSymbol: String;
-begin
-  BeginUpdate;
-  try
+ Procedure TCurrencyList.ReadCurrencies(Reader : TReader);
+  Var
+   IntlSymbol : String;
+  Begin
+   BeginUpdate;
+   Try
     Clear;
     Reader.ReadListBegin;
-    while not Reader.EndOfList do
-    begin
+    While Not Reader.EndOfList Do
+     Begin
       IntlSymbol := Reader.ReadString;
-      if IntlSymbol = '*' then
-      begin
+      If IntlSymbol = '*' Then
+       Begin
         Assign(World.Currencies);
         Break;
-      end;
+       End;
       Add(IntlSymbol);
-    end;
+     End;
     Reader.ReadListEnd;
-  finally
+   Finally
     EndUpdate;
-  end;
-end;
+   End;
+  End;
 
-procedure TCurrencyList.WriteCurrencies(Writer: TWriter);
-var
-  I: Integer;
-begin
-  Writer.WriteListBegin;
-  if (Duplicates <> dupAccept) and (Count = World.Currencies.Count) then
+ Procedure TCurrencyList.WriteCurrencies(Writer : TWriter);
+  Var
+   i : Integer;
+  Begin
+   Writer.WriteListBegin;
+   If (Duplicates <> dupAccept) And (Count = World.Currencies.Count) Then
     Writer.WriteString('*') // all currencies
-  else
-    for I := 0 to Count - 1 do
-      Writer.WriteString(Items[I].IntlSymbol);
-  Writer.WriteListEnd;
-end;
+   Else
+    For i := 0 To Count - 1 Do
+     Writer.WriteString(Items[i].IntlSymbol);
+   Writer.WriteListEnd;
+  End;
 
-procedure TCurrencyList.DefineProperties(Filer: TFiler);
-begin
-  inherited DefineProperties(Filer);
-  Filer.DefineProperty('Currencies', ReadCurrencies, WriteCurrencies, Count <> 0);
-end;
+ Procedure TCurrencyList.DefineProperties(Filer : TFiler);
+  Begin
+   Inherited DefineProperties(Filer);
+   Filer.DefineProperty('Currencies', ReadCurrencies, WriteCurrencies, Count <> 0);
+  End;
 
-procedure TCurrencyList.Changing;
-begin
-  if (UpdateCount = 0) and Assigned(OnChanging) then
+ Procedure TCurrencyList.Changing;
+  Begin
+   If (UpdateCount = 0) And Assigned(OnChanging) Then
     OnChanging(Self);
-end;
+  End;
 
-procedure TCurrencyList.Change;
-begin
-  if (UpdateCount = 0) and Assigned(OnChange) then
+ Procedure TCurrencyList.Change;
+  Begin
+   If (UpdateCount = 0) And Assigned(OnChange) Then
     OnChange(Self);
-end;
+  End;
 
-procedure TCurrencyList.BeginUpdate;
-begin
-  if UpdateCount = 0 then
+ Procedure TCurrencyList.BeginUpdate;
+  Begin
+   If UpdateCount = 0 Then
     Changing;
-  Inc(fUpdateCount);
-end;
+   Inc(fUpdateCount);
+  End;
 
-procedure TCurrencyList.EndUpdate;
-begin
-  Dec(fUpdateCount);
-  if UpdateCount = 0 then
+ Procedure TCurrencyList.EndUpdate;
+  Begin
+   Dec(fUpdateCount);
+   If UpdateCount = 0 Then
     Change;
-end;
+  End;
 
-procedure TCurrencyList.Clear;
-begin
-  if Count <> 0 then
-  begin
-    Changing;
-    try
+ Procedure TCurrencyList.Clear;
+  Begin
+   If Count <> 0 Then
+    Begin
+     Changing;
+     Try
       List.Clear;
       ClearLookupTables;
-    finally
+     Finally
       Change;
-    end;
-  end;
-end;
+     End;
+    End;
+  End;
 
-procedure TCurrencyList.Sort(OrderBy: TCurrencyDisplayName);
+ Procedure TCurrencyList.Sort(OrderBy : TCurrencyDisplayName);
 
-  procedure QuickSort(L, R: Integer);
-  var
-    I, J, P: Integer;
-    Pivot: String;
-  begin
-    repeat
-      I := L;
-      J := R;
-      P := (L + R) shr 1;
-      repeat
-        Pivot := Items[P].DisplayNames[OrderBy];
-        while AnsiCompareText(Items[I].DisplayNames[OrderBy], Pivot) < 0 do
-          Inc(I);
-        while AnsiCompareText(Items[J].DisplayNames[OrderBy], Pivot) > 0 do
-          Dec(J);
-        if I <= J then
-        begin
-          if I <> J then
-          begin
-            List.Exchange(I, J);
-            InvalidateLookupTables;
-          end;
-          if P = I then
-            P := J
-          else if P = J then
-            P := I;
-          Inc(I);
-          Dec(J);
-        end;
-      until I > J;
-      if L < J then
-        QuickSort(L, J);
-      L := I;
-    until I >= R;
-  end;
+   Procedure QuickSort(l, r : Integer);
+    Var
+     i, j, p : Integer;
+     Pivot   : String;
+    Begin
+     Repeat
+      i := l;
+      j := r;
+      p := (l + r) Shr 1;
+      Repeat
+       Pivot := Items[p].DisplayNames[OrderBy];
+       While AnsiCompareText(Items[i].DisplayNames[OrderBy], Pivot) < 0 Do
+        Inc(i);
+       While AnsiCompareText(Items[j].DisplayNames[OrderBy], Pivot) > 0 Do
+        Dec(j);
+       If i <= j Then
+        Begin
+         If i <> j Then
+          Begin
+           List.Exchange(i, j);
+           InvalidateLookupTables;
+          End;
+         If p = i Then
+          p := j
+         Else If p = j Then
+          p := i;
+         Inc(i);
+         Dec(j);
+        End;
+      Until i > j;
+      If l < j Then
+       QuickSort(l, j);
+      l := i;
+     Until i >= r;
+    End;
 
-begin
-  if (OrderBy <> crnNone) and (Count > 1) then
-  begin
-    Changing;
-    try
+  Begin
+   If (OrderBy <> crnNone) And (Count > 1) Then
+    Begin
+     Changing;
+     Try
       QuickSort(0, Count - 1);
-    finally
+     Finally
       Change;
-    end;
-  end;
-end;
+     End;
+    End;
+  End;
 
-procedure TCurrencyList.Assign(Source: TPersistent);
-begin
-  if Source is TReadonlyCurrencyList then
+ Procedure TCurrencyList.Assign(Source : TPersistent);
+  Begin
+   If Source Is TReadonlyCurrencyList Then
     Apply(TReadonlyCurrencyList(Source), laCopy)
-  else
-    inherited Assign(Source);
-end;
+   Else
+    Inherited Assign(Source);
+  End;
 
-procedure TCurrencyList.Apply(ListA: TReadonlyCurrencyList;
-  Op: TListAssignOp; ListB: TReadonlyCurrencyList);
-begin
-  Changing;
-  try
-    if Assigned(ListB) then
-      List.Assign(ListA.List, Op, ListB.List)
-    else
-      List.Assign(ListA.List, Op, nil);
+ Procedure TCurrencyList.Apply(ListA : TReadonlyCurrencyList; Op : TListAssignOp; ListB : TReadonlyCurrencyList);
+  Begin
+   Changing;
+   Try
+    If Assigned(ListB) Then
+     List.Assign(ListA.List, Op, ListB.List)
+    Else
+     List.Assign(ListA.List, Op, Nil);
     InvalidateLookupTables;
-  finally
+   Finally
     Change;
-  end;
-end;
+   End;
+  End;
 
-function TCurrencyList.Add(Currency: TCurrencyInfo): Integer;
-begin
-  if Assigned(Currency) then
-  begin
-    if Duplicates <> dupAccept then
-    begin
-      Result := IndexOf(Currency);
-      if Result >= 0 then
-      begin
-        if Duplicates = dupError then
-          raise EListError.CreateResFmt(@SDuplicateItemError, [Result]);
-        Exit;
-      end;
-    end;
-    Changing;
-    try
+ Function TCurrencyList.Add(Currency : TCurrencyInfo) : Integer;
+  Begin
+   If Assigned(Currency) Then
+    Begin
+     If Duplicates <> dupAccept Then
+      Begin
+       Result := IndexOf(Currency);
+       If Result >= 0 Then
+        Begin
+         If Duplicates = dupError Then
+          Raise EListError.CreateResFmt(@SDuplicateItemError, [Result]);
+         Exit;
+        End;
+      End;
+     Changing;
+     Try
       Result := List.Add(Currency);
       AddLookupEntries(Currency, Result);
-    finally
+     Finally
       Change;
-    end;
-  end
-  else
+     End;
+    End
+   Else
     Result := -1;
-end;
+  End;
 
-function TCurrencyList.Add(const IntlSymbol: String): Integer;
-begin
-  Result := Add(World.Currencies.Find(IntlSymbol));
-end;
+ Function TCurrencyList.Add(Const IntlSymbol : String) : Integer;
+  Begin
+   Result := Add(World.Currencies.Find(IntlSymbol));
+  End;
 
-function TCurrencyList.Remove(Currency: TCurrencyInfo): Integer;
-begin
-  Result := IndexOf(Currency);
-  if Result >= 0 then
+ Function TCurrencyList.Remove(Currency : TCurrencyInfo) : Integer;
+  Begin
+   Result := IndexOf(Currency);
+   If Result >= 0 Then
     Delete(Result);
-end;
+  End;
 
-function TCurrencyList.Remove(const IntlSymbol: String): Integer;
-begin
-  Result := IndexOf(IntlSymbol);
-  if Result >= 0 then
+ Function TCurrencyList.Remove(Const IntlSymbol : String) : Integer;
+  Begin
+   Result := IndexOf(IntlSymbol);
+   If Result >= 0 Then
     Delete(Result);
-end;
+  End;
 
-procedure TCurrencyList.Delete(Index: Integer);
-begin
-  Changing;
-  try
+ Procedure TCurrencyList.Delete(Index : Integer);
+  Begin
+   Changing;
+   Try
     RemoveLookupEntries(Items[Index]);
     List.Delete(Index);
-  finally
+   Finally
     Change;
-  end;
-end;
+   End;
+  End;
 
 { World }
 
-function LocaleEnumCallbackEx(lpLocaleString: PChar; dwFlags: DWORD;
-  lParam: LPARAM): Integer; stdcall;
-begin
-  World.CultureList.Add(TCultureInfo.Create(lpLocaleString));
-  Result := 1;
-end;
+ Function LocaleEnumCallbackEx(lpLocaleString : PChar; dwFlags : DWORD; lParam : lParam) : Integer; Stdcall;
+  Begin
+   World.CultureList.Add(TCultureInfo.Create(lpLocaleString));
+   Result := 1;
+  End;
 
-function LocaleEnumCallback(lpLocaleString: PChar): Integer; stdcall;
-var
-  LocaleID: LCID;
-begin
-  LocaleID := StrToIntDef('$' + String(lpLocaleString), 0);
-  if LocaleID <> 0 then
+ Function LocaleEnumCallback(lpLocaleString : PChar) : Integer; Stdcall;
+  Var
+   LocaleID : LCID;
+  Begin
+   LocaleID := StrToIntDef('$' + String(lpLocaleString), 0);
+   If LocaleID <> 0 Then
     World.CultureList.Add(TCultureInfo.Create(LocaleID));
-  Result := 1;
-end;
+   Result := 1;
+  End;
 
-function GeoEnumCallBack(GeoID: GEOID): Integer; stdcall;
-begin
-  if not World.TerritoryList.Exists(GeoID) then
-  begin
-    {$IFDEF EXCLUDE_TERRITORIES_WITH_X_CODE}
-    if Pos('X', GetGeoStr(GeoID, GEO_ISO3, 'X')) <> 1 then
-    {$ENDIF}
-    World.TerritoryList.Add(TTerritoryInfo.Create(GeoID));
-  end;
-  Result := 1;
-end;
+ Function GeoEnumCallBack(GEOID : GEOID) : Integer; Stdcall;
+  Begin
+   If Not World.TerritoryList.Exists(GEOID) Then
+    Begin
+     {$IFDEF EXCLUDE_TERRITORIES_WITH_X_CODE}
+     If Pos('X', GetGeoStr(GEOID, GEO_ISO3, 'X')) <> 1 Then
+     {$ENDIF}
+      World.TerritoryList.Add(TTerritoryInfo.Create(GEOID));
+    End;
+   Result := 1;
+  End;
 
-class procedure World.Startup;
-begin
-  CultureList := TCultureList.Create;
-  TerritoryList := TTerritoryList.Create;
-  CurrencyList := TCurrencyList.Create;
-  CultureList.Capacity := 300;
-  TerritoryList.Capacity := 300;
-  CurrencyList.Capacity := 300;
-  Changing := True;
-  try
-    EnumSystemLocales(@LocaleEnumCallback, LCID_SUPPORTED);
-    {$IFNDEF EXCLUDE_TERRITORIES_WITH_NO_CULTURE_INFO}
-    EnumSystemGeoID(GEOCLASS_NATION, 0, @GeoEnumCallBack);
-    {$ENDIF}
-  finally
-    Changing := False;
-  end;
-  CultureList.List.Capacity := CultureList.Count;
-  TerritoryList.List.Capacity := TerritoryList.Count;
-  CurrencyList.List.Capacity := CurrencyList.Count;
-end;
+  Class Procedure World.Startup;
 
-class procedure World.Cleanup;
-var
-  I: Integer;
-begin
-  Changing := True;
-  try
-    if Assigned(CultureList) then
-    begin
-      for I := 0 to CultureList.Count - 1 do
-        CultureList[I].Free;
-      FreeAndNil(CultureList);
-    end;
-    if Assigned(TerritoryList) then
-    begin
-      for I := 0 to TerritoryList.Count - 1 do
-        TerritoryList[I].Free;
-      FreeAndNil(TerritoryList);
-    end;
-    if Assigned(CurrencyList) then
-    begin
-      for I := 0 to CurrencyList.Count - 1 do
-        CurrencyList[I].Free;
-      FreeAndNil(CurrencyList);
-    end;
-  finally
-    Changing := False;
-  end;
-end;
+Begin
+ CultureList            := TCultureList.Create;
+ TerritoryList          := TTerritoryList.Create;
+ CurrencyList           := TCurrencyList.Create;
+ CultureList.Capacity   := 300;
+ TerritoryList.Capacity := 300;
+ CurrencyList.Capacity  := 300;
+ Changing               := True;
+ Try
+  EnumSystemLocales(@LocaleEnumCallback, LCID_SUPPORTED);
+  {$IFNDEF EXCLUDE_TERRITORIES_WITH_NO_CULTURE_INFO}
+  EnumSystemGeoID(GEOCLASS_NATION, 0, @GeoEnumCallBack);
+  {$ENDIF}
+ Finally
+  Changing := False;
+ End;
+ CultureList.List.Capacity   := CultureList.Count;
+ TerritoryList.List.Capacity := TerritoryList.Count;
+ CurrencyList.List.Capacity  := CurrencyList.Count;
 
-class function World.Cultures: TReadonlyCultureList;
-begin
-  if not Assigned(CultureList) then
-    Startup;
-  Result := CultureList;
-end;
+End;
 
-class function World.Territories: TReadonlyTerritoryList;
-begin
-  if not Assigned(TerritoryList) then
-    Startup;
-  Result := TerritoryList;
-end;
+  Class Procedure World.Cleanup;
 
-class function World.Currencies: TReadonlyCurrencyList;
-begin
-  if not Assigned(CultureList) then
-    Startup;
-  Result := CurrencyList;
-end;
+ Var
+  i : Integer;
 
-initialization
+Begin
+ Changing := True;
+ Try
+  If Assigned(CultureList) Then
+   Begin
+    For i := 0 To CultureList.Count - 1 Do
+     CultureList[i].Free;
+    FreeAndNil(CultureList);
+   End;
+  If Assigned(TerritoryList) Then
+   Begin
+    For i := 0 To TerritoryList.Count - 1 Do
+     TerritoryList[i].Free;
+    FreeAndNil(TerritoryList);
+   End;
+  If Assigned(CurrencyList) Then
+   Begin
+    For i := 0 To CurrencyList.Count - 1 Do
+     CurrencyList[i].Free;
+    FreeAndNil(CurrencyList);
+   End;
+ Finally
+  Changing := False;
+ End;
 
-finalization
-  if Assigned(TheDefaultCalendar) then
-    FreeAndNil(TheDefaultCalendar);
-  World.Cleanup;
-end.
+End;
 
+  Class Function World.Cultures : TReadonlyCultureList;
 
+Begin
+ If Not Assigned(CultureList) Then
+  Startup;
+ Result := CultureList;
+
+End;
+
+  Class Function World.Territories : TReadonlyTerritoryList;
+
+Begin
+ If Not Assigned(TerritoryList) Then
+  Startup;
+ Result := TerritoryList;
+
+End;
+
+  Class Function World.Currencies : TReadonlyCurrencyList;
+
+Begin
+ If Not Assigned(CultureList) Then
+  Startup;
+ Result := CurrencyList;
+
+End;
+
+Initialization
+
+Finalization
+ If Assigned(TheDefaultCalendar) Then
+  FreeAndNil(TheDefaultCalendar);
+ World.Cleanup;
+
+End.

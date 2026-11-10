@@ -18,10 +18,10 @@ Implementation
 
  Procedure UpgradeLegacy(DB : TFDConnection; Const Path : String; Existing : Boolean; DriverLink : TFDPhysSQLiteDriverLink);
   Const
-   BitNames : Array [0 .. 12] Of String = ('bleed_air_engine', 'eng_anti_ice', 'eng_combustion', 'eng_failed', 'eng_on_fire', 'general_eng_fire_detected', 'general_eng_fuel_valve', 'general_eng_generator_active', 'general_eng_generator_switch', 'general_eng_starter', 'general_eng_starter_active', 'turb_eng_fuel_available', 'turb_eng_is_igniting');
-   Groups : Array [0 .. 12] Of Integer  = (2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3);
-   Bits : Array [0 .. 12] Of Integer    = (13, 15, 17, 19, 21, 23, 25, 27, 29, 1, 3, 6, 8);
-   Tables : Array [0 .. 4] Of String    = ('trip_data', 'trip_events', 'trip_liftoffs', 'trip_touchdowns', 'trips');
+   BitNames : Array [0..12] Of String = ('bleed_air_engine', 'eng_anti_ice', 'eng_combustion', 'eng_failed', 'eng_on_fire', 'general_eng_fire_detected', 'general_eng_fuel_valve', 'general_eng_generator_active', 'general_eng_generator_switch', 'general_eng_starter', 'general_eng_starter_active', 'turb_eng_fuel_available', 'turb_eng_is_igniting');
+   Groups : Array [0..12] Of Integer = (2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3);
+   Bits : Array [0..12] Of Integer = (13, 15, 17, 19, 21, 23, 25, 27, 29, 1, 3, 6, 8);
+   Tables : Array [0..4] Of String = ('trip_data', 'trip_events', 'trip_liftoffs', 'trip_touchdowns', 'trips');
   Var
    Info          : TFDQuery;
    Rows          : TFDQuery;
@@ -40,8 +40,8 @@ Implementation
    Name          : String;
    Column        : String;
    BlobName      : String;
-   G             : TGUID;
-   F             : TField;
+   g             : TGUID;
+   f             : TField;
    Blob          : TBytes;
    Value         : Single;
    Present       : Boolean;
@@ -77,12 +77,12 @@ Implementation
     Version := DB.ExecSQLScalar('pragma user_version');
     If Existing And ((PK = 0) Or (Version < 1)) Then
      Begin
-      CreateGUID(G);
+      CreateGUID(g);
       Backup := TFDSQLiteBackup.Create(Nil);
       Try
        Backup.DriverLink   := DriverLink;
        Backup.Database     := Path;
-       Backup.DestDatabase := Path + '.before-native-' + Copy(GUIDToString(G), 2, 36) + '.db';
+       Backup.DestDatabase := Path + '.before-native-' + Copy(GUIDToString(g), 2, 36) + '.db';
        Backup.DestMode     := smCreate;
        Backup.Backup;
       Finally
@@ -107,13 +107,13 @@ Implementation
        While Not Rows.Eof Do
         Begin
          Count := 0;
-         F     := Rows.FindField('number_of_engines');
-         If Assigned(F) Then
-          Count     := EnsureRange(F.AsInteger, 0, 4);
+         f     := Rows.FindField('number_of_engines');
+         If Assigned(f) Then
+          Count     := EnsureRange(f.AsInteger, 0, 4);
          EngineType := 0;
-         F          := Rows.FindField('engine_type');
-         If Assigned(F) Then
-          EngineType := F.AsInteger;
+         f          := Rows.FindField('engine_type');
+         If Assigned(f) Then
+          EngineType := f.AsInteger;
          For e       := 1 To Count Do
           Begin
            Insert.ParamByName('sample').AsLargeInt := Rows.FieldByName('native_sample').AsLargeInt;
@@ -124,20 +124,20 @@ Implementation
              Insert.ParamByName('v' + IntToStr(i)).DataType := ftFloat;
              Insert.ParamByName('v' + IntToStr(i)).Clear;
              Column  := EngineColumns[i].Name;
-             F       := Rows.FindField(Column + '_' + IntToStr(e));
-             Present := Assigned(F) And Not F.IsNull;
+             f       := Rows.FindField(Column + '_' + IntToStr(e));
+             Present := Assigned(f) And Not f.IsNull;
              If Present Then
-              Insert.ParamByName('v' + IntToStr(i)).AsFloat := F.AsFloat
+              Insert.ParamByName('v' + IntToStr(i)).AsFloat := f.AsFloat
              Else
               Begin
                If e <= 2 Then
                 For j := 0 To High(BitNames) Do
                  If Column = BitNames[j] Then
                   Begin
-                   F := Rows.FindField('bool_group_' + IntToStr(Groups[j]));
-                   If Assigned(F) And Not F.IsNull Then
+                   f := Rows.FindField('bool_group_' + IntToStr(Groups[j]));
+                   If Assigned(f) And Not f.IsNull Then
                     Begin
-                     Insert.ParamByName('v' + IntToStr(i)).AsInteger := Ord((Cardinal(F.AsLargeInt) And (Cardinal(1) Shl (Bits[j] + e - 1))) <> 0);
+                     Insert.ParamByName('v' + IntToStr(i)).AsInteger := Ord((Cardinal(f.AsLargeInt) And (Cardinal(1) Shl (Bits[j] + e - 1))) <> 0);
                      Present                                         := True;
                     End;
                   End;
@@ -168,10 +168,10 @@ Implementation
                  End;
                  If BlobName <> '' Then
                   Begin
-                   F := Rows.FindField(BlobName);
-                   If Assigned(F) Then
+                   f := Rows.FindField(BlobName);
+                   If Assigned(f) Then
                     Begin
-                     Blob := F.AsBytes;
+                     Blob := f.AsBytes;
                      If Length(Blob) >= e * 4 Then
                       Begin
                        Move(Blob[(e - 1) * 4], Value, 4);

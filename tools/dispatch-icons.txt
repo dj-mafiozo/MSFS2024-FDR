@@ -1,0 +1,8 @@
+﻿view-fullscreen.png
+view-restore.png
+document-open.png
+document-properties.png
+edit-paste.png
+document-open-recent.png
+emblem-web.png
+appointment-missed.png

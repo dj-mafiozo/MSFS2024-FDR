@@ -1,11 +1,11 @@
-﻿# GSX Pro — rejestrowane dane SDK
+# GSX Pro — rejestrowane dane SDK
 
 [Tłumaczenia interfejsu](../../Translation.pl.md)
 
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 
-Niezależny od samolotu czytnik `telemetry/GSXVarsU.pas` odczytuje 16 numerycznych L-varów przez SimConnect MSFS24. Każde pole ma osobną definicję i żądanie, dzięki czemu błąd pojedynczej zmiennej nie blokuje pozostałych. Nie jest potrzebny osobny moduł WASM. Czytnik nie wysyła komend i niczego nie zapisuje do GSX.
+Niezależny od samolotu czytnik `telemetry/GSXVarsU.pas` odczytuje 20 numerycznych L-varów przez SimConnect MSFS24. Każde pole ma osobną definicję i żądanie, dzięki czemu błąd pojedynczej zmiennej nie blokuje pozostałych. Nie jest potrzebny osobny moduł WASM. Czytnik nie wysyła komend i niczego nie zapisuje do GSX.
 
 | Parametry | Znaczenie |
 |---|---|
@@ -29,4 +29,8 @@ Zakres jest pierwszym zestawem usług, nie pełnym katalogiem wszystkich L-varó
 
 Testy korzystają z atrapy SimConnect. Nie wykonano weryfikacji odczytu podczas rzeczywistego działania GSX Pro.
 
-Weryfikacja katalogu: oficjalny PDF (291 stron), strony 106–108. Wszystkie 16 nazw znaleziono w tekście podręcznika. SHA-256 PDF: `ee4ae760168e7045d3598905d3e1b4a3ccb56337fdb50586e7456c3dc4feafc1`. Bieżąca dokumentacja podaje `FSDT_GSX_DEICE_STATE` (nie starszą nazwę `DEICING_STATE`).
+Weryfikacja katalogu: oficjalny PDF (291 stron), strony 106–108. Wszystkie 20 nazw znaleziono w tekście podręcznika. SHA-256 PDF: `ee4ae760168e7045d3598905d3e1b4a3ccb56337fdb50586e7456c3dc4feafc1`. Bieżąca dokumentacja podaje `FSDT_GSX_DEICE_STATE` (nie starszą nazwę `DEICING_STATE`).
+
+Prezentacja: tłumaczone etapy usług i postęp pasażerów używają liczników _TOTAL (łącznie przez wszystkie autobusy) oraz osobno FSDT_GSX_NUMPASSENGERS jako wartości docelowej. Bagaż jest pokazywany jako procent; SDK nie podaje tu liczby sztuk. W starszych nagraniach brak celu pozostaje nieznany.
+
+Paski na zakładce pojawiają się od Requested (4), pozostają podczas aktywnej usługi (5) i po zakończeniu (6), a znikają przy innych lub brakujących stanach. Licznik FUEL_COUNTER / FUEL_COUNTER_MAX opisuje bieżącą cysternę, nie cel całego tankowania; może wrócić do zera przy kolejnej cysternie. Brak wiarygodnego licznika oznacza pasek nieokreślony. Dodatkowo zapisywane jest FUELHOSE_CONNECTED. Źródło: ten sam oficjalny podręcznik GSX, strona 108.

@@ -1,0 +1,13 @@
+﻿# Recorded PFD minima
+
+Confirmed transport follows official FBW [PFDSimvarPublisher.tsx](https://github.com/flybywiresim/aircraft/blob/master/fbw-a32nx/src/systems/instruments/src/PFD/PFDSimvarPublisher.tsx), [FMA.tsx](https://github.com/flybywiresim/aircraft/blob/master/fbw-a32nx/src/systems/instruments/src/PFD/FMA.tsx) and [AltitudeIndicator.tsx](https://github.com/flybywiresim/aircraft/blob/master/fbw-a32nx/src/systems/instruments/src/PFD/AltitudeIndicator.tsx), accessed 2026-10-25. Copyright FlyByWire Simulations, GPL-3.0.
+
+Capture appends FM1/FM2 MINIMUM_DESCENT_ALTITUDE, DECISION_HEIGHT and EIS_DISCRETE_WORD_2. These are encoded ARINC values, not plain feet: invalid/no-computed/failure SSM is unavailable. EIS word 2 bit 29 selects NO DH. Otherwise valid RADIO takes precedence over BARO; zero DH is valid. No default 200 ft is synthesized. Captain FM1 is used when its channels exist; FM2 is used only if FM1 channels are absent, not to override an explicitly invalid FM1.
+
+The PFD displays the selected BARO/RADIO/NO DH. A BARO marker uses indicated altitude in feet. At user request a RADIO marker is also projected onto the altitude tape from the current recorded RA difference; it represents a relative radio-height threshold, never a fixed MSL altitude or runway elevation. Without valid nonnegative RA it is hidden. Markers are hidden outside the visible span, cyan above minimum and amber at/below it, and avoid drawing across the altitude number. This is a replay overlay, not a claim of pixel-exact OEM RADIO symbology. Geometry stays in raw feet; numeric text follows display-unit settings. There is no audio callout or synthesized crossing history.
+
+The inspected iFly SDK exposes BARO_RADIO_Status and Minimiums_Selector_Status, but no selected numeric minimum value. The inspected Fenix cockpit LVar catalog likewise has no confirmed numeric minima output. Microsoft documents DECISION HEIGHT as a design value with a possible default 200 ft; it is not evidence of the pilot-selected value. Consequently no minimum is invented for B38M/Fenix or missing historical FBW data. See [Microsoft flight model variables](https://docs.flightsimulator.com/msfs2024/retail/programming-apis/simvars/aircraft-simvars/aircraft-flight-model-variables/).
+
+MAX information panel side is independent of visibility. CPT keeps PFD left/information right; FO moves the information block left and the unchanged PFD right. This rearranges layout only: it does not mirror text or change the recorded captain avionics source. The setting survives restart and applies to docked/detached views.
+
+VerifyPFDMinima and renderer snapshots are synthetic. No live simulator or exact cockpit minimum comparison was available.

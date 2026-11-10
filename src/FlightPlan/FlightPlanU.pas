@@ -6,29 +6,58 @@ Interface
  Uses
   LocalizationU, System.SysUtils, System.Classes, System.Math, System.Variants,
   System.JSON, System.Generics.Collections, Xml.XMLDoc, Xml.XMLIntf, Winapi.Windows,
-  Winapi.ActiveX;
+  Winapi.ActiveX, System.StrUtils;
 
  Type
   TPlanPoint = Record
-   Public
-    Ident       : String;
-    Lat         : Double;
-    Lon         : Double;
-    BreakBefore : Boolean;
+   Ident               : String;
+   ProcedureName       : String;
+   ConstraintText      : String;
+   LegType             : String;
+   MissedApproach      : Boolean;
+   Course              : Double;
+   RouteDistance       : Double;
+   ArcLat              : Double;
+   ArcLon              : Double;
+   Altitude1           : Double;
+   Altitude2           : Double;
+   SpeedLimit          : Double;
+   TurnDirection       : Integer;
+   AltitudeDescription : Integer;
+   TrueCourse          : Boolean;
+   DistanceMinute      : Boolean;
+   Lat                 : Double;
+   Lon                 : Double;
+   BreakBefore         : Boolean;
   End;
 
   TFlightPlan = Class
-   Public
-    Source  : String;
-    Path    : String;
-    Format  : String;
-    Raw     : String;
-    Summary : String;
-    Points  : TList<TPlanPoint>;
-    Constructor Create;
-    Destructor Destroy; Override;
+   DepartureICAO      : String;
+   DestinationICAO    : String;
+   SID                : String;
+   STAR               : String;
+   SIDTransition      : String;
+   STARTransition     : String;
+   DepartureRunway    : String;
+   DestinationRunway  : String;
+   ApproachType       : String;
+   ApproachRunway     : String;
+   ApproachSuffix     : String;
+   ApproachTransition : String;
+   ProcedureData      : String;
+   BasePoints         : TArray<TPlanPoint>;
+   BasePointsCaptured : Boolean;
+   Source             : String;
+   Path               : String;
+   Format             : String;
+   Raw                : String;
+   Summary            : String;
+   Points             : TList<TPlanPoint>;
+   Constructor Create;
+   Destructor Destroy; Override;
   End;
 
+ Procedure ResolvePlanNames(Plan : TFlightPlan; Const SimBriefJSON : String);
  Function ParsePLN(Const Raw, Path : String) : TFlightPlan;
  Function ParseEFBRoute(Const Raw : String) : TFlightPlan;
 
@@ -46,96 +75,96 @@ Implementation
    Inherited;
   End;
 
- Function Child(N : IXMLNode; Const Name : String) : IXMLNode;
+ Function Child(n : IXMLNode; Const Name : String) : IXMLNode;
   Begin
    Result := Nil;
-   If Assigned(N) Then
-    Result := N.ChildNodes.FindNode(Name);
+   If Assigned(n) Then
+    Result := n.ChildNodes.FindNode(Name);
   End;
 
- Function Value(N : IXMLNode; Const Name : String) : String;
+ Function Value(n : IXMLNode; Const Name : String) : String;
   Begin
-   N      := Child(N, Name);
+   n      := Child(n, Name);
    Result := '';
-   If Assigned(N) Then
-    Result := N.Text;
+   If Assigned(n) Then
+    Result := n.Text;
   End;
 
- Procedure Append(Var S : String; Const V : String);
+ Procedure Append(Var s : String; Const v : String);
   Begin
-   If V <> '' Then
+   If v <> '' Then
     Begin
-     If S <> '' Then
-      S := S + ' ';
-     S  := S + V;
+     If s <> '' Then
+      s := s + ' ';
+     s  := s + v;
     End;
   End;
 
- Function Runway(N : IXMLNode) : String;
+ Function Runway(n : IXMLNode) : String;
   Var
-   V : String;
-   I : Integer;
+   v : String;
+   i : Integer;
   Begin
-   V := Value(N, 'RunwayNumberFP');
-   If TryStrToInt(V, I) Then
-    V     := System.SysUtils.Format('%.2d', [I]);
-   Result := V + Value(N, 'RunwayDesignatorFP');
+   v := Value(n, 'RunwayNumberFP');
+   If TryStrToInt(v, i) Then
+    v     := System.SysUtils.Format('%.2d', [i]);
+   Result := v + Value(n, 'RunwayDesignatorFP');
   End;
 
- Function Coordinate(Const S : String; Latitude : Boolean; Out V : Double) : Boolean;
+ Function Coordinate(Const s : String; Latitude : Boolean; Out v : Double) : Boolean;
   Var
-   T     : String;
+   t     : String;
    Parts : TArray<String>;
-   D     : Double;
-   M     : Double;
+   d     : Double;
+   m     : Double;
    Sec   : Double;
    FS    : TFormatSettings;
    Neg   : Boolean;
   Begin
    Result := False;
-   T      := Trim(S);
-   If T = '' Then
+   t      := Trim(s);
+   If t = '' Then
     Exit;
    FS                  := TFormatSettings.Create;
    FS.DecimalSeparator := '.';
-   Neg                 := CharInSet(UpCase(T[1]), ['S', 'W']);
-   If CharInSet(UpCase(T[1]), ['N', 'S', 'E', 'W']) Then
-    Delete(T, 1, 1);
-   T     := T.Replace(#$00B0, ' ').Replace('''', ' ').Replace('"', ' ');
-   Parts := T.Split([' '], TStringSplitOptions.ExcludeEmpty);
+   Neg                 := CharInSet(UpCase(t[1]), ['S', 'W']);
+   If CharInSet(UpCase(t[1]), ['N', 'S', 'E', 'W']) Then
+    Delete(t, 1, 1);
+   t     := t.Replace(#$00B0, ' ').Replace('''', ' ').Replace('"', ' ');
+   Parts := t.Split([' '], TStringSplitOptions.ExcludeEmpty);
    If Length(Parts) = 1 Then
     Begin
-     If Not TryStrToFloat(Parts[0], V, FS) Then
+     If Not TryStrToFloat(Parts[0], v, FS) Then
       Exit;
     End
    Else
     Begin
-     If (Length(Parts) <> 3) Or Not TryStrToFloat(Parts[0], D, FS) Or Not TryStrToFloat(Parts[1], M, FS) Or Not TryStrToFloat(Parts[2], Sec, FS) Then
+     If (Length(Parts) <> 3) Or Not TryStrToFloat(Parts[0], d, FS) Or Not TryStrToFloat(Parts[1], m, FS) Or Not TryStrToFloat(Parts[2], Sec, FS) Then
       Exit;
-     If (M < 0) Or (M >= 60) Or (Sec < 0) Or (Sec >= 60) Then
+     If (m < 0) Or (m >= 60) Or (Sec < 0) Or (Sec >= 60) Then
       Exit;
-     V := D + M / 60 + Sec / 3600;
+     v := d + m / 60 + Sec / 3600;
     End;
    If Neg Then
-    V     := -V;
-   Result := Not IsNan(V) And Not IsInfinite(V) And (Abs(V) <= 180);
+    v     := -v;
+   Result := Not IsNan(v) And Not IsInfinite(v) And (Abs(v) <= 180);
    If Latitude Then
-    Result := Result And (Abs(V) <= 90);
+    Result := Result And (Abs(v) <= 90);
   End;
 
  Function ParsePLN(Const Raw, Path : String) : TFlightPlan;
   Var
    Doc       : IXMLDocument;
-   N         : IXMLNode;
-   W         : IXMLNode;
-   D         : IXMLNode;
-   A         : IXMLNode;
-   P         : IXMLNode;
-   I         : Integer;
-   R         : String;
+   n         : IXMLNode;
+   w         : IXMLNode;
+   d         : IXMLNode;
+   a         : IXMLNode;
+   p         : IXMLNode;
+   i         : Integer;
+   r         : String;
    Dep       : String;
    Dest      : String;
-   C         : TArray<String>;
+   c         : TArray<String>;
    Point     : TPlanPoint;
    Gap       : Boolean;
    Apartment : HRESULT;
@@ -146,8 +175,8 @@ Implementation
     If (Pos('<!DOCTYPE', UpperCase(Raw)) > 0) Or (Pos('<!ENTITY', UpperCase(Raw)) > 0) Then
      Raise Exception.Create(Tr('Unsupported XML declaration'));
     Doc := LoadXMLData(Raw);
-    N   := Child(Doc.DocumentElement, 'FlightPlan.FlightPlan');
-    If Not Assigned(N) Then
+    n   := Child(Doc.DocumentElement, 'FlightPlan.FlightPlan');
+    If Not Assigned(n) Then
      Raise Exception.Create(Tr('Missing FlightPlan.FlightPlan'));
     Result := TFlightPlan.Create;
     Try
@@ -155,36 +184,78 @@ Implementation
      Result.Path   := Path;
      Result.Format := 'PLN';
      Result.Raw    := Raw;
-     D             := Child(N, 'DepartureDetails');
-     A             := Child(N, 'ArrivalDetails');
-     P             := Child(N, 'ApproachDetails');
-     Dep           := Value(N, 'DepartureID');
-     Dest          := Value(N, 'DestinationID');
+     d             := Child(n, 'DepartureDetails');
+     a             := Child(n, 'ArrivalDetails');
+     p             := Child(n, 'ApproachDetails');
+     Dep           := Value(n, 'DepartureID');
+     Dest          := Value(n, 'DestinationID');
      If (Dep = '') And (Dest = '') Then
       Raise Exception.Create(Tr('Flight plan has no airports'));
-     R := Dep;
-     If Runway(D) <> '' Then
-      R := R + '.' + Runway(D);
-     Append(R, Value(D, 'DepartureFP'));
-     Append(R, Value(A, 'ArrivalFP'));
-     Append(R, Value(P, 'TransitionFP'));
-     If Value(P, 'ApproachTypeFP') <> '' Then
-      Append(R, Value(P, 'ApproachTypeFP') + Value(P, 'SuffixFP') + '.' + Runway(P));
-     If Runway(A) <> '' Then
-      Dest := Dest + '.' + Runway(A);
-     Append(R, Dest);
-     Result.Summary := R;
+     Result.DepartureICAO      := UpperCase(Trim(Dep));
+     Result.DestinationICAO    := UpperCase(Trim(Dest));
+     Result.SID                := Value(d, 'DepartureFP');
+     Result.STAR               := Value(a, 'ArrivalFP');
+     Result.SIDTransition      := Value(d, 'TransitionFP');
+     Result.STARTransition     := Value(a, 'TransitionFP');
+     Result.DepartureRunway    := Runway(d);
+     Result.DestinationRunway  := Runway(a);
+     Result.ApproachType       := Value(p, 'ApproachTypeFP');
+     Result.ApproachSuffix     := Value(p, 'SuffixFP');
+     Result.ApproachRunway     := Runway(p);
+     Result.ApproachTransition := Value(p, 'TransitionFP');
+     r                         := Dep;
+     If Runway(d) <> '' Then
+      r := r + '.' + Runway(d);
+     Append(r, Value(d, 'DepartureFP'));
+     Append(r, Value(a, 'ArrivalFP'));
+     Append(r, Value(p, 'TransitionFP'));
+     If Value(p, 'ApproachTypeFP') <> '' Then
+      Append(r, Value(p, 'ApproachTypeFP') + Value(p, 'SuffixFP') + '.' + Runway(p));
+     If Runway(a) <> '' Then
+      Dest := Dest + '.' + Runway(a);
+     Append(r, Dest);
+     Result.Summary := r;
      Gap            := False;
-     For I          := 0 To N.ChildNodes.Count - 1 Do
+     For i          := 0 To n.ChildNodes.Count - 1 Do
       Begin
-       W := N.ChildNodes[I];
-       If W.NodeName <> 'ATCWaypoint' Then
+       w := n.ChildNodes[i];
+       If w.NodeName <> 'ATCWaypoint' Then
         Continue;
-       C                 := Value(W, 'WorldPosition').Split([',']);
-       Point             := Default (TPlanPoint);
-       Point.Ident       := VarToStr(W.Attributes['id']);
-       Point.BreakBefore := Gap;
-       If (Length(C) >= 2) And Coordinate(C[0], True, Point.Lat) And Coordinate(C[1], False, Point.Lon) Then
+       c           := Value(w, 'WorldPosition').Split([',']);
+       Point       := Default(TPlanPoint);
+       Point.Ident := VarToStr(w.Attributes['id']);
+       If Result.SID = '' Then
+        Result.SID := Value(w, 'DepartureFP');
+       If Result.STAR = '' Then
+        Result.STAR := Value(w, 'ArrivalFP');
+       If Result.ApproachType = '' Then
+        Result.ApproachType := Value(w, 'ApproachTypeFP');
+       If (Result.DepartureRunway = '') And (Value(w, 'DepartureFP') <> '') Then
+        Result.DepartureRunway := Runway(w);
+       If (Result.DestinationRunway = '') And (Value(w, 'ArrivalFP') <> '') Then
+        Result.DestinationRunway := Runway(w);
+       If (Result.ApproachRunway = '') And (Value(w, 'ApproachTypeFP') <> '') Then
+        Begin
+         Result.ApproachRunway := Runway(w);
+         Result.ApproachSuffix := Value(w, 'SuffixFP');
+        End;
+
+       Point.ProcedureName := Value(w, 'DepartureFP');
+       If Point.ProcedureName = '' Then
+        Point.ProcedureName := Value(w, 'ArrivalFP');
+       If Point.ProcedureName = '' Then
+        Point.ProcedureName := Value(w, 'ApproachTypeFP');
+       // Retain explicit constraints; WorldPosition altitude is not a restriction.
+       Case IndexText(Value(w, 'AltDescFP'), ['ALT_DESC_AT_OR_BELOW', 'ALT_DESC_AT', 'ALT_DESC_AT_OR_ABOVE', 'ALT_DESC_IN_BETWEEN']) Of
+        0 : Point.ConstraintText := Value(w, 'Alt1FP') + 'B';
+        1 : Point.ConstraintText := Value(w, 'Alt1FP');
+        2 : Point.ConstraintText := Value(w, 'Alt1FP') + 'A';
+        3 : Point.ConstraintText := Value(w, 'Alt1FP') + 'A / ' + Value(w, 'Alt2FP') + 'B';
+       End;
+       If (Value(w, 'SpeedMaxFP') <> '') And (Value(w, 'SpeedMaxFP') <> '-1') Then
+        Point.ConstraintText := Trim(Value(w, 'SpeedMaxFP') + 'KT ' + Point.ConstraintText);
+       Point.BreakBefore     := Gap;
+       If (Length(c) >= 2) And Coordinate(c[0], True, Point.Lat) And Coordinate(c[1], False, Point.Lon) Then
         Begin
          Result.Points.Add(Point);
          Gap := False;
@@ -197,109 +268,121 @@ Implementation
      Raise;
     End;
    Finally
-    N   := Nil;
-    W   := Nil;
-    D   := Nil;
-    A   := Nil;
-    P   := Nil;
+    n   := Nil;
+    w   := Nil;
+    d   := Nil;
+    a   := Nil;
+    p   := Nil;
     Doc := Nil;
     If Apartment >= 0 Then
      CoUninitialize;
    End;
   End;
 
- Function JString(O : TJSONObject; Const Name : String) : String;
+ Function JString(o : TJSONObject; Const Name : String) : String;
   Var
-   V : TJSONValue;
+   v : TJSONValue;
   Begin
    Result := '';
-   If O = Nil Then
+   If o = Nil Then
     Exit;
-   V := O.GetValue(Name);
-   If (V <> Nil) And Not(V Is TJSONNull) Then
-    If V Is TJSONNumber Then
-     Result := V.ToJSON
+   v := o.GetValue(Name);
+   If (v <> Nil) And Not(v Is TJSONNull) Then
+    If v Is TJSONNumber Then
+     Result := v.ToJSON
     Else
-     Result := V.Value;
+     Result := v.Value;
   End;
 
- Function JObject(O : TJSONObject; Const Name : String) : TJSONObject;
+ Function JObject(o : TJSONObject; Const Name : String) : TJSONObject;
   Var
-   V : TJSONValue;
+   v : TJSONValue;
   Begin
    Result := Nil;
-   If O = Nil Then
+   If o = Nil Then
     Exit;
-   V := O.GetValue(Name);
-   If V Is TJSONObject Then
-    Result := TJSONObject(V);
+   v := o.GetValue(Name);
+   If v Is TJSONObject Then
+    Result := TJSONObject(v);
   End;
 
- Function JRunway(O : TJSONObject) : String;
+ Function JRunway(o : TJSONObject) : String;
   Begin
-   Result := JString(O, 'number') + JString(O, 'designator');
+   Result := JString(o, 'number') + JString(o, 'designator');
   End;
 
  Function ParseEFBRoute(Const Raw : String) : TFlightPlan;
   Var
-   V        : TJSONValue;
-   O        : TJSONObject;
-   L        : TJSONObject;
+   v        : TJSONValue;
+   o        : TJSONObject;
+   l        : TJSONObject;
    Approach : TJSONObject;
-   A        : TJSONArray;
+   a        : TJSONArray;
    Item     : TJSONValue;
-   R        : String;
+   r        : String;
    Dep      : String;
    Dest     : String;
    Point    : TPlanPoint;
    Gap      : Boolean;
    FS       : TFormatSettings;
   Begin
-   V := TJSONObject.ParseJSONValue(Raw);
-   If Not(V Is TJSONObject) Then
+   v := TJSONObject.ParseJSONValue(Raw);
+   If Not(v Is TJSONObject) Then
     Begin
-     V.Free;
+     v.Free;
      Raise Exception.Create(Tr('Invalid EFB route JSON'));
     End;
-   O      := TJSONObject(V);
+   o      := TJSONObject(v);
    Result := TFlightPlan.Create;
    Try
     Try
      Result.Source := 'MSFS24 EFB';
      Result.Format := 'EFB JSON';
      Result.Raw    := Raw;
-     Dep           := JString(JObject(O, 'departureAirport'), 'ident');
-     Dest          := JString(JObject(O, 'destinationAirport'), 'ident');
+     Dep           := JString(JObject(o, 'departureAirport'), 'ident');
+     Dest          := JString(JObject(o, 'destinationAirport'), 'ident');
      If (Dep = '') And (Dest = '') Then
       Raise Exception.Create(Tr('EFB route has no airports'));
-     R := Dep;
-     If JRunway(JObject(O, 'departureRunway')) <> '' Then
-      R := R + '.' + JRunway(JObject(O, 'departureRunway'));
-     Append(R, JString(O, 'departure'));
-     Append(R, JString(O, 'departureTransition'));
-     Item                := O.GetValue('enroute');
+     Result.DepartureICAO      := UpperCase(Trim(Dep));
+     Result.DestinationICAO    := UpperCase(Trim(Dest));
+     Result.SID                := JString(o, 'departure');
+     Result.STAR               := JString(o, 'arrival');
+     Result.SIDTransition      := JString(o, 'departureTransition');
+     Result.STARTransition     := JString(o, 'arrivalTransition');
+     Result.DepartureRunway    := JRunway(JObject(o, 'departureRunway'));
+     Result.DestinationRunway  := JRunway(JObject(o, 'destinationRunway'));
+     Result.ApproachType       := JString(JObject(o, 'approach'), 'type');
+     Result.ApproachSuffix     := JString(JObject(o, 'approach'), 'suffix');
+     Result.ApproachRunway     := JRunway(JObject(JObject(o, 'approach'), 'runway'));
+     Result.ApproachTransition := JString(o, 'approachTransition');
+     r                         := Dep;
+     If JRunway(JObject(o, 'departureRunway')) <> '' Then
+      r := r + '.' + JRunway(JObject(o, 'departureRunway'));
+     Append(r, JString(o, 'departure'));
+     Append(r, JString(o, 'departureTransition'));
+     Item                := o.GetValue('enroute');
      Gap                 := True;
      FS                  := TFormatSettings.Create;
      FS.DecimalSeparator := '.';
      If Item Is TJSONArray Then
       Begin
-       A := TJSONArray(Item);
-       For Item In A Do
+       a := TJSONArray(Item);
+       For Item In a Do
         If Item Is TJSONObject Then
          Begin
-          L           := TJSONObject(Item);
-          Point       := Default (TPlanPoint);
-          Point.Ident := JString(JObject(L, 'fixIcao'), 'ident');
+          l           := TJSONObject(Item);
+          Point       := Default(TPlanPoint);
+          Point.Ident := JString(JObject(l, 'fixIcao'), 'ident');
           If Point.Ident <> '' Then
            Begin
-            If JString(L, 'via') = '' Then
-             Append(R, 'DCT')
+            If JString(l, 'via') = '' Then
+             Append(r, 'DCT')
             Else
-             Append(R, JString(L, 'via'));
-            Append(R, Point.Ident);
+             Append(r, JString(l, 'via'));
+            Append(r, Point.Ident);
            End;
           // Do not draw fictitious coordinates for facility references or PPOS.
-          If SameText(JString(L, 'hasLatLon'), 'true') And Not SameText(JString(L, 'isPpos'), 'true') And TryStrToFloat(JString(L, 'lat'), Point.Lat, FS) And TryStrToFloat(JString(L, 'lon'), Point.Lon, FS) And Not IsNan(Point.Lat) And Not IsInfinite(Point.Lat) And Not IsNan(Point.Lon) And Not IsInfinite(Point.Lon) And (Abs(Point.Lat) <= 90) And (Abs(Point.Lon) <= 180) Then
+          If SameText(JString(l, 'hasLatLon'), 'true') And Not SameText(JString(l, 'isPpos'), 'true') And TryStrToFloat(JString(l, 'lat'), Point.Lat, FS) And TryStrToFloat(JString(l, 'lon'), Point.Lon, FS) And Not IsNan(Point.Lat) And Not IsInfinite(Point.Lat) And Not IsNan(Point.Lon) And Not IsInfinite(Point.Lon) And (Abs(Point.Lat) <= 90) And (Abs(Point.Lon) <= 180) Then
            Begin
             Point.BreakBefore := Gap;
             Result.Points.Add(Point);
@@ -309,22 +392,89 @@ Implementation
            Gap := True;
          End;
       End;
-     Append(R, JString(O, 'arrivalTransition'));
-     Append(R, JString(O, 'arrival'));
-     Append(R, JString(O, 'approachTransition'));
-     Approach := JObject(O, 'approach');
+     Append(r, JString(o, 'arrivalTransition'));
+     Append(r, JString(o, 'arrival'));
+     Append(r, JString(o, 'approachTransition'));
+     Approach := JObject(o, 'approach');
      If JString(Approach, 'type') <> '' Then
-      Append(R, JString(Approach, 'type') + JString(Approach, 'suffix') + '.' + JRunway(JObject(Approach, 'runway')));
-     If JRunway(JObject(O, 'destinationRunway')) <> '' Then
-      Dest := Dest + '.' + JRunway(JObject(O, 'destinationRunway'));
-     Append(R, Dest);
-     Result.Summary := R;
+      Append(r, JString(Approach, 'type') + JString(Approach, 'suffix') + '.' + JRunway(JObject(Approach, 'runway')));
+     If JRunway(JObject(o, 'destinationRunway')) <> '' Then
+      Dest := Dest + '.' + JRunway(JObject(o, 'destinationRunway'));
+     Append(r, Dest);
+     Result.Summary := r;
     Except
      Result.Free;
      Raise;
     End;
    Finally
-    V.Free;
+    v.Free;
+   End;
+  End;
+
+ Procedure ResolvePlanNames(Plan : TFlightPlan; Const SimBriefJSON : String);
+  Var
+   Root  : TJSONValue;
+   Nav   : TJSONValue;
+   Fixes : TJSONValue;
+   Fix   : TJSONValue;
+   i     : Integer;
+   j     : Integer;
+   Best  : Integer;
+   p     : TPlanPoint;
+   Lat   : Double;
+   Lon   : Double;
+   d     : Double;
+   BestD : Double;
+   FS    : TFormatSettings;
+   Name  : String;
+  Begin
+   If (Plan = Nil) Or (SimBriefJSON = '') Then
+    Exit;
+   Root := TJSONObject.ParseJSONValue(SimBriefJSON);
+   Try
+    If Not(Root Is TJSONObject) Then
+     Exit;
+    Nav := TJSONObject(Root).GetValue('navlog');
+    If Not(Nav Is TJSONObject) Then
+     Exit;
+    Fixes := TJSONObject(Nav).GetValue('fix');
+    If Not(Fixes Is TJSONArray) Then
+     Exit;
+    FS    := TFormatSettings.Create('en-US');
+    For i := 0 To Plan.Points.Count - 1 Do
+     Begin
+      p := Plan.Points[i];
+      If (Trim(p.Ident) <> '') And Not SameText(p.Ident, 'USER') And Not SameText(p.Ident, 'CUSTOM') And (Pos(',', p.Ident) = 0) And (Pos('/', p.Ident) = 0) Then
+       Continue;
+      Best  := -1;
+      BestD := Sqr(0.5 / 60); // half nautical mile, reject ambiguous matches
+      For j := 0 To TJSONArray(Fixes).Count - 1 Do
+       Begin
+        Fix := TJSONArray(Fixes).Items[j];
+        If Not(Fix Is TJSONObject) Then
+         Continue;
+        If Not TryStrToFloat(JString(TJSONObject(Fix), 'pos_lat'), Lat, FS) Or Not TryStrToFloat(JString(TJSONObject(Fix), 'pos_long'), Lon, FS) Then
+         Continue;
+        d := Sqr(Lat - p.Lat) + Sqr((Lon - p.Lon) * Cos(DegToRad(p.Lat)));
+        If d < BestD Then
+         Begin
+          BestD := d;
+          Best  := j;
+         End;
+       End;
+      If Best >= 0 Then
+       Begin
+        Fix  := TJSONArray(Fixes).Items[Best];
+        Name := JString(TJSONObject(Fix), 'ident');
+        If Name <> '' Then
+         Begin
+          p.Ident        := Name;
+          Plan.Points[i] := p;
+         End;
+       End;
+     End;
+   Finally
+    Root.Free;
    End;
   End;
 

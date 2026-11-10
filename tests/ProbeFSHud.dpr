@@ -1,19 +1,47 @@
-﻿program ProbeFSHud;
+﻿Program ProbeFSHud;
 {$APPTYPE CONSOLE}
-uses Winapi.Windows,System.SysUtils,System.JSON,System.Classes,FSHudClientU;
-var C:TFSHudClient;Messages:TArray<TFSHudMessage>;M:TFSHudMessage;V:TJSONObject;P:TJSONPair;I:Integer;Lines:TStringList;
-begin
-  C:=TFSHudClient.Create;Lines:=TStringList.Create;
-  try
-    C.Start;
-    for I:=1 to 20 do begin
-      Sleep(500);Messages:=C.Take;
-      for M in Messages do begin
-        Lines.Add(M.Payload);V:=TJSONObject.ParseJSONValue(M.Payload) as TJSONObject;
-        try Write(M.Kind,': ');for P in V do Write(P.JsonString.Value,' ');Writeln;finally V.Free;end;
-      end;
-    end;
-    Writeln('Status: ',C.GetStatus);
-    if ParamCount>0 then Lines.SaveToFile(ParamStr(1),TEncoding.UTF8);
-  finally C.Free;Lines.Free;end;
-end.
+
+Uses
+ Winapi.Windows, System.SysUtils, System.JSON, System.Classes, FSHudClientU;
+
+Var
+ c        : TFSHudClient;
+ Messages : TArray<TFSHudMessage>;
+ m        : TFSHudMessage;
+ v        : TJSONObject;
+ p        : TJSONPair;
+ i        : Integer;
+ Lines    : TStringList;
+
+Begin
+ c     := TFSHudClient.Create;
+ Lines := TStringList.Create;
+ Try
+  c.Start;
+  For i := 1 To 20 Do
+   Begin
+    Sleep(500);
+    Messages := c.Take;
+    For m In Messages Do
+     Begin
+      Lines.Add(m.Payload);
+      v := TJSONObject.ParseJSONValue(m.Payload) As TJSONObject;
+      Try
+       Write(m.Kind, ': ');
+       For p In v Do
+        Write(p.JsonString.Value, ' ');
+       Writeln;
+      Finally
+       v.Free;
+      End;
+     End;
+   End;
+  Writeln('Status: ', c.GetStatus);
+  If ParamCount > 0 Then
+   Lines.SaveToFile(ParamStr(1), TEncoding.UTF8);
+ Finally
+  c.Free;
+  Lines.Free;
+ End;
+
+End.

@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -11,26 +11,26 @@
 /// <summary>
 /// This unit implements a class to deal with null character separated strings.
 /// </summary>
-unit i18nZStrList;
+Unit i18nZStrList;
 
-interface
+Interface
 
 {$I DELPHIAREA.INC}
 
-uses
+ Uses
   SysUtils, Types;
 
-type
+ Type
 
-  {$region 'xmldoc'}
+  {$Region 'xmldoc'}
   /// <summary>
   /// ZStrings provides a set of class methods to work with null character (#0)
   /// separated strings.
   /// </summary>
-  {$endregion}
-  ZStrings = class
-  public
-    {$region 'xmldoc'}
+  {$Endregion}
+  ZStrings = Class
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates a list of null separated strings from a specified array of strings.
     /// </summary>
@@ -40,9 +40,9 @@ type
     /// <returns>
     /// The list of null character separated strings.
     /// </returns>
-    {$endregion}
-    class function Construct(const StrArray: array of String): String; overload; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function Construct(Const StrArray : Array Of String) : String; Overload; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates a list of null separated strings from a specified string. The
     /// sub-strings of the source string are delimited by a specified delimiter
@@ -57,9 +57,9 @@ type
     /// <returns>
     /// The list of null character separated strings.
     /// </returns>
-    {$endregion}
-    class function Construct(const Str: String; const Delimiter: String): String; overload; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function Construct(Const Str : String; Const Delimiter : String) : String; Overload; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Adds a sub-string at the end of a specified list of null character
     /// separated strings.
@@ -71,9 +71,9 @@ type
     /// The value for the new sub-string.
     /// </param>
     /// <seealso cref="Insert"/>
-    {$endregion}
-    class procedure Add(var ZStrs: String; const SubStr: String); static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure Add(Var ZStrs : String; Const SubStr : String); Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Inserts a sub-string at a specified index of a specified list of null character
     /// separated strings.
@@ -88,9 +88,9 @@ type
     /// The value for the new sub-string.
     /// </param>
     /// <seealso cref="Add"/>
-    {$endregion}
-    class procedure Insert(var ZStrs: String; Index: Integer; const SubStr: String); static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure Insert(Var ZStrs : String; Index : Integer; Const SubStr : String); Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes a sub-string at a specified index of a specified list of null character
     /// separated strings.
@@ -101,9 +101,9 @@ type
     /// <param name="Index">
     /// The index of the sub-string to delete.
     /// </param>
-    {$endregion}
-    class procedure Delete(var ZStrs: String; Index: Integer); static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure Delete(Var ZStrs : String; Index : Integer); Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Replaces a sub-string at a specified index of a specified list of null character
     /// separated strings.
@@ -118,9 +118,9 @@ type
     /// The new value for the sub-string at the specified index.
     /// </param>
     /// <seealso cref="GetSubStrAt"/>
-    {$endregion}
-    class procedure SetSubStrAt(var ZStrs: String; Index: Integer; const SubStr: String); static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure SetSubStrAt(Var ZStrs : String; Index : Integer; Const SubStr : String); Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the sub-string at a specified index of a specified list of null
     /// character separated strings.
@@ -135,9 +135,9 @@ type
     /// The sub-string at the specified index.
     /// </returns>
     /// <seealso cref="SetSubStrAt"/>
-    {$endregion}
-    class function GetSubStrAt(const ZStrs: String; Index: Integer): String; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function GetSubStrAt(Const ZStrs : String; Index : Integer) : String; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of sub-strings in a specified list of null character
     /// separated strings.
@@ -148,9 +148,9 @@ type
     /// <returns>
     /// The number of sub-strings.
     /// </returns>
-    {$endregion}
-    class function Count(const ZStrs: String): Integer; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function Count(Const ZStrs : String) : Integer; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a specified list of null character separated strings to a list
     /// of delimited sub-strings.
@@ -165,9 +165,9 @@ type
     /// The string of sub-strings delimited by given <paramref name="Delimiter"/>
     /// string.
     /// </returns>
-    {$endregion}
-    class function Split(const ZStrs: String; const Delimiter: String): String; overload; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function Split(Const ZStrs : String; Const Delimiter : String) : String; Overload; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a specified list of null character separated strings to an array
     /// of its sub-strings.
@@ -178,9 +178,9 @@ type
     /// <returns>
     /// The array of sub-strings.
     /// </returns>
-    {$endregion}
-    class function Split(const ZStrs: String): TStringDynArray; overload; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function Split(Const ZStrs : String) : TStringDynArray; Overload; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the index of sub-string at a specified character position of a
     /// specified list of null character separated strings.
@@ -196,9 +196,9 @@ type
     /// If position given by <paramref name="Pos"/> is less than or equal to zero
     /// or <paramref name="ZStrs"/> is empty, the function returns zero.
     /// </returns>
-    {$endregion}
-    class function IndexFromCharPos(const ZStrs: String; Pos: Integer): Integer; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function IndexFromCharPos(Const ZStrs : String; Pos : Integer) : Integer; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the start position of a sub-string specified with its index within
     /// a specified list of null character separated strings.
@@ -213,185 +213,223 @@ type
     /// The character position of the specified sub-string within the specified
     /// null character separated strings.
     /// </returns>
-    {$endregion}
-    class function CharPosFromIndex(const ZStrs: String; Index: Integer): Integer; static;
-  end;
+    {$Endregion}
+    Class Function CharPosFromIndex(Const ZStrs : String; Index : Integer) : Integer; Static;
+  End;
 
-implementation
+Implementation
 
 { ZStrings }
 
-class function ZStrings.Construct(const StrArray: array of String): String;
-var
-  I: Integer;
-  Len: Integer;
-  S: PChar;
-begin
-  Len := Length(StrArray);
-  for I := 0 to Length(StrArray) - 1 do
-    Inc(Len, Length(StrArray[I]));
-  SetLength(Result, Len);
-  S := PChar(Result);
-  for I := 0 to Length(StrArray) - 1 do
-  begin
-    StrCopy(S, PChar(StrArray[I]));
-    Inc(S, Length(StrArray[I]) + 1);
-  end;
-end;
+  Class Function ZStrings.Construct(Const StrArray : Array Of String) : String;
 
-class function ZStrings.Construct(const Str, Delimiter: String): String;
-begin
-  if Str = '' then
-    Result := ''
-  else
-    Result := StringReplace(Str, Delimiter, #0, [rfReplaceAll]) + #0;
-end;
+ Var
+  i   : Integer;
+  Len : Integer;
+  s   : PChar;
 
-class procedure ZStrings.Add(var ZStrs: String; const SubStr: String);
-begin
-  ZStrs := ZStrs + SubStr + #0;
-end;
+Begin
+ Len   := Length(StrArray);
+ For i := 0 To Length(StrArray) - 1 Do
+  Inc(Len, Length(StrArray[i]));
+ SetLength(Result, Len);
+ s     := PChar(Result);
+ For i := 0 To Length(StrArray) - 1 Do
+  Begin
+   StrCopy(s, PChar(StrArray[i]));
+   Inc(s, Length(StrArray[i]) + 1);
+  End;
 
-class procedure ZStrings.Insert(var ZStrs: String; Index: Integer;
-  const SubStr: String);
-var
-  EndPtr, S: PChar;
-begin
-  if Index <= 0 then
-    ZStrs := SubStr + #0 + ZStrs
-  else
-  begin
-    S := PChar(ZStrs);
-    EndPtr := S + Length(ZStrs);
-    while (Index > 0) and (S < EndPtr) do
-    begin
-      S := StrEnd(S) + 1;
-      Dec(Index);
-      if Index = 0 then
-      begin
-        System.Insert(#0 + SubStr, ZStrs, S - PChar(ZStrs));
-        Exit;
-      end;
-    end;
-    ZStrs := ZStrs + SubStr + #0;
-  end;
-end;
+End;
 
-class procedure ZStrings.Delete(var ZStrs: String; Index: Integer);
-var
-  EndPtr, S: PChar;
-begin
-  if ZStrs <> '' then
-  begin
-    S := PChar(ZStrs);
-    EndPtr := S + Length(ZStrs);
-    while (Index > 0) and (S < EndPtr) do
-    begin
-      Dec(Index);
-      S := StrEnd(S) + 1;
-    end;
-    if Index = 0 then
-      System.Delete(ZStrs, S - PChar(ZStrs) + 1, StrLen(S) + 1);
-  end;
-end;
+  Class Function ZStrings.Construct(Const Str, Delimiter : String) : String;
 
-class procedure ZStrings.SetSubStrAt(var ZStrs: String; Index: Integer;
-  const SubStr: String);
-begin
-  ZStrings.Delete(ZStrs, Index);
-  ZStrings.Insert(ZStrs, Index, SubStr);
-end;
+Begin
+ If Str = '' Then
+  Result := ''
+ Else
+  Result := StringReplace(Str, Delimiter, #0, [rfReplaceAll]) + #0;
 
-class function ZStrings.GetSubStrAt(const ZStrs: String; Index: Integer): String;
-var
-  EndPtr, S: PChar;
-begin
-  S := PChar(ZStrs);
-  EndPtr := S + Length(ZStrs);
-  while (Index > 0) and (S < EndPtr) do
-  begin
-    Dec(Index);
-    S := StrEnd(S) + 1;
-  end;
-  SetString(Result, S, StrLen(S));
-end;
+End;
 
-class function ZStrings.Count(const ZStrs: String): Integer;
-var
-  EndPtr, S: PChar;
-begin
-  Result := 0;
-  S := PChar(ZStrs);
-  EndPtr := S + Length(ZStrs);
-  while S < EndPtr do
-  begin
-    Inc(Result);
-    S := StrEnd(S) + 1;
-  end;
-end;
+  Class Procedure ZStrings.Add(Var ZStrs : String; Const SubStr : String);
 
-class function ZStrings.Split(const ZStrs: String; const Delimiter: String): String;
-var
-  EndPtr, S: PChar;
-begin
-  Result := '';
-  S := PChar(ZStrs);
-  EndPtr := S + Length(ZStrs);
-  while S < EndPtr do
-  begin
-    if Result = '' then
-      Result := String(S)
-    else
-      Result := Result + Delimiter + String(S);
-    S := StrEnd(S) + 1;
-  end;
-end;
+Begin
+ ZStrs := ZStrs + SubStr + #0;
 
-class function ZStrings.Split(const ZStrs: String): TStringDynArray;
-var
-  S, E: PChar;
-  I: Integer;
-begin
-  S := PChar(ZStrs);
-  SetLength(Result, ZStrings.Count(ZStrs));
-  for I := 0 to Length(Result) - 1 do
-  begin
-    E := StrEnd(S);
-    SetString(Result[I], S, E - S);
-    S := E + 1;
-  end;
-end;
+End;
 
-class function ZStrings.IndexFromCharPos(const ZStrs: String;
-  Pos: Integer): Integer;
-var
-  EndPtr, S, E: PChar;
-begin
-  Result := -1;
-  S := PChar(ZStrs);
-  EndPtr := S + Length(ZStrs);
-  while (S < EndPtr) and (Pos > 0) do
-  begin
-    E := StrEnd(S);
-    Dec(Pos, E - S + 1);
-    S := E + 1;
-    Inc(Result);
-  end;
-end;
+  Class Procedure ZStrings.Insert(Var ZStrs : String; Index : Integer; Const SubStr : String);
 
-class function ZStrings.CharPosFromIndex(const ZStrs: String;
-  Index: Integer): Integer;
-var
-  EndPtr, S: PChar;
-begin
-  S := PChar(ZStrs);
-  EndPtr := S + Length(ZStrs);
-  while (Index > 0) and (S < EndPtr) do
-  begin
-    Dec(Index);
-    S := StrEnd(S) + 1;
-  end;
-  Result := S - PChar(ZStrs) + 1;
-end;
+ Var
+  EndPtr : PChar;
+  s      : PChar;
 
-end.
+Begin
+ If Index <= 0 Then
+  ZStrs := SubStr + #0 + ZStrs
+ Else
+  Begin
+   s      := PChar(ZStrs);
+   EndPtr := s + Length(ZStrs);
+   While (Index > 0) And (s < EndPtr) Do
+    Begin
+     s := StrEnd(s) + 1;
+     Dec(Index);
+     If Index = 0 Then
+      Begin
+       System.Insert(#0 + SubStr, ZStrs, s - PChar(ZStrs));
+       Exit;
+      End;
+    End;
+   ZStrs := ZStrs + SubStr + #0;
+  End;
+
+End;
+
+  Class Procedure ZStrings.Delete(Var ZStrs : String; Index : Integer);
+
+ Var
+  EndPtr : PChar;
+  s      : PChar;
+
+Begin
+ If ZStrs <> '' Then
+  Begin
+   s      := PChar(ZStrs);
+   EndPtr := s + Length(ZStrs);
+   While (Index > 0) And (s < EndPtr) Do
+    Begin
+     Dec(Index);
+     s := StrEnd(s) + 1;
+    End;
+   If Index = 0 Then
+    System.Delete(ZStrs, s - PChar(ZStrs) + 1, StrLen(s) + 1);
+  End;
+
+End;
+
+  Class Procedure ZStrings.SetSubStrAt(Var ZStrs : String; Index : Integer; Const SubStr : String);
+
+Begin
+ ZStrings.Delete(ZStrs, Index);
+ ZStrings.Insert(ZStrs, Index, SubStr);
+
+End;
+
+  Class Function ZStrings.GetSubStrAt(Const ZStrs : String; Index : Integer) : String;
+
+ Var
+  EndPtr : PChar;
+  s      : PChar;
+
+Begin
+ s      := PChar(ZStrs);
+ EndPtr := s + Length(ZStrs);
+ While (Index > 0) And (s < EndPtr) Do
+  Begin
+   Dec(Index);
+   s := StrEnd(s) + 1;
+  End;
+ SetString(Result, s, StrLen(s));
+
+End;
+
+  Class Function ZStrings.Count(Const ZStrs : String) : Integer;
+
+ Var
+  EndPtr : PChar;
+  s      : PChar;
+
+Begin
+ Result := 0;
+ s      := PChar(ZStrs);
+ EndPtr := s + Length(ZStrs);
+ While s < EndPtr Do
+  Begin
+   Inc(Result);
+   s := StrEnd(s) + 1;
+  End;
+
+End;
+
+  Class Function ZStrings.Split(Const ZStrs : String; Const Delimiter : String) : String;
+
+ Var
+  EndPtr : PChar;
+  s      : PChar;
+
+Begin
+ Result := '';
+ s      := PChar(ZStrs);
+ EndPtr := s + Length(ZStrs);
+ While s < EndPtr Do
+  Begin
+   If Result = '' Then
+    Result := String(s)
+   Else
+    Result := Result + Delimiter + String(s);
+   s       := StrEnd(s) + 1;
+  End;
+
+End;
+
+  Class Function ZStrings.Split(Const ZStrs : String) : TStringDynArray;
+
+ Var
+  s : PChar;
+  e : PChar;
+  i : Integer;
+
+Begin
+ s := PChar(ZStrs);
+ SetLength(Result, ZStrings.Count(ZStrs));
+ For i := 0 To Length(Result) - 1 Do
+  Begin
+   e := StrEnd(s);
+   SetString(Result[i], s, e - s);
+   s := e + 1;
+  End;
+
+End;
+
+  Class Function ZStrings.IndexFromCharPos(Const ZStrs : String; Pos : Integer) : Integer;
+
+ Var
+  EndPtr : PChar;
+  s      : PChar;
+  e      : PChar;
+
+Begin
+ Result := -1;
+ s      := PChar(ZStrs);
+ EndPtr := s + Length(ZStrs);
+ While (s < EndPtr) And (Pos > 0) Do
+  Begin
+   e := StrEnd(s);
+   Dec(Pos, e - s + 1);
+   s := e + 1;
+   Inc(Result);
+  End;
+
+End;
+
+  Class Function ZStrings.CharPosFromIndex(Const ZStrs : String; Index : Integer) : Integer;
+
+ Var
+  EndPtr : PChar;
+  s      : PChar;
+
+Begin
+ s      := PChar(ZStrs);
+ EndPtr := s + Length(ZStrs);
+ While (Index > 0) And (s < EndPtr) Do
+  Begin
+   Dec(Index);
+   s := StrEnd(s) + 1;
+  End;
+ Result := s - PChar(ZStrs) + 1;
+
+End;
+
+End.

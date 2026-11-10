@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -11,18 +11,18 @@
 /// <summary>
 /// This unit implements a class to evaluate expressions in C language syntax.
 /// </summary>
-unit i18nCExpr;
+Unit i18nCExpr;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-uses
+ Uses
   SysUtils, Classes, Types;
 
-type
+ Type
 
-  {$region 'xmldoc'}
+  {$Region 'xmldoc'}
   /// <summary>
   /// ECExpressionError is the exception class for problems that occur while parsing
   /// an expression in C language syntax.
@@ -32,14 +32,14 @@ type
   /// a syntax error.
   /// </remarks>
   /// <seealso cref="TCExpression"/>
-  {$endregion}
-  ECExpressionError = class(Exception)
-  private
-    fExpression: String;
-    fOffset: Integer;
-    fToken: String;
-  protected
-    {$region 'xmldoc'}
+  {$Endregion}
+  ECExpressionError = Class(Exception)
+   Private
+    fExpression : String;
+    fOffset     : Integer;
+    fToken      : String;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets the additional information about the error.
     /// </summary>
@@ -53,43 +53,44 @@ type
     /// <param name="AToken">
     /// The last token that the parser was processing when the problem occurred.
     /// </param>
-    {$endregion}
-    procedure SetErrorDetails(const AExpression: String; AOffset: Integer; const AToken: String);
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure SetErrorDetails(Const AExpression : String; AOffset : Integer; Const AToken : String);
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the expression that caused the exception to occur.
     /// </summary>
-    {$endregion}
-    property Expression: String read fExpression;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Expression : String Read fExpression;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the offset from the start of the expression where the parser encountered
     /// the problem.
     /// </summary>
-    {$endregion}
-    property Offset: Integer read fOffset;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Offset : Integer Read fOffset;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the last token that the parser was processing when the problem occurred.
     /// </summary>
-    {$endregion}
-    property Token: String read fToken;
-  end;
+    {$Endregion}
+    Property Token : String Read fToken;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCExprVar represents an integer variable in an expression.
-  /// </summary>
-  /// <seealso cref="TCExpression"/>
-  {$endregion}
-  TCExprVar = class(TObject)
-  private
-    fName: String;
-    fValue: Integer;
-    fRefCount: Integer;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCExprVar represents an integer variable in an expression.
+/// </summary>
+/// <seealso cref="TCExpression"/>
+{$Endregion}
+
+  TCExprVar = Class(TObject)
+   Private
+    fName     : String;
+    fValue    : Integer;
+    fRefCount : Integer;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments the reference count of the variable.
     /// </summary>
@@ -97,46 +98,47 @@ type
     /// The object itself.
     /// </returns>
     /// <seealso cref="RefCount"/>
-    {$endregion}
-    function AddRef: TCExprVar; inline;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function AddRef : TCExprVar; Inline;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class for a specified variable name.
     /// </summary>
     /// <param name="AName">
     /// The name of the variable.
     /// </param>
-    {$endregion}
-    constructor Create(const AName: String);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(Const AName : String);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the name of the variable.
     /// </summary>
-    {$endregion}
-    property Name: String read fName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Name : String Read fName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the number of times that the variable is referenced in the expression.
     /// </summary>
-    {$endregion}
-    property RefCount: Integer read fRefCount;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property RefCount : Integer Read fRefCount;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the value of the variable.
     /// </summary>
-    {$endregion}
-    property Value: Integer read fValue write fValue;
-  end;
+    {$Endregion}
+    Property Value : Integer Read fValue Write fValue;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCExprNode is the base class for sub-expressions of an expression.
-  /// </summary>
-  {$endregion}
-  TCExprNode = class abstract(TObject)
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCExprNode is the base class for sub-expressions of an expression.
+/// </summary>
+{$Endregion}
+
+    TCExprNode = Class Abstract(TObject)
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Evaluates the value of the sub-expression.
     /// </summary>
@@ -144,9 +146,9 @@ type
     /// The value of the sub-expression after evaluation.
     /// </returns>
     /// <seealso cref="Value"/>
-    {$endregion}
-    function GetValue: Integer; virtual; abstract;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetValue : Integer; Virtual; Abstract;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the sub-expression as a string.
     /// </summary>
@@ -154,10 +156,10 @@ type
     /// The sub-expression as string.
     /// </returns>
     /// <seealso cref="AsString"/>
-    {$endregion}
-    function GetAsString: String; virtual; abstract;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetAsString : String; Virtual; Abstract;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of sub-expression depends on the value of one
     /// or more variables.
@@ -166,32 +168,33 @@ type
     /// Returns <see langword="true"/> if the value of sub-expression depends on
     /// one or more variables. Otherwise, returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsVariable: Boolean; virtual; abstract;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsVariable : Boolean; Virtual; Abstract;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the sub-expression as a string.
     /// </summary>
-    {$endregion}
-    property AsString: String read GetAsString;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AsString : String Read GetAsString;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the value of the sub-expression after evaluation.
     /// </summary>
-    {$endregion}
-    property Value: Integer read GetValue;
-  end;
+    {$Endregion}
+    Property Value : Integer Read GetValue;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCExprVarNode represents a reference to an integer variable in an expression.
-  /// </summary>
-  {$endregion}
-  TCExprVarNode = class(TCExprNode)
-  private
-    fVariable: TCExprVar;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCExprVarNode represents a reference to an integer variable in an expression.
+/// </summary>
+{$Endregion}
+
+  TCExprVarNode = Class(TCExprNode)
+   Private
+    fVariable : TCExprVar;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Evaluates the value of the sub-expression.
     /// </summary>
@@ -199,9 +202,9 @@ type
     /// The value of the variable.
     /// </returns>
     /// <seealso cref="Value"/>
-    {$endregion}
-    function GetValue: Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetValue : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the sub-expression as a string.
     /// </summary>
@@ -209,19 +212,19 @@ type
     /// The name of the variable.
     /// </returns>
     /// <seealso cref="AsString"/>
-    {$endregion}
-    function GetAsString: String; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetAsString : String; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class for a specified variable.
     /// </summary>
     /// <param name="AVariable">
     /// The variable that this instance references.
     /// </param>
-    {$endregion}
-    constructor Create(const AVariable: TCExprVar);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(Const AVariable : TCExprVar);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of sub-expression depends on the value of one
     /// or more variables.
@@ -229,26 +232,27 @@ type
     /// <returns>
     /// Returns always <see langword="true"/>.
     /// </returns>
-    {$endregion}
-    function IsVariable: Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsVariable : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the variable to which this sub-expression refers.
     /// </summary>
-    {$endregion}
-    property Variable: TCExprVar read fVariable;
-  end;
+    {$Endregion}
+    Property Variable : TCExprVar Read fVariable;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCExprConstNode represents an integer constant in an expression.
-  /// </summary>
-  {$endregion}
-  TCExprConstNode = class(TCExprNode)
-  private
-    fValue: Integer;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCExprConstNode represents an integer constant in an expression.
+/// </summary>
+{$Endregion}
+
+  TCExprConstNode = Class(TCExprNode)
+   Private
+    fValue : Integer;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Evaluates the value of the sub-expression.
     /// </summary>
@@ -256,9 +260,9 @@ type
     /// The value of the constant.
     /// </returns>
     /// <seealso cref="Value"/>
-    {$endregion}
-    function GetValue: Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetValue : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the sub-expression as a string.
     /// </summary>
@@ -266,19 +270,19 @@ type
     /// The value of constant as a string.
     /// </returns>
     /// <seealso cref="AsString"/>
-    {$endregion}
-    function GetAsString: String; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetAsString : String; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class for a specified integer value.
     /// </summary>
     /// <param name="AValue">
     /// The value of the constant that this instance represents.
     /// </param>
-    {$endregion}
-    constructor Create(AValue: Integer);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AValue : Integer);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of sub-expression depends on the value of one
     /// or more variables.
@@ -286,45 +290,47 @@ type
     /// <returns>
     /// Returns always <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsVariable: Boolean; override;
-  end;
+    {$Endregion}
+    Function IsVariable : Boolean; Override;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the unary operators in a C language expression.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the unary operators in a C language expression.
+/// </summary>
+{$Endregion}
+
   TCUnaryOp = (
-    {$region 'xmldoc'}
-    /// unary plus (+)
-    {$endregion}
-    opNone,
-    {$region 'xmldoc'}
-    /// unary minus (-)
-    {$endregion}
-    opNegate,
-    {$region 'xmldoc'}
-    /// logical not (!)
-    {$endregion}
-    opLogNot,
-    {$region 'xmldoc'}
-    /// bitwise not (~)
-    {$endregion}
-    opBitNot
+  {$Region 'xmldoc'}
+  /// unary plus (+)
+  {$Endregion}
+  opNone,
+  {$Region 'xmldoc'}
+  /// unary minus (-)
+  {$Endregion}
+  opNegate,
+  {$Region 'xmldoc'}
+  /// logical not (!)
+  {$Endregion}
+  opLogNot,
+  {$Region 'xmldoc'}
+  /// bitwise not (~)
+  {$Endregion}
+  opBitNot
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCExprUnaryNode represents a unary operation in an expression.
-  /// </summary>
-  {$endregion}
-  TCExprUnaryNode = class(TCExprNode)
-  private
-    fOp: TCUnaryOp;
-    fOperand: TCExprNode;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCExprUnaryNode represents a unary operation in an expression.
+/// </summary>
+{$Endregion}
+
+  TCExprUnaryNode = Class(TCExprNode)
+   Private
+    fOp      : TCUnaryOp;
+    fOperand : TCExprNode;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Evaluates the value of the sub-expression.
     /// </summary>
@@ -332,9 +338,9 @@ type
     /// The value of the sub-expression after evaluation.
     /// </returns>
     /// <seealso cref="Value"/>
-    {$endregion}
-    function GetValue: Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetValue : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the sub-expression as a string.
     /// </summary>
@@ -342,10 +348,10 @@ type
     /// The sub-expression as string.
     /// </returns>
     /// <seealso cref="AsString"/>
-    {$endregion}
-    function GetAsString: String; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetAsString : String; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class.
     /// </summary>
@@ -355,9 +361,9 @@ type
     /// <param name="AOperand">
     /// The operand of the unary operation.
     /// </param>
-    {$endregion}
-    constructor Create(AOp: TCUnaryOp; AOperand: TCExprNode);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOp : TCUnaryOp; AOperand : TCExprNode);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of sub-expression depends on the value of one
     /// or more variables.
@@ -366,120 +372,122 @@ type
     /// Returns <see langword="true"/> if the value of sub-expression depends on
     /// one or more variables. Otherwise, returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsVariable: Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsVariable : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the instance and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the operator of the unary operation.
     /// </summary>
-    {$endregion}
-    property Op: TCUnaryOp read fOp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Op : TCUnaryOp Read fOp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the operand of the unary operation.
     /// </summary>
-    {$endregion}
-    property Operand: TCExprNode read fOperand;
-  end;
+    {$Endregion}
+    Property Operand : TCExprNode Read fOperand;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the binary operators in a C language expression.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the binary operators in a C language expression.
+/// </summary>
+{$Endregion}
+
   TCBinaryOp = (
-    {$region 'xmldoc'}
-    /// addition (+)
-    {$endregion}
-    opAdd,
-    {$region 'xmldoc'}
-    /// subtraction (-)
-    {$endregion}
-    opSubtract,
-    {$region 'xmldoc'}
-    /// multiplication (*)
-    {$endregion}
-    opMultiply,
-    {$region 'xmldoc'}
-    /// integer division (/)
-    {$endregion}
-    opDivide,
-    {$region 'xmldoc'}
-    /// remainder of integer division (%)
-    {$endregion}
-    opModulus,
-    {$region 'xmldoc'}
-    /// bitwise and (&amp;)
-    {$endregion}
-    opBitAnd,
-    {$region 'xmldoc'}
-    /// bitwise or (|)
-    {$endregion}
-    opBitOr,
-    {$region 'xmldoc'}
-    /// bitwise xor (^)
-    {$endregion}
-    opBitXor,
-    {$region 'xmldoc'}
-    /// shift left (&lt;&lt;)
-    {$endregion}
-    opShiftLeft,
-    {$region 'xmldoc'}
-    /// shift right (&gt;&gt;)
-    {$endregion}
-    opShiftRight,
-    {$region 'xmldoc'}
-    /// equality (==)
-    {$endregion}
-    opEqual,
-    {$region 'xmldoc'}
-    /// not equal (!=)
-    {$endregion}
-    opNotEqual,
-    {$region 'xmldoc'}
-    /// greater than (&gt;)
-    {$endregion}
-    opGreaterThan,
-    {$region 'xmldoc'}
-    /// greater than or equal (&gt;=)
-    {$endregion}
-    opGreaterThanOrEqual,
-    {$region 'xmldoc'}
-    /// less than (&lt;)
-    {$endregion}
-    opLessThan,
-    {$region 'xmldoc'}
-    /// less than or equal (&lt;=)
-    {$endregion}
-    opLessThanOrEqual,
-    {$region 'xmldoc'}
-    /// logical and (&amp;&amp;)
-    {$endregion}
-    opLogAnd,
-    {$region 'xmldoc'}
-    /// logical or (||)
-    {$endregion}
-    opLogOr
+  {$Region 'xmldoc'}
+  /// addition (+)
+  {$Endregion}
+  opAdd,
+  {$Region 'xmldoc'}
+  /// subtraction (-)
+  {$Endregion}
+  opSubtract,
+  {$Region 'xmldoc'}
+  /// multiplication (*)
+  {$Endregion}
+  opMultiply,
+  {$Region 'xmldoc'}
+  /// integer division (/)
+  {$Endregion}
+  opDivide,
+  {$Region 'xmldoc'}
+  /// remainder of integer division (%)
+  {$Endregion}
+  opModulus,
+  {$Region 'xmldoc'}
+  /// bitwise and (&amp;)
+  {$Endregion}
+  opBitAnd,
+  {$Region 'xmldoc'}
+  /// bitwise or (|)
+  {$Endregion}
+  opBitOr,
+  {$Region 'xmldoc'}
+  /// bitwise xor (^)
+  {$Endregion}
+  opBitXor,
+  {$Region 'xmldoc'}
+  /// shift left (&lt;&lt;)
+  {$Endregion}
+  opShiftLeft,
+  {$Region 'xmldoc'}
+  /// shift right (&gt;&gt;)
+  {$Endregion}
+  opShiftRight,
+  {$Region 'xmldoc'}
+  /// equality (==)
+  {$Endregion}
+  opEqual,
+  {$Region 'xmldoc'}
+  /// not equal (!=)
+  {$Endregion}
+  opNotEqual,
+  {$Region 'xmldoc'}
+  /// greater than (&gt;)
+  {$Endregion}
+  opGreaterThan,
+  {$Region 'xmldoc'}
+  /// greater than or equal (&gt;=)
+  {$Endregion}
+  opGreaterThanOrEqual,
+  {$Region 'xmldoc'}
+  /// less than (&lt;)
+  {$Endregion}
+  opLessThan,
+  {$Region 'xmldoc'}
+  /// less than or equal (&lt;=)
+  {$Endregion}
+  opLessThanOrEqual,
+  {$Region 'xmldoc'}
+  /// logical and (&amp;&amp;)
+  {$Endregion}
+  opLogAnd,
+  {$Region 'xmldoc'}
+  /// logical or (||)
+  {$Endregion}
+  opLogOr
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCExprBinaryNode represents a binary operation in an expression.
-  /// </summary>
-  {$endregion}
-  TCExprBinaryNode = class(TCExprNode)
-  private
-    fOp: TCBinaryOp;
-    fOperandLeft: TCExprNode;
-    fOperandRight: TCExprNode;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCExprBinaryNode represents a binary operation in an expression.
+/// </summary>
+{$Endregion}
+
+  TCExprBinaryNode = Class(TCExprNode)
+   Private
+    fOp           : TCBinaryOp;
+    fOperandLeft  : TCExprNode;
+    fOperandRight : TCExprNode;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Evaluates the value of the sub-expression.
     /// </summary>
@@ -487,9 +495,9 @@ type
     /// The value of the sub-expression after evaluation.
     /// </returns>
     /// <seealso cref="Value"/>
-    {$endregion}
-    function GetValue: Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetValue : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the sub-expression as a string.
     /// </summary>
@@ -497,10 +505,10 @@ type
     /// The sub-expression as string.
     /// </returns>
     /// <seealso cref="AsString"/>
-    {$endregion}
-    function GetAsString: String; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetAsString : String; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class.
     /// </summary>
@@ -513,9 +521,9 @@ type
     /// <param name="AOperandRight">
     /// The right operand of the binary operation.
     /// </param>
-    {$endregion}
-    constructor Create(AOp: TCBinaryOp; AOperandLeft, AOperandRight: TCExprNode);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOp : TCBinaryOp; AOperandLeft, AOperandRight : TCExprNode);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of sub-expression depends on the value of one
     /// or more variables.
@@ -524,46 +532,47 @@ type
     /// Returns <see langword="true"/> if the value of sub-expression depends on
     /// one or more variables. Otherwise, returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsVariable: Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsVariable : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the instance and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the operator of the binary operation.
     /// </summary>
-    {$endregion}
-    property Op: TCBinaryOp read fOp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Op : TCBinaryOp Read fOp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the left operand of the binary operation.
     /// </summary>
-    {$endregion}
-    property OperandLeft: TCExprNode read fOperandLeft;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OperandLeft : TCExprNode Read fOperandLeft;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the right operand of the binary operation.
     /// </summary>
-    {$endregion}
-    property OperandRight: TCExprNode read fOperandRight;
-  end;
+    {$Endregion}
+    Property OperandRight : TCExprNode Read fOperandRight;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCExprTernaryNode represents a ternary conditional operation in an expression.
-  /// </summary>
-  {$endregion}
-  TCExprTernaryNode = class(TCExprNode)
-  private
-    fCondition: TCExprNode;
-    fOperandTrue: TCExprNode;
-    fOperandFalse: TCExprNode;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCExprTernaryNode represents a ternary conditional operation in an expression.
+/// </summary>
+{$Endregion}
+
+  TCExprTernaryNode = Class(TCExprNode)
+   Private
+    fCondition    : TCExprNode;
+    fOperandTrue  : TCExprNode;
+    fOperandFalse : TCExprNode;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Evaluates the value of the sub-expression.
     /// </summary>
@@ -571,9 +580,9 @@ type
     /// The value of the sub-expression after evaluation.
     /// </returns>
     /// <seealso cref="Value"/>
-    {$endregion}
-    function GetValue: Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetValue : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the sub-expression as a string.
     /// </summary>
@@ -581,10 +590,10 @@ type
     /// The sub-expression as string.
     /// </returns>
     /// <seealso cref="AsString"/>
-    {$endregion}
-    function GetAsString: String; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetAsString : String; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class.
     /// </summary>
@@ -597,9 +606,9 @@ type
     /// <param name="AOperandFalse">
     /// The operand that evaluates when the condition evaluates to false.
     /// </param>
-    {$endregion}
-    constructor Create(ACondition, AOperandTrue, AOperandFalse: TCExprNode);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(ACondition, AOperandTrue, AOperandFalse : TCExprNode);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of sub-expression depends on the value of one
     /// or more variables.
@@ -608,151 +617,152 @@ type
     /// Returns <see langword="true"/> if the value of sub-expression depends on
     /// one or more variables. Otherwise, returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsVariable: Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsVariable : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the instance and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the condition operand of the ternary operation.
     /// </summary>
-    {$endregion}
-    property Condition: TCExprNode read fCondition;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Condition : TCExprNode Read fCondition;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the operand for the true case of the ternary operation.
     /// </summary>
-    {$endregion}
-    property OperandTrue: TCExprNode read fOperandTrue;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OperandTrue : TCExprNode Read fOperandTrue;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the operand for the false case of the ternary operation.
     /// </summary>
-    {$endregion}
-    property OperandFalse: TCExprNode read fOperandFalse;
-  end;
+    {$Endregion}
+    Property OperandFalse : TCExprNode Read fOperandFalse;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCExpression is parser and evaluator for expressions in C language syntax.
-  /// </summary>
-  /// <remarks>
-  /// <para>
-  /// TCExpression parses and evaluates an expression (specified as a string) which is using
-  /// the C language syntax. Exceptions are that numbers must be decimal and no assignment,
-  /// increment/decrement, or comma operators are allowed. The expression can use user-defined
-  /// variables.
-  /// </para>
-  /// <para>
-  /// TCExpression supports comparison and logical operations as well as arithmetic
-  /// and bitwise ones. The comparison and logical operations always evaluate to
-  /// either zero (false) or one (true).
-  /// </para>
-  /// <para>
-  /// TCExpression parses the expression once to build the parse tree. Then, each time
-  /// you call the <see cref="Evaluate"/> method, it uses the parse tree and the value
-  /// of the variables listed by the <see cref="Vars"/> property to calculate the result
-  /// of the expression. For this reason, TCExpression is very useful and suitable when
-  /// you have one expression that will be evaluated many times with different variable
-  /// values.
-  /// </para>
-  /// <para>
-  /// The following table lists C operators that are supported by TCExpression. The
-  /// operators are listed in order of precedence (highest to lowest). Their associativity
-  /// indicates in what order operators of equal precedence in an expression are applied.
-  /// </para>
-  /// <list type="table">
-  ///   <listheader>
-  ///     <term>Operator</term>
-  ///     <description>Description</description>
-  ///     <description>Associativity</description>
-  ///   </listheader>
-  ///   <item>
-  ///     <term>+ - ! ~</term>
-  ///     <description>Unary plus • Unary minus • Logical negation •
-  ///     Bitwise complement</description>
-  ///     <description>right-to-left</description>
-  ///   </item>
-  ///   <item>
-  ///     <term>* / %</term>
-  ///     <description>Multiplication • Division • Modulus</description>
-  ///     <description>left-to-right</description>
-  ///   </item>
-  ///   <item>
-  ///     <term>+ -</term>
-  ///     <description>Addition • Subtraction</description>
-  ///     <description>left-to-right</description>
-  ///   </item>
-  ///   <item>
-  ///     <term>&lt;&lt; &gt;&gt;</term>
-  ///     <description>Bitwise shift left • Bitwise shift right</description>
-  ///     <description>left-to-right</description>
-  ///   </item>
-  ///   <item>
-  ///     <term>&lt; &lt;= &gt; &gt;=</term>
-  ///     <description>Relational less than • less than or equal to •
-  ///     greater than • greater than or equal to</description>
-  ///     <description>left-to-right</description>
-  ///   </item>
-  ///   <item>
-  ///     <term>== !=</term>
-  ///     <description>Relational is equal to • is not equal to</description>
-  ///     <description>left-to-right</description>
-  ///   </item>
-  ///   <item>
-  ///     <term>&amp;</term>
-  ///     <description>Bitwise AND</description>
-  ///     <description>left-to-right</description>
-  ///   </item>
-  ///   <item>
-  ///     <term>^</term>
-  ///     <description>Bitwise exclusive OR</description>
-  ///     <description>left-to-right</description>
-  ///   </item>
-  ///   <item>
-  ///     <term>|</term>
-  ///     <description>Bitwise inclusive OR</description>
-  ///     <description>left-to-right</description>
-  ///   </item>
-  ///   <item>
-  ///     <term>&amp;&amp;</term>
-  ///     <description>Logical AND</description>
-  ///     <description>left-to-right</description>
-  ///   </item>
-  ///   <item>
-  ///     <term>||</term>
-  ///     <description>Logical OR</description>
-  ///     <description>left-to-right</description>
-  ///   </item>
-  ///   <item>
-  ///     <term>?:</term>
-  ///     <description>Ternary conditional</description>
-  ///     <description>left-to-right</description>
-  ///   </item>
-  /// </list>
-  /// <para>
-  /// Parentheses are also used to group sub-expressions to force a different
-  /// precedence; such parenthetical expressions can be nested and are evaluated
-  /// from inner to outer.
-  /// </para>
-  /// </remarks>
-  {$endregion}
-  TCExpression = class(TObject)
-  private
-    fSource: String;
-    fVars: TStringList;
-    Expr: TCExprNode;
-    function GetFormattedSource: String; inline;
-    function GetVarCount: Integer; inline;
-    function GetVarNames(Index: Integer): String; inline;
-    function GetVars(const Name: String): TCExprVar;
-    function Parse(const Expression: String): TCExprNode;
-  public
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCExpression is parser and evaluator for expressions in C language syntax.
+/// </summary>
+/// <remarks>
+/// <para>
+/// TCExpression parses and evaluates an expression (specified as a string) which is using
+/// the C language syntax. Exceptions are that numbers must be decimal and no assignment,
+/// increment/decrement, or comma operators are allowed. The expression can use user-defined
+/// variables.
+/// </para>
+/// <para>
+/// TCExpression supports comparison and logical operations as well as arithmetic
+/// and bitwise ones. The comparison and logical operations always evaluate to
+/// either zero (false) or one (true).
+/// </para>
+/// <para>
+/// TCExpression parses the expression once to build the parse tree. Then, each time
+/// you call the <see cref="Evaluate"/> method, it uses the parse tree and the value
+/// of the variables listed by the <see cref="Vars"/> property to calculate the result
+/// of the expression. For this reason, TCExpression is very useful and suitable when
+/// you have one expression that will be evaluated many times with different variable
+/// values.
+/// </para>
+/// <para>
+/// The following table lists C operators that are supported by TCExpression. The
+/// operators are listed in order of precedence (highest to lowest). Their associativity
+/// indicates in what order operators of equal precedence in an expression are applied.
+/// </para>
+/// <list type="table">
+///   <listheader>
+///     <term>Operator</term>
+///     <description>Description</description>
+///     <description>Associativity</description>
+///   </listheader>
+///   <item>
+///     <term>+ - ! ~</term>
+///     <description>Unary plus • Unary minus • Logical negation •
+///     Bitwise complement</description>
+///     <description>right-to-left</description>
+///   </item>
+///   <item>
+///     <term>* / %</term>
+///     <description>Multiplication • Division • Modulus</description>
+///     <description>left-to-right</description>
+///   </item>
+///   <item>
+///     <term>+ -</term>
+///     <description>Addition • Subtraction</description>
+///     <description>left-to-right</description>
+///   </item>
+///   <item>
+///     <term>&lt;&lt; &gt;&gt;</term>
+///     <description>Bitwise shift left • Bitwise shift right</description>
+///     <description>left-to-right</description>
+///   </item>
+///   <item>
+///     <term>&lt; &lt;= &gt; &gt;=</term>
+///     <description>Relational less than • less than or equal to •
+///     greater than • greater than or equal to</description>
+///     <description>left-to-right</description>
+///   </item>
+///   <item>
+///     <term>== !=</term>
+///     <description>Relational is equal to • is not equal to</description>
+///     <description>left-to-right</description>
+///   </item>
+///   <item>
+///     <term>&amp;</term>
+///     <description>Bitwise AND</description>
+///     <description>left-to-right</description>
+///   </item>
+///   <item>
+///     <term>^</term>
+///     <description>Bitwise exclusive OR</description>
+///     <description>left-to-right</description>
+///   </item>
+///   <item>
+///     <term>|</term>
+///     <description>Bitwise inclusive OR</description>
+///     <description>left-to-right</description>
+///   </item>
+///   <item>
+///     <term>&amp;&amp;</term>
+///     <description>Logical AND</description>
+///     <description>left-to-right</description>
+///   </item>
+///   <item>
+///     <term>||</term>
+///     <description>Logical OR</description>
+///     <description>left-to-right</description>
+///   </item>
+///   <item>
+///     <term>?:</term>
+///     <description>Ternary conditional</description>
+///     <description>left-to-right</description>
+///   </item>
+/// </list>
+/// <para>
+/// Parentheses are also used to group sub-expressions to force a different
+/// precedence; such parenthetical expressions can be nested and are evaluated
+/// from inner to outer.
+/// </para>
+/// </remarks>
+{$Endregion}
+
+  TCExpression = Class(TObject)
+   Private
+    fSource : String;
+    fVars   : TStringList;
+    Expr    : TCExprNode;
+    Function GetFormattedSource : String; Inline;
+    Function GetVarCount : Integer; Inline;
+    Function GetVarNames(Index : Integer) : String; Inline;
+    Function GetVars(Const Name : String) : TCExprVar;
+    Function Parse(Const Expression : String) : TCExprNode;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the expression evaluator for a specified expression in
     /// C language syntax.
@@ -763,15 +773,15 @@ type
     /// <exception cref="ECExpressionError">
     /// Occurs when the expression has a syntax error.
     /// </exception>
-    {$endregion}
-    constructor Create(const Expression: String);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(Const Expression : String);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the instance and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Evaluates the expression for the variables specified by the <see cref="Vars"/>
     /// property.
@@ -779,9 +789,9 @@ type
     /// <returns>
     /// Returns the result of the expression.
     /// </returns>
-    {$endregion}
-    function Evaluate: Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Evaluate : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of expression depends on the values of any variables.
     /// </summary>
@@ -789,35 +799,35 @@ type
     /// Returns <see langword="true"/> if the value of the expression depends on
     /// one or more variables. Otherwise, returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsVariable: Boolean; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsVariable : Boolean; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the source expression.
     /// </summary>
     /// <seealso cref="FormattedSource"/>
-    {$endregion}
-    property Source: String read fSource;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Source : String Read fSource;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the source expression as formatted.
     /// </summary>
     /// <seealso cref="Source"/>
-    {$endregion}
-    property FormattedSource: String read GetFormattedSource;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FormattedSource : String Read GetFormattedSource;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the number of variables in the expression.
     /// </summary>
-    {$endregion}
-    property VarCount: Integer read GetVarCount;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property VarCount : Integer Read GetVarCount;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the names of variables in the expression.
     /// </summary>
-    {$endregion}
-    property VarNames[Index: Integer]: String read GetVarNames;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property VarNames[Index : Integer] : String Read GetVarNames;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the variables in the expression.
     /// </summary>
@@ -833,596 +843,603 @@ type
     /// </para>
     /// </remarks>
     /// <seealso cref="TCExprVar"/>
-    {$endregion}
-    property Vars[const Name: String]: TCExprVar read GetVars;
-  end;
+    {$Endregion}
+    Property Vars[Const Name : String] : TCExprVar Read GetVars;
+  End;
 
-implementation
+Implementation
 
-resourcestring
+ Resourcestring
   SUnexpectedEndOfExpressionError = 'Unexpected end of expression';
   SUnexpectedSymbolError = 'Unexpected symbol ''%s''';
   SMissingExpectedSymbolError = 'Missing symbol ''%s''';
 
-const
-  UnaryOpSymbols: array[TCUnaryOp] of String = ('+', '-', '!', '~');
-  BinaryOpSymbols: array[TCBinaryOp] of String = ('+', '-', '*', '/', '%',
-    '&', '|', '^', '<<', '>>', '==', '!=', '>', '>=', '<', '<=', '&&', '||');
+ Const
+  UnaryOpSymbols : Array[TCUnaryOp] Of String = ('+', '-', '!', '~');
+  BinaryOpSymbols : Array[TCBinaryOp] Of String = ('+', '-', '*', '/', '%',
+  '&', '|', '^', '<<', '>>', '==', '!=', '>', '>=', '<', '<=', '&&', '||');
 
 { ECExpressionError }
 
-procedure ECExpressionError.SetErrorDetails(const AExpression: String;
-  AOffset: Integer; const AToken: String);
-begin
-  fExpression := AExpression;
-  fOffset := AOffset;
-  fToken := AToken;
-end;
+ Procedure ECExpressionError.SetErrorDetails(Const AExpression : String; AOffset : Integer; Const AToken : String);
+  Begin
+   fExpression := AExpression;
+   fOffset     := AOffset;
+   fToken      := AToken;
+  End;
 
 { TCExprVar }
 
-constructor TCExprVar.Create(const AName: String);
-begin
-  fName := AName;
-end;
+ Constructor TCExprVar.Create(Const AName : String);
+  Begin
+   fName := AName;
+  End;
 
-function TCExprVar.AddRef: TCExprVar;
-begin
-  Inc(fRefCount);
-  Result := Self;
-end;
+ Function TCExprVar.AddRef : TCExprVar;
+  Begin
+   Inc(fRefCount);
+   Result := Self;
+  End;
 
 { TCExprVarNode }
 
-constructor TCExprVarNode.Create(const AVariable: TCExprVar);
-begin
-  fVariable := AVariable.AddRef;
-end;
+ Constructor TCExprVarNode.Create(Const AVariable : TCExprVar);
+  Begin
+   fVariable := AVariable.AddRef;
+  End;
 
-function TCExprVarNode.GetAsString: String;
-begin
-  Result := Variable.Name;
-end;
+ Function TCExprVarNode.GetAsString : String;
+  Begin
+   Result := Variable.Name;
+  End;
 
-function TCExprVarNode.GetValue: Integer;
-begin
-  Result := Variable.Value;
-end;
+ Function TCExprVarNode.GetValue : Integer;
+  Begin
+   Result := Variable.Value;
+  End;
 
-function TCExprVarNode.IsVariable: Boolean;
-begin
-  Result := True;
-end;
+ Function TCExprVarNode.IsVariable : Boolean;
+  Begin
+   Result := True;
+  End;
 
 { TCExprConstNode }
 
-constructor TCExprConstNode.Create(AValue: Integer);
-begin
-  fValue := AValue;
-end;
+ Constructor TCExprConstNode.Create(AValue : Integer);
+  Begin
+   fValue := AValue;
+  End;
 
-function TCExprConstNode.GetAsString: String;
-begin
-  Result := IntToStr(Value)
-end;
+ Function TCExprConstNode.GetAsString : String;
+  Begin
+   Result := IntToStr(Value)
+  End;
 
-function TCExprConstNode.GetValue: Integer;
-begin
-  Result := fValue;
-end;
+ Function TCExprConstNode.GetValue : Integer;
+  Begin
+   Result := fValue;
+  End;
 
-function TCExprConstNode.IsVariable: Boolean;
-begin
-  Result := False;
-end;
+ Function TCExprConstNode.IsVariable : Boolean;
+  Begin
+   Result := False;
+  End;
 
 { TCExprUnaryNode }
 
-constructor TCExprUnaryNode.Create(AOp: TCUnaryOp; AOperand: TCExprNode);
-begin
-  fOp := AOp;
-  fOperand := AOperand;
-end;
+ Constructor TCExprUnaryNode.Create(AOp : TCUnaryOp; AOperand : TCExprNode);
+  Begin
+   fOp      := AOp;
+   fOperand := AOperand;
+  End;
 
-destructor TCExprUnaryNode.Destroy;
-begin
-  fOperand.Free;
-  inherited Destroy;
-end;
+ Destructor TCExprUnaryNode.Destroy;
+  Begin
+   fOperand.Free;
+   Inherited Destroy;
+  End;
 
-function TCExprUnaryNode.GetAsString: String;
+ Function TCExprUnaryNode.GetAsString : String;
 
-  function ToString(Operand: TCExprNode): String;
-  begin
-    Result := Operand.AsString;
-    if (Operand is TCExprUnaryNode) or
-       (Operand is TCExprBinaryNode) or
-       (Operand is TCExprTernaryNode)
-    then
+   Function ToString(Operand : TCExprNode) : String;
+    Begin
+     Result := Operand.AsString;
+     If (Operand Is TCExprUnaryNode) Or
+     (Operand Is TCExprBinaryNode) Or
+     (Operand Is TCExprTernaryNode)
+     Then
       Result := '(' + Result + ')';
-  end;
+    End;
 
-begin
-  Result := UnaryOpSymbols[Op] + ToString(Operand);
-end;
+  Begin
+   Result := UnaryOpSymbols[Op] + ToString(Operand);
+  End;
 
-function TCExprUnaryNode.GetValue: Integer;
-begin
-  case Op of
-    opNegate:
-      Result := -Operand.Value;
-    opBitNot:
-      Result := not Operand.Value;
-    opLogNot:
-      Result := Ord(Operand.Value = 0);
-  else
-    Result := Operand.Value
-  end;
-end;
+ Function TCExprUnaryNode.GetValue : Integer;
+  Begin
+   Case Op Of
+    opNegate : Result := -Operand.Value;
+    opBitNot : Result := Not Operand.Value;
+    opLogNot : Result := Ord(Operand.Value = 0);
+   Else Result := Operand.Value
+   End;
+  End;
 
-function TCExprUnaryNode.IsVariable: Boolean;
-begin
-  Result := Operand.IsVariable;
-end;
+ Function TCExprUnaryNode.IsVariable : Boolean;
+  Begin
+   Result := Operand.IsVariable;
+  End;
 
 { TCExprBinaryNode }
 
-constructor TCExprBinaryNode.Create(AOp: TCBinaryOp; AOperandLeft,
-  AOperandRight: TCExprNode);
-begin
-  fOp := AOp;
-  fOperandLeft := AOperandLeft;
-  fOperandRight := AOperandRight;
-end;
+ Constructor TCExprBinaryNode.Create(AOp : TCBinaryOp; AOperandLeft, AOperandRight : TCExprNode);
+  Begin
+   fOp           := AOp;
+   fOperandLeft  := AOperandLeft;
+   fOperandRight := AOperandRight;
+  End;
 
-destructor TCExprBinaryNode.Destroy;
-begin
-  fOperandLeft.Free;
-  fOperandRight.Free;
-  inherited Destroy;
-end;
+ Destructor TCExprBinaryNode.Destroy;
+  Begin
+   fOperandLeft.Free;
+   fOperandRight.Free;
+   Inherited Destroy;
+  End;
 
-function TCExprBinaryNode.GetAsString: String;
+ Function TCExprBinaryNode.GetAsString : String;
 
-  function ToString(Operand: TCExprNode): String;
-  begin
-    Result := Operand.AsString;
-    if (Operand is TCExprTernaryNode) or ((Operand is TCExprBinaryNode) and
-      ((TCExprBinaryNode(Operand).Op <> Op) or not (Op in [opMultiply, opAdd, opSubtract, opBitAnd, opBitOr, opBitXor, opLogAnd, opLogOr])) and
-      (not (TCExprBinaryNode(Operand).Op in [opAdd, opSubtract]) or not (Op in [opAdd, opSubtract])))
-    then
+   Function ToString(Operand : TCExprNode) : String;
+    Begin
+     Result := Operand.AsString;
+     If (Operand Is TCExprTernaryNode) Or ((Operand Is TCExprBinaryNode) And
+     ((TCExprBinaryNode(Operand).Op <> Op) Or Not(Op In [opMultiply, opAdd, opSubtract, opBitAnd, opBitOr, opBitXor, opLogAnd, opLogOr])) And
+     (Not(TCExprBinaryNode(Operand).Op In [opAdd, opSubtract]) Or Not(Op In [opAdd, opSubtract])))
+     Then
       Result := '(' + Result + ')';
-  end;
+    End;
 
-begin
-  Result := ToString(OperandLeft) + ' ' + BinaryOpSymbols[Op] + ' ' + ToString(OperandRight);
-end;
+  Begin
+   Result := ToString(OperandLeft) + ' ' + BinaryOpSymbols[Op] + ' ' + ToString(OperandRight);
+  End;
 
-function TCExprBinaryNode.GetValue: Integer;
-begin
-  case Op of
-    opAdd:
-      Result := OperandLeft.Value + OperandRight.Value;
-    opSubtract:
-      Result := OperandLeft.Value - OperandRight.Value;
-    opMultiply:
-      Result := OperandLeft.Value * OperandRight.Value;
-    opDivide:
-      Result := OperandLeft.Value div OperandRight.Value;
-    opModulus:
-      Result := OperandLeft.Value mod OperandRight.Value;
-    opBitAnd:
-      Result := OperandLeft.Value and OperandRight.Value;
-    opBitOr:
-      Result := OperandLeft.Value or OperandRight.Value;
-    opBitXor:
-      Result := OperandLeft.Value xor OperandRight.Value;
-    opShiftLeft:
-      Result := OperandLeft.Value shl OperandRight.Value;
-    opShiftRight:
-      Result := OperandLeft.Value shr OperandRight.Value;
-    opEqual:
-      Result := Ord(OperandLeft.Value = OperandRight.Value);
-    opNotEqual:
-      Result := Ord(OperandLeft.Value <> OperandRight.Value);
-    opGreaterThan:
-      Result := Ord(OperandLeft.Value > OperandRight.Value);
-    opGreaterThanOrEqual:
-      Result := Ord(OperandLeft.Value >= OperandRight.Value);
-    opLessThan:
-      Result := Ord(OperandLeft.Value < OperandRight.Value);
-    opLessThanOrEqual:
-      Result := Ord(OperandLeft.Value <= OperandRight.Value);
-    opLogAnd:
-    begin
+ Function TCExprBinaryNode.GetValue : Integer;
+  Begin
+   Case Op Of
+    opAdd :
+     Result := OperandLeft.Value + OperandRight.Value;
+    opSubtract :
+     Result := OperandLeft.Value - OperandRight.Value;
+    opMultiply :
+     Result := OperandLeft.Value * OperandRight.Value;
+    opDivide :
+     Result := OperandLeft.Value Div OperandRight.Value;
+    opModulus :
+     Result := OperandLeft.Value Mod OperandRight.Value;
+    opBitAnd :
+     Result := OperandLeft.Value And OperandRight.Value;
+    opBitOr :
+     Result := OperandLeft.Value Or OperandRight.Value;
+    opBitXor :
+     Result := OperandLeft.Value Xor OperandRight.Value;
+    opShiftLeft :
+     Result := OperandLeft.Value Shl OperandRight.Value;
+    opShiftRight :
+     Result := OperandLeft.Value Shr OperandRight.Value;
+    opEqual :
+     Result := Ord(OperandLeft.Value = OperandRight.Value);
+    opNotEqual :
+     Result := Ord(OperandLeft.Value <> OperandRight.Value);
+    opGreaterThan :
+     Result := Ord(OperandLeft.Value > OperandRight.Value);
+    opGreaterThanOrEqual :
+     Result := Ord(OperandLeft.Value >= OperandRight.Value);
+    opLessThan :
+     Result := Ord(OperandLeft.Value < OperandRight.Value);
+    opLessThanOrEqual :
+     Result := Ord(OperandLeft.Value <= OperandRight.Value);
+    opLogAnd :
+     Begin
       Result := Ord(OperandLeft.Value <> 0);
-      if Result <> 0 then
-        Result := Ord(OperandRight.Value <> 0);
-    end;
-    opLogOr:
-    begin
+      If Result <> 0 Then
+       Result := Ord(OperandRight.Value <> 0);
+     End;
+    opLogOr :
+     Begin
       Result := Ord(OperandLeft.Value <> 0);
-      if Result = 0 then
-        Result := Ord(OperandRight.Value <> 0);
-    end
-  else
-    Result := 0; // To prevent compiler warning; code never reaches here.
-  end;
-end;
+      If Result = 0 Then
+       Result := Ord(OperandRight.Value <> 0);
+     End
+   Else
+     Result := 0; // To prevent compiler warning; code never reaches here.
+   End;
+  End;
 
-function TCExprBinaryNode.IsVariable: Boolean;
-begin
-  Result := OperandLeft.IsVariable or OperandRight.IsVariable;
-end;
+ Function TCExprBinaryNode.IsVariable : Boolean;
+  Begin
+   Result := OperandLeft.IsVariable Or OperandRight.IsVariable;
+  End;
 
 { TCExprTernaryNode }
 
-constructor TCExprTernaryNode.Create(ACondition, AOperandTrue, AOperandFalse: TCExprNode);
-begin
-  fCondition := ACondition;
-  fOperandTrue := AOperandTrue;
-  fOperandFalse := AOperandFalse;
-end;
+ Constructor TCExprTernaryNode.Create(ACondition, AOperandTrue, AOperandFalse : TCExprNode);
+  Begin
+   fCondition    := ACondition;
+   fOperandTrue  := AOperandTrue;
+   fOperandFalse := AOperandFalse;
+  End;
 
-destructor TCExprTernaryNode.Destroy;
-begin
-  fCondition.Free;
-  fOperandTrue.Free;
-  fOperandFalse.Free;
-  inherited Destroy;
-end;
+ Destructor TCExprTernaryNode.Destroy;
+  Begin
+   fCondition.Free;
+   fOperandTrue.Free;
+   fOperandFalse.Free;
+   Inherited Destroy;
+  End;
 
-function TCExprTernaryNode.GetAsString: String;
+ Function TCExprTernaryNode.GetAsString : String;
 
-  function ToString(Operand: TCExprNode): String;
-  begin
-    Result := Operand.AsString;
-    if (Operand is TCExprBinaryNode) or (Operand is TCExprTernaryNode) then
+   Function ToString(Operand : TCExprNode) : String;
+    Begin
+     Result := Operand.AsString;
+     If (Operand Is TCExprBinaryNode) Or (Operand Is TCExprTernaryNode) Then
       Result := '(' + Result + ')';
-  end;
+    End;
 
-begin
-  Result := ToString(Condition) + ' ? ' + ToString(OperandTrue) + ' : ' + ToString(OperandFalse);
-end;
+  Begin
+   Result := ToString(Condition) + ' ? ' + ToString(OperandTrue) + ' : ' + ToString(OperandFalse);
+  End;
 
-function TCExprTernaryNode.GetValue: Integer;
-begin
-  if Condition.Value <> 0 then
+ Function TCExprTernaryNode.GetValue : Integer;
+  Begin
+   If Condition.Value <> 0 Then
     Result := OperandTrue.Value
-  else
+   Else
     Result := OperandFalse.Value;
-end;
+  End;
 
-function TCExprTernaryNode.IsVariable: Boolean;
-begin
-  if not Condition.IsVariable then
-    if Condition.Value <> 0 then
-      Result := OperandTrue.IsVariable
-    else
-      Result := OperandFalse.IsVariable
-  else
+ Function TCExprTernaryNode.IsVariable : Boolean;
+  Begin
+   If Not Condition.IsVariable Then
+    If Condition.Value <> 0 Then
+     Result := OperandTrue.IsVariable
+    Else
+     Result := OperandFalse.IsVariable
+   Else
     Result := True;
-end;
+  End;
 
 { TCExpression }
 
-constructor TCExpression.Create(const Expression: String);
-begin
-  fSource := Expression;
-  fVars := TStringList.Create;
-  fVars.CaseSensitive := False;
-  fVars.OwnsObjects := True;
-  fVars.Sorted := True;
-  fVars.Duplicates := dupIgnore;
-  Expr := Parse(Expression);
-end;
+ Constructor TCExpression.Create(Const Expression : String);
+  Begin
+   fSource             := Expression;
+   fVars               := TStringList.Create;
+   fVars.CaseSensitive := False;
+   fVars.OwnsObjects   := True;
+   fVars.Sorted        := True;
+   fVars.Duplicates    := dupIgnore;
+   Expr                := Parse(Expression);
+  End;
 
-destructor TCExpression.Destroy;
-begin
-  if Assigned(Expr) then
+ Destructor TCExpression.Destroy;
+  Begin
+   If Assigned(Expr) Then
     Expr.Free;
-  fVars.Free;
-  inherited Destroy;
-end;
+   fVars.Free;
+   Inherited Destroy;
+  End;
 
-function TCExpression.GetFormattedSource: String;
-begin
-  Result := Expr.AsString;
-end;
+ Function TCExpression.GetFormattedSource : String;
+  Begin
+   Result := Expr.AsString;
+  End;
 
-function TCExpression.GetVarCount: Integer;
-begin
-  Result := fVars.Count;
-end;
+ Function TCExpression.GetVarCount : Integer;
+  Begin
+   Result := fVars.Count;
+  End;
 
-function TCExpression.GetVarNames(Index: Integer): String;
-begin
-  Result := fVars[Index];
-end;
+ Function TCExpression.GetVarNames(Index : Integer) : String;
+  Begin
+   Result := fVars[Index];
+  End;
 
-function TCExpression.GetVars(const Name: String): TCExprVar;
-var
-  Index: Integer;
-begin
-  Index := fVars.Add(Name);
-  Result := TCExprVar(fVars.Objects[Index]);
-  if Result = nil then
-  begin
-    Result := TCExprVar.Create(Name);
-    fVars.Objects[Index] := Result;
-  end;
-end;
+ Function TCExpression.GetVars(Const Name : String) : TCExprVar;
+  Var
+   Index : Integer;
+  Begin
+   Index  := fVars.Add(Name);
+   Result := TCExprVar(fVars.Objects[Index]);
+   If Result = Nil Then
+    Begin
+     Result               := TCExprVar.Create(Name);
+     fVars.Objects[Index] := Result;
+    End;
+  End;
 
-function TCExpression.Evaluate: Integer;
-begin
-  Result := Expr.Value;
-end;
+ Function TCExpression.Evaluate : Integer;
+  Begin
+   Result := Expr.Value;
+  End;
 
-function TCExpression.IsVariable: Boolean;
-begin
-  Result := Expr.IsVariable;
-end;
+ Function TCExpression.IsVariable : Boolean;
+  Begin
+   Result := Expr.IsVariable;
+  End;
 
-function TCExpression.Parse(const Expression: String): TCExprNode;
+ Function TCExpression.Parse(Const Expression : String) : TCExprNode;
+  Type
+   TCExprToken       = (ceNone, ceIdentifier, ceNumber, ceSymbol);
+   TBinaryOperations = Set Of TCBinaryOp;
+  Const
+   BinaryOpPrecedence : Array[1..10] Of TBinaryOperations = (
+   [opMultiply, opDivide, opModulus],
+   [opAdd, opSubtract],
+   [opShiftLeft, opShiftRight],
+   [opGreaterThan, opGreaterThanOrEqual, opLessThan, opLessThanOrEqual],
+   [opEqual, opNotEqual],
+   [opBitAnd],
+   [opBitXor],
+   [opBitOr],
+   [opLogAnd],
+   [opLogOr]);
+  Var
+   s       : PChar;
+   Token   : String;
+   TokenID : TCExprToken;
 
-  type
-    TCExprToken = (ceNone, ceIdentifier, ceNumber, ceSymbol);
-    TBinaryOperations = set of TCBinaryOp;
-
-  const
-    BinaryOpPrecedence: array[1..10] of TBinaryOperations = (
-      [opMultiply, opDivide, opModulus],
-      [opAdd, opSubtract],
-      [opShiftLeft, opShiftRight],
-      [opGreaterThan, opGreaterThanOrEqual, opLessThan, opLessThanOrEqual],
-      [opEqual, opNotEqual],
-      [opBitAnd],
-      [opBitXor],
-      [opBitOr],
-      [opLogAnd],
-      [opLogOr]);
-
-  var
-    S: PChar;
-    Token: String;
-    TokenID: TCExprToken;
-
-  procedure NextToken;
-  var
-    P: PChar;
-  begin
-    while CharInSet(S^, [' ', ^I, #10, #13])  do
-      Inc(S);
-    P := S;
-    case S^ of
-      #0:
-      begin
-        Token := '';
+   Procedure NextToken;
+    Var
+     p : PChar;
+    Begin
+     While CharInSet(s^, [' ', ^I, #10, #13])  Do
+      Inc(s);
+     p := s;
+     Case s^Of
+      #0 :
+       Begin
+        Token   := '';
         TokenID := ceNone;
-      end;
-      '0'..'9':
-      begin
-        repeat Inc(S) until not CharInSet(S^, ['0'..'9']);
-        SetString(Token, P, S - P);
+       End;
+      '0'..'9' :
+       Begin
+        Repeat
+         Inc(s)
+        Until Not CharInSet(s^, ['0'..'9']);
+        SetString(Token, p, s - p);
         TokenID := ceNumber;
-      end;
-      '_', 'A'..'Z', 'a'..'z':
-      begin
-        repeat Inc(S) until not CharInSet(S^, ['_', 'A'..'Z', 'a'..'z', '0'..'9']);
-        SetString(Token, P, S - P);
+       End;
+      '_', 'A'..'Z', 'a'..'z' :
+       Begin
+        Repeat
+         Inc(s)
+        Until Not CharInSet(s^, ['_', 'A'..'Z', 'a'..'z', '0'..'9']);
+        SetString(Token, p, s - p);
         TokenID := ceIdentifier;
-      end;
-    else
-      Inc(S);
-      case P^ of
-        '<': if CharInSet(S^, ['<', '=']) then Inc(S);
-        '>': if CharInSet(S^, ['>', '=']) then Inc(S);
-        '=': if S^ = '=' then Inc(S);
-        '!': if S^ = '=' then Inc(S);
-        '&': if S^ = '&' then Inc(S);
-        '|': if S^ = '|' then Inc(S);
-      end;
-      SetString(Token, P, S - P);
-      TokenID := ceSymbol;
-    end;
-  end;
+       End;
+     Else
+       Inc(s);
+       Case p^Of
+        '<' :
+         If CharInSet(s^, ['<', '=']) Then
+          Inc(s);
+        '>' :
+         If CharInSet(s^, ['>', '=']) Then
+          Inc(s);
+        '=' :
+         If s^ = '=' Then
+          Inc(s);
+        '!' :
+         If s^ = '=' Then
+          Inc(s);
+        '&' :
+         If s^ = '&' Then
+          Inc(s);
+        '|' :
+         If s^ = '|' Then
+          Inc(s);
+       End;
+       SetString(Token, p, s - p);
+       TokenID := ceSymbol;
+     End;
+    End;
 
-  function IsTokenUnaryOp(out UnaryOp: TCUnaryOp): Boolean;
-  var
-    Op: TCUnaryOp;
-  begin
-    if TokenID = ceSymbol then
-      for Op := Low(UnaryOpSymbols) to High(UnaryOpSymbols) do
-        if UnaryOpSymbols[Op] = Token then
-        begin
-          UnaryOp := Op;
-          Result := True;
-          Exit;
-        end;
-    Result := False;
-  end;
+   Function IsTokenUnaryOp(Out UnaryOp : TCUnaryOp) : Boolean;
+    Var
+     Op : TCUnaryOp;
+    Begin
+     If TokenID = ceSymbol Then
+      For Op := Low(UnaryOpSymbols) To High(UnaryOpSymbols) Do
+       If UnaryOpSymbols[Op] = Token Then
+        Begin
+         UnaryOp := Op;
+         Result  := True;
+         Exit;
+        End;
+     Result := False;
+    End;
 
-  function IsTokenBinaryOp(out BinaryOp: TCBinaryOp): Boolean;
-  var
-    Op: TCBinaryOp;
-  begin
-    if TokenID = ceSymbol then
-      for Op := Low(BinaryOpSymbols) to High(BinaryOpSymbols) do
-        if BinaryOpSymbols[Op] = Token then
-        begin
-          BinaryOp := Op;
-          Result := True;
-          Exit;
-        end;
-    Result := False;
-  end;
+   Function IsTokenBinaryOp(Out BinaryOp : TCBinaryOp) : Boolean;
+    Var
+     Op : TCBinaryOp;
+    Begin
+     If TokenID = ceSymbol Then
+      For Op := Low(BinaryOpSymbols) To High(BinaryOpSymbols) Do
+       If BinaryOpSymbols[Op] = Token Then
+        Begin
+         BinaryOp := Op;
+         Result   := True;
+         Exit;
+        End;
+     Result := False;
+    End;
 
-  function ParseExpression: TCExprNode; forward;
+   Function ParseExpression : TCExprNode; Forward;
 
-  function ParseFactor: TCExprNode;
-  var
-    UnaryOp, Temp: TCUnaryOp;
-    Value: Integer;
-  begin
-    if IsTokenUnaryOp(UnaryOp) then
+   Function ParseFactor : TCExprNode;
+    Var
+     UnaryOp, Temp : TCUnaryOp;
+     Value         : Integer;
+    Begin
+     If IsTokenUnaryOp(UnaryOp) Then
       NextToken
-    else
+     Else
       UnaryOp := opNone;
-    case TokenID of
-      ceIdentifier:
-      begin
+     Case TokenID Of
+      ceIdentifier :
+       Begin
         Result := TCExprVarNode.Create(Vars[Token]);
         NextToken;
-      end;
-      ceNumber:
-      begin
+       End;
+      ceNumber :
+       Begin
         Result := TCExprConstNode.Create(StrToInt(Token));
         NextToken;
-      end;
-      ceSymbol:
-      begin
-        if Token = '(' then
-        begin
+       End;
+      ceSymbol :
+       Begin
+        If Token = '(' Then
+         Begin
           NextToken;
           Result := ParseExpression;
-          if Token <> ')' then
-          begin
+          If Token <> ')' Then
+           Begin
             Result.Free;
-            raise ECExpressionError.CreateResFmt(@SMissingExpectedSymbolError, [')']);
-          end;
+            Raise ECExpressionError.CreateResFmt(@SMissingExpectedSymbolError, [')']);
+           End;
           NextToken;
-        end
-        else if IsTokenUnaryOp(Temp) then
-          Result := ParseFactor
-        else
-          raise ECExpressionError.CreateResFmt(@SUnexpectedSymbolError, [Token]);
-      end;
-    else
-      raise ECExpressionError.CreateRes(@SUnexpectedEndOfExpressionError);
-    end;
-    if UnaryOp <> opNone then
-    begin
-      Result := TCExprUnaryNode.Create(UnaryOp, Result);
-      if not Result.IsVariable then
-      begin
-        try
+         End
+        Else If IsTokenUnaryOp(Temp) Then
+         Result := ParseFactor
+        Else
+         Raise ECExpressionError.CreateResFmt(@SUnexpectedSymbolError, [Token]);
+       End;
+     Else
+       Raise ECExpressionError.CreateRes(@SUnexpectedEndOfExpressionError);
+     End;
+     If UnaryOp <> opNone Then
+      Begin
+       Result := TCExprUnaryNode.Create(UnaryOp, Result);
+       If Not Result.IsVariable Then
+        Begin
+         Try
           Value := Result.Value;
-        finally
+         Finally
           Result.Free;
-        end;
-        Result := TCExprConstNode.Create(Value);
-      end;
-    end;
-  end;
+         End;
+         Result := TCExprConstNode.Create(Value);
+        End;
+      End;
+    End;
 
-  function ParseTerm(Level: Integer = High(BinaryOpPrecedence)): TCExprNode;
-  var
-    NextOperand: TCExprNode;
-    BinaryOp: TCBinaryOp;
-    Value: Integer;
-  begin
-    if Level = Low(BinaryOpPrecedence) then
+   Function ParseTerm(Level : Integer = High(BinaryOpPrecedence)) : TCExprNode;
+    Var
+     NextOperand : TCExprNode;
+     BinaryOp    : TCBinaryOp;
+     Value       : Integer;
+    Begin
+     If Level = Low(BinaryOpPrecedence) Then
       Result := ParseFactor
-    else
+     Else
       Result := ParseTerm(Level - 1);
-    while IsTokenBinaryOp(BinaryOp) and (BinaryOp in BinaryOpPrecedence[Level]) do
-    begin
-      NextToken;
-      try
-        if Level = Low(BinaryOpPrecedence) then
-          NextOperand := ParseFactor
-        else
-          NextOperand := ParseTerm(Level - 1);
-      except
+     While IsTokenBinaryOp(BinaryOp) And (BinaryOp In BinaryOpPrecedence[Level]) Do
+      Begin
+       NextToken;
+       Try
+        If Level = Low(BinaryOpPrecedence) Then
+         NextOperand := ParseFactor
+        Else
+         NextOperand := ParseTerm(Level - 1);
+       Except
         Result.Free;
-        raise;
-      end;
-      Result := TCExprBinaryNode.Create(BinaryOp, Result, NextOperand);
-      if not Result.IsVariable then
-      begin
-        try
+        Raise;
+       End;
+       Result := TCExprBinaryNode.Create(BinaryOp, Result, NextOperand);
+       If Not Result.IsVariable Then
+        Begin
+         Try
           Value := Result.Value;
-        finally
+         Finally
           Result.Free;
-        end;
-        Result := TCExprConstNode.Create(Value);
-      end;
-    end;
-  end;
+         End;
+         Result := TCExprConstNode.Create(Value);
+        End;
+      End;
+    End;
 
-  function ParseExpression: TCExprNode;
-  var
-    OperandTrue, OperandFalse: TCExprNode;
-  begin
-    Result := ParseTerm;
-    if Token = '?' then
-    begin
-      NextToken;
-      try
+   Function ParseExpression : TCExprNode;
+    Var
+     OperandTrue, OperandFalse : TCExprNode;
+    Begin
+     Result := ParseTerm;
+     If Token = '?' Then
+      Begin
+       NextToken;
+       Try
         OperandTrue := ParseExpression;
-      except;
+       Except
+        ;
         Result.Free;
-        raise;
-      end;
-      if Token <> ':' then
-      begin
-        Result.Free;
-        raise ECExpressionError.CreateResFmt(@SMissingExpectedSymbolError, [':']);
-      end;
-      NextToken;
-      try
+        Raise;
+       End;
+       If Token <> ':' Then
+        Begin
+         Result.Free;
+         Raise ECExpressionError.CreateResFmt(@SMissingExpectedSymbolError, [':']);
+        End;
+       NextToken;
+       Try
         OperandFalse := ParseExpression;
-      except
+       Except
         Result.Free;
         OperandTrue.Free;
-        raise;
-      end;
-      if Result.IsVariable then
+        Raise;
+       End;
+       If Result.IsVariable Then
         Result := TCExprTernaryNode.Create(Result, OperandTrue, OperandFalse)
-      else
-      begin
-        if Result.Value <> 0 then
-        begin
-          Result.Free;
-          Result := OperandTrue;
-          OperandFalse.Free;
-        end
-        else
-        begin
-          Result.Free;
-          Result := OperandFalse;
-          OperandTrue.Free;
-        end;
-      end;
-    end;
-  end;
+       Else
+        Begin
+         If Result.Value <> 0 Then
+          Begin
+           Result.Free;
+           Result := OperandTrue;
+           OperandFalse.Free;
+          End
+         Else
+          Begin
+           Result.Free;
+           Result := OperandFalse;
+           OperandTrue.Free;
+          End;
+        End;
+      End;
+    End;
+  Var
+   Error : ECExpressionError;
 
-var
-  Error: ECExpressionError;
-begin
-  S := PChar(Expression);
-  NextToken;
-  try
+  Begin
+   s := PChar(Expression);
+   NextToken;
+   Try
     Result := ParseExpression;
-    if TokenID <> ceNone then
-    begin
+    If TokenID <> ceNone Then
+     Begin
       Result.Free;
-      raise ECExpressionError.CreateResFmt(@SUnexpectedSymbolError, [Token]);
-    end;
-  except
-    on E: ECExpressionError do
-    begin
-      E.SetErrorDetails(Expression, S - PChar(Expression), Token);
-      raise;
-    end;
-    on E: Exception do
-    begin
+      Raise ECExpressionError.CreateResFmt(@SUnexpectedSymbolError, [Token]);
+     End;
+   Except
+    On E : ECExpressionError Do
+     Begin
+      E.SetErrorDetails(Expression, s - PChar(Expression), Token);
+      Raise;
+     End;
+    On E : Exception Do
+     Begin
       Error := ECExpressionError.Create(E.Message);
-      Error.SetErrorDetails(Expression, S - PChar(Expression), Token);
-      raise Error;
-    end;
-  end;
-end;
+      Error.SetErrorDetails(Expression, s - PChar(Expression), Token);
+      Raise Error;
+     End;
+   End;
+  End;
 
-end.
-
+End.

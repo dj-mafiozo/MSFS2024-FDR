@@ -1,0 +1,2 @@
+﻿view-fullscreen.png
+view-restore.png

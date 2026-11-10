@@ -1,7 +1,7 @@
 ﻿object frmSettings: TfrmSettings
+  HelpContext = 500
   Left = 0
   Top = 0
-  HelpContext = 500
   BorderStyle = bsDialog
   Caption = 'Ustawienia'
   ClientHeight = 500
@@ -30,7 +30,43 @@
     ActivePage = GeneralPage
     Align = alClient
     TabOrder = 0
+    object GhostPage: TTabSheet
+      HelpContext = 560
+      Caption = 'Ghost replay'
+      object lGhostHz: TLabel
+        Left = 16
+        Top = 20
+        Width = 128
+        Height = 17
+        Caption = 'Refresh rate (5-60 Hz)'
+      end
+      object lGhostVMR: TLabel
+        Left = 16
+        Top = 64
+        Width = 182
+        Height = 17
+        Caption = 'FSLTL_Rules.vmr (optional path)'
+      end
+      object seGhostHz: TSpinEdit
+        Left = 250
+        Top = 16
+        Width = 100
+        Height = 27
+        MaxValue = 60
+        MinValue = 5
+        TabOrder = 0
+        Value = 30
+      end
+      object eGhostVMR: TEdit
+        Left = 16
+        Top = 90
+        Width = 580
+        Height = 25
+        TabOrder = 1
+      end
+    end
     object GeneralPage: TTabSheet
+      HelpContext = 510
       Caption = 'Ogolne'
       object LanguageLabel: TLabel
         Left = 16
@@ -43,45 +79,73 @@
         Left = 250
         Top = 16
         Width = 280
-        Height = 25
+        Height = 30
         Style = csOwnerDrawFixed
-          ItemHeight = 24
-          OnDrawItem = LanguageDrawItem
+        ItemHeight = 24
         TabOrder = 0
+        OnDrawItem = LanguageDrawItem
         Items.Strings = (
           'Wykryj automatycznie'
-          'العربية'
-          'Беларуская'
-          'Čeština'
+          #1575#1604#1593#1585#1576#1610#1577
+          #1041#1077#1083#1072#1088#1091#1089#1082#1072#1103
+          #268'e'#353'tina'
           'Dansk'
-          'Deutsch (Österreich)'
+          'Deutsch ('#214'sterreich)'
           'Deutsch (Schweiz)'
           'Deutsch'
-          'Ελληνικά'
+          #917#955#955#951#957#953#954#940
           'English (United Kingdom)'
           'English'
-          'Español'
+          'Espa'#241'ol'
           'Suomi'
-          'Français (Canada)'
-          'Français'
-          'עברית'
-          'हिन्दी'
+          'Fran'#231'ais (Canada)'
+          'Fran'#231'ais'
+          #1506#1489#1512#1497#1514
+          #2361#2367#2344#2381#2342#2368
           'Hrvatski'
           'Bahasa Indonesia'
           'Italiano'
-          '日本語'
-          'Norsk (bokmål)'
+          #26085#26412#35486
+          'Norsk (bokm'#229'l)'
           'Nederlands'
           'Polski'
-          'Português (Brasil)'
-          'Português'
-          'Русский'
-          'Slovenčina'
+          'Portugu'#234's (Brasil)'
+          'Portugu'#234's'
+          #1056#1091#1089#1089#1082#1080#1081
+          'Sloven'#269'ina'
           'Svenska'
-          'Türkçe'
-          'Українська'
-          'Tiếng Việt'
-          '简体中文')
+          'T'#252'rk'#231'e'
+          #1059#1082#1088#1072#1111#1085#1089#1100#1082#1072
+          'Ti'#7871'ng Vi'#7879't'
+          #31616#20307#20013#25991)
+      end
+      object cbAutomaticUpdates: TCheckBox
+        Left = 16
+        Top = 125
+        Width = 580
+        Height = 25
+        Caption = 'Sprawdzaj i instaluj aktualizacje przy uruchomieniu'
+        Enabled = False
+        TabOrder = 2
+      end
+      object btnCheckUpdates: TButton
+        Left = 16
+        Top = 166
+        Width = 280
+        Height = 28
+        Caption = 'Sprawd'#378' aktualizacje'
+        Enabled = False
+        TabOrder = 3
+        OnClick = CheckUpdatesClick
+      end
+      object btnChangeLog: TButton
+        Left = 316
+        Top = 166
+        Width = 280
+        Height = 28
+        Caption = 'Historia zmian'
+        TabOrder = 4
+        OnClick = ChangeLogClick
       end
       object btnResetLayout: TButton
         Left = 16
@@ -92,7 +156,75 @@
         TabOrder = 1
       end
     end
+    object DebugPage: TTabSheet
+      HelpContext = 550
+      Caption = 'Debug'
+      object lInstrumentOverride: TLabel
+        Left = 16
+        Top = 20
+        Width = 209
+        Height = 17
+        Caption = 'Instrument display override (debug)'
+      end
+      object cbB38MInfoLeft: TCheckBox
+        Left = 16
+        Top = 192
+        Width = 580
+        Height = 25
+        Caption = 
+          'B38M: flight information on left (CPT); right when unchecked (FO' +
+          ')'
+        TabOrder = 4
+      end
+      object cbB38MInfo: TCheckBox
+        Left = 16
+        Top = 160
+        Width = 580
+        Height = 25
+        Caption = 'B38M: display flight information panel'
+        Checked = True
+        State = cbChecked
+        TabOrder = 3
+      end
+      object cbB38MAoA: TCheckBox
+        Left = 16
+        Top = 128
+        Width = 580
+        Height = 25
+        Caption = 'B38M: display angle of attack (AoA)'
+        TabOrder = 2
+      end
+      object cbB38MFD: TCheckBox
+        Left = 16
+        Top = 96
+        Width = 580
+        Height = 25
+        Caption = 'B38M: display Flight Director from SimConnect'
+        Checked = True
+        State = cbChecked
+        TabOrder = 1
+      end
+      object cbInstrumentOverride: TComboBox
+        Left = 16
+        Top = 48
+        Width = 580
+        Height = 25
+        Style = csDropDownList
+        ItemIndex = 0
+        TabOrder = 0
+        Text = 'Automatic'
+        Items.Strings = (
+          'Automatic'
+          'GA / ANALOG'
+          'GA / GLASS'
+          'AIRLINER / CLASSIC'
+          'AIRLINER / PFD'
+          'B38M / PFD + EICAS'
+          'A320 / PFD + ECAM')
+      end
+    end
     object UnitsPage: TTabSheet
+      HelpContext = 520
       Caption = 'Jednostki'
       object UnitsEditor: TValueListEditor
         Left = 0
@@ -110,6 +242,7 @@
       end
     end
     object AnalysisPage: TTabSheet
+      HelpContext = 530
       Caption = 'Analiza'
       ImageIndex = 1
       object lStartWindow: TLabel
@@ -196,6 +329,7 @@
       end
     end
     object AIPage: TTabSheet
+      HelpContext = 540
       Caption = 'Silniki AI'
       ImageIndex = 2
       object lProvider: TLabel
@@ -227,14 +361,14 @@
         Left = 16
         Top = 36
         Width = 600
-        Height = 25
+        Height = 30
         Style = csOwnerDrawFixed
-          ItemHeight = 24
-          OnDrawItem = LanguageDrawItem
+        ItemHeight = 24
         ItemIndex = 0
         TabOrder = 0
         Text = 'Codex (konto ChatGPT / CLI)'
         OnChange = ModelsActivate
+        OnDrawItem = LanguageDrawItem
         Items.Strings = (
           'Codex (konto ChatGPT / CLI)'
           'Gemini (klucz API)'
@@ -248,6 +382,7 @@
         ActivePage = CodexPage
         TabOrder = 1
         object CodexPage: TTabSheet
+          HelpContext = 541
           Caption = 'Codex'
           object lCodexPath: TLabel
             Left = 12
@@ -279,6 +414,7 @@
           end
         end
         object GeminiPage: TTabSheet
+          HelpContext = 542
           Caption = 'Gemini'
           ImageIndex = 1
           object lGeminiModel: TLabel
@@ -312,6 +448,7 @@
           end
         end
         object OllamaPage: TTabSheet
+          HelpContext = 543
           Caption = 'Ollama'
           ImageIndex = 2
           object lOllamaURL: TLabel

@@ -1,10 +1,10 @@
-﻿# Fenix A32X
+# Fenix A32X
 
 [Traducciones de la interfaz](../../Translation.es.md)
 
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
-Los títulos con Fenix o FNX_32/FNX A32 seleccionan FenixA32X. Los demás aviones conservan SimConnect; iFly sigue utilizando su SDK. El catálogo contiene 1203 L-vars únicas extraídas de 2096 parámetros VAR_NAME* del Cockpit_Behavior.xml proporcionado. El manifiesto conserva contexto y SHA-256; no se distribuye el XML del fabricante.
+Los títulos con Fenix o FNX_32/FNX A32 seleccionan FenixA32X. Los demás aviones conservan SimConnect; iFly sigue utilizando su SDK. El catálogo contiene 1748 L-vars únicas extraídas de 3826 referencias VAR_NAME* de los XML modulares de los paquetes common y aircraft-320. El manifiesto conserva contexto y SHA-256; no se distribuye el XML del fabricante.
 
 TFenixReader abre una conexión SimConnect independiente de solo lectura: FLOAT64/number en lotes de 128, actualización SIM_FRAME y grabación al intervalo configurado en milisegundos. No requiere programas adicionales, WASM ni escrituras o comandos de cabina.
 
@@ -15,8 +15,11 @@ Los datos ausentes, erróneos o caducados producen null. Validez: max(1000, inte
 Tras actualizar Fenix, regenere el catálogo y compile:
 
 ```text
-python tools/import_fenix_catalog.py "ruta/Cockpit_Behavior.xml" support/fenix/variables.json
+python tools/import_fenix_catalog.py "ruta/Cockpit_Behavior.xml" support/fenix/variables.json --previous support/fenix/variables.json
 python tools/generate_fenix_catalog.py
 ```
 
 VerifyFenix comprueba llamadas, detección, aislamiento de errores, valores nulos, historial, gráficos y análisis mediante una DLL simulada. Los valores reales requieren una sesión Fenix/MSFS activa; estas pruebas no validan todas las versiones reales.
+
+
+Paquete common modular 3.0.0.7454: 1748 candidatos actuales de 3826 referencias en 55 archivos; 176 XML de avión revisados. El cockpit principal contiene solo 772 nombres. Las 300 definiciones antiguas son históricas y no se suscriben. La reproducción usa las claves guardadas. No se confirmaron FMA completo, comandos FD ni página ECAM automática a partir de estas declaraciones.

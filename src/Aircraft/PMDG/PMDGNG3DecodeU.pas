@@ -17,72 +17,72 @@ Implementation
  Function DecodePMDGData(Const Data : TBytes) : TJSONObject;
   Var
    i    : Integer;
-   F    : TPMDGField;
-   B    : Byte;
-   W    : Word;
+   f    : TPMDGField;
+   b    : Byte;
+   w    : Word;
    SW   : SmallInt;
-   D    : Cardinal;
+   d    : Cardinal;
    SD   : Integer;
-   V    : Single;
+   v    : Single;
    Text : AnsiString;
-   Z    : Integer;
+   z    : Integer;
   Begin
    Result := TJSONObject.Create;
    Try
     For i := 0 To PMDGFieldCount - 1 Do
      Begin
-      F := PMDGFields[i];
-      If (F.Offset + F.Size > Length(Data)) Then
+      f := PMDGFields[i];
+      If (f.Offset + f.Size > Length(Data)) Then
        Begin
-        Result.AddPair(F.Name, TJSONNull.Create);
+        Result.AddPair(f.Name, TJSONNull.Create);
         Continue;
        End;
-      If F.Kind = 'text' Then
+      If f.Kind = 'text' Then
        Begin
-        SetString(Text, PAnsiChar(@Data[F.Offset]), F.Size);
-        Z := Pos(#0, String(Text));
-        If Z > 0 Then
-         SetLength(Text, Z - 1);
-        Result.AddPair(F.Name, String(Text));
+        SetString(Text, PAnsiChar(@Data[f.Offset]), f.Size);
+        z := Pos(#0, String(Text));
+        If z > 0 Then
+         SetLength(Text, z - 1);
+        Result.AddPair(f.Name, String(Text));
        End
-      Else If (F.Kind = 'u8') Or (F.Kind = 'bool') Then
+      Else If (f.Kind = 'u8') Or (f.Kind = 'bool') Then
        Begin
-        B := Data[F.Offset];
-        If (F.Kind = 'bool') And (B > 1) Then
-         Result.AddPair(F.Name, TJSONNull.Create)
+        b := Data[f.Offset];
+        If (f.Kind = 'bool') And (b > 1) Then
+         Result.AddPair(f.Name, TJSONNull.Create)
         Else
-         Result.AddPair(F.Name, TJSONNumber.Create(B));
+         Result.AddPair(f.Name, TJSONNumber.Create(b));
        End
-      Else If F.Kind = 'i16' Then
+      Else If f.Kind = 'i16' Then
        Begin
-        Move(Data[F.Offset], SW, 2);
-        Result.AddPair(F.Name, TJSONNumber.Create(SW));
+        Move(Data[f.Offset], SW, 2);
+        Result.AddPair(f.Name, TJSONNumber.Create(SW));
        End
-      Else If F.Kind = 'u16' Then
+      Else If f.Kind = 'u16' Then
        Begin
-        Move(Data[F.Offset], W, 2);
-        Result.AddPair(F.Name, TJSONNumber.Create(W));
+        Move(Data[f.Offset], w, 2);
+        Result.AddPair(f.Name, TJSONNumber.Create(w));
        End
-      Else If F.Kind = 'i32' Then
+      Else If f.Kind = 'i32' Then
        Begin
-        Move(Data[F.Offset], SD, 4);
-        Result.AddPair(F.Name, TJSONNumber.Create(SD));
+        Move(Data[f.Offset], SD, 4);
+        Result.AddPair(f.Name, TJSONNumber.Create(SD));
        End
-      Else If F.Kind = 'u32' Then
+      Else If f.Kind = 'u32' Then
        Begin
-        Move(Data[F.Offset], D, 4);
-        Result.AddPair(F.Name, TJSONNumber.Create(Int64(D)));
+        Move(Data[f.Offset], d, 4);
+        Result.AddPair(f.Name, TJSONNumber.Create(Int64(d)));
        End
-      Else If F.Kind = 'f32' Then
+      Else If f.Kind = 'f32' Then
        Begin
-        Move(Data[F.Offset], V, 4);
-        If IsNan(V) Or IsInfinite(V) Then
-         Result.AddPair(F.Name, TJSONNull.Create)
+        Move(Data[f.Offset], v, 4);
+        If IsNan(v) Or IsInfinite(v) Then
+         Result.AddPair(f.Name, TJSONNull.Create)
         Else
-         Result.AddPair(F.Name, TJSONNumber.Create(Double(V)));
+         Result.AddPair(f.Name, TJSONNumber.Create(Double(v)));
        End
       Else
-       Result.AddPair(F.Name, TJSONNull.Create);
+       Result.AddPair(f.Name, TJSONNull.Create);
      End;
    Except
     Result.Free;
@@ -94,15 +94,21 @@ Implementation
   Const
    HexDigits : String = '0123456789ABCDEF';
   Var
-   Rows   : TJSONArray;
-   Row    : Integer;
-   Col    : Integer;
-   Offset : Integer;
-   i      : Integer;
-   Line   : String;
-   Hex    : String;
-   B      : Byte;
-   Ch     : WideChar;
+   Styles     : TJSONArray;
+   Appearance : TJSONObject;
+   StyleRow   : String;
+   ColorCode  : Byte;
+   Flags      : Byte;
+   Palette    : Array [0..5] Of String;
+   Rows       : TJSONArray;
+   Row        : Integer;
+   Col        : Integer;
+   Offset     : Integer;
+   i          : Integer;
+   Line       : String;
+   Hex        : String;
+   b          : Byte;
+   Ch         : WideChar;
   Begin
    Result := TJSONObject.Create;
    If (Length(Data) < PMDGCDUSize) Or (Data[1008] > 1) Then
@@ -120,19 +126,14 @@ Implementation
      For Col := 0 To 23 Do
       Begin
        Offset := (Col * 14 + Row) * 3;
-       B      := Data[Offset];
-       Ch     := WideChar(B);
-       Case B Of
-        0 :
-         Ch := ' ';
-        $A1 :
-         Ch := WideChar($2190);
-        $A2 :
-         Ch := WideChar($2192);
-        $A3 :
-         Ch := WideChar($2191);
-        $A4 :
-         Ch := WideChar($2193);
+       b      := Data[Offset];
+       Ch     := WideChar(b);
+       Case b Of
+        0   : Ch := ' ';
+        $A1 : Ch := WideChar($2190);
+        $A2 : Ch := WideChar($2192);
+        $A3 : Ch := WideChar($2191);
+        $A4 : Ch := WideChar($2193);
        End;
        Line := Line + Ch;
       End;
@@ -141,11 +142,40 @@ Implementation
    SetLength(Hex, 1008 * 2);
    For i := 0 To 1007 Do
     Begin
-     B              := Data[i];
-     Hex[i * 2 + 1] := HexDigits[(B Shr 4) + 1];
-     Hex[i * 2 + 2] := HexDigits[(B And 15) + 1];
+     b              := Data[i];
+     Hex[i * 2 + 1] := HexDigits[(b Shr 4) + 1];
+     Hex[i * 2 + 2] := HexDigits[(b And 15) + 1];
     End;
    Result.AddPair('raw_cells_hex', Hex);
+   Palette[0] := 'FFFFFF';
+   Palette[1] := '00FFFF';
+   Palette[2] := '00FF00';
+   Palette[3] := 'FF00FF';
+   Palette[4] := 'FFBF00';
+   Palette[5] := 'FF0000';
+   Appearance := TJSONObject.Create;
+   Try
+    Appearance.AddPair('encoding', 'rgb-flags-v1');
+    Styles := TJSONArray.Create;
+    Appearance.AddPair('rows', Styles);
+    For Row := 0 To 13 Do
+     Begin
+      StyleRow := '';
+      For Col  := 0 To 23 Do
+       Begin
+        Offset    := (Col * 14 + Row) * 3;
+        ColorCode := Data[Offset + 1];
+        Flags     := Data[Offset + 2];
+        If ColorCode > 5 Then
+         ColorCode := 0;
+        StyleRow   := StyleRow + Palette[ColorCode] + IntToHex(Flags, 2);
+       End;
+      Styles.Add(StyleRow);
+     End;
+    Result.AddPair('style_json', Appearance.ToJSON);
+   Finally
+    Appearance.Free;
+   End;
   End;
 
 End.

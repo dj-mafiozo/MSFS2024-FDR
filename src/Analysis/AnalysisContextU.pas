@@ -14,11 +14,11 @@ Implementation
 
  Uses
   iFlyDisplaysU, FSHudDataU, GSXVarsU, SimBriefImportU, AirlinerVarsU, AirlinerCatalogU, AnalysisPrecisionU, AircraftDataStoreU,
-  iFlySDKCatalogU, FenixCatalogU, FBWCatalogU, PMDGNG3CatalogU, FMCScreensU;
+  iFlySDKCatalogU, FenixCatalogU, FBWCatalogU, PMDGNG3CatalogU, PMDG777CatalogU, AddonLVarCatalogU, FMCScreensU;
 
  Function GroundWeatherReference(Connection : TFDConnection; Trip : Integer; Const EventUTC : String; Landing : Boolean) : TJSONObject;
   Const
-   Fields : Array [0 .. 9] Of String = ('ambient_temperature', 'ambient_pressure', 'barometer_pressure', 'ambient_wind_direction', 'ambient_wind_velocity', 'ambient_visibility', 'plane_altitude', 'plane_latitude', 'plane_longitude', 'kohlsman_setting_mb');
+   Fields : Array [0..9] Of String = ('ambient_temperature', 'ambient_pressure', 'barometer_pressure', 'ambient_wind_direction', 'ambient_wind_velocity', 'ambient_visibility', 'plane_altitude', 'plane_latitude', 'plane_longitude', 'kohlsman_setting_mb');
   Var
    q          : TFDQuery;
    i          : Integer;
@@ -26,7 +26,7 @@ Implementation
    Bit        : Integer;
    Direction  : String;
    Comparison : String;
-   V          : TField;
+   v          : TField;
   Begin
    Result       := TJSONObject.Create;
    q            := TFDQuery.Create(Nil);
@@ -66,11 +66,11 @@ Implementation
     Result.AddPair('sim_on_ground', TJSONBool.Create(True));
     For i := 0 To High(Fields) Do
      Begin
-      V := q.FieldByName(Fields[i]);
-      If V.IsNull Then
+      v := q.FieldByName(Fields[i]);
+      If v.IsNull Then
        Result.AddPair(Fields[i], TJSONNull.Create)
       Else
-       Result.AddPair(Fields[i], TJSONNumber.Create(V.AsFloat));
+       Result.AddPair(Fields[i], TJSONNumber.Create(v.AsFloat));
      End;
    Except
     Result.Free;
@@ -80,53 +80,54 @@ Implementation
    q.Free;
   End;
 
- Function TimeValue(S : String) : TDateTime;
+ Function TimeValue(s : String) : TDateTime;
   Var
    i : Integer;
   Begin
-   i := Pos('_', S);
+   i := Pos('_', s);
    If i > 0 Then
-    SetLength(S, i - 1);
-   If Not TryISO8601ToDate(S, Result, True) Then
-    Raise Exception.Create(Tr('Nieprawidlowy czas UTC zdarzenia: ') + S);
+    SetLength(s, i - 1);
+   If Not TryISO8601ToDate(s, Result, True) Then
+    Raise Exception.Create(Tr('Nieprawidlowy czas UTC zdarzenia: ') + s);
   End;
 
- Procedure AddField(O : TJSONObject; F : TField);
+ Procedure AddField(o : TJSONObject; f : TField);
   Begin
-   If F.IsNull Then
-    O.AddPair(F.FieldName, TJSONNull.Create)
-   Else If F.DataType In [ftSmallint, ftInteger, ftWord, ftFloat, ftCurrency, ftBCD, ftFMTBcd, ftLargeint, ftSingle, ftExtended, ftShortint, ftByte, ftLongWord] Then
-    O.AddPair(F.FieldName, TJSONNumber.Create(F.AsFloat))
+   If f.IsNull Then
+    o.AddPair(f.FieldName, TJSONNull.Create)
+   Else If f.DataType In [ftSmallint, ftInteger, ftWord, ftFloat, ftCurrency, ftBCD, ftFMTBcd, ftLargeint, ftSingle, ftExtended, ftShortint, ftByte, ftLongWord] Then
+    o.AddPair(f.FieldName, TJSONNumber.Create(f.AsFloat))
    Else
-    O.AddPair(F.FieldName, F.AsString);
+    o.AddPair(f.FieldName, f.AsString);
   End;
 
  Procedure CopyValue(Source, Dest : TJSONObject; Const Field, Alias : String);
   Var
-   V : TJSONValue;
+   v : TJSONValue;
   Begin
-   V := Source.GetValue(Field);
-   If V = Nil Then
+   v := Source.GetValue(Field);
+   If v = Nil Then
     Dest.AddPair(Alias, TJSONNull.Create)
    Else
-    Dest.AddPair(Alias, TJSONObject.ParseJSONValue(V.ToJSON));
+    Dest.AddPair(Alias, TJSONObject.ParseJSONValue(v.ToJSON));
   End;
 
  Procedure AddGearGroups(Row : TJSONObject);
   Const
-   Names : Array [0 .. 2] Of String = ('center', 'left', 'right');
+   Names : Array [0..2] Of String = ('center', 'left', 'right');
   Var
-   G, Leg : TJSONObject;
+   g      : TJSONObject;
+   Leg    : TJSONObject;
    i      : Integer;
    Suffix : String;
   Begin
-   G := TJSONObject.Create;
-   Row.AddPair('landing_gear', G);
+   g := TJSONObject.Create;
+   Row.AddPair('landing_gear', g);
    For i := 0 To 2 Do
     Begin
      Suffix := IntToStr(i);
      Leg    := TJSONObject.Create;
-     G.AddPair(Names[i], Leg);
+     g.AddPair(Names[i], Leg);
      CopyValue(Row, Leg, 'gear_position_' + Suffix, 'extension_ratio');
      CopyValue(Row, Leg, 'gear_is_on_ground_' + Suffix, 'on_ground');
      CopyValue(Row, Leg, 'wheel_rpm_' + Suffix, 'wheel_rpm');
@@ -170,53 +171,56 @@ Implementation
 
  Function BuildContactContext(DB : TFlightDatabase; Contact : TFDQuery; BeforeSeconds, AfterSeconds : Integer) : TJSONObject;
   Const
-   Tables : Array [0 .. 1] Of String        = ('trip_liftoffs', 'trip_touchdowns');
-   WeatherFields : Array [0 .. 5] Of String = ('ambient_wind_direction', 'ambient_wind_velocity', 'ambient_temperature', 'ambient_pressure', 'ambient_visibility', 'barometer_pressure');
+   Tables : Array [0..1] Of String = ('trip_liftoffs', 'trip_touchdowns');
+   WeatherFields : Array [0..5] Of String = ('ambient_wind_direction', 'ambient_wind_velocity', 'ambient_temperature', 'ambient_pressure', 'ambient_visibility', 'barometer_pressure');
   Var
-   Rounded         : TJSONObject;
-   Delta           : TJSONObject;
-   History         : TAircraftHistory;
-   q               : TFDQuery;
-   E               : TFDQuery;
-   EventTime       : TDateTime;
-   T               : TDateTime;
-   Previous        : TDateTime;
-   First           : TDateTime;
-   Last            : TDateTime;
-   Obj             : TJSONObject;
-   Row             : TJSONObject;
-   Stats           : TJSONObject;
-   Semantics       : TJSONObject;
-   Weather         : TJSONObject;
-   Nearest         : TJSONObject;
-   PreviousState   : TJSONObject;
-   Units           : TJSONObject;
-   EngineUnits     : TJSONObject;
-   Engines         : TJSONObject;
-   Samples         : TJSONArray;
-   Contacts        : TJSONArray;
-   Name            : String;
-   TableName       : String;
-   i, n, Pre, Post : Integer;
-   North           : Double;
-   East            : Double;
-   H               : Double;
-   Gap             : Double;
-   PeakG           : Double;
-   V               : Double;
-   MaxVS           : Double;
-   MinVS           : Double;
-   NearestDelta    : Double;
-   HasG            : Boolean;
-   HasVS           : Boolean;
-   Groups          : Array [1 .. 3] Of Cardinal;
+   Rounded       : TJSONObject;
+   Delta         : TJSONObject;
+   History       : TAircraftHistory;
+   q             : TFDQuery;
+   e             : TFDQuery;
+   EventTime     : TDateTime;
+   t             : TDateTime;
+   Previous      : TDateTime;
+   First         : TDateTime;
+   Last          : TDateTime;
+   Obj           : TJSONObject;
+   Row           : TJSONObject;
+   Stats         : TJSONObject;
+   Semantics     : TJSONObject;
+   Weather       : TJSONObject;
+   Nearest       : TJSONObject;
+   PreviousState : TJSONObject;
+   Units         : TJSONObject;
+   EngineUnits   : TJSONObject;
+   Engines       : TJSONObject;
+   Samples       : TJSONArray;
+   Contacts      : TJSONArray;
+   Name          : String;
+   TableName     : String;
+   i             : Integer;
+   n             : Integer;
+   Pre           : Integer;
+   Post          : Integer;
+   North         : Double;
+   East          : Double;
+   h             : Double;
+   Gap           : Double;
+   PeakG         : Double;
+   v             : Double;
+   MaxVS         : Double;
+   MinVS         : Double;
+   NearestDelta  : Double;
+   HasG          : Boolean;
+   HasVS         : Boolean;
+   Groups        : Array [1..3] Of Cardinal;
   Begin
    EventTime     := TimeValue(Contact.FieldByName('time_zulu').AsString);
    BeforeSeconds := EnsureRange(BeforeSeconds, 1, 300);
    AfterSeconds  := EnsureRange(AfterSeconds, 1, 300);
    Result        := TJSONObject.Create;
    q             := TFDQuery.Create(Nil);
-   E             := TFDQuery.Create(Nil);
+   e             := TFDQuery.Create(Nil);
    PreviousState := Nil;
    History       := Nil;
    Try
@@ -255,6 +259,8 @@ Implementation
        Result.AddPair('fenix_lvar_field_definitions', Obj);
        For i := 0 To FenixFieldCount - 1 Do
         Obj.AddPair(FenixFields[i].Name, FenixFields[i].Description);
+       For i := 0 To FenixRetiredFieldCount - 1 Do
+        Obj.AddPair(FenixRetiredFields[i].Name, FenixRetiredFields[i].Description);
       End;
      If DB.Connection.ExecSQLScalar('select count(*) from trip_aircraft_data where trip=:t and payload like :p', [Contact.FieldByName('trip').AsInteger, '%FBWA32NX%']) > 0 Then
       Begin
@@ -270,13 +276,22 @@ Implementation
        For i := 0 To PMDGFieldCount - 1 Do
         Obj.AddPair(PMDGFields[i].Name, PMDGFields[i].Description);
       End;
+     If DB.Connection.ExecSQLScalar('select count(*) from trip_aircraft_data where trip=:t and payload like :p', [Contact.FieldByName('trip').AsInteger, '%PMDG777%']) > 0 Then
+      Begin
+       Obj   := TJSONObject.Create;
+       For i := 0 To PMDG777FieldCount - 1 Do
+        Obj.AddPair(PMDG777Fields[i].Name, PMDG777Fields[i].Description);
+       Result.AddPair('pmdg_777_definitions', Obj);
+      End;
+     Result.AddPair('additional_aircraft_semantics', 'PMDG777 is an independent official typed SDK. ' + 'Missing V-speeds (zero), negative unavailable distances and -32767 landing altitude are unavailable. ' + 'PMDGDC6, CSS737, MaddogX, SkySimDC9, SkySimMD11 and TFDiMD11 fields are model-XML L-vars; ' + 'AsoboBell407/AsoboEC135 fields are explicit numeric locpak bindings (A: denotes a standard SimVar): raw numeric values, ' +
+     'not a verified physical-units or event API. A missing L-var can return zero; do not equate zero with availability.');
      Result.AddPair('pmdg_ng3_semantics', 'PMDG NG3 uses an official typed Client Data SDK, not L-vars. FMC V1/VR/V2/LandingVREF are knots; zero means unset, not a speed of zero. ' + 'performance_reference converts unset FMC values to null. Landing altitude -32767 is unavailable. Negative FMC distances are unavailable; TOD distance zero means passed, not missing. ' +
-      'MCP IASMach below 10 indicates Mach; blank/unpowered displays do not override SimConnect. Gear lever 1=OFF is not down or a physical extension measurement. ' + 'autopilot_master uses active AFS pitch/roll control, including CWS, not proof of CMD/LNAV/VNAV modes. Autothrottle active uses actual SDK servo connection. ' + 'CDU optional screens have powered, rows and raw column-major cells (symbol/color/flags). Do not use text from an unpowered CDU as current FMC input. ' +
-      'SDK ON_SET values are cached until updated; data_update_age_ms/CDU last_update_age_ms are wall-clock ages. Static cached state is not a new independently sampled measurement.');
+     'MCP IASMach below 10 indicates Mach; blank/unpowered displays do not override SimConnect. Gear lever 1=OFF is not down or a physical extension measurement. ' + 'autopilot_master uses active AFS pitch/roll control, including CWS, not proof of CMD/LNAV/VNAV modes. Autothrottle active uses actual SDK servo connection. ' + 'CDU optional screens have powered, rows and raw column-major cells (symbol/color/flags). Do not use text from an unpowered CDU as current FMC input. ' +
+     'SDK ON_SET values are cached until updated; data_update_age_ms/CDU last_update_age_ms are wall-clock ages. Static cached state is not a new independently sampled measurement.');
      Result.AddPair('fbw_lvar_semantics', 'FBWA32NX fields are raw readable Flight Deck API L-vars. Write-only events and documented deprecated entries are excluded. ' + 'Standard flaps_handle_index converts FBW native 0..4 to MSFS 0,2,3,4,5. Raw FBW detents remain in fields. ' + 'AUTOTHRUST_STATUS: 0=off,1=armed,2=active. Overrides require IS_READY=1. FCU display dashes are not selected zero speed. ' +
-      'performance_reference.vapp_kt is FMS VAPP in knots, including a pilot override; it is not VREF. A null VAPP means no valid positive value. ' + 'Do not infer V1/VR/V2 or actual AP engagement from button/annunciator states. Readable does not mean every L-var exists in every installed version.');
+     'performance_reference.vapp_kt is FMS VAPP in knots, including a pilot override; it is not VREF. A null VAPP means no valid positive value. ' + 'Do not infer V1/VR/V2 or actual AP engagement from button/annunciator states. Readable does not mean every L-var exists in every installed version.');
      Result.AddPair('fenix_lvar_semantics', 'FenixA32X fields are raw cockpit L-vars. Momentary S_FCU_AP1/AP2/ATHR are buttons; I_FCU_* are annunciator inputs, not independently validated flight modes. ' + 'A_FC_THROTTLE_*_INPUT uses animation scale 0..5, NOT percent. No inferred FMC V-speeds. null means no fresh valid packet. ' + 'SimConnect does not expose individual L-var existence; returned zero may also mean an absent variable. Verify zeros against aircraft behavior before drawing conclusions. ' +
-      'max_transport_age_ms is wall-clock arrival age, not simulator event offset. Pauses, reconnects and aircraft changes reset the auxiliary channel.');
+     'max_transport_age_ms is wall-clock arrival age, not simulator event offset. Pauses, reconnects and aircraft changes reset the auxiliary channel.');
      Result.AddPair('aircraft_sdk_semantics', 'aircraft_sdk.fields contains provider-specific data: iFly shared memory or Fenix L-vars. Panel lamps and switches are not measured flight dynamics or confirmed active modes. overrides names sta' + 'ndard values sourced from the aircraft provider; other standard values use SimConnect. Unavailable SDK explicitly falls back to SimConnect. Do not infer V1/VR/V2 from panel digits.');
      Obj := TJSONObject.Create;
      Result.AddPair('event', Obj);
@@ -319,6 +334,7 @@ Implementation
      Result.AddPair('engine_parameter_units', EngineUnits);
      For i := 0 To High(EngineColumns) Do
       EngineUnits.AddPair(EngineColumns[i].Name, SimFields[EngineColumns[i].FieldIndex].Units);
+     Semantics.AddPair('eicas_parameters', 'eng_oil_quantity is a recorded capacity ratio (0..1), not litres. total_air_temperature is TAT including ram rise, not ambient/METAR OAT. ' + 'Tank quantities are US gallons; mass conversion requires the recorded fuel_weight_per_gallon in lb/US gal. ' + 'Do not assume a constant fuel density or derive engine warnings from the APU LOW_OIL_PRESSURE light.');
      Semantics.AddPair('weather_missing', 'Dew point, humidity, precipitation, cloud ceiling, gust maxima and runway contamination are not recorded by this catalog; do not invent them or infer runway wetness from visibility.');
      Weather := TJSONObject.Create;
      Result.AddPair('weather', Weather);
@@ -336,7 +352,7 @@ Implementation
      Samples := TJSONArray.Create;
      Result.AddPair('samples', Samples);
      q.Connection := DB.Connection;
-     E.Connection := DB.Connection;
+     e.Connection := DB.Connection;
      q.Open('select trip_data.*,cast(gear_position_0 as REAL) as gear_extension_0,cast(gear_position_1 as REAL) as gear_extension_1,cast(gear_position_2 as REAL) as gear_extension_2 from trip_d' + 'ata where trip=:t and substr(zulu_time,1,23)>=:a and substr(zulu_time,1,23)<=:b order by zulu_time,id limit 6001', [Contact.FieldByName('trip').AsInteger, Copy(DateToISO8601(EventTime - BeforeSeconds / 86400, True), 1, 23), Copy(DateToISO8601(EventTime + AfterSeconds / 86400, True), 1, 23)]);
      n        := 0;
      Pre      := 0;
@@ -354,20 +370,20 @@ Implementation
       Begin
        If n >= 6000 Then
         Raise Exception.Create(Tr('Za duzo probek analizy (>6000). Zmniejsz okno czasowe w ustawieniach AI.'));
-       T := TimeValue(q.FieldByName('zulu_time').AsString);
+       t := TimeValue(q.FieldByName('zulu_time').AsString);
        If n = 0 Then
-        First := T
+        First := t
        Else
-        Gap     := Max(Gap, (T - Previous) * 86400);
-       Previous := T;
-       Last     := T;
-       If T < EventTime Then
+        Gap     := Max(Gap, (t - Previous) * 86400);
+       Previous := t;
+       Last     := t;
+       If t < EventTime Then
         Inc(Pre);
-       If T > EventTime Then
+       If t > EventTime Then
         Inc(Post);
        Inc(n);
        Row := TJSONObject.Create;
-       Row.AddPair('t_seconds', TJSONNumber.Create((T - EventTime) * 86400));
+       Row.AddPair('t_seconds', TJSONNumber.Create((t - EventTime) * 86400));
        Row.AddPair('utc', q.FieldByName('zulu_time').AsString);
        For i := 0 To High(NumericColumns) Do
         If Pos('gear_position_', NumericColumns[i].Name) = 1 Then
@@ -378,14 +394,16 @@ Implementation
           Else
            Row.AddPair(NumericColumns[i].Name, TJSONNumber.Create(q.FieldByName(Name).AsFloat));
          End
+        Else If q.FindField(NumericColumns[i].Name) = Nil Then
+         Row.AddPair(NumericColumns[i].Name, TJSONNull.Create)
         Else
          AddField(Row, q.FieldByName(NumericColumns[i].Name));
-       If Abs((T - EventTime) * 86400) < NearestDelta Then
+       If Abs((t - EventTime) * 86400) < NearestDelta Then
         Begin
-         NearestDelta := Abs((T - EventTime) * 86400);
+         NearestDelta := Abs((t - EventTime) * 86400);
          While Nearest.Count > 0 Do
           Nearest.RemovePair(Nearest.Pairs[0].JsonString.Value).Free;
-         Nearest.AddPair('t_seconds', TJSONNumber.Create((T - EventTime) * 86400));
+         Nearest.AddPair('t_seconds', TJSONNumber.Create((t - EventTime) * 86400));
          Nearest.AddPair('utc', q.FieldByName('zulu_time').AsString);
          For Name In WeatherFields Do
           AddField(Nearest, q.FieldByName(Name));
@@ -394,9 +412,9 @@ Implementation
         Begin
          North := DegToRad(q.FieldByName('plane_latitude').AsFloat - Contact.FieldByName('plane_latitude').AsFloat) * 6371000;
          East  := DegToRad(q.FieldByName('plane_longitude').AsFloat - Contact.FieldByName('plane_longitude').AsFloat) * 6371000 * Cos(DegToRad(Contact.FieldByName('plane_latitude').AsFloat));
-         H     := DegToRad(Contact.FieldByName('runway_heading').AsFloat);
-         Row.AddPair('runway_along_m', TJSONNumber.Create(Contact.FieldByName('distance_length').AsFloat * 0.3048 + North * Cos(H) + East * Sin(H)));
-         Row.AddPair('runway_cross_m', TJSONNumber.Create(Contact.FieldByName('distance_width').AsFloat * 0.3048 + East * Cos(H) - North * Sin(H)));
+         h     := DegToRad(Contact.FieldByName('runway_heading').AsFloat);
+         Row.AddPair('runway_along_m', TJSONNumber.Create(Contact.FieldByName('distance_length').AsFloat * 0.3048 + North * Cos(h) + East * Sin(h)));
+         Row.AddPair('runway_cross_m', TJSONNumber.Create(Contact.FieldByName('distance_width').AsFloat * 0.3048 + East * Cos(h) - North * Sin(h)));
         End;
        Row.AddPair('pitch_nose_up_deg', TJSONNumber.Create( -q.FieldByName('plane_pitch_degrees').AsFloat));
        For i      := 1 To 3 Do
@@ -408,39 +426,42 @@ Implementation
          Row.AddPair(BooleanColumns[i].Name, TJSONBool.Create((Groups[BooleanColumns[i].Group] And (Cardinal(1) Shl BooleanColumns[i].Bit)) <> 0));
        If Not q.FieldByName('g_force').IsNull Then
         Begin
-         V := q.FieldByName('g_force').AsFloat;
+         v := q.FieldByName('g_force').AsFloat;
          If Not HasG Then
-          PeakG := V
+          PeakG := v
          Else
-          PeakG := Max(PeakG, V);
+          PeakG := Max(PeakG, v);
          HasG   := True;
         End;
        If Not q.FieldByName('vertical_speed').IsNull Then
         Begin
-         V := q.FieldByName('vertical_speed').AsFloat;
+         v := q.FieldByName('vertical_speed').AsFloat;
          If Not HasVS Then
           Begin
-           MinVS := V;
-           MaxVS := V;
+           MinVS := v;
+           MaxVS := v;
           End
          Else
           Begin
-           MinVS := Min(MinVS, V);
-           MaxVS := Max(MaxVS, V);
+           MinVS := Min(MinVS, v);
+           MaxVS := Max(MaxVS, v);
           End;
          HasVS := True;
         End;
        Engines := TJSONObject.Create;
        Row.AddPair('engines', Engines);
-       E.Close;
-       E.Open('select * from trip_engine_data where trip=:t and sample=:s order by engine', [Contact.FieldByName('trip').AsInteger, q.FieldByName('id').AsLargeInt]);
-       While Not E.Eof Do
+       e.Close;
+       e.Open('select * from trip_engine_data where trip=:t and sample=:s order by engine', [Contact.FieldByName('trip').AsInteger, q.FieldByName('id').AsLargeInt]);
+       While Not e.Eof Do
         Begin
          Obj := TJSONObject.Create;
-         Engines.AddPair(E.FieldByName('engine').AsString, Obj);
+         Engines.AddPair(e.FieldByName('engine').AsString, Obj);
          For i := 0 To High(EngineColumns) Do
-          AddField(Obj, E.FieldByName(EngineColumns[i].Name));
-         E.Next;
+          If e.FindField(EngineColumns[i].Name) = Nil Then
+           Obj.AddPair(EngineColumns[i].Name, TJSONNull.Create)
+          Else
+           AddField(Obj, e.FieldByName(EngineColumns[i].Name));
+         e.Next;
         End;
        Row.AddPair('aircraft_telemetry', History.AtSample(q.FieldByName('id').AsLargeInt));
        AddGearGroups(Row);
@@ -479,13 +500,13 @@ Implementation
        q.Open('select id,time_zulu from ' + TableName + ' where trip=:t', [Contact.FieldByName('trip').AsInteger]);
        While Not q.Eof Do
         Begin
-         T := TimeValue(q.FieldByName('time_zulu').AsString);
-         If (T >= EventTime - BeforeSeconds / 86400) And (T <= EventTime + AfterSeconds / 86400) Then
+         t := TimeValue(q.FieldByName('time_zulu').AsString);
+         If (t >= EventTime - BeforeSeconds / 86400) And (t <= EventTime + AfterSeconds / 86400) Then
           Begin
            Obj := TJSONObject.Create;
            Contacts.AddElement(Obj);
            Obj.AddPair('kind', TableName);
-           Obj.AddPair('t_seconds', TJSONNumber.Create((T - EventTime) * 86400));
+           Obj.AddPair('t_seconds', TJSONNumber.Create((t - EventTime) * 86400));
            AddField(Obj, q.FieldByName('id'));
           End;
          q.Next;
@@ -502,7 +523,7 @@ Implementation
    Finally
     History.Free;
     PreviousState.Free;
-    E.Free;
+    e.Free;
     q.Free;
    End;
   End;

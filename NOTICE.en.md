@@ -14,6 +14,6 @@ FlyByWire A32NX integration uses variable names and API metadata from the user-s
 
 PMDG NG3 integration derives field names, type layout, constants and descriptions from the user-supplied PMDG_NG3_SDK.h, Copyright (c) 2025 Precision Manuals Development Group. The complete proprietary header and aircraft binaries are not distributed. Only read-only data/CDU client areas are used.
 
-Localization uses i18n, Copyright (C) 2010–2014 Kambiz Khojasteh, under MIT; see support/i18n/LICENSE. It is statically linked; source archives preserve its license. WebView4Delphi/Microsoft WebView2 retain their respective notices. FlightPadFMC has its separate MIT license in support/flightpad/LICENSE.md.
+Localization uses i18n, Copyright (C) 2010–2014 Kambiz Khojasteh, under MIT; see support/i18n/LICENSE. It is statically linked; source archives preserve its license. Native report/FMC controls no longer depend on WebView2. FlightPadFMC has its separate MIT license in support/flightpad/LICENSE.md.
 
 Original project: [MichaelHsu170/MSFS-Flight-Data-Recorder](https://github.com/MichaelHsu170/MSFS-Flight-Data-Recorder), by MichaelHsu170, AGPL-3.0. The supplied Qt5 version was the starting point; this does not describe the Qt version used by current upstream.

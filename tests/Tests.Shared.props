@@ -1,0 +1,19 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+ <PropertyGroup>
+  <VirtualTreeRoot Condition="'$(VirtualTreeRoot)'=='' and Exists('$(MSBuildThisFileDirectory)..\..\Virtual-TreeView\Source\VirtualTrees.pas')">$(MSBuildThisFileDirectory)..\..\Virtual-TreeView\Source</VirtualTreeRoot>
+  <VirtualTreeRoot Condition="'$(VirtualTreeRoot)'==''">$(MSBuildThisFileDirectory)..\vendor\Virtual-TreeView\Source</VirtualTreeRoot>
+  <I18nRoot Condition="'$(I18nRoot)'==''">$(MSBuildThisFileDirectory)..\vendor\i18n\Packages</I18nRoot>
+  <DCC_UnitSearchPath>$(BDS)\source\DUnitX;.;..\src;..\..\MSFS2024-FDR-Setup\src;..\..\setup-common\src;..\..\setup-core\src;..\src\Aircraft;..\src\Analysis;..\src\Common;..\src\Core;..\src\Data;..\src\FlightPlan;..\src\FMC;..\src\Forms;..\src\Frames;..\src\FSHud;..\src\i18n;..\src\Recording;..\src\SimConnect;..\src\Telemetry;..\src\Visualization;..\src\Weather;..\src\Aircraft\AsoboBell407;..\src\Aircraft\AsoboEC135;..\src\Aircraft\CSS737;..\src\Aircraft\FBW;..\src\Aircraft\Fenix;..\src\Aircraft\iFly;..\src\Aircraft\MaddogX;..\src\Aircraft\PMDG;..\src\Aircraft\PMDGDC6;..\src\Aircraft\SkySimDC9;..\src\Aircraft\SkySimMD11;..\src\Aircraft\TFDiMD11;$(I18nRoot);$(VirtualTreeRoot);..\vendor\Delphi-StackTrace\source;$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
+  <PreBuildEvent>python.exe &quot;$(MSBuildThisFileDirectory)..\tools\build_resources.py&quot; --vendor</PreBuildEvent>
+  <PreBuildEventIgnoreExitCode>false</PreBuildEventIgnoreExitCode>
+  <DCC_IncludePath>$(BDS)\source\DUnitX;$(DCC_IncludePath)</DCC_IncludePath>
+  <DCC_ResourcePath>$(BDS)\lib\$(Platform)\release;$(DCC_ResourcePath)</DCC_ResourcePath>
+  <DCC_Namespace>System;System.Win;Winapi;Vcl;Data;Xml;Xml.Win;$(DCC_Namespace)</DCC_Namespace>
+  <DCC_Define Condition="'$(FDRVerifyTest)'=='true'">PORT_TEST;$(DCC_Define)</DCC_Define>
+  <DCC_DcuOutput>$(MSBuildThisFileDirectory)..\.build\Tests\$(Platform)\$(Config)\$(MSBuildProjectName)</DCC_DcuOutput>
+  <DCC_ExeOutput>$(MSBuildThisFileDirectory)</DCC_ExeOutput>
+  <DCC_DllOutput>$(MSBuildThisFileDirectory)</DCC_DllOutput>
+  <DCC_ObjPath>$(DCC_DcuOutput)</DCC_ObjPath>
+  <PostBuildEvent Condition="'$(Platform)'=='Win64'">copy /Y &quot;$(MSBuildThisFileDirectory)..\bin\sqlite3.dll&quot; &quot;$(MSBuildThisFileDirectory)sqlite3.dll&quot; &amp;&amp; copy /Y &quot;$(MSBuildThisFileDirectory)..\bin\SimConnect.dll&quot; &quot;$(MSBuildThisFileDirectory)SimConnect.dll&quot;</PostBuildEvent>
+ </PropertyGroup>
+</Project>

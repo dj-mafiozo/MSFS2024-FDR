@@ -11,7 +11,6 @@ Interface
 
  Type
   TfrmChartsConfigure = Class(TLocalizedForm)
-   Published
     aAccept          : TAction;
     aCancel          : TAction;
     ActionList       : TActionList;
@@ -56,16 +55,16 @@ Interface
     Procedure DrawChartItem(Control : TWinControl; Index : Integer; Rect : TRect; State : TOwnerDrawState);
     Procedure FormResize(Sender : TObject);
     Procedure HideChart(Sender : TObject);
-    Procedure ListDragDrop(Sender, Source : TObject; X, Y : Integer);
-    Procedure ListDragOver(Sender, Source : TObject; X, Y : Integer; State : TDragState; Var Accept : Boolean);
-    Procedure ListEndDrag(Sender, Target : TObject; X, Y : Integer);
-    Procedure ListMouseDown(Sender : TObject; Button : TMouseButton; Shift : TShiftState; X, Y : Integer);
+    Procedure ListDragDrop(Sender, Source : TObject; x, y : Integer);
+    Procedure ListDragOver(Sender, Source : TObject; x, y : Integer; State : TDragState; Var Accept : Boolean);
+    Procedure ListEndDrag(Sender, Target : TObject; x, y : Integer);
+    Procedure ListMouseDown(Sender : TObject; Button : TMouseButton; Shift : TShiftState; x, y : Integer);
     Procedure ListStartDrag(Sender : TObject; Var DragObject : TDragObject);
     Procedure MoveChart(Sender : TObject);
     Procedure NamesChanged(Sender : TObject);
     Procedure OrderClick(Sender : TObject);
     Procedure ParameterCheck(Sender : TObject);
-    Procedure ParameterHint(Sender : TObject; Shift : TShiftState; X, Y : Integer);
+    Procedure ParameterHint(Sender : TObject; Shift : TShiftState; x, y : Integer);
     Procedure SearchChange(Sender : TObject);
     Procedure ShowChart(Sender : TObject);
    Private
@@ -78,7 +77,7 @@ Interface
     fSplitRatio : Double;
     fUpdating   : Boolean;
     Function DropAllowed(Target, Source : TObject) : Boolean;
-    Function DropSlot(Y : Integer) : Integer;
+    Function DropSlot(y : Integer) : Integer;
     Function RawName(Items : TStrings; Index : Integer) : String;
     Procedure ClearDrag;
     Procedure PrepareButtonGlyphs;
@@ -98,7 +97,7 @@ Implementation
  Uses
   ParameterNamesU, Winapi.Windows;
 
- {$R *.dfm}
+{$R *.dfm}
 
  Constructor TfrmChartsConfigure.Create(AOwner : TComponent);
   Begin
@@ -133,29 +132,29 @@ Implementation
     ChartOrderList.Invalidate;
   End;
 
- Procedure TfrmChartsConfigure.ListMouseDown(Sender : TObject; Button : TMouseButton; Shift : TShiftState; X, Y : Integer);
+ Procedure TfrmChartsConfigure.ListMouseDown(Sender : TObject; Button : TMouseButton; Shift : TShiftState; x, y : Integer);
   Var
-   I : Integer;
+   i : Integer;
   Begin
    If Button <> mbLeft Then
     Exit;
    ClearDrag;
    // Leave the checkbox itself to TCheckListBox's normal click handling.
-   If (Sender = ParameterList) And (X < GetSystemMetrics(SM_CXMENUCHECK) + 4) Then
+   If (Sender = ParameterList) And (x < GetSystemMetrics(SM_CXMENUCHECK) + 4) Then
     Exit;
    If Sender = ParameterList Then
     Begin
-     I := ParameterList.ItemAtPos(Point(X, Y), True);
-     If I < 0 Then
+     i := ParameterList.ItemAtPos(Point(x, y), True);
+     If i < 0 Then
       Exit;
-     ParameterList.ItemIndex := I;
+     ParameterList.ItemIndex := i;
     End
    Else If Sender = ChartOrderList Then
     Begin
-     I := ChartOrderList.ItemAtPos(Point(X, Y), True);
-     If I < 0 Then
+     i := ChartOrderList.ItemAtPos(Point(x, y), True);
+     If i < 0 Then
       Exit;
-     ChartOrderList.ItemIndex := I;
+     ChartOrderList.ItemIndex := i;
     End
    Else
     Exit;
@@ -179,25 +178,25 @@ Implementation
    Result := (Source = fDragSource) And (fDragName <> '') And (fAvailable.IndexOf(fDragName) >= 0) And (((Source = ParameterList) And (Target = ChartOrderList)) Or ((Source = ChartOrderList) And (Target = ParameterList)) Or ((Source = ChartOrderList) And (Target = ChartOrderList) And (GetKeyState(VK_CONTROL) < 0)));
   End;
 
- Function TfrmChartsConfigure.DropSlot(Y : Integer) : Integer;
+ Function TfrmChartsConfigure.DropSlot(y : Integer) : Integer;
   Var
-   I : Integer;
-   R : TRect;
+   i : Integer;
+   r : TRect;
   Begin
    If ChartOrderList.Count = 0 Then
     Exit(0);
-   If Y < 0 Then
+   If y < 0 Then
     Exit(ChartOrderList.TopIndex);
-   I := ChartOrderList.ItemAtPos(Point(2, Y), True);
-   If I < 0 Then
+   i := ChartOrderList.ItemAtPos(Point(2, y), True);
+   If i < 0 Then
     Exit(ChartOrderList.Count);
-   R      := ChartOrderList.ItemRect(I);
-   Result := I;
-   If Y >= (R.Top + R.Bottom) Div 2 Then
+   r      := ChartOrderList.ItemRect(i);
+   Result := i;
+   If y >= (r.Top + r.Bottom) Div 2 Then
     Inc(Result);
   End;
 
- Procedure TfrmChartsConfigure.ListDragOver(Sender, Source : TObject; X, Y : Integer; State : TDragState; Var Accept : Boolean);
+ Procedure TfrmChartsConfigure.ListDragOver(Sender, Source : TObject; x, y : Integer; State : TDragState; Var Accept : Boolean);
   Var
    Slot : Integer;
   Begin
@@ -210,7 +209,7 @@ Implementation
      fDragTarget             := Sender;
      DragScrollTimer.Enabled := True;
      If Sender = ChartOrderList Then
-      Slot := DropSlot(Y);
+      Slot := DropSlot(y);
     End;
    If fDropSlot <> Slot Then
     Begin
@@ -219,10 +218,14 @@ Implementation
     End;
   End;
 
- Procedure TfrmChartsConfigure.ListDragDrop(Sender, Source : TObject; X, Y : Integer);
+ Procedure TfrmChartsConfigure.ListDragDrop(Sender, Source : TObject; x, y : Integer);
   Var
-   Name, Anchor             : String;
-   Slot, Old, VisibleOld, I : Integer;
+   Name       : String;
+   Anchor     : String;
+   Slot       : Integer;
+   Old        : Integer;
+   VisibleOld : Integer;
+   i          : Integer;
   Begin
    If Not DropAllowed(Sender, Source) Then
     Begin
@@ -238,13 +241,13 @@ Implementation
     End
    Else
     Begin
-     Slot := DropSlot(Y);
+     Slot := DropSlot(y);
      // Resolve the insertion boundary before rebuilding or deleting any items.
      Anchor := '';
-     For I  := Slot To ChartOrderList.Count - 1 Do
-      If RawName(ChartOrderList.Items, I) <> Name Then
+     For i  := Slot To ChartOrderList.Count - 1 Do
+      If RawName(ChartOrderList.Items, i) <> Name Then
        Begin
-        Anchor := RawName(ChartOrderList.Items, I);
+        Anchor := RawName(ChartOrderList.Items, i);
         Break;
        End;
      If Old >= 0 Then
@@ -263,14 +266,14 @@ Implementation
    UpdateButtons;
   End;
 
- Procedure TfrmChartsConfigure.ListEndDrag(Sender, Target : TObject; X, Y : Integer);
+ Procedure TfrmChartsConfigure.ListEndDrag(Sender, Target : TObject; x, y : Integer);
   Begin
    ClearDrag;
   End;
 
  Procedure TfrmChartsConfigure.DragScrollTick(Sender : TObject);
   Var
-   P      : TPoint;
+   p      : TPoint;
    List   : TCustomListBox;
    NewTop : Integer;
   Begin
@@ -280,55 +283,55 @@ Implementation
      Exit;
     End;
    List := TCustomListBox(fDragTarget);
-   P    := List.ScreenToClient(Mouse.CursorPos);
-   If Not PtInRect(List.ClientRect, P) Then
+   p    := List.ScreenToClient(Mouse.CursorPos);
+   If Not PtInRect(List.ClientRect, p) Then
     Exit;
    NewTop := List.TopIndex;
-   If P.Y < 20 Then
+   If p.y < 20 Then
     Dec(NewTop)
-   Else If P.Y >= List.ClientHeight - 20 Then
+   Else If p.y >= List.ClientHeight - 20 Then
     Inc(NewTop);
    List.TopIndex := EnsureRange(NewTop, 0, Max(0, List.Items.Count - 1));
    If fDragTarget = ChartOrderList Then
     Begin
-     fDropSlot := DropSlot(P.Y);
+     fDropSlot := DropSlot(p.y);
      ChartOrderList.Invalidate;
     End;
   End;
 
  Procedure TfrmChartsConfigure.DrawChartItem(Control : TWinControl; Index : Integer; Rect : TRect; State : TOwnerDrawState);
   Var
-   C          : TCanvas;
+   c          : TCanvas;
    Title      : String;
    TextBounds : TRect;
   Begin
-   C := ChartOrderList.Canvas;
-   C.Font.Assign(ChartOrderList.Font);
+   c := ChartOrderList.Canvas;
+   c.Font.Assign(ChartOrderList.Font);
    If odSelected In State Then
     Begin
-     C.Brush.Color := clHighlight;
-     C.Font.Color  := clHighlightText;
+     c.Brush.Color := clHighlight;
+     c.Font.Color  := clHighlightText;
     End
    Else
     Begin
-     C.Brush.Color := ChartOrderList.Color;
-     C.Font.Color  := ChartOrderList.Font.Color;
+     c.Brush.Color := ChartOrderList.Color;
+     c.Font.Color  := ChartOrderList.Font.Color;
     End;
-   C.FillRect(Rect);
+   c.FillRect(Rect);
    Title      := ChartOrderList.Items[Index];
    TextBounds := Rect;
    Inc(TextBounds.Left, 2);
-   DrawText(C.Handle, PChar(Title), Length(Title), TextBounds, DT_SINGLELINE Or DT_VCENTER Or DT_NOPREFIX Or DT_END_ELLIPSIS);
+   DrawText(c.Handle, PChar(Title), Length(Title), TextBounds, DT_SINGLELINE Or DT_VCENTER Or DT_NOPREFIX Or DT_END_ELLIPSIS);
    If (fDragTarget = ChartOrderList) And ((fDropSlot = Index) Or ((fDropSlot = ChartOrderList.Count) And (Index = ChartOrderList.Count - 1))) Then
     Begin
-     C.Pen.Color := clHighlight;
-     C.Pen.Width := 2;
+     c.Pen.Color := clHighlight;
+     c.Pen.Width := 2;
      If fDropSlot = Index Then
-      C.MoveTo(Rect.Left, Rect.Top + 1)
+      c.MoveTo(Rect.Left, Rect.Top + 1)
      Else
-      C.MoveTo(Rect.Left, Rect.Bottom - 1);
-     C.LineTo(Rect.Right, C.PenPos.Y);
-     C.Pen.Width := 1;
+      c.MoveTo(Rect.Left, Rect.Bottom - 1);
+     c.LineTo(Rect.Right, c.PenPos.y);
+     c.Pen.Width := 1;
     End;
   End;
 
@@ -373,7 +376,8 @@ Implementation
 
  Procedure TfrmChartsConfigure.FormResize(Sender : TObject);
   Var
-   AvailableWidth, MinimumWidth : Integer;
+   AvailableWidth : Integer;
+   MinimumWidth   : Integer;
   Begin
    If (MainGroupBox = Nil) Or (GraphButtonPanel = Nil) Or (Separator = Nil) Then
     Exit;
@@ -429,20 +433,20 @@ Implementation
    RebuildOrder(Name);
   End;
 
- Procedure TfrmChartsConfigure.ParameterHint(Sender : TObject; Shift : TShiftState; X, Y : Integer);
+ Procedure TfrmChartsConfigure.ParameterHint(Sender : TObject; Shift : TShiftState; x, y : Integer);
   Var
    Name : String;
-   I    : Integer;
+   i    : Integer;
   Begin
    If Sender = ParameterList Then
     Begin
-     I    := ParameterList.ItemAtPos(Point(X, Y), True);
-     Name := RawName(ParameterList.Items, I);
+     i    := ParameterList.ItemAtPos(Point(x, y), True);
+     Name := RawName(ParameterList.Items, i);
     End
    Else
     Begin
-     I    := ChartOrderList.ItemAtPos(Point(X, Y), True);
-     Name := RawName(ChartOrderList.Items, I);
+     i    := ChartOrderList.ItemAtPos(Point(x, y), True);
+     Name := RawName(ChartOrderList.Items, i);
     End;
    If Name <> '' Then
     TControl(Sender).Hint := ParameterCaption(Name) + sLineBreak + Name
@@ -452,8 +456,12 @@ Implementation
 
  Procedure TfrmChartsConfigure.RebuildParameters;
   Var
-   Name, Filter, Caption, SelectedName : String;
-   I, Index                            : Integer;
+   Name         : String;
+   Filter       : String;
+   Caption      : String;
+   SelectedName : String;
+   i            : Integer;
+   Index        : Integer;
   Begin
    If fAvailable = Nil Then
     Exit;
@@ -469,10 +477,10 @@ Implementation
       Caption := ParameterCaption(Name);
       If (Filter = '') Or (Pos(Filter, LowerCase(Name)) > 0) Or (Pos(Filter, LowerCase(Caption)) > 0) Then
        Begin
-        I                        := ParameterList.Items.AddObject(Caption, TObject(NativeInt(Index + 1)));
-        ParameterList.Checked[I] := fSelected.IndexOf(Name) >= 0;
+        i                        := ParameterList.Items.AddObject(Caption, TObject(NativeInt(Index + 1)));
+        ParameterList.Checked[i] := fSelected.IndexOf(Name) >= 0;
         If Name = SelectedName Then
-         ParameterList.ItemIndex := I;
+         ParameterList.ItemIndex := i;
        End;
      End;
    Finally
@@ -500,23 +508,24 @@ Implementation
 
  Procedure TfrmChartsConfigure.ParameterCheck(Sender : TObject);
   Var
-   I, P : Integer;
+   i    : Integer;
+   p    : Integer;
    Name : String;
   Begin
    If fUpdating Or (fSelected = Nil) Then
     Exit;
-   I := ParameterList.ItemIndex;
-   If I < 0 Then
+   i := ParameterList.ItemIndex;
+   If i < 0 Then
     Exit;
-   Name := RawName(ParameterList.Items, I);
-   P    := fSelected.IndexOf(Name);
-   If ParameterList.Checked[I] Then
+   Name := RawName(ParameterList.Items, i);
+   p    := fSelected.IndexOf(Name);
+   If ParameterList.Checked[i] Then
     Begin
-     If P < 0 Then
+     If p < 0 Then
       fSelected.Add(Name);
     End
-   Else If P >= 0 Then
-    fSelected.Delete(P);
+   Else If p >= 0 Then
+    fSelected.Delete(p);
    RebuildOrder(Name);
   End;
 
@@ -527,25 +536,25 @@ Implementation
 
  Procedure TfrmChartsConfigure.MoveChart(Sender : TObject);
   Var
-   I    : Integer;
+   i    : Integer;
    j    : Integer;
    a    : Integer;
    b    : Integer;
    Name : String;
   Begin
-   I := ChartOrderList.ItemIndex;
-   If I < 0 Then
+   i := ChartOrderList.ItemIndex;
+   If i < 0 Then
     Exit;
-   j := I + 1;
+   j := i + 1;
    If (Sender = btnMoveUp) Or (Sender = aMoveUp) Then
-    j := I - 1
+    j := i - 1
    Else If (Sender = btnMoveFirst) Or (Sender = aMoveFirst) Then
     j := 0
    Else If (Sender = btnMoveLast) Or (Sender = aMoveLast) Then
     j := ChartOrderList.Count - 1;
    If (j < 0) Or (j >= ChartOrderList.Count) Then
     Exit;
-   Name := RawName(ChartOrderList.Items, I);
+   Name := RawName(ChartOrderList.Items, i);
    a    := fSelected.IndexOf(Name);
    b    := fSelected.IndexOf(RawName(ChartOrderList.Items, j));
    fSelected.Move(a, b);
@@ -554,45 +563,45 @@ Implementation
 
  Procedure TfrmChartsConfigure.ShowChart(Sender : TObject);
   Var
-   I : Integer;
+   i : Integer;
   Begin
-   I := ParameterList.ItemIndex;
-   If I < 0 Then
+   i := ParameterList.ItemIndex;
+   If i < 0 Then
     Exit;
-   ParameterList.Checked[I] := True;
+   ParameterList.Checked[i] := True;
    ParameterCheck(ParameterList);
    UpdateButtons;
   End;
 
  Procedure TfrmChartsConfigure.HideChart(Sender : TObject);
   Var
-   I : Integer;
+   i : Integer;
   Begin
-   I := ChartOrderList.ItemIndex;
-   If I < 0 Then
+   i := ChartOrderList.ItemIndex;
+   If i < 0 Then
     Exit;
-   fSelected.Delete(fSelected.IndexOf(RawName(ChartOrderList.Items, I)));
+   fSelected.Delete(fSelected.IndexOf(RawName(ChartOrderList.Items, i)));
    RebuildParameters;
    RebuildOrder;
    If ChartOrderList.Count > 0 Then
     Begin
-     If I >= ChartOrderList.Count Then
-      I                       := ChartOrderList.Count - 1;
-     ChartOrderList.ItemIndex := I;
+     If i >= ChartOrderList.Count Then
+      i                       := ChartOrderList.Count - 1;
+     ChartOrderList.ItemIndex := i;
     End;
    UpdateButtons;
   End;
 
  Procedure TfrmChartsConfigure.UpdateButtons;
   Var
-   I : Integer;
+   i : Integer;
   Begin
    If (ChartOrderList = Nil) Or (aMoveUp = Nil) Or (aMoveDown = Nil) Or (aHide = Nil) Then
     Exit;
-   I                  := ChartOrderList.ItemIndex;
-   aMoveUp.Enabled    := I > 0;
-   aMoveDown.Enabled  := (I >= 0) And (I < ChartOrderList.Count - 1);
-   aHide.Enabled      := I >= 0;
+   i                  := ChartOrderList.ItemIndex;
+   aMoveUp.Enabled    := i > 0;
+   aMoveDown.Enabled  := (i >= 0) And (i < ChartOrderList.Count - 1);
+   aHide.Enabled      := i >= 0;
    aMoveFirst.Enabled := aMoveUp.Enabled;
    aMoveLast.Enabled  := aMoveDown.Enabled;
    aShow.Enabled      := (fSelected <> Nil) And (ParameterList.ItemIndex >= 0);

@@ -9,16 +9,15 @@ Interface
 
  Type
   TfrmAssignGroup = Class(TLocalizedForm)
-   Published
-    GroupAssignGroupBox: TGroupBox;
-    cbGroups      : TComboBox;
-    btnOK         : TButton;
-    btnCancel     : TButton;
-    AppTranslator : TTranslator;
+   GroupAssignGroupBox : TGroupBox;
+   cbGroups            : TComboBox;
+   btnOK               : TButton;
+   btnCancel           : TButton;
+   AppTranslator       : TTranslator;
   End;
 
 Implementation
 
- {$R *.dfm}
+{$R *.dfm}
 
 End.

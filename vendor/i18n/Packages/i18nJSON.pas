@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -12,98 +12,99 @@
 /// This unit implements classes and functions to parse and decode values from
 /// a JSON (JavaScript Object Notation) formatted string.
 /// </summary>
-unit i18nJSON;
+Unit i18nJSON;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-uses
+ Uses
   Windows, SysUtils, Classes, Contnrs;
 
-type
+ Type
 
-  {$region 'xmldoc'}
+  {$Region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies the different types of JSON tokens.
   /// </summary>
-  {$endregion}
+  {$Endregion}
   TJSONToken = (
-    {$region 'xmldoc'}
-    /// Indicates that the token is a left brace character, which signals the start
-    /// of a JSON object.
-    {$endregion}
-    T_ObjectBegin,
-    {$region 'xmldoc'}
-    /// Indicates that the token is a right brace character, which signals the end
-    /// of a JSON object.
-    {$endregion}
-    T_ObjectEnd,
-    {$region 'xmldoc'}
-    /// Indicates that the token is a left bracket character, which signals
-    /// the start of a JSON array.
-    {$endregion}
-    T_ArrayBegin,
-    {$region 'xmldoc'}
-    /// Indicates that the token is a right bracket character, which signals
-    /// the end of a JSON array.
-    {$endregion}
-    T_ArrayEnd,
-    {$region 'xmldoc'}
-    /// Indicates that the token is a JSON string value enclosed by double
-    /// quote characters.
-    {$endregion}
-    T_String,
-    {$region 'xmldoc'}
-    /// Indicates that the token is a JSON numeric value.
-    {$endregion}
-    T_Number,
-    {$region 'xmldoc'}
-    /// Indicates that the token is the JSON <c>true</c> value.
-    {$endregion}
-    T_True,
-    {$region 'xmldoc'}
-    /// Indicates that the token is the JSON <c>false</c> value.
-    {$endregion}
-    T_False,
-    {$region 'xmldoc'}
-    /// Indicates that the token is the JSON <c>null</c> value.
-    {$endregion}
-    T_Null,
-    {$region 'xmldoc'}
-    /// Indicates that the token is a comma character.
-    {$endregion}
-    T_ItemSeparator,
-    {$region 'xmldoc'}
-    /// Indicates that the token is a colon character.
-    {$endregion}
-    T_KeyValueSeparator,
-    {$region 'xmldoc'}
-    /// Indicates that the token is any whitespace character.
-    {$endregion}
-    T_Whitespace,
-    {$region 'xmldoc'}
-    /// Indicates that the end of the JSON formatted string has been reached.
-    {$endregion}
-    T_EOJ
+  {$Region 'xmldoc'}
+  /// Indicates that the token is a left brace character, which signals the start
+  /// of a JSON object.
+  {$Endregion}
+  T_ObjectBegin,
+  {$Region 'xmldoc'}
+  /// Indicates that the token is a right brace character, which signals the end
+  /// of a JSON object.
+  {$Endregion}
+  T_ObjectEnd,
+  {$Region 'xmldoc'}
+  /// Indicates that the token is a left bracket character, which signals
+  /// the start of a JSON array.
+  {$Endregion}
+  T_ArrayBegin,
+  {$Region 'xmldoc'}
+  /// Indicates that the token is a right bracket character, which signals
+  /// the end of a JSON array.
+  {$Endregion}
+  T_ArrayEnd,
+  {$Region 'xmldoc'}
+  /// Indicates that the token is a JSON string value enclosed by double
+  /// quote characters.
+  {$Endregion}
+  T_String,
+  {$Region 'xmldoc'}
+  /// Indicates that the token is a JSON numeric value.
+  {$Endregion}
+  T_Number,
+  {$Region 'xmldoc'}
+  /// Indicates that the token is the JSON <c>true</c> value.
+  {$Endregion}
+  T_True,
+  {$Region 'xmldoc'}
+  /// Indicates that the token is the JSON <c>false</c> value.
+  {$Endregion}
+  T_False,
+  {$Region 'xmldoc'}
+  /// Indicates that the token is the JSON <c>null</c> value.
+  {$Endregion}
+  T_Null,
+  {$Region 'xmldoc'}
+  /// Indicates that the token is a comma character.
+  {$Endregion}
+  T_ItemSeparator,
+  {$Region 'xmldoc'}
+  /// Indicates that the token is a colon character.
+  {$Endregion}
+  T_KeyValueSeparator,
+  {$Region 'xmldoc'}
+  /// Indicates that the token is any whitespace character.
+  {$Endregion}
+  T_Whitespace,
+  {$Region 'xmldoc'}
+  /// Indicates that the end of the JSON formatted string has been reached.
+  {$Endregion}
+  T_EOJ
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TJSONTokenizer extracts special symbols, reserved words, numerals, and
-  /// character strings from a JSON string.
-  /// </summary>
-  {$endregion}
-  TJSONTokenizer = class(TObject)
-  private
-    fJSON: String;
-    fTokenPtr: PChar;
-    fTokenLen: Integer;
-    fTokenID: TJSONToken;
-    function GetToken: String;
-    function GetTokenPos: Integer;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TJSONTokenizer extracts special symbols, reserved words, numerals, and
+/// character strings from a JSON string.
+/// </summary>
+{$Endregion}
+
+  TJSONTokenizer = Class(TObject)
+   Private
+    fJSON     : String;
+    fTokenPtr : PChar;
+    fTokenLen : Integer;
+    fTokenID  : TJSONToken;
+    Function GetToken : String;
+    Function GetTokenPos : Integer;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the next JSON token from a specified JSON formatted string.
     /// </summary>
@@ -115,10 +116,10 @@ type
     /// The <see cref="TJSONToken"/> value of the token.
     /// </returns>
     /// <seealso cref="Next"/>
-    {$endregion}
-    class function GetNextToken(var S: PChar): TJSONToken;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function GetNextToken(Var s : PChar) : TJSONToken;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class for tokenizing a specified JSON formatted
     /// string.
@@ -126,9 +127,9 @@ type
     /// <param name="JSON">
     /// The JSON formatted string.
     /// </param>
-    {$endregion}
-    constructor Create(const JSON: String);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(Const JSON : String);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Updates the properties with the next token.
     /// </summary>
@@ -136,60 +137,61 @@ type
     /// Returns <see langword="true"/> if no error occurs and the end of the JSON
     /// formatted string is not reached; otherwise, returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function Next: Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Next : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Restarts parsing the JSON formatted string from the beginning.
     /// </summary>
-    {$endregion}
-    procedure Reset;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Reset;
+    {$Region 'xmldoc'}
     /// <summary>
     /// The JSON formatted string that is being parsed.
     /// </summary>
-    {$endregion}
-    property JSON: String read fJSON;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property JSON : String Read fJSON;
+    {$Region 'xmldoc'}
     /// <summary>
     /// The current token as a string.
     /// </summary>
-    {$endregion}
-    property Token: String read GetToken;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Token : String Read GetToken;
+    {$Region 'xmldoc'}
     /// <summary>
     /// The pointer to the current token within the <see cref="JSON"/> property.
     /// </summary>
-    {$endregion}
-    property TokenPtr: PChar read fTokenPtr;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TokenPtr : PChar Read fTokenPtr;
+    {$Region 'xmldoc'}
     /// <summary>
     /// The character index of the current token in the <see cref="JSON"/> property.
     /// </summary>
-    {$endregion}
-    property TokenPos: Integer read GetTokenPos;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TokenPos : Integer Read GetTokenPos;
+    {$Region 'xmldoc'}
     /// <summary>
     /// The length of current token in characters.
     /// </summary>
-    {$endregion}
-    property TokenLen: Integer read fTokenLen;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TokenLen : Integer Read fTokenLen;
+    {$Region 'xmldoc'}
     /// <summary>
     /// The current token as a <see cref="TJSONToken"/> value.
     /// </summary>
-    {$endregion}
-    property TokenID: TJSONToken read fTokenID;
-  end;
+    {$Endregion}
+    Property TokenID : TJSONToken Read fTokenID;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TJSONValue represents a JSON value.
-  /// </summary>
-  {$endregion}
-  TJSONValue = class abstract(TObject)
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TJSONValue represents a JSON value.
+/// </summary>
+{$Endregion}
+
+    TJSONValue = Class Abstract(TObject)
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts the JSON value represented by the object to a JSON formatted
     /// string.
@@ -197,25 +199,26 @@ type
     /// <returns>
     /// The JSON value as a JSON formatted string.
     /// </returns>
-    {$endregion}
-    function GetJSON: String; virtual; abstract;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetJSON : String; Virtual; Abstract;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the JSON value as a JSON formatted string.
     /// </summary>
-    {$endregion}
-    property JSON: String read GetJSON;
-  end;
+    {$Endregion}
+    Property JSON : String Read GetJSON;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TJSONValueNull represents JSON's <c>null</c> value.
-  /// </summary>
-  {$endregion}
-  TJSONValueNull = class(TJSONValue)
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TJSONValueNull represents JSON's <c>null</c> value.
+/// </summary>
+{$Endregion}
+
+  TJSONValueNull = Class(TJSONValue)
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts the JSON's <c>null</c> value represented by the object to a
     /// JSON formatted string.
@@ -223,20 +226,21 @@ type
     /// <returns>
     /// The <c>null</c> value as a JSON formatted string.
     /// </returns>
-    {$endregion}
-    function GetJSON: String; override;
-  end;
+    {$Endregion}
+    Function GetJSON : String; Override;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TJSONValueBoolean represents a JSON boolean value.
-  /// </summary>
-  {$endregion}
-  TJSONValueBoolean = class(TJSONValue)
-  private
-    fValue: Boolean;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TJSONValueBoolean represents a JSON boolean value.
+/// </summary>
+{$Endregion}
+
+  TJSONValueBoolean = Class(TJSONValue)
+   Private
+    fValue : Boolean;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts the JSON boolean value represented by the object to a JSON
     /// formatted string.
@@ -244,36 +248,37 @@ type
     /// <returns>
     /// The boolean value as a JSON formatted string.
     /// </returns>
-    {$endregion}
-    function GetJSON: String; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetJSON : String; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates and initializes an instance of the class.
     /// </summary>
     /// <param name="AValue">
     /// The initial boolean value of the instance.
     /// </param>
-    {$endregion}
-    constructor Create(AValue: Boolean);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AValue : Boolean);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the boolean value represented by the object.
     /// </summary>
-    {$endregion}
-    property Value: Boolean read fValue write fValue;
-  end;
+    {$Endregion}
+    Property Value : Boolean Read fValue Write fValue;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TJSONValueNumber represents a JSON numeric value.
-  /// </summary>
-  {$endregion}
-  TJSONValueNumber = class(TJSONValue)
-  private
-    fValue: Extended;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TJSONValueNumber represents a JSON numeric value.
+/// </summary>
+{$Endregion}
+
+  TJSONValueNumber = Class(TJSONValue)
+   Private
+    fValue : Extended;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts the JSON numeric value represented by the object to a JSON
     /// formatted string.
@@ -281,36 +286,37 @@ type
     /// <returns>
     /// The numeric value as a JSON formatted string.
     /// </returns>
-    {$endregion}
-    function GetJSON: String; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetJSON : String; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates and initializes an instance of the class.
     /// </summary>
     /// <param name="AValue">
     /// The initial numeric value of the instance.
     /// </param>
-    {$endregion}
-    constructor Create(const AValue: Extended);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(Const AValue : Extended);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the numeric value represented by the object.
     /// </summary>
-    {$endregion}
-    property Value: Extended read fValue write fValue;
-  end;
+    {$Endregion}
+    Property Value : Extended Read fValue Write fValue;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TJSONValueString represents a JSON string value.
-  /// </summary>
-  {$endregion}
-  TJSONValueString = class(TJSONValue)
-  private
-    fValue: String;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TJSONValueString represents a JSON string value.
+/// </summary>
+{$Endregion}
+
+  TJSONValueString = Class(TJSONValue)
+   Private
+    fValue : String;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts the JSON string value represented by the object to a JSON
     /// formatted string.
@@ -318,40 +324,41 @@ type
     /// <returns>
     /// The string value as a JSON formatted string.
     /// </returns>
-    {$endregion}
-    function GetJSON: String; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetJSON : String; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates and initializes an instance of the class.
     /// </summary>
     /// <param name="AValue">
     /// The initial string value of the instance.
     /// </param>
-    {$endregion}
-    constructor Create(const AValue: String);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(Const AValue : String);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the string value represented by the object.
     /// </summary>
-    {$endregion}
-    property Value: String read fValue write fValue;
-  end;
+    {$Endregion}
+    Property Value : String Read fValue Write fValue;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TJSONValueArray represents a JSON array value.
-  /// </summary>
-  {$endregion}
-  TJSONValueArray = class(TJSONValue)
-  private
-    fValues: TObjectList;
-    function GetCount: Integer;
-    procedure SetCount(Value: Integer);
-    function GetValues(Index: Integer): TJSONValue;
-    procedure SetValues(Index: Integer; Value: TJSONValue);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TJSONValueArray represents a JSON array value.
+/// </summary>
+{$Endregion}
+
+  TJSONValueArray = Class(TJSONValue)
+   Private
+    fValues : TObjectList;
+    Function GetCount : Integer;
+    Procedure SetCount(Value : Integer);
+    Function GetValues(Index : Integer) : TJSONValue;
+    Procedure SetValues(Index : Integer; Value : TJSONValue);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts the JSON array value represented by the object to a JSON
     /// formatted string.
@@ -359,22 +366,22 @@ type
     /// <returns>
     /// The array value as a JSON formatted string.
     /// </returns>
-    {$endregion}
-    function GetJSON: String; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetJSON : String; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class.
     /// </summary>
-    {$endregion}
-    constructor Create;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the instance and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Adds a new value to the end of the array.
     /// </summary>
@@ -382,9 +389,9 @@ type
     /// The JSON value to add to the array.
     /// </param>
     /// <seealso cref="Insert"/>
-    {$endregion}
-    procedure Add(Value: TJSONValue);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Add(Value : TJSONValue);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Adds a new value into a specified position in the array.
     /// </summary>
@@ -395,45 +402,46 @@ type
     /// The JSON value to add to the array.
     /// </param>
     /// <seealso cref="Add"/>
-    {$endregion}
-    procedure Insert(Index: Integer; Value: TJSONValue);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Insert(Index : Integer; Value : TJSONValue);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Removes a value at a specific position from the array.
     /// </summary>
     /// <param name="Index">
     /// Identifies the value to remove by its index in the array.
     /// </param>
-    {$endregion}
-    procedure Delete(Index: Integer);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Delete(Index : Integer);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the number of values in the array.
     /// </summary>
-    {$endregion}
-    property Count: Integer read GetCount write SetCount;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Count : Integer Read GetCount Write SetCount;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the values in the array.
     /// </summary>
-    {$endregion}
-    property Values[Index: Integer]: TJSONValue read GetValues write SetValues; default;
-  end;
+    {$Endregion}
+    Property Values[Index : Integer] : TJSONValue Read GetValues Write SetValues; Default;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TJSONValueObject represents a JSON object (key-value pair) value.
-  /// </summary>
-  {$endregion}
-  TJSONValueObject = class(TJSONValue)
-  private
-    fValues: TStringList;
-    function GetCount: Integer;
-    function GetNames(Index: Integer): String;
-    function GetValues(const Name: String): TJSONValue;
-    procedure SetValues(const Name: String; Value: TJSONValue);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TJSONValueObject represents a JSON object (key-value pair) value.
+/// </summary>
+{$Endregion}
+
+  TJSONValueObject = Class(TJSONValue)
+   Private
+    fValues : TStringList;
+    Function GetCount : Integer;
+    Function GetNames(Index : Integer) : String;
+    Function GetValues(Const Name : String) : TJSONValue;
+    Procedure SetValues(Const Name : String; Value : TJSONValue);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts the JSON object value represented by the object to a JSON
     /// formatted string.
@@ -441,22 +449,22 @@ type
     /// <returns>
     /// The object value as a JSON formatted string.
     /// </returns>
-    {$endregion}
-    function GetJSON: String; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetJSON : String; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class.
     /// </summary>
-    {$endregion}
-    constructor Create;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the instance and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a value with a specified name exists.
     /// </summary>
@@ -467,9 +475,9 @@ type
     /// Returns <see langword="true"/> if the value exists, otherwise returns
     /// <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function Exists(const Name: String): Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Exists(Const Name : String) : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Removes a value with a specified name.
     /// </summary>
@@ -480,29 +488,29 @@ type
     /// Returns <see langword="true"/> if the value was removed; returns <see langword="false"/>
     /// if the value was not found.
     /// </returns>
-    {$endregion}
-    function Delete(const Name: String): Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Delete(Const Name : String) : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the number of values in the object.
     /// </summary>
-    {$endregion}
-    property Count: Integer read GetCount;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Count : Integer Read GetCount;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the names of the values in the object.
     /// </summary>
-    {$endregion}
-    property Names[Index: Integer]: String read GetNames;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Names[Index : Integer] : String Read GetNames;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the values of the object by their names.
     /// </summary>
-    {$endregion}
-    property Values[const Name: String]: TJSONValue read GetValues write SetValues; default;
-  end;
+    {$Endregion}
+    Property Values[Const Name : String] : TJSONValue Read GetValues Write SetValues; Default;
+  End;
 
-{$region 'xmldoc'}
+{$Region 'xmldoc'}
 /// <summary>
 /// Converts a JSON formatted string to a <see cref="TJSONValue"/> object.
 /// </summary>
@@ -518,619 +526,634 @@ type
 /// occurred.
 /// </returns>
 /// <seealso cref="TJSONValue.JSON"/>
-{$endregion}
-function DecodeJSON(const JSON: String; out ErrorPos: Integer): TJSONValue; overload;
+{$Endregion}
 
-{$region 'xmldoc'}
-/// <summary>
-/// Converts a JSON formatted string to a <see cref="TJSONValue"/> object.
-/// </summary>
-/// <param name="JSON">
-/// The JSON formatted string.
-/// </param>
-/// <returns>
-/// The <see cref="TJSONValue"/> object or <see langword="nil"/> if an error
-/// occurred.
-/// </returns>
-/// <seealso cref="TJSONValue.JSON"/>
-{$endregion}
-function DecodeJSON(const JSON: String): TJSONValue; overload;
+ Function DecodeJSON(Const JSON : String; Out ErrorPos : Integer) : TJSONValue; Overload;
 
-implementation
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Converts a JSON formatted string to a <see cref="TJSONValue"/> object.
+ /// </summary>
+ /// <param name="JSON">
+ /// The JSON formatted string.
+ /// </param>
+ /// <returns>
+ /// The <see cref="TJSONValue"/> object or <see langword="nil"/> if an error
+ /// occurred.
+ /// </returns>
+ /// <seealso cref="TJSONValue.JSON"/>
+ {$Endregion}
+ Function DecodeJSON(Const JSON : String) : TJSONValue; Overload;
 
-resourcestring
+Implementation
+
+ Resourcestring
   SInvalidJSONString = 'Invalid JSON string';
 
 { Local Helper Functions }
 
-function StrToNumber(const Str: String): Extended;
-begin
-  {$IFDEF COMPILER_XE2_UP}
-  with FormatSettings do
-  {$ENDIF}
-  if DecimalSeparator <> '.' then
-    Result := StrToFloat(StringReplace(Str, '.', DecimalSeparator, []))
-  else
-    Result := StrToFloat(Str)
-end;
+ Function StrToNumber(Const Str : String) : Extended;
+  Begin
+   {$IFDEF COMPILER_XE2_UP}
+   With FormatSettings Do
+   {$ENDIF}
+    If DecimalSeparator <> '.' Then
+     Result := StrToFloat(StringReplace(Str, '.', DecimalSeparator, []))
+    Else
+     Result := StrToFloat(Str)
+  End;
 
-function NumberToStr(const Value: Extended): String;
-begin
-  Result := Format('%g', [Value]);
-  {$IFDEF COMPILER_XE2_UP}
-  with FormatSettings do
-  {$ENDIF}
-  if DecimalSeparator <> '.' then
-    Result := StringReplace(Result, DecimalSeparator, '.', []);
-end;
+ Function NumberToStr(Const Value : Extended) : String;
+  Begin
+   Result := Format('%g', [Value]);
+   {$IFDEF COMPILER_XE2_UP}
+   With FormatSettings Do
+   {$ENDIF}
+    If DecimalSeparator <> '.' Then
+     Result := StringReplace(Result, DecimalSeparator, '.', []);
+  End;
 
-function ToJSONString(const Str: String): String;
-const
-  HexDigits: array[0..15] of Char = '0123456789ABCDEF';
-  Chars8to13: array[#$8..#$D] of Char = 'btnvfr';
-var
-  I: Integer;
-  R: PChar;
-  C, Esc: Char;
-begin
-  {$IFNDEF COMPILER_XE5_UP}
-  Esc := #0; // to prevent compiler warning
-  {$ENDIF}
-  SetString(Result, nil, 4 * Length(Str) + 2);
-  R := PChar(Result);
-  R^ := '"';
-  for I := 1 to Length(Str) do
-  begin
-    Inc(R);
-    C := Str[I];
-    case C of
-      #$8..#$D: Esc := Chars8to13[C];    // -> \b \t \n \v \f \r
-           '/': Esc := '/';              // -> \/
-           '\': Esc := '\';              // -> \\
-           '"': Esc := '"';              // -> \"
-    else
-      if C < #$20 then                   // -> \xHH
+ Function ToJSONString(Const Str : String) : String;
+  Const
+   HexDigits : Array[0..15] Of Char = '0123456789ABCDEF';
+   Chars8to13 : Array[#$8..#$D] Of Char = 'btnvfr';
+  Var
+   i      : Integer;
+   r      : PChar;
+   c, Esc : Char;
+  Begin
+   {$IFNDEF COMPILER_XE5_UP}
+   Esc := #0; // to prevent compiler warning
+   {$ENDIF}
+   SetString(Result, Nil, 4 * Length(Str) + 2);
+   r     := PChar(Result);
+   r^    := '"';
+   For i := 1 To Length(Str) Do
+    Begin
+     Inc(r);
+     c := Str[i];
+     Case c Of
+      #$8..#$D :
+       Esc := Chars8to13[c];    // -> \b \t \n \v \f \r
+      '/' :
+       Esc := '/';              // -> \/
+      '\' :
+       Esc := '\';              // -> \\
+      '"' :
+       Esc := '"';              // -> \"
+     Else
+       If c < #$20 Then                   // -> \xHH
         Esc := 'x'
-      else
-      begin
-        R^ := C;
-        Continue;
-      end;
-    end;
-    R^ := '\';
-    Inc(R);
-    R^ := Esc;
-    if Esc = 'x' then
-    begin
-      Inc(R);
-      R^ := HexDigits[Ord(C) shr 4];
-      Inc(R);
-      R^ := HexDigits[Ord(C) and $000F];
-    end;
-  end;
-  Inc(R);
-  R^ := '"';
-  SetLength(Result, R - PChar(Result) + 1);
-end;
+       Else
+        Begin
+         r^ := c;
+         Continue;
+        End;
+     End;
+     r^ := '\';
+     Inc(r);
+     r^ := Esc;
+     If Esc = 'x' Then
+      Begin
+       Inc(r);
+       r^ := HexDigits[Ord(c) Shr 4];
+       Inc(r);
+       r^ := HexDigits[Ord(c) And $000F];
+      End;
+    End;
+   Inc(r);
+   r^ := '"';
+   SetLength(Result, r - PChar(Result) + 1);
+  End;
 
-function FromJSONString(const Str: String): String;
+ Function FromJSONString(Const Str : String) : String;
 
-  function GetEscapedChar(var Index: Integer; MaxLen: Integer): Char;
-  var
-    Count: Integer;
-    Value: Word;
-  begin
-    Value := 0;
-    Count := 0;
-    while (Count < MaxLen) and (Index < Length(Str)) do
-    begin
-      Inc(Index);
-      case Str[Index] of
-        '0'..'9': Value := Value * 16 + Ord(Str[Index]) - Ord('0');
-        'A'..'F': Value := Value * 16 + 10 + Ord(Str[Index]) - Ord('A');
-        'a'..'f': Value := Value * 16 + 10 + Ord(Str[Index]) - Ord('a');
-      else
-        Break;
-      end;
-      Inc(Count);
-    end;
-    if Count = 0 then
+   Function GetEscapedChar(Var Index : Integer; MaxLen : Integer) : Char;
+    Var
+     Count : Integer;
+     Value : Word;
+    Begin
+     Value := 0;
+     Count := 0;
+     While (Count < MaxLen) And (Index < Length(Str)) Do
+      Begin
+       Inc(Index);
+       Case Str[Index] Of
+        '0'..'9' : Value := Value * 16 + Ord(Str[Index]) - Ord('0');
+        'A'..'F' : Value := Value * 16 + 10 + Ord(Str[Index]) - Ord('A');
+        'a'..'f' : Value := Value * 16 + 10 + Ord(Str[Index]) - Ord('a');
+       Else Break;
+       End;
+       Inc(Count);
+      End;
+     If Count = 0 Then
       EConvertError.Create(SInvalidJSONString);
-    Result := Char(Value);
-  end;
+     Result := Char(Value);
+    End;
+  Var
+   StrLen, i : Integer;
+   r         : PChar;
 
-var
-  StrLen, I: Integer;
-  R: PChar;
-begin
-  StrLen := Length(Str);
-  if (StrLen >= 2) and (Str[1] = Str[StrLen]) and (Str[1] = '"') then
-  begin
-    SetString(Result, nil, StrLen - 2);
-    R := PChar(Result);
-    I := 2;
-    while I < StrLen do
-    begin
-      if Str[I] = '\' then
-      begin
-        Inc(I);
-        if I = StrLen then
+  Begin
+   StrLen := Length(Str);
+   If (StrLen >= 2) And (Str[1] = Str[StrLen]) And (Str[1] = '"') Then
+    Begin
+     SetString(Result, Nil, StrLen - 2);
+     r := PChar(Result);
+     i := 2;
+     While i < StrLen Do
+      Begin
+       If Str[i] = '\' Then
+        Begin
+         Inc(i);
+         If i = StrLen Then
           EConvertError.Create(SInvalidJSONString);
-        case Str[I] of
-          'r': R^ := #$D;  // carriage return
-          'f': R^ := #$C;  // form feed
-          'v': R^ := #$B;  // vertical tab
-          'n': R^ := #$A;  // line feed
-          't': R^ := #$9;  // horizontal tab
-          'b': R^ := #$8;  // backspace
-          'x': R^ := GetEscapedChar(I, 2);
-          'u': R^ := GetEscapedChar(I, 4);
-        else
-          R^ := Str[I];
-        end;
-      end
-      else
-        R^ := Str[I];
-      Inc(R);
-      Inc(I);
-    end;
-    SetLength(Result, R - PChar(Result));
-  end
-  else
+         Case Str[i] Of
+          'r' :
+           r^ := #$D;  // carriage return
+          'f' :
+           r^ := #$C;  // form feed
+          'v' :
+           r^ := #$B;  // vertical tab
+          'n' :
+           r^ := #$A;  // line feed
+          't' :
+           r^ := #$9;  // horizontal tab
+          'b' :
+           r^ := #$8;  // backspace
+          'x' :
+           r^ := GetEscapedChar(i, 2);
+          'u' :
+           r^ := GetEscapedChar(i, 4);
+         Else
+           r^ := Str[i];
+         End;
+        End
+       Else
+        r^ := Str[i];
+       Inc(r);
+       Inc(i);
+      End;
+     SetLength(Result, r - PChar(Result));
+    End
+   Else
     Result := Str;
-end;
+  End;
 
 { Global Helper Functions }
 
-function DecodeJSON(const JSON: String; out ErrorPos: Integer): TJSONValue; overload;
+ Function DecodeJSON(Const JSON : String; Out ErrorPos : Integer) : TJSONValue; Overload;
 
-  function DecodeValue(Tokenizer: TJSONTokenizer): TJSONValue;
-  var
-    Name: String;
-    ChildValue: TJSONValue;
-    Failed: Boolean;
-  begin
-    case Tokenizer.TokenID of
-      T_ObjectBegin:
-      begin
+   Function DecodeValue(Tokenizer : TJSONTokenizer) : TJSONValue;
+    Var
+     Name       : String;
+     ChildValue : TJSONValue;
+     Failed     : Boolean;
+    Begin
+     Case Tokenizer.TokenID Of
+      T_ObjectBegin :
+       Begin
         Result := TJSONValueObject.Create;
-        repeat
-          Failed := True;
-          Tokenizer.Next;
-          if Tokenizer.TokenID = T_String then
-          begin
-            Name := FromJSONString(Tokenizer.Token);
-            Tokenizer.Next;
-            if Tokenizer.TokenID = T_KeyValueSeparator then
-            begin
-              Tokenizer.Next;
-              ChildValue := DecodeValue(Tokenizer);
-              if Assigned(ChildValue) then
-              begin
-                TJSONValueObject(Result).Values[Name] := ChildValue;
-                Failed := False;
-              end;
-            end;
-          end;
-        until Failed or (Tokenizer.TokenID <> T_ItemSeparator);
-        if not Failed and (Tokenizer.TokenID = T_ObjectEnd) then
-          Tokenizer.Next
-        else
-          FreeAndNil(Result);
-      end;
-      T_ArrayBegin:
-      begin
+        Repeat
+         Failed := True;
+         Tokenizer.Next;
+         If Tokenizer.TokenID = T_String Then
+          Begin
+           Name := FromJSONString(Tokenizer.Token);
+           Tokenizer.Next;
+           If Tokenizer.TokenID = T_KeyValueSeparator Then
+            Begin
+             Tokenizer.Next;
+             ChildValue := DecodeValue(Tokenizer);
+             If Assigned(ChildValue) Then
+              Begin
+               TJSONValueObject(Result).Values[Name] := ChildValue;
+               Failed                                := False;
+              End;
+            End;
+          End;
+        Until Failed Or (Tokenizer.TokenID <> T_ItemSeparator);
+        If Not Failed And (Tokenizer.TokenID = T_ObjectEnd) Then
+         Tokenizer.Next
+        Else
+         FreeAndNil(Result);
+       End;
+      T_ArrayBegin :
+       Begin
         Result := TJSONValueArray.Create;
-        repeat
-          Failed := True;
-          Tokenizer.Next;
-          ChildValue := DecodeValue(Tokenizer);
-          if Assigned(ChildValue) then
-          begin
-            TJSONValueArray(Result).Add(ChildValue);
-            Failed := False;
-          end;
-        until Failed or (Tokenizer.TokenID <> T_ItemSeparator);
-        if not Failed and (Tokenizer.TokenID = T_ArrayEnd) then
-          Tokenizer.Next
-        else
-          FreeAndNil(Result);
-      end;
-      T_String:
-      begin
+        Repeat
+         Failed := True;
+         Tokenizer.Next;
+         ChildValue := DecodeValue(Tokenizer);
+         If Assigned(ChildValue) Then
+          Begin
+           TJSONValueArray(Result).Add(ChildValue);
+           Failed := False;
+          End;
+        Until Failed Or (Tokenizer.TokenID <> T_ItemSeparator);
+        If Not Failed And (Tokenizer.TokenID = T_ArrayEnd) Then
+         Tokenizer.Next
+        Else
+         FreeAndNil(Result);
+       End;
+      T_String :
+       Begin
         Result := TJSONValueString.Create(FromJSONString(Tokenizer.Token));
         Tokenizer.Next;
-      end;
-      T_Number:
-      begin
+       End;
+      T_Number :
+       Begin
         Result := TJSONValueNumber.Create(StrToNumber(Tokenizer.Token));
         Tokenizer.Next;
-      end;
-      T_True:
-      begin
+       End;
+      T_True :
+       Begin
         Result := TJSONValueBoolean.Create(True);
         Tokenizer.Next;
-      end;
-      T_False:
-      begin
+       End;
+      T_False :
+       Begin
         Result := TJSONValueBoolean.Create(False);
         Tokenizer.Next;
-      end;
-      T_Null:
-      begin
+       End;
+      T_Null :
+       Begin
         Result := TJSONValueNull.Create;
         Tokenizer.Next;
-      end;
-    else
-      Result := nil;
-    end;
-  end;
+       End;
+     Else
+       Result := Nil;
+     End;
+    End;
+  Var
+   Tokenizer : TJSONTokenizer;
 
-var
-  Tokenizer: TJSONTokenizer;
-begin
-  Tokenizer := TJSONTokenizer.Create(JSON);
-  try
-    try
-      Result := DecodeValue(Tokenizer);
-    except
-      // Ignore exceptions
-    end;
-    if Assigned(Result) and (Tokenizer.TokenID <> T_EOJ) then
-      FreeAndNil(Result);
-    if not Assigned(Result) then
-      ErrorPos := Tokenizer.TokenPos
-    else
-      ErrorPos := 0;
-  finally
+  Begin
+   Tokenizer := TJSONTokenizer.Create(JSON);
+   Try
+    Try
+     Result := DecodeValue(Tokenizer);
+    Except
+     // Ignore exceptions
+    End;
+    If Assigned(Result) And (Tokenizer.TokenID <> T_EOJ) Then
+     FreeAndNil(Result);
+    If Not Assigned(Result) Then
+     ErrorPos := Tokenizer.TokenPos
+    Else
+     ErrorPos := 0;
+   Finally
     Tokenizer.Free;
-  end;
-end;
+   End;
+  End;
 
-function DecodeJSON(const JSON: String): TJSONValue;
-var
-  ErrorPos: Integer;
-begin
-  Result := DecodeJSON(JSON, ErrorPos);
-end;
+ Function DecodeJSON(Const JSON : String) : TJSONValue;
+  Var
+   ErrorPos : Integer;
+  Begin
+   Result := DecodeJSON(JSON, ErrorPos);
+  End;
 
 { TJSONTokenizer }
 
-constructor TJSONTokenizer.Create(const JSON: String);
-begin
-  fJSON := JSON;
-  Reset;
-end;
+ Constructor TJSONTokenizer.Create(Const JSON : String);
+  Begin
+   fJSON := JSON;
+   Reset;
+  End;
 
-function TJSONTokenizer.GetToken: String;
-begin
-  if fTokenID <> T_EOJ then
+ Function TJSONTokenizer.GetToken : String;
+  Begin
+   If fTokenID <> T_EOJ Then
     SetString(Result, fTokenPtr, fTokenLen)
-  else
+   Else
     Result := '';
-end;
+  End;
 
-function TJSONTokenizer.GetTokenPos: Integer;
-begin
-  Result := fTokenPtr - PChar(fJSON) + 1;
-end;
+ Function TJSONTokenizer.GetTokenPos : Integer;
+  Begin
+   Result := fTokenPtr - PChar(fJSON) + 1;
+  End;
 
-class function TJSONTokenizer.GetNextToken(var S: PChar): TJSONToken;
-var
-  P: PChar;
-begin
-  Result := T_EOJ;
-  case S^ of
-    #9, #10, #13, #32:                             // white space
-    begin
-      repeat
-        Inc(S);
-      until not CharInSet(S^, [#9, #10, #13, #32]);
-      Result := T_Whitespace;
-    end;
-    ',':                                           // comma
-    begin
-      Inc(S);
-      Result := T_ItemSeparator;
-    end;
-    ':':                                           // colon
-    begin
-      Inc(S);
-      Result := T_KeyValueSeparator;
-    end;
-    '{':                                           // object begin
-    begin
-      Inc(S);
-      Result := T_ObjectBegin;
-    end;
-    '}':                                           // object end
-    begin
-      Inc(S);
-      Result := T_ObjectEnd;
-    end;
-    '[':                                           // array begin
-    begin
-      Inc(S);
-      Result := T_ArrayBegin;
-    end;
-    ']':                                           // array end
-    begin
-      Inc(S);
-      Result := T_ArrayEnd;
-    end;
-    '"':                                           // string
-    begin
-      repeat
-        Inc(S);
-      until ((S^ = '"') and ((S - 1)^ <> '\')) or (S^ = #0);
-      if S^ <> #0 then
-      begin
-        Inc(S);
-        Result := T_String;
-      end
-    end;
-    '-', '+', '0'..'9':                            // number
-    begin
-      if S^ = '-' then
-      begin
-        Inc(S);
-        if not CharInSet(S^, ['0'..'9']) then
-          Exit;
-      end;
-      repeat
-        Inc(S);
-      until not CharInSet(S^, ['0'..'9']);
-      if S^ = '.' then
-      begin
-        Inc(S);
-        if not CharInSet(S^, ['0'..'9']) then
-          Exit;
-        repeat
-          Inc(S);
-        until not CharInSet(S^, ['0'..'9']);
-      end;
-      if CharInSet(S^, ['E', 'e']) then
-      begin
-        Inc(S);
-        if CharInSet(S^, ['+', '-']) then
-          Inc(S);
-        if not CharInSet(S^, ['0'..'9']) then
-          Exit;
-        repeat
-          Inc(S);
-        until not CharInSet(S^, ['0'..'9'])
-      end;
-      Result := T_Number;
-    end;
-    'n', 't', 'f':                                 // null, true, false
-    begin
-      P := S;
-      repeat
-        Inc(S);
-      until not CharInSet(S^, ['a'..'z']);
-      if AnsiStrLComp(P, 'null', S - P) = 0 then
-        Result := T_Null
-      else if AnsiStrLComp(P, 'true', S - P) = 0 then
-        Result := T_True
-      else if AnsiStrLComp(P, 'false', S - P) = 0 then
-        Result := T_False;
-    end;
-  end;
-end;
+  Class Function TJSONTokenizer.GetNextToken(Var s : PChar) : TJSONToken;
 
-function TJSONTokenizer.Next: Boolean;
-var
-  S: PChar;
-begin
-  repeat
+ Var
+  p : PChar;
+
+Begin
+ Result := T_EOJ;
+ Case s^Of
+  #9, #10, #13, #32 :                             // white space
+   Begin
+    Repeat
+     Inc(s);
+    Until Not CharInSet(s^, [#9, #10, #13, #32]);
+    Result := T_Whitespace;
+   End;
+  ',' :                                           // comma
+   Begin
+    Inc(s);
+    Result := T_ItemSeparator;
+   End;
+  ':' :                                           // colon
+   Begin
+    Inc(s);
+    Result := T_KeyValueSeparator;
+   End;
+  '{' :                                           // object begin
+   Begin
+    Inc(s);
+    Result := T_ObjectBegin;
+   End;
+  '}' :                                           // object end
+   Begin
+    Inc(s);
+    Result := T_ObjectEnd;
+   End;
+  '[' :                                           // array begin
+   Begin
+    Inc(s);
+    Result := T_ArrayBegin;
+   End;
+  ']' :                                           // array end
+   Begin
+    Inc(s);
+    Result := T_ArrayEnd;
+   End;
+  '"' :                                           // string
+   Begin
+    Repeat
+     Inc(s);
+    Until((s^ = '"') And ((s - 1)^ <> '\')) Or (s^ = #0);
+    If s^ <> #0 Then
+     Begin
+      Inc(s);
+      Result := T_String;
+     End
+   End;
+  '-', '+', '0'..'9' :                            // number
+   Begin
+    If s^ = '-' Then
+     Begin
+      Inc(s);
+      If Not CharInSet(s^, ['0'..'9']) Then
+       Exit;
+     End;
+    Repeat
+     Inc(s);
+    Until Not CharInSet(s^, ['0'..'9']);
+    If s^ = '.' Then
+     Begin
+      Inc(s);
+      If Not CharInSet(s^, ['0'..'9']) Then
+       Exit;
+      Repeat
+       Inc(s);
+      Until Not CharInSet(s^, ['0'..'9']);
+     End;
+    If CharInSet(s^, ['E', 'e']) Then
+     Begin
+      Inc(s);
+      If CharInSet(s^, ['+', '-']) Then
+       Inc(s);
+      If Not CharInSet(s^, ['0'..'9']) Then
+       Exit;
+      Repeat
+       Inc(s);
+      Until Not CharInSet(s^, ['0'..'9'])
+     End;
+    Result := T_Number;
+   End;
+  'n', 't', 'f' :                                 // null, true, false
+   Begin
+    p := s;
+    Repeat
+     Inc(s);
+    Until Not CharInSet(s^, ['a'..'z']);
+    If AnsiStrLComp(p, 'null', s - p) = 0 Then
+     Result := T_Null
+    Else If AnsiStrLComp(p, 'true', s - p) = 0 Then
+     Result := T_True
+    Else If AnsiStrLComp(p, 'false', s - p) = 0 Then
+     Result := T_False;
+   End;
+ End;
+
+End;
+
+ Function TJSONTokenizer.Next : Boolean;
+  Var
+   s : PChar;
+  Begin
+   Repeat
     Inc(fTokenPtr, fTokenLen);
-    S := fTokenPtr;
-    fTokenID := GetNextToken(S);
-    fTokenLen := S - fTokenPtr;
-  until (fTokenID <> T_Whitespace);
-  Result := (fTokenID <> T_EOJ);
-end;
+    s         := fTokenPtr;
+    fTokenID  := GetNextToken(s);
+    fTokenLen := s - fTokenPtr;
+   Until(fTokenID <> T_Whitespace);
+   Result := (fTokenID <> T_EOJ);
+  End;
 
-procedure TJSONTokenizer.Reset;
-begin
-  fTokenPtr := PChar(fJSON);
-  fTokenLen := 0;
-  Next;
-end;
+ Procedure TJSONTokenizer.Reset;
+  Begin
+   fTokenPtr := PChar(fJSON);
+   fTokenLen := 0;
+   Next;
+  End;
 
 { TJSONValueNull }
 
-function TJSONValueNull.GetJSON: String;
-begin
-  Result := 'null';
-end;
+ Function TJSONValueNull.GetJSON : String;
+  Begin
+   Result := 'null';
+  End;
 
 { TJSONValueBoolean }
 
-constructor TJSONValueBoolean.Create(AValue: Boolean);
-begin
-  fValue := AValue;
-end;
+ Constructor TJSONValueBoolean.Create(AValue : Boolean);
+  Begin
+   fValue := AValue;
+  End;
 
-function TJSONValueBoolean.GetJSON: String;
-begin
-  if Value then
+ Function TJSONValueBoolean.GetJSON : String;
+  Begin
+   If Value Then
     Result := 'true'
-  else
+   Else
     Result := 'false';
-end;
+  End;
 
 { TJSONValueNumber }
 
-constructor TJSONValueNumber.Create(const AValue: Extended);
-begin
-  fValue := AValue;
-end;
+ Constructor TJSONValueNumber.Create(Const AValue : Extended);
+  Begin
+   fValue := AValue;
+  End;
 
-function TJSONValueNumber.GetJSON: String;
-begin
-  Result := NumberToStr(Value);
-end;
+ Function TJSONValueNumber.GetJSON : String;
+  Begin
+   Result := NumberToStr(Value);
+  End;
 
 { TJSONValueString }
 
-constructor TJSONValueString.Create(const AValue: String);
-begin
-  fValue := AValue;
-end;
+ Constructor TJSONValueString.Create(Const AValue : String);
+  Begin
+   fValue := AValue;
+  End;
 
-function TJSONValueString.GetJSON: String;
-begin
-  Result := ToJSONString(Value);
-end;
+ Function TJSONValueString.GetJSON : String;
+  Begin
+   Result := ToJSONString(Value);
+  End;
 
 { TJSONValueArray }
 
-constructor TJSONValueArray.Create;
-begin
-  fValues := TObjectList.Create;
-  fValues.OwnsObjects := True;
-end;
+ Constructor TJSONValueArray.Create;
+  Begin
+   fValues             := TObjectList.Create;
+   fValues.OwnsObjects := True;
+  End;
 
-destructor TJSONValueArray.Destroy;
-begin
-  fValues.Free;
-  inherited Destroy;
-end;
+ Destructor TJSONValueArray.Destroy;
+  Begin
+   fValues.Free;
+   Inherited Destroy;
+  End;
 
-function TJSONValueArray.GetJSON: String;
-var
-  I: Integer;
-begin
-  Result := '[';
-  for I := 0 to Count - 1 do
-  begin
-    if I > 0 then
+ Function TJSONValueArray.GetJSON : String;
+  Var
+   i : Integer;
+  Begin
+   Result := '[';
+   For i  := 0 To Count - 1 Do
+    Begin
+     If i > 0 Then
       Result := Result + ', ';
-    Result := Result + Values[I].JSON;
-  end;
-  Result := Result + ']';
-end;
+     Result  := Result + Values[i].JSON;
+    End;
+   Result := Result + ']';
+  End;
 
-function TJSONValueArray.GetCount: Integer;
-begin
-  Result := fValues.Count;
-end;
+ Function TJSONValueArray.GetCount : Integer;
+  Begin
+   Result := fValues.Count;
+  End;
 
-procedure TJSONValueArray.SetCount(Value: Integer);
-begin
-  if Value < 0 then
+ Procedure TJSONValueArray.SetCount(Value : Integer);
+  Begin
+   If Value < 0 Then
     Value := 0;
-  while fValues.Count > Value do
+   While fValues.Count > Value Do
     fValues.Delete(fValues.Count - 1);
-  while fValues.Count < Value do
+   While fValues.Count < Value Do
     fValues.Add(TJSONValueNull.Create);
-end;
+  End;
 
-function TJSONValueArray.GetValues(Index: Integer): TJSONValue;
-begin
-  Result := TJSONValue(fValues[Index]);
-end;
+ Function TJSONValueArray.GetValues(Index : Integer) : TJSONValue;
+  Begin
+   Result := TJSONValue(fValues[Index]);
+  End;
 
-procedure TJSONValueArray.SetValues(Index: Integer; Value: TJSONValue);
-begin
-  fValues[Index] := Value;
-end;
+ Procedure TJSONValueArray.SetValues(Index : Integer; Value : TJSONValue);
+  Begin
+   fValues[Index] := Value;
+  End;
 
-procedure TJSONValueArray.Add(Value: TJSONValue);
-begin
-  fValues.Add(Value);
-end;
+ Procedure TJSONValueArray.Add(Value : TJSONValue);
+  Begin
+   fValues.Add(Value);
+  End;
 
-procedure TJSONValueArray.Insert(Index: Integer; Value: TJSONValue);
-begin
-  fValues.Insert(Index, Value);
-end;
+ Procedure TJSONValueArray.Insert(Index : Integer; Value : TJSONValue);
+  Begin
+   fValues.Insert(Index, Value);
+  End;
 
-procedure TJSONValueArray.Delete(Index: Integer);
-begin
-  fValues.Delete(Index);
-end;
+ Procedure TJSONValueArray.Delete(Index : Integer);
+  Begin
+   fValues.Delete(Index);
+  End;
 
 { TJSONValueObject }
 
-constructor TJSONValueObject.Create;
-begin
-  fValues := TStringList.Create;
-  fValues.OwnsObjects := True;
-  fValues.CaseSensitive := True;
-  fValues.Duplicates := dupIgnore;
-  fValues.Sorted := True;
-end;
+ Constructor TJSONValueObject.Create;
+  Begin
+   fValues               := TStringList.Create;
+   fValues.OwnsObjects   := True;
+   fValues.CaseSensitive := True;
+   fValues.Duplicates    := dupIgnore;
+   fValues.Sorted        := True;
+  End;
 
-destructor TJSONValueObject.Destroy;
-begin
-  fValues.Free;
-  inherited Destroy;
-end;
+ Destructor TJSONValueObject.Destroy;
+  Begin
+   fValues.Free;
+   Inherited Destroy;
+  End;
 
-function TJSONValueObject.GetJSON: String;
-var
-  I: Integer;
-begin
-  Result := '{';
-  for I := 0 to Count - 1 do
-  begin
-    if I > 0 then
+ Function TJSONValueObject.GetJSON : String;
+  Var
+   i : Integer;
+  Begin
+   Result := '{';
+   For i  := 0 To Count - 1 Do
+    Begin
+     If i > 0 Then
       Result := Result + ', ';
-    Result := Result + ToJSONString(fValues.Strings[I]) + ': '
-            + TJSONValue(fValues.Objects[I]).JSON;
-  end;
-  Result := Result + '}';
-end;
+     Result  := Result + ToJSONString(fValues.Strings[i]) + ': '
+     + TJSONValue(fValues.Objects[i]).JSON;
+    End;
+   Result := Result + '}';
+  End;
 
-function TJSONValueObject.GetCount: Integer;
-begin
-  Result := fValues.Count;
-end;
+ Function TJSONValueObject.GetCount : Integer;
+  Begin
+   Result := fValues.Count;
+  End;
 
-function TJSONValueObject.GetNames(Index: Integer): String;
-begin
-  Result := fValues[Index];
-end;
+ Function TJSONValueObject.GetNames(Index : Integer) : String;
+  Begin
+   Result := fValues[Index];
+  End;
 
-function TJSONValueObject.GetValues(const Name: String): TJSONValue;
-var
-  Index: Integer;
-begin
-  Index := fValues.IndexOf(Name);
-  if Index < 0 then
+ Function TJSONValueObject.GetValues(Const Name : String) : TJSONValue;
+  Var
+   Index : Integer;
+  Begin
+   Index := fValues.IndexOf(Name);
+   If Index < 0 Then
     Index := fValues.AddObject(Name, TJSONValueNull.Create);
-  Result := TJSONValue(fValues.Objects[Index]);
-end;
+   Result := TJSONValue(fValues.Objects[Index]);
+  End;
 
-procedure TJSONValueObject.SetValues(const Name: String; Value: TJSONValue);
-var
-  Index: Integer;
-begin
-  Index := fValues.IndexOf(Name);
-  if Index < 0 then
+ Procedure TJSONValueObject.SetValues(Const Name : String; Value : TJSONValue);
+  Var
+   Index : Integer;
+  Begin
+   Index := fValues.IndexOf(Name);
+   If Index < 0 Then
     fValues.AddObject(Name, Value)
-  else
+   Else
     fValues.Objects[Index] := Value;
-end;
+  End;
 
-function TJSONValueObject.Exists(const Name: String): Boolean;
-begin
-  Result := (fValues.IndexOf(Name) >= 0);
-end;
+ Function TJSONValueObject.Exists(Const Name : String) : Boolean;
+  Begin
+   Result := (fValues.IndexOf(Name) >= 0);
+  End;
 
-function TJSONValueObject.Delete(const Name: String): Boolean;
-var
-  Index: Integer;
-begin
-  Result := False;
-  Index := fValues.IndexOf(Name);
-  if Index >= 0 then
-  begin
-    fValues.Delete(Index);
-    Result := True;
-  end;
-end;
+ Function TJSONValueObject.Delete(Const Name : String) : Boolean;
+  Var
+   Index : Integer;
+  Begin
+   Result := False;
+   Index  := fValues.IndexOf(Name);
+   If Index >= 0 Then
+    Begin
+     fValues.Delete(Index);
+     Result := True;
+    End;
+  End;
 
-end.
+End.

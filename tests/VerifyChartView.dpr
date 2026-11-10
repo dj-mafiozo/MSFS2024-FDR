@@ -1,31 +1,144 @@
-﻿program VerifyChartView;
-{$APPTYPE CONSOLE}
-uses System.SysUtils,System.Classes,System.Types,System.Generics.Collections,Vcl.Forms,Vcl.Controls,FlightChartsU,FlightDatabaseU;
-type TChartProbe=class(TFlightCharts)
- procedure Drag(A,B:Integer;Zoom:Boolean=True);
- procedure Hover(X:Integer);
- procedure CtrlWheel;
-end;
-TObserver=class Index:Integer;procedure Cursor(Sender:TObject;I:Integer);end;
-procedure TObserver.Cursor(Sender:TObject;I:Integer);begin Index:=I;end;
-procedure TChartProbe.Drag(A,B:Integer;Zoom:Boolean);var S:TShiftState;begin S:=[];if Zoom then Include(S,ssShift);MouseDown(mbLeft,S,A,40);Include(S,ssLeft);MouseMove(S,B,40);MouseUp(mbLeft,S,B,40);end;
-procedure TChartProbe.Hover(X:Integer);begin MouseMove([],X,40);end;
-procedure TChartProbe.CtrlWheel;begin DoMouseWheel([ssCtrl],120,Point(0,0));end;
-procedure Require(B:Boolean;const S:string);begin if not B then raise Exception.Create(S);end;
-var Host:TForm;C:TChartProbe;P:TTripPlot;V:TPlotPoint;O:TObserver;I:Integer;Span:Double;
-begin
- Application.Initialize;Host:=TForm.CreateNew(nil);C:=TChartProbe.Create(nil);P:=TTripPlot.Create;O:=TObserver.Create;
- try
-  P.Labels.Add('test');for I:=0 to 10 do begin V:=Default(TPlotPoint);V.Seconds:=100+I*10;SetLength(V.Values,1);V.Values[0]:=I;P.Points.Add(V);end;
-  C.Parent:=Host;C.Width:=600;C.SetData(P);C.OnCursor:=O.Cursor;
-  Require((C.ViewStart=100) and (C.ViewEnd=200),'Full view with nonzero time origin');
-  C.SetView(140,160);C.Hover(60);Require(O.Index=4,'Cursor respects zoomed origin');
-  C.SetView(120,160);C.Drag(300,400,False);Require((C.ViewStart<120) and (Abs(C.ViewEnd-C.ViewStart-40)<0.001),'Plain drag pans without zoom');
-  C.SetView(120,160);C.Drag(500,100);
-  Require((C.ViewStart>=120) and (C.ViewEnd<=160) and (C.ViewEnd>C.ViewStart),'Reverse mouse selection');
-  Span:=C.ViewEnd-C.ViewStart;C.Pan(1);Require(Abs(C.ViewEnd-200)<0.001,'Pan to end');
-  C.CtrlWheel;Require(C.ViewEnd-C.ViewStart<Span,'Ctrl wheel zoom');
-  C.ResetView;Require((C.ViewStart=100) and (C.ViewEnd=200),'Reset full view');
- finally C.Free;Host.Free;P.Free;O.Free;end;
- Writeln('PASS: chart viewport, nonzero origin, cursor mapping, reverse drag zoom, panning, Ctrl+wheel and reset.');
-end.
+﻿Program VerifyChartView;
+
+{$APPTYPE CONSOLE}
+{$STRONGLINKTYPES ON}
+{$RTTI EXPLICIT METHODS([vcPublic])}
+
+Uses
+ TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ System.SysUtils, System.Classes, System.Types, System.Generics.Collections, Vcl.Forms, Vcl.Controls, FlightChartsU, FlightDatabaseU;
+
+Type
+ TChartProbe = Class(TFlightCharts)
+
+  Procedure Drag(a, b : Integer; Zoom : Boolean = True);
+
+  Procedure Hover(x : Integer);
+
+  Procedure CtrlWheel;
+
+ End;
+
+ TObserver = Class
+  Index : Integer;
+  Procedure Cursor(Sender : TObject; i : Integer);
+ End;
+
+Procedure TObserver.Cursor(Sender : TObject; i : Integer);
+ Begin
+  Index := i;
+ End;
+
+Procedure TChartProbe.Drag(a, b : Integer; Zoom : Boolean);
+ Var
+  s : TShiftState;
+ Begin
+  s := [];
+  If Zoom Then
+   Include(s, ssShift);
+  MouseDown(mbLeft, s, a, 40);
+  Include(s, ssLeft);
+  MouseMove(s, b, 40);
+  MouseUp(mbLeft, s, b, 40);
+ End;
+
+Procedure TChartProbe.Hover(x : Integer);
+ Begin
+  MouseMove([], x, 40);
+ End;
+
+Procedure TChartProbe.CtrlWheel;
+ Begin
+  DoMouseWheel([ssCtrl], 120, Point(0, 0));
+ End;
+
+Procedure Require(b : Boolean; Const s : String);
+ Begin
+  If Not b Then
+   Raise Exception.Create(s);
+ End;
+
+Var
+ Host : TForm;
+ c    : TChartProbe;
+ p    : TTripPlot;
+ v    : TPlotPoint;
+ o    : TObserver;
+ i    : Integer;
+ Span : Double;
+
+Type
+
+ [TestFixture]
+ TVerifyChartViewTests = Class
+  Public
+   [Test]
+   Procedure Regression;
+ End;
+
+Procedure TVerifyChartViewTests.Regression;
+ Begin
+
+  Application.Initialize;
+  Host := TForm.CreateNew(Nil);
+  c    := TChartProbe.Create(Nil);
+  p    := TTripPlot.Create;
+  o    := TObserver.Create;
+
+  Try
+
+   p.Labels.Add('test');
+   For i := 0 To 10 Do
+    Begin
+     v         := Default(TPlotPoint);
+     v.Seconds := 100 + i * 10;
+     SetLength(v.Values, 1);
+     v.Values[0] := i;
+     p.Points.Add(v);
+    End;
+
+   c.Parent := Host;
+   c.Width  := 600;
+   c.SetData(p);
+   c.OnCursor := o.Cursor;
+
+   Require((c.ViewStart = 100) And (c.ViewEnd = 200), 'Full view with nonzero time origin');
+
+   c.SetView(140, 160);
+   c.Hover(60);
+   Require(o.Index = 4, 'Cursor respects zoomed origin');
+
+   c.SetView(120, 160);
+   c.Drag(300, 400, False);
+   Require((c.ViewStart < 120) And (Abs(c.ViewEnd - c.ViewStart - 40) < 0.001), 'Plain drag pans without zoom');
+
+   c.SetView(120, 160);
+   c.Drag(500, 100);
+
+   Require((c.ViewStart >= 120) And (c.ViewEnd <= 160) And (c.ViewEnd > c.ViewStart), 'Reverse mouse selection');
+
+   Span := c.ViewEnd - c.ViewStart;
+   c.Pan(1);
+   Require(Abs(c.ViewEnd - 200) < 0.001, 'Pan to end');
+
+   c.CtrlWheel;
+   Require(c.ViewEnd - c.ViewStart < Span, 'Ctrl wheel zoom');
+
+   c.ResetView;
+   Require((c.ViewStart = 100) And (c.ViewEnd = 200), 'Reset full view');
+
+  Finally
+   c.Free;
+   Host.Free;
+   p.Free;
+   o.Free;
+  End;
+
+  System.Writeln('PASS: chart viewport, nonzero origin, cursor mapping, reverse drag zoom, panning, Ctrl+wheel and reset.');
+
+ End;
+
+Begin
+ RunNativeTests(TVerifyChartViewTests);
+
+End.

@@ -6,6 +6,7 @@ Interface
  Uses
   System.Generics.Collections, System.JSON, System.SysUtils, FireDAC.Comp.Client;
 
+ Function RecordedSDKFields(DB : TFDConnection; Trip : Integer; Const Provider : String) : TArray<String>;
  Function JSONDelta(Current, Previous : TJSONObject) : TJSONObject;
  Procedure MergeJSON(State, Delta : TJSONObject);
 
@@ -25,49 +26,108 @@ Implementation
  Uses
   iFlyDisplaysU;
 
+ Function RecordedSDKFields(DB : TFDConnection; Trip : Integer; Const Provider : String) : TArray<String>;
+  Var
+   q       : TFDQuery;
+   Root    : TJSONValue;
+   SDK     : TJSONValue;
+   v       : TJSONValue;
+   Fields  : TJSONValue;
+   Pair    : TJSONPair;
+   Current : String;
+   Names   : TList<String>;
+   Seen    : TDictionary<String, Boolean>;
+  Begin
+   Result := Nil;
+   q      := TFDQuery.Create(Nil);
+   Names  := TList<String>.Create;
+   Seen   := TDictionary<String, Boolean>.Create;
+   Try
+    q.Connection := DB;
+    q.Open('select reset_state,payload from trip_aircraft_data where trip=:t order by sample', [Trip]);
+    Current := '';
+    While Not q.Eof Do
+     Begin
+      If q.FieldByName('reset_state').AsInteger <> 0 Then
+       Current := '';
+      Root     := TJSONObject.ParseJSONValue(q.FieldByName('payload').AsString);
+      Try
+       If Root Is TJSONObject Then
+        Begin
+         SDK := TJSONObject(Root).GetValue('aircraft_sdk');
+         If SDK Is TJSONNull Then
+          Current := ''
+         Else If SDK Is TJSONObject Then
+          Begin
+           v := TJSONObject(SDK).GetValue('provider');
+           If v <> Nil Then
+            Current := v.Value;
+           Fields   := TJSONObject(SDK).GetValue('fields');
+           If SameText(Current, Provider) And (Fields Is TJSONObject) Then
+            For Pair In TJSONObject(Fields) Do
+             If Not Seen.ContainsKey(Pair.JsonString.Value) Then
+              Begin
+               Seen.Add(Pair.JsonString.Value, True);
+               Names.Add(Pair.JsonString.Value);
+              End;
+          End;
+        End;
+      Finally
+       Root.Free;
+      End;
+      q.Next;
+     End;
+    Result := Names.ToArray;
+   Finally
+    Seen.Free;
+    Names.Free;
+    q.Free;
+   End;
+  End;
+
  Function JSONDelta(Current, Previous : TJSONObject) : TJSONObject;
   Var
-   P     : TJSONPair;
+   p     : TJSONPair;
    Old   : TJSONValue;
    Child : TJSONObject;
   Begin
    Result := TJSONObject.Create;
    If Previous <> Nil Then
-    For P In Previous Do
-     If Current.GetValue(P.JsonString.Value) = Nil Then
-      Result.AddPair(P.JsonString.Value, TJSONNull.Create);
-   For P In Current Do
+    For p In Previous Do
+     If Current.GetValue(p.JsonString.Value) = Nil Then
+      Result.AddPair(p.JsonString.Value, TJSONNull.Create);
+   For p In Current Do
     Begin
      Old := Nil;
      If Previous <> Nil Then
-      Old := Previous.GetValue(P.JsonString.Value);
-     If (P.JsonValue Is TJSONObject) And (Old Is TJSONObject) Then
+      Old := Previous.GetValue(p.JsonString.Value);
+     If (p.JsonValue Is TJSONObject) And (Old Is TJSONObject) Then
       Begin
-       Child := JSONDelta(TJSONObject(P.JsonValue), TJSONObject(Old));
+       Child := JSONDelta(TJSONObject(p.JsonValue), TJSONObject(Old));
        If Child.Count = 0 Then
         Child.Free
        Else
-        Result.AddPair(P.JsonString.Value, Child);
+        Result.AddPair(p.JsonString.Value, Child);
       End
-     Else If (Old = Nil) Or (Old.ToJSON <> P.JsonValue.ToJSON) Then
-      Result.AddPair(P.JsonString.Value, TJSONObject.ParseJSONValue(P.JsonValue.ToJSON));
+     Else If (Old = Nil) Or (Old.ToJSON <> p.JsonValue.ToJSON) Then
+      Result.AddPair(p.JsonString.Value, TJSONObject.ParseJSONValue(p.JsonValue.ToJSON));
     End;
   End;
 
  Procedure MergeJSON(State, Delta : TJSONObject);
   Var
-   P   : TJSONPair;
+   p   : TJSONPair;
    Old : TJSONValue;
   Begin
-   For P In Delta Do
+   For p In Delta Do
     Begin
-     Old := State.GetValue(P.JsonString.Value);
-     If (Old Is TJSONObject) And (P.JsonValue Is TJSONObject) Then
-      MergeJSON(TJSONObject(Old), TJSONObject(P.JsonValue))
+     Old := State.GetValue(p.JsonString.Value);
+     If (Old Is TJSONObject) And (p.JsonValue Is TJSONObject) Then
+      MergeJSON(TJSONObject(Old), TJSONObject(p.JsonValue))
      Else
       Begin
-       State.RemovePair(P.JsonString.Value).Free;
-       State.AddPair(P.JsonString.Value, TJSONObject.ParseJSONValue(P.JsonValue.ToJSON));
+       State.RemovePair(p.JsonString.Value).Free;
+       State.AddPair(p.JsonString.Value, TJSONObject.ParseJSONValue(p.JsonValue.ToJSON));
       End;
     End;
   End;
@@ -90,8 +150,9 @@ Implementation
 
  Function TAircraftHistory.AtSample(ID : Int64) : TJSONObject;
   Var
-   D, SDK : TJSONObject;
-   V      : TJSONValue;
+   d   : TJSONObject;
+   SDK : TJSONObject;
+   v   : TJSONValue;
   Begin
    While Not q.Eof And (q.FieldByName('sample').AsLargeInt <= ID) Do
     Begin
@@ -100,25 +161,25 @@ Implementation
        fState.Free;
        fState := TJSONObject.Create;
       End;
-     D := TJSONObject.ParseJSONValue(q.FieldByName('payload').AsString) As TJSONObject;
+     d := TJSONObject.ParseJSONValue(q.FieldByName('payload').AsString) As TJSONObject;
      Try
-      If D <> Nil Then
-       MergeJSON(fState, D);
+      If d <> Nil Then
+       MergeJSON(fState, d);
      Finally
-      D.Free;
+      d.Free;
      End;
      q.Next;
     End;
    Result := TJSONObject.ParseJSONValue(fState.ToJSON) As TJSONObject;
-   V      := Result.GetValue('aircraft_sdk');
-   If V Is TJSONObject Then
+   v      := Result.GetValue('aircraft_sdk');
+   If v Is TJSONObject Then
     Begin
-     SDK := TJSONObject(V);
+     SDK := TJSONObject(v);
      If (SDK.GetValue('provider') <> Nil) And (SDK.GetValue('provider').Value = 'iFly737MAX') Then
       Begin
-       V := SDK.GetValue('fields');
-       If V Is TJSONObject Then
-        AssembleIFlyDisplays(TJSONObject(V));
+       v := SDK.GetValue('fields');
+       If v Is TJSONObject Then
+        AssembleIFlyDisplays(TJSONObject(v));
       End;
     End;
   End;

@@ -9,57 +9,55 @@ Interface
 
  Type
   TAirportCandidate = Record
-   Public
-    ICAO     : String;
-    Region   : String;
-    Lat      : Double;
-    Lon      : Double;
-    Distance : Double;
+   ICAO     : String;
+   Region   : String;
+   Lat      : Double;
+   Lon      : Double;
+   Distance : Double;
   End;
 
   TFacilityTask = Record
-   Public
-    Trip    : Integer;
-    Row     : Integer;
-    Kind    : String;
-    Lat     : Double;
-    Lon     : Double;
-    Heading : Double;
+   Trip    : Integer;
+   Row     : Integer;
+   Kind    : String;
+   Lat     : Double;
+   Lon     : Double;
+   Heading : Double;
   End;
 
   TRunway = Record
-   Public
-    Length              : Single;
-    Width               : Single;
-    Heading             : Single;
-    Primary             : Integer;
-    Secondary           : Integer;
-    PrimaryDesignator   : Integer;
-    SecondaryDesignator : Integer;
-    Lat                 : Double;
-    Lon                 : Double;
-    Request             : DWORD;
-    Seen                : Integer;
-    PrimaryOffset       : Double;
-    SecondaryOffset     : Double;
+   Length              : Single;
+   Width               : Single;
+   Heading             : Single;
+   Primary             : Integer;
+   Secondary           : Integer;
+   PrimaryDesignator   : Integer;
+   SecondaryDesignator : Integer;
+   Lat                 : Double;
+   Lon                 : Double;
+   Request             : DWORD;
+   Seen                : Integer;
+   PrimaryOffset       : Double;
+   SecondaryOffset     : Double;
   End;
 
   TFacilityReader = Class
    Private
-    fSim            : TSimConnectClient;
-    fDB             : TFlightDatabase;
-    fQueue          : TQueue<TFacilityTask>;
-    fTask           : TFacilityTask;
-    fCandidates     : TList<TAirportCandidate>;
-    fRunways        : TList<TRunway>;
-    fIndex          : Integer;
-    fName           : String;
-    fRequest        : DWORD;
-    fDeadline       : UInt64;
-    fBusy, FDefined : Boolean;
-    fList           : Function(H : THandle; Kind, ID : DWORD) : HRESULT; Stdcall;
-    fDefine         : Function(H : THandle; ID : DWORD; Name : PAnsiChar) : HRESULT; Stdcall;
-    fFacility       : Function(H : THandle; Def, Req : DWORD; ICAO, Region : PAnsiChar; FacilityType : AnsiChar) : HRESULT; Stdcall;
+    fSim        : TSimConnectClient;
+    fDB         : TFlightDatabase;
+    fQueue      : TQueue<TFacilityTask>;
+    fTask       : TFacilityTask;
+    fCandidates : TList<TAirportCandidate>;
+    fRunways    : TList<TRunway>;
+    fIndex      : Integer;
+    fName       : String;
+    fRequest    : DWORD;
+    fDeadline   : UInt64;
+    fBusy       : Boolean;
+    fDefined    : Boolean;
+    fList       : Function(h : THandle; Kind, ID : DWORD) : HRESULT; Stdcall;
+    fDefine     : Function(h : THandle; ID : DWORD; Name : PAnsiChar) : HRESULT; Stdcall;
+    fFacility   : Function(h : THandle; Def, Req : DWORD; ICAO, Region : PAnsiChar; FacilityType : AnsiChar) : HRESULT; Stdcall;
     Procedure Candidate;
     Procedure Finish;
     Procedure Save(Const Airport : TAirportCandidate; Const Runway : String; Heading : Integer; Along, Cross, Length, Width : Double);
@@ -67,39 +65,39 @@ Interface
     Constructor Create(Sim : TSimConnectClient; DB : TFlightDatabase);
     Destructor Destroy; Override;
     Procedure Request(Const Task : TFacilityTask);
-    Procedure Feed(P : Pointer; Size : DWORD);
+    Procedure Feed(p : Pointer; Size : DWORD);
     Procedure Tick;
   End;
 
- Function MatchRunway(Const R : TRunway; Lat, Lon, Track : Double; Out Secondary : Boolean; Out Along, Cross : Double) : Boolean;
+ Function MatchRunway(Const r : TRunway; Lat, Lon, Track : Double; Out Secondary : Boolean; Out Along, Cross : Double) : Boolean;
 
 Implementation
 
- Function MatchRunway(Const R : TRunway; Lat, Lon, Track : Double; Out Secondary : Boolean; Out Along, Cross : Double) : Boolean;
+ Function MatchRunway(Const r : TRunway; Lat, Lon, Track : Double; Out Secondary : Boolean; Out Along, Cross : Double) : Boolean;
   Var
    North  : Double;
    East   : Double;
-   A      : Double;
-   H      : Double;
+   a      : Double;
+   h      : Double;
    Offset : Double;
   Begin
-   North     := DegToRad(Lat - R.Lat) * 6371000;
-   East      := DegToRad(Lon - R.Lon) * 6371000 * Cos(DegToRad(R.Lat));
-   H         := DegToRad(R.Heading);
-   Along     := North * Cos(H) + East * Sin(H);
-   Cross     := East * Cos(H) - North * Sin(H);
-   A         := Abs(((Track - R.Heading + 540) - Floor((Track - R.Heading + 540) / 360) * 360) - 180);
-   Secondary := A > 90;
+   North     := DegToRad(Lat - r.Lat) * 6371000;
+   East      := DegToRad(Lon - r.Lon) * 6371000 * Cos(DegToRad(r.Lat));
+   h         := DegToRad(r.Heading);
+   Along     := North * Cos(h) + East * Sin(h);
+   Cross     := East * Cos(h) - North * Sin(h);
+   a         := Abs(((Track - r.Heading + 540) - Floor((Track - r.Heading + 540) / 360) * 360) - 180);
+   Secondary := a > 90;
    If Secondary Then
     Begin
      Along  := -Along;
      Cross  := -Cross;
-     Offset := R.SecondaryOffset;
+     Offset := r.SecondaryOffset;
     End
    Else
-    Offset := R.PrimaryOffset;
-   Along   := Along + R.Length / 2 - Offset;
-   Result  := (Abs(Cross) <= R.Width / 2) And (Along >= 0) And (Along <= R.Length - Offset) And (R.Length > 0) And (R.Width > 0);
+    Offset := r.PrimaryOffset;
+   Along   := Along + r.Length / 2 - Offset;
+   Result  := (Abs(Cross) <= r.Width / 2) And (Along >= 0) And (Along <= r.Length - Offset) And (r.Length > 0) And (r.Width > 0);
   End;
 
  Constructor TFacilityReader.Create(Sim : TSimConnectClient; DB : TFlightDatabase);
@@ -133,7 +131,7 @@ Implementation
    If Not fSim.Connected Then
     Begin
      fBusy    := False;
-     FDefined := False;
+     fDefined := False;
      fQueue.Clear;
      Exit;
     End;
@@ -141,8 +139,8 @@ Implementation
     fBusy := False;
    If fBusy Or (fQueue.Count = 0) Then
     Exit;
-   @fList     := fSim.FunctionAddress('SimConnect_RequestFacilitiesList_EX1');
-   @fDefine   := fSim.FunctionAddress('SimConnect_AddToFacilityDefinition');
+   @fList := fSim.FunctionAddress('SimConnect_RequestFacilitiesList_EX1');
+   @fDefine := fSim.FunctionAddress('SimConnect_AddToFacilityDefinition');
    @fFacility := fSim.FunctionAddress('SimConnect_RequestFacilityData_EX1');
    If Not(Assigned(fList) And Assigned(fDefine) And Assigned(fFacility)) Then
     Begin
@@ -160,10 +158,10 @@ Implementation
 
  Procedure TFacilityReader.Candidate;
   Const
-   Definitions : Array [0 .. 25] Of AnsiString = ('OPEN AIRPORT', 'NAME64', 'MAGVAR', 'N_RUNWAYS', 'OPEN RUNWAY', 'LENGTH', 'WIDTH', 'HEADING', 'PRIMARY_NUMBER', 'SECONDARY_NUMBER', 'PRIMARY_DESIGNATOR', 'SECONDARY_DESIGNATOR', 'LATITUDE', 'LONGITUDE', 'OPEN PRIMARY_THRESHOLD', 'LENGTH', 'WIDTH', 'ENABLE', 'CLOSE PRIMARY_THRESHOLD', 'OPEN SECONDARY_THRESHOLD', 'LENGTH', 'WIDTH', 'ENABLE', 'CLOSE SECONDARY_THRESHOLD', 'CLOSE RUNWAY', 'CLOSE AIRPORT');
+   Definitions : Array [0..25] Of AnsiString = ('OPEN AIRPORT', 'NAME64', 'MAGVAR', 'N_RUNWAYS', 'OPEN RUNWAY', 'LENGTH', 'WIDTH', 'HEADING', 'PRIMARY_NUMBER', 'SECONDARY_NUMBER', 'PRIMARY_DESIGNATOR', 'SECONDARY_DESIGNATOR', 'LATITUDE', 'LONGITUDE', 'OPEN PRIMARY_THRESHOLD', 'LENGTH', 'WIDTH', 'ENABLE', 'CLOSE PRIMARY_THRESHOLD', 'OPEN SECONDARY_THRESHOLD', 'LENGTH', 'WIDTH', 'ENABLE', 'CLOSE SECONDARY_THRESHOLD', 'CLOSE RUNWAY', 'CLOSE AIRPORT');
   Var
-   S      : AnsiString;
-   A      : TAirportCandidate;
+   s      : AnsiString;
+   a      : TAirportCandidate;
    ICAO   : AnsiString;
    Region : AnsiString;
   Begin
@@ -172,19 +170,19 @@ Implementation
      fBusy := False;
      Exit;
     End;
-   If Not FDefined Then
+   If Not fDefined Then
     Begin
-     For S In Definitions Do
-      If fDefine(fSim.Handle, 2, PAnsiChar(S)) < 0 Then
+     For s In Definitions Do
+      If fDefine(fSim.Handle, 2, PAnsiChar(s)) < 0 Then
        Begin
         fBusy := False;
         Exit;
        End;
-     FDefined := True;
+     fDefined := True;
     End;
-   A      := fCandidates[fIndex];
-   ICAO   := AnsiString(A.ICAO);
-   Region := AnsiString(A.Region);
+   a      := fCandidates[fIndex];
+   ICAO   := AnsiString(a.ICAO);
+   Region := AnsiString(a.Region);
    Inc(fRequest);
    fRunways.Clear;
    fName     := '';
@@ -193,19 +191,19 @@ Implementation
     fBusy := False;
   End;
 
- Function Text(P : Pointer; Len : Integer) : String;
+ Function Text(p : Pointer; Len : Integer) : String;
   Var
-   S : AnsiString;
-   Z : Integer;
+   s : AnsiString;
+   z : Integer;
   Begin
-   SetString(S, PAnsiChar(P), Len);
-   Z := Pos(#0, String(S));
-   If Z > 0 Then
-    SetLength(S, Z - 1);
-   Result := UTF8ToString(UTF8String(S));
+   SetString(s, PAnsiChar(p), Len);
+   z := Pos(#0, String(s));
+   If z > 0 Then
+    SetLength(s, z - 1);
+   Result := UTF8ToString(UTF8String(s));
   End;
 
- Procedure TFacilityReader.Feed(P : Pointer; Size : DWORD);
+ Procedure TFacilityReader.Feed(p : Pointer; Size : DWORD);
   Var
    ID      : DWORD;
    Req     : DWORD;
@@ -218,40 +216,40 @@ Implementation
    i       : Integer;
    j       : Integer;
    Base    : NativeUInt;
-   A       : TAirportCandidate;
-   R       : TRunway;
+   a       : TAirportCandidate;
+   r       : TRunway;
    Offset  : Single;
    Enabled : Integer;
   Begin
    If Not fBusy Or (Size < 16) Then
     Exit;
-   Move(PByte(NativeUInt(P) + 8)^, ID, 4);
-   Move(PByte(NativeUInt(P) + 12)^, Req, 4);
+   Move(PByte(NativeUInt(p) + 8)^, ID, 4);
+   Move(PByte(NativeUInt(p) + 12)^, Req, 4);
    If Req <> fRequest Then
     Exit;
    If ID = 18 Then
     Begin
      If Size < 28 Then
       Exit;
-     Move(PByte(NativeUInt(P) + 16)^, Count, 4);
-     Move(PByte(NativeUInt(P) + 20)^, Entry, 4);
-     Move(PByte(NativeUInt(P) + 24)^, OutOf, 4);
+     Move(PByte(NativeUInt(p) + 16)^, Count, 4);
+     Move(PByte(NativeUInt(p) + 20)^, Entry, 4);
+     Move(PByte(NativeUInt(p) + 24)^, OutOf, 4);
      If UInt64(28) + UInt64(Count) * 36 > Size Then
       Exit;
      For i := 0 To Integer(Count) - 1 Do
       Begin
-       Base     := NativeUInt(P) + 28 + NativeUInt(i) * 36;
-       A.ICAO   := Text(Pointer(Base), 9);
-       A.Region := Text(Pointer(Base + 9), 3);
-       Move(PByte(Base + 12)^, A.Lat, 8);
-       Move(PByte(Base + 20)^, A.Lon, 8);
-       A.Distance := Sqrt(Sqr(DegToRad(A.Lat - fTask.Lat) * 6371000) + Sqr(DegToRad(A.Lon - fTask.Lon) * 6371000 * Cos(DegToRad(fTask.Lat))));
-       If A.Distance > 10000 Then
+       Base     := NativeUInt(p) + 28 + NativeUInt(i) * 36;
+       a.ICAO   := Text(Pointer(Base), 9);
+       a.Region := Text(Pointer(Base + 9), 3);
+       Move(PByte(Base + 12)^, a.Lat, 8);
+       Move(PByte(Base + 20)^, a.Lon, 8);
+       a.Distance := Sqrt(Sqr(DegToRad(a.Lat - fTask.Lat) * 6371000) + Sqr(DegToRad(a.Lon - fTask.Lon) * 6371000 * Cos(DegToRad(fTask.Lat))));
+       If a.Distance > 10000 Then
         Continue;
        j := 0;
-       While (j < fCandidates.Count) And (fCandidates[j].Distance < A.Distance) Do
+       While (j < fCandidates.Count) And (fCandidates[j].Distance < a.Distance) Do
         Inc(j);
-       fCandidates.Insert(j, A);
+       fCandidates.Insert(j, a);
        If fCandidates.Count > 5 Then
         fCandidates.Delete(5);
       End;
@@ -265,26 +263,26 @@ Implementation
     Begin
      If Size < 40 Then
       Exit;
-     Move(PByte(NativeUInt(P) + 16)^, Unique, 4);
-     Move(PByte(NativeUInt(P) + 20)^, Parent, 4);
-     Move(PByte(NativeUInt(P) + 24)^, Kind, 4);
-     Base := NativeUInt(P) + 40;
+     Move(PByte(NativeUInt(p) + 16)^, Unique, 4);
+     Move(PByte(NativeUInt(p) + 20)^, Parent, 4);
+     Move(PByte(NativeUInt(p) + 24)^, Kind, 4);
+     Base := NativeUInt(p) + 40;
      If (Kind = 0) And (Size >= 112) Then
       fName := Text(Pointer(Base), 64);
      If (Kind = 1) And (Size >= 84) Then
       Begin
-       R := Default (TRunway);
-       Move(PByte(Base)^, R.Length, 4);
-       Move(PByte(Base + 4)^, R.Width, 4);
-       Move(PByte(Base + 8)^, R.Heading, 4);
-       Move(PByte(Base + 12)^, R.Primary, 4);
-       Move(PByte(Base + 16)^, R.Secondary, 4);
-       Move(PByte(Base + 20)^, R.PrimaryDesignator, 4);
-       Move(PByte(Base + 24)^, R.SecondaryDesignator, 4);
-       Move(PByte(Base + 28)^, R.Lat, 8);
-       Move(PByte(Base + 36)^, R.Lon, 8);
-       R.Request := Unique;
-       fRunways.Add(R);
+       r := Default(TRunway);
+       Move(PByte(Base)^, r.Length, 4);
+       Move(PByte(Base + 4)^, r.Width, 4);
+       Move(PByte(Base + 8)^, r.Heading, 4);
+       Move(PByte(Base + 12)^, r.Primary, 4);
+       Move(PByte(Base + 16)^, r.Secondary, 4);
+       Move(PByte(Base + 20)^, r.PrimaryDesignator, 4);
+       Move(PByte(Base + 24)^, r.SecondaryDesignator, 4);
+       Move(PByte(Base + 28)^, r.Lat, 8);
+       Move(PByte(Base + 36)^, r.Lon, 8);
+       r.Request := Unique;
+       fRunways.Add(r);
       End;
      If (Kind = 23) And (Size >= 52) Then
       Begin
@@ -293,14 +291,14 @@ Implementation
        For i := 0 To fRunways.Count - 1 Do
         If fRunways[i].Request = Parent Then
          Begin
-          R := fRunways[i];
+          r := fRunways[i];
           If Enabled <> 0 Then
-           If R.Seen = 0 Then
-            R.PrimaryOffset := Offset
+           If r.Seen = 0 Then
+            r.PrimaryOffset := Offset
            Else
-            R.SecondaryOffset := Offset;
-          Inc(R.Seen);
-          fRunways[i] := R;
+            r.SecondaryOffset := Offset;
+          Inc(r.Seen);
+          fRunways[i] := r;
           Break;
          End;
       End;
@@ -342,9 +340,9 @@ Implementation
 
  Procedure TFacilityReader.Finish;
   Const
-   Designators : Array [0 .. 6] Of String = ('', 'L', 'R', 'C', 'W', 'A', 'B');
+   Designators : Array [0..6] Of String = ('', 'L', 'R', 'C', 'W', 'A', 'B');
   Var
-   R          : TRunway;
+   r          : TRunway;
    Secondary  : Boolean;
    Along      : Double;
    Cross      : Double;
@@ -353,22 +351,22 @@ Implementation
    Designator : Integer;
    Heading    : Integer;
   Begin
-   For R In fRunways Do
-    If MatchRunway(R, fTask.Lat, fTask.Lon, fTask.Heading, Secondary, Along, Cross) Then
+   For r In fRunways Do
+    If MatchRunway(r, fTask.Lat, fTask.Lon, fTask.Heading, Secondary, Along, Cross) Then
      Begin
-      Number     := R.Primary;
-      Designator := R.PrimaryDesignator;
-      Heading    := Round(R.Heading);
+      Number     := r.Primary;
+      Designator := r.PrimaryDesignator;
+      Heading    := Round(r.Heading);
       If Secondary Then
        Begin
-        Number     := R.Secondary;
-        Designator := R.SecondaryDesignator;
+        Number     := r.Secondary;
+        Designator := r.SecondaryDesignator;
         Heading    := (Heading + 180) Mod 360;
        End;
       Code := Format('%.2d', [Number]);
       If InRange(Designator, 0, 6) Then
        Code := Code + Designators[Designator];
-      Save(fCandidates[fIndex], Code, Heading, Along, Cross, R.Length, R.Width);
+      Save(fCandidates[fIndex], Code, Heading, Along, Cross, r.Length, r.Width);
       fBusy := False;
       Exit;
      End;

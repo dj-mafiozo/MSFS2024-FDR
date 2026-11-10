@@ -8,8 +8,8 @@ Interface
   FSHudClientU;
 
  Const
-  FSHudFieldCount                        = 3;
-  FSHudFields : Array [0 .. 2] Of String = ('COM1_selected_MHz', 'COM2_selected_MHz', 'squawk_display');
+  FSHudFieldCount = 3;
+  FSHudFields : Array [0..2] Of String = ('COM1_selected_MHz', 'COM2_selected_MHz', 'squawk_display');
 
  Type
   TFSHudData = Class
@@ -18,7 +18,7 @@ Interface
     fLast   : TDictionary<String, String>;
     fTimes  : TDictionary<String, String>;
     fTrip   : Integer;
-    Procedure WriteMessage(DB : TFDConnection; Trip : Integer; Const SimUTC : String; Const M : TFSHudMessage);
+    Procedure WriteMessage(DB : TFDConnection; Trip : Integer; Const SimUTC : String; Const m : TFSHudMessage);
    Public
     Constructor Create(Connect : Boolean = True);
     Destructor Destroy; Override;
@@ -107,44 +107,44 @@ Implementation
    Inherited;
   End;
 
- Procedure TFSHudData.WriteMessage(DB : TFDConnection; Trip : Integer; Const SimUTC : String; Const M : TFSHudMessage);
+ Procedure TFSHudData.WriteMessage(DB : TFDConnection; Trip : Integer; Const SimUTC : String; Const m : TFSHudMessage);
   Begin
    If (DB <> Nil) And (Trip > 0) Then
-    DB.ExecSQL('insert into trip_fshud_messages(trip,captured_utc,sim_utc,message_type,payload) values(:t,:c,:s,:k,:p)', [Trip, M.CapturedUTC, SimUTC, M.Kind, M.Payload]);
+    DB.ExecSQL('insert into trip_fshud_messages(trip,captured_utc,sim_utc,message_type,payload) values(:t,:c,:s,:k,:p)', [Trip, m.CapturedUTC, SimUTC, m.Kind, m.Payload]);
   End;
 
  Procedure TFSHudData.BeginTrip(DB : TFDConnection; Trip : Integer; Const SimUTC : String);
   Var
    Pair : TPair<String, String>;
-   M    : TFSHudMessage;
+   m    : TFSHudMessage;
   Begin
    If fTrip = Trip Then
     Exit;
    fTrip := Trip;
    For Pair In fLast Do
     Begin
-     M.Kind        := Pair.Key;
-     M.Payload     := Pair.Value;
-     M.CapturedUTC := fTimes[Pair.Key];
-     WriteMessage(DB, Trip, SimUTC, M);
+     m.Kind        := Pair.Key;
+     m.Payload     := Pair.Value;
+     m.CapturedUTC := fTimes[Pair.Key];
+     WriteMessage(DB, Trip, SimUTC, m);
     End;
   End;
 
  Procedure TFSHudData.Apply(DB : TFDConnection; Trip : Integer; Const SimUTC : String; Const Messages : TArray<TFSHudMessage>);
   Var
-   M        : TFSHudMessage;
+   m        : TFSHudMessage;
    Previous : String;
   Begin
    BeginTrip(DB, Trip, SimUTC);
-   For M In Messages Do
+   For m In Messages Do
     Begin
-     If Not RecordFSHudKind(M.Kind) Then
+     If Not RecordFSHudKind(m.Kind) Then
       Continue;
-     If fLast.TryGetValue(M.Kind, Previous) And (Previous = M.Payload) Then
+     If fLast.TryGetValue(m.Kind, Previous) And (Previous = m.Payload) Then
       Continue;
-     fLast.AddOrSetValue(M.Kind, M.Payload);
-     fTimes.AddOrSetValue(M.Kind, M.CapturedUTC);
-     WriteMessage(DB, Trip, SimUTC, M);
+     fLast.AddOrSetValue(m.Kind, m.Payload);
+     fTimes.AddOrSetValue(m.Kind, m.CapturedUTC);
+     WriteMessage(DB, Trip, SimUTC, m);
     End;
   End;
 
@@ -164,7 +164,7 @@ Implementation
   Var
    Item    : TJSONObject;
    Fields  : TJSONObject;
-   V       : TJSONValue;
+   v       : TJSONValue;
    Leaf    : TJSONValue;
    Payload : String;
    Part    : String;
@@ -203,7 +203,7 @@ Implementation
    FS.ThousandSeparator := #0;
    If fLast.TryGetValue('RadioPanelData', Payload) Then
     Begin
-     V := TJSONObject.ParseJSONValue(Payload);
+     v := TJSONObject.ParseJSONValue(Payload);
      Try
       For i := 0 To 1 Do
        Begin
@@ -211,7 +211,7 @@ Implementation
          Path := 'PanelRadioStates.Com1.SelectedFrequency'
         Else
          Path := 'PanelRadioStates.Com2.SelectedFrequency';
-        Leaf  := V;
+        Leaf  := v;
         For Part In Path.Split(['.']) Do
          Begin
           If Not(Leaf Is TJSONObject) Then
@@ -225,16 +225,16 @@ Implementation
          Number(FSHudFields[i], n);
        End;
      Finally
-      V.Free;
+      v.Free;
      End;
     End;
    If fLast.TryGetValue('UserAircraftDetailsMessage', Payload) Then
     Begin
-     V := TJSONObject.ParseJSONValue(Payload);
+     v := TJSONObject.ParseJSONValue(Payload);
      Try
       Leaf := Nil;
-      If V Is TJSONObject Then
-       Leaf  := TJSONObject(V).GetValue('UserAircraftDetails');
+      If v Is TJSONObject Then
+       Leaf  := TJSONObject(v).GetValue('UserAircraftDetails');
       Squawk := 0;
       Valid  := Leaf Is TJSONObject;
       If Valid Then
@@ -252,7 +252,7 @@ Implementation
       If Valid Then
        Number(FSHudFields[2], Squawk);
      Finally
-      V.Free;
+      v.Free;
      End;
     End;
   End;

@@ -1,0 +1,374 @@
+﻿@overview|Getting started
+First choose the task: recording requires MSFS 2024, while file analysis works offline. Keep the extracted package directory structure. Start MSFS24-FDR.exe, choose a language and inspect the status bar. Load an aircraft in the simulator and leave preparation with Ready for flight before expecting recording to become active.
+For replay, select a completed flight in the left tree. Enlarge or detach the relevant frame, choose a time and compare map, PFD and data at the same instant. Planned routes and OFPs in this manual use the anonymized EPLL.25 ADOX2W SOXE2T LL501 ILSZ.25 EPLL.25 loop. Illustrated telemetry is synthetic, not evidence that this flight was flown.
+MSFS24-FDR records and replays Microsoft Flight Simulator 2024. MSFS 2020, FSX and Prepar3D are unsupported. Recorded instruments are analysis displays, not simulator controls.
+First recording :: Unpack the complete Win64 portable package, launch the EXE, load a flight in MSFS 2024 and select Ready for flight. Wait for connection before starting or enabling automatic recording.
+First replay :: Select a completed flight in the left library. Map, charts, instruments and data tabs share one timeline. Use Play, the slider or the beginning/end buttons.
+User data :: Settings, index, recordings and logs live in %LocalAppData%\MSFS24-FDR. Back up the whole folder, including Recordings. Replacing program files does not require deleting user data.
+Offline :: Saved telemetry, plans, messages and saved SimBrief maps replay without MSFS. Uncached map tiles, fetching weather/SimBrief and cloud AI require the relevant network service.
+Help :: F1 opens the focused panel's topic. Use the contents tree and CHM Search. Other application languages fall back to English help when no dedicated manual exists.
+@recordings|Recording library, import and recovery
+Back up the source before importing a legacy database or individual MFZR. Migration creates one file per flight; the index keeps metadata and a relative path. A missing file hides the recording without deleting its index entry. Check its location and restore it before removing metadata. Text search and group filters combine, so an empty result may reflect both filters.
+The tree groups flights by aircraft ICAO, departure ICAO, year and localized month; newest flights come first. Missing files retain index metadata.
+Search / groups :: Combine the text search and group filter. Clear them to restore results. A folder is a grouping, not an individual recording.
+Open / refresh :: Open selects a recording database/index. Refresh reloads the library and discovers .mfzr files in recording storage.
+Import :: Accepts individual .mfzr files, legacy flight_data.db and the original Qt-recorder database. Legacy flights become separate recordings; the source is preserved and repeat imports avoid existing entries.
+Legacy export :: Exports one flight with fields supported by the original recorder. SDK, FMC, weather and other FDR extensions are omitted, so it is not a full backup.
+Groups :: Create, rename, delete and assign groups. Confirm assignment with OK. Deleting a group is distinct from deleting a flight.
+Flight information :: Inspect/edit the metadata offered by the dialog. Type and departure determine grouping; telemetry remains the source for replay.
+Delete :: Confirmation removes the selected recording file and its index entry. Stop recording it first. This is not just hiding an item.
+Recovery :: Startup can offer recovery after a crash. The result may be partial or damaged. Preserve a backup before repairing valuable data; a recovered file is not proof of a complete flight.
+Single-file preview :: Start MSFS2024-FDR.exe with an existing .mfzr path. Only that flight appears; the library is hidden, management/recording are disabled and SimConnect is not opened.
+@recording|Recording a simulator flight
+Automatic recording needs an actual flight start, not just connection, AircraftLoaded or preparation. Session end closes and finalizes the file; finalizing is not completed. Shorter intervals increase samples, workload and size but cannot force an addon to publish SDK data faster. After a CTD preserve the recoverable file until its ending has been inspected.
+Recording actions require a supported MSFS 2024 connection. Loading an aircraft or showing preparation screens is not enough.
+Start :: Manually starts capture for the active, ready flight when enabled. If disabled, check simulator version, connection and Ready for flight.
+Stop :: Ends capture and finalizes the recording. Wait for completion before moving the file or closing. Active recordings cannot be deleted or opened as completed flights.
+Automatic recording :: Waits for an active flight after Ready for flight, not the preparation screen. Simulator/aircraft session events are considered. After a CTD inspect status and recovery on the next launch.
+Sampling interval :: The toolbar value is milliseconds. Smaller intervals create more data and processing. New files retain the configured interval; old files use inferred spacing or a 500 ms fallback.
+Aircraft data :: Subscriptions follow the active aircraft and engine type. Selecting another display does not create missing SDK/L-var telemetry.
+Statuses :: recording is active capture; finalizing is file completion; completed is normal completion. interrupted/error need inspection. The Recording heading denotes an unavailable active entry.
+Offline replay :: A connection failure while MSFS is closed does not invalidate an already loaded offline recording.
+@workspace|Workspace, docking and window layout
+First size the library and data tabs, then distribute map, chart and instrument heights with splitters. Resizing preserves panel proportions. Instruments retain their geometry, so unused side margins are expected; stretching an artificial horizon would be incorrect.
+Drag a tab header outside its panel to detach it, or onto a docking target to join another window. The frame window action toggles docked/floating state and its icon reflects the state. Closing a floating view restores its content. An empty host should collapse after all tabs detach. Each view stores its docking state and geometry independently.
+The center contains map, charts, instruments and time controls. The library is left; data tabs are right. Splitters allocate available space.
+Separate window :: The window action moves the same frame into a floating window and changes its icon. Data and timeline synchronization remain intact.
+Tabs :: Drag a tab header to detach it; dock on a tab strip or available edge target. Closing the floating tab returns it to its home host.
+Combined instruments :: PFD and EICAS/ECAM can share a floating instrument host. Use docking targets rather than stretching an unrelated tab's content.
+Resize :: Panels preserve proportions. Instruments retain aspect ratio and may show margins instead of distortion.
+Saved layout :: Docked state and each floating window's position/size are remembered. A host without any docked tabs should collapse.
+Reset :: Restore default panel layout in Settings after a monitor change or inconvenient arrangement. It resets the workspace, not flight data.
+@playback|Playback and recorded time
+At 1x, time follows the recording rather than advancing one sample per timer tick. Interpolation smooths continuous values and angles while switches retain discrete transitions. Pause to select an instant with the slider or chart. Stop returns to the beginning and 1x. Normal replay jumps are 30 seconds; separate ghost actions jump 10 seconds.
+Normal playback controls the analysis timeline, not a simulator aircraft. Ghost replay is separate.
+Play / pause :: Runs or pauses the selected flight; instruments, map, charts, FMC and state/message tabs follow the same recorded cursor.
+Stop :: Stops, returns to the beginning and resets rate to 1x.
+Beginning / end :: Jump to the first/last point. Back/Skip jump 30 seconds within recording bounds.
+Rate :: Select 0.125, 0.25, 0.5, 0.75, 1, 2, 4, 8 or 16x. The rate label shows the choice. Faster playback cannot add missing samples.
+Slider / hover :: Seek directly with the timeline. Active playback disables chart-hover seeking; pause before inspecting time with the mouse.
+Interpolation :: Continuous values/angles can interpolate. Switches and SDK modes remain discrete; gaps and absent values are not valid zeroes.
+ATC caption :: The last eligible line appears near the slider for about 30 recorded seconds. Rewinding shows historical context, not the latest live message.
+@ghost|Ghost aircraft replay in MSFS 2024
+Load a flight in supported MSFS 2024, then select a recording. Ghost uses an independent connection/thread and remains separate from analysis replay. Stop it before changing files or sessions to remove its object. AIG/FSLTL matching uses models actually installed in Community; a VMR file does not install them. A substitute model may expose fewer animations despite complete samples.
+Ghost creates a visual AI aircraft in a running supported simulator. It is not the user's aircraft and does not run the original addon's avionics.
+Play / pause :: Starts/pauses the injected aircraft. Unlike offline replay, this needs a loaded flight and SimConnect.
+Stop :: Stops replay and removes the injected object. Stop before changing recording or simulator session.
+Back / forward :: Seek the ghost 10 seconds backward/forward, distinct from normal replay's 30-second jumps.
+Refresh rate :: 5–60 Hz, default 30. Higher rates send more updates; they do not increase original sample density or guarantee simulator performance.
+Model matching :: Installed AIG/FSLTL type and livery matches are considered; the best available match is preferred, otherwise default AI models. Models must actually be installed in Community.
+Optional VMR :: Supply FSLTL_Rules.vmr for matching rules or leave empty for automatic matching. A VMR does not install assets.
+Animations :: Position, attitude, supported gear/flaps/spoilers, controls, engines, lights and reversers depend on recorded data and the chosen model's writable inputs. Fallback models may show less.
+@map|Map and track layers
+OpenStreetMap places recorded positions in terrain context. The track consists of measurements; magenta denotes the plan. Overlapping sections need not be drawn twice, while waypoint labels and available constraints remain. A line between samples is not a metre-by-metre measurement.
+The example departs EPLL runway 25 via ADOX2W, ADOXO, SOXER, SOXE2T and LL501 to ILS Z 25 EPLL. Named procedure points and explicit restrictions illustrate the feature, not current navigation charts. Drag to pan, wheel to zoom and Fit to restore the route extent. Cached tiles work offline; a fresh base map requires a download.
+The actual track is measured position history; the magenta route is a saved plan. They are distinct sources.
+Pan / zoom :: Drag to pan, use the wheel or zoom buttons, and Fit to frame available data. Overview shows the library overview rather than a single instrument flight.
+Tiles :: Toggle online background tiles. Cached tiles may work offline; an empty uncached background is not missing GPS telemetry.
+Planned route :: Named fixes and available constraints accompany the magenta route. Coincident planned/actual segments avoid an unnecessary duplicate line.
+Procedures :: Available SID, STAR and approach data are resolved after reading the EFB plan and saved for replay. Published missed approaches are dark gray; holds use schematic symbols and retained parameters.
+Coordinate-only points :: A matching SimBrief route may restore a name where AIRAC cycles differ. This does not update the navigation database.
+Export :: Save a PNG illustration or export the track as KML for another viewer. Neither replaces a complete .mfzr backup.
+@flight-plan|Flight plan, EFB route and procedures
+Reading the plan and resolving navigation are separate stages. EFB first provides airports and procedure names; facility queries then supply geometry, waypoints and restrictions stored with the flight. A string such as ADOX2W or ILSZ.25 does not contain every coordinate. SimBrief may identify an anonymous point after an AIRAC mismatch, but missing constraints must not be invented. Stored resolved routes replay offline.
+The Flight plan tab displays the plan stored with the recording. It does not edit the aircraft's FMS.
+Capture :: After flight start the EFB/SimConnect plan is read, then facility data resolve procedure legs and coordinates. The result is saved with the flight.
+Airports :: Departure/destination can be known before engine start if supplied by the plan. UNKNOWN means data were unavailable or unresolved in that recording.
+Import PLN :: Attach a selected PLN using plan import. Review departure, destination and source before relying on the overlay.
+Constraints :: Fixes may include speed/altitude constraints, position and procedure role. Missing constraints stay missing; plan text is not proof of an ATC clearance.
+Offline :: Stored snapshots draw without a new simulator query. Older files may contain only literal points/text and cannot always expand procedures offline.
+@charts|Charts, zoom and parameter inspection
+Choose parameters that answer the question: IAS, V/S and pitch for touchdown, or N1/EGT/FF for a power change. Showing every parameter at once is unnecessary. Configure the chart sequence in the selection dialog. Scales and display units affect presentation; the recording retains source measurements.
+Charts plot parameters over recorded time; their cursor is synchronized with the workspace.
+Visible charts :: Configure parameters and their order. Search the available list; the displayed list determines drawing sequence.
+Zoom / pan :: Zoom changes the time range, Pan moves within it and Full view restores the complete span.
+Cursor :: Hover seeks while paused. During playback it is disabled so accidental mouse movement does not interrupt time.
+Units / enums :: Captions include display units. Audited switch mappings show cockpit labels; unknown mappings stay numeric. Presentation conversions never rewrite samples.
+Gaps :: A missing line/value may mean unsupported or unrecorded data, not a measured zero.
+@chart-options|Choosing and ordering charts
+The left list contains available parameters; the right list contains only the ordered chart selection. Search narrows the left list; clear it after adding items to find other groups. Buttons and dragging between lists perform the same show/hide operation.
+To reorder, select a right-hand item and move it up/down or to the beginning/end. Ctrl-drag within the displayed list reorders at the drop position. OK applies the complete selection; Cancel discards editing. The screenshot uses the full standard FDR catalog rather than five artificial entries. The SimVar catalog chapter lists all of them.
+The dialog separates available parameters from the ordered displayed list.
+Search :: Find a name fragment; clear it for the full list. Filtering does not delete telemetry.
+Show / hide :: Add/remove the selected chart from the displayed list without modifying the flight.
+Drag between lists :: Drag to show or hide. Only accepted targets change selection; drop feedback indicates acceptance.
+Reorder :: Use up/down/first/last buttons or Ctrl-drag in the displayed list. Drop between rows to choose insertion position.
+OK / Cancel :: OK applies selection/order; Cancel discards this dialog's edits.
+@data|Values, events and takeoffs/landings
+Values answers “what was the state at this instant”, Events “what was recorded”, while Takeoffs/Landings selects a contact. These are different views of one recording. Detach them to compare tables beside instruments. Values search does not filter the flight library; recording search does not remove parameters. Each view has its own child chapter.
+Tabs describe the chosen recording and time, not the currently loaded live aircraft.
+Values search :: Filters readable captions and raw identifiers. Clear for all rows. Values follow the cursor.
+Switch labels :: Audited enums show UP/1/2/5 or RTO/DISARMED where appropriate. Cockpit terms intentionally stay untranslated. Unknown numbers remain numeric.
+Events :: Inspect recorded event type/time as historical evidence.
+Contacts :: Select liftoff/touchdown to inspect weather or request analysis. Event time is not necessarily the beginning of rotation or flare.
+Metadata :: Flight type/airport grouping is separate from measured telemetry and the current simulator session.
+@instruments|Recorded instrument displays
+These are analysis reconstructions, not certified avionics or interactive cockpit controls.
+Automatic kind :: The recorded type/category selects analog GA, glass/classic, generic or a supported airliner frame. Debug override changes visualization, not aircraft identity.
+Six-pack :: Airspeed, attitude, altitude, turn/slip, heading and VSI use recorded data. Valid ILS LOC/GS and barometric setting appear when available.
+Scales :: Analog VSI retains a stable recording/profile range. A converted text unit is distinct from a conventional feet-based altimeter mechanism.
+Missing data :: Dashes preserve no-data versus real zero. Old flights cannot gain SDK states never captured.
+Rendering :: Aspect ratio and antialiasing work above/below 100%. Detached frames keep the same source and cursor.
+@engines|Engine gauges and configuration
+The generic panel follows engine type/count. Dedicated B38M EICAS/A320 ECAM replaces it for those display kinds.
+Piston :: Available RPM, EGT/CHT, oil pressure/temperature, left/right fuel, electrical/vacuum readings and condition/reverse state.
+Turboprop :: Torque, prop RPM, ITT, Ng/N1 gas generator, oil, fuel flow and available condition/beta/reverse states.
+Jet :: N1, N2, EGT, fuel flow, oil and available vibration. Thrust/autothrottle state supplements rather than replaces measured engine data.
+Units :: Oil pressure uses psi rather than psf. Temperature, flow and quantity follow their defined/configured units. Missing readings stay unavailable.
+Window :: Detach, resize proportionally and dock back. The scaled panel is not a scrollable cropped instrument.
+@boeing|B38M PFD, EICAS and flight information
+Dedicated MAX frames are selected for B38M. This is not complete B736–B739 avionics emulation.
+PFD :: Recorded IAS/Mach/altitude tapes, attitude, heading, VSI, selected targets, barometric setting/STD, ILS, radio altitude and available minima.
+Information :: Shows flight number, squawk including leading zeros, SELCAL, registration, recorded UTC/date and elapsed time. CPT is left, FO right. Hide it in Debug settings.
+Flight Director :: Valid recorded standard pitch/bank commands drive the crossbars. If the addon publishes no meaningful commands, FD cannot be reconstructed reliably; disable it in settings.
+FMA :: iFly FMA is reconstructed from SDK/MCP states and standard data, and labelled as reconstructed. Missing historical SDK data are not authoritative OFF states. VNAV/flare/thrust transitions can be approximate.
+Wind / VOR / ADF :: Wind arrow is relative to heading; 1/2 blocks show tuning and available DME. An unavailable station is not a station at zero distance.
+AoA / minima :: Optional AoA uses recorded incidence and ground inhibit. Minima require available pilot-setting data; design decision-height constants are not selected minima.
+EICAS :: Engine, fuel, flap and available annunciator data follow the recording. Old flights may have blank fields.
+@airbus|A320 PFD and upper/lower ECAM
+Fenix and FBW support depends on addon/version and the data captured.
+PFD :: Recorded attitude, tapes, heading, FMA, FD, ILS and barometric/speed modes; supported FBW ARINC validity is respected.
+Minima :: BARO, RADIO and NO DH when available. RADIO is relative to radio height, not an arbitrary MSL marker. Missing pilot settings are not invented.
+E/WD :: Available N1, EGT, N2, fuel flow/quantity, configuration, warning and memo text. Missing state is not an all-clear cockpit.
+Recorded :: The lower ECAM follows the page recorded at the cursor. Without page-state telemetry, the original page cannot be established reliably.
+Manual pages :: ENG, BLEED, PRESS, ELEC, HYD, FUEL, APU, COND, DOOR, WHEEL, F/CTL, STS, CRUISE inspect the chosen page at current replay time. They send no aircraft command.
+Warnings / STS :: Reconstructed from supported recorded flags/catalogs, not a pixel capture or a guarantee of every proprietary warning.
+@fmc|FMC/MCDU replay
+Recorded display content and available annunciators follow the timeline. The frame is not remote control of a live cockpit.
+Device :: Aircraft data infer A320/B737/available B777 format; no manual device selector is needed.
+Left / right :: Select the recorded unit's tab. Units may have different pages/timestamps; missing data on one side are not inferred from the other.
+Formatting :: Available colors, size/style and controls retain the appropriate device background. Positional telemetry alone cannot recover missing screen history.
+Seeking :: Backward seek uses the last screen observed by that time. Long unchanged pages can be valid; screen updates may be recorded only on change.
+Detach :: Window action and docking preserve time synchronization.
+@simbrief|SimBrief dispatch, OFP and maps
+The manual uses an anonymized EPLL–EPLL plan. Flight number and registration are demonstrative; account/crew data and personal links are excluded. OFP calculations are planned quantities, not telemetry measurements.
+Expand briefing sections independently. The mouse wheel scrolls the container even over the monospace OFP text. Briefing maps are stored as images with the flight, so later viewing does not depend on a live GIF link. There is no action to prefile a historical plan on VATSIM or another network. Before attaching a plan compare airports, aircraft and time: the account’s latest plan may belong to another flight.
+SimBrief is a plan/briefing source, not measured aircraft telemetry. Import needs its configured account identifier and a network connection.
+Import :: Fetch with SimBrief controls and verify aircraft, route and planned time belong to the selected flight before attaching.
+OFP :: Read-only native monospace text. Scroll the briefing container with the wheel, including when the pointer is over the OFP.
+Maps :: Available maps are downloaded into the recording, not left merely as GIF links. Saved maps remain usable without the original remote link.
+Comparison :: Planned mass, fuel and wind are distinct from actual values. Matching route names may help coordinate-only EFB fixes with AIRAC differences.
+No network filing :: Opening an old OFP does not file it on VATSIM or another network; historical plans have no Submit plan to network action.
+@atc|ATC and FSHud communication
+The tab holds conversation history; the slider caption shows the latest applicable message for about 30 seconds of recording time. Seeking back selects historical context rather than transmitting again. FSHud and MSFS ATC are separate sources. Standard clearance/assigned-altitude variables describe state, not spoken text. A frequency alone cannot recover a message absent from the bridge/listener.
+Messages are recorded historical context. FSHud and MSFS native ATC are separate sources.
+History :: Inspect time, available frequency/callsign and text. Seeking does not transmit a radio call.
+Native ATC :: Optional Community bridge captures listener text when exposed by MSFS. Standard clearance/runway/agent/COM variables supplement state, not a transcript.
+FSHud :: Needs FSHud and its supported data interface during recording. A stored frequency alone cannot reconstruct speech.
+Caption :: The latest eligible line appears near the slider for about 30 recorded seconds; full history remains on the tab.
+Missing messages :: May indicate absent bridge/listener/data support, not silence or lack of clearance.
+@gsx|GSX Pro service state and progress
+Services progress through request, execution and completion according to captured GSX variables. Bars appear from Requested; animation without a known target is not a measured percentage. Boarding can show passenger and cargo/baggage progress together; refueling shows delivered/target fuel. Changing tanker can reset a counter. Seeking restores historical service state and counters without filling them from the flight’s final totals.
+GSX must be installed and supplying supported variables at capture time.
+Requested :: A service bar appears when requested. Request does not prove arrival or measurable work started.
+Boarding / deboarding :: Available passenger/baggage/cargo counts and known targets. Missing historical targets are not inferred from future samples.
+Refueling :: Uses available transferred/target fuel and tanker state. Multiple truck sessions/resets are possible; one counter is not necessarily the flight total.
+Other services :: Catering, departure/pushback-related and deicing progress when available. Unmeasured completion can show completed without invented intermediate counts.
+Replay :: Rewinding restores state at that time. Activity descriptions are localized; raw SDK fields remain inspectable under Values.
+@weather|METAR, TAF and source comparison
+Select a takeoff or landing first. Departure snapshots belong to the ground-to-air transition; arrival snapshots to touchdown. Simulator and aviationweather.gov reports are stored separately with source/time. The dialog shows raw text, decoding and differences. Compare station and observation time first: another airport or later report can explain a mismatch. Missing TAF is not a good-weather forecast; the station may not publish one.
+Open weather for a recorded takeoff/landing. Simulator reports and aviationweather.gov observations are stored separately with source/time.
+Simulator :: Optional MSFS24-FDR-Bridge queries available avionics weather. Availability depends on MSFS/station; bridge installation cannot make a station publish TAF.
+Capture :: Departure queries occur around ground-to-air transition, arrival around touchdown, using available plan/airport data. They are event snapshots, not continuous official observations.
+Real reports :: Online retrieval shows observation/retrieval times. A later fetch may not recover the historical event's exact weather.
+Decode :: Station/time, wind/gust, visibility, weather, cloud, temperature/dew point and pressure when reported. Missing groups remain absent.
+Comparison :: Differences can reflect station/time or simulator settings. Pressure at aircraft altitude is not airport QNH.
+Offline :: Saved reports remain with the flight; fetching new data needs connectivity and permitted controls.
+@analysis|AI analysis of takeoffs and landings
+Select the intended takeoff/landing first, especially after touch-and-go. Inspect sample coverage, weather and plan before requesting analysis. The model is instructed to use the application language and distinguish plans from measurements. Reports are stored with the event; reopening does not request another response. Shift with the analysis action requests a new report. Verify conclusions on charts: a missing peak sample is not proof of a gentle contact.
+Select an event, configure a provider and request analysis. Generated feedback is advisory for simulator use and can be wrong.
+Windows :: Separate before/after context. Takeoff defaults 60/30 seconds; landing 180/30. Each setting allows 1–300 seconds and is limited by recording bounds.
+Input :: Available telemetry and relevant saved plan/FMC/weather. Plans stay distinct from measurements; missing parameters are not filled just to complete a report.
+Language :: The prompt requests the current application language while preserving aviation identifiers. A model may fail to follow instructions.
+Provider :: Codex CLI, Gemini or Ollama; authenticate/configure that service separately. Context and timeout can limit a request.
+Report :: Native formatted Markdown, retained with the event by the analysis flow. Opening a stored report does not require a new response.
+Interpret :: Check the timeline. Sampling can miss an impact peak; liftoff is not the start of rotation. Stable commanded IAS is not automatically VREF.
+@settings|Settings guide
+Settings are grouped into General, Units, Analysis, AI Engines, Debug and Ghost. Edit the relevant task options, then Save; Cancel retains previous settings. Presentation changes do not rewrite flight telemetry. If monitor changes leave windows offscreen or the layout becomes unusable, restore default docking rather than deleting recordings or the data directory.
+Save applies displayed values; Cancel discards edits. Presentation settings never rewrite recorded telemetry.
+General :: Interface language, changelog, layout reset and disabled portable update controls.
+Units :: Supported presentation-unit families; storage remains in original source units.
+Analysis :: Independent time windows for takeoff and landing.
+AI engines :: Provider connection/model, context size and timeout.
+Debug :: Instrument-family override and optional B38M information/side/AoA/FD.
+Ghost :: Refresh frequency and optional model-matching VMR.
+@settings-general|General settings and language
+Automatic detects the Windows UI locale including regional variants. A manual language selection remains until Automatic is restored. Languages without a dedicated manual use English CHM. Portable updates are deliberately disabled: an old INI opt-in cannot start downloads. The supplied Setup only displays a development notice. Update by replacing program files after closing the application.
+Language :: Automatic detects Windows UI language and regional variants, falling back to English when unsupported. A named locale overrides detection and is remembered.
+RTL :: Arabic/Hebrew affect ordinary interface direction, not physical cockpit geometry. Returning to LTR restores normal layout direction.
+Automatic updates :: Disabled in this portable release; changing INI does not activate an updater. Setup is a notice-only placeholder.
+Check updates :: Also disabled. Obtain a release manually and preserve user data.
+Changelog :: Polish for Polish UI, otherwise English. The ShowChangeLog argument opens it after startup.
+Default layout :: Restores panel docking and sizes after monitor/layout changes; it is not a recording-data reset.
+@settings-units|Presentation units
+Select units per category, such as altitude, speed, temperature, mass or pressure. Check the displayed label afterwards; classical instruments may retain feet-based geometry while numeric text uses metres. Barometric, oil and hydraulic pressures are different quantities. Oil uses psi naturally. Switch-position labels are enums, not conversions: FLAPS 5 is a detent label, not necessarily degrees.
+Rows :: Choose supported units per quantity. Inspector/charts update values and captions; unsupported conversions do not invent a unit.
+Altitude / speed :: Converted text is distinct from conventional aircraft tape/mechanism geometry. The recorded source remains unchanged.
+Pressure / fuel :: Distinguish oil pressure from barometric pressure, and quantity from flow. Oil gauges use psi.
+Enums :: Cockpit switch labels are mappings, not unit conversions; unknown values remain numeric.
+@settings-analysis|Analysis time windows
+Four fields independently specify time before/after liftoff and before/after touchdown, in seconds. Larger windows show configuration and stabilization but increase input and may exceed model context. File boundaries limit actual coverage: entering 180 seconds cannot add samples before recording began. New reports use the new range; an already stored report is not rewritten automatically.
+Takeoff before :: Default 60 seconds, range 1–300, before liftoff. Longer context may reveal the roll but increases input size.
+Takeoff after :: Default 30, range 1–300; initial climb context, not whole-flight performance.
+Landing before :: Default 180, range 1–300; available approach samples only. Increasing it cannot restore missing history.
+Landing after :: Default 30, range 1–300; rollout/subsequent contacts.
+Limits :: Recording bounds, model context and timeout constrain the effective input.
+@settings-ai|AI providers, models and connection
+Choose the provider, then configure its tab. Codex needs an installed native CLI and separate authentication; the EXE field is not a wrapper-script field. Gemini requires a valid key/model. Ollama needs a reachable server with the model already installed; refreshing the list does not download weights. Timeout limits application waiting, not necessarily server-side processing. Never share personal settings.ini containing keys.
+Provider :: Codex, Gemini or Ollama. Editing one provider does not create another provider's login.
+Timeout :: 1–1800 seconds, default 180. Stops waiting; it does not prove a cloud service never received the request.
+Codex EXE :: Blank auto-discovers native codex.exe. A .cmd/.ps1 wrapper is unsupported here. Authenticate separately using the CLI.
+Codex model :: Blank uses the CLI default; an override must be available to your account/CLI.
+Gemini :: Enter model identifier and API key. Never share personal settings.ini with its key in a bug report.
+Ollama server :: Default http://localhost:11434; use a reachable server URL, not a model-download webpage.
+Model / Refresh :: Lists installed server models. Refresh does not download weights; choose an installed model.
+Ollama context :: 2048–262144 tokens, default 32768; actual capacity depends on model/configuration/memory.
+Language :: Every provider receives the current application locale in the prompt; cockpit identifiers are preserved.
+@settings-instruments|Instrument override and B38M options
+Leave Automatic for normal analysis: ICAO and recorded data select the layout. Override compares renderers rather than changing aircraft identity. Switching a flight between six-pack, generic PFD, B38M and A320 cannot provide missing SDK data. B38M options control flight information, CPT/FO side, AoA and FD. Disable FD when an addon does not populate standard guidance commands despite its FD switch being on.
+Automatic :: Selects the frame from the recording. Override cannot convert missing telemetry into another aircraft's SDK.
+Family :: GA analog, GA glass, classic airliner, generic PFD, B38M PFD/EICAS or A320 PFD/ECAM. Flight metadata remain unchanged.
+Information panel :: Recorded flight number, squawk, registration, SELCAL and time; enabled by default.
+Side :: Checked = left/CPT; unchecked = right/FO. Independent of panel visibility.
+AoA :: Off by default. Requires valid recorded incidence and applicable ground inhibit.
+Flight Director :: On by default; uses recorded standard SimConnect commands. Disable if the addon supplies meaningless values.
+@about|About, version and help
+For issue reports copy the complete About version, not just release 0.1.1. Include simulator/addon versions, ICAO, language, scaling and reproduction steps. The number comes from the running EXE VersionInfo and distinguishes the actual build from a ZIP name. F1 uses the active control or parent topic; detached panels retain their HelpContext.
+About :: Product/version and attribution from EXE version data. Include the complete version in a problem report.
+F1 :: Uses the focused control's DFM HelpContext hierarchy. Floating frames retain the same topic.
+Languages :: Polish, English, German and Spanish CHM; other UI languages fall back to English.
+Scope :: Independent simulator software. Commercial aircraft, GSX, FSHud and AI-model libraries require separate installations.
+@release|Portable releases and changelog
+Extract the complete ZIP into one folder, retaining graphics, fonts and help subdirectories. Close the app before manual replacement. Settings/recordings remain in LocalAppData, but keep backups. Do not overwrite personal INI with the example. Setup is a notice-only stub, not an installer/uninstaller; automatic updating is disabled. Changelog groups releases, while full Build identifies diagnostics.
+Package :: Use the complete unencrypted Win64 ZIP. Keep relative DLL/font/background/CHM paths intact.
+Manual update :: Close the application and replace program files; preserve %LocalAppData%\MSFS24-FDR. Do not replace personal settings with the example INI.
+Setup stub :: Displays development information only. It does not install, repair, uninstall or update.
+History :: Preview, 0.1.0, 0.1.1 and subsequent release numbers, not a separate section for every build.
+@troubleshooting|Troubleshooting and reporting a problem
+Separate connection problems from file replay. An absent simulator can leave SimConnect waiting without invalidating offline playback. For a missing flight check group/search filters, index and MFZR existence. For a missing parameter check aircraft type and capture-time support. Report expected/actual behavior and relevant logs, reviewing them for personal information and keys before sharing.
+Recording disabled :: Check MSFS 2024, connection and Ready for flight. Preview deliberately disables capture.
+Missing flight :: Check filters, selected index and file existence; refresh/import. Back up before changing the index.
+Missing instrument data :: Confirm ICAO, display override and capture-time availability. A blank is not confirmed zero.
+Layout :: Reset the layout; report monitor scaling/window arrangement if docking still fails.
+AI failure :: Check login/key/server/model, context and timeout; keep credentials out of shared logs.
+Useful report :: Full EXE and addon versions, steps, screenshots and relevant logs. Inspect recordings for personal data before sharing.
+
+@sixpack|Classic six-pack
+The set contains indicated airspeed, attitude, altimeter, turn/slip, heading and vertical speed instruments. Read them together: a climb should agree with the V/S sign and a bank with the direction of heading change. Attitude uses recorded pitch and bank; it does not rotate the map. The barometric setting beside the altimeter belongs to the selected replay time.
+The VSI range is fixed for the recording/profile, avoiding needle jumps caused by rescaling. The classical altimeter geometry remains in feet when textual units change. LOC and GS deviations appear when valid ILS data was recorded. Detach and enlarge the panel, then scrub the recording to compare instruments at a readable size.
+
+@ga-glass|GA glass: integrated layout
+This layout groups basic flight information around the attitude display for light aircraft with glass cockpits. It is not a replica of a particular G1000 or SF50 installation. Compare IAS, altitude, heading and vertical speed in one panel. Autopilot targets and status are historical readings, not controls.
+The PFD appearance does not determine engine type. Open the engine panel alongside it for the corresponding piston, turboprop or jet instruments. Forcing this layout in Debug settings does not supply missing recorded data.
+
+@airliner-classic|Classic airliner layout
+The classic layout keeps the primary flight instruments without claiming to reproduce a specific manufacturer. Use it to compare aircraft recordings that have no dedicated PFD. IAS, altitude, attitude, heading and V/S share the same replay time.
+Engines have a separate frame that can sit beside the instruments or share a docked window. Selecting the classic layout does not alter the recorded ICAO type or engine count.
+
+@generic-pfd|Generic PFD
+IAS and altitude tapes scroll around the current reading, with a pointer V/S scale on the right. Heading sits near the attitude display rather than in a large separate box. This is a common visualization of standard telemetry, not certified aircraft-specific PFD symbology.
+Compare measured values with recorded AP targets and FD/AP/A/T status. Flight Director commands must be available and valid; an absent bar is not a zero command. Recorded ILS data allows localizer and glide slope inspection.
+
+@engine-piston|Piston engines
+Start with RPM and compare load with EGT/CHT, oil pressure and oil temperature. Low RPM on a cold engine differs from a drop in flight; inspect several moments before and after a change. The set is repeated for the recorded engine count. Oil pressure is displayed in psi rather than psf.
+Left/right fuel quantity is the tank inventory, not instantaneous fuel flow. Electrical, vacuum/suction and condition/beta/reverse indications depend on available data and aircraft equipment. Missing EGT/CHT or an empty historical gauge is not a measured zero.
+
+@engine-turboprop|Turboprop engines
+Torque measures shaft load, prop RPM the propeller speed, and Ng/N1 the gas generator speed. These are different quantities: propeller RPM is not N1. ITT helps inspect starts and power changes. Oil pressure/temperature and fuel flow remain alongside them.
+Compare torque changes with recorded condition lever and beta/reverse states when available. Low airspeed alone does not prove reverse. Read the unit on each instrument. A Debug layout override cannot turn missing jet telemetry into turboprop measurements.
+
+@engine-jet|Jet engines
+N1/N2 show engine spool speeds, EGT the exhaust temperature and fuel flow the instantaneous consumption rate. Follow them together through start, thrust changes and shutdown. Fuel flow is not accumulated fuel used. Oil pressure and temperature help compare engines at similar power.
+Vibration and thrust mode/A/T are additional data-dependent fields. Older recordings may contain standard N1/N2 without reliable SDK thrust modes. B38M and A320 use dedicated EICAS/ECAM; the generic engine panel covers other types or a Debug override.
+
+@b38m-pfd|B38M PFD: FMA, guidance and flight information
+The three FMA fields above attitude separate thrust, lateral and vertical guidance. For iFly their contents are reconstructed from recorded AFDS flags, MCP targets and standard data. Armed is not active. In older flights without SDK data, a standard AUTOPILOT MASTER zero does not prove CMD was off.
+FD bars use recorded pitch/bank commands, not actual motion. IAS/Mach and BARO/STD follow recorded selections. BARO/RADIO minima require an available selected value; a tape marker needs the appropriate altitude reference. Optional AoA also requires valid data.
+The side panel shows flight number, zero-padded XPDR, SELCAL, registration, recorded UTC/date and elapsed time. Debug settings hide it or choose CPT left/FO right. The wind arrow is heading-relative. VOR/ADF blocks beside heading show recorded sources, identifiers, tuning and available DME.
+
+@b38m-eicas|B38M EICAS: engines, fuel and configuration
+This EICAS is dedicated to B38M. N1, EGT and N2 use analogue arcs with numeric readings. Fuel flow, oil and vibration appear below, with flap configuration and tank/total fuel alongside. Check units: fuel quantity in thousands of kg is not the same scale as flow in kg/h.
+Valve, oil-pressure and engine annunciations use recorded data. An absent warning in an older file does not prove it was absent in the cockpit. This is not the final B736–B739 EICAS. Detach it separately or dock it beside the PFD in one window while retaining the shared replay cursor.
+
+@a320-pfd|A320 PFD: FMA, FD, ILS and minima
+The top FMA separates thrust, vertical and lateral modes, approach capability and AP/FD/A/THR status. Read the fields together: LOC or G/S capture alone does not imply full autoland. FBW ARINC validity is part of the data, so an invalid transmission must not appear as a normal zero. Fenix coverage depends on the addon version and recorded variables.
+IAS/ALT tapes show current values and available targets. FD bars are guidance commands. ILS symbols show valid LOC/GS deviations. BARO minima use barometric altitude, RADIO radio height; NO DH is a separate selection, not zero. A barometric minimum marker appears within the altitude tape range. QNH/STD and IAS/Mach follow recorded selections.
+The screenshot uses synthetic values to show the geometry. In your recordings, missing FMA, FD or minima remain missing; forcing A320 in Debug does not create FBW/Fenix data.
+
+@a320-ewd|A320 upper ECAM: E/WD
+The upper display combines both engines’ N1, EGT, N2 and fuel flow with FOB, flap configuration and message areas. N1/EGT have arcs and numeric readings; N2/FF help compare engines. FOB is remaining fuel, not accumulated fuel used.
+Warnings and memos are reconstructed from supported flags and catalogs, not captured pixels of the original ECAM. Messages depend on data and flight phase. Older files lacking relevant flags cannot prove an absence of faults. E/WD follows replay time regardless of the manually selected lower page.
+
+@ecam-recorded|Lower ECAM: Recorded and page selection
+The lower buttons select ENG, BLEED, PRESS, ELEC, HYD, FUEL, APU, COND, DOOR, WHEEL, F/CTL, STS and CRUISE. Selection is local to replay: it sends no command to MSFS and does not modify the recorded cockpit switch. Values still follow the shared time after manual selection.
+Recorded restores the page displayed by the pilot at that instant when its identifier was recorded. Scrubbing can therefore change pages automatically. Without that variable the historical page cannot be established reliably. Child chapters show each page separately at a readable size.
+The footer contains available TAT, SAT, time and gross weight. Addons expose different system data, so some fields remain dashes. Detach ECAM to inspect schematics beside the PFD.
+
+@ecam-engine|ENG: secondary engine parameters
+Compare each engine’s fuel used, oil quantity, pressure, temperature and N1/N2 vibration. Fuel used is a quantity, unlike E/WD instantaneous FF. Available start-system data supplements the schematic. Select the same time as E/WD to compare them. Empty fields remain unknown, especially in older recordings without SDK coverage.
+
+@ecam-bleed|BLEED: pneumatics
+The schematic shows available bleed temperatures/pressures, engine/APU valves, crossbleed and packs. Read connections together with source states rather than a single line color. Selecting the page does not operate a valve. Missing valve data cannot be inferred from temperature alone.
+
+@ecam-press|PRESS: cabin pressure
+Cabin altitude, cabin V/S and differential pressure describe the cabin, not aircraft motion on the PFD. Compare them with LDG ELEV and available system/outflow-valve state. Cabin altitude is not radio altitude. A numeric reading alone cannot establish manual versus automatic mode.
+
+@ecam-elec|ELEC: electrical power
+BAT, generators, TRs and AC/DC buses form the power schematic. Read voltage, current, frequency and load with their units. Generator voltage alone does not prove that it feeds a bus: contactor/connection data is also required. EXT PWR availability is not the same as connection.
+
+@ecam-hyd|HYD: hydraulics
+GREEN, BLUE and YELLOW are separate systems. Compare pressures, quantities and pump states with available PTU/RAT indications. PTU transfers power rather than making the systems one shared reservoir. No pressure and no recorded pressure must remain distinct.
+
+@ecam-fuel|FUEL: tanks and flow
+The page separates tank quantities, pump/valve states, fuel used and total flow. Compare FOB with the upper ECAM. Tank inventory, consumption and flow have different meanings and potentially different units. A falling quantity alone does not establish crossfeed position without valve data.
+
+@ecam-apu|APU: start and load
+N and EGT help follow APU start; generator and bleed data supplement the system state. AVAIL, inlet flap and bleed valve describe different elements. N near 100% alone does not prove a connected load. Scrub the start to compare N, EGT and availability in sequence.
+
+@ecam-cond|COND: zone temperatures
+CKPT, FWD and AFT separate cabin zones and available duct temperatures. Compare measured temperatures with available selections and hot-air state. A slow temperature response differs from an immediate switch movement. Do not assign a single measured temperature to all zones when others are missing.
+
+@ecam-door|DOOR/OXY: doors and oxygen
+The fuselage schematic shows recorded passenger/service/cargo doors and available oxygen data. Door position and slide arming are separate states. The view cannot confirm a closing procedure when the addon exposes no corresponding fields. Replay does not operate simulator doors.
+
+@ecam-wheel|WHEEL: gear and brakes
+This page groups gear positions, available lock indications and brake temperatures. Distinguish lever command from actual strut position. During landing analysis compare it with touchdown, speed and braking on charts. Brake temperature alone does not establish autobrake selection.
+
+@ecam-fctl|F/CTL: flight controls
+Inspect ailerons, elevator, rudder, spoilers and pitch trim. Available ELAC/SEC and hydraulic flags describe supporting systems. Surface deflection is not joystick position or FD command. Select matching chart parameters to compare responses. Position alone cannot prove computer health without status data.
+
+@ecam-sts|STS: status and unavailable systems
+STS summarizes supported limitations, recommendations and INOP SYS text. Messages are reconstructed from catalog flags, not recognized from cockpit screenshots. Coverage can be incomplete for a different addon version. Procedures are not invented from a presumed failure.
+Compare STS with E/WD, the relevant system page and SDK values before/after the event. An empty page does not guarantee that the addon had no limitations.
+
+@ecam-cruise|CRUISE: in-flight overview
+CRUISE combines selected engine/cabin data: fuel used, oil, vibration, zone temperatures, differential pressure, cabin altitude and cabin V/S. It is a summary, not an additional measurement source. ENG, COND and PRESS readings should agree at the same replay instant. Recorded may select it according to cockpit history.
+
+@fmc-b737|B737 CDU
+This view displays recorded B737 CDU text with available colors, small/large fonts and annunciators. Tabs select left/right units, which may show different pages. Background keys are presentation only and do not program the FMS.
+Scrubbing selects the last screen known at the requested time. Unchanged text may be correct when only changes were captured. INIT/PERF/LEGS content is historical, not an automatically computed map route. Missing data for one unit cannot be replaced by the other without evidence. B777 coverage and formatting depend on SDK version. The two screenshots show separate units in a detached panel.
+
+@fmc-a320|A320 MCDU
+This view displays recorded A320 MCDU text with available colors, small/large fonts and annunciators. Tabs select left/right units, which may show different pages. Background keys are presentation only and do not program the FMS.
+Scrubbing selects the last screen known at the requested time. Unchanged text may be correct when only changes were captured. INIT/PERF/LEGS content is historical, not an automatically computed map route. Missing data for one unit cannot be replaced by the other without evidence. B777 coverage and formatting depend on SDK version. The two screenshots show separate units in a detached panel.
+
+@fmc-b777|B777 CDU
+This view displays recorded B777 CDU text with available colors, small/large fonts and annunciators. Tabs select left/right units, which may show different pages. Background keys are presentation only and do not program the FMS.
+Scrubbing selects the last screen known at the requested time. Unchanged text may be correct when only changes were captured. INIT/PERF/LEGS content is historical, not an automatically computed map route. Missing data for one unit cannot be replaced by the other without evidence. B777 coverage and formatting depend on SDK version. The two screenshots show separate units in a detached panel.
+
+@values|Values: inspection and search
+Values is a single-instant recording inspector. Search filters descriptive names and raw identifiers, so you can search for oil or eng_oil_pressure. Clearing it restores the list. Filtering changes neither data nor recording subscriptions.
+Numbers use application display units. Known enums use cockpit labels such as UP/1/2/5/10/15/25/30/40 or RTO/DISARMED/1/2/3/MAX; these labels are not translated. Mapping depends on aircraft and source. Unknown codes remain numbers; missing values do not become zero. The shared replay cursor updates this view.
+
+@events|Recording events
+The event list orders recorded changes and session events. Row timestamps belong to the recording; compare them with the replay cursor and relevant chart parameters. An event does not replace samples leading up to it.
+For an interrupted flight inspect the final segment and file status. A CTD may leave incomplete data; the last event need not identify the crash cause. Historical text belongs to capture time and is not necessarily retranslated when application language changes.
+
+@contacts|Takeoffs and landings: event selection
+Rows distinguish liftoff and touchdown and retain available values at contact. Touch-and-go flights can contain multiple pairs. Select the intended contact before opening weather or AI analysis. Planned departure/destination is context, not proof of every contact location.
+Liftoff is not the start of rotation, and a 500 ms touchdown sample may miss peak acceleration. Inspect samples before and after it. Takeoff/landing before-and-after windows are configured independently in Settings.
+
+@simvars|Standard SimVar parameter catalog
+This catalog is generated directly from the application’s numeric, Boolean and engine telemetry declarations. The demonstration chart dialog includes all these parameters, with engines 1–4. It documents FDR support, not every variable in Microsoft’s SDK. Addon SDK and GSX variables have separate catalogs.
+IDs are stable internal FDR names; captions and units reflect application language/display settings. Actual recordings may contain fewer parameters according to aircraft, engine type and captured subscriptions. Piston-only variables are not forced onto jets. Adding a chart cannot recover values never recorded.
+Use CHM search or the chart-dialog search to find a parameter. Select the required values, add them to the displayed list, set their order and confirm OK. Raw IDs help compare this catalog with Values and diagnostics.

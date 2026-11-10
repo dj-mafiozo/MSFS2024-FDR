@@ -3,14 +3,15 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
-package i18nDesign;
+Package i18nDesign;
 
 {$R *.res}
+{$R *.otares}
 {$R 'i18nReg.dcr'}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
@@ -20,35 +21,34 @@ package i18nDesign;
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
-{$LOCALSYMBOLS OFF}
+{$LOCALSYMBOLS ON}
 {$LONGSTRINGS ON}
 {$OPENSTRINGS ON}
-{$OPTIMIZATION ON}
+{$OPTIMIZATION OFF}
 {$OVERFLOWCHECKS OFF}
 {$RANGECHECKS OFF}
-{$REFERENCEINFO OFF}
+{$REFERENCEINFO ON}
 {$SAFEDIVIDE OFF}
-{$STACKFRAMES OFF}
+{$STACKFRAMES ON}
 {$TYPEDADDRESS OFF}
 {$VARSTRINGCHECKS ON}
 {$WRITEABLECONST OFF}
 {$MINENUMSIZE 1}
 {$IMAGEBASE $400000}
-{$DEFINE RELEASE}
+{$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
 {$DESCRIPTION 'i18n Internationalization Components - Design'}
 {$DESIGNONLY}
 {$IMPLICITBUILD ON}
 
-requires
-  designide,
-  i18n,
-  i18nDB;
+Requires
+ designide,
+ i18n,
+ i18nDB;
 
-contains
-  i18nIDE in 'i18nIDE.pas',
-  i18nPropEditor in 'i18nPropEditor.pas' {TranslatableEditor},
-  i18nReg in 'i18nReg.pas';
+Contains
+ i18nIDE        In 'i18nIDE.pas',
+ i18nPropEditor In 'i18nPropEditor.pas' {TranslatableEditor},
+ i18nReg        In 'i18nReg.pas';
 
-end.
-
+End.

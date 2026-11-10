@@ -8,22 +8,21 @@ Interface
 
  Type
   TFMCObservation = Class
-   Public
-    Seq         : Int64;
-    SimUTC      : String;
-    CapturedUTC : String;
-    Root        : TJSONObject;
-    Destructor Destroy; Override;
-    Function Clone : TFMCObservation;
+   Seq         : Int64;
+   SimUTC      : String;
+   CapturedUTC : String;
+   Root        : TJSONObject;
+   Destructor Destroy; Override;
+   Function Clone : TFMCObservation;
   End;
 
   TFMCPreflightCache = Class
    Private
-    FHistory : TObjectList<TFMCObservation>;
-    FPages   : TObjectDictionary<String, TFMCObservation>;
-    FLast    : String;
-    FSeq     : Int64;
-    FLimit   : Integer;
+    fHistory : TObjectList<TFMCObservation>;
+    fPages   : TObjectDictionary<String, TFMCObservation>;
+    fLast    : String;
+    fSeq     : Int64;
+    fLimit   : Integer;
    Public
     Constructor Create(Limit : Integer = 4096);
     Destructor Destroy; Override;
@@ -55,36 +54,37 @@ Implementation
  Constructor TFMCPreflightCache.Create(Limit : Integer);
   Begin
    Inherited Create;
-   FLimit   := Max(1, Limit);
-   FHistory := TObjectList<TFMCObservation>.Create(True);
-   FPages   := TObjectDictionary<String, TFMCObservation>.Create([doOwnsValues]);
+   fLimit   := Max(1, Limit);
+   fHistory := TObjectList<TFMCObservation>.Create(True);
+   fPages   := TObjectDictionary<String, TFMCObservation>.Create([doOwnsValues]);
   End;
 
  Destructor TFMCPreflightCache.Destroy;
   Begin
-   FPages.Free;
-   FHistory.Free;
+   fPages.Free;
+   fHistory.Free;
    Inherited;
   End;
 
  Procedure TFMCPreflightCache.Clear;
   Begin
-   FHistory.Clear;
-   FPages.Clear;
-   FLast := '';
-   FSeq  := 0;
+   fHistory.Clear;
+   fPages.Clear;
+   fLast := '';
+   fSeq  := 0;
   End;
 
  Procedure TFMCPreflightCache.Observe(Root : TJSONObject; Const SimUTC : String);
   Var
    Screens   : TObjectList<TFMCScreen>;
-   S         : TFMCScreen;
-   O         : TFMCObservation;
+   s         : TFMCScreen;
+   o         : TFMCObservation;
    Canonical : TJSONObject;
    CDUs      : TJSONObject;
    Device    : TJSONObject;
    Rows      : TJSONArray;
-   Line, Key : String;
+   Line      : String;
+   Key       : String;
   Begin
    If (Root = Nil) Or (SimUTC = '') Then
     Exit;
@@ -97,39 +97,40 @@ Implementation
      Canonical.AddPair('provider', Screens[0].Provider);
      CDUs := TJSONObject.Create;
      Canonical.AddPair('cdu', CDUs);
-     For S In Screens Do
+     For s In Screens Do
       Begin
        Device := TJSONObject.Create;
-       CDUs.AddPair(S.Device, Device);
-       Device.AddPair('style_json',S.StyleJSON);Device.AddPair('annunciators_json',S.AnnunciatorsJSON);
-       If S.Available Then
+       CDUs.AddPair(s.Device, Device);
+       Device.AddPair('style_json', s.StyleJSON);
+       Device.AddPair('annunciators_json', s.AnnunciatorsJSON);
+       If s.Available Then
         Device.AddPair('status', 'available')
        Else
         Device.AddPair('status', 'unavailable');
-       If S.PowerState >= 0 Then
-        Device.AddPair('powered', TJSONBool.Create(S.PowerState = 1));
+       If s.PowerState >= 0 Then
+        Device.AddPair('powered', TJSONBool.Create(s.PowerState = 1));
        Rows := TJSONArray.Create;
        Device.AddPair('rows', Rows);
-       For Line In S.Lines Do
+       For Line In s.Lines Do
         Rows.Add(Line);
       End;
      Key := Canonical.ToJSON;
-     If Key = FLast Then
+     If Key = fLast Then
       Exit;
-     Inc(FSeq);
-     O             := TFMCObservation.Create;
-     O.Seq         := FSeq;
-     O.SimUTC      := SimUTC;
-     O.CapturedUTC := DateToISO8601(TTimeZone.Local.ToUniversalTime(Now), True);
-     O.Root        := Canonical;
+     Inc(fSeq);
+     o             := TFMCObservation.Create;
+     o.Seq         := fSeq;
+     o.SimUTC      := SimUTC;
+     o.CapturedUTC := DateToISO8601(TTimeZone.Local.ToUniversalTime(Now), True);
+     o.Root        := Canonical;
      Canonical     := Nil;
-     FHistory.Add(O);
-     FLast := Key;
-     For S In Screens Do
-      If S.Available And (S.PowerState <> 0) And (S.PageKey <> 'BLANK') Then
-       FPages.AddOrSetValue(S.Provider + '/' + S.Device + '/' + S.PageKey, O.Clone);
-     While FHistory.Count > FLimit Do
-      FHistory.Delete(0);
+     fHistory.Add(o);
+     fLast := Key;
+     For s In Screens Do
+      If s.Available And (s.PowerState <> 0) And (s.PageKey <> 'BLANK') Then
+       fPages.AddOrSetValue(s.Provider + '/' + s.Device + '/' + s.PageKey, o.Clone);
+     While fHistory.Count > fLimit Do
+      fHistory.Delete(0);
     Finally
      Canonical.Free;
     End;
@@ -142,8 +143,9 @@ Implementation
   Var
    Items : TList<TFMCObservation>;
    Seen  : TDictionary<Int64, Boolean>;
-   O     : TFMCObservation;
-   P     : TPair<String, TFMCObservation>;
+   o     : TFMCObservation;
+   p     : TPair<String, TFMCObservation>;
+
    Procedure Add(Item : TFMCObservation);
     Begin
      If Seen.ContainsKey(Item.Seq) Then
@@ -153,29 +155,29 @@ Implementation
     End;
 
   Begin
-   If FHistory.Count = 0 Then
+   If fHistory.Count = 0 Then
     Exit;
    Items := TList<TFMCObservation>.Create;
    Seen  := TDictionary<Int64, Boolean>.Create;
    Try
-    For O In FHistory Do
-     Add(O);
-    For P In FPages Do
-     Add(P.Value);
+    For o In fHistory Do
+     Add(o);
+    For p In fPages Do
+     Add(p.Value);
     Items.Sort(TComparer<TFMCObservation>.Construct(
-       Function(Const L, R : TFMCObservation) : Integer
-      Begin
-       If L.Seq < R.Seq Then
-        Result := -1
-       Else If L.Seq > R.Seq Then
-        Result := 1
-       Else
-        Result := 0;
-      End));
+    Function(Const l, r : TFMCObservation) : Integer
+    Begin
+    If l.Seq < r.Seq Then
+    Result := -1
+    Else If l.Seq > r.Seq Then
+    Result := 1
+    Else
+    Result := 0;
+    End));
     DB.StartTransaction;
     Try
-     For O In Items Do
-      SaveFMCScreens(DB, Trip, 0, O.SimUTC, O.Root, O.CapturedUTC);
+     For o In Items Do
+      SaveFMCScreens(DB, Trip, 0, o.SimUTC, o.Root, o.CapturedUTC);
      DB.Commit;
     Except
      DB.Rollback;

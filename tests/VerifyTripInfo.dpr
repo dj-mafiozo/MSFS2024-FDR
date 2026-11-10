@@ -1,72 +1,124 @@
-﻿program VerifyTripInfo;
+﻿Program VerifyTripInfo;
 
 {$APPTYPE CONSOLE}
+{$STRONGLINKTYPES ON}
+{$RTTI EXPLICIT METHODS([vcPublic])}
 
-uses Winapi.Windows,System.SysUtils,FlightDatabaseU,FlightTelemetryU,TelemetryCatalogU,frmTripInfoU;
+Uses
+ TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ Winapi.Windows, System.SysUtils, FlightDatabaseU, FlightTelemetryU, TelemetryCatalogU, frmTripInfoU;
 
-var DB:TFlightDatabase;S:TFlightSample;F:TfrmTripInfo;Path:string;I,Trip:Integer;
+Var
+ DB   : TFlightDatabase;
+ s    : TFlightSample;
+ f    : TfrmTripInfo;
+ Path : String;
+ i    : Integer;
+ Trip : Integer;
 
-procedure SetN(const Name:string;N:Double);
+Procedure SetN(Const Name : String; n : Double);
+ Begin
+  For i := 0 To FieldCount - 1 Do
+   If SimFields[i].Name = Name Then
+    Begin
+     s.Numbers[i] := n;
+     Exit;
+    End;
+ End;
 
-begin for I:=0 to FieldCount-1 do if SimFields[I].Name=Name then begin S.Numbers[I]:=N;Exit;end;end;
+Procedure Check(b : Boolean; Const m : String);
+ Begin
+  If Not b Then
+   Raise Exception.Create(m);
+ End;
 
-procedure Check(B:Boolean;const M:string);
+Type
 
-begin if not B then raise Exception.Create(M);end;
+ [TestFixture]
+ TVerifyTripInfoTests = Class
+  Public
+   [Test]
+   Procedure Regression;
+ End;
 
-begin
+Procedure TVerifyTripInfoTests.Regression;
+ Begin
 
-  Path:=ExtractFilePath(ParamStr(0))+'trip-info-'+IntToStr(GetTickCount64)+'.db';
+  Path := TestDatabasePath(ExtractFilePath(ParamStr(0)) + 'trip-info-' + IntToStr(GetTickCount64) + '.db');
 
-  DB:=TFlightDatabase.Create(Path,ExtractFilePath(ParamStr(0))+'sqlite3.dll');S:=TFlightSample.Create;F:=TfrmTripInfo.Create(nil);
+  DB := TFlightDatabase.Create(TestDatabasePath(Path), ExtractFilePath(ParamStr(0)) + 'sqlite3.dll');
+  s  := TFlightSample.Create;
+  f  := TfrmTripInfo.Create(Nil);
 
-  try
+  Try
 
-    SetN('time_zulu.year',2026);SetN('time_zulu.month',10);SetN('time_zulu.day',17);
+   SetN('time_zulu.year', 2026);
+   SetN('time_zulu.month', 10);
+   SetN('time_zulu.day', 17);
 
-    for I:=0 to FieldCount-1 do if SimFields[I].Name='title' then S.Texts[I]:='Trip info test';
+   For i := 0 To FieldCount - 1 Do
+    If SimFields[i].Name = 'title' Then
+     s.Texts[i] := 'Trip info test';
 
-    Trip:=DB.StartTrip(S);SetN('time_zulu.seconds',10);DB.RecordSample(Trip,S);
+   Trip := DB.StartTrip(s);
+   SetN('time_zulu.seconds', 10);
+   DB.RecordSample(Trip, s);
 
-    F.LoadTrip(DB.Connection,Trip);
+   f.LoadTrip(DB.Connection, Trip);
 
-    Check(F.mInfo.ReadOnly,'Read-only information');Check(Pos('Trip info test',F.mInfo.Text)>0,'Selected aircraft');
+   Check(f.mInfo.ReadOnly, 'Read-only information');
+   Check(Pos('Trip info test', f.mInfo.Text) > 0, 'Selected aircraft');
 
-    Check(Pos('Probki telemetrii: 1',F.mInfo.Text)>0,'Sample count');
+   Check(Pos('Probki telemetrii: 1', f.mInfo.Text) > 0, 'Sample count');
 
-    Check(Pos('0:00:10',F.mInfo.Text)>0,'Open trip duration through latest sample');
+   Check(Pos('0:00:10', f.mInfo.Text) > 0, 'Open trip duration through latest sample');
 
-    Check(Pos('Brak zapisanego zakonczenia',F.mInfo.Text)>0,'Incomplete trip is explicit');
+   Check(Pos('Brak zapisanego zakonczenia', f.mInfo.Text) > 0, 'Incomplete trip is explicit');
 
-    SetN('time_zulu.seconds',20);DB.EndTrip(Trip,S);F.RefreshClick(nil);
+   SetN('time_zulu.seconds', 20);
+   DB.EndTrip(Trip, s);
+   f.RefreshClick(Nil);
 
-    Check(Pos('0:00:20',F.mInfo.Text)>0,'Completed duration');Check(Pos('Stan: Zakonczony',F.mInfo.Text)>0,'Refresh completed state');
+   Check(Pos('0:00:20', f.mInfo.Text) > 0, 'Completed duration');
+   Check(Pos('Stan: Zakonczony', f.mInfo.Text) > 0, 'Refresh completed state');
 
-    Check(F.btnClose.ModalResult<>0,'Modal Close button');
+   Check(f.btnClose.ModalResult <> 0, 'Modal Close button');
 
-    DB.Contact(Trip,S,False);DB.Contact(Trip,S,True);
+   DB.Contact(Trip, s, False);
+   DB.Contact(Trip, s, True);
 
-    DB.Connection.ExecSQL('update trip_liftoffs set icao=''EPLL'',metar_status=''ok'',metar_station=''EPLL'',metar_text=''EPLL START METAR'',metar_observed_utc=''2026-10-17T00:00:00Z'' where trip=:t',[Trip]);
+   DB.Connection.ExecSQL('update trip_liftoffs set icao=''EPLL'',metar_status=''ok'',metar_station=''EPLL'',metar_text=''EPLL START METAR'',metar_observed_utc=''2026-10-17T00:00:00Z'' where trip=:t', [Trip]);
 
-    DB.Connection.ExecSQL('update trip_touchdowns set icao=''EPLL'',metar_status=''ok'',metar_station=''EPLL'',metar_text=''EPLL LANDING METAR'',metar_fetched_utc=''2026-10-17T00:01:00Z'' where trip=:t',[Trip]);
+   DB.Connection.ExecSQL('update trip_touchdowns set icao=''EPLL'',metar_status=''ok'',metar_station=''EPLL'',metar_text=''EPLL LANDING METAR'',metar_fetched_utc=''2026-10-17T00:01:00Z'' where trip=:t', [Trip]);
 
-    F.RefreshClick(nil);
+   f.RefreshClick(Nil);
 
-    Check((Pos('EPLL START METAR',F.mInfo.Text)>0) and (Pos('EPLL LANDING METAR',F.mInfo.Text)>0),'Both event METARs');
+   Check((Pos('EPLL START METAR', f.mInfo.Text) > 0) And (Pos('EPLL LANDING METAR', f.mInfo.Text) > 0), 'Both event METARs');
 
-    Check((Pos('2026-10-17T00:00:00Z',F.mInfo.Text)>0) and (Pos('2026-10-17T00:01:00Z',F.mInfo.Text)>0),'Observation and fetch times');
+   Check((Pos('2026-10-17T00:00:00Z', f.mInfo.Text) > 0) And (Pos('2026-10-17T00:01:00Z', f.mInfo.Text) > 0), 'Observation and fetch times');
 
-    DB.Connection.ExecSQL('update trip_touchdowns set metar_text=NULL,metar_status=''unavailable'',metar_error=''No report'' where trip=:t',[Trip]);F.RefreshClick(nil);
+   DB.Connection.ExecSQL('update trip_touchdowns set metar_text=NULL,metar_status=''unavailable'',metar_error=''No report'' where trip=:t', [Trip]);
+   f.RefreshClick(Nil);
 
-    Check((Pos('unavailable',F.mInfo.Text)>0) and (Pos('No report',F.mInfo.Text)>0),'Missing METAR feedback');
+   Check((Pos('unavailable', f.mInfo.Text) > 0) And (Pos('No report', f.mInfo.Text) > 0), 'Missing METAR feedback');
 
-    F.LoadTrip(DB.Connection,Trip+999);Check(Pos('Nie znaleziono',F.mInfo.Text)>0,'Deleted/missing trip');
+   f.LoadTrip(DB.Connection, Trip + 999);
+   Check(Pos('Nie znaleziono', f.mInfo.Text) > 0, 'Deleted/missing trip');
 
-    DB.DeleteTrip(Trip);
+   DB.DeleteTrip(Trip);
 
-  finally F.Free;S.Free;DB.Free;DeleteFile(PChar(Path));end;
+  Finally
+   f.Free;
+   s.Free;
+   DB.Free;
+   DeleteFile(PChar(Path));
+  End;
 
-  Writeln('PASS: trip info DFM, selected aircraft, sample count, unfinished/completed duration, refresh, read-only view, close action and missing trip.');
+  System.Writeln('PASS: trip info DFM, selected aircraft, sample count, unfinished/completed duration, refresh, read-only view, close action and missing trip.');
 
-end.
+ End;
 
+Begin
+ RunNativeTests(TVerifyTripInfoTests);
+
+End.

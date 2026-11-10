@@ -1,6 +1,6 @@
-# Recording and crash diagnosis - 2026-10-15
+﻿# Recording and crash diagnosis - 2026-10-15
 
-Database inspected read-only: `F:\Tools\Mfz\MSFS24_FDR_Delphi-mfz\flight_data.db`.
+Database inspected read-only: `legacy flight_data.db`.
 Integrity check: OK. 23 trips, 2044 snapshots, 4088 engine rows.
 Trip 1 contains 2021 snapshots (2026-10-14 21:21:09 to 21:29:45 UTC).
 Most subsequent trips contain one snapshot; repeated starts approximately every
@@ -59,7 +59,7 @@ Tests use separate databases. A live flight with the updated EXE is still needed
 
 ## Próbki lotu i parser iFly FMC — 18 października 2026
 
-Sprawdzono bazę z `F:\Tools\Mfz\MSFS24_FDR_Delphi-mfz` oraz log rejestratora. Źródło otwarto przez SQLite w trybie tylko do odczytu i wykonano spójną kopię diagnostyczną w `.build`. Nie zmieniano oryginalnych danych, konfiguracji ani plików wykonywalnych w tym katalogu. Prywatna kopia i surowe logi diagnostyczne nie są dołączane do paczek.
+Sprawdzono bazę z `katalog źródłowego legacy flight_data.db` oraz log rejestratora. Źródło otwarto przez SQLite w trybie tylko do odczytu i wykonano spójną kopię diagnostyczną w `.build`. Nie zmieniano oryginalnych danych, konfiguracji ani plików wykonywalnych w tym katalogu. Prywatna kopia i surowe logi diagnostyczne nie są dołączane do paczek.
 
 Trip 4 zawiera 5256 próbek: 5251 z flagą ziemi i tylko 5 z flagą powietrza. Pierwsze 5250 próbek obejmuje czas symulatora 11:28:04–11:33:58; log pokazuje przetwarzanie od 23:51 do około 00:46 czasu komputera. Kolejne próbki mają czasy 11:39:28, 11:44:35, 11:49:51, 11:53:28, 11:55:58 i 12:02:00. Największa luka wynosi 362,512 s. Kontakty startu i lądowania zapisano osobno o 11:36:53 i 11:58:53. To nie jest poprawny przebieg zapisu co 250 ms; układ wskazuje na zaległą kolejkę ramek. Interwał był liczony według czasu przetwarzania, więc kosztowny callback mógł utrwalać po kolei stare ramki zamiast bieżącego stanu. Zewnętrzny EXE miał datę 17.10.2026 21:57 i nie zawierał późniejszego przeniesienia rejestratora do wątku.
 

@@ -1,4 +1,5 @@
-object frmSimBrief: TfrmSimBrief
+﻿object frmSimBrief: TfrmSimBrief
+  HelpContext = 900
   Left = 0
   Top = 0
   Caption = 'SimBrief Dispatch'

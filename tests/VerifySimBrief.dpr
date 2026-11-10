@@ -1,224 +1,307 @@
-﻿program VerifySimBrief;
+﻿Program VerifySimBrief;
 
 {$APPTYPE CONSOLE}
+{$STRONGLINKTYPES ON}
+{$RTTI EXPLICIT METHODS([vcPublic])}
 
-uses Winapi.Windows, System.SysUtils, System.JSON, FlightDatabaseU, FlightTelemetryU,
+Uses
+ TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ Winapi.Windows, System.SysUtils, System.JSON, FlightDatabaseU, FlightTelemetryU,
 
-  TelemetryCatalogU, SimBriefImportU, frmTripInfoU;
+ TelemetryCatalogU, SimBriefImportU, frmTripInfoU;
 
-var DB:TFlightDatabase;S:TFlightSample;Path,Payload,Reason:string;Trip:Integer;V,C:TJSONObject;F:TfrmTripInfo;
+Var
+ DB      : TFlightDatabase;
+ s       : TFlightSample;
+ Path    : String;
+ Payload : String;
+ Reason  : String;
+ Trip    : Integer;
+ v       : TJSONObject;
+ c       : TJSONObject;
+ f       : TfrmTripInfo;
 
-procedure Check(B:Boolean;const M:string);
+Procedure Check(b : Boolean; Const m : String);
+ Begin
+  If Not b Then
+   Raise Exception.Create(m);
+ End;
 
-begin if not B then raise Exception.Create(M);end;
+Procedure SetN(Const Name : String; n : Double);
+ Var
+  k : Integer;
+ Begin
+  For k := 0 To FieldCount - 1 Do
+   If SimFields[k].Name = Name Then
+    Begin
+     s.Numbers[k] := n;
+     Exit;
+    End;
+ End;
 
-procedure SetN(const Name:string;N:Double);
+Procedure SetTrip(Const ColumnName, Value : String);
+ Begin
+  DB.Connection.ExecSQL('update trips set ' + ColumnName + '=:v where id=:t', [Value, Trip]);
+ End;
 
-var K:Integer;
+Type
 
-begin for K:=0 to FieldCount-1 do if SimFields[K].Name=Name then begin S.Numbers[K]:=N;Exit;end;end;
+ [TestFixture]
+ TVerifySimBriefTests = Class
+  Public
+   [Test]
+   Procedure Regression;
+ End;
 
-procedure SetTrip(const ColumnName,Value:string);
+Procedure TVerifySimBriefTests.Regression;
+ Begin
 
-begin DB.Connection.ExecSQL('update trips set '+ColumnName+'=:v where id=:t',[Value,Trip]);end;
+  Check(DecodeSimBriefHTML('A &amp; B &ft invalid &custom;') = 'A & B &ft invalid &custom;', 'Bare ampersands and unknown entities survive');
 
-begin
+  Check(DecodeSimBriefHTML('&#176; &#x1F600;') = WideChar(176) + ' ' + WideChar($D83D) + WideChar($DE00), 'Unicode numeric entities');
 
-  Check(DecodeSimBriefHTML('A &amp; B &ft invalid &custom;')='A & B &ft invalid &custom;','Bare ampersands and unknown entities survive');
+  Check(DecodeSimBriefHTML('&#999999999; &#xD800;') = '&#999999999; &#xD800;', 'Invalid Unicode entities preserved');
 
-  Check(DecodeSimBriefHTML('&#176; &#x1F600;')=WideChar(176)+' '+WideChar($D83D)+WideChar($DE00),'Unicode numeric entities');
+  Check(DecodeSimBriefHTML('&amp;lt;') = '&lt;', 'Decode once');
 
-  Check(DecodeSimBriefHTML('&#999999999; &#xD800;')='&#999999999; &#xD800;','Invalid Unicode entities preserved');
+  Path := TestDatabasePath(ExtractFilePath(ParamStr(0)) + 'simbrief-' + IntToStr(GetTickCount64) + '.db');
 
-  Check(DecodeSimBriefHTML('&amp;lt;')='&lt;','Decode once');
+  DB := TFlightDatabase.Create(TestDatabasePath(Path), ExtractFilePath(ParamStr(0)) + 'sqlite3.dll');
+  s  := TFlightSample.Create;
+  f  := Nil;
+  v  := Nil;
+  c  := Nil;
 
-  Path:=ExtractFilePath(ParamStr(0))+'simbrief-'+IntToStr(GetTickCount64)+'.db';
+  Try
 
-  DB:=TFlightDatabase.Create(Path,ExtractFilePath(ParamStr(0))+'sqlite3.dll');S:=TFlightSample.Create;F:=nil;V:=nil;C:=nil;
+   SetN('time_zulu.year', 2026);
+   SetN('time_zulu.month', 10);
+   SetN('time_zulu.day', 17);
 
-  try
+   Trip := DB.StartTrip(s);
+   SetTrip('departure_icao', 'EPLL');
+   SetTrip('destination_icao', 'EGSS');
 
-    SetN('time_zulu.year',2026);SetN('time_zulu.month',10);SetN('time_zulu.day',17);
+   SetTrip('atc_id', 'SP-LVA');
+   SetTrip('atc_flight_number', '0131');
 
-    Trip:=DB.StartTrip(S);SetTrip('departure_icao','EPLL');SetTrip('destination_icao','EGSS');
+   Payload := '{"origin":{"icao_code":"EPLL"},"destination":{"icao_code":"EGSS"},' +
 
-    SetTrip('atc_id','SP-LVA');SetTrip('atc_flight_number','0131');
+   '"times":{"sched_out":"2026-10-17T01:00:00Z"},"general":{"flight_number":"131","route":"TEST ROUTE"},' +
 
-    Payload:='{"origin":{"icao_code":"EPLL"},"destination":{"icao_code":"EGSS"},'+
+   '"aircraft":{"reg":"SP-LVA"},"params":{"request_id":"test"},' +
 
-      '"times":{"sched_out":"2026-10-17T01:00:00Z"},"general":{"flight_number":"131","route":"TEST ROUTE"},'+
+   '"text":{"plan_html":"<style>secretstyle</style><pre>OFP TEST &amp; DATA</pre>"}}';
 
-      '"aircraft":{"reg":"SP-LVA"},"params":{"request_id":"test"},'+
+   v := TJSONObject.ParseJSONValue(Payload) As TJSONObject;
 
-      '"text":{"plan_html":"<style>secretstyle</style><pre>OFP TEST &amp; DATA</pre>"}}';
+   Check(MatchSimBrief(DB.Connection, Trip, v, Reason), 'Matching airports/date/flight/registration');
 
-    V:=TJSONObject.ParseJSONValue(Payload) as TJSONObject;
+   SetTrip('destination_icao', 'EPLL');
+   Check(Not MatchSimBrief(DB.Connection, Trip, v, Reason), 'Different destination rejected');
 
-    Check(MatchSimBrief(DB.Connection,Trip,V,Reason),'Matching airports/date/flight/registration');
+   SetTrip('destination_icao', '');
+   Check(Not MatchSimBrief(DB.Connection, Trip, v, Reason), 'Missing destination rejected');
 
-    SetTrip('destination_icao','EPLL');Check(not MatchSimBrief(DB.Connection,Trip,V,Reason),'Different destination rejected');
+   DB.Connection.ExecSQL('insert into trip_flight_plans(trip,captured_utc,source,format,payload) ' +
 
-    SetTrip('destination_icao','');Check(not MatchSimBrief(DB.Connection,Trip,V,Reason),'Missing destination rejected');
+   'values(:t,''test'',''MSFS24 EFB'',''EFB JSON'',:p)',
 
-    DB.Connection.ExecSQL('insert into trip_flight_plans(trip,captured_utc,source,format,payload) '+
+   [Trip, '{"departureAirport":{"ident":"EPLL"},"destinationAirport":{"ident":"EGSS"}}']);
 
-      'values(:t,''test'',''MSFS24 EFB'',''EFB JSON'',:p)',
+   Check(MatchSimBrief(DB.Connection, Trip, v, Reason), 'Active trip destination from recorded EFB route');
 
-      [Trip,'{"departureAirport":{"ident":"EPLL"},"destinationAirport":{"ident":"EGSS"}}']);
+   SetTrip('destination_icao', 'EPLL');
+   Check(Not MatchSimBrief(DB.Connection, Trip, v, Reason), 'Actual destination overrides EFB');
 
-    Check(MatchSimBrief(DB.Connection,Trip,V,Reason),'Active trip destination from recorded EFB route');
+   DB.Connection.ExecSQL('delete from trip_flight_plans where trip=:t', [Trip]);
 
-    SetTrip('destination_icao','EPLL');Check(not MatchSimBrief(DB.Connection,Trip,V,Reason),'Actual destination overrides EFB');
+   SetTrip('destination_icao', 'EGSS');
+   SetTrip('atc_id', 'OTHER');
+   Check(Not MatchSimBrief(DB.Connection, Trip, v, Reason), 'Different registration rejected');
 
-    DB.Connection.ExecSQL('delete from trip_flight_plans where trip=:t',[Trip]);
+   SetTrip('atc_id', 'SP-LVA');
+   SetTrip('atc_flight_number', '132');
+   Check(Not MatchSimBrief(DB.Connection, Trip, v, Reason), 'Different flight rejected');
 
-    SetTrip('destination_icao','EGSS');SetTrip('atc_id','OTHER');Check(not MatchSimBrief(DB.Connection,Trip,V,Reason),'Different registration rejected');
+   SetTrip('atc_flight_number', '131');
+   SetTrip('departure_zulu_time', '2026-10-04T00:00:00Z');
 
-    SetTrip('atc_id','SP-LVA');SetTrip('atc_flight_number','132');Check(not MatchSimBrief(DB.Connection,Trip,V,Reason),'Different flight rejected');
+   Check(Not MatchSimBrief(DB.Connection, Trip, v, Reason), 'Old OFP rejected against simulator date');
 
-    SetTrip('atc_flight_number','131');SetTrip('departure_zulu_time','2026-10-04T00:00:00Z');
+   SetTrip('departure_zulu_time', 'invalid');
+   Check(Not MatchSimBrief(DB.Connection, Trip, v, Reason), 'Missing/invalid date rejected');
 
-    Check(not MatchSimBrief(DB.Connection,Trip,V,Reason),'Old OFP rejected against simulator date');
+   SetTrip('departure_zulu_time', '2026-10-17T00:00:00Z');
 
-    SetTrip('departure_zulu_time','invalid');Check(not MatchSimBrief(DB.Connection,Trip,V,Reason),'Missing/invalid date rejected');
+   FreeAndNil(v);
 
-    SetTrip('departure_zulu_time','2026-10-17T00:00:00Z');
+   v := TJSONObject.ParseJSONValue(Payload.Replace('2026-10-17T01:00:00Z', '2026-10-04T01:00:00Z')) As TJSONObject;
 
-    FreeAndNil(V);
+   Check(Not MatchSimBrief(DB.Connection, Trip, v, Reason), 'Older plan requires opt-in');
 
-    V:=TJSONObject.ParseJSONValue(Payload.Replace('2026-10-17T01:00:00Z','2026-10-04T01:00:00Z')) as TJSONObject;
+   Check(Not MatchSimBrief(DB.Connection, Trip, v, Reason, True), 'Older plan requires recorded route');
 
-    Check(not MatchSimBrief(DB.Connection,Trip,V,Reason),'Older plan requires opt-in');
+   DB.Connection.ExecSQL('insert into trip_flight_plans(trip,captured_utc,source,format,payload) ' +
 
-    Check(not MatchSimBrief(DB.Connection,Trip,V,Reason,True),'Older plan requires recorded route');
+   'values(:t,''test'',''MSFS24 EFB'',''EFB JSON'',:p)',
 
-    DB.Connection.ExecSQL('insert into trip_flight_plans(trip,captured_utc,source,format,payload) '+
+   [Trip, '{"departureAirport":{"ident":"EPLL"},"destinationAirport":{"ident":"EGSS"},' +
 
-      'values(:t,''test'',''MSFS24 EFB'',''EFB JSON'',:p)',
+   '"enroute":[{"fixIcao":{"ident":"TEST"}},{"fixIcao":{"ident":"ROUTE"}}]}']);
 
-      [Trip,'{"departureAirport":{"ident":"EPLL"},"destinationAirport":{"ident":"EGSS"},'+
+   Check(MatchSimBrief(DB.Connection, Trip, v, Reason, True), 'Older matching route accepted');
 
-      '"enroute":[{"fixIcao":{"ident":"TEST"}},{"fixIcao":{"ident":"ROUTE"}}]}']);
+   Check(Pos('UWAGA:', Reason) > 0, 'Earlier generation warning');
 
-    Check(MatchSimBrief(DB.Connection,Trip,V,Reason,True),'Older matching route accepted');
+   TJSONObject(v.GetValue('aircraft')).AddPair('icaocode', 'B38M');
 
-    Check(Pos('UWAGA:',Reason)>0,'Earlier generation warning');
+   TJSONObject(v.GetValue('general')).AddPair('icao_airline', 'LOT');
 
-    TJSONObject(V.GetValue('aircraft')).AddPair('icaocode','B38M');
+   SetTrip('atc_model', 'A320');
+   Check(Not MatchSimBrief(DB.Connection, Trip, v, Reason, True), 'Different ICAO model rejected');
 
-    TJSONObject(V.GetValue('general')).AddPair('icao_airline','LOT');
+   SetTrip('atc_model', 'B38M');
+   SetTrip('atc_airline', 'EZY');
 
-    SetTrip('atc_model','A320');Check(not MatchSimBrief(DB.Connection,Trip,V,Reason,True),'Different ICAO model rejected');
+   Check(Not MatchSimBrief(DB.Connection, Trip, v, Reason, True), 'Different airline rejected');
+   SetTrip('atc_airline', 'LOT');
 
-    SetTrip('atc_model','B38M');SetTrip('atc_airline','EZY');
+   v.AddPair('navlog', TJSONObject.ParseJSONValue('[{"ident":"TEST"},{"ident":"ROUTE"}]'));
 
-    Check(not MatchSimBrief(DB.Connection,Trip,V,Reason,True),'Different airline rejected');SetTrip('atc_airline','LOT');
+   Check(MatchSimBrief(DB.Connection, Trip, v, Reason, True), 'Expanded navlog route accepted');
 
-    V.AddPair('navlog',TJSONObject.ParseJSONValue('[{"ident":"TEST"},{"ident":"ROUTE"}]'));
+   DB.Connection.ExecSQL('update trip_flight_plans set payload=:p where trip=:t',
 
-    Check(MatchSimBrief(DB.Connection,Trip,V,Reason,True),'Expanded navlog route accepted');
+   ['{"enroute":[{"fixIcao":{"ident":"ROUTE"}},{"fixIcao":{"ident":"TEST"}}]}', Trip]);
 
-    DB.Connection.ExecSQL('update trip_flight_plans set payload=:p where trip=:t',
+   Check(Not MatchSimBrief(DB.Connection, Trip, v, Reason, True), 'Reordered route rejected');
 
-      ['{"enroute":[{"fixIcao":{"ident":"ROUTE"}},{"fixIcao":{"ident":"TEST"}}]}',Trip]);
+   TJSONObject(v.GetValue('general')).AddPair('sid_ident', 'SID1');
 
-    Check(not MatchSimBrief(DB.Connection,Trip,V,Reason,True),'Reordered route rejected');
+   DB.Connection.ExecSQL('update trip_flight_plans set payload=:p where trip=:t',
 
-    TJSONObject(V.GetValue('general')).AddPair('sid_ident','SID1');
+   ['{"departure":"SID2","enroute":[{"fixIcao":{"ident":"TEST"}},{"fixIcao":{"ident":"ROUTE"}}]}', Trip]);
 
-    DB.Connection.ExecSQL('update trip_flight_plans set payload=:p where trip=:t',
+   Check(Not MatchSimBrief(DB.Connection, Trip, v, Reason, True), 'Different SID rejected');
 
-      ['{"departure":"SID2","enroute":[{"fixIcao":{"ident":"TEST"}},{"fixIcao":{"ident":"ROUTE"}}]}',Trip]);
+   DB.Connection.ExecSQL('update trip_flight_plans set format=''PLN'',payload=:p where trip=:t',
 
-    Check(not MatchSimBrief(DB.Connection,Trip,V,Reason,True),'Different SID rejected');
+   ['<SimBase.Document><FlightPlan.FlightPlan><DepartureID>EPLL</DepartureID><DestinationID>EGSS</DestinationID>' +
 
-    DB.Connection.ExecSQL('update trip_flight_plans set format=''PLN'',payload=:p where trip=:t',
+   '<ATCWaypoint id="TEST"><WorldPosition>N51 0 0,E019 0 0,+000000.00</WorldPosition></ATCWaypoint>' +
 
-      ['<SimBase.Document><FlightPlan.FlightPlan><DepartureID>EPLL</DepartureID><DestinationID>EGSS</DestinationID>'+
+   '</FlightPlan.FlightPlan></SimBase.Document>', Trip]);
 
-       '<ATCWaypoint id="TEST"><WorldPosition>N51 0 0,E019 0 0,+000000.00</WorldPosition></ATCWaypoint>'+
+   Check(MatchSimBrief(DB.Connection, Trip, v, Reason, True), 'PLN fixes accepted');
 
-       '</FlightPlan.FlightPlan></SimBase.Document>',Trip]);
+   DB.Connection.ExecSQL('update trip_flight_plans set payload=replace(payload,''EGSS'',''EPLL'') where trip=:t', [Trip]);
 
-    Check(MatchSimBrief(DB.Connection,Trip,V,Reason,True),'PLN fixes accepted');
+   Check(Not MatchSimBrief(DB.Connection, Trip, v, Reason, True), 'PLN destination mismatch rejected');
 
-    DB.Connection.ExecSQL('update trip_flight_plans set payload=replace(payload,''EGSS'',''EPLL'') where trip=:t',[Trip]);
+   DB.Connection.ExecSQL('update trip_flight_plans set format=''EFB JSON'',payload=:p where trip=:t',
 
-    Check(not MatchSimBrief(DB.Connection,Trip,V,Reason,True),'PLN destination mismatch rejected');
+   ['{"enroute":[{"fixIcao":{"ident":"TEST"}},{"fixIcao":{"ident":"ROUTE"}}]}', Trip]);
 
-    DB.Connection.ExecSQL('update trip_flight_plans set format=''EFB JSON'',payload=:p where trip=:t',
+   SaveSimBrief(DB.Connection, Trip, v.ToJSON, '', True);
 
-      ['{"enroute":[{"fixIcao":{"ident":"TEST"}},{"fixIcao":{"ident":"ROUTE"}}]}',Trip]);
+   c := SimBriefContext(DB.Connection, Trip);
 
-    SaveSimBrief(DB.Connection,Trip,V.ToJSON,'',True);
+   Check(c.GetValue('date_warning') <> Nil, 'Persisted opt-in and warning survive AI revalidation');
+   FreeAndNil(c);
 
-    C:=SimBriefContext(DB.Connection,Trip);
+   f := TfrmTripInfo.Create(Nil);
+   f.LoadTrip(DB.Connection, Trip);
 
-    Check(C.GetValue('date_warning')<>nil,'Persisted opt-in and warning survive AI revalidation');FreeAndNil(C);
+   Check(Pos('UWAGA:', f.mInfo.Text) > 0, 'Older OFP visible in trip information');
+   FreeAndNil(f);
 
-    F:=TfrmTripInfo.Create(nil);F.LoadTrip(DB.Connection,Trip);
+   SetTrip('atc_id', 'OTHER');
+   Check(Not MatchSimBrief(DB.Connection, Trip, v, Reason, True), 'Opt-in cannot bypass registration');
 
-    Check(Pos('UWAGA:',F.mInfo.Text)>0,'Older OFP visible in trip information');FreeAndNil(F);
+   SetTrip('atc_id', 'SP-LVA');
+   SetTrip('atc_flight_number', '999');
 
-    SetTrip('atc_id','OTHER');Check(not MatchSimBrief(DB.Connection,Trip,V,Reason,True),'Opt-in cannot bypass registration');
+   Check(Not MatchSimBrief(DB.Connection, Trip, v, Reason, True), 'Opt-in cannot bypass flight number');
+   SetTrip('atc_flight_number', '131');
 
-    SetTrip('atc_id','SP-LVA');SetTrip('atc_flight_number','999');
+   DB.Connection.ExecSQL('update trip_flight_plans set payload=:p where trip=:t',
 
-    Check(not MatchSimBrief(DB.Connection,Trip,V,Reason,True),'Opt-in cannot bypass flight number');SetTrip('atc_flight_number','131');
+   ['{"enroute":[{"fixIcao":{"ident":"OTHER"}}]}', Trip]);
 
-    DB.Connection.ExecSQL('update trip_flight_plans set payload=:p where trip=:t',
+   Check(Not MatchSimBrief(DB.Connection, Trip, v, Reason, True), 'Different route rejected with opt-in');
 
-      ['{"enroute":[{"fixIcao":{"ident":"OTHER"}}]}',Trip]);
+   c := SimBriefContext(DB.Connection, Trip);
+   Check(c.GetValue('excluded_reason') <> Nil, 'Changed route excludes old plan');
+   FreeAndNil(c);
 
-    Check(not MatchSimBrief(DB.Connection,Trip,V,Reason,True),'Different route rejected with opt-in');
+   DB.Connection.ExecSQL('delete from trip_flight_plans where trip=:t', [Trip]);
 
-    C:=SimBriefContext(DB.Connection,Trip);Check(C.GetValue('excluded_reason')<>nil,'Changed route excludes old plan');FreeAndNil(C);
+   FreeAndNil(v);
+   v := TJSONObject.ParseJSONValue(Payload) As TJSONObject;
 
-    DB.Connection.ExecSQL('delete from trip_flight_plans where trip=:t',[Trip]);
+   SaveSimBrief(DB.Connection, Trip, Payload, '');
+   DB.Connection.ExecSQL('insert into trip_simbrief_maps(trip,plan_sha256,name,url,mime,data,captured_utc) values(:t,''fixture'',''Route'',''test.gif'',''image/gif'',x''00'',''2026-10-25T12:00:00Z'')', [Trip]);
+   SaveSimBrief(DB.Connection, Trip, Payload, '');
+   Check(DB.Connection.ExecSQLScalar('select count(*) from trip_simbrief_maps where trip=:t', [Trip]) = 1, 'Attaching identical plan preserves map BLOBs');
 
-    FreeAndNil(V);V:=TJSONObject.ParseJSONValue(Payload) as TJSONObject;
+   Check(DB.Connection.ExecSQLScalar('select count(*) from trip_simbrief where trip=:t', [Trip]) = 1, 'Import replaces current plan without duplicates');
 
-    SaveSimBrief(DB.Connection,Trip,Payload,'');SaveSimBrief(DB.Connection,Trip,Payload,'');
+   Check(Pos('OFP TEST &amp; DATA', SimBriefOFP(DB.Connection, Trip)) > 0, 'Raw full OFP preserved');
 
-    Check(DB.Connection.ExecSQLScalar('select count(*) from trip_simbrief where trip=:t',[Trip])=1,'Import replaces current plan without duplicates');
+   c := SimBriefContext(DB.Connection, Trip);
 
-    Check(Pos('OFP TEST &amp; DATA',SimBriefOFP(DB.Connection,Trip))>0,'Raw full OFP preserved');
+   Check(Pos('TEST ROUTE', c.ToJSON) > 0, 'Structured plan included');
 
-    C:=SimBriefContext(DB.Connection,Trip);
+   Check(Pos('OFP TEST & DATA', SBValue(c, 'ofp_text_excerpt')) > 0, 'OFP decoded for model');
 
-    Check(Pos('TEST ROUTE',C.ToJSON)>0,'Structured plan included');
+   Check(Pos('secretstyle', c.ToJSON) = 0, 'Styles excluded from prompt');
+   FreeAndNil(c);
 
-    Check(Pos('OFP TEST & DATA',SBValue(C,'ofp_text_excerpt'))>0,'OFP decoded for model');
+   SaveSimBrief(DB.Connection, Trip, Payload.Replace('OFP TEST &amp; DATA', StringOfChar('X', 26000)), '');
+   Check(DB.Connection.ExecSQLScalar('select count(*) from trip_simbrief_maps where trip=:t', [Trip]) = 0, 'Replacing a plan clears stale map BLOBs');
 
-    Check(Pos('secretstyle',C.ToJSON)=0,'Styles excluded from prompt');FreeAndNil(C);
+   c := SimBriefContext(DB.Connection, Trip);
 
-    SaveSimBrief(DB.Connection,Trip,Payload.Replace('OFP TEST &amp; DATA',StringOfChar('X',26000)),'');
+   Check(Length(SBValue(c, 'ofp_text_excerpt')) = 24000, 'Bounded OFP text');
 
-    C:=SimBriefContext(DB.Connection,Trip);
+   Check(SBValue(c, 'ofp_excerpt_truncated') = 'true', 'Explicit truncation');
+   FreeAndNil(c);
 
-    Check(Length(SBValue(C,'ofp_text_excerpt'))=24000,'Bounded OFP text');
+   Check(Length(SimBriefOFP(DB.Connection, Trip)) > 26000, 'Full OFP not truncated in database');
 
-    Check(SBValue(C,'ofp_excerpt_truncated')='true','Explicit truncation');FreeAndNil(C);
+   SetTrip('atc_id', 'OTHER');
+   c := SimBriefContext(DB.Connection, Trip);
 
-    Check(Length(SimBriefOFP(DB.Connection,Trip))>26000,'Full OFP not truncated in database');
+   Check(c.GetValue('excluded_reason') <> Nil, 'Revalidate plan before AI use');
+   FreeAndNil(c);
 
-    SetTrip('atc_id','OTHER');C:=SimBriefContext(DB.Connection,Trip);
+   SetTrip('atc_id', 'SP-LVA');
 
-    Check(C.GetValue('excluded_reason')<>nil,'Revalidate plan before AI use');FreeAndNil(C);
+   f := TfrmTripInfo.Create(Nil);
+   f.LoadTrip(DB.Connection, Trip);
 
-    SetTrip('atc_id','SP-LVA');
+   Check(Pos('SimBrief - pobrano UTC', f.mInfo.Text) > 0, 'Trip information includes import');
 
-    F:=TfrmTripInfo.Create(nil);F.LoadTrip(DB.Connection,Trip);
+   Check(Assigned(f.btnImport.OnClick) And Assigned(f.btnOFP.OnClick) And Assigned(f.FetchTimer.OnTimer), 'DFM actions connected');
 
-    Check(Pos('SimBrief - pobrano UTC',F.mInfo.Text)>0,'Trip information includes import');
+   DB.DeleteTrip(Trip);
+   Check(DB.Connection.ExecSQLScalar('select count(*) from trip_simbrief') = 0, 'Delete trip removes OFP');
 
-    Check(Assigned(F.btnImport.OnClick) and Assigned(F.btnOFP.OnClick) and Assigned(F.FetchTimer.OnTimer),'DFM actions connected');
+  Finally
+   f.Free;
+   c.Free;
+   v.Free;
+   s.Free;
+   DB.Free;
+   DeleteFile(PChar(Path));
+  End;
 
-    DB.DeleteTrip(Trip);Check(DB.Connection.ExecSQLScalar('select count(*) from trip_simbrief')=0,'Delete trip removes OFP');
+  System.Writeln('PASS: SimBrief offline matching, stale/mismatched/incomplete rejection, raw OFP storage, decoded analysis excerpt, revalidation, DFM actions and deletion.');
 
-  finally F.Free;C.Free;V.Free;S.Free;DB.Free;DeleteFile(PChar(Path));end;
+ End;
 
-  Writeln('PASS: SimBrief offline matching, stale/mismatched/incomplete rejection, raw OFP storage, decoded analysis excerpt, revalidation, DFM actions and deletion.');
+Begin
+ RunNativeTests(TVerifySimBriefTests);
 
-end.
-
+End.

@@ -18,7 +18,7 @@
 *.7z
 *.rar
 
-# Delphi IDE state (keep .dpr, .dproj, .pas, .dfm, .res and .ico)
+# Delphi IDE state (keep .dpr, .dproj, .pas, .dfm, .rc and .ico)
 *.dproj.local
 *.groupproj.local
 *.identcache
@@ -80,8 +80,6 @@ OFP-*.pdf
 /A32NX Flight Deck API - FlyByWire Simulations Documentation_files/
 /MSFS_MAX8_SDK*/
 /downloads/
-/dist/
-/docs/flightsim-to/
 
 # Tool caches and local environments
 __pycache__/
@@ -95,3 +93,41 @@ node_modules/
 .DS_Store
 Thumbs.db
 Desktop.ini
+
+# Native report test working files
+/tests/Temp/
+/tests/fmc-replay-preview.bmp
+
+# Recording index, individual flights and interrupted migration files
+*.mfzi
+*.mfzi-*
+*.mfzr
+*.mfzr-*
+*.partial
+*.snapshot
+*.snapshot-*
+recordings.lock
+
+/dist/
+
+congratulations.mfz
+ZipPasswordU.pas
+# Generated installer VERSIONINFO resource; no private signing exports
+*signing-private*.pem
+*.pfx
+*.p12
+
+# Private release signing material (kept outside the repository)
+private.pem
+/src/Setup/*.res
+
+# Compiled resources: keep RC inputs, rebuild RES.
+*.res
+!/tools/Formatter/Format_MSFS24-FDR.exe
+
+# Delphi auxiliary debug artifacts (also inside nested test output).
+*.RSM
+*.MAP
+*.RES
+
+/docs/

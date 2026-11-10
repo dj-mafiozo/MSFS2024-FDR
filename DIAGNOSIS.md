@@ -1,8 +1,8 @@
-# Diagnoza nagrywania i awarii
+﻿# Diagnoza nagrywania i awarii
 
 Angielski szczegółowy zapis historyczny: [DIAGNOSIS.en.md](DIAGNOSIS.en.md).
 
-Odczytano bez modyfikacji F:\Tools\Mfz\MSFS24_FDR_Delphi-mfz\flight_data.db. Integrity check: OK; 23 loty, 2044 próbki, 4088 wierszy silników. Lot 1 miał 2021 próbek z 14 października 2026, 21:21:09–21:29:45 UTC. Większość kolejnych miała jedną próbkę, a odstępy około 3 s odpowiadały ponownemu łączeniu.
+Odczytano bez modyfikacji legacy flight_data.db. Integrity check: OK; 23 loty, 2044 próbki, 4088 wierszy silników. Lot 1 miał 2021 próbek z 14 października 2026, 21:21:09–21:29:45 UTC. Większość kolejnych miała jedną próbkę, a odstępy około 3 s odpowiadały ponownemu łączeniu.
 
 Wcześniej każdy asynchroniczny SIMCONNECT_RECV_EXCEPTION kończył sesję. Obecnie błędy opcjonalnych zdarzeń/facilities są izolowane, a błędy definicji i żądania telemetrii pozostają krytyczne. GetLastSentPacketID wiąże wyjątek z żądaniem; log podaje kod, send ID i indeks. Stare logi nie pozwalają udowodnić dokładnego historycznego sprawcy.
 

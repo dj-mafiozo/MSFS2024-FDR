@@ -1,0 +1,158 @@
+ICAO,Status,Detents,Title filter,Sources
+A10,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+A20N,config,UP / 1 / 1+F / 2 / 3 / FULL,,flybywire-aircraft-a320-neo/SimObjects/AirPlanes/FlyByWire_A320_NEO/flight_model.cfg
+A21N,config,UP / 1 / 1+F / 2 / 3 / FULL,,flybywire-aircraft-a320-neo/SimObjects/AirPlanes/FlyByWire_A320_NEO/flight_model.cfg
+A225,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+A310,reference_profile,UP / 15/0 / 15/15 / 15/20 / 30/40,,https://flightsimulator.azureedge.net/wp-content/uploads/2023/02/A310_MSFS_Manual.pdf
+A318,config,UP / 1 / 1+F / 2 / 3 / FULL,,flybywire-aircraft-a320-neo/SimObjects/AirPlanes/FlyByWire_A320_NEO/flight_model.cfg
+A319,config,UP / 1 / 1+F / 2 / 3 / FULL,,flybywire-aircraft-a320-neo/SimObjects/AirPlanes/FlyByWire_A320_NEO/flight_model.cfg
+A320,config,UP / 1 / 1+F / 2 / 3 / FULL,,flybywire-aircraft-a320-neo/SimObjects/AirPlanes/FlyByWire_A320_NEO/flight_model.cfg
+A321,config,UP / 1 / 1+F / 2 / 3 / FULL,,flybywire-aircraft-a320-neo/SimObjects/AirPlanes/FlyByWire_A320_NEO/flight_model.cfg
+A332,reference_profile,UP / 1 / 1+F / 2 / 3 / FULL,,https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/Airbus-A330-MSFS-Manual.pdf
+A333,reference_profile,UP / 1 / 1+F / 2 / 3 / FULL,,https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/Airbus-A330-MSFS-Manual.pdf
+A337,reference_profile,UP / 1 / 1+F / 2 / 3 / FULL,,https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/Airbus-A330-MSFS-Manual.pdf
+A400,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+A5,reference_profile,UP / 15 / 30,,https://www.iconaircraft.com/maintenance-manual-A5/ICON%20A5%20MM/RiggingFlapControls.html
+AE45,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+AN2,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+AS32,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+AS50,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+AT46,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+AT76,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+AT8T,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+B06,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+B307,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+B350,reference_profile,UP / APR / DOWN,,https://beechcraft.txtav.com/
+B37M,config_and_sdk,UP / 1 / 2 / 5 / 10 / 15 / 25 / 30 / 40,,ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg
+B38M,config_and_sdk,UP / 1 / 2 / 5 / 10 / 15 / 25 / 30 / 40,,ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg
+B39M,config_and_sdk,UP / 1 / 2 / 5 / 10 / 15 / 25 / 30 / 40,,ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg
+B3XM,config_and_sdk,UP / 1 / 2 / 5 / 10 / 15 / 25 / 30 / 40,,ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg
+B407,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+B412,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+B47J,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+B703,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+B733,reference_profile,UP / 1 / 2 / 5 / 10 / 15 / 25 / 30 / 40,,ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg
+B734,reference_profile,UP / 1 / 2 / 5 / 10 / 15 / 25 / 30 / 40,,ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg
+B735,config_and_sdk,UP / 1 / 2 / 5 / 10 / 15 / 25 / 30 / 40,,ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg
+B736,config_and_sdk,UP / 1 / 2 / 5 / 10 / 15 / 25 / 30 / 40,,ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg
+B737,config_and_sdk,UP / 1 / 2 / 5 / 10 / 15 / 25 / 30 / 40,,ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg
+B738,config_and_sdk,UP / 1 / 2 / 5 / 10 / 15 / 25 / 30 / 40,,ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg
+B739,config_and_sdk,UP / 1 / 2 / 5 / 10 / 15 / 25 / 30 / 40,,ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg
+B744,reference_profile,UP / 1 / 5 / 10 / 20 / 25 / 30,,https://flightsimulator.azureedge.net/wp-content/uploads/2023/06/B747-8i-Tutorial-Flight-v1.pdf
+B748,reference_profile,UP / 1 / 5 / 10 / 20 / 25 / 30,,https://flightsimulator.azureedge.net/wp-content/uploads/2023/06/B747-8i-Tutorial-Flight-v1.pdf
+B772,config_and_sdk,UP / 1 / 5 / 15 / 20 / 25 / 30,,pmdg-aircraft-77w/SimObjects/Airplanes/PMDG 777-300ER/presets/pmdg/PMDG 777-300ER/config/flight_model.cfg
+B773,config_and_sdk,UP / 1 / 5 / 15 / 20 / 25 / 30,,pmdg-aircraft-77w/SimObjects/Airplanes/PMDG 777-300ER/presets/pmdg/PMDG 777-300ER/config/flight_model.cfg
+B77F,config_and_sdk,UP / 1 / 5 / 15 / 20 / 25 / 30,,pmdg-aircraft-77w/SimObjects/Airplanes/PMDG 777-300ER/presets/pmdg/PMDG 777-300ER/config/flight_model.cfg
+B77L,config_and_sdk,UP / 1 / 5 / 15 / 20 / 25 / 30,,pmdg-aircraft-77w/SimObjects/Airplanes/PMDG 777-300ER/presets/pmdg/PMDG 777-300ER/config/flight_model.cfg
+B77W,config_and_sdk,UP / 1 / 5 / 15 / 20 / 25 / 30,,pmdg-aircraft-77w/SimObjects/Airplanes/PMDG 777-300ER/presets/pmdg/PMDG 777-300ER/config/flight_model.cfg
+B78X,reference_profile,UP / 1 / 5 / 15 / 20 / 25 / 30,,https://flightsimulator.azureedge.net/wp-content/uploads/2023/06/B787-10-Tutorial-Flight-v1.pdf
+BALL,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+BE17,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+BE18,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+BE35,reference_profile,UP / APR / DOWN,,https://beechcraft.txtav.com/
+BE36,reference_profile,UP / APR / DOWN,,https://beechcraft.txtav.com/
+BE58,reference_profile,UP / APR / DOWN,,https://beechcraft.txtav.com/
+BE9L,reference_profile,UP / APR / DOWN,,https://beechcraft.txtav.com/
+BLCF,reference_profile,UP / 1 / 5 / 10 / 20 / 25 / 30,,https://flightsimulator.azureedge.net/wp-content/uploads/2023/06/B747-8i-Tutorial-Flight-v1.pdf
+C152,reference_profile,UP / 10 / 20 / 30,,https://cessnaflighttraining.kingschools.com/secure/ccf/ccfppv1/documents/172S_PIM.pdf
+C17,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+C172,reference_profile,UP / 10 / 20 / 30,,https://cessnaflighttraining.kingschools.com/secure/ccf/ccfppv1/documents/172S_PIM.pdf
+C188,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+C195,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+C207,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+C208,reference_profile,UP / 10 / 20 / 30,,https://cessnaflighttraining.kingschools.com/secure/ccf/ccfppv1/documents/172S_PIM.pdf
+C25C,sim_manual,UP / 15 / 35,,https://flightsimulator.azureedge.net/wp-content/uploads/2023/02/Cessna-Citation-CJ4-User-Guide-v1.pdf
+C404,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+C408,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+C46,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+C700,sim_manual,UP / 1 / 2 / FULL,,https://flightsimulator.azureedge.net/wp-content/uploads/2023/02/Cessna-Model-700-Operators-Guide.pdf
+CC19,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+CG4,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+CL2T,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+COL4,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+CP10,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+D031,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+DA40,reference_profile,UP / T/O / LDG,,https://www.diamondaircraft.com/fileadmin/diamondaircraft/service-and-support/Pilot_Training_Austria/Checklists/checklists_DA40_D/DA40_D_Conventional_Cockpit/DA40_TDI_Checklist_Edit17_1_A4.pdf
+DA62,reference_profile,UP / T/O / LDG,,https://www.diamondaircraft.com/fileadmin/diamondaircraft/service-and-support/Pilot_Training_Austria/Checklists/checklists_DA40_D/DA40_D_Conventional_Cockpit/DA40_TDI_Checklist_Edit17_1_A4.pdf
+DC3,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+DC6,config,UP / 10 / 15 / 20 / 30 / 40 / 50,,pmdg-aircraft-dc6/SimObjects/Airplanes/PMDG DC-6A/flight_model.cfg
+DC91,config,UP / 10 / 20 / 30 / 40 / 50,,skysim-aircraft-dc9/SimObjects/Airplanes/SKYSIM_DC91/flight_model.cfg
+DC92,config,UP / 10 / 20 / 30 / 40 / 50,,skysim-aircraft-dc9/SimObjects/Airplanes/SKYSIM_DC91/flight_model.cfg
+DC93,config,UP / 10 / 20 / 30 / 40 / 50,,skysim-aircraft-dc9/SimObjects/Airplanes/SKYSIM_DC91/flight_model.cfg
+DC94,config,UP / 10 / 20 / 30 / 40 / 50,,skysim-aircraft-dc9/SimObjects/Airplanes/SKYSIM_DC91/flight_model.cfg
+DC95,config,UP / 10 / 20 / 30 / 40 / 50,,skysim-aircraft-dc9/SimObjects/Airplanes/SKYSIM_DC91/flight_model.cfg
+DG1T,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+DHC2,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+DHC4,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+DHC6,sim_manual,UP / 10 / 20 / 37.5,,https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/MSFS2024_DHC-6_TWIN_OTTER_AOM.pdf
+DOWA,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+DOX,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+DR40,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+DV20,reference_profile,UP / T/O / LDG,,https://www.diamondaircraft.com/fileadmin/diamondaircraft/service-and-support/Pilot_Training_Austria/Checklists/checklists_DA40_D/DA40_D_Conventional_Cockpit/DA40_TDI_Checklist_Edit17_1_A4.pdf
+E330,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+E540,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+EC25,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+EC35,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+ES30,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+FA18,reference_profile,AUTO / HALF / FULL,,https://www.flightsimulator.com/aircraft-manuals/
+FDCT,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+FORD,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+FVII,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+FW20,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+G21,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+G2CA,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+GEEB,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+GEEZ,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+H269,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+H4,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+H47,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+H500,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+HAWK,unverified,,,https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/CGS_HAWK_ARROW_II_USER_MANUAL_MSFS.pdf
+HU16,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+JN4,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+JU52,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+JUN1,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+L39,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+LATE,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+LS8,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+M24,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+MD11,provider_dependent,UP / SLATS / 15 / 20 / 24 / 28 / 35 / 50,TFDI,tfdidesign-aircraft-md11/SimObjects/Airplanes/TFDi_Design_MD-11_GE/flight_model.cfg | skysim-aircraft-md11/SimObjects/Airplanes/SKYSIM_MD11/flight_model.cfg
+MD11,provider_dependent,UP / SLATS / 10 / 11 / 28 / 35 / 50,SKYSIM | SKY SIM,tfdidesign-aircraft-md11/SimObjects/Airplanes/TFDi_Design_MD-11_GE/flight_model.cfg | skysim-aircraft-md11/SimObjects/Airplanes/SKYSIM_MD11/flight_model.cfg
+MD81,config,UP / SLATS / T/O / 15 / 28 / 40,,lsh-maddogx-aircraft/SimObjects/Airplanes/MaddogX20th/flight_model.cfg
+MD82,config,UP / SLATS / T/O / 15 / 28 / 40,,lsh-maddogx-aircraft/SimObjects/Airplanes/MaddogX20th/flight_model.cfg
+MD83,config,UP / SLATS / T/O / 15 / 28 / 40,,lsh-maddogx-aircraft/SimObjects/Airplanes/MaddogX20th/flight_model.cfg
+MD87,config,UP / SLATS / T/O / 15 / 28 / 40,,lsh-maddogx-aircraft/SimObjects/Airplanes/MaddogX20th/flight_model.cfg
+MD88,config,UP / SLATS / T/O / 15 / 28 / 40,,lsh-maddogx-aircraft/SimObjects/Airplanes/MaddogX20th/flight_model.cfg
+MU2,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+MX2,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+OPCA,sim_manual,UP / 10 / 20 / 30 / 40 / 50,,https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/AeroElvira_Optica_Manual_v3.pdf
+P51,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+PC12,reference_profile,UP / 15 / 30 / 40,,https://oldwww.pilatus-aircraft.com/data/news/5922fd2caa180_Pilatus-Aircraft-Ltd-PC-12NG-Flight-International-magazine-J.pdf
+PC24,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+PC6T,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+PIT1,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+PIT2,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+PIVI,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+R22,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+R44,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+R66,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+S12,sim_manual,-10 / -5 / 0 / 5 / 10 / 16,,https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/Stemme_S12G_Manual_v3.pdf
+S17,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+S55,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+S64,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+SC7,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+SEST,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+SF34,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+SF50,reference_profile,UP / 50% / 100%,,https://cirrusaircraft.com/
+SHIP,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+SR22,reference_profile,UP / 50% / 100%,,https://cirrusaircraft.com/
+T6,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+TAUR,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+TBM9,reference_profile,UP / TO / LDG,,https://www.tbm.aero/documents/file/130
+UHEL,no_wing_flaps,,,https://www.flightsimulator.com/aircraft-manuals/
+ULAC,provider_dependent,UP / 10,HAWK ARROW | CGS HAWK,https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/CGS_HAWK_ARROW_II_USER_MANUAL_MSFS.pdf
+VL3,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+WILG,provider_dependent,UP / 11 / 22 / 33 / 44,DRACO,https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/Patey_DracoX_Manual_v3.pdf
+WSCO,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+ZLIN,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ
+ZZZZ,unverified,,,https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ

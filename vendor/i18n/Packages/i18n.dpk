@@ -3,14 +3,15 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
-package i18n;
+Package i18n;
 
 {$R *.res}
+{$R *.otares}
 {$IFDEF IMPLICITBUILDING This IFDEF should not be used by users}
 {$ALIGN 8}
 {$ASSERTIONS ON}
@@ -19,64 +20,64 @@ package i18n;
 {$EXTENDEDSYNTAX ON}
 {$IMPORTEDDATA ON}
 {$IOCHECKS ON}
-{$LOCALSYMBOLS OFF}
+{$LOCALSYMBOLS ON}
 {$LONGSTRINGS ON}
 {$OPENSTRINGS ON}
-{$OPTIMIZATION ON}
+{$OPTIMIZATION OFF}
 {$OVERFLOWCHECKS OFF}
 {$RANGECHECKS OFF}
-{$REFERENCEINFO OFF}
+{$REFERENCEINFO ON}
 {$SAFEDIVIDE OFF}
-{$STACKFRAMES OFF}
+{$STACKFRAMES ON}
 {$TYPEDADDRESS OFF}
 {$VARSTRINGCHECKS ON}
 {$WRITEABLECONST OFF}
 {$MINENUMSIZE 1}
 {$IMAGEBASE $400000}
-{$DEFINE RELEASE}
+{$DEFINE DEBUG}
 {$ENDIF IMPLICITBUILDING}
 {$DESCRIPTION 'i18n Internationalization Components'}
 {$RUNONLY}
 {$IMPLICITBUILD ON}
 
-requires
-  rtl,
-  vcl,
-  xmlrtl,
-  vclx;
+Requires
+ rtl,
+ vcl,
+ xmlrtl,
+ vclx;
 
-contains
-  i18nCore in 'i18nCore.pas',
-  i18nMD5 in 'i18nMD5.pas',
-  i18nJSON in 'i18nJSON.pas',
-  i18nHashList in 'i18nHashList.pas',
-  i18nCatalog in 'i18nCatalog.pas',
-  i18nLocalizer in 'i18nLocalizer.pas',
-  i18nCtrls in 'i18nCtrls.pas',
-  i18nDialogs in 'i18nDialogs.pas',
-  i18nGoogle in 'i18nGoogle.pas',
-  i18nCalendar in 'i18nCalendar.pas',
-  i18nUtils in 'i18nUtils.pas',
-  i18nBiDi in 'i18nBiDi.pas',
-  i18nUnicode in 'i18nUnicode.pas',
-  i18nWinNLS in 'i18nWinNLS.pas',
-  i18nDateCtrls in 'i18nDateCtrls.pas',
-  i18nCalGregorian in 'i18nCalGregorian.pas',
-  i18nCalJalali in 'i18nCalJalali.pas',
-  i18nCalHebrew in 'i18nCalHebrew.pas',
-  i18nCalHijri in 'i18nCalHijri.pas',
-  i18nCalThai in 'i18nCalThai.pas',
-  i18nCalKorean in 'i18nCalKorean.pas',
-  i18nCalendars in 'i18nCalendars.pas',
-  i18nCalTaiwan in 'i18nCalTaiwan.pas',
-  i18nCalJapanese in 'i18nCalJapanese.pas',
-  i18nCalJulian in 'i18nCalJulian.pas',
-  i18nParser in 'i18nParser.pas',
-  i18nPlurals in 'i18nPlurals.pas',
-  i18nCExpr in 'i18nCExpr.pas',
-  i18nZStrList in 'i18nZStrList.pas',
-  i18nHTTP in 'i18nHTTP.pas',
-  i18nBBCode in 'i18nBBCode.pas',
-  i18nAstronomy in 'i18nAstronomy.pas';
+Contains
+ i18nCore         In 'i18nCore.pas',
+ i18nMD5          In 'i18nMD5.pas',
+ i18nJSON         In 'i18nJSON.pas',
+ i18nHashList     In 'i18nHashList.pas',
+ i18nCatalog      In 'i18nCatalog.pas',
+ i18nLocalizer    In 'i18nLocalizer.pas',
+ i18nCtrls        In 'i18nCtrls.pas',
+ i18nDialogs      In 'i18nDialogs.pas',
+ i18nGoogle       In 'i18nGoogle.pas',
+ i18nCalendar     In 'i18nCalendar.pas',
+ i18nUtils        In 'i18nUtils.pas',
+ i18nBiDi         In 'i18nBiDi.pas',
+ i18nUnicode      In 'i18nUnicode.pas',
+ i18nWinNLS       In 'i18nWinNLS.pas',
+ i18nDateCtrls    In 'i18nDateCtrls.pas',
+ i18nCalGregorian In 'i18nCalGregorian.pas',
+ i18nCalJalali    In 'i18nCalJalali.pas',
+ i18nCalHebrew    In 'i18nCalHebrew.pas',
+ i18nCalHijri     In 'i18nCalHijri.pas',
+ i18nCalThai      In 'i18nCalThai.pas',
+ i18nCalKorean    In 'i18nCalKorean.pas',
+ i18nCalendars    In 'i18nCalendars.pas',
+ i18nCalTaiwan    In 'i18nCalTaiwan.pas',
+ i18nCalJapanese  In 'i18nCalJapanese.pas',
+ i18nCalJulian    In 'i18nCalJulian.pas',
+ i18nParser       In 'i18nParser.pas',
+ i18nPlurals      In 'i18nPlurals.pas',
+ i18nCExpr        In 'i18nCExpr.pas',
+ i18nZStrList     In 'i18nZStrList.pas',
+ i18nHTTP         In 'i18nHTTP.pas',
+ i18nBBCode       In 'i18nBBCode.pas',
+ i18nAstronomy    In 'i18nAstronomy.pas';
 
-end.
+End.

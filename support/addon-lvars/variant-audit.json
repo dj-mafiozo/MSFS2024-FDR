@@ -1,0 +1,318 @@
+[
+  {
+    "provider": "CSS737",
+    "variants": [
+      {
+        "variant": "CSS_B737_500",
+        "literal_read_count_in_local_xml": 1221,
+        "local_xml": [
+          {
+            "file": "CSS_B737_500/model/B735_Exterior.xml",
+            "sha256": "4ad90d4076ff78921321dc01cddd56e25a01dc6fd0113ba15d5d9cdb0da501da"
+          },
+          {
+            "file": "CSS_B737_500/model/B735_Interior.xml",
+            "sha256": "1f5ec52e0f95b5921ef21a9e267cc1df7c91d89a29f8bf14f3f37fda2cab3601"
+          }
+        ],
+        "inheritance_note": "No local XML is not proof of no variables: variants may reference a shared model/base_container."
+      }
+    ],
+    "union_literal_count": 1221
+  },
+  {
+    "provider": "MaddogX",
+    "variants": [
+      {
+        "variant": "MaddogX20th",
+        "literal_read_count_in_local_xml": 365,
+        "local_xml": [
+          {
+            "file": "MaddogX20th/model/MaddogX_Behaviors.xml",
+            "sha256": "9a74f08aef62755d14c8c378209426ded7c72a8b66628a716abe43267ff66316"
+          },
+          {
+            "file": "MaddogX20th/model/MaddogX_exterior.xml",
+            "sha256": "414f86a83e83bd626d1c8461449e0495f09427c557b9ee1eac8a462b90282f4c"
+          },
+          {
+            "file": "MaddogX20th/model/MaddogX_FX.xml",
+            "sha256": "306c0f40c844c576e9e1414eb912d6cdfdff451714c7d3c91d35060e3a48b83d"
+          },
+          {
+            "file": "MaddogX20th/model/MaddogX_interior.xml",
+            "sha256": "b5660fdeb3816b70c28ba75a65398e319eb18057c3d1f4b6b6d1ca15584832f4"
+          }
+        ],
+        "inheritance_note": "No local XML is not proof of no variables: variants may reference a shared model/base_container."
+      },
+      {
+        "variant": "MaddogX20th83",
+        "literal_read_count_in_local_xml": 4,
+        "local_xml": [
+          {
+            "file": "MaddogX20th83/model.AAL/MaddogX_exterior.xml",
+            "sha256": "af1af897669df065d8153469b535befc696f4d3225504a5abe18af810927a94b"
+          }
+        ],
+        "inheritance_note": "No local XML is not proof of no variables: variants may reference a shared model/base_container."
+      },
+      {
+        "variant": "MaddogX20th88",
+        "literal_read_count_in_local_xml": 4,
+        "local_xml": [
+          {
+            "file": "MaddogX20th88/model.DAL/MaddogX_exterior.xml",
+            "sha256": "345ba59b3d3f38fec80e8e1dcc4cdb35845a5b6ba6ddf6baebfc180f0352aa06"
+          }
+        ],
+        "inheritance_note": "No local XML is not proof of no variables: variants may reference a shared model/base_container."
+      }
+    ],
+    "union_literal_count": 365
+  },
+  {
+    "provider": "PMDGDC6",
+    "variants": [
+      {
+        "variant": "PMDG DC-6A",
+        "literal_read_count_in_local_xml": 904,
+        "local_xml": [
+          {
+            "file": "PMDG DC-6A/model/PMDG_DC-6A_Exterior.xml",
+            "sha256": "bbb1efdeef55fea92e2330bc460f104064c2a0034e57b49f5d60a30844122bea"
+          },
+          {
+            "file": "PMDG DC-6A/model/PMDG_DC-6A_VC.xml",
+            "sha256": "d66ec63375ec91d52fdc184ae69678651e09f7885262f27e5cb90a6dce993091"
+          }
+        ],
+        "inheritance_note": "No local XML is not proof of no variables: variants may reference a shared model/base_container."
+      },
+      {
+        "variant": "PMDG DC-6B",
+        "literal_read_count_in_local_xml": 904,
+        "local_xml": [
+          {
+            "file": "PMDG DC-6B/model/PMDG_DC-6B_Exterior.xml",
+            "sha256": "3eac22257ad5f87e51a485b022487c5ec90ea29ff42ccf34eb1aeeea29019293"
+          },
+          {
+            "file": "PMDG DC-6B/model/PMDG_DC-6B_VC.xml",
+            "sha256": "0e5aca94b05b6d3ac6d4e85346bb9c6738381f61389dfea46a78751f5d0a9c83"
+          },
+          {
+            "file": "PMDG DC-6B/model.6BP/PMDG_DC-6BP_Exterior.xml",
+            "sha256": "5cb78101b7c94ee06d3280abf4832f16d3320ddc1b54c576d13ecff62f4fd170"
+          },
+          {
+            "file": "PMDG DC-6B/model.6BP/PMDG_DC-6BP_VC.xml",
+            "sha256": "929ad36b3d3654b77f2710936d18dde32f9c45aba7e97e10d3b52ebf460dfc84"
+          }
+        ],
+        "inheritance_note": "No local XML is not proof of no variables: variants may reference a shared model/base_container."
+      }
+    ],
+    "union_literal_count": 904
+  },
+  {
+    "provider": "SkySimDC9",
+    "variants": [
+      {
+        "variant": "SKYSIM_DC91",
+        "literal_read_count_in_local_xml": 488,
+        "local_xml": [
+          {
+            "file": "SKYSIM_DC91/model/SKYDC91_VC.XML",
+            "sha256": "ae8735f00963351ce0dcf37df750e3518ea63a6b4e47418a08040988182b4862"
+          },
+          {
+            "file": "SKYSIM_DC91/model/SKY_DC91.xml",
+            "sha256": "a7dc42a091734826a1edb99ed0030a30dc91246075c50c0c766cf922d6bc9eaf"
+          }
+        ],
+        "inheritance_note": "No local XML is not proof of no variables: variants may reference a shared model/base_container."
+      },
+      {
+        "variant": "SKYSIM_DC91F",
+        "literal_read_count_in_local_xml": 488,
+        "local_xml": [
+          {
+            "file": "SKYSIM_DC91F/model/SKYDC91F_VC.XML",
+            "sha256": "5251c2d7c3e953c4954eec4086a8afe3d3a26b1e2dbf331db549d8f5d1338223"
+          },
+          {
+            "file": "SKYSIM_DC91F/model/SKY_DC91F.xml",
+            "sha256": "a3338fd83bb80e3ec560c723fc473446928d515171a22bfcfddcaadf1693e630"
+          }
+        ],
+        "inheritance_note": "No local XML is not proof of no variables: variants may reference a shared model/base_container."
+      },
+      {
+        "variant": "SKYSIM_DC93",
+        "literal_read_count_in_local_xml": 488,
+        "local_xml": [
+          {
+            "file": "SKYSIM_DC93/model/SKYDC93_VC.xml",
+            "sha256": "7f70804bc613ed180c1b64d21dc0b999863d0edec0346cd2f9fd54ab2b9cba72"
+          },
+          {
+            "file": "SKYSIM_DC93/model/SKY_DC93.xml",
+            "sha256": "f899e842c32f3f2384261c399118bed0b62872539df547d1e148fc15c2576ca7"
+          }
+        ],
+        "inheritance_note": "No local XML is not proof of no variables: variants may reference a shared model/base_container."
+      },
+      {
+        "variant": "SKYSIM_DC93F",
+        "literal_read_count_in_local_xml": 488,
+        "local_xml": [
+          {
+            "file": "SKYSIM_DC93F/model/SKYDC93F_VC.XML",
+            "sha256": "a1ccab9f743bfb1b8f949e8e996e284ac3196f04788c502c8223b55467fbbec1"
+          },
+          {
+            "file": "SKYSIM_DC93F/model/SKY_DC93F.xml",
+            "sha256": "b4fe2e9ce6962ef5d1ae5d710ee91d9edc6800aed726bc6eec553ac2a4512207"
+          }
+        ],
+        "inheritance_note": "No local XML is not proof of no variables: variants may reference a shared model/base_container."
+      }
+    ],
+    "union_literal_count": 488
+  },
+  {
+    "provider": "SkySimMD11",
+    "variants": [
+      {
+        "variant": "SKYSIM_MD11",
+        "literal_read_count_in_local_xml": 320,
+        "local_xml": [
+          {
+            "file": "SKYSIM_MD11/model/SKYMD11_VC.XML",
+            "sha256": "9856a09fb44e77bead52f44e01d1df65fd6e1372c24fd61ffb9de602417197a0"
+          },
+          {
+            "file": "SKYSIM_MD11/model/SKY_MD11.xml",
+            "sha256": "62d0fb955d8f24c946e152f4b35724c3d78e8460d233cd46f2c54838f27f90a2"
+          },
+          {
+            "file": "SKYSIM_MD11/model.AZA/SKY_MD11.xml",
+            "sha256": "62d0fb955d8f24c946e152f4b35724c3d78e8460d233cd46f2c54838f27f90a2"
+          },
+          {
+            "file": "SKYSIM_MD11/model.KLM/SKY_MD11.xml",
+            "sha256": "62d0fb955d8f24c946e152f4b35724c3d78e8460d233cd46f2c54838f27f90a2"
+          }
+        ],
+        "inheritance_note": "No local XML is not proof of no variables: variants may reference a shared model/base_container."
+      },
+      {
+        "variant": "SKYSIM_MD11GF",
+        "literal_read_count_in_local_xml": 320,
+        "local_xml": [
+          {
+            "file": "SKYSIM_MD11GF/model.F/SKYMD11_VC.xml",
+            "sha256": "58ccdf069392289947d1b7bc5d4011bf07d3759482ed3baa1336ef370be280be"
+          },
+          {
+            "file": "SKYSIM_MD11GF/model.F/SKY_MD11.xml",
+            "sha256": "9c3186d4a335463adacf4cb16ce9a37e14269bc5da7cefc82ae8941bec331d55"
+          }
+        ],
+        "inheritance_note": "No local XML is not proof of no variables: variants may reference a shared model/base_container."
+      },
+      {
+        "variant": "SKYSIM_MD11P",
+        "literal_read_count_in_local_xml": 14,
+        "local_xml": [
+          {
+            "file": "SKYSIM_MD11P/model/SKY_MD11.xml",
+            "sha256": "3d1d2a6cd5c13e2486a7ae9be31c094519ca5c5752d68d889ee68ae50ae90fd8"
+          },
+          {
+            "file": "SKYSIM_MD11P/model.JAL/SKY_MD11.xml",
+            "sha256": "3d1d2a6cd5c13e2486a7ae9be31c094519ca5c5752d68d889ee68ae50ae90fd8"
+          },
+          {
+            "file": "SKYSIM_MD11P/model.LTU/SKY_MD11.xml",
+            "sha256": "3d1d2a6cd5c13e2486a7ae9be31c094519ca5c5752d68d889ee68ae50ae90fd8"
+          },
+          {
+            "file": "SKYSIM_MD11P/model.SV/SKY_MD11.xml",
+            "sha256": "3d1d2a6cd5c13e2486a7ae9be31c094519ca5c5752d68d889ee68ae50ae90fd8"
+          },
+          {
+            "file": "SKYSIM_MD11P/model.SWS/SKY_MD11.xml",
+            "sha256": "3d1d2a6cd5c13e2486a7ae9be31c094519ca5c5752d68d889ee68ae50ae90fd8"
+          }
+        ],
+        "inheritance_note": "No local XML is not proof of no variables: variants may reference a shared model/base_container."
+      },
+      {
+        "variant": "SKYSIM_MD11PF",
+        "literal_read_count_in_local_xml": 14,
+        "local_xml": [
+          {
+            "file": "SKYSIM_MD11PF/model.PF/SKY_MD11.xml",
+            "sha256": "c14d8277272ebad2bcf1f809b1eac7ea3fa713fbdcc432c5102e720c315f9a20"
+          }
+        ],
+        "inheritance_note": "No local XML is not proof of no variables: variants may reference a shared model/base_container."
+      }
+    ],
+    "union_literal_count": 320
+  },
+  {
+    "provider": "TFDiMD11",
+    "variants": [
+      {
+        "variant": "TFDi_Design_MD-11F_GE",
+        "literal_read_count_in_local_xml": 1446,
+        "local_xml": [
+          {
+            "file": "TFDi_Design_MD-11F_GE/model.BCF/TFDi_MD11_EXT.xml",
+            "sha256": "aad1d6540e9ea1a114e2ef046bea5f28a31f27fb51d99798d50d2838e4780e69"
+          },
+          {
+            "file": "TFDi_Design_MD-11F_GE/model.F/TFDi_MD11_EXT.xml",
+            "sha256": "aad1d6540e9ea1a114e2ef046bea5f28a31f27fb51d99798d50d2838e4780e69"
+          },
+          {
+            "file": "TFDi_Design_MD-11F_GE/model.F/TFDi_MD11_INT.xml",
+            "sha256": "5ebf1ae6d87127171e5d318f355e0b55931ce6d9efc84c7eed8e8a83c5792a59"
+          }
+        ],
+        "inheritance_note": "No local XML is not proof of no variables: variants may reference a shared model/base_container."
+      },
+      {
+        "variant": "TFDi_Design_MD-11F_PW",
+        "literal_read_count_in_local_xml": 0,
+        "local_xml": [],
+        "inheritance_note": "No local XML is not proof of no variables: variants may reference a shared model/base_container."
+      },
+      {
+        "variant": "TFDi_Design_MD-11_GE",
+        "literal_read_count_in_local_xml": 1446,
+        "local_xml": [
+          {
+            "file": "TFDi_Design_MD-11_GE/model/TFDi_MD11_EXT.xml",
+            "sha256": "aad1d6540e9ea1a114e2ef046bea5f28a31f27fb51d99798d50d2838e4780e69"
+          },
+          {
+            "file": "TFDi_Design_MD-11_GE/model/TFDi_MD11_INT.xml",
+            "sha256": "5b9a966008d3629a60f31d95c2c604617699b39be7dead98316ecd276b6795e7"
+          }
+        ],
+        "inheritance_note": "No local XML is not proof of no variables: variants may reference a shared model/base_container."
+      },
+      {
+        "variant": "TFDi_Design_MD-11_PW",
+        "literal_read_count_in_local_xml": 0,
+        "local_xml": [],
+        "inheritance_note": "No local XML is not proof of no variables: variants may reference a shared model/base_container."
+      }
+    ],
+    "union_literal_count": 1446
+  }
+]

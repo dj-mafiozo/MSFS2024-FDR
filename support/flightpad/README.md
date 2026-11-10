@@ -4,6 +4,11 @@
 
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
+## Eksport v2 (0.1.0.9)
+
+`ExportAppearance` dodaje 336 komórek RGB/flags, stany znanych i nieznanych kontrolek, stronę, nakładkę i tekst. Mapping `Local\FlightPadFMC.Screen.v2.<profil>.<PID>` jest chroniony dotychczasowym mutexem v1 `.Lock`. Packed record: 66316 bajtów, w tym niezmieniony 776-bajtowy nagłówek tekstowy oraz limit 32768 jednostek UTF-16 JSON. Cały obraz jest kopiowany pod jednym mutexem. V1 pozostaje publikowany równolegle. Heartbeat nie zmienia timestampu ekranu; zmiana wyłącznie formatowania/kontrolki zmienia go. Czytnik v2 przechowuje również stan niedostępny z nakładką, a v1 zachowuje dotychczasowy kontrakt. Moc elektryczna nie jest wnioskowana z połączenia. Poniższa specyfikacja tekstowego v1 opisuje zgodność wsteczną.
+
+
 
 FDR automatycznie odczytuje pełny tekst ekranu z uruchomionego klienta Windows
 FlightPadFMC dla Fenixa A32X lub FlyByWire A32NX. Obsługiwane są programy

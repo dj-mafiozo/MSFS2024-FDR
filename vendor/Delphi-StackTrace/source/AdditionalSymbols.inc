@@ -3,35 +3,35 @@
 //
 // https://docwiki.embarcadero.com/RADStudio/Alexandria/en/Compiler_Versions
 
-{$undef Delphi2}
-{$undef Delphi3}
-{$undef Delphi4}
-{$undef Delphi5}
-{$undef Delphi6}
-{$undef Delphi7}
-{$undef Delphi8}
-{$undef D2005}
-{$undef D2006}
-{$undef D2007}
-{$undef D2009}
-{$undef D2010}
-{$undef D2011}
-{$undef DelphiXE}
-{$undef DelphiXE2}
-{$undef DelphiXE3}
-{$undef DelphiXE4}
-{$undef DelphiXE5}
-{$undef DelphiXE6}
-{$undef DelphiXE7}
-{$undef DelphiXE8}
-{$undef Delphi10}
-{$undef Delphi101}
-{$undef Delphi102}
-{$undef Delphi103}
-{$undef Delphi104}
-{$undef Delphi11}
-{$undef Delphi12}
-{$undef Delphi13}
+{$Undef Delphi2}
+{$Undef Delphi3}
+{$Undef Delphi4}
+{$Undef Delphi5}
+{$Undef Delphi6}
+{$Undef Delphi7}
+{$Undef Delphi8}
+{$Undef D2005}
+{$Undef D2006}
+{$Undef D2007}
+{$Undef D2009}
+{$Undef D2010}
+{$Undef D2011}
+{$Undef DelphiXE}
+{$Undef DelphiXE2}
+{$Undef DelphiXE3}
+{$Undef DelphiXE4}
+{$Undef DelphiXE5}
+{$Undef DelphiXE6}
+{$Undef DelphiXE7}
+{$Undef DelphiXE8}
+{$Undef Delphi10}
+{$Undef Delphi101}
+{$Undef Delphi102}
+{$Undef Delphi103}
+{$Undef Delphi104}
+{$Undef Delphi11}
+{$Undef Delphi12}
+{$Undef Delphi13}
 
 // D2: VER90
 // D3: VER100
@@ -45,441 +45,440 @@
 // D2007: VER190
 
 // D2009:
-{$ifdef VER200}
-  {$define Delphi2}
-  {$define Delphi3}
-  {$define Delphi4}
-  {$define Delphi5}
-  {$define Delphi6}
-  {$define Delphi7}
-  {$define Delphi8}
-  {$define D2005}
-  {$define D2006}
-  {$define D2007}
-  {$define D2009}
-{$endif}
+{$Ifdef VER200}
+  {$Define Delphi2}
+  {$Define Delphi3}
+  {$Define Delphi4}
+  {$Define Delphi5}
+  {$Define Delphi6}
+  {$Define Delphi7}
+  {$Define Delphi8}
+  {$Define D2005}
+  {$Define D2006}
+  {$Define D2007}
+  {$Define D2009}
+{$Endif}
 
 // D2010:
-{$ifdef VER210}
-  {$define Delphi2}
-  {$define Delphi3}
-  {$define Delphi4}
-  {$define Delphi5}
-  {$define Delphi6}
-  {$define Delphi7}
-  {$define Delphi8}
-  {$define D2005}
-  {$define D2006}
-  {$define D2007}
-  {$define D2009}
-  {$define D2010}
-{$endif}
+{$Ifdef VER210}
+  {$Define Delphi2}
+  {$Define Delphi3}
+  {$Define Delphi4}
+  {$Define Delphi5}
+  {$Define Delphi6}
+  {$Define Delphi7}
+  {$Define Delphi8}
+  {$Define D2005}
+  {$Define D2006}
+  {$Define D2007}
+  {$Define D2009}
+  {$Define D2010}
+{$Endif}
 
 // D2011/XE:
-{$ifdef VER220}
-  {$define Delphi2}
-  {$define Delphi3}
-  {$define Delphi4}
-  {$define Delphi5}
-  {$define Delphi6}
-  {$define Delphi7}
-  {$define Delphi8}
-  {$define D2005}
-  {$define D2006}
-  {$define D2007}
-  {$define D2009}
-  {$define D2010}
-  {$define D2011}
-  {$define DelphiXE}
-{$endif}
+{$Ifdef VER220}
+  {$Define Delphi2}
+  {$Define Delphi3}
+  {$Define Delphi4}
+  {$Define Delphi5}
+  {$Define Delphi6}
+  {$Define Delphi7}
+  {$Define Delphi8}
+  {$Define D2005}
+  {$Define D2006}
+  {$Define D2007}
+  {$Define D2009}
+  {$Define D2010}
+  {$Define D2011}
+  {$Define DelphiXE}
+{$Endif}
 
 // XE2:
-{$ifdef VER230}
-  {$define Delphi2}
-  {$define Delphi3}
-  {$define Delphi4}
-  {$define Delphi5}
-  {$define Delphi6}
-  {$define Delphi7}
-  {$define Delphi8}
-  {$define D2005}
-  {$define D2006}
-  {$define D2007}
-  {$define D2009}
-  {$define D2010}
-  {$define D2011}
-  {$define DelphiXE}
-  {$define DelphiXE2}
-{$endif}
+{$Ifdef VER230}
+  {$Define Delphi2}
+  {$Define Delphi3}
+  {$Define Delphi4}
+  {$Define Delphi5}
+  {$Define Delphi6}
+  {$Define Delphi7}
+  {$Define Delphi8}
+  {$Define D2005}
+  {$Define D2006}
+  {$Define D2007}
+  {$Define D2009}
+  {$Define D2010}
+  {$Define D2011}
+  {$Define DelphiXE}
+  {$Define DelphiXE2}
+{$Endif}
 
 // XE3:
-{$ifdef VER240}
-  {$define Delphi2}
-  {$define Delphi3}
-  {$define Delphi4}
-  {$define Delphi5}
-  {$define Delphi6}
-  {$define Delphi7}
-  {$define Delphi8}
-  {$define D2005}
-  {$define D2006}
-  {$define D2007}
-  {$define D2009}
-  {$define D2010}
-  {$define D2011}
-  {$define DelphiXE}
-  {$define DelphiXE2}
-  {$define DelphiXE3}
-{$endif}
+{$Ifdef VER240}
+  {$Define Delphi2}
+  {$Define Delphi3}
+  {$Define Delphi4}
+  {$Define Delphi5}
+  {$Define Delphi6}
+  {$Define Delphi7}
+  {$Define Delphi8}
+  {$Define D2005}
+  {$Define D2006}
+  {$Define D2007}
+  {$Define D2009}
+  {$Define D2010}
+  {$Define D2011}
+  {$Define DelphiXE}
+  {$Define DelphiXE2}
+  {$Define DelphiXE3}
+{$Endif}
 
 // XE4:
-{$ifdef VER250}
-  {$define Delphi2}
-  {$define Delphi3}
-  {$define Delphi4}
-  {$define Delphi5}
-  {$define Delphi6}
-  {$define Delphi7}
-  {$define Delphi8}
-  {$define D2005}
-  {$define D2006}
-  {$define D2007}
-  {$define D2009}
-  {$define D2010}
-  {$define D2011}
-  {$define DelphiXE}
-  {$define DelphiXE2}
-  {$define DelphiXE3}
-  {$define DelphiXE4}
-{$endif}
+{$Ifdef VER250}
+  {$Define Delphi2}
+  {$Define Delphi3}
+  {$Define Delphi4}
+  {$Define Delphi5}
+  {$Define Delphi6}
+  {$Define Delphi7}
+  {$Define Delphi8}
+  {$Define D2005}
+  {$Define D2006}
+  {$Define D2007}
+  {$Define D2009}
+  {$Define D2010}
+  {$Define D2011}
+  {$Define DelphiXE}
+  {$Define DelphiXE2}
+  {$Define DelphiXE3}
+  {$Define DelphiXE4}
+{$Endif}
 
 // XE5:
-{$ifdef VER260}
-  {$define Delphi2}
-  {$define Delphi3}
-  {$define Delphi4}
-  {$define Delphi5}
-  {$define Delphi6}
-  {$define Delphi7}
-  {$define Delphi8}
-  {$define D2005}
-  {$define D2006}
-  {$define D2007}
-  {$define D2009}
-  {$define D2010}
-  {$define D2011}
-  {$define DelphiXE}
-  {$define DelphiXE2}
-  {$define DelphiXE3}
-  {$define DelphiXE4}
-  {$define DelphiXE5}
-{$endif}
+{$Ifdef VER260}
+  {$Define Delphi2}
+  {$Define Delphi3}
+  {$Define Delphi4}
+  {$Define Delphi5}
+  {$Define Delphi6}
+  {$Define Delphi7}
+  {$Define Delphi8}
+  {$Define D2005}
+  {$Define D2006}
+  {$Define D2007}
+  {$Define D2009}
+  {$Define D2010}
+  {$Define D2011}
+  {$Define DelphiXE}
+  {$Define DelphiXE2}
+  {$Define DelphiXE3}
+  {$Define DelphiXE4}
+  {$Define DelphiXE5}
+{$Endif}
 
 // XE6:
-{$ifdef VER270}
-  {$define Delphi2}
-  {$define Delphi3}
-  {$define Delphi4}
-  {$define Delphi5}
-  {$define Delphi6}
-  {$define Delphi7}
-  {$define Delphi8}
-  {$define D2005}
-  {$define D2006}
-  {$define D2007}
-  {$define D2009}
-  {$define D2010}
-  {$define D2011}
-  {$define DelphiXE}
-  {$define DelphiXE2}
-  {$define DelphiXE3}
-  {$define DelphiXE4}
-  {$define DelphiXE5}
-  {$define DelphiXE6}
-{$endif}
+{$Ifdef VER270}
+  {$Define Delphi2}
+  {$Define Delphi3}
+  {$Define Delphi4}
+  {$Define Delphi5}
+  {$Define Delphi6}
+  {$Define Delphi7}
+  {$Define Delphi8}
+  {$Define D2005}
+  {$Define D2006}
+  {$Define D2007}
+  {$Define D2009}
+  {$Define D2010}
+  {$Define D2011}
+  {$Define DelphiXE}
+  {$Define DelphiXE2}
+  {$Define DelphiXE3}
+  {$Define DelphiXE4}
+  {$Define DelphiXE5}
+  {$Define DelphiXE6}
+{$Endif}
 
 // XE7:
-{$ifdef VER280}
-  {$define Delphi2}
-  {$define Delphi3}
-  {$define Delphi4}
-  {$define Delphi5}
-  {$define Delphi6}
-  {$define Delphi7}
-  {$define Delphi8}
-  {$define D2005}
-  {$define D2006}
-  {$define D2007}
-  {$define D2009}
-  {$define D2010}
-  {$define D2011}
-  {$define DelphiXE}
-  {$define DelphiXE2}
-  {$define DelphiXE3}
-  {$define DelphiXE4}
-  {$define DelphiXE5}
-  {$define DelphiXE6}
-  {$define DelphiXE7}
-{$endif}
+{$Ifdef VER280}
+  {$Define Delphi2}
+  {$Define Delphi3}
+  {$Define Delphi4}
+  {$Define Delphi5}
+  {$Define Delphi6}
+  {$Define Delphi7}
+  {$Define Delphi8}
+  {$Define D2005}
+  {$Define D2006}
+  {$Define D2007}
+  {$Define D2009}
+  {$Define D2010}
+  {$Define D2011}
+  {$Define DelphiXE}
+  {$Define DelphiXE2}
+  {$Define DelphiXE3}
+  {$Define DelphiXE4}
+  {$Define DelphiXE5}
+  {$Define DelphiXE6}
+  {$Define DelphiXE7}
+{$Endif}
 
 // XE8:
-{$ifdef VER290}
-  {$define Delphi2}
-  {$define Delphi3}
-  {$define Delphi4}
-  {$define Delphi5}
-  {$define Delphi6}
-  {$define Delphi7}
-  {$define Delphi8}
-  {$define D2005}
-  {$define D2006}
-  {$define D2007}
-  {$define D2009}
-  {$define D2010}
-  {$define D2011}
-  {$define DelphiXE}
-  {$define DelphiXE2}
-  {$define DelphiXE3}
-  {$define DelphiXE4}
-  {$define DelphiXE5}
-  {$define DelphiXE6}
-  {$define DelphiXE7}
-  {$define DelphiXE8}
-{$endif}
+{$Ifdef VER290}
+  {$Define Delphi2}
+  {$Define Delphi3}
+  {$Define Delphi4}
+  {$Define Delphi5}
+  {$Define Delphi6}
+  {$Define Delphi7}
+  {$Define Delphi8}
+  {$Define D2005}
+  {$Define D2006}
+  {$Define D2007}
+  {$Define D2009}
+  {$Define D2010}
+  {$Define D2011}
+  {$Define DelphiXE}
+  {$Define DelphiXE2}
+  {$Define DelphiXE3}
+  {$Define DelphiXE4}
+  {$Define DelphiXE5}
+  {$Define DelphiXE6}
+  {$Define DelphiXE7}
+  {$Define DelphiXE8}
+{$Endif}
 
 // D10 Seattle:
-{$ifdef VER300}
-  {$define Delphi2}
-  {$define Delphi3}
-  {$define Delphi4}
-  {$define Delphi5}
-  {$define Delphi6}
-  {$define Delphi7}
-  {$define Delphi8}
-  {$define D2005}
-  {$define D2006}
-  {$define D2007}
-  {$define D2009}
-  {$define D2010}
-  {$define D2011}
-  {$define DelphiXE}
-  {$define DelphiXE2}
-  {$define DelphiXE3}
-  {$define DelphiXE4}
-  {$define DelphiXE5}
-  {$define DelphiXE6}
-  {$define DelphiXE7}
-  {$define DelphiXE8}
-  {$define Delphi10}
-{$endif}
+{$Ifdef VER300}
+  {$Define Delphi2}
+  {$Define Delphi3}
+  {$Define Delphi4}
+  {$Define Delphi5}
+  {$Define Delphi6}
+  {$Define Delphi7}
+  {$Define Delphi8}
+  {$Define D2005}
+  {$Define D2006}
+  {$Define D2007}
+  {$Define D2009}
+  {$Define D2010}
+  {$Define D2011}
+  {$Define DelphiXE}
+  {$Define DelphiXE2}
+  {$Define DelphiXE3}
+  {$Define DelphiXE4}
+  {$Define DelphiXE5}
+  {$Define DelphiXE6}
+  {$Define DelphiXE7}
+  {$Define DelphiXE8}
+  {$Define Delphi10}
+{$Endif}
 
 // D10.1 Berlin:
-{$ifdef VER310}
-  {$define Delphi2}
-  {$define Delphi3}
-  {$define Delphi4}
-  {$define Delphi5}
-  {$define Delphi6}
-  {$define Delphi7}
-  {$define Delphi8}
-  {$define D2005}
-  {$define D2006}
-  {$define D2007}
-  {$define D2009}
-  {$define D2010}
-  {$define D2011}
-  {$define DelphiXE}
-  {$define DelphiXE2}
-  {$define DelphiXE3}
-  {$define DelphiXE4}
-  {$define DelphiXE5}
-  {$define DelphiXE6}
-  {$define DelphiXE7}
-  {$define DelphiXE8}
-  {$define Delphi10}
-  {$define Delphi101}
-{$endif}
+{$Ifdef VER310}
+  {$Define Delphi2}
+  {$Define Delphi3}
+  {$Define Delphi4}
+  {$Define Delphi5}
+  {$Define Delphi6}
+  {$Define Delphi7}
+  {$Define Delphi8}
+  {$Define D2005}
+  {$Define D2006}
+  {$Define D2007}
+  {$Define D2009}
+  {$Define D2010}
+  {$Define D2011}
+  {$Define DelphiXE}
+  {$Define DelphiXE2}
+  {$Define DelphiXE3}
+  {$Define DelphiXE4}
+  {$Define DelphiXE5}
+  {$Define DelphiXE6}
+  {$Define DelphiXE7}
+  {$Define DelphiXE8}
+  {$Define Delphi10}
+  {$Define Delphi101}
+{$Endif}
 
 // D10.2 Tokyo:
-{$ifdef VER320}
-  {$define Delphi2}
-  {$define Delphi3}
-  {$define Delphi4}
-  {$define Delphi5}
-  {$define Delphi6}
-  {$define Delphi7}
-  {$define Delphi8}
-  {$define D2005}
-  {$define D2006}
-  {$define D2007}
-  {$define D2009}
-  {$define D2010}
-  {$define D2011}
-  {$define DelphiXE}
-  {$define DelphiXE2}
-  {$define DelphiXE3}
-  {$define DelphiXE4}
-  {$define DelphiXE5}
-  {$define DelphiXE6}
-  {$define DelphiXE7}
-  {$define DelphiXE8}
-  {$define Delphi10}
-  {$define Delphi101}
-  {$define Delphi102}
-{$endif}
+{$Ifdef VER320}
+  {$Define Delphi2}
+  {$Define Delphi3}
+  {$Define Delphi4}
+  {$Define Delphi5}
+  {$Define Delphi6}
+  {$Define Delphi7}
+  {$Define Delphi8}
+  {$Define D2005}
+  {$Define D2006}
+  {$Define D2007}
+  {$Define D2009}
+  {$Define D2010}
+  {$Define D2011}
+  {$Define DelphiXE}
+  {$Define DelphiXE2}
+  {$Define DelphiXE3}
+  {$Define DelphiXE4}
+  {$Define DelphiXE5}
+  {$Define DelphiXE6}
+  {$Define DelphiXE7}
+  {$Define DelphiXE8}
+  {$Define Delphi10}
+  {$Define Delphi101}
+  {$Define Delphi102}
+{$Endif}
 
 // D10.3 Rio:
-{$ifdef VER330}
-  {$define Delphi2}
-  {$define Delphi3}
-  {$define Delphi4}
-  {$define Delphi5}
-  {$define Delphi6}
-  {$define Delphi7}
-  {$define Delphi8}
-  {$define D2005}
-  {$define D2006}
-  {$define D2007}
-  {$define D2009}
-  {$define D2010}
-  {$define D2011}
-  {$define DelphiXE}
-  {$define DelphiXE2}
-  {$define DelphiXE3}
-  {$define DelphiXE4}
-  {$define DelphiXE5}
-  {$define DelphiXE6}
-  {$define DelphiXE7}
-  {$define DelphiXE8}
-  {$define Delphi10}
-  {$define Delphi101}
-  {$define Delphi102}
-  {$define Delphi103}
-{$endif}
+{$Ifdef VER330}
+  {$Define Delphi2}
+  {$Define Delphi3}
+  {$Define Delphi4}
+  {$Define Delphi5}
+  {$Define Delphi6}
+  {$Define Delphi7}
+  {$Define Delphi8}
+  {$Define D2005}
+  {$Define D2006}
+  {$Define D2007}
+  {$Define D2009}
+  {$Define D2010}
+  {$Define D2011}
+  {$Define DelphiXE}
+  {$Define DelphiXE2}
+  {$Define DelphiXE3}
+  {$Define DelphiXE4}
+  {$Define DelphiXE5}
+  {$Define DelphiXE6}
+  {$Define DelphiXE7}
+  {$Define DelphiXE8}
+  {$Define Delphi10}
+  {$Define Delphi101}
+  {$Define Delphi102}
+  {$Define Delphi103}
+{$Endif}
 
 // D10.4 Sydney:
-{$ifdef VER340}
-  {$define Delphi2}
-  {$define Delphi3}
-  {$define Delphi4}
-  {$define Delphi5}
-  {$define Delphi6}
-  {$define Delphi7}
-  {$define Delphi8}
-  {$define D2005}
-  {$define D2006}
-  {$define D2007}
-  {$define D2009}
-  {$define D2010}
-  {$define D2011}
-  {$define DelphiXE}
-  {$define DelphiXE2}
-  {$define DelphiXE3}
-  {$define DelphiXE4}
-  {$define DelphiXE5}
-  {$define DelphiXE6}
-  {$define DelphiXE7}
-  {$define DelphiXE8}
-  {$define Delphi10}
-  {$define Delphi101}
-  {$define Delphi102}
-  {$define Delphi103}
-  {$define Delphi104}
-{$endif}
+{$Ifdef VER340}
+  {$Define Delphi2}
+  {$Define Delphi3}
+  {$Define Delphi4}
+  {$Define Delphi5}
+  {$Define Delphi6}
+  {$Define Delphi7}
+  {$Define Delphi8}
+  {$Define D2005}
+  {$Define D2006}
+  {$Define D2007}
+  {$Define D2009}
+  {$Define D2010}
+  {$Define D2011}
+  {$Define DelphiXE}
+  {$Define DelphiXE2}
+  {$Define DelphiXE3}
+  {$Define DelphiXE4}
+  {$Define DelphiXE5}
+  {$Define DelphiXE6}
+  {$Define DelphiXE7}
+  {$Define DelphiXE8}
+  {$Define Delphi10}
+  {$Define Delphi101}
+  {$Define Delphi102}
+  {$Define Delphi103}
+  {$Define Delphi104}
+{$Endif}
 
 // D11.0 Alexandria
-{$ifdef VER350}
-  {$define Delphi2}
-  {$define Delphi3}
-  {$define Delphi4}
-  {$define Delphi5}
-  {$define Delphi6}
-  {$define Delphi7}
-  {$define Delphi8}
-  {$define D2005}
-  {$define D2006}
-  {$define D2007}
-  {$define D2009}
-  {$define D2010}
-  {$define D2011}
-  {$define DelphiXE}
-  {$define DelphiXE2}
-  {$define DelphiXE3}
-  {$define DelphiXE4}
-  {$define DelphiXE5}
-  {$define DelphiXE6}
-  {$define DelphiXE7}
-  {$define DelphiXE8}
-  {$define Delphi10}
-  {$define Delphi101}
-  {$define Delphi102}
-  {$define Delphi103}
-  {$define Delphi104}
-  {$define Delphi11}
-{$endif}
+{$Ifdef VER350}
+  {$Define Delphi2}
+  {$Define Delphi3}
+  {$Define Delphi4}
+  {$Define Delphi5}
+  {$Define Delphi6}
+  {$Define Delphi7}
+  {$Define Delphi8}
+  {$Define D2005}
+  {$Define D2006}
+  {$Define D2007}
+  {$Define D2009}
+  {$Define D2010}
+  {$Define D2011}
+  {$Define DelphiXE}
+  {$Define DelphiXE2}
+  {$Define DelphiXE3}
+  {$Define DelphiXE4}
+  {$Define DelphiXE5}
+  {$Define DelphiXE6}
+  {$Define DelphiXE7}
+  {$Define DelphiXE8}
+  {$Define Delphi10}
+  {$Define Delphi101}
+  {$Define Delphi102}
+  {$Define Delphi103}
+  {$Define Delphi104}
+  {$Define Delphi11}
+{$Endif}
 
 // D12.0 Athens
-{$ifdef VER360}
-  {$define Delphi2}
-  {$define Delphi3}
-  {$define Delphi4}
-  {$define Delphi5}
-  {$define Delphi6}
-  {$define Delphi7}
-  {$define Delphi8}
-  {$define D2005}
-  {$define D2006}
-  {$define D2007}
-  {$define D2009}
-  {$define D2010}
-  {$define D2011}
-  {$define DelphiXE}
-  {$define DelphiXE2}
-  {$define DelphiXE3}
-  {$define DelphiXE4}
-  {$define DelphiXE5}
-  {$define DelphiXE6}
-  {$define DelphiXE7}
-  {$define DelphiXE8}
-  {$define Delphi10}
-  {$define Delphi101}
-  {$define Delphi102}
-  {$define Delphi103}
-  {$define Delphi104}
-  {$define Delphi11}
-  {$define Delphi12}
-{$endif}
-
+{$Ifdef VER360}
+  {$Define Delphi2}
+  {$Define Delphi3}
+  {$Define Delphi4}
+  {$Define Delphi5}
+  {$Define Delphi6}
+  {$Define Delphi7}
+  {$Define Delphi8}
+  {$Define D2005}
+  {$Define D2006}
+  {$Define D2007}
+  {$Define D2009}
+  {$Define D2010}
+  {$Define D2011}
+  {$Define DelphiXE}
+  {$Define DelphiXE2}
+  {$Define DelphiXE3}
+  {$Define DelphiXE4}
+  {$Define DelphiXE5}
+  {$Define DelphiXE6}
+  {$Define DelphiXE7}
+  {$Define DelphiXE8}
+  {$Define Delphi10}
+  {$Define Delphi101}
+  {$Define Delphi102}
+  {$Define Delphi103}
+  {$Define Delphi104}
+  {$Define Delphi11}
+  {$Define Delphi12}
+{$Endif}
 
 // D13.0 Florence
-{$ifdef VER370}
-  {$define Delphi2}
-  {$define Delphi3}
-  {$define Delphi4}
-  {$define Delphi5}
-  {$define Delphi6}
-  {$define Delphi7}
-  {$define Delphi8}
-  {$define D2005}
-  {$define D2006}
-  {$define D2007}
-  {$define D2009}
-  {$define D2010}
-  {$define D2011}
-  {$define DelphiXE}
-  {$define DelphiXE2}
-  {$define DelphiXE3}
-  {$define DelphiXE4}
-  {$define DelphiXE5}
-  {$define DelphiXE6}
-  {$define DelphiXE7}
-  {$define DelphiXE8}
-  {$define Delphi10}
-  {$define Delphi101}
-  {$define Delphi102}
-  {$define Delphi103}
-  {$define Delphi104}
-  {$define Delphi11}
-  {$define Delphi12}
-  {$define Delphi13}
-{$endif}
+{$Ifdef VER370}
+  {$Define Delphi2}
+  {$Define Delphi3}
+  {$Define Delphi4}
+  {$Define Delphi5}
+  {$Define Delphi6}
+  {$Define Delphi7}
+  {$Define Delphi8}
+  {$Define D2005}
+  {$Define D2006}
+  {$Define D2007}
+  {$Define D2009}
+  {$Define D2010}
+  {$Define D2011}
+  {$Define DelphiXE}
+  {$Define DelphiXE2}
+  {$Define DelphiXE3}
+  {$Define DelphiXE4}
+  {$Define DelphiXE5}
+  {$Define DelphiXE6}
+  {$Define DelphiXE7}
+  {$Define DelphiXE8}
+  {$Define Delphi10}
+  {$Define Delphi101}
+  {$Define Delphi102}
+  {$Define Delphi103}
+  {$Define Delphi104}
+  {$Define Delphi11}
+  {$Define Delphi12}
+  {$Define Delphi13}
+{$Endif}

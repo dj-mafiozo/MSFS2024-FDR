@@ -9,18 +9,17 @@ Interface
 
  Type
   TfrmSimBrief = Class(TLocalizedForm)
-   Published
-    AppTranslator : TTranslator;
-    ViewGroupBox  : TGroupBox;
-    ViewHost      : TPanel;
-    btnClose      : TButton;
+   AppTranslator : TTranslator;
+   ViewGroupBox  : TGroupBox;
+   ViewHost      : TPanel;
+   btnClose      : TButton;
   End;
 
  Procedure ShowSimBriefWindow(View : TWinControl);
 
 Implementation
 
- {$R *.dfm}
+{$R *.dfm}
 
  Procedure ShowSimBriefWindow(View : TWinControl);
   Var

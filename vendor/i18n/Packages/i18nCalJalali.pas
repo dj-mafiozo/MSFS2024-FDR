@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -11,18 +11,18 @@
 /// <summary>
 /// This unit implements the Jalali (or Persian) calendar.
 /// </summary>
-unit i18nCalJalali;
+Unit i18nCalJalali;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-uses
+ Uses
   SysUtils, i18nCalendar;
 
-type
+ Type
 
-  {$region 'xmldoc'}
+  {$Region 'xmldoc'}
   /// <summary>
   /// This class implements the Jalali (or Persian) calendar.
   /// </summary>
@@ -63,22 +63,22 @@ type
   ///   </item>
   /// </list>
   /// </remarks>
-  {$endregion}
-  TJalaliCalendar = class(TCalendar)
-  protected
-    {$region 'xmldoc'}
+  {$Endregion}
+  TJalaliCalendar = Class(TCalendar)
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// The start of the Jalali calendar in Julian days (Imperial year 1).
     /// </summary>
-    {$endregion}
-    const JALALI_EPOCH = 1517699.5;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const JALALI_EPOCH = 1517699.5;
+    {$Region 'xmldoc'}
     /// <summary>
     /// The year offset between Hijri and Imperial eras in the Jalali calendar.
     /// </summary>
-    {$endregion}
-    const HIJRI_YEAR_OFFSET = 1180;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const HIJRI_YEAR_OFFSET = 1180;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a Jalali date represented by its year, month and day
     /// components to its corresponding Julian day.
@@ -96,9 +96,9 @@ type
     /// Julian day of the specified Jalali date.
     /// </returns>
     /// <seealso cref="FromJulianDay"/>
-    {$endregion}
-    function ToJulianDay(Year, Month, Day: Integer): Extended; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ToJulianDay(Year, Month, Day : Integer) : Extended; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a date expressed in Julian day, to its year, month, and day
     /// components in the Jalali calendar.
@@ -120,49 +120,49 @@ type
     /// returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="ToJulianDay"/>
-    {$endregion}
-    function FromJulianDay(const JD: Extended; out Year, Month, Day: Integer): Boolean; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function FromJulianDay(Const JD : Extended; Out Year, Month, Day : Integer) : Boolean; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Specifies the index of the Imperial era.
     /// </summary>
-    {$endregion}
-    const ImperialEra = 1;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const ImperialEra = 1;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Specifies the index of the Hijri era.
     /// </summary>
-    {$endregion}
-    const HijriEra = 2;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const HijriEra = 2;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of eras that the calendar class supports.
     /// </summary>
     /// <returns>
     /// Returns 2.
     /// </returns>
-    {$endregion}
-    class function MaxEra: Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MaxEra : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the unique identifier of the calendar.
     /// </summary>
     /// <returns>
     /// Returns <see cref="CAL_PERSIAN"/>.
     /// </returns>
-    {$endregion}
-    class function CalendarID: Cardinal; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function CalendarID : Cardinal; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the algorithm type of the calendar system.
     /// </summary>
     /// <returns>
     /// Returns <see cref="TCalendarKind.ckSolar"/>.
     /// </returns>
-    {$endregion}
-    class function CalendarKind: TCalendarKind; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function CalendarKind : TCalendarKind; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the minimum <see cref="TDateTime"/> value that can be managed by
     /// the calendar.
@@ -171,9 +171,9 @@ type
     /// The minimum supported <see cref="TDateTime"/> value.
     /// </returns>
     /// <seealso cref="MaxSupportedDateTime"/>
-    {$endregion}
-    class function MinSupportedDateTime: TDateTime; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MinSupportedDateTime : TDateTime; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the maximum <see cref="TDateTime"/> value that can be managed by
     /// the calendar.
@@ -182,9 +182,9 @@ type
     /// The maximum supported <see cref="TDateTime"/> value.
     /// </returns>
     /// <seealso cref="MinSupportedDateTime"/>
-    {$endregion}
-    class function MaxSupportedDateTime: TDateTime; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MaxSupportedDateTime : TDateTime; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TCalendarSettings"/> class that provides locale
     /// specific settings for the calendar.
@@ -192,9 +192,9 @@ type
     /// <returns>
     /// Returns <see cref="TJalaliCalendarSettings"/> class.
     /// </returns>
-    {$endregion}
-    class function SettingsClass: TCalendarSettingsClass; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function SettingsClass : TCalendarSettingsClass; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a year from one era to another.
     /// </summary>
@@ -210,9 +210,9 @@ type
     /// <returns>
     /// The year expressed in the target era.
     /// </returns>
-    {$endregion}
-    function ConvertYear(Year, FromEra, ToEra: Integer): Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ConvertYear(Year, FromEra, ToEra : Integer) : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checks whether a specified year in a specified era is valid.
     /// </summary>
@@ -226,9 +226,9 @@ type
     /// Returns <see langword="true"/> if the era and year pair is valid, otherwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsValidYear(Era, Year: Integer): Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsValidYear(Era, Year : Integer) : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified year in a specified era is a leap year.
     /// </summary>
@@ -242,9 +242,9 @@ type
     /// Returns <see langword="true"/> if the year is a leap year, otherwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsLeapYear(Era, Year: Integer): Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsLeapYear(Era, Year : Integer) : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of days in a specified year.
     /// </summary>
@@ -257,9 +257,9 @@ type
     /// <returns>
     /// Returns 365 for normal and 366 for leap years.
     /// </returns>
-    {$endregion}
-    function DaysInYear(Era, Year: Integer): Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DaysInYear(Era, Year : Integer) : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of days in a specified month of a specified year.
     /// </summary>
@@ -275,9 +275,9 @@ type
     /// <returns>
     /// The number of days in the month.
     /// </returns>
-    {$endregion}
-    function DaysInMonth(Era, Year, Month: Integer): Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DaysInMonth(Era, Year, Month : Integer) : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of days from beginning of a specified year to beginning
     /// of a specified month.
@@ -294,9 +294,9 @@ type
     /// <returns>
     /// The number of days between start of the year and start of the month.
     /// </returns>
-    {$endregion}
-    function DaysToMonth(Era, Year, Month: Integer): Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DaysToMonth(Era, Year, Month : Integer) : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds month and day of the month for a specified day of a specified year.
     /// </summary>
@@ -319,9 +319,9 @@ type
     /// Returns <see langword="true"/> if the conversion succeeds, otherwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function DayOfYearToDayOfMonth(Era, Year, YearDay: Integer; var Month, Day: Integer): Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DayOfYearToDayOfMonth(Era, Year, YearDay : Integer; Var Month, Day : Integer) : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the date and time of the vernal equinox for a specified era and year
     /// in Iran Standard Time.
@@ -340,9 +340,9 @@ type
     /// (UTC+03:30). The astronomical algorithm provides sub-minute accuracy for
     /// equinox times across the supported date range.
     /// </remarks>
-    {$endregion}
-    function VernalEquinox(Era, Year: Integer): TDateTime; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function VernalEquinox(Era, Year : Integer) : TDateTime; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the date and time of the vernal equinox for a specified year in
     /// Iran Standard Time.
@@ -359,23 +359,24 @@ type
     /// equinox times across the supported date range.
     /// </remarks>
     /// <seealso cref="DefaultEra"/>
-    {$endregion}
-    function VernalEquinox(Year: Integer): TDateTime; overload; inline;
-  end;
+    {$Endregion}
+    Function VernalEquinox(Year : Integer) : TDateTime; Overload; Inline;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This class provides locale specific settings for the <see cref="TJalaliCalendar"/>
-  /// class.
-  /// </summary>
-  /// <remarks>
-  /// TJalaliCalendarSettings class collects the Jalali calendar's locale specific
-  /// settings, which are required by the <see cref="TJalaliCalendar"/> class.
-  /// </remarks>
-  {$endregion}
-  TJalaliCalendarSettings = class(TCalendarSettings)
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// This class provides locale specific settings for the <see cref="TJalaliCalendar"/>
+/// class.
+/// </summary>
+/// <remarks>
+/// TJalaliCalendarSettings class collects the Jalali calendar's locale specific
+/// settings, which are required by the <see cref="TJalaliCalendar"/> class.
+/// </remarks>
+{$Endregion}
+
+  TJalaliCalendarSettings = Class(TCalendarSettings)
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="EraNames"/> and <see cref="ShortEraNames"/> properties for
     /// the specified era based on the given locale and calendar identifier.
@@ -389,9 +390,9 @@ type
     /// <param name="CalendarID">
     /// The identifier of the calendar system.
     /// </param>
-    {$endregion}
-    procedure PrepareEraName(Era: Integer; const Locale: string; CalendarID: Cardinal); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure PrepareEraName(Era : Integer; Const Locale : String; CalendarID : Cardinal); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="MonthNames"/>, <see cref="ShortMonthNames"/> and
     /// <see cref="GenitiveMonthNames"/> properties based on the given locale and
@@ -403,9 +404,9 @@ type
     /// <param name="CalendarID">
     /// The identifier of the calendar system.
     /// </param>
-    {$endregion}
-    procedure PrepareMonthNames(const Locale: string; CalendarID: Cardinal); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure PrepareMonthNames(Const Locale : String; CalendarID : Cardinal); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets all writable properties based on the given locale and calendar
     /// identifier.
@@ -416,430 +417,446 @@ type
     /// <param name="CalendarID">
     /// The identifier of the calendar system.
     /// </param>
-    {$endregion}
-    procedure PrepareSettings(const Locale: String; CalendarID: Cardinal); override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure PrepareSettings(Const Locale : String; CalendarID : Cardinal); Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines the calendar system that this settings is provided for.
     /// </summary>
     /// <returns>
     /// Returns the <see cref="TJalaliCalendar"/> class.
     /// </returns>
-    {$endregion}
-    class function CalendarClass: TCalendarClass; override;
-  end;
+    {$Endregion}
+    Class Function CalendarClass : TCalendarClass; Override;
+  End;
 
-implementation
+Implementation
 
-uses
+ Uses
   Math, Types, i18nWinNLS, i18nCore, i18nAstronomy;
 
-const
+ Const
   // Year offset between Jalali and Gregorian calendars
   JALALI_TO_GREGORIAN_YEAR_OFFSET = -559;
-  // Supported astronomical (zero-based) years in the Jalali calendar
+// Supported astronomical (zero-based) years in the Jalali calendar
   JALALI_MIN_YEAR = MEEUS_MIN_YEAR - JALALI_TO_GREGORIAN_YEAR_OFFSET;
   JALALI_MAX_YEAR = MEEUS_MAX_YEAR - JALALI_TO_GREGORIAN_YEAR_OFFSET;
-  // Mean length of a Jalali year in days
+// Mean length of a Jalali year in days
   MEAN_JALALI_YEAR_DAYS = 365.24219858156;
-  // Iran Standard Time offset from UTC in days (+03:30)
+// Iran Standard Time offset from UTC in days (+03:30)
   IRAN_UTC_OFFSET_DAYS = 3.5 / 24.0;
 
-var
+ Var
   // Computed Nowruz Julian Day Number for each astronomical (zero-based) Jalali year.
   // Zero indicates that the value is not yet computed.
-  NowruzCache: array[JALALI_MIN_YEAR..JALALI_MAX_YEAR] of Integer;
+  NowruzCache : Array[JALALI_MIN_YEAR..JALALI_MAX_YEAR] Of Integer;
 
 // Calculates the Julian Day Number for Nowruz (the start of the Jalali year)
 // for a given astronomical (zero-based) Jalali year.
-function NowruzJDN(Jy: Integer): Integer;
-var
-  EquinoxJD_UT: Extended;
-  EquinoxJD_Tehran: Extended;
-  TehranMidnightJD: Extended;
-  TehranCivilDay: Integer;
-  FractionOfDay: Extended;
-begin
-  if (Jy < JALALI_MIN_YEAR) or (Jy > JALALI_MAX_YEAR) then
-  begin
-    Result := 0;
+
+ Function NowruzJDN(Jy : Integer) : Integer;
+  Var
+   EquinoxJD_UT     : Extended;
+   EquinoxJD_Tehran : Extended;
+   TehranMidnightJD : Extended;
+   TehranCivilDay   : Integer;
+   FractionOfDay    : Extended;
+  Begin
+   If (Jy < JALALI_MIN_YEAR) Or (Jy > JALALI_MAX_YEAR) Then
+    Begin
+     Result := 0;
+     Exit;
+    End;
+
+   Result := NowruzCache[Jy];
+   If Result <> 0 Then
     Exit;
-  end;
 
-  Result := NowruzCache[Jy];
-  if Result <> 0 then Exit;
+   // Astronomical equinox instant (noon-based)
+   EquinoxJD_UT := VernalEquinoxJulianDay(Jy + JALALI_TO_GREGORIAN_YEAR_OFFSET);
 
-  // Astronomical equinox instant (noon-based)
-  EquinoxJD_UT := VernalEquinoxJulianDay(Jy + JALALI_TO_GREGORIAN_YEAR_OFFSET);
+   // Convert equinox instant to Tehran local time (still noon-based)
+   EquinoxJD_Tehran := EquinoxJD_UT + IRAN_UTC_OFFSET_DAYS;
 
-  // Convert equinox instant to Tehran local time (still noon-based)
-  EquinoxJD_Tehran := EquinoxJD_UT + IRAN_UTC_OFFSET_DAYS;
+   // Shift to midnight-based civil day numbering
+   TehranMidnightJD := EquinoxJD_Tehran + 0.5;
 
-  // Shift to midnight-based civil day numbering
-  TehranMidnightJD := EquinoxJD_Tehran + 0.5;
+   // Extract Tehran civil day and time within that day
+   TehranCivilDay := Trunc(TehranMidnightJD);
+   FractionOfDay  := TehranMidnightJD - TehranCivilDay;
 
-  // Extract Tehran civil day and time within that day
-  TehranCivilDay := Trunc(TehranMidnightJD);
-  FractionOfDay  := TehranMidnightJD - TehranCivilDay;
-
-  // Nowruz rule:
-  //   before noon  -> same civil day
-  //   noon or after -> next civil day
-  if FractionOfDay < 0.5 then
+   // Nowruz rule:
+   //   before noon  -> same civil day
+   //   noon or after -> next civil day
+   If FractionOfDay < 0.5 Then
     Result := TehranCivilDay
-  else
+   Else
     Result := TehranCivilDay + 1;
 
-  NowruzCache[Jy] := Result;
-end;
-
+   NowruzCache[Jy] := Result;
+  End;
 
 // Finds the astronomical (zero-based) Jalali year corresponding
 // to a given Julian Day Number.
-function FindJalaliYear(JDN: Integer): Integer;
-var
-  MinJDN, MaxJDN: Integer;
-  Year: Integer;
-begin
-  MinJDN := NowruzJDN(JALALI_MIN_YEAR);
-  if (JDN < MinJDN) then
-  begin
-    // Return a year just before the minimum to indicate out-of-range.
-    Result := JALALI_MIN_YEAR - 1;
-    Exit;
-  end;
 
-  MaxJDN := NowruzJDN(JALALI_MAX_YEAR);
-  if (JDN >= MaxJDN) then
-  begin
-    // Return a year just after the maximum to indicate out-of-range.
-    Result := JALALI_MAX_YEAR + 1;
-    Exit;
-  end;
+ Function FindJalaliYear(JDN : Integer) : Integer;
+  Var
+   MinJDN : Integer;
+   MaxJDN : Integer;
+   Year   : Integer;
+  Begin
+   MinJDN := NowruzJDN(JALALI_MIN_YEAR);
+   If (JDN < MinJDN) Then
+    Begin
+     // Return a year just before the minimum to indicate out-of-range.
+     Result := JALALI_MIN_YEAR - 1;
+     Exit;
+    End;
 
-  // Approximate using the mean Jalali year length.
-  Year := JALALI_MIN_YEAR + trunc((JDN - MinJDN) / MEAN_JALALI_YEAR_DAYS);
+   MaxJDN := NowruzJDN(JALALI_MAX_YEAR);
+   If (JDN >= MaxJDN) Then
+    Begin
+     // Return a year just after the maximum to indicate out-of-range.
+     Result := JALALI_MAX_YEAR + 1;
+     Exit;
+    End;
 
-  // Clamp in case floating-point estimation lands just outside the range.
-  if (Year < JALALI_MIN_YEAR) then
+   // Approximate using the mean Jalali year length.
+   Year := JALALI_MIN_YEAR + Trunc((JDN - MinJDN) / MEAN_JALALI_YEAR_DAYS);
+
+   // Clamp in case floating-point estimation lands just outside the range.
+   If (Year < JALALI_MIN_YEAR) Then
     Year := JALALI_MIN_YEAR;
-  if (Year > JALALI_MAX_YEAR) then
+   If (Year > JALALI_MAX_YEAR) Then
     Year := JALALI_MAX_YEAR;
 
-  // Adjust downward if the Nowruz of the estimated year is after the JDN.
-  while (NowruzJDN(Year) > JDN) do
+   // Adjust downward if the Nowruz of the estimated year is after the JDN.
+   While (NowruzJDN(Year) > JDN) Do
     Dec(Year);
 
-  // Adjust upward if the Nowruz of the next year is on or before the JDN.
-  while (NowruzJDN(Year + 1) <= JDN) do
+   // Adjust upward if the Nowruz of the next year is on or before the JDN.
+   While (NowruzJDN(Year + 1) <= JDN) Do
     Inc(Year);
 
-  Result := Year;
-end;
+   Result := Year;
+  End;
 
 { TJalaliCalendar }
 
-class function TJalaliCalendar.CalendarID: Cardinal;
-begin
-  Result := CAL_PERSIAN;
-end;
+  Class Function TJalaliCalendar.CalendarID : Cardinal;
 
-class function TJalaliCalendar.CalendarKind: TCalendarKind;
-begin
-  Result := ckSolar;
-end;
+Begin
+ Result := CAL_PERSIAN;
 
-class function TJalaliCalendar.MinSupportedDateTime: TDateTime;
-begin
-  Result := Max({1/01/01 Jalali - Imperial} -897684, inherited);
-end;
+End;
 
-class function TJalaliCalendar.MaxSupportedDateTime: TDateTime;
-begin
-  Result := Min({3558/12/29 Jalali - Imperial} 401847.99999, inherited);
-end;
+  Class Function TJalaliCalendar.CalendarKind : TCalendarKind;
 
-class function TJalaliCalendar.MaxEra: Integer;
-begin
-  Result := HijriEra;
-end;
+Begin
+ Result := ckSolar;
 
-class function TJalaliCalendar.SettingsClass: TCalendarSettingsClass;
-begin
-  Result := TJalaliCalendarSettings;
-end;
+End;
 
-function TJalaliCalendar.DayOfYearToDayOfMonth(Era, Year, YearDay: Integer;
-  var Month, Day: Integer): Boolean;
-begin
-  if YearDay <= 6 * 31 then
-  begin
-    Month := ((YearDay - 1) div 31) + 1;
-    Day := YearDay - (Month - 1) * 31;
-    Result := True;
-  end
-  else if YearDay <= DaysInYear(Era, Year) then
-  begin
-    Dec(YearDay, 6 * 31);
-    Month := ((YearDay - 1) div 30) + 7;
-    Day := YearDay - (Month - 7) * 30;
-    Result := True;
-  end
-  else
+  Class Function TJalaliCalendar.MinSupportedDateTime : TDateTime;
+
+Begin
+ Result := Max({1/01/01 Jalali - Imperial} -897684, Inherited);
+
+End;
+
+  Class Function TJalaliCalendar.MaxSupportedDateTime : TDateTime;
+
+Begin
+ Result := Min({3558/12/29 Jalali - Imperial} 401847.99999, Inherited);
+
+End;
+
+  Class Function TJalaliCalendar.MaxEra : Integer;
+
+Begin
+ Result := HijriEra;
+
+End;
+
+  Class Function TJalaliCalendar.SettingsClass : TCalendarSettingsClass;
+
+Begin
+ Result := TJalaliCalendarSettings;
+
+End;
+
+ Function TJalaliCalendar.DayOfYearToDayOfMonth(Era, Year, YearDay : Integer; Var Month, Day : Integer) : Boolean;
+  Begin
+   If YearDay <= 6 * 31 Then
+    Begin
+     Month  := ((YearDay - 1) Div 31) + 1;
+     Day    := YearDay - (Month - 1) * 31;
+     Result := True;
+    End
+   Else If YearDay <= DaysInYear(Era, Year) Then
+    Begin
+     Dec(YearDay, 6 * 31);
+     Month  := ((YearDay - 1) Div 30) + 7;
+     Day    := YearDay - (Month - 7) * 30;
+     Result := True;
+    End
+   Else
     Result := False;
-end;
+  End;
 
-function TJalaliCalendar.ToJulianDay(Year, Month, Day: Integer): Extended;
-var
-  JDN: Integer;
-begin
-  JDN := NowruzJDN(ToZeroBase(ImperialEra, Year));
-  if JDN = 0 then
+ Function TJalaliCalendar.ToJulianDay(Year, Month, Day : Integer) : Extended;
+  Var
+   JDN : Integer;
+  Begin
+   JDN := NowruzJDN(ToZeroBase(ImperialEra, Year));
+   If JDN = 0 Then
     YearError(ImperialEra, Year);
 
-  if (Day < 1) or (Day > DaysInMonth(ImperialEra, Year, Month)) then
+   If (Day < 1) Or (Day > DaysInMonth(ImperialEra, Year, Month)) Then
     DayError(ImperialEra, Year, Month, Day);
 
-  Result := JDN + DaysToMonth(ImperialEra, Year, Month) + (Day - 1) - 0.5;
-end;
+   Result := JDN + DaysToMonth(ImperialEra, Year, Month) + (Day - 1) - 0.5;
+  End;
 
-function TJalaliCalendar.FromJulianDay(const JD: Extended;
-  out Year, Month, Day: Integer): Boolean;
-var
-  JDN: Integer;
-  Jy, Nowruz: Integer;
-  YearDay: Integer;
-begin
-  JDN := Trunc(JD + 0.5); // Assumed JD is in Tehran civil time
+ Function TJalaliCalendar.FromJulianDay(Const JD : Extended; Out Year, Month, Day : Integer) : Boolean;
+  Var
+   JDN     : Integer;
+   Jy      : Integer;
+   Nowruz  : Integer;
+   YearDay : Integer;
+  Begin
+   JDN := Trunc(JD + 0.5); // Assumed JD is in Tehran civil time
 
-  Jy := FindJalaliYear(JDN);
-  Nowruz := NowruzJDN(Jy);
-  if Nowruz = 0 then
-  begin
-    Result := False;
-    Exit;
-  end;
+   Jy     := FindJalaliYear(JDN);
+   Nowruz := NowruzJDN(Jy);
+   If Nowruz = 0 Then
+    Begin
+     Result := False;
+     Exit;
+    End;
 
-  Year := FromZeroBase(ImperialEra, Jy);
-  YearDay := (JDN - Nowruz) + 1;
-  Result := DayOfYearToDayOfMonth(ImperialEra, Year, YearDay, Month, Day);
-end;
+   Year    := FromZeroBase(ImperialEra, Jy);
+   YearDay := (JDN - Nowruz) + 1;
+   Result  := DayOfYearToDayOfMonth(ImperialEra, Year, YearDay, Month, Day);
+  End;
 
-function TJalaliCalendar.ConvertYear(Year, FromEra, ToEra: Integer): Integer;
-begin
-  if Year = 0 then
+ Function TJalaliCalendar.ConvertYear(Year, FromEra, ToEra : Integer) : Integer;
+  Begin
+   If Year = 0 Then
     YearError(FromEra, 0)
-  else if FromEra <> ToEra then
-  begin
-    if FromEra = HijriEra then
+   Else If FromEra <> ToEra Then
+    Begin
+     If FromEra = HijriEra Then
       Year := OffsetYear(Year, +HIJRI_YEAR_OFFSET, FromEra, ImperialEra)
-    else if FromEra <> ImperialEra then
+     Else If FromEra <> ImperialEra Then
       EraError(FromEra);
-    if ToEra = HijriEra then
+     If ToEra = HijriEra Then
       Year := OffsetYear(Year, -HIJRI_YEAR_OFFSET, ImperialEra, ToEra)
-    else if ToEra <> ImperialEra then
+     Else If ToEra <> ImperialEra Then
       EraError(ToEra);
-  end
-  else if not (FromEra in [ImperialEra, HijriEra]) then
+    End
+   Else If Not(FromEra In [ImperialEra, HijriEra]) Then
     EraError(FromEra);
-  Result := Year;
-end;
+   Result := Year;
+  End;
 
-function TJalaliCalendar.IsValidYear(Era, Year: Integer): Boolean;
-var
-  Jy: Integer;
-begin
-  Jy := ToZeroBase(ImperialEra, ConvertYear(Year, Era, ImperialEra));
-  Result := (Jy >= JALALI_MIN_YEAR) and (Jy <= JALALI_MAX_YEAR);
-end;
+ Function TJalaliCalendar.IsValidYear(Era, Year : Integer) : Boolean;
+  Var
+   Jy : Integer;
+  Begin
+   Jy     := ToZeroBase(ImperialEra, ConvertYear(Year, Era, ImperialEra));
+   Result := (Jy >= JALALI_MIN_YEAR) And (Jy <= JALALI_MAX_YEAR);
+  End;
 
-function TJalaliCalendar.IsLeapYear(Era, Year: Integer): Boolean;
-begin
-  Result := DaysInYear(Era, Year) = 366;
-end;
+ Function TJalaliCalendar.IsLeapYear(Era, Year : Integer) : Boolean;
+  Begin
+   Result := DaysInYear(Era, Year) = 366;
+  End;
 
-function TJalaliCalendar.DaysInYear(Era, Year: Integer): Integer;
-var
-  Jy, Current, Next: Integer;
-begin
-  Jy := ToZeroBase(ImperialEra, ConvertYear(Year, Era, ImperialEra));
+ Function TJalaliCalendar.DaysInYear(Era, Year : Integer) : Integer;
+  Var
+   Jy      : Integer;
+   Current : Integer;
+   Next    : Integer;
+  Begin
+   Jy := ToZeroBase(ImperialEra, ConvertYear(Year, Era, ImperialEra));
 
-  Current := NowruzJDN(Jy);
-  if Current = 0 then
+   Current := NowruzJDN(Jy);
+   If Current = 0 Then
     YearError(Era, Year);
 
-  Next := NowruzJDN(Jy + 1);
-  if Next = 0 then
+   Next := NowruzJDN(Jy + 1);
+   If Next = 0 Then
     YearError(Era, Year);
 
-  Result := Next - Current;
-end;
+   Result := Next - Current;
+  End;
 
-function TJalaliCalendar.DaysInMonth(Era, Year, Month: Integer): Integer;
-begin
-  if (Month < 1) or (Month > 12) then
+ Function TJalaliCalendar.DaysInMonth(Era, Year, Month : Integer) : Integer;
+  Begin
+   If (Month < 1) Or (Month > 12) Then
     MonthError(Era, Year, Month);
 
-  if (Month = 12) and not IsLeapYear(Era, Year) then
+   If (Month = 12) And Not IsLeapYear(Era, Year) Then
     Result := 29
-  else if Month > 6 then
+   Else If Month > 6 Then
     Result := 30
-  else
+   Else
     Result := 31;
-end;
+  End;
 
-function TJalaliCalendar.DaysToMonth(Era, Year, Month: Integer): Integer;
-begin
-  if (Month < 1) or (Month > 12) then
+ Function TJalaliCalendar.DaysToMonth(Era, Year, Month : Integer) : Integer;
+  Begin
+   If (Month < 1) Or (Month > 12) Then
     MonthError(Era, Year, Month);
 
-  Result := Min(Month - 1, 6) + ((Month - 1) * 30);
-end;
+   Result := Min(Month - 1, 6) + ((Month - 1) * 30);
+  End;
 
-function TJalaliCalendar.VernalEquinox(Era, Year: Integer): TDateTime;
-var
-  Jy: Integer;
-  EquinoxJD: Extended;
-begin
-  Jy := ToZeroBase(ImperialEra, ConvertYear(Year, Era, ImperialEra));
-  if (Jy < JALALI_MIN_YEAR) or (Jy > JALALI_MAX_YEAR) then
+ Function TJalaliCalendar.VernalEquinox(Era, Year : Integer) : TDateTime;
+  Var
+   Jy        : Integer;
+   EquinoxJD : Extended;
+  Begin
+   Jy := ToZeroBase(ImperialEra, ConvertYear(Year, Era, ImperialEra));
+   If (Jy < JALALI_MIN_YEAR) Or (Jy > JALALI_MAX_YEAR) Then
     YearError(Era, Year);
 
-  EquinoxJD := VernalEquinoxJulianDay(Jy + JALALI_TO_GREGORIAN_YEAR_OFFSET);
-  Result := JulianDayToDateTime(EquinoxJD + IRAN_UTC_OFFSET_DAYS);
-end;
+   EquinoxJD := VernalEquinoxJulianDay(Jy + JALALI_TO_GREGORIAN_YEAR_OFFSET);
+   Result    := JulianDayToDateTime(EquinoxJD + IRAN_UTC_OFFSET_DAYS);
+  End;
 
-function TJalaliCalendar.VernalEquinox(Year: Integer): TDateTime;
-begin
-  Result := VernalEquinox(DefaultEra, Year);
-end;
+ Function TJalaliCalendar.VernalEquinox(Year : Integer) : TDateTime;
+  Begin
+   Result := VernalEquinox(DefaultEra, Year);
+  End;
 
 { TJalaliCalendarSettings }
 
-class function TJalaliCalendarSettings.CalendarClass: TCalendarClass;
-begin
-  Result := TJalaliCalendar;
-end;
+  Class Function TJalaliCalendarSettings.CalendarClass : TCalendarClass;
 
-procedure TJalaliCalendarSettings.PrepareEraName(Era: Integer;
-  const Locale: string; CalendarID: Cardinal);
-begin
-  if Pos('Arab;', GetLocaleScripts(Locale)) = 0 then
-    case Era of
-      TJalaliCalendar.ImperialEra:
-      begin
-        EraNames[Era] := 'Imperial';
-        ShortEraNames[Era] := 'IE';
-      end;
-      TJalaliCalendar.HijriEra:
-      begin
-        EraNames[Era] := 'Solar Hijri';
-        ShortEraNames[Era] := 'SH';
-      end;
-    end
-  else if SameLanguage(Locale, 'fa') or SameLanguage(Locale, 'ps') or SameLanguage(Locale, 'prs') then
-    case Era of
-      TJalaliCalendar.ImperialEra:
-      begin
-          EraNames[Era] := 'شاهنشاهی';
-          ShortEraNames[Era] := 'ش';
-      end;
-      TJalaliCalendar.HijriEra:
-      begin
-          EraNames[Era] := 'هجری خورشیدی';
-          ShortEraNames[Era] := 'هـ.خ';
-      end;
-    end
-  else
-    case Era of
-      TJalaliCalendar.ImperialEra:
-      begin
-        EraNames[Era] := 'الإمبراطورية';
-        ShortEraNames[Era] := 'إم';
-      end;
-      TJalaliCalendar.HijriEra:
-      begin
-        EraNames[Era] := 'الهجري الشمسي';
-        ShortEraNames[Era] := 'هـ.ش';
-      end;
-    end;
-end;
+Begin
+ Result := TJalaliCalendar;
 
-procedure TJalaliCalendarSettings.PrepareMonthNames(const Locale: string;
-  CalendarID: Cardinal);
-const
-  PersianMonthNames: array [1 .. 12] of String = (
-    'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
-    'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند');
-  ArabicMonthNames: array [1 .. 12] of String = (
-    'حمل', 'ثور', 'جوزا', 'سرطان', 'اسد', 'سنبله',
-    'میزان', 'عقرب', 'قوس', 'جدی', 'دلو', 'حوت');
-  EnglishMonthNames: array [1 .. 12] of String = (
-    'Farvardin', 'Ordibehesht', 'Khordad', 'Tir', 'Mordad', 'Shahrivar',
-    'Mehr', 'Aban', 'Azar', 'Dey', 'Bahman', 'Esfand');
-var
-  M: Integer;
-begin
-  if Pos('Arab;', GetLocaleScripts(Locale)) <> 0 then
-  begin
-    if SameText(Locale, 'fa-IR') then
-      for M := 1 to 12 do
-      begin
-        MonthNames[M] := PersianMonthNames[M];
-        ShortMonthNames[M] := PersianMonthNames[M];
-        GenitiveMonthNames[M] := PersianMonthNames[M];
-      end
-    else
-      for M := 1 to 12 do
-      begin
-        MonthNames[M] := ArabicMonthNames[M];
-        ShortMonthNames[M] := ArabicMonthNames[M];
-        GenitiveMonthNames[M] := ArabicMonthNames[M];
-      end
-  end
-  else
-  begin
-    for M := 1 to 12 do
-    begin
-      MonthNames[M] := EnglishMonthNames[M];
-      ShortMonthNames[M] := Copy(EnglishMonthNames[M], 1, 3);
-      GenitiveMonthNames[M] := EnglishMonthNames[M];
-    end;
-  end;
-end;
+End;
 
-procedure TJalaliCalendarSettings.PrepareSettings(const Locale: String;
-  CalendarID: Cardinal);
-begin
-  inherited PrepareSettings(Locale, CalendarID);
+ Procedure TJalaliCalendarSettings.PrepareEraName(Era : Integer; Const Locale : String; CalendarID : Cardinal);
+  Begin
+   If Pos('Arab;', GetLocaleScripts(Locale)) = 0 Then
+    Case Era Of
+     TJalaliCalendar.ImperialEra :
+      Begin
+       EraNames[Era]      := 'Imperial';
+       ShortEraNames[Era] := 'IE';
+      End;
+     TJalaliCalendar.HijriEra :
+      Begin
+       EraNames[Era]      := 'Solar Hijri';
+       ShortEraNames[Era] := 'SH';
+      End;
+    End
+   Else If SameLanguage(Locale, 'fa') Or SameLanguage(Locale, 'ps') Or SameLanguage(Locale, 'prs') Then
+    Case Era Of
+     TJalaliCalendar.ImperialEra :
+      Begin
+       EraNames[Era]      := 'شاهنشاهی';
+       ShortEraNames[Era] := 'ش';
+      End;
+     TJalaliCalendar.HijriEra :
+      Begin
+       EraNames[Era]      := 'هجری خورشیدی';
+       ShortEraNames[Era] := 'هـ.خ';
+      End;
+    End
+   Else
+    Case Era Of
+     TJalaliCalendar.ImperialEra :
+      Begin
+       EraNames[Era]      := 'الإمبراطورية';
+       ShortEraNames[Era] := 'إم';
+      End;
+     TJalaliCalendar.HijriEra :
+      Begin
+       EraNames[Era]      := 'الهجري الشمسي';
+       ShortEraNames[Era] := 'هـ.ش';
+      End;
+    End;
+  End;
 
-  TwoDigitYearMax := 2530;
-  FirstDayOfWeek := Saturday;
+ Procedure TJalaliCalendarSettings.PrepareMonthNames(Const Locale : String; CalendarID : Cardinal);
+  Const
+   PersianMonthNames : Array [1..12] Of String = (
+   'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور',
+   'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند');
+   ArabicMonthNames : Array [1..12] Of String = (
+   'حمل', 'ثور', 'جوزا', 'سرطان', 'اسد', 'سنبله',
+   'میزان', 'عقرب', 'قوس', 'جدی', 'دلو', 'حوت');
+   EnglishMonthNames : Array [1..12] Of String = (
+   'Farvardin', 'Ordibehesht', 'Khordad', 'Tir', 'Mordad', 'Shahrivar',
+   'Mehr', 'Aban', 'Azar', 'Dey', 'Bahman', 'Esfand');
+  Var
+   m : Integer;
+  Begin
+   If Pos('Arab;', GetLocaleScripts(Locale)) <> 0 Then
+    Begin
+     If SameText(Locale, 'fa-IR') Then
+      For m := 1 To 12 Do
+       Begin
+        MonthNames[m]         := PersianMonthNames[m];
+        ShortMonthNames[m]    := PersianMonthNames[m];
+        GenitiveMonthNames[m] := PersianMonthNames[m];
+       End
+     Else
+      For m := 1 To 12 Do
+       Begin
+        MonthNames[m]         := ArabicMonthNames[m];
+        ShortMonthNames[m]    := ArabicMonthNames[m];
+        GenitiveMonthNames[m] := ArabicMonthNames[m];
+       End
+    End
+   Else
+    Begin
+     For m := 1 To 12 Do
+      Begin
+       MonthNames[m]         := EnglishMonthNames[m];
+       ShortMonthNames[m]    := Copy(EnglishMonthNames[m], 1, 3);
+       GenitiveMonthNames[m] := EnglishMonthNames[m];
+      End;
+    End;
+  End;
 
-  if SameLanguage(Locale, 'fa') or SameLanguage(Locale, 'ps') or SameLanguage(Locale, 'prs') then
+ Procedure TJalaliCalendarSettings.PrepareSettings(Const Locale : String; CalendarID : Cardinal);
+  Begin
+   Inherited PrepareSettings(Locale, CalendarID);
+
+   TwoDigitYearMax := 2530;
+   FirstDayOfWeek  := Saturday;
+
+   If SameLanguage(Locale, 'fa') Or SameLanguage(Locale, 'ps') Or SameLanguage(Locale, 'prs') Then
     CalendarName := 'گاهشمار جلالی';
 
-  if SameText(Locale, 'fa-IR') then
-  begin
-    // Workaround for Windows NLS incorrect formats
-    if SameText(LongDateFormat, 'yyyy/MM/dd') then
+   If SameText(Locale, 'fa-IR') Then
+    Begin
+     // Workaround for Windows NLS incorrect formats
+     If SameText(LongDateFormat, 'yyyy/MM/dd') Then
       LongDateFormat := 'dddd d MMMM yyyy';
-    if SameText(LongTimeFormat, 'hh:mm:ss ampm') then
+     If SameText(LongTimeFormat, 'hh:mm:ss ampm') Then
       LongTimeFormat := 'hh:nn:ss';
-    if Win32MajorVersion <= 5 then
-    begin
-      ShortestDayNames[Saturday]  := 'ش';
-      ShortestDayNames[Sunday]    := 'ی';
-      ShortestDayNames[Monday]    := 'د';
-      ShortestDayNames[Tuesday]   := 'س';
-      ShortestDayNames[Wednesday] := 'چ';
-      ShortestDayNames[Thursday]  := 'پ';
-      ShortestDayNames[Friday]    := 'ج';
-    end;
-  end;
-end;
+     If Win32MajorVersion <= 5 Then
+      Begin
+       ShortestDayNames[Saturday]  := 'ش';
+       ShortestDayNames[Sunday]    := 'ی';
+       ShortestDayNames[Monday]    := 'د';
+       ShortestDayNames[Tuesday]   := 'س';
+       ShortestDayNames[Wednesday] := 'چ';
+       ShortestDayNames[Thursday]  := 'پ';
+       ShortestDayNames[Friday]    := 'ج';
+      End;
+    End;
+  End;
 
-initialization
-  CalendarTypes.Register(TJalaliCalendar, ['fa-IR', 'prs-AF', 'ps-AF']);
-end.
+Initialization
+ CalendarTypes.Register(TJalaliCalendar, ['fa-IR', 'prs-AF', 'ps-AF']);
+
+End.

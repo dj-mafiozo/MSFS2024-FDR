@@ -8,26 +8,24 @@ Interface
 
  Type
   TReading = Record
-   Public
-    Name      : String;
-    Source    : String;
-    Kind      : String;
-    Units     : String;
-    RawHex    : String;
-    ValueText : String;
+   Name      : String;
+   Source    : String;
+   Kind      : String;
+   Units     : String;
+   RawHex    : String;
+   ValueText : String;
   End;
 
   TReadings = Array Of TReading;
 
   TCaptureTime = Record
-   Public
-    UTCUS : Int64;
-    QPC   : Int64;
+   UTCUS : Int64;
+   QPC   : Int64;
   End;
 
  Function CaptureTime : TCaptureTime;
- Function HexBytes(P : Pointer; Size : Integer) : String;
- Function MakeReading(Const Name, Source, Kind, Units : String; P : Pointer; Size : Integer) : TReading;
+ Function HexBytes(p : Pointer; Size : Integer) : String;
+ Function MakeReading(Const Name, Source, Kind, Units : String; p : Pointer; Size : Integer) : TReading;
 
 Implementation
 
@@ -44,53 +42,53 @@ Implementation
    Result.UTCUS := Int64(Ticks Div 10) - 11644473600000000;
   End;
 
- Function HexBytes(P : Pointer; Size : Integer) : String;
+ Function HexBytes(p : Pointer; Size : Integer) : String;
   Const
    Digits : String = '0123456789ABCDEF';
   Var
-   I : Integer;
-   B : Byte;
+   i : Integer;
+   b : Byte;
   Begin
    SetLength(Result, Size * 2);
-   For I := 0 To Size - 1 Do
+   For i := 0 To Size - 1 Do
     Begin
-     B                 := PByte(NativeUInt(P) + NativeUInt(I))^;
-     Result[I * 2 + 1] := Digits[B Shr 4 + 1];
-     Result[I * 2 + 2] := Digits[(B And 15) + 1];
+     b                 := PByte(NativeUInt(p) + NativeUInt(i))^;
+     Result[i * 2 + 1] := Digits[b Shr 4 + 1];
+     Result[i * 2 + 2] := Digits[(b And 15) + 1];
     End;
   End;
 
- Function MakeReading(Const Name, Source, Kind, Units : String; P : Pointer; Size : Integer) : TReading;
+ Function MakeReading(Const Name, Source, Kind, Units : String; p : Pointer; Size : Integer) : TReading;
   Var
-   D  : Double;
-   N  : Integer;
-   A  : AnsiString;
+   d  : Double;
+   n  : Integer;
+   a  : AnsiString;
    FS : TFormatSettings;
   Begin
    Result.Name   := Name;
    Result.Source := Source;
    Result.Kind   := Kind;
    Result.Units  := Units;
-   Result.RawHex := HexBytes(P, Size);
+   Result.RawHex := HexBytes(p, Size);
    If Kind = 'float64' Then
     Begin
-     Move(P^, D, 8);
+     Move(p^, d, 8);
      FS                  := TFormatSettings.Create;
      FS.DecimalSeparator := '.';
-     Result.ValueText    := FloatToStrF(D, ffGeneral, 17, 0, FS);
+     Result.ValueText    := FloatToStrF(d, ffGeneral, 17, 0, FS);
     End
    Else If Kind = 'int32' Then
     Begin
-     Move(P^, N, 4);
-     Result.ValueText := IntToStr(N);
+     Move(p^, n, 4);
+     Result.ValueText := IntToStr(n);
     End
    Else If Kind = 'char' Then
     Begin
-     SetString(A, PAnsiChar(P), Size);
-     Result.ValueText := String(A);
+     SetString(a, PAnsiChar(p), Size);
+     Result.ValueText := String(a);
     End
    Else
-    Result.ValueText := IntToStr(PByte(P)^);
+    Result.ValueText := IntToStr(PByte(p)^);
   End;
 
 End.

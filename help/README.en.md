@@ -1,11 +1,18 @@
-﻿# CHM help and F1
-
-[Interface translations](../Translation.en.md)
+﻿[Interface translations](../Translation.en.md)
 
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
-F1 or Help → Help contents opens the active view topic. Topics cover getting started, map, charts, analysis, settings and About. PL/EN/DE/ES follow the interface language.
+F1
 
-Build: `python tools/build_help.py --require-chm`. Requires HTML Help Workshop; set HHC_EXE to override the hhc.exe path. The full build.ps1 also builds help. Without the compiler, local HTML is available; F1 falls back to HTML when CHM is missing. Output: bin/help. Distribute the entire help directory beside the EXE.
+[Interface translations](../Translation.en.md)
 
-Topic sources: pl/, en/, de/, es/. HHP/HHC and contexts.h define IDs 100–600. HHC contents use Windows-1250/1252 for the legacy compiler; HTML pages use UTF-8.
+
+F1 routes to the panel topic using DFM HelpContext. PL/EN/DE/ES manuals contain 62 topics, hierarchical contents and full-text search. Every CHM embeds screenshots captured in its own language using synthetic data.
+
+Edit manual.pl.txt, manual.en.txt, manual.de.txt and manual.es.txt. generate_help.py creates HTML, HHC/HHP and stable context aliases. Do not add an all-topics link bar. Standard cockpit legends remain untranslated.
+
+After UI changes run tools/capture_help.ps1, then python tools/build_help.py --require-chm. HTML Help Workshop is required (HHC_EXE). capture.json checks screenshots against UI-source hashes. Packaging recompiles CHM and rejects stale screenshots. Distribute only the four CHM files from bin/help, without HTML, loose images or build manifests. Sources and screenshots stay in the repository.
+
+CHM encoding: manual.*.txt sources remain UTF-8. Generated HTML/HHC/HHP use Windows-1250 for PL and Windows-1252 for EN/DE/ES with a binary TOC. Do not restore UTF-8 or numeric character references in HHC labels. build_help.py verifies every ANSI navigation label in #STRINGS and checks #TOCIDX. A 7-Zip CLI (also bundled with PeaZip) is required, autodetected or selected using SEVENZIP_EXE.
+
+Demonstration report text: example-analysis.pl/en/de/es.txt. Flight/capture scenario: tests/CaptureHelpScreenshots.dpr; instrument values: tests/HelpDemoDataU.pas. HelpScreenshotU renders RichEdit with EM_FORMATRANGE and rejects blank text images.

@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -16,102 +16,102 @@
 /// <remarks>
 /// This unit cannot be referenced in the runtime packages.
 /// </remarks>
-unit i18nPropEditor;
+Unit i18nPropEditor;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-uses
+ Uses
   Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
   i18nCore, i18nLocalizer, i18nCatalog, i18nHashList, i18nCtrls, i18nParser,
   StdCtrls, ExtCtrls, ComCtrls, ImgList, ActnList, Menus, StdActns, Tabs,
   System.Actions, i18nUnicode;
 
-type
+ Type
 
-  {$region 'xmldoc'}
+  {$Region 'xmldoc'}
   /// <summary>
   /// TTranslatablesUI engages some UI gadgets to display a list of translatable
   /// strings, so that the user can edit them and select which ones should be
   /// available to a translator.
   /// </summary>
-  {$endregion}
-  TTranslatablesUI = class
-  public
-    type
-      {$region 'xmldoc'}
-      /// <summary>
-      /// This enumeration type identifies the ways that a list of translatable
-      /// strings can be filtered to display.
-      /// </summary>
-      {$endregion}
-      TFilterType = (
-        {$region 'xmldoc'}
-        /// Displays all strings without filtering.
-        {$endregion}
-        ftNone = 1,
-        {$region 'xmldoc'}
-        /// Only lists strings with alphabetic characters.
-        {$endregion}
-        ftAlphaValue,
-        {$region 'xmldoc'}
-        /// Only lists strings with any non-alphabetic character.
-        {$endregion}
-        ftNonAlphaValue,
-        {$region 'xmldoc'}
-        /// Only lists strings with one character in length.
-        {$endregion}
-        ftCharValue,
-        {$region 'xmldoc'}
-        /// For properties, only lists those that their property path contains 'name'.
-        /// For literals, only lists those that have plural forms.
-        {$endregion}
-        ftNamePropertyOrPluralLiteral,
-        {$region 'xmldoc'}
-        /// Only lists strings that satisfy a user-defined condition.
-        {$endregion}
-        ftCustom
-      );
-      {$region 'xmldoc'}
-      /// <summary>
-      /// TStats keeps the number of total and selected translatable strings in
-      /// each filtering group.
-      /// </summary>
-      {$endregion}
-      TStats = record
-        {$region 'xmldoc'}
-        /// Lists the total number of items for each filtering group.
-        {$endregion}
-        Total: array[TFilterType] of Integer;
-        {$region 'xmldoc'}
-        /// Lists the number of selected items for each filtering group.
-        {$endregion}
-        Selected: array[TFilterType] of Integer;
-      end;
-  private
-    fKind: TTextDitionaryKind;
-    fListControl: TListView;
-    fFilterControl: TCustomListControl;
-    fValueControl: TCustomMemo;
-    fCommentControl: TCustomMemo;
-    fActiveFilter: TFilterType;
-    fCustomFilter: String;
-    fSelectedItem: TTextItem;
-    fPluralIndex: Integer;
-    procedure SetActiveFilter(Value: TFilterType);
-    procedure SetCustomFilter(const Value: String);
-    procedure SetSelectedItem(Value: TTextItem);
-    procedure SetPluralIndex(Value: Integer);
-  protected
-    {$region 'xmldoc'}
+  {$Endregion}
+  TTranslatablesUI = Class
+   Public
+    Type
+    {$Region 'xmldoc'}
+    /// <summary>
+    /// This enumeration type identifies the ways that a list of translatable
+    /// strings can be filtered to display.
+    /// </summary>
+    {$Endregion}
+    TFilterType = (
+    {$Region 'xmldoc'}
+    /// Displays all strings without filtering.
+    {$Endregion}
+    ftNone = 1,
+    {$Region 'xmldoc'}
+    /// Only lists strings with alphabetic characters.
+    {$Endregion}
+    ftAlphaValue,
+    {$Region 'xmldoc'}
+    /// Only lists strings with any non-alphabetic character.
+    {$Endregion}
+    ftNonAlphaValue,
+    {$Region 'xmldoc'}
+    /// Only lists strings with one character in length.
+    {$Endregion}
+    ftCharValue,
+    {$Region 'xmldoc'}
+    /// For properties, only lists those that their property path contains 'name'.
+    /// For literals, only lists those that have plural forms.
+    {$Endregion}
+    ftNamePropertyOrPluralLiteral,
+    {$Region 'xmldoc'}
+    /// Only lists strings that satisfy a user-defined condition.
+    {$Endregion}
+    ftCustom
+    );
+    {$Region 'xmldoc'}
+    /// <summary>
+    /// TStats keeps the number of total and selected translatable strings in
+    /// each filtering group.
+    /// </summary>
+    {$Endregion}
+    TStats = Record
+     {$Region 'xmldoc'}
+     /// Lists the total number of items for each filtering group.
+     {$Endregion}
+     Total : Array[TFilterType] Of Integer;
+     {$Region 'xmldoc'}
+     /// Lists the number of selected items for each filtering group.
+     {$Endregion}
+     Selected : Array[TFilterType] Of Integer;
+    End;
+   Private
+    fKind           : TTextDitionaryKind;
+    fListControl    : TListView;
+    fFilterControl  : TCustomListControl;
+    fValueControl   : TCustomMemo;
+    fCommentControl : TCustomMemo;
+    fActiveFilter   : TFilterType;
+    fCustomFilter   : String;
+    fSelectedItem   : TTextItem;
+    fPluralIndex    : Integer;
+    Procedure SetActiveFilter(Value : TFilterType);
+    Procedure SetCustomFilter(Const Value : String);
+    Procedure SetSelectedItem(Value : TTextItem);
+    Procedure SetPluralIndex(Value : Integer);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Updates content of the linked controls to reflect the current
     /// state of the strings.
     /// </summary>
-    {$endregion}
-    procedure UpdateControls;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure UpdateControls;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines which filtering options is the most suited for a specified
     /// string item.
@@ -123,9 +123,9 @@ type
     /// Returns the <see cref="TFilterType"/> value that is the
     /// most suited for the given <paramref name="Item"/>.
     /// </returns>
-    {$endregion}
-    function FilterTagOf(Item: TTextItem): TFilterType;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function FilterTagOf(Item : TTextItem) : TFilterType;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the image index of a specified string item.
     /// </summary>
@@ -135,9 +135,9 @@ type
     /// <returns>
     /// The image index of the given <paramref name="Item"/>.
     /// </returns>
-    {$endregion}
-    function ImageIndexOf(Item: TTextItem): Integer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ImageIndexOf(Item : TTextItem) : Integer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a specified filter value to a zero-based integer value.
     /// </summary>
@@ -148,9 +148,9 @@ type
     /// Returns the zero-based integer value of <paramref name="Filter"/>.
     /// </returns>
     /// <seealso cref="FilterOfIndex"/>
-    {$endregion}
-    function IndexOfFilter(Filter: TFilterType): Integer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IndexOfFilter(Filter : TFilterType) : Integer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a specified filter as a zero-based integer value to a filter
     /// value.
@@ -162,29 +162,29 @@ type
     /// Returns filter value of <paramref name="Index"/>.
     /// </returns>
     /// <seealso cref="IndexOfFilter"/>
-    {$endregion}
-    function FilterOfIndex(Index: Integer): TFilterType;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function FilterOfIndex(Index : Integer) : TFilterType;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// The list of all string items.
     /// </summary>
-    {$endregion}
-    All: TTextItems;
-    {$region 'xmldoc'}
+    {$Endregion}
+    All : TTextItems;
+    {$Region 'xmldoc'}
     /// <summary>
     /// The list of item IDs that indicates which string items are selected.
     /// </summary>
-    {$endregion}
-    Selection: TStringList;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Selection : TStringList;
+    {$Region 'xmldoc'}
     /// <summary>
     /// The number of total and selected string items in each filtering group.
     /// </summary>
-    {$endregion}
-    Stats: TStats;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Stats : TStats;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class.
     /// </summary>
@@ -204,17 +204,15 @@ type
     /// <param name="ACommentControl">
     /// The control that displays the comment of an item.
     /// </param>
-    {$endregion}
-    constructor Create(AKind: TTextDitionaryKind;
-      AListControl: TListView; AFilterControl: TCustomListControl;
-      AValueControl, ACommentControl: TCustomMemo);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AKind : TTextDitionaryKind; AListControl : TListView; AFilterControl : TCustomListControl; AValueControl, ACommentControl : TCustomMemo);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the instance and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Selects a specified list of items.
     /// </summary>
@@ -222,9 +220,9 @@ type
     /// The list of items to be selected.
     /// </param>
     /// <seealso cref="GetSelection"/>
-    {$endregion}
-    procedure SetSelection(SelectedItems: TTextItems);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure SetSelection(SelectedItems : TTextItems);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Retrieves the list of selected items.
     /// </summary>
@@ -232,9 +230,9 @@ type
     /// Returns the list of selected items.
     /// </param>
     /// <seealso cref="SetSelection"/>
-    {$endregion}
-    procedure GetSelection(SelectedItems: TTextItems);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure GetSelection(SelectedItems : TTextItems);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Retrieves the list of items whose value has been edited by the user.
     /// </summary>
@@ -242,9 +240,9 @@ type
     /// Returns the list of edited items.
     /// </param>
     /// <seealso cref="GetSelection"/>
-    {$endregion}
-    procedure GetUpdated(UpdatedItems: TTextItems);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure GetUpdated(UpdatedItems : TTextItems);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Selects or deselects a specified item.
     /// </summary>
@@ -260,9 +258,9 @@ type
     /// </returns>
     /// <seealso cref="GetChecked"/>
     /// <seealso cref="SetAllState"/>
-    {$endregion}
-    function SetChecked(Item: TTextItem; Checked: Boolean): Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function SetChecked(Item : TTextItem; Checked : Boolean) : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether an item is selected.
     /// </summary>
@@ -274,9 +272,9 @@ type
     /// <see langword="false"/>.
     /// </returns>
     /// <seealso cref="SetChecked"/>
-    {$endregion}
-    function GetChecked(Item: TTextItem): Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetChecked(Item : TTextItem) : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Changes selection state of all items according to a specified state.
     /// </summary>
@@ -311,9 +309,9 @@ type
     /// </returns>
     /// <seealso cref="SetChecked"/>
     /// <seealso cref="CanSetAllState"/>
-    {$endregion}
-    function SetAllState(State: TCheckBoxState): Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function SetAllState(State : TCheckBoxState) : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether any of the items in the list can change its state to a
     /// specified state.
@@ -326,9 +324,9 @@ type
     /// returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="SetAllState"/>
-    {$endregion}
-    function CanSetAllState(State: TCheckBoxState): Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function CanSetAllState(State : TCheckBoxState) : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reevaluates the information regarding to a specified item.
     /// </summary>
@@ -339,9 +337,9 @@ type
     /// Returns <see langword="true"/> if the reevaluation caused any changes,
     /// otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function Reevaluate(Item: TTextItem): Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Reevaluate(Item : TTextItem) : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified item is visible by the currently active
     /// filter.
@@ -353,9 +351,9 @@ type
     /// Returns <see langword="true"/> if the item satisfies the currently active
     /// filter, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsVisible(Item: TTextItem): Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsVisible(Item : TTextItem) : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Activates a filter using its zero-based index.
     /// </summary>
@@ -367,9 +365,9 @@ type
     /// filter is a custom filter.
     /// </param>
     /// <seealso cref="ActiveFilter"/>
-    {$endregion}
-    procedure ActivateFilterByIndex(Index: Integer; const CustomFilterPrompt: String);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ActivateFilterByIndex(Index : Integer; Const CustomFilterPrompt : String);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Updates the value of the selected item using the attached edit control.
     /// </summary>
@@ -379,9 +377,9 @@ type
     /// </returns>
     /// <seealso cref="UpdateSelectedItemComment"/>
     /// <seealso cref="SelectedItem"/>
-    {$endregion}
-    function UpdateSelectedItemValue: Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function UpdateSelectedItemValue : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Updates the comment of the selected item using the attached edit control.
     /// </summary>
@@ -391,193 +389,186 @@ type
     /// </returns>
     /// <seealso cref="UpdateSelectedItemValue"/>
     /// <seealso cref="SelectedItem"/>
-    {$endregion}
-    function UpdateSelectedItemComment: Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function UpdateSelectedItemComment : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets whether the object is representing a list of translatable properties
     /// or a list of translatable string constants and literals.
     /// </summary>
-    {$endregion}
-    property Kind: TTextDitionaryKind read fKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Kind : TTextDitionaryKind Read fKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the control that lists the translatable strings.
     /// </summary>
-    {$endregion}
-    property ListControl: TListView read fListControl;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ListControl : TListView Read fListControl;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the control that provides filtering options.
     /// </summary>
-    {$endregion}
-    property FilterControl: TCustomListControl read fFilterControl;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FilterControl : TCustomListControl Read fFilterControl;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the control that displays value of the selected item.
     /// </summary>
     /// <seealso cref="SelectedItem"/>
-    {$endregion}
-    property ValueControl: TCustomMemo read fValueControl;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ValueControl : TCustomMemo Read fValueControl;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the control that displays comment of the selected item.
     /// </summary>
     /// <seealso cref="SelectedItem"/>
-    {$endregion}
-    property CommentControl: TCustomMemo read fCommentControl;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CommentControl : TCustomMemo Read fCommentControl;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets of sets the currently active filter.
     /// </summary>
-    {$endregion}
-    property ActiveFilter: TFilterType read fActiveFilter write SetActiveFilter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ActiveFilter : TFilterType Read fActiveFilter Write SetActiveFilter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the user-defined filtering string.
     /// </summary>
-    {$endregion}
-    property CustomFilter: String read fCustomFilter write SetCustomFilter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CustomFilter : String Read fCustomFilter Write SetCustomFilter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the translatable string that its value and comment is currently
     /// displayed.
     /// </summary>
-    {$endregion}
-    property SelectedItem: TTextItem read fSelectedItem write SetSelectedItem;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property SelectedItem : TTextItem Read fSelectedItem Write SetSelectedItem;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which of the plural forms of the selected item is currently
     /// displayed.
     /// </summary>
     /// <seealso cref="SelectedItem"/>
-    {$endregion}
-    property PluralIndex: Integer read fPluralIndex write SetPluralIndex;
-  end;
+    {$Endregion}
+    Property PluralIndex : Integer Read fPluralIndex Write SetPluralIndex;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TTranslatableEditor displays a dialog box to select the translatable strings
-  /// that can be translated by a <see cref="TTranslator"/> component.
-  /// </summary>
-  {$endregion}
-  TTranslatableEditor = class(TForm)
-    PageControl: TPageControl;
-    tabProperties: TTabSheet;
-    tabLiterals: TTabSheet;
-    tabExport: TTabSheet;
-    btnOK: TButton;
-    btnCancel: TButton;
-    PropertyList: TListView;
-    ImageList: TImageList;
-    PropertyFilter: TComboBox;
-    LiteralList: TListView;
-    TextLanguageLabel: TLabel;
-    SaveDialog: TSaveDialog;
-    btnExportTo: TButton;
-    ActionList: TActionList;
-    PropsCheckAll: TAction;
-    PropsUncheckAll: TAction;
-    PropsInvertCheck: TAction;
-    PropertiesPopup: TPopupMenu;
-    CheckAll1: TMenuItem;
-    UncheckAll1: TMenuItem;
-    Invert1: TMenuItem;
-    LiteralsPopup: TPopupMenu;
-    btnPropsCheckAll: TButton;
-    btnPropsUncheckAll: TButton;
-    btnPropsInvertCheck: TButton;
-    LiteralsCheckAll: TAction;
-    LiteralsUncheckAll: TAction;
-    LiteralsInvertCheck: TAction;
-    LiteralFilter: TComboBox;
-    btnLiteralsCheckAll: TButton;
-    btnLiteralsUncheckAll: TButton;
-    btnLiteralsInvertCheck: TButton;
-    CheckAll2: TMenuItem;
-    UncheckAll2: TMenuItem;
-    Invert2: TMenuItem;
-    ExportCommentsLabel: TLabel;
-    LanguageBoxPlaceHolder: TComboBox;
-    TextEditorPopupMenu: TPopupMenu;
-    EditCutAction: TEditCut;
-    EditCopyAction: TEditCopy;
-    EditPasteAction: TEditPaste;
-    EditSelectAllAction: TEditSelectAll;
-    EditUndoAction: TEditUndo;
-    Undo1: TMenuItem;
-    N1: TMenuItem;
-    Cut1: TMenuItem;
-    Copy1: TMenuItem;
-    Paste1: TMenuItem;
-    N2: TMenuItem;
-    SelectAll1: TMenuItem;
-    PropertiesTabSet: TTabSet;
-    PropertyValue: TMemo;
-    PropertyComments: TMemo;
-    LiteralValue: TMemo;
-    LiteralComments: TMemo;
-    LiteralsTabSet: TTabSet;
-    LiteralPlurals: TTabSet;
-    procedure FormCreate(Sender: TObject);
-    procedure FormDestroy(Sender: TObject);
-    procedure FormShow(Sender: TObject);
-    procedure PropertyFilterSelect(Sender: TObject);
-    procedure FilterDrawItem(Control: TWinControl; Index: Integer;
-      Rect: TRect; State: TOwnerDrawState);
-    procedure ListViewCustomDraw(Sender: TCustomListView;
-      const ARect: TRect; var DefaultDraw: Boolean);
-    procedure ListViewCustomDrawItem(Sender: TCustomListView;
-      Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
-    procedure PropertyListSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
-    procedure PropsCheckAllExecute(Sender: TObject);
-    procedure PropsCheckAllUpdate(Sender: TObject);
-    procedure PropsUncheckAllExecute(Sender: TObject);
-    procedure PropsUncheckAllUpdate(Sender: TObject);
-    procedure PropsInvertCheckExecute(Sender: TObject);
-    procedure PropsInvertCheckUpdate(Sender: TObject);
-    procedure PropertyValueExit(Sender: TObject);
-    procedure PropertyCommentsExit(Sender: TObject);
-    procedure PropertiesTabSetChange(Sender: TObject; NewTab: Integer;
-      var AllowChange: Boolean);
-    procedure LiteralFilterSelect(Sender: TObject);
-    procedure LiteralListSelectItem(Sender: TObject; Item: TListItem; Selected: Boolean);
-    procedure LiteralsCheckAllExecute(Sender: TObject);
-    procedure LiteralsCheckAllUpdate(Sender: TObject);
-    procedure LiteralsUncheckAllExecute(Sender: TObject);
-    procedure LiteralsUncheckAllUpdate(Sender: TObject);
-    procedure LiteralsInvertCheckExecute(Sender: TObject);
-    procedure LiteralsInvertCheckUpdate(Sender: TObject);
-    procedure LiteralValueExit(Sender: TObject);
-    procedure LiteralCommentsExit(Sender: TObject);
-    procedure LiteralsTabSetChange(Sender: TObject; NewTab: Integer;
-      var AllowChange: Boolean);
-    procedure LiteralListCustomDraw(Sender: TCustomListView; const ARect: TRect;
-      var DefaultDraw: Boolean);
-    procedure btnExportToClick(Sender: TObject);
-    procedure PropertyListItemChecked(Sender: TObject; Item: TListItem);
-    procedure LiteralListItemChecked(Sender: TObject; Item: TListItem);
-    procedure LanguageBoxSelect(Sender: TObject);
-    procedure LiteralPluralsChange(Sender: TObject; NewTab: Integer;
-      var AllowChange: Boolean);
-  private
-    const FILTER_DEFAULT = TTranslatablesUI.TFilterType.ftNone;
-  private
-    Properties: TTranslatablesUI;
-    Literals: TTranslatablesUI;
-    Translatables: TTranslatables;
-    TextLanguage: TCultureBox;
-    LiteralCollector: TPascalStringCollector;
-    CollectorErrorMsg: String;
-    procedure ReadProperties;
-    procedure WriteProperties;
-    procedure ReadLiterals;
-    procedure WriteLiterals;
-    procedure AddTranslatablesTo(Catalog: TTranslationCatalog;
-      KeepObsoleteEntries: Boolean);
-    procedure ExportTo(const FileName: String);
-  public
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TTranslatableEditor displays a dialog box to select the translatable strings
+/// that can be translated by a <see cref="TTranslator"/> component.
+/// </summary>
+{$Endregion}
+
+  TTranslatableEditor = Class(TForm)
+    PageControl            : TPageControl;
+    tabProperties          : TTabSheet;
+    tabLiterals            : TTabSheet;
+    tabExport              : TTabSheet;
+    btnOK                  : TButton;
+    btnCancel              : TButton;
+    PropertyList           : TListView;
+    ImageList              : TImageList;
+    PropertyFilter         : TComboBox;
+    LiteralList            : TListView;
+    TextLanguageLabel      : TLabel;
+    SaveDialog             : TSaveDialog;
+    btnExportTo            : TButton;
+    ActionList             : TActionList;
+    PropsCheckAll          : TAction;
+    PropsUncheckAll        : TAction;
+    PropsInvertCheck       : TAction;
+    PropertiesPopup        : TPopupMenu;
+    CheckAll1              : TMenuItem;
+    UncheckAll1            : TMenuItem;
+    Invert1                : TMenuItem;
+    LiteralsPopup          : TPopupMenu;
+    btnPropsCheckAll       : TButton;
+    btnPropsUncheckAll     : TButton;
+    btnPropsInvertCheck    : TButton;
+    LiteralsCheckAll       : TAction;
+    LiteralsUncheckAll     : TAction;
+    LiteralsInvertCheck    : TAction;
+    LiteralFilter          : TComboBox;
+    btnLiteralsCheckAll    : TButton;
+    btnLiteralsUncheckAll  : TButton;
+    btnLiteralsInvertCheck : TButton;
+    CheckAll2              : TMenuItem;
+    UncheckAll2            : TMenuItem;
+    Invert2                : TMenuItem;
+    ExportCommentsLabel    : TLabel;
+    LanguageBoxPlaceHolder : TComboBox;
+    TextEditorPopupMenu    : TPopupMenu;
+    EditCutAction          : TEditCut;
+    EditCopyAction         : TEditCopy;
+    EditPasteAction        : TEditPaste;
+    EditSelectAllAction    : TEditSelectAll;
+    EditUndoAction         : TEditUndo;
+    Undo1                  : TMenuItem;
+    N1                     : TMenuItem;
+    Cut1                   : TMenuItem;
+    Copy1                  : TMenuItem;
+    Paste1                 : TMenuItem;
+    N2                     : TMenuItem;
+    SelectAll1             : TMenuItem;
+    PropertiesTabSet       : TTabSet;
+    PropertyValue          : TMemo;
+    PropertyComments       : TMemo;
+    LiteralValue           : TMemo;
+    LiteralComments        : TMemo;
+    LiteralsTabSet         : TTabSet;
+    LiteralPlurals         : TTabSet;
+    Procedure FormCreate(Sender : TObject);
+    Procedure FormDestroy(Sender : TObject);
+    Procedure FormShow(Sender : TObject);
+    Procedure PropertyFilterSelect(Sender : TObject);
+    Procedure FilterDrawItem(Control : TWinControl; Index : Integer; Rect : TRect; State : TOwnerDrawState);
+    Procedure ListViewCustomDraw(Sender : TCustomListView; Const ARect : TRect; Var DefaultDraw : Boolean);
+    Procedure ListViewCustomDrawItem(Sender : TCustomListView; Item : TListItem; State : TCustomDrawState; Var DefaultDraw : Boolean);
+    Procedure PropertyListSelectItem(Sender : TObject; Item : TListItem; Selected : Boolean);
+    Procedure PropsCheckAllExecute(Sender : TObject);
+    Procedure PropsCheckAllUpdate(Sender : TObject);
+    Procedure PropsUncheckAllExecute(Sender : TObject);
+    Procedure PropsUncheckAllUpdate(Sender : TObject);
+    Procedure PropsInvertCheckExecute(Sender : TObject);
+    Procedure PropsInvertCheckUpdate(Sender : TObject);
+    Procedure PropertyValueExit(Sender : TObject);
+    Procedure PropertyCommentsExit(Sender : TObject);
+    Procedure PropertiesTabSetChange(Sender : TObject; NewTab : Integer; Var AllowChange : Boolean);
+    Procedure LiteralFilterSelect(Sender : TObject);
+    Procedure LiteralListSelectItem(Sender : TObject; Item : TListItem; Selected : Boolean);
+    Procedure LiteralsCheckAllExecute(Sender : TObject);
+    Procedure LiteralsCheckAllUpdate(Sender : TObject);
+    Procedure LiteralsUncheckAllExecute(Sender : TObject);
+    Procedure LiteralsUncheckAllUpdate(Sender : TObject);
+    Procedure LiteralsInvertCheckExecute(Sender : TObject);
+    Procedure LiteralsInvertCheckUpdate(Sender : TObject);
+    Procedure LiteralValueExit(Sender : TObject);
+    Procedure LiteralCommentsExit(Sender : TObject);
+    Procedure LiteralsTabSetChange(Sender : TObject; NewTab : Integer; Var AllowChange : Boolean);
+    Procedure LiteralListCustomDraw(Sender : TCustomListView; Const ARect : TRect; Var DefaultDraw : Boolean);
+    Procedure btnExportToClick(Sender : TObject);
+    Procedure PropertyListItemChecked(Sender : TObject; Item : TListItem);
+    Procedure LiteralListItemChecked(Sender : TObject; Item : TListItem);
+    Procedure LanguageBoxSelect(Sender : TObject);
+    Procedure LiteralPluralsChange(Sender : TObject; NewTab : Integer; Var AllowChange : Boolean);
+   Private
+    Const FILTER_DEFAULT = TTranslatablesUI.TFilterType.ftNone;
+   Private
+    Properties        : TTranslatablesUI;
+    Literals          : TTranslatablesUI;
+    Translatables     : TTranslatables;
+    TextLanguage      : TCultureBox;
+    LiteralCollector  : TPascalStringCollector;
+    CollectorErrorMsg : String;
+    Procedure ReadProperties;
+    Procedure WriteProperties;
+    Procedure ReadLiterals;
+    Procedure WriteLiterals;
+    Procedure AddTranslatablesTo(Catalog : TTranslationCatalog; KeepObsoleteEntries : Boolean);
+    Procedure ExportTo(Const FileName : String);
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Displays the editor for a specified <see cref="TTranslatables"/> object.
     /// </summary>
@@ -588,944 +579,931 @@ type
     /// Returns <see langword="true"/> if the <see cref="TTranslatables"/>
     /// object is modified, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    class function Execute(ATranslatables: TTranslatables): Boolean;
-  end;
+    {$Endregion}
+    Class Function Execute(ATranslatables : TTranslatables) : Boolean;
+  End;
 
-implementation
+Implementation
 
 {$R *.dfm}
 
-uses
+ Uses
   Types, StrUtils, Character, CommCtrl, i18nZStrList, i18nIDE;
 
-resourcestring
-  SEditorCaption        = 'Translatables of %s';
-  SCustomFilter         = 'Custom Filter';
+ Resourcestring
+  SEditorCaption = 'Translatables of %s';
+  SCustomFilter = 'Custom Filter';
   SPropertyFilterPrompt = 'Property''s path contains:';
-  SLiteralFilterPrompt  = 'String contains:';
-  SNoItemsToView        = 'There are no items to show in this view.';
-  SCollectError         = 'Constant and literal strings can not be collected from the source code.';
-  SParserError          = 'The parser found error in your code: %s';
-  SFileExists           = '%s alreay exists.';
-  SContentMismatch      = 'The selected file is not a translation catalog file.';
-  SLanguageMismatch     = 'The base language of the selected translation catalog file is not same as the selected language.';
-  SUpdateAction         = 'Press [OK] to update the content of the file.';
-  SReplaceAction        = 'Press [OK] to replace the file.';
-  SCancelAction         = 'Press [Cancel] to stop the operation.';
+  SLiteralFilterPrompt = 'String contains:';
+  SNoItemsToView = 'There are no items to show in this view.';
+  SCollectError = 'Constant and literal strings can not be collected from the source code.';
+  SParserError = 'The parser found error in your code: %s';
+  SFileExists = '%s alreay exists.';
+  SContentMismatch = 'The selected file is not a translation catalog file.';
+  SLanguageMismatch = 'The base language of the selected translation catalog file is not same as the selected language.';
+  SUpdateAction = 'Press [OK] to update the content of the file.';
+  SReplaceAction = 'Press [OK] to replace the file.';
+  SCancelAction = 'Press [Cancel] to stop the operation.';
 
-const
+ Const
   clAlternative = $F9FBFB;
 
 { Helper Functions }
 
-function IsStringAlpha(const Str: String): Boolean;
-var
-  I: Integer;
-begin
-  Result := False;
-  for I := 1 to Length(Str) do
-    if CharIsLetter(Str[I]) then
-    begin
+ Function IsStringAlpha(Const Str : String) : Boolean;
+  Var
+   i : Integer;
+  Begin
+   Result := False;
+   For i  := 1 To Length(Str) Do
+    If CharIsLetter(Str[i]) Then
+     Begin
       Result := True;
       Exit;
-    end;
-end;
+     End;
+  End;
 
 { TStringsInfo }
 
-constructor TTranslatablesUI.Create(AKind: TTextDitionaryKind;
-  AListControl: TListView; AFilterControl: TCustomListControl;
-  AValueControl, ACommentControl: TCustomMemo);
-begin
-  All := TTextItems.Create;
-  Selection := TStringList.Create;
-  Selection.Duplicates := dupIgnore;
-  Selection.Sorted := True;
-  fKind := AKind;
-  fListControl := AListControl;
-  fFilterControl := AFilterControl;
-  fValueControl := AValueControl;
-  fCommentControl := ACommentControl;
-end;
+ Constructor TTranslatablesUI.Create(AKind : TTextDitionaryKind; AListControl : TListView; AFilterControl : TCustomListControl; AValueControl, ACommentControl : TCustomMemo);
+  Begin
+   All                  := TTextItems.Create;
+   Selection            := TStringList.Create;
+   Selection.Duplicates := dupIgnore;
+   Selection.Sorted     := True;
+   fKind                := AKind;
+   fListControl         := AListControl;
+   fFilterControl       := AFilterControl;
+   fValueControl        := AValueControl;
+   fCommentControl      := ACommentControl;
+  End;
 
-destructor TTranslatablesUI.Destroy;
-begin
-  All.Free;
-  Selection.Free;
-  inherited Destroy;
-end;
+ Destructor TTranslatablesUI.Destroy;
+  Begin
+   All.Free;
+   Selection.Free;
+   Inherited Destroy;
+  End;
 
-procedure TTranslatablesUI.SetActiveFilter(Value: TFilterType);
-begin
-  if ActiveFilter <> Value then
-  begin
-    fActiveFilter := Value;
-    UpdateControls;
-  end;
-end;
+ Procedure TTranslatablesUI.SetActiveFilter(Value : TFilterType);
+  Begin
+   If ActiveFilter <> Value Then
+    Begin
+     fActiveFilter := Value;
+     UpdateControls;
+    End;
+  End;
 
-procedure TTranslatablesUI.SetCustomFilter(const Value: String);
-begin
-  if (CustomFilter <> Value) or ((Value <> '') and (ActiveFilter <> ftCustom)) then
-  begin
-    fActiveFilter := ftCustom;
-    fCustomFilter := Value;
-    UpdateControls;
-  end;
-end;
+ Procedure TTranslatablesUI.SetCustomFilter(Const Value : String);
+  Begin
+   If (CustomFilter <> Value) Or ((Value <> '') And (ActiveFilter <> ftCustom)) Then
+    Begin
+     fActiveFilter := ftCustom;
+     fCustomFilter := Value;
+     UpdateControls;
+    End;
+  End;
 
-procedure TTranslatablesUI.SetSelectedItem(Value: TTextItem);
-begin
-  if SelectedItem <> Value then
-  begin
-    fSelectedItem := Value;
-    fPluralIndex := 0;
-    if Assigned(SelectedItem) then
-    begin
-      if SelectedItem.HasPluralForms then
+ Procedure TTranslatablesUI.SetSelectedItem(Value : TTextItem);
+  Begin
+   If SelectedItem <> Value Then
+    Begin
+     fSelectedItem := Value;
+     fPluralIndex  := 0;
+     If Assigned(SelectedItem) Then
+      Begin
+       If SelectedItem.HasPluralForms Then
         ValueControl.Text := SelectedItem.Plurals[PluralIndex]
-      else
-        ValueControl.Text := SelectedItem.Value;
-      ValueControl.Modified := False;
-      ValueControl.ReadOnly := (Kind = dkLiteral);
-      CommentControl.Text := SelectedItem.Comment;
-      CommentControl.Modified := False;
-      CommentControl.ReadOnly := False;
-    end
-    else
-    begin
-      ValueControl.Clear;
-      ValueControl.ReadOnly := True;
-      CommentControl.Clear;
-      CommentControl.ReadOnly := True;
-    end;
-  end;
-end;
+       Else
+        ValueControl.Text      := SelectedItem.Value;
+       ValueControl.Modified   := False;
+       ValueControl.ReadOnly   := (Kind = dkLiteral);
+       CommentControl.Text     := SelectedItem.Comment;
+       CommentControl.Modified := False;
+       CommentControl.ReadOnly := False;
+      End
+     Else
+      Begin
+       ValueControl.Clear;
+       ValueControl.ReadOnly := True;
+       CommentControl.Clear;
+       CommentControl.ReadOnly := True;
+      End;
+    End;
+  End;
 
-procedure TTranslatablesUI.SetPluralIndex(Value: Integer);
-begin
-  if not (Assigned(SelectedItem) and SelectedItem.HasPluralForms) then
+ Procedure TTranslatablesUI.SetPluralIndex(Value : Integer);
+  Begin
+   If Not(Assigned(SelectedItem) And SelectedItem.HasPluralForms) Then
     Value := 0;
-  if PluralIndex <> Value then
-  begin
-    fPluralIndex := Value;
-    ValueControl.Text := SelectedItem.Plurals[PluralIndex];
-  end;
-end;
+   If PluralIndex <> Value Then
+    Begin
+     fPluralIndex      := Value;
+     ValueControl.Text := SelectedItem.Plurals[PluralIndex];
+    End;
+  End;
 
-procedure TTranslatablesUI.SetSelection(SelectedItems: TTextItems);
-var
-  Item, Source: TTextItem;
-  Filter: TFilterType;
-begin
-  // prepare selection list
-  Item := SelectedItems.First;
-  while Item <> nil do
-  begin
-    Source := All.Find(Item.ID);
-    if Source <> nil then
-    begin
-      Source.Comment := Item.Comment;
-      Selection.Add(Source.ID)
-    end;
-    Item := Item.Next;
-  end;
-  // prepare filter information
-  Stats.Total[ftNone] := All.Count;
-  Stats.Selected[ftNone] := Selection.Count;
-  Item := All.First;
-  while Item <> nil do
-  begin
-    Filter := FilterTagOf(Item);
-    Item.Tag := Ord(Filter);
-    Inc(Stats.Total[Filter]);
-    if GetChecked(Item) then
+ Procedure TTranslatablesUI.SetSelection(SelectedItems : TTextItems);
+  Var
+   Item   : TTextItem;
+   Source : TTextItem;
+   Filter : TFilterType;
+  Begin
+   // prepare selection list
+   Item := SelectedItems.First;
+   While Item <> Nil Do
+    Begin
+     Source := All.Find(Item.ID);
+     If Source <> Nil Then
+      Begin
+       Source.Comment := Item.Comment;
+       Selection.Add(Source.ID)
+      End;
+     Item := Item.Next;
+    End;
+   // prepare filter information
+   Stats.Total[ftNone]    := All.Count;
+   Stats.Selected[ftNone] := Selection.Count;
+   Item                   := All.First;
+   While Item <> Nil Do
+    Begin
+     Filter   := FilterTagOf(Item);
+     Item.Tag := Ord(Filter);
+     Inc(Stats.Total[Filter]);
+     If GetChecked(Item) Then
       Inc(Stats.Selected[Filter]);
-    Item := Item.Next;
-  end;
-end;
+     Item := Item.Next;
+    End;
+  End;
 
-procedure TTranslatablesUI.GetSelection(SelectedItems: TTextItems);
-var
-  Item: TTextItem;
-begin
-  SelectedItems.Clear;
-  Item := All.First;
-  while Item <> nil do
-  begin
-    if GetChecked(Item) then
+ Procedure TTranslatablesUI.GetSelection(SelectedItems : TTextItems);
+  Var
+   Item : TTextItem;
+  Begin
+   SelectedItems.Clear;
+   Item := All.First;
+   While Item <> Nil Do
+    Begin
+     If GetChecked(Item) Then
       SelectedItems.Add(Item.ID).Assign(Item);
-    Item := Item.Next;
-  end;
-end;
+     Item := Item.Next;
+    End;
+  End;
 
-procedure TTranslatablesUI.GetUpdated(UpdatedItems: TTextItems);
-var
-  Item: TTextItem;
-begin
-  UpdatedItems.Clear;
-  Item := All.First;
-  while Item <> nil do
-  begin
-    if Item.IsTranslated then
+ Procedure TTranslatablesUI.GetUpdated(UpdatedItems : TTextItems);
+  Var
+   Item : TTextItem;
+  Begin
+   UpdatedItems.Clear;
+   Item := All.First;
+   While Item <> Nil Do
+    Begin
+     If Item.IsTranslated Then
       UpdatedItems.Add(Item.ID).Assign(Item);
-    Item := Item.Next;
-  end;
-end;
+     Item := Item.Next;
+    End;
+  End;
 
-function TTranslatablesUI.FilterTagOf(Item: TTextItem): TFilterType;
-begin
-  if (Kind = dkProperty) and AnsiEndsText('Name', Item.ID) then
+ Function TTranslatablesUI.FilterTagOf(Item : TTextItem) : TFilterType;
+  Begin
+   If (Kind = dkProperty) And AnsiEndsText('Name', Item.ID) Then
     Result := ftNamePropertyOrPluralLiteral
-  else if (Kind = dkLiteral) and Item.HasPluralForms then
+   Else If (Kind = dkLiteral) And Item.HasPluralForms Then
     Result := ftNamePropertyOrPluralLiteral
-  else if Length(Item.Value) = 1 then
+   Else If Length(Item.Value) = 1 Then
     Result := ftCharValue
-  else if IsStringAlpha(Item.Value) then
+   Else If IsStringAlpha(Item.Value) Then
     Result := ftAlphaValue
-  else
+   Else
     Result := ftNonAlphaValue;
-end;
+  End;
 
-function TTranslatablesUI.ImageIndexOf(Item: TTextItem): Integer;
-begin
-  if Item.Tag = 0 then
+ Function TTranslatablesUI.ImageIndexOf(Item : TTextItem) : Integer;
+  Begin
+   If Item.Tag = 0 Then
     Item.Tag := Ord(FilterTagOf(Item));
-  Result := Item.Tag;
-  if Item.Comment <> '' then
+   Result    := Item.Tag;
+   If Item.Comment <> '' Then
     Inc(Result, 7);
-end;
+  End;
 
-function TTranslatablesUI.FilterOfIndex(Index: Integer): TFilterType;
-begin
-  Result := TFilterType(Index + 1);
-end;
+ Function TTranslatablesUI.FilterOfIndex(Index : Integer) : TFilterType;
+  Begin
+   Result := TFilterType(Index + 1);
+  End;
 
-function TTranslatablesUI.IndexOfFilter(Filter: TFilterType): Integer;
-begin
-  Result := Ord(Filter) - 1;
-end;
+ Function TTranslatablesUI.IndexOfFilter(Filter : TFilterType) : Integer;
+  Begin
+   Result := Ord(Filter) - 1;
+  End;
 
-function TTranslatablesUI.IsVisible(Item: TTextItem): Boolean;
-begin
-  if ActiveFilter = ftCustom then
-    if Kind = dkProperty then
-      Result := (Pos(LowerCase(CustomFilter), LowerCase(Item.ID)) <> 0)
-    else
-      Result := (Pos(LowerCase(CustomFilter), LowerCase(Item.Value)) <> 0)
-  else
-    Result := (ActiveFilter in [ftNone, TFilterType(Item.Tag)]);
-end;
+ Function TTranslatablesUI.IsVisible(Item : TTextItem) : Boolean;
+  Begin
+   If ActiveFilter = ftCustom Then
+    If Kind = dkProperty Then
+     Result := (Pos(LowerCase(CustomFilter), LowerCase(Item.ID)) <> 0)
+    Else
+     Result := (Pos(LowerCase(CustomFilter), LowerCase(Item.Value)) <> 0)
+   Else
+    Result := (ActiveFilter In [ftNone, TFilterType(Item.Tag)]);
+  End;
 
-procedure TTranslatablesUI.UpdateControls;
-var
-  Item: TTextItem;
-  SavedOnItemChecked: TLVCheckedItemEvent;
-begin
-  if ActiveFilter = ftCustom then
-  begin
-    Stats.Total[ftCustom] := 0;
-    Stats.Selected[ftCustom] := 0;
-  end;
-  SelectedItem := nil;
-  SavedOnItemChecked := ListControl.OnItemChecked;
-  ListControl.OnItemChecked := nil;
-  ListControl.Items.BeginUpdate;
-  try
+ Procedure TTranslatablesUI.UpdateControls;
+  Var
+   Item               : TTextItem;
+   SavedOnItemChecked : TLVCheckedItemEvent;
+  Begin
+   If ActiveFilter = ftCustom Then
+    Begin
+     Stats.Total[ftCustom]    := 0;
+     Stats.Selected[ftCustom] := 0;
+    End;
+   SelectedItem              := Nil;
+   SavedOnItemChecked        := ListControl.OnItemChecked;
+   ListControl.OnItemChecked := Nil;
+   ListControl.Items.BeginUpdate;
+   Try
     ListControl.Items.Clear;
     Item := All.First;
-    while Item <> nil do
-    begin
-      if IsVisible(Item) then
-        with ListControl.Items.Add do
-        begin
-          Data := Item;
-          if Kind = dkProperty then
-          begin
-            Caption := Item.ID;
-            SubItems.Add(Item.Value);
-          end
-          else if Item.HasPluralForms then
-          begin
-            Caption := ZStrings.Split(Item.Value, '|');
-            SubItems.Add(IntToStr(Item.PluralCount));
-          end
-          else
-            Caption := Item.Value;
-          ImageIndex := ImageIndexOf(Item);
-          Checked := GetChecked(Item);
-          if ActiveFilter = ftCustom then
-          begin
-            Inc(Stats.Total[ftCustom]);
-            if Checked then
-              Inc(Stats.Selected[ftCustom]);
-          end;
-        end;
+    While Item <> Nil Do
+     Begin
+      If IsVisible(Item) Then
+       With ListControl.Items.Add Do
+        Begin
+         Data := Item;
+         If Kind = dkProperty Then
+          Begin
+           Caption := Item.ID;
+           SubItems.Add(Item.Value);
+          End
+         Else If Item.HasPluralForms Then
+          Begin
+           Caption := ZStrings.Split(Item.Value, '|');
+           SubItems.Add(IntToStr(Item.PluralCount));
+          End
+         Else
+          Caption   := Item.Value;
+         ImageIndex := ImageIndexOf(Item);
+         Checked    := GetChecked(Item);
+         If ActiveFilter = ftCustom Then
+          Begin
+           Inc(Stats.Total[ftCustom]);
+           If Checked Then
+            Inc(Stats.Selected[ftCustom]);
+          End;
+        End;
       Item := Item.Next;
-    end;
-  finally
+     End;
+   Finally
     ListControl.Items.EndUpdate;
     ListControl.OnItemChecked := SavedOnItemChecked;
-  end;
-  if ListControl.Items.Count > 0 then
-    ListControl.ItemIndex := 0;
-  ListControl.Width := ListControl.Width + 1;
-  ListControl.Width := ListControl.Width - 1;
-  FilterControl.ItemIndex := IndexOfFilter(ActiveFilter);
-  if ActiveFilter = ftCustom then
+   End;
+   If ListControl.Items.Count > 0 Then
+    ListControl.ItemIndex  := 0;
+   ListControl.Width       := ListControl.Width + 1;
+   ListControl.Width       := ListControl.Width - 1;
+   FilterControl.ItemIndex := IndexOfFilter(ActiveFilter);
+   If ActiveFilter = ftCustom Then
     FilterControl.Invalidate;
-end;
+  End;
 
-function TTranslatablesUI.SetChecked(Item: TTextItem; Checked: Boolean): Boolean;
-var
-  Index: Integer;
-begin
-  Result := False;
-  if Item.HasPluralForms then
+ Function TTranslatablesUI.SetChecked(Item : TTextItem; Checked : Boolean) : Boolean;
+  Var
+   Index : Integer;
+  Begin
+   Result := False;
+   If Item.HasPluralForms Then
     Exit;
-  Index := Selection.IndexOf(Item.ID);
-  if Checked xor (Index >= 0) then
-  begin
-    if Checked then
-    begin
-      Selection.Add(Item.ID);
-      Inc(Stats.Selected[TFilterType(Item.Tag)]);
-      Inc(Stats.Selected[ftNone]);
-    end
-    else
-    begin
-      Selection.Delete(Index);
-      Dec(Stats.Selected[TFilterType(Item.Tag)]);
-      Dec(Stats.Selected[ftNone]);
-    end;
-    FilterControl.Invalidate;
-    Result := True;
-  end;
-end;
+   Index := Selection.IndexOf(Item.ID);
+   If Checked Xor (Index >= 0) Then
+    Begin
+     If Checked Then
+      Begin
+       Selection.Add(Item.ID);
+       Inc(Stats.Selected[TFilterType(Item.Tag)]);
+       Inc(Stats.Selected[ftNone]);
+      End
+     Else
+      Begin
+       Selection.Delete(Index);
+       Dec(Stats.Selected[TFilterType(Item.Tag)]);
+       Dec(Stats.Selected[ftNone]);
+      End;
+     FilterControl.Invalidate;
+     Result := True;
+    End;
+  End;
 
-function TTranslatablesUI.GetChecked(Item: TTextItem): Boolean;
-begin
-  Result := Item.HasPluralForms or (Selection.IndexOf(Item.ID) >= 0);
-end;
+ Function TTranslatablesUI.GetChecked(Item : TTextItem) : Boolean;
+  Begin
+   Result := Item.HasPluralForms Or (Selection.IndexOf(Item.ID) >= 0);
+  End;
 
-function TTranslatablesUI.SetAllState(State: TCheckBoxState): Boolean;
-var
-  I: Integer;
-  SavedOnItemChecked: TLVCheckedItemEvent;
-begin
-  Result := False;
-  SavedOnItemChecked := ListControl.OnItemChecked;
-  try
-    for I := 0 to ListControl.Items.Count - 1 do
-      with ListControl.Items[I] do
-      begin
-        if TTextItem(Data).HasPluralForms then
-          Continue;
-        case State of
-          cbUnchecked:
-          begin
-            if SetChecked(TTextItem(Data), False) then
-            begin
-              Checked := False;
-              Result := True;
-            end;
-          end;
-          cbChecked:
-          begin
-            if SetChecked(TTextItem(Data), True) then
-            begin
-              Checked := True;
-              Result := True;
-            end;
-          end;
-        else
-          Checked := not Checked;
-          if SetChecked(TTextItem(Data), Checked) then
-            Result := True;
-        end;
-      end;
-  finally
+ Function TTranslatablesUI.SetAllState(State : TCheckBoxState) : Boolean;
+  Var
+   i                  : Integer;
+   SavedOnItemChecked : TLVCheckedItemEvent;
+  Begin
+   Result             := False;
+   SavedOnItemChecked := ListControl.OnItemChecked;
+   Try
+    For i := 0 To ListControl.Items.Count - 1 Do
+     With ListControl.Items[i] Do
+      Begin
+       If TTextItem(Data).HasPluralForms Then
+        Continue;
+       Case State Of
+        cbUnchecked :
+         Begin
+          If SetChecked(TTextItem(Data), False) Then
+           Begin
+            Checked := False;
+            Result  := True;
+           End;
+         End;
+        cbChecked :
+         Begin
+          If SetChecked(TTextItem(Data), True) Then
+           Begin
+            Checked := True;
+            Result  := True;
+           End;
+         End;
+       Else
+         Checked := Not Checked;
+         If SetChecked(TTextItem(Data), Checked) Then
+          Result := True;
+       End;
+      End;
+   Finally
     ListControl.OnItemChecked := SavedOnItemChecked;
-  end;
-end;
+   End;
+  End;
 
-function TTranslatablesUI.CanSetAllState(State: TCheckBoxState): Boolean;
-var
-  StatsFixed: Integer;
-begin
-  StatsFixed := 0;
-  if (Kind = dkLiteral) and (ActiveFilter in [ftNone, ftNamePropertyOrPluralLiteral]) then
+ Function TTranslatablesUI.CanSetAllState(State : TCheckBoxState) : Boolean;
+  Var
+   StatsFixed : Integer;
+  Begin
+   StatsFixed := 0;
+   If (Kind = dkLiteral) And (ActiveFilter In [ftNone, ftNamePropertyOrPluralLiteral]) Then
     StatsFixed := Stats.Total[ftNamePropertyOrPluralLiteral];
-  case State of
-    cbUnchecked:
-      Result := (Stats.Selected[ActiveFilter] <> StatsFixed);
-    cbChecked:
-      Result := (Stats.Selected[ActiveFilter] <> Stats.Total[ActiveFilter]);
-  else
-    Result := (Stats.Total[ActiveFilter] <> StatsFixed);
-  end;
-end;
+   Case State Of
+    cbUnchecked : Result := (Stats.Selected[ActiveFilter] <> StatsFixed);
+    cbChecked   : Result := (Stats.Selected[ActiveFilter] <> Stats.Total[ActiveFilter]);
+   Else Result := (Stats.Total[ActiveFilter] <> StatsFixed);
+   End;
+  End;
 
-function TTranslatablesUI.Reevaluate(Item: TTextItem): Boolean;
-var
-  OldFilter, NewFilter: TFilterType;
-begin
-  Result := False;
-  OldFilter := TFilterType(Item.Tag);
-  NewFilter := FilterTagOf(Item);
-  if NewFilter <> OldFilter then
-  begin
-    Dec(Stats.Total[OldFilter]);
-    Inc(Stats.Total[NewFilter]);
-    if Selection.IndexOf(Item.ID) >= 0 then
-    begin
-      Dec(Stats.Selected[OldFilter]);
-      Inc(Stats.Selected[NewFilter]);
-    end;
-    Item.Tag := Ord(NewFilter);
-    FilterControl.Invalidate;
-    Result := True;
-  end;
-end;
+ Function TTranslatablesUI.Reevaluate(Item : TTextItem) : Boolean;
+  Var
+   OldFilter : TFilterType;
+   NewFilter : TFilterType;
+  Begin
+   Result    := False;
+   OldFilter := TFilterType(Item.Tag);
+   NewFilter := FilterTagOf(Item);
+   If NewFilter <> OldFilter Then
+    Begin
+     Dec(Stats.Total[OldFilter]);
+     Inc(Stats.Total[NewFilter]);
+     If Selection.IndexOf(Item.ID) >= 0 Then
+      Begin
+       Dec(Stats.Selected[OldFilter]);
+       Inc(Stats.Selected[NewFilter]);
+      End;
+     Item.Tag := Ord(NewFilter);
+     FilterControl.Invalidate;
+     Result := True;
+    End;
+  End;
 
-procedure TTranslatablesUI.ActivateFilterByIndex(Index: Integer;
-  const CustomFilterPrompt: String);
-var
-  Filter: String;
-begin
-  ActiveFilter := FilterOfIndex(Index);
-  if ActiveFilter = ftCustom then
-  begin
-    Filter := CustomFilter;
-    if InputQuery(SCustomFilter, CustomFilterPrompt, Filter) then
+ Procedure TTranslatablesUI.ActivateFilterByIndex(Index : Integer; Const CustomFilterPrompt : String);
+  Var
+   Filter : String;
+  Begin
+   ActiveFilter := FilterOfIndex(Index);
+   If ActiveFilter = ftCustom Then
+    Begin
+     Filter := CustomFilter;
+     If InputQuery(SCustomFilter, CustomFilterPrompt, Filter) Then
       CustomFilter := Filter;
-  end;
-end;
+    End;
+  End;
 
-function TTranslatablesUI.UpdateSelectedItemValue: Boolean;
-begin
-  Result := False;
-  if Assigned(SelectedItem) and ValueControl.Modified and (Kind = dkProperty) then
-  begin
-    if SelectedItem.Value <> ValueControl.Text then
-    begin
-      SelectedItem.Value := ValueControl.Text;
-      if Kind = dkProperty then
+ Function TTranslatablesUI.UpdateSelectedItemValue : Boolean;
+  Begin
+   Result := False;
+   If Assigned(SelectedItem) And ValueControl.Modified And (Kind = dkProperty) Then
+    Begin
+     If SelectedItem.Value <> ValueControl.Text Then
+      Begin
+       SelectedItem.Value := ValueControl.Text;
+       If Kind = dkProperty Then
         ListControl.Selected.SubItems[0] := SelectedItem.Value
-      else
+       Else
         ListControl.Selected.Caption := SelectedItem.Value;
-      if Reevaluate(SelectedItem) then
+       If Reevaluate(SelectedItem) Then
         ListControl.Selected.ImageIndex := ImageIndexOf(SelectedItem);
-      Result := True;
-    end;
-    ValueControl.Modified := False;
-  end;
-end;
+       Result                           := True;
+      End;
+     ValueControl.Modified := False;
+    End;
+  End;
 
-function TTranslatablesUI.UpdateSelectedItemComment: Boolean;
-begin
-  Result := False;
-  if Assigned(SelectedItem) and CommentControl.Modified then
-  begin
-    CommentControl.Text := Trim(CommentControl.Text);
-    if SelectedItem.Comment <> CommentControl.Text then
-    begin
-      SelectedItem.Comment := CommentControl.Text;
-      ListControl.Selected.ImageIndex := ImageIndexOf(SelectedItem);
-      Result := True;
-    end;
-    CommentControl.Modified := False;
-  end;
-end;
+ Function TTranslatablesUI.UpdateSelectedItemComment : Boolean;
+  Begin
+   Result := False;
+   If Assigned(SelectedItem) And CommentControl.Modified Then
+    Begin
+     CommentControl.Text := Trim(CommentControl.Text);
+     If SelectedItem.Comment <> CommentControl.Text Then
+      Begin
+       SelectedItem.Comment            := CommentControl.Text;
+       ListControl.Selected.ImageIndex := ImageIndexOf(SelectedItem);
+       Result                          := True;
+      End;
+     CommentControl.Modified := False;
+    End;
+  End;
 
 { TTranslatableEditor }
 
-class function TTranslatableEditor.Execute(ATranslatables: TTranslatables): Boolean;
-begin
-  Result := False;
-  with Create(Application) do
-    try
-      Translatables := ATranslatables;
-      Caption := Format(SEditorCaption, [Translatables.DomainName]);
-      ReadProperties;
-      ReadLiterals;
-      if ShowModal = mrOK then
-      begin
-        WriteProperties;
-        WriteLiterals;
-        Result := True;
-      end;
-    finally
-      Free;
-    end;
-end;
+  Class Function TTranslatableEditor.Execute(ATranslatables : TTranslatables) : Boolean;
 
-procedure TTranslatableEditor.FormCreate(Sender: TObject);
-begin
-  TextLanguage := TCultureBox.Create(Self);
-  TextLanguage.Parent := LanguageBoxPlaceHolder.Parent;
-  TextLanguage.Flags := TFlagImageList.Create(Self);
-  TextLanguage.BoundsRect := LanguageBoxPlaceHolder.BoundsRect;
-  TextLanguage.TabOrder := LanguageBoxPlaceHolder.TabOrder;
-  TextLanguage.OnSelect := LanguageBoxPlaceHolder.OnSelect;
-  TextLanguage.Sorted := True;
-  TextLanguage.CollectAll;
-  TextLanguageLabel.FocusControl := TextLanguage;
-  LanguageBoxPlaceHolder.Free;
-  Properties := TTranslatablesUI.Create(dkProperty, PropertyList, PropertyFilter, PropertyValue, PropertyComments);
-  Literals := TTranslatablesUI.Create(dkLiteral, LiteralList, LiteralFilter, LiteralValue, LiteralComments);
-  PropertyValue.Visible := (PropertiesTabSet.TabIndex = 0);
-  PropertyComments.Visible := (PropertiesTabSet.TabIndex = 1);
-  LiteralValue.Visible := (LiteralsTabSet.TabIndex = 0);
-  LiteralComments.Visible := (LiteralsTabSet.TabIndex = 1);
-  PageControl.ActivePageIndex := 0;
-end;
+Begin
+ Result := False;
+ With Create(Application) Do
+  Try
+   Translatables := ATranslatables;
+   Caption       := Format(SEditorCaption, [Translatables.DomainName]);
+   ReadProperties;
+   ReadLiterals;
+   If ShowModal = mrOk Then
+    Begin
+     WriteProperties;
+     WriteLiterals;
+     Result := True;
+    End;
+  Finally
+   Free;
+  End;
 
-procedure TTranslatableEditor.FormDestroy(Sender: TObject);
-begin
-  if Assigned(LiteralCollector) then
+End;
+
+ Procedure TTranslatableEditor.FormCreate(Sender : TObject);
+  Begin
+   TextLanguage            := TCultureBox.Create(Self);
+   TextLanguage.Parent     := LanguageBoxPlaceHolder.Parent;
+   TextLanguage.Flags      := TFlagImageList.Create(Self);
+   TextLanguage.BoundsRect := LanguageBoxPlaceHolder.BoundsRect;
+   TextLanguage.TabOrder   := LanguageBoxPlaceHolder.TabOrder;
+   TextLanguage.OnSelect   := LanguageBoxPlaceHolder.OnSelect;
+   TextLanguage.Sorted     := True;
+   TextLanguage.CollectAll;
+   TextLanguageLabel.FocusControl := TextLanguage;
+   LanguageBoxPlaceHolder.Free;
+   Properties                  := TTranslatablesUI.Create(dkProperty, PropertyList, PropertyFilter, PropertyValue, PropertyComments);
+   Literals                    := TTranslatablesUI.Create(dkLiteral, LiteralList, LiteralFilter, LiteralValue, LiteralComments);
+   PropertyValue.Visible       := (PropertiesTabSet.TabIndex = 0);
+   PropertyComments.Visible    := (PropertiesTabSet.TabIndex = 1);
+   LiteralValue.Visible        := (LiteralsTabSet.TabIndex = 0);
+   LiteralComments.Visible     := (LiteralsTabSet.TabIndex = 1);
+   PageControl.ActivePageIndex := 0;
+  End;
+
+ Procedure TTranslatableEditor.FormDestroy(Sender : TObject);
+  Begin
+   If Assigned(LiteralCollector) Then
     LiteralCollector.Free;
-  Properties.Free;
-  Literals.Free;
-end;
+   Properties.Free;
+   Literals.Free;
+  End;
 
-procedure TTranslatableEditor.FormShow(Sender: TObject);
-begin
-  Properties.ActiveFilter := FILTER_DEFAULT;
-  Literals.ActiveFilter := FILTER_DEFAULT;
-  TextLanguage.ItemSelected := GetApplicationDefaultCulture;
-  if not Assigned(TextLanguage.ItemSelected) then
+ Procedure TTranslatableEditor.FormShow(Sender : TObject);
+  Begin
+   Properties.ActiveFilter   := FILTER_DEFAULT;
+   Literals.ActiveFilter     := FILTER_DEFAULT;
+   TextLanguage.ItemSelected := GetApplicationDefaultCulture;
+   If Not Assigned(TextLanguage.ItemSelected) Then
     TextLanguage.ItemSelected := GetUserDefaultUICulture;
-  btnExportTo.Enabled := Assigned(TextLanguage.ItemSelected);
-end;
+   btnExportTo.Enabled        := Assigned(TextLanguage.ItemSelected);
+  End;
 
-procedure TTranslatableEditor.ListViewCustomDraw(Sender: TCustomListView;
-  const ARect: TRect; var DefaultDraw: Boolean);
-var
-  TextRect: TRect;
-begin
-  if TListView(Sender).Items.Count = 0 then
-  begin
-    TextRect := ARect;
-    InflateRect(TextRect, -40, -50);
-    TListView(Sender).Canvas.Font.Color := clGrayText;
-    DrawText(TListView(Sender).Canvas.Handle, PChar(SNoItemsToView),
-      Length(SNoItemsToView), TextRect, DT_CENTER or DT_NOPREFIX or DT_WORDBREAK);
-  end;
-end;
+ Procedure TTranslatableEditor.ListViewCustomDraw(Sender : TCustomListView; Const ARect : TRect; Var DefaultDraw : Boolean);
+  Var
+   TextRect : TRect;
+  Begin
+   If TListView(Sender).Items.Count = 0 Then
+    Begin
+     TextRect := ARect;
+     InflateRect(TextRect, -40, -50);
+     TListView(Sender).Canvas.Font.Color := clGrayText;
+     DrawText(TListView(Sender).Canvas.Handle, PChar(SNoItemsToView),
+     Length(SNoItemsToView), TextRect, DT_CENTER Or DT_NOPREFIX Or DT_WORDBREAK);
+    End;
+  End;
 
-procedure TTranslatableEditor.ListViewCustomDrawItem(Sender: TCustomListView;
-  Item: TListItem; State: TCustomDrawState; var DefaultDraw: Boolean);
-begin
-  if Odd(Item.Index) then
+ Procedure TTranslatableEditor.ListViewCustomDrawItem(Sender : TCustomListView; Item : TListItem; State : TCustomDrawState; Var DefaultDraw : Boolean);
+  Begin
+   If Odd(Item.Index) Then
     TListView(Sender).Canvas.Brush.Color := clAlternative;
-end;
+  End;
 
-procedure TTranslatableEditor.FilterDrawItem(Control: TWinControl;
-  Index: Integer; Rect: TRect; State: TOwnerDrawState);
-var
-  Target: TTranslatablesUI;
-  Filter: TTranslatablesUI.TFilterType;
-  Info: String;
-  C, S: Integer;
-  R: TRect;
-begin
-  if Control = PropertyFilter then
+ Procedure TTranslatableEditor.FilterDrawItem(Control : TWinControl; Index : Integer; Rect : TRect; State : TOwnerDrawState);
+  Var
+   Target : TTranslatablesUI;
+   Filter : TTranslatablesUI.TFilterType;
+   Info   : String;
+   c      : Integer;
+   s      : Integer;
+   r      : TRect;
+  Begin
+   If Control = PropertyFilter Then
     Target := Properties
-  else
+   Else
     Target := Literals;
-  with TComboBox(Control) do
-  begin
-    Filter := Target.FilterOfIndex(Index);
-    if Odd(Index) and (([odComboBoxEdit, odSelected] * State) = []) then
+   With TComboBox(Control) Do
+    Begin
+     Filter := Target.FilterOfIndex(Index);
+     If Odd(Index) And (([odComboBoxEdit, odSelected] * State) = []) Then
       Canvas.Brush.Color := clAlternative;
-    Canvas.FillRect(Rect);
-    InflateRect(Rect, -2, -1);
-    ImageList.Draw(Canvas, Rect.Left,
-      (Rect.Top + Rect.Bottom - ImageList.Height) div 2, Ord(Filter) - 1);
-    Inc(Rect.Left, ImageList.Width + 2);
-    Dec(Rect.Right, 2);
-    Info := Items[Index];
-    DrawText(Canvas.Handle, PChar(Info), Length(Info), Rect,
-      DT_LEFT or DT_VCENTER or DT_SINGLELINE or DT_NOPREFIX);
-    if Filter = ftCustom then
-    begin
-      Inc(Rect.Left, Canvas.TextWidth(Info) + 8);
-      if not (odSelected in State) then
+     Canvas.FillRect(Rect);
+     InflateRect(Rect, -2, -1);
+     ImageList.Draw(Canvas, Rect.Left,
+     (Rect.Top + Rect.Bottom - ImageList.Height) Div 2, Ord(Filter) - 1);
+     Inc(Rect.Left, ImageList.Width + 2);
+     Dec(Rect.Right, 2);
+     Info := Items[Index];
+     DrawText(Canvas.Handle, PChar(Info), Length(Info), Rect,
+     DT_LEFT Or DT_VCENTER Or DT_SINGLELINE Or DT_NOPREFIX);
+     If Filter = ftCustom Then
+      Begin
+       Inc(Rect.Left, Canvas.TextWidth(Info) + 8);
+       If Not(odSelected In State) Then
         Canvas.Font.Color := clGrayText;
-      Canvas.Font.Style := [];
-      Info := Target.CustomFilter;
-      DrawText(Canvas.Handle, PChar(Info), Length(Info), Rect,
-        DT_LEFT or DT_VCENTER or DT_SINGLELINE or DT_NOPREFIX);
-      Canvas.Font.Style := [fsBold];
-    end;
-    if not (odSelected in State) then
+       Canvas.Font.Style  := [];
+       Info               := Target.CustomFilter;
+       DrawText(Canvas.Handle, PChar(Info), Length(Info), Rect,
+       DT_LEFT Or DT_VCENTER Or DT_SINGLELINE Or DT_NOPREFIX);
+       Canvas.Font.Style := [fsBold];
+      End;
+     If Not(odSelected In State) Then
       Canvas.Font.Color := clHotLight;
-    Canvas.Font.Size := Canvas.Font.Size - 1;
-    if odComboBoxEdit in State then
-    begin
-      Info := FormatFloat('#,##0', Target.Stats.Selected[Filter]) + ' / '
-            + FormatFloat('#,##0', Target.Stats.Total[Filter]);
-      DrawText(Canvas.Handle, PChar(Info), Length(Info), Rect,
-        DT_RIGHT or DT_VCENTER or DT_SINGLELINE or DT_NOPREFIX);
-    end
-    else
-    begin
-      S := Canvas.TextWidth(' ');
-      C := Rect.Right - Length(FormatFloat('#,##0', Target.Stats.Total[ftNone])) * S * 3;
-      SetRect(R, C - S, Rect.Top, C + S, Rect.Bottom);
-      DrawText(Canvas.Handle, '/', 1, R,
-        DT_CENTER or DT_VCENTER or DT_SINGLELINE or DT_NOPREFIX);
-      SetRect(R, C + S, Rect.Top, Rect.Right, Rect.Bottom);
-      Info := FormatFloat('#,##0', Target.Stats.Total[Filter]);
-      DrawText(Canvas.Handle, PChar(Info), Length(Info), R,
-        DT_LEFT or DT_VCENTER or DT_SINGLELINE or DT_NOPREFIX);
-      SetRect(R, Rect.Left, Rect.Top, C - S - S div 2, Rect.Bottom);
-      Info := FormatFloat('#,##0', Target.Stats.Selected[Filter]);
-      DrawText(Canvas.Handle, PChar(Info), Length(Info), R,
-        DT_RIGHT or DT_VCENTER or DT_SINGLELINE or DT_NOPREFIX);
-    end;
-  end;
-end;
+     Canvas.Font.Size   := Canvas.Font.Size - 1;
+     If odComboBoxEdit In State Then
+      Begin
+       Info := FormatFloat('#,##0', Target.Stats.Selected[Filter]) + ' / '
+       + FormatFloat('#,##0', Target.Stats.Total[Filter]);
+       DrawText(Canvas.Handle, PChar(Info), Length(Info), Rect,
+       DT_RIGHT Or DT_VCENTER Or DT_SINGLELINE Or DT_NOPREFIX);
+      End
+     Else
+      Begin
+       s := Canvas.TextWidth(' ');
+       c := Rect.Right - Length(FormatFloat('#,##0', Target.Stats.Total[ftNone])) * s * 3;
+       SetRect(r, c - s, Rect.Top, c + s, Rect.Bottom);
+       DrawText(Canvas.Handle, '/', 1, r,
+       DT_CENTER Or DT_VCENTER Or DT_SINGLELINE Or DT_NOPREFIX);
+       SetRect(r, c + s, Rect.Top, Rect.Right, Rect.Bottom);
+       Info := FormatFloat('#,##0', Target.Stats.Total[Filter]);
+       DrawText(Canvas.Handle, PChar(Info), Length(Info), r,
+       DT_LEFT Or DT_VCENTER Or DT_SINGLELINE Or DT_NOPREFIX);
+       SetRect(r, Rect.Left, Rect.Top, c - s - s Div 2, Rect.Bottom);
+       Info := FormatFloat('#,##0', Target.Stats.Selected[Filter]);
+       DrawText(Canvas.Handle, PChar(Info), Length(Info), r,
+       DT_RIGHT Or DT_VCENTER Or DT_SINGLELINE Or DT_NOPREFIX);
+      End;
+    End;
+  End;
 
-procedure TTranslatableEditor.LanguageBoxSelect(Sender: TObject);
-begin
-  btnExportTo.Enabled := Assigned(TextLanguage.ItemSelected);
-end;
+ Procedure TTranslatableEditor.LanguageBoxSelect(Sender : TObject);
+  Begin
+   btnExportTo.Enabled := Assigned(TextLanguage.ItemSelected);
+  End;
 
 // Properties
 
-procedure TTranslatableEditor.ReadProperties;
-begin
-  GetTranslatableProperties(Translatables.DomainOwner, Properties.All);
-  Properties.SetSelection(Translatables.Properties);
-  Properties.All.Sort;
-end;
+ Procedure TTranslatableEditor.ReadProperties;
+  Begin
+   GetTranslatableProperties(Translatables.DomainOwner, Properties.All);
+   Properties.SetSelection(Translatables.Properties);
+   Properties.All.Sort;
+  End;
 
-procedure TTranslatableEditor.WriteProperties;
-var
-  UpdatedProperties: TTextItems;
-begin
-  Properties.GetSelection(Translatables.Properties);
-  UpdatedProperties := TTextItems.Create;
-  try
+ Procedure TTranslatableEditor.WriteProperties;
+  Var
+   UpdatedProperties : TTextItems;
+  Begin
+   Properties.GetSelection(Translatables.Properties);
+   UpdatedProperties := TTextItems.Create;
+   Try
     Properties.GetUpdated(UpdatedProperties);
     SetTranslatableProperties(Translatables.DomainOwner, UpdatedProperties);
-  finally
+   Finally
     UpdatedProperties.Free;
-  end;
-end;
+   End;
+  End;
 
-procedure TTranslatableEditor.PropertyFilterSelect(Sender: TObject);
-begin
-  Properties.ActivateFilterByIndex(PropertyFilter.ItemIndex, SPropertyFilterPrompt);
-end;
+ Procedure TTranslatableEditor.PropertyFilterSelect(Sender : TObject);
+  Begin
+   Properties.ActivateFilterByIndex(PropertyFilter.ItemIndex, SPropertyFilterPrompt);
+  End;
 
-procedure TTranslatableEditor.PropertyListItemChecked(Sender: TObject;
-  Item: TListItem);
-begin
-  if not Properties.SetChecked(TTextItem(Item.Data), Item.Checked) then
+ Procedure TTranslatableEditor.PropertyListItemChecked(Sender : TObject; Item : TListItem);
+  Begin
+   If Not Properties.SetChecked(TTextItem(Item.Data), Item.Checked) Then
     Item.Checked := Properties.GetChecked(TTextItem(Item.Data));
-end;
+  End;
 
-procedure TTranslatableEditor.PropertyListSelectItem(Sender: TObject;
-  Item: TListItem; Selected: Boolean);
-begin
-  if Selected and Assigned(Item) then
+ Procedure TTranslatableEditor.PropertyListSelectItem(Sender : TObject; Item : TListItem; Selected : Boolean);
+  Begin
+   If Selected And Assigned(Item) Then
     Properties.SelectedItem := TTextItem(Item.Data)
-  else
-  begin
-    Properties.SelectedItem := nil;
-    if Assigned(PropertyList.ItemFocused) then
+   Else
+    Begin
+     Properties.SelectedItem := Nil;
+     If Assigned(PropertyList.ItemFocused) Then
       PropertyList.ItemFocused.Focused := False;
-  end;
-end;
+    End;
+  End;
 
-procedure TTranslatableEditor.PropertyValueExit(Sender: TObject);
-begin
-  Properties.UpdateSelectedItemValue;
-end;
+ Procedure TTranslatableEditor.PropertyValueExit(Sender : TObject);
+  Begin
+   Properties.UpdateSelectedItemValue;
+  End;
 
-procedure TTranslatableEditor.PropertyCommentsExit(Sender: TObject);
-begin
-  Properties.UpdateSelectedItemComment;
-end;
+ Procedure TTranslatableEditor.PropertyCommentsExit(Sender : TObject);
+  Begin
+   Properties.UpdateSelectedItemComment;
+  End;
 
-procedure TTranslatableEditor.PropertiesTabSetChange(Sender: TObject;
-  NewTab: Integer; var AllowChange: Boolean);
-begin
-  PropertyValue.Visible := (NewTab = 0);
-  PropertyComments.Visible := (NewTab = 1);
-end;
+ Procedure TTranslatableEditor.PropertiesTabSetChange(Sender : TObject; NewTab : Integer; Var AllowChange : Boolean);
+  Begin
+   PropertyValue.Visible    := (NewTab = 0);
+   PropertyComments.Visible := (NewTab = 1);
+  End;
 
-procedure TTranslatableEditor.PropsCheckAllExecute(Sender: TObject);
-begin
-  Properties.SetAllState(cbChecked);
-end;
+ Procedure TTranslatableEditor.PropsCheckAllExecute(Sender : TObject);
+  Begin
+   Properties.SetAllState(cbChecked);
+  End;
 
-procedure TTranslatableEditor.PropsCheckAllUpdate(Sender: TObject);
-begin
-  PropsCheckAll.Enabled := Properties.CanSetAllState(cbChecked);
-end;
+ Procedure TTranslatableEditor.PropsCheckAllUpdate(Sender : TObject);
+  Begin
+   PropsCheckAll.Enabled := Properties.CanSetAllState(cbChecked);
+  End;
 
-procedure TTranslatableEditor.PropsUncheckAllExecute(Sender: TObject);
-begin
-  Properties.SetAllState(cbUnchecked);
-end;
+ Procedure TTranslatableEditor.PropsUncheckAllExecute(Sender : TObject);
+  Begin
+   Properties.SetAllState(cbUnchecked);
+  End;
 
-procedure TTranslatableEditor.PropsUncheckAllUpdate(Sender: TObject);
-begin
-  PropsUncheckAll.Enabled := Properties.CanSetAllState(cbUnchecked);
-end;
+ Procedure TTranslatableEditor.PropsUncheckAllUpdate(Sender : TObject);
+  Begin
+   PropsUncheckAll.Enabled := Properties.CanSetAllState(cbUnchecked);
+  End;
 
-procedure TTranslatableEditor.PropsInvertCheckExecute(Sender: TObject);
-begin
-  Properties.SetAllState(cbGrayed);
-end;
+ Procedure TTranslatableEditor.PropsInvertCheckExecute(Sender : TObject);
+  Begin
+   Properties.SetAllState(cbGrayed);
+  End;
 
-procedure TTranslatableEditor.PropsInvertCheckUpdate(Sender: TObject);
-begin
-  PropsInvertCheck.Enabled := Properties.CanSetAllState(cbGrayed);
-end;
+ Procedure TTranslatableEditor.PropsInvertCheckUpdate(Sender : TObject);
+  Begin
+   PropsInvertCheck.Enabled := Properties.CanSetAllState(cbGrayed);
+  End;
 
 // Literals
 
-procedure TTranslatableEditor.ReadLiterals;
-var
-  SourceCode: String;
-  ParseError: String;
-begin
-  if ideGetActiveEditorText(SourceCode) then
-  begin
-    try
+ Procedure TTranslatableEditor.ReadLiterals;
+  Var
+   SourceCode : String;
+   ParseError : String;
+  Begin
+   If ideGetActiveEditorText(SourceCode) Then
+    Begin
+     Try
       LiteralCollector := TPascalStringCollector.Create(SourceCode, Translatables.Translator);
-    except
-      on E: Exception do
-      begin
+     Except
+      On E : Exception Do
+       Begin
         CollectorErrorMsg := Format(SParserError, [ParseError, E.Message]);
-        LiteralCollector := nil;
-      end;
-    end;
-    if Assigned(LiteralCollector) then
-    begin
-      LiteralCollector.GetTranslatableStrings(Literals.All);
-      Literals.SetSelection(Translatables.Literals);
-    end;
-  end;
-end;
+        LiteralCollector  := Nil;
+       End;
+     End;
+     If Assigned(LiteralCollector) Then
+      Begin
+       LiteralCollector.GetTranslatableStrings(Literals.All);
+       Literals.SetSelection(Translatables.Literals);
+      End;
+    End;
+  End;
 
-procedure TTranslatableEditor.WriteLiterals;
-var
-  SourceCode: String;
-begin
-  if Assigned(LiteralCollector) then
-  begin
-    Literals.GetSelection(Translatables.Literals);
-    SourceCode := LiteralCollector.SetTranslatableStrings(Translatables.Literals);
-    ideSetActiveEditorText(TrimRight(SourceCode));
-  end;
-end;
+ Procedure TTranslatableEditor.WriteLiterals;
+  Var
+   SourceCode : String;
+  Begin
+   If Assigned(LiteralCollector) Then
+    Begin
+     Literals.GetSelection(Translatables.Literals);
+     SourceCode := LiteralCollector.SetTranslatableStrings(Translatables.Literals);
+     ideSetActiveEditorText(TrimRight(SourceCode));
+    End;
+  End;
 
-procedure TTranslatableEditor.LiteralFilterSelect(Sender: TObject);
-begin
-  Literals.ActivateFilterByIndex(LiteralFilter.ItemIndex, SLiteralFilterPrompt);
-end;
+ Procedure TTranslatableEditor.LiteralFilterSelect(Sender : TObject);
+  Begin
+   Literals.ActivateFilterByIndex(LiteralFilter.ItemIndex, SLiteralFilterPrompt);
+  End;
 
-procedure TTranslatableEditor.LiteralListCustomDraw(Sender: TCustomListView;
-  const ARect: TRect; var DefaultDraw: Boolean);
-var
-  TextRect: TRect;
-  ErrorMsg: String;
-begin
-  if not Assigned(LiteralCollector) then
-  begin
-    TextRect := ARect;
-    InflateRect(TextRect, -40, -50);
-    TListView(Sender).Canvas.Font.Color := clRed;
-    TListView(Sender).Canvas.Font.Size := 12;
-    ErrorMsg := SCollectError;
-    if CollectorErrorMsg <> '' then
+ Procedure TTranslatableEditor.LiteralListCustomDraw(Sender : TCustomListView; Const ARect : TRect; Var DefaultDraw : Boolean);
+  Var
+   TextRect : TRect;
+   ErrorMsg : String;
+  Begin
+   If Not Assigned(LiteralCollector) Then
+    Begin
+     TextRect := ARect;
+     InflateRect(TextRect, -40, -50);
+     TListView(Sender).Canvas.Font.Color := clRed;
+     TListView(Sender).Canvas.Font.Size  := 12;
+     ErrorMsg                            := SCollectError;
+     If CollectorErrorMsg <> '' Then
       ErrorMsg := ErrorMsg + #13#10 + CollectorErrorMsg;
-    DrawText(TListView(Sender).Canvas.Handle, PChar(ErrorMsg), Length(ErrorMsg),
-      TextRect, DT_CENTER or DT_NOPREFIX or DT_WORDBREAK);
-  end
-  else
+     DrawText(TListView(Sender).Canvas.Handle, PChar(ErrorMsg), Length(ErrorMsg),
+     TextRect, DT_CENTER Or DT_NOPREFIX Or DT_WORDBREAK);
+    End
+   Else
     ListViewCustomDraw(Sender, ARect, DefaultDraw);
-end;
+  End;
 
-procedure TTranslatableEditor.LiteralListItemChecked(Sender: TObject;
-  Item: TListItem);
-begin
-  if not Literals.SetChecked(TTextItem(Item.Data), Item.Checked) then
+ Procedure TTranslatableEditor.LiteralListItemChecked(Sender : TObject; Item : TListItem);
+  Begin
+   If Not Literals.SetChecked(TTextItem(Item.Data), Item.Checked) Then
     Item.Checked := Literals.GetChecked(TTextItem(Item.Data));
-end;
+  End;
 
-procedure TTranslatableEditor.LiteralListSelectItem(Sender: TObject;
-  Item: TListItem; Selected: Boolean);
-var
-  I: Integer;
-begin
-  if Selected and Assigned(Item) then
+ Procedure TTranslatableEditor.LiteralListSelectItem(Sender : TObject; Item : TListItem; Selected : Boolean);
+  Var
+   i : Integer;
+  Begin
+   If Selected And Assigned(Item) Then
     Literals.SelectedItem := TTextItem(Item.Data)
-  else
-  begin
-    Literals.SelectedItem := nil;
-    if Assigned(LiteralList.ItemFocused) then
+   Else
+    Begin
+     Literals.SelectedItem := Nil;
+     If Assigned(LiteralList.ItemFocused) Then
       LiteralList.ItemFocused.Focused := False;
-  end;
-  if Assigned(Literals.SelectedItem) and Literals.SelectedItem.HasPluralForms then
-  begin
-    if LiteralPlurals.Tabs.Count <> Literals.SelectedItem.PluralCount then
-    begin
-      LiteralPlurals.Tabs.BeginUpdate;
-      LiteralPlurals.Tabs.Clear;
-      for I := 0 to Literals.SelectedItem.PluralCount - 1 do
-        LiteralPlurals.Tabs.Add(Format(' plural=%d ', [I]));
-      LiteralPlurals.Tabs.EndUpdate;
-    end;
-    LiteralPlurals.TabIndex := Literals.PluralIndex;
-    LiteralValue.Height := LiteralPlurals.BoundsRect.Top - LiteralValue.Top + 1;
-    LiteralPlurals.Visible := True;
-  end
-  else if LiteralPlurals.Visible then
-  begin
-    LiteralValue.Height := LiteralPlurals.BoundsRect.Bottom - LiteralValue.Top - 1;
-    LiteralPlurals.Visible := False;
-  end;
-end;
+    End;
+   If Assigned(Literals.SelectedItem) And Literals.SelectedItem.HasPluralForms Then
+    Begin
+     If LiteralPlurals.Tabs.Count <> Literals.SelectedItem.PluralCount Then
+      Begin
+       LiteralPlurals.Tabs.BeginUpdate;
+       LiteralPlurals.Tabs.Clear;
+       For i := 0 To Literals.SelectedItem.PluralCount - 1 Do
+        LiteralPlurals.Tabs.Add(Format(' plural=%d ', [i]));
+       LiteralPlurals.Tabs.EndUpdate;
+      End;
+     LiteralPlurals.TabIndex := Literals.PluralIndex;
+     LiteralValue.Height     := LiteralPlurals.BoundsRect.Top - LiteralValue.Top + 1;
+     LiteralPlurals.Visible  := True;
+    End
+   Else If LiteralPlurals.Visible Then
+    Begin
+     LiteralValue.Height    := LiteralPlurals.BoundsRect.Bottom - LiteralValue.Top - 1;
+     LiteralPlurals.Visible := False;
+    End;
+  End;
 
-procedure TTranslatableEditor.LiteralPluralsChange(Sender: TObject;
-  NewTab: Integer; var AllowChange: Boolean);
-begin
-  Literals.PluralIndex := NewTab;
-end;
+ Procedure TTranslatableEditor.LiteralPluralsChange(Sender : TObject; NewTab : Integer; Var AllowChange : Boolean);
+  Begin
+   Literals.PluralIndex := NewTab;
+  End;
 
-procedure TTranslatableEditor.LiteralValueExit(Sender: TObject);
-begin
-  Literals.UpdateSelectedItemValue;
-end;
+ Procedure TTranslatableEditor.LiteralValueExit(Sender : TObject);
+  Begin
+   Literals.UpdateSelectedItemValue;
+  End;
 
-procedure TTranslatableEditor.LiteralCommentsExit(Sender: TObject);
-begin
-  Literals.UpdateSelectedItemComment;
-end;
+ Procedure TTranslatableEditor.LiteralCommentsExit(Sender : TObject);
+  Begin
+   Literals.UpdateSelectedItemComment;
+  End;
 
-procedure TTranslatableEditor.LiteralsTabSetChange(Sender: TObject;
-  NewTab: Integer; var AllowChange: Boolean);
-begin
-  LiteralValue.Visible := (NewTab = 0);
-  LiteralComments.Visible := (NewTab = 1);
-end;
+ Procedure TTranslatableEditor.LiteralsTabSetChange(Sender : TObject; NewTab : Integer; Var AllowChange : Boolean);
+  Begin
+   LiteralValue.Visible    := (NewTab = 0);
+   LiteralComments.Visible := (NewTab = 1);
+  End;
 
-procedure TTranslatableEditor.LiteralsCheckAllExecute(Sender: TObject);
-begin
-  Literals.SetAllState(cbChecked);
-end;
+ Procedure TTranslatableEditor.LiteralsCheckAllExecute(Sender : TObject);
+  Begin
+   Literals.SetAllState(cbChecked);
+  End;
 
-procedure TTranslatableEditor.LiteralsCheckAllUpdate(Sender: TObject);
-begin
-  LiteralsCheckAll.Enabled := Literals.CanSetAllState(cbChecked);
-end;
+ Procedure TTranslatableEditor.LiteralsCheckAllUpdate(Sender : TObject);
+  Begin
+   LiteralsCheckAll.Enabled := Literals.CanSetAllState(cbChecked);
+  End;
 
-procedure TTranslatableEditor.LiteralsUncheckAllExecute(Sender: TObject);
-begin
-  Literals.SetAllState(cbUnchecked);
-end;
+ Procedure TTranslatableEditor.LiteralsUncheckAllExecute(Sender : TObject);
+  Begin
+   Literals.SetAllState(cbUnchecked);
+  End;
 
-procedure TTranslatableEditor.LiteralsUncheckAllUpdate(Sender: TObject);
-begin
-  LiteralsUncheckAll.Enabled := Literals.CanSetAllState(cbUnchecked);
-end;
+ Procedure TTranslatableEditor.LiteralsUncheckAllUpdate(Sender : TObject);
+  Begin
+   LiteralsUncheckAll.Enabled := Literals.CanSetAllState(cbUnchecked);
+  End;
 
-procedure TTranslatableEditor.LiteralsInvertCheckExecute(Sender: TObject);
-begin
-  Literals.SetAllState(cbGrayed);
-end;
+ Procedure TTranslatableEditor.LiteralsInvertCheckExecute(Sender : TObject);
+  Begin
+   Literals.SetAllState(cbGrayed);
+  End;
 
-procedure TTranslatableEditor.LiteralsInvertCheckUpdate(Sender: TObject);
-begin
-  LiteralsInvertCheck.Enabled := Literals.CanSetAllState(cbGrayed);
-end;
+ Procedure TTranslatableEditor.LiteralsInvertCheckUpdate(Sender : TObject);
+  Begin
+   LiteralsInvertCheck.Enabled := Literals.CanSetAllState(cbGrayed);
+  End;
 
 // Export
 
-procedure TTranslatableEditor.AddTranslatablesTo(Catalog: TTranslationCatalog;
-  KeepObsoleteEntries: Boolean);
-var
-  TextItems: TTextItems;
-  TextDomain: TTextDomain;
-begin
-  TextItems := TTextItems.Create;
-  try
+ Procedure TTranslatableEditor.AddTranslatablesTo(Catalog : TTranslationCatalog; KeepObsoleteEntries : Boolean);
+  Var
+   TextItems  : TTextItems;
+   TextDomain : TTextDomain;
+  Begin
+   TextItems := TTextItems.Create;
+   Try
     TextDomain := Catalog.TextDomains.Add(Translatables.DomainName);
     Properties.GetSelection(TextItems);
     TextDomain.Properties.Revise(TextItems, KeepObsoleteEntries);
     Literals.GetSelection(TextItems);
     TextDomain.Literals.Revise(TextItems, KeepObsoleteEntries);
-  finally
+   Finally
     TextItems.Free;
-  end;
-end;
+   End;
+  End;
 
-procedure TTranslatableEditor.ExportTo(const FileName: String);
-var
-  Catalog: TTranslationCatalog;
-  ReplaceReason: String;
-  WarningMsg: String;
-begin
-  Catalog := TTranslationCatalog.Create;
-  try
-    if FileExists(FileName) then
-    begin
+ Procedure TTranslatableEditor.ExportTo(Const FileName : String);
+  Var
+   Catalog       : TTranslationCatalog;
+   ReplaceReason : String;
+   WarningMsg    : String;
+  Begin
+   Catalog := TTranslationCatalog.Create;
+   Try
+    If FileExists(FileName) Then
+     Begin
       ReplaceReason := '';
-      try
-        Catalog.LoadFromFile(FileName);
-        if not Catalog.Empty and (Catalog.NativeCulture <> TextLanguage.ItemSelected) then
-          ReplaceReason := SLanguageMismatch;
-      except
-        ReplaceReason := SContentMismatch;
-      end;
+      Try
+       Catalog.LoadFromFile(FileName);
+       If Not Catalog.Empty And (Catalog.NativeCulture <> TextLanguage.ItemSelected) Then
+        ReplaceReason := SLanguageMismatch;
+      Except
+       ReplaceReason := SContentMismatch;
+      End;
       WarningMsg := Format(SFileExists, [FileName]);
-      if ReplaceReason <> '' then
-        WarningMsg := WarningMsg + ' ' + ReplaceReason;
-      WarningMsg := WarningMsg + #13#10#13#10;
-      if ReplaceReason <> '' then
-        WarningMsg := WarningMsg + SReplaceAction
-      else
-        WarningMsg := WarningMsg + SUpdateAction;
-      WarningMsg := WarningMsg + #13#10 + SCancelAction;
-      if MessageDlg(WarningMsg, mtWarning, [mbOK, mbCancel], 0) <> mrOK then
-        Exit;
-      if ReplaceReason <> '' then
-        Catalog.Clear;
-    end;
+      If ReplaceReason <> '' Then
+       WarningMsg := WarningMsg + ' ' + ReplaceReason;
+      WarningMsg  := WarningMsg + #13#10#13#10;
+      If ReplaceReason <> '' Then
+       WarningMsg := WarningMsg + SReplaceAction
+      Else
+       WarningMsg := WarningMsg + SUpdateAction;
+      WarningMsg  := WarningMsg + #13#10 + SCancelAction;
+      If MessageDlg(WarningMsg, mtWarning, [mbOK, mbCancel], 0) <> mrOk Then
+       Exit;
+      If ReplaceReason <> '' Then
+       Catalog.Clear;
+     End;
     Catalog.NativeCulture := TextLanguage.ItemSelected;
     AddTranslatablesTo(Catalog, False);
     Catalog.SaveToFile(FileName);
-  finally
+   Finally
     Catalog.Free;
-  end;
-end;
+   End;
+  End;
 
-procedure TTranslatableEditor.btnExportToClick(Sender: TObject);
-var
-  FileName: String;
-begin
-  if SaveDialog.FileName = '' then
-  begin
-    FileName := TextLanguage.ItemSelected.Locale;
-    if Assigned(Translatables.DomainOwner) and
-      (Translatables.DomainOwner.UnitName <> '')
-    then
-      FileName := Translatables.DomainOwner.UnitName + '.' + FileName;
-    SaveDialog.FileName := FileName;
-  end;
-  if SaveDialog.Execute then
-  begin
-    ExportTo(SaveDialog.FileName);
-    ModalResult := mrOK;
-  end;
-end;
+ Procedure TTranslatableEditor.btnExportToClick(Sender : TObject);
+  Var
+   FileName : String;
+  Begin
+   If SaveDialog.FileName = '' Then
+    Begin
+     FileName := TextLanguage.ItemSelected.Locale;
+     If Assigned(Translatables.DomainOwner) And
+     (Translatables.DomainOwner.UnitName <> '')
+     Then
+      FileName           := Translatables.DomainOwner.UnitName + '.' + FileName;
+     SaveDialog.FileName := FileName;
+    End;
+   If SaveDialog.Execute Then
+    Begin
+     ExportTo(SaveDialog.FileName);
+     ModalResult := mrOk;
+    End;
+  End;
 
-end.
+End.

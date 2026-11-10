@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -11,18 +11,18 @@
 /// <summary>
 /// This unit implements the Hebrew (or Jewish) calendar.
 /// </summary>
-unit i18nCalHebrew;
+Unit i18nCalHebrew;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-uses
+ Uses
   SysUtils, i18nCalendar;
 
-type
+ Type
 
-  {$region 'xmldoc'}
+  {$Region 'xmldoc'}
   /// <summary>
   /// This class implements the Hebrew (or Jewish) calendar.
   /// </summary>
@@ -67,19 +67,19 @@ type
   /// http://www.fourmilab.ch/documents/calendar/.
   /// </para>
   /// </remarks>
-  {$endregion}
-  THebrewCalendar = class(TCalendar)
-  private
-    class function ElapsedDays(Year: Integer): Integer; static;
-    class function Delay(Year: Integer): Integer; static;
-  protected
-    {$region 'xmldoc'}
+  {$Endregion}
+  THebrewCalendar = Class(TCalendar)
+   Private
+    Class Function ElapsedDays(Year : Integer) : Integer; Static;
+    Class Function Delay(Year : Integer) : Integer; Static;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// The start of the Hebrew calendar in Julian days.
     /// </summary>
-    {$endregion}
-    const HEBREW_EPOCH = 347995.5;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const HEBREW_EPOCH = 347995.5;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a Hebrew date represented by its year, month and day
     /// components to its corresponding Julian day.
@@ -97,9 +97,9 @@ type
     /// Julian day of the specified Hebrew date.
     /// </returns>
     /// <seealso cref="FromJulianDay"/>
-    {$endregion}
-    function ToJulianDay(Year, Month, Day: Integer): Extended; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ToJulianDay(Year, Month, Day : Integer) : Extended; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a date expressed in Julian day, to its year, month, and day
     /// components in the Hebrew calendar.
@@ -121,34 +121,34 @@ type
     /// returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="ToJulianDay"/>
-    {$endregion}
-    function FromJulianDay(const JD: Extended; out Year, Month, Day: Integer): Boolean; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function FromJulianDay(Const JD : Extended; Out Year, Month, Day : Integer) : Boolean; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Specifies index of Hebrew Era (C.E.).
     /// </summary>
-    {$endregion}
-    const HebrewEra = 1;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const HebrewEra = 1;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the unique identifier of the calendar.
     /// </summary>
     /// <returns>
     /// Returns <see cref="CAL_HEBREW"/>.
     /// </returns>
-    {$endregion}
-    class function CalendarID: Cardinal; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function CalendarID : Cardinal; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the algorithm type of the calendar system.
     /// </summary>
     /// <returns>
     /// Returns a <see cref="TCalendarKind"/> value of ckLunisolar.
     /// </returns>
-    {$endregion}
-    class function CalendarKind: TCalendarKind; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function CalendarKind : TCalendarKind; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the minimum <see cref="TDateTime"/> value that can be managed by
     /// the calendar.
@@ -157,9 +157,9 @@ type
     /// The minimum supported <see cref="TDateTime"/> value.
     /// </returns>
     /// <seealso cref="MaxSupportedDateTime"/>
-    {$endregion}
-    class function MinSupportedDateTime: TDateTime; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MinSupportedDateTime : TDateTime; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the maximum <see cref="TDateTime"/> value that can be managed by
     /// the calendar.
@@ -168,9 +168,9 @@ type
     /// The maximum supported <see cref="TDateTime"/> value.
     /// </returns>
     /// <seealso cref="MinSupportedDateTime"/>
-    {$endregion}
-    class function MaxSupportedDateTime: TDateTime; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MaxSupportedDateTime : TDateTime; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TCalendarSettings"/> class that provides locale-
     /// specific settings for the calendar.
@@ -178,27 +178,27 @@ type
     /// <returns>
     /// Returns the <see cref="THebrewCalendarSettings"/> class.
     /// </returns>
-    {$endregion}
-    class function SettingsClass: TCalendarSettingsClass; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function SettingsClass : TCalendarSettingsClass; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the maximum number of months that the calendar may have in a year.
     /// </summary>
     /// <returns>
     /// Returns 13.
     /// </returns>
-    {$endregion}
-    class function MaxMonthsPerYear: Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MaxMonthsPerYear : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the first month of the year for the calendar.
     /// </summary>
     /// <returns>
     /// Returns 7 (Tishri).
     /// </returns>
-    {$endregion}
-    class function FirstMonthOfYear: Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function FirstMonthOfYear : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of months in a specified year.
     /// </summary>
@@ -211,9 +211,9 @@ type
     /// <returns>
     /// Returns 12 for common (normal) and 13 for embolismic (leap) years.
     /// </returns>
-    {$endregion}
-    function MonthsInYear(Era, Year: Integer): Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function MonthsInYear(Era, Year : Integer) : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified year in a specified era is a leap year.
     /// </summary>
@@ -227,9 +227,9 @@ type
     /// Returns <see langword="true"/> if the year is a leap year, otherwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsLeapYear(Era, Year: Integer): Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsLeapYear(Era, Year : Integer) : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of days in a specified month of a specified year.
     /// </summary>
@@ -245,25 +245,26 @@ type
     /// <returns>
     /// The number of days in the month.
     /// </returns>
-    {$endregion}
-    function DaysInMonth(Era, Year, Month: Integer): Integer; override;
-  end;
+    {$Endregion}
+    Function DaysInMonth(Era, Year, Month : Integer) : Integer; Override;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This class provides locale-specific settings for the <see cref="THebrewCalendar"/>
-  /// class.
-  /// </summary>
-  /// <remarks>
-  /// <para>
-  /// THebrewCalendarSettings class collects the Hebrew calendar's locale-specific
-  /// settings, which are required by the <see cref="THebrewCalendar"/> class.
-  /// </para>
-  /// </remarks>
-  {$endregion}
-  THebrewCalendarSettings = class(TCalendarSettings)
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// This class provides locale-specific settings for the <see cref="THebrewCalendar"/>
+/// class.
+/// </summary>
+/// <remarks>
+/// <para>
+/// THebrewCalendarSettings class collects the Hebrew calendar's locale-specific
+/// settings, which are required by the <see cref="THebrewCalendar"/> class.
+/// </para>
+/// </remarks>
+{$Endregion}
+
+  THebrewCalendarSettings = Class(TCalendarSettings)
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a given month number to its index in the Windows calendar
     /// information.
@@ -275,9 +276,9 @@ type
     /// The zero-based index of given month number in the Windows calendar
     /// information.
     /// </returns>
-    {$endregion}
-    function GetMonthInfoIndex(Month: Integer): Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetMonthInfoIndex(Month : Integer) : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="MonthNames"/>, <see cref="ShortMonthNames"/> and
     /// <see cref="GenitiveMonthNames"/> properties based on the given locale and
@@ -289,205 +290,231 @@ type
     /// <param name="CalendarID">
     /// The identifier of calendar system.
     /// </param>
-    {$endregion}
-    procedure PrepareMonthNames(const Locale: string; CalendarID: Cardinal); override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure PrepareMonthNames(Const Locale : String; CalendarID : Cardinal); Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines the calendar system that these settings are provided for.
     /// </summary>
     /// <returns>
     /// Returns the <see cref="THebrewCalendar"/> class.
     /// </returns>
-    {$endregion}
-    class function CalendarClass: TCalendarClass; override;
-  end;
+    {$Endregion}
+    Class Function CalendarClass : TCalendarClass; Override;
+  End;
 
-implementation
+Implementation
 
-uses
+ Uses
   Math, Types, i18nWinNLS;
 
 { THebrewCalendar }
 
-class function THebrewCalendar.CalendarID: Cardinal;
-begin
-  Result := CAL_HEBREW;
-end;
+  Class Function THebrewCalendar.CalendarID : Cardinal;
 
-class function THebrewCalendar.CalendarKind: TCalendarKind;
-begin
-  Result := ckLunisolar;
-end;
+Begin
+ Result := CAL_HEBREW;
 
-class function THebrewCalendar.MaxMonthsPerYear: Integer;
-begin
-  Result := 13;
-end;
+End;
 
-class function THebrewCalendar.MinSupportedDateTime: TDateTime;
-begin
-  Result := Max({0001/07/01 Hebrew} -2067021.0, inherited);
-end;
+  Class Function THebrewCalendar.CalendarKind : TCalendarKind;
 
-class function THebrewCalendar.MaxSupportedDateTime: TDateTime;
-begin
-  Result := Min({9999/06/29 Hebrew} 1585056.99999, inherited);
-end;
+Begin
+ Result := ckLunisolar;
 
-class function THebrewCalendar.SettingsClass: TCalendarSettingsClass;
-begin
-  Result := THebrewCalendarSettings;
-end;
+End;
 
-class function THebrewCalendar.FirstMonthOfYear: Integer;
-begin
-  Result := 7;
-end;
+  Class Function THebrewCalendar.MaxMonthsPerYear : Integer;
 
-function THebrewCalendar.IsLeapYear(Era, Year: Integer): Boolean;
-begin
-  Year := ConvertYear(Year, Era, HebrewEra);
-  Year := ToZeroBase(HebrewEra, Year);
-  Result := Modulus(((Year * 7) + 1), 19) < 7;
-end;
+Begin
+ Result := 13;
 
-function THebrewCalendar.MonthsInYear(Era, Year: Integer): Integer;
-begin
-  if IsLeapYear(Era, Year) then
+End;
+
+  Class Function THebrewCalendar.MinSupportedDateTime : TDateTime;
+
+Begin
+ Result := Max({0001/07/01 Hebrew} -2067021.0, Inherited);
+
+End;
+
+  Class Function THebrewCalendar.MaxSupportedDateTime : TDateTime;
+
+Begin
+ Result := Min({9999/06/29 Hebrew} 1585056.99999, Inherited);
+
+End;
+
+  Class Function THebrewCalendar.SettingsClass : TCalendarSettingsClass;
+
+Begin
+ Result := THebrewCalendarSettings;
+
+End;
+
+  Class Function THebrewCalendar.FirstMonthOfYear : Integer;
+
+Begin
+ Result := 7;
+
+End;
+
+ Function THebrewCalendar.IsLeapYear(Era, Year : Integer) : Boolean;
+  Begin
+   Year   := ConvertYear(Year, Era, HebrewEra);
+   Year   := ToZeroBase(HebrewEra, Year);
+   Result := Modulus(((Year * 7) + 1), 19) < 7;
+  End;
+
+ Function THebrewCalendar.MonthsInYear(Era, Year : Integer) : Integer;
+  Begin
+   If IsLeapYear(Era, Year) Then
     Result := 13
-  else
+   Else
     Result := 12;
-end;
+  End;
 
-function THebrewCalendar.DaysInMonth(Era, Year, Month: Integer): Integer;
-begin
-  if (Month < 1) or (Month > 13) or ((Month = 13) and not IsLeapYear(Era, Year)) then
+ Function THebrewCalendar.DaysInMonth(Era, Year, Month : Integer) : Integer;
+  Begin
+   If (Month < 1) Or (Month > 13) Or ((Month = 13) And Not IsLeapYear(Era, Year)) Then
     MonthError(Era, Year, Month);
-  if Month in [2, 4, 6, 10, 13] then
+   If Month In [2, 4, 6, 10, 13] Then
     Result := 29
-  else if (Month = 12) and not IsLeapYear(Era, Year) then
+   Else If (Month = 12) And Not IsLeapYear(Era, Year) Then
     Result := 29
-  else if (Month = 8) and ((DaysInYear(Era, Year) mod 10) <> 5) then
+   Else If (Month = 8) And ((DaysInYear(Era, Year) Mod 10) <> 5) Then
     Result := 29
-  else if (Month = 9) and ((DaysInYear(Era, Year) mod 10) = 3) then
+   Else If (Month = 9) And ((DaysInYear(Era, Year) Mod 10) = 3) Then
     Result := 29
-  else
+   Else
     Result := 30;
-end;
+  End;
 
-class function THebrewCalendar.ElapsedDays(Year: Integer): Integer;
-var
-  Months, Day, Parts: Integer;
-begin
-  Months := Floor(((235 * Year) - 234) / 19);
-  Parts := 12084 + (13753 * Months);
-  Day := (Months * 29) + Floor(Parts / 25920);
-  if ((3 * (Day + 1)) mod 7) < 3 then
-    Inc(Day);
-  Result := Day;
-end;
+  Class Function THebrewCalendar.ElapsedDays(Year : Integer) : Integer;
 
-class function THebrewCalendar.Delay(Year: Integer): Integer;
-var
-  Last, Present, Next: Integer;
-begin
-  Last := ElapsedDays(Year - 1);
-  Present := ElapsedDays(Year);
-  Next := ElapsedDays(Year + 1);
-  if (Next - Present) = 356 then
-    Result := 2
-  else if (Present - Last) = 382 then
-    Result := 1
-  else
-    Result := 0;
-  Inc(Result, Present);
-end;
+ Var
+  Months : Integer;
+  Day    : Integer;
+  Parts  : Integer;
 
-function THebrewCalendar.ToJulianDay(Year, Month, Day: Integer): Extended;
-var
-  M: Integer;
-begin
-  Year := ToZeroBase(HebrewEra, Year);
-  Result := HEBREW_EPOCH + Delay(Year) + Day + 1;
-  Year := FromZeroBase(HebrewEra, Year);
-  if Month < 7 then
-  begin
-    for M := 1 to Month - 1 do
-      Result := Result + DaysInMonth(HebrewEra, Year, M);
-    for M := 7 to MonthsInYear(HebrewEra, Year) do
-      Result := Result + DaysInMonth(HebrewEra, Year, M);
-  end
-  else
-  begin
-    for M := 7 to Month - 1 do
-      Result := Result + DaysInMonth(HebrewEra, Year, M);
-  end;
-end;
+Begin
+ Months := Floor(((235 * Year) - 234) / 19);
+ Parts  := 12084 + (13753 * Months);
+ Day    := (Months * 29) + Floor(Parts / 25920);
+ If ((3 * (Day + 1)) Mod 7) < 3 Then
+  Inc(Day);
+ Result := Day;
 
-function THebrewCalendar.FromJulianDay(const JD: Extended;
-  out Year, Month, Day: Integer): Boolean;
-var
-  NormalizedJD, Diff: Extended;
-begin
-  NormalizedJD := Trunc(JD - 0.5) + 0.5;
-  Year := Floor(((NormalizedJD - HEBREW_EPOCH) * 98496) / 35975351);
-  Year := FromZeroBase(HebrewEra, Year);
-  Diff := NormalizedJD - ToJulianDay(Year, 7, 1);
-  if Diff >= 0 then
-  begin
-    Inc(Year, Floor(Diff / 385));
-    while NormalizedJD >= ToJulianDay(Year, 7, 1) do
+End;
+
+  Class Function THebrewCalendar.Delay(Year : Integer) : Integer;
+
+ Var
+  Last    : Integer;
+  Present : Integer;
+  Next    : Integer;
+
+Begin
+ Last    := ElapsedDays(Year - 1);
+ Present := ElapsedDays(Year);
+ Next    := ElapsedDays(Year + 1);
+ If (Next - Present) = 356 Then
+  Result := 2
+ Else If (Present - Last) = 382 Then
+  Result := 1
+ Else
+  Result := 0;
+ Inc(Result, Present);
+
+End;
+
+ Function THebrewCalendar.ToJulianDay(Year, Month, Day : Integer) : Extended;
+  Var
+   m : Integer;
+  Begin
+   Year   := ToZeroBase(HebrewEra, Year);
+   Result := HEBREW_EPOCH + Delay(Year) + Day + 1;
+   Year   := FromZeroBase(HebrewEra, Year);
+   If Month < 7 Then
+    Begin
+     For m   := 1 To Month - 1 Do
+      Result := Result + DaysInMonth(HebrewEra, Year, m);
+     For m   := 7 To MonthsInYear(HebrewEra, Year) Do
+      Result := Result + DaysInMonth(HebrewEra, Year, m);
+    End
+   Else
+    Begin
+     For m   := 7 To Month - 1 Do
+      Result := Result + DaysInMonth(HebrewEra, Year, m);
+    End;
+  End;
+
+ Function THebrewCalendar.FromJulianDay(Const JD : Extended; Out Year, Month, Day : Integer) : Boolean;
+  Var
+   NormalizedJD : Extended;
+   Diff         : Extended;
+  Begin
+   NormalizedJD := Trunc(JD - 0.5) + 0.5;
+   Year         := Floor(((NormalizedJD - HEBREW_EPOCH) * 98496) / 35975351);
+   Year         := FromZeroBase(HebrewEra, Year);
+   Diff         := NormalizedJD - ToJulianDay(Year, 7, 1);
+   If Diff >= 0 Then
+    Begin
+     Inc(Year, Floor(Diff / 385));
+     While NormalizedJD >= ToJulianDay(Year, 7, 1) Do
       Inc(Year);
-  end;
-  Dec(Year);
-  if NormalizedJD < ToJulianDay(Year, 1, 1) then
+    End;
+   Dec(Year);
+   If NormalizedJD < ToJulianDay(Year, 1, 1) Then
     Month := 7
-  else
+   Else
     Month := 1;
-  while NormalizedJD > ToJulianDay(Year, Month, DaysInMonth(HebrewEra, Year, Month)) do
+   While NormalizedJD > ToJulianDay(Year, Month, DaysInMonth(HebrewEra, Year, Month)) Do
     Inc(Month);
-  Day := Trunc(NormalizedJD - ToJulianDay(Year, Month, 1)) + 1;
-  Result := (Day >= 0);
-end;
+   Day    := Trunc(NormalizedJD - ToJulianDay(Year, Month, 1)) + 1;
+   Result := (Day >= 0);
+  End;
 
 { THebrewCalendarSettings }
 
-class function THebrewCalendarSettings.CalendarClass: TCalendarClass;
-begin
-  Result := THebrewCalendar;
-end;
+  Class Function THebrewCalendarSettings.CalendarClass : TCalendarClass;
 
-function THebrewCalendarSettings.GetMonthInfoIndex(Month: Integer): Integer;
-begin
-  Result := (Month + 6) mod 13;
-end;
+Begin
+ Result := THebrewCalendar;
 
-procedure THebrewCalendarSettings.PrepareMonthNames(const Locale: string;
-  CalendarID: Cardinal);
-const
-  EnglishMonthNames: array[1..13] of String = (
-    'Nisan', 'Iyyar', 'Sivan', 'Tammuz', 'Av', 'Elul', 'Tishri',
-    'Heshvan', 'Kislev', 'Teveth', 'Shevat', 'Adar', 'Adar II');
-  EnglishShortMonthNames: array[1..13] of String = (
-    'NIS', 'IYA', 'SIV', 'TAM', 'AV', 'ELU', 'TIS',
-    'HES', 'KIS', 'TEV', 'SHE', 'ADA', 'AD2');
-var
-  M: Integer;
-begin
-  if Pos('Hebr;', GetLocaleScripts(Locale)) <> 0 then
-    inherited PrepareMonthNames(Locale, CalendarID)
-  else
-  begin
-    for M := 1 to 13 do
-    begin
-      MonthNames[M] := EnglishMonthNames[M];
-      ShortMonthNames[M] := EnglishShortMonthNames[M];
-      GenitiveMonthNames[M] := EnglishMonthNames[M];
-    end;
-  end;
-end;
+End;
 
-initialization
-  CalendarTypes.Register(THebrewCalendar, ['he-IL']);
-end.
+ Function THebrewCalendarSettings.GetMonthInfoIndex(Month : Integer) : Integer;
+  Begin
+   Result := (Month + 6) Mod 13;
+  End;
+
+ Procedure THebrewCalendarSettings.PrepareMonthNames(Const Locale : String; CalendarID : Cardinal);
+  Const
+   EnglishMonthNames : Array[1..13] Of String = (
+   'Nisan', 'Iyyar', 'Sivan', 'Tammuz', 'Av', 'Elul', 'Tishri',
+   'Heshvan', 'Kislev', 'Teveth', 'Shevat', 'Adar', 'Adar II');
+   EnglishShortMonthNames : Array[1..13] Of String = (
+   'NIS', 'IYA', 'SIV', 'TAM', 'AV', 'ELU', 'TIS',
+   'HES', 'KIS', 'TEV', 'SHE', 'ADA', 'AD2');
+  Var
+   m : Integer;
+  Begin
+   If Pos('Hebr;', GetLocaleScripts(Locale)) <> 0 Then
+    Inherited PrepareMonthNames(Locale, CalendarID)
+   Else
+    Begin
+     For m := 1 To 13 Do
+      Begin
+       MonthNames[m]         := EnglishMonthNames[m];
+       ShortMonthNames[m]    := EnglishShortMonthNames[m];
+       GenitiveMonthNames[m] := EnglishMonthNames[m];
+      End;
+    End;
+  End;
+
+Initialization
+ CalendarTypes.Register(THebrewCalendar, ['he-IL']);
+
+End.

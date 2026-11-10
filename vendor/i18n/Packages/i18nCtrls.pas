@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -11,102 +11,103 @@
 /// <summary>
 /// This unit implements controls that represent locales, countries, and currencies.
 /// </summary>
-unit i18nCtrls;
+Unit i18nCtrls;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-uses
+ Uses
   Windows, Messages, Classes, Contnrs, Graphics, Controls, StdCtrls, ImgList,
   {$IFDEF COMPILER_XE3_UP} UITypes, {$ENDIF}
   i18nCore, i18nLocalizer, i18nHashList;
 
-type
-
+ Type
 
   {$IFNDEF COMPILER_XE2_UP}
   TListBoxItemData = TCustomLongData;
-  {$ENDIF}
+{$ENDIF}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the ways that the display parts of a control
+/// can be rendered.
+/// </summary>
+{$Endregion}
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the ways that the display parts of a control
-  /// can be rendered.
-  /// </summary>
-  {$endregion}
   TPartDrawState = (
-    {$region 'xmldoc'}
-    /// Render as normal.
-    {$endregion}
-    pdsNormal,
-    {$region 'xmldoc'}
-    /// The mouse pointer is over the control's part; render in hot state.
-    {$endregion}
-    pdsHot,
-    {$region 'xmldoc'}
-    /// The user has pressed the control's part; render in pressed state.
-    {$endregion}
-    pdsPressed,
-    {$region 'xmldoc'}
-    /// The control's part is disabled; render as disabled.
-    {$endregion}
-    pdsDisabled
+  {$Region 'xmldoc'}
+  /// Render as normal.
+  {$Endregion}
+  pdsNormal,
+  {$Region 'xmldoc'}
+  /// The mouse pointer is over the control's part; render in hot state.
+  {$Endregion}
+  pdsHot,
+  {$Region 'xmldoc'}
+  /// The user has pressed the control's part; render in pressed state.
+  {$Endregion}
+  pdsPressed,
+  {$Region 'xmldoc'}
+  /// The control's part is disabled; render as disabled.
+  {$Endregion}
+  pdsDisabled
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the possible locations of a pixel that
-  /// specifies the transparent color of a bitmap.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the possible locations of a pixel that
+/// specifies the transparent color of a bitmap.
+/// </summary>
+{$Endregion}
+
   TTransparentPixel = (
-    {$region 'xmldoc'}
-    /// There is no transparent color.
-    {$endregion}
-    tpNone,
-    {$region 'xmldoc'}
-    /// The color of the pixel at the top-left corner of the bitmap image is the transparent color.
-    {$endregion}
-    tpTopLeft,
-    {$region 'xmldoc'}
-    /// The color of the pixel at the top-right corner of the bitmap image is the transparent color.
-    {$endregion}
-    tpTopRight,
-    {$region 'xmldoc'}
-    /// The color of the pixel at the bottom-right corner of the bitmap image is the transparent color.
-    {$endregion}
-    tpBottomRight,
-    {$region 'xmldoc'}
-    /// The color of the pixel at the bottom-left corner of the bitmap image is the transparent color.
-    {$endregion}
-    tpBottomLeft
+  {$Region 'xmldoc'}
+  /// There is no transparent color.
+  {$Endregion}
+  tpNone,
+  {$Region 'xmldoc'}
+  /// The color of the pixel at the top-left corner of the bitmap image is the transparent color.
+  {$Endregion}
+  tpTopLeft,
+  {$Region 'xmldoc'}
+  /// The color of the pixel at the top-right corner of the bitmap image is the transparent color.
+  {$Endregion}
+  tpTopRight,
+  {$Region 'xmldoc'}
+  /// The color of the pixel at the bottom-right corner of the bitmap image is the transparent color.
+  {$Endregion}
+  tpBottomRight,
+  {$Region 'xmldoc'}
+  /// The color of the pixel at the bottom-left corner of the bitmap image is the transparent color.
+  {$Endregion}
+  tpBottomLeft
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomFlagImageList is the base class for collections of same-sized country flag
-  /// images, each of which can be referred to by its index or international country code.
-  /// </summary>
-  /// <remarks>
-  /// The flag image list is a special image list that stores a collection of icons or
-  /// bitmaps, which are country flags. The flag image list has methods to facilitate
-  /// retrieving and drawing of the stored flag images.
-  ///
-  /// Use TCustomFlagImageList as a base class for image lists that store images of
-  /// country flags.
-  /// </remarks>
-  {$endregion}
-  TCustomFlagImageList = class abstract(TCustomImageList)
-  private
-    Regions: TKeyLookup<String,Integer>;
-    HelperDC: HDC;
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomFlagImageList is the base class for collections of same-sized country flag
+/// images, each of which can be referred to by its index or international country code.
+/// </summary>
+/// <remarks>
+/// The flag image list is a special image list that stores a collection of icons or
+/// bitmaps, which are country flags. The flag image list has methods to facilitate
+/// retrieving and drawing of the stored flag images.
+///
+/// Use TCustomFlagImageList as a base class for image lists that store images of
+/// country flags.
+/// </remarks>
+{$Endregion}
+
+    TCustomFlagImageList = Class Abstract(TCustomImageList)
+   Private
+    Regions  : TKeyLookup<String, Integer>;
+    HelperDC : HDC;
     {$IFDEF COMPILER2010_UP}
-    function GetColorDepth: TColorDepth;
-    procedure SetColorDepth(Value: TColorDepth);
+    Function GetColorDepth : TColorDepth;
+    Procedure SetColorDepth(Value : TColorDepth);
     {$ENDIF}
-  protected
-    {$region 'xmldoc'}
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Prevents bitmap data from being saved and loaded.
     /// </summary>
@@ -114,9 +115,9 @@ type
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
     /// loading or saving the flag images.
     /// </param>
-    {$endregion}
-    procedure DefineProperties(Filer: TFiler); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DefineProperties(Filer : TFiler); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Resizes a bitmap specified by its handle to be the same size as the flag
     /// image list entries. This method also makes the color specified by its pixel
@@ -129,9 +130,9 @@ type
     /// The pixel location of the transparent color.
     /// </param>
     /// <see cref="NormalizeFlag"/>
-    {$endregion}
-    procedure NormalizeImage(var hImage: HBITMAP; TranparentPixel: TTransparentPixel = tpNone);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure NormalizeImage(Var hImage : HBITMAP; TranparentPixel : TTransparentPixel = tpNone);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checks the size of the flag image specified by its handle. If the image's size
     /// is not the same size as the image list entries, it resizes the image. This
@@ -147,9 +148,9 @@ type
     /// Two-character international country code of the flag.
     /// </param>
     /// <see cref="NormalizeImage"/>
-    {$endregion}
-    procedure NormalizeFlag(var hImage: HBITMAP; const ISO_3166_2: String); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure NormalizeFlag(Var hImage : HBITMAP; Const ISO_3166_2 : String); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Adds the flag image of a country/region specified by its two-character ISO 3166/2
     /// international country code.
@@ -166,31 +167,31 @@ type
     /// <returns>
     /// Index of the newly added flag in the image list.
     /// </returns>
-    {$endregion}
-    function AddFlag(const ISO_3166_2: String; hImage: HBITMAP): Integer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function AddFlag(Const ISO_3166_2 : String; hImage : HBITMAP) : Integer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets the size of image list entries and adds flag images to it.
     /// </summary>
-    {$endregion}
-    procedure PrepareFlags; virtual; abstract;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure PrepareFlags; Virtual; Abstract;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the component.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the component and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds the index of a flag image represented by its two-character ISO 3166/2
     /// international country code.
@@ -201,9 +202,9 @@ type
     /// <returns>
     /// Index of the flag image or -1 if the flag is not found.
     /// </returns>
-    {$endregion}
-    function ImageIndexOf(const ISO_3166_2: String): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ImageIndexOf(Const ISO_3166_2 : String) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds the index of a flag image represented by its <see cref="TTerritoryInfo"/> object.
     /// </summary>
@@ -213,9 +214,9 @@ type
     /// <returns>
     /// Index of the flag image or -1 if the flag is not found.
     /// </returns>
-    {$endregion}
-    function ImageIndexOf(Territory: TTerritoryInfo): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ImageIndexOf(Territory : TTerritoryInfo) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds the index of a flag image represented by its <see cref="TCultureInfo"/> object.
     /// </summary>
@@ -225,9 +226,9 @@ type
     /// <returns>
     /// Index of the flag image or -1 if the flag is not found.
     /// </returns>
-    {$endregion}
-    function ImageIndexOf(Culture: TCultureInfo): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ImageIndexOf(Culture : TCultureInfo) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds the index of a flag image represented by its <see cref="TCurrencyInfo"/> object.
     /// </summary>
@@ -237,122 +238,124 @@ type
     /// <returns>
     /// Index of the flag image or -1 if the flag is not found.
     /// </returns>
-    {$endregion}
-    function ImageIndexOf(Currency: TCurrencyInfo): Integer; overload;
-  published
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ImageIndexOf(Currency : TCurrencyInfo) : Integer; Overload;
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of bits per pixel used for colors of the flag images.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property ColorDepth: TColorDepth read GetColorDepth write SetColorDepth default cdDeviceDependent;
+    Property ColorDepth : TColorDepth Read GetColorDepth Write SetColorDepth Default cdDeviceDependent;
     {$ENDIF}
-  end;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomResFlagImageList is the base class for those flag image lists components,
-  /// which load the country flag images from an application's resource.
-  /// </summary>
-  /// <remarks>
-  /// The flag image list is a special image list that stores a collection of icons or
-  /// bitmaps, which are country flags. The flag image list has methods to facilitate
-  /// retrieving and drawing of the stored flag images.
-  ///
-  /// Use TCustomResFlagImageList as a base class when defining flag image lists that
-  /// load the flag images from the application's resource. TCustomResFlagImageList
-  /// expects each image to be a bitmap resource named as <c>PREFIXcc</c>, where
-  /// <c>PREFIX</c> is a custom prefix shared with all flag images, and <c>cc</c> is the
-  /// two-character ISO 3166/2 international country code of the flag image.
-  /// </remarks>
-  {$endregion}
-  TCustomResFlagImageList = class(TCustomFlagImageList)
-  private
-    function AddFlagFromResource(const ISO_3166_2: String;
-      const ResName: String; hModule: HMODULE = 0): Integer;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomResFlagImageList is the base class for those flag image lists components,
+/// which load the country flag images from an application's resource.
+/// </summary>
+/// <remarks>
+/// The flag image list is a special image list that stores a collection of icons or
+/// bitmaps, which are country flags. The flag image list has methods to facilitate
+/// retrieving and drawing of the stored flag images.
+///
+/// Use TCustomResFlagImageList as a base class when defining flag image lists that
+/// load the flag images from the application's resource. TCustomResFlagImageList
+/// expects each image to be a bitmap resource named as <c>PREFIXcc</c>, where
+/// <c>PREFIX</c> is a custom prefix shared with all flag images, and <c>cc</c> is the
+/// two-character ISO 3166/2 international country code of the flag image.
+/// </remarks>
+{$Endregion}
+
+  TCustomResFlagImageList = Class(TCustomFlagImageList)
+   Private
+    Function AddFlagFromResource(Const ISO_3166_2 : String; Const ResName : String; hModule : hModule = 0) : Integer;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the size of each individual flag image in pixels.
     /// </summary>
     /// <returns>
     /// The width and height of the image list entries.
     /// </returns>
-    {$endregion}
-    function GetFlagSize: TSize; virtual; abstract;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetFlagSize : TSize; Virtual; Abstract;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the prefix used in the name of each flag's bitmap resource.
     /// </summary>
     /// <returns>
     /// The prefix of bitmap resource names.
     /// </returns>
-    {$endregion}
-    function GetResourcePrefix: String; virtual; abstract;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetResourcePrefix : String; Virtual; Abstract;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets the size of image list entries and loads flag images from the application
     /// resource.
     /// </summary>
-    {$endregion}
-    procedure PrepareFlags; override;
-  end;
+    {$Endregion}
+    Procedure PrepareFlags; Override;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TFlagImageList is a special image list component that provides country flag
-  /// icons.
-  /// </summary>
-  /// <remarks>
-  /// The flag image list is a special image list that stores a collection of icons or
-  /// bitmaps, which are country flags. The flag image list has methods to facilitate
-  /// retrieving and drawing of the stored flag images.
-  ///
-  /// The size of flag icons provided by TFlagImageList is 16 by 11 pixels.
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TFlagImageList is a special image list component that provides country flag
+/// icons.
+/// </summary>
+/// <remarks>
+/// The flag image list is a special image list that stores a collection of icons or
+/// bitmaps, which are country flags. The flag image list has methods to facilitate
+/// retrieving and drawing of the stored flag images.
+///
+/// The size of flag icons provided by TFlagImageList is 16 by 11 pixels.
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TFlagImageList = class(TCustomResFlagImageList)
-  protected
-    function GetFlagSize: TSize; override;
-    function GetResourcePrefix: String; override;
-  end;
+  TFlagImageList = Class(TCustomResFlagImageList)
+   Protected
+    Function GetFlagSize : TSize; Override;
+    Function GetResourcePrefix : String; Override;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomImageLabel is the base class for label controls that can include an image
-  /// on their face.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomImageLabel as a base class when defining objects that display an icon
-  /// followed by a text on a form. TCustomImageLabel implements properties to specify
-  /// the icon from an image list component, along with its appearance and placement on
-  /// the label.
-  /// </remarks>
-  {$endregion}
-  TCustomImageLabel = class abstract(TCustomLabel)
-  private
-    fSpacing: Integer;
-    fImageIndex: TImageIndex;
-    fPadding: TPadding;
-    fBorderWidth: TBorderWidth;
-    fBorderColor: TColor;
-    fImages: TCustomImageList;
-    fImagesLink: TChangeLink;
-    procedure SetSpacing(Value: Integer);
-    procedure SetPadding(Value: TPadding);
-    procedure SetBorderWidth(Value: TBorderWidth);
-    procedure SetBorderColor(Value: TColor);
-    procedure SetImages(Value: TCustomImageList);
-    procedure ImagesChanged(Sender: TObject);
-    procedure PaddingChanged(Sender: TObject);
-    procedure CNVisibleChanged(var Message: TMessage); message CM_VISIBLECHANGED;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomImageLabel is the base class for label controls that can include an image
+/// on their face.
+/// </summary>
+/// <remarks>
+/// Use TCustomImageLabel as a base class when defining objects that display an icon
+/// followed by a text on a form. TCustomImageLabel implements properties to specify
+/// the icon from an image list component, along with its appearance and placement on
+/// the label.
+/// </remarks>
+{$Endregion}
+
+    TCustomImageLabel = Class Abstract(TCustomLabel)
+   Private
+    fSpacing     : Integer;
+    fImageIndex  : TImageIndex;
+    fPadding     : TPadding;
+    fBorderWidth : TBorderWidth;
+    fBorderColor : TColor;
+    fImages      : TCustomImageList;
+    fImagesLink  : TChangeLink;
+    Procedure SetSpacing(Value : Integer);
+    Procedure SetPadding(Value : TPadding);
+    Procedure SetBorderWidth(Value : TBorderWidth);
+    Procedure SetBorderColor(Value : TColor);
+    Procedure SetImages(Value : TCustomImageList);
+    Procedure ImagesChanged(Sender : TObject);
+    Procedure PaddingChanged(Sender : TObject);
+    Procedure CNVisibleChanged(Var Message : TMessage); Message CM_VISIBLECHANGED;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds to notifications that components are about to be created or destroyed.
     /// </summary>
@@ -362,9 +365,9 @@ type
     /// <param name="Operation">
     /// Indicates whether the component is created or destroyed.
     /// </param>
-    {$endregion}
-    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Notification(AComponent : TComponent; Operation : TOperation); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Draws the label's caption along with its image on a specified rectangle.
     /// </summary>
@@ -374,9 +377,9 @@ type
     /// <param name="DrawFlags">
     /// Flags for Windows API function, DrawText.
     /// </param>
-    {$endregion}
-    procedure DoDrawText(var Rect: TRect; DrawFlags: Longint); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoDrawText(Var Rect : TRect; DrawFlags : LongInt); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the index of the label's image in the <see cref="Images"/> image list.
     /// </summary>
@@ -384,9 +387,9 @@ type
     /// The index of the label's image in the image list or -1 if there is no image.
     /// </returns>
     /// <seealso cref="SetImageIndex"/>
-    {$endregion}
-    function GetImageIndex: TImageIndex; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetImageIndex : TImageIndex; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Updates the label's image by specifying its index in the <see cref="Images"/> image list.
     /// </summary>
@@ -394,574 +397,577 @@ type
     /// The index of the label's image in the image list or -1 if there is no image.
     /// </param>
     /// <seealso cref="GetImageIndex"/>
-    {$endregion}
-    procedure SetImageIndex(Value: TImageIndex); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure SetImageIndex(Value : TImageIndex); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Resizes the label when the text or image changes.
     /// </summary>
-    {$endregion}
-    procedure AdjustBounds; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure AdjustBounds; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Draws the text and image of the label's client area.
     /// </summary>
-    {$endregion}
-    procedure Paint; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Paint; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the color of the control's border.
     /// </summary>
-    {$endregion}
-    property BorderColor: TColor read fBorderColor write SetBorderColor default clNone;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderColor : TColor Read fBorderColor Write SetBorderColor Default clNone;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the width of the control's border.
     /// </summary>
-    {$endregion}
-    property BorderWidth: TBorderWidth read fBorderWidth write SetBorderWidth default 0;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderWidth : TBorderWidth Read fBorderWidth Write SetBorderWidth Default 0;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which image is displayed as the icon on the label.
     /// </summary>
-    {$endregion}
-    property ImageIndex: TImageIndex read GetImageIndex write SetImageIndex default -1;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImageIndex : TImageIndex Read GetImageIndex Write SetImageIndex Default - 1;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the images that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Images: TCustomImageList read fImages write SetImages;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Images : TCustomImageList Read fImages Write SetImages;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of pixels between the image and the text of the control.
     /// </summary>
-    {$endregion}
-    property Spacing: Integer read fSpacing write SetSpacing default 4;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Spacing : Integer Read fSpacing Write SetSpacing Default 4;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the distance between the image and the text from the control's border.
     /// </summary>
-    {$endregion}
-    property Padding: TPadding read fPadding write SetPadding;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Padding : TPadding Read fPadding Write SetPadding;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the control and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-  end;
+    {$Endregion}
+    Destructor Destroy; Override;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TImageLabel is a label control that can include an image on its face.
-  /// </summary>
-  /// <remarks>
-  /// Use TImageLabel to display an icon followed by text on a form. The <see cref="ImageIndex"/>
-  /// property determines which image of the image list identified by the <see cref="Images"/>
-  /// property will be displayed.
-  ///
-  /// TImageLabel control can have a border. The <see cref="BorderColor"/> and
-  /// <see cref="BorderWidth"/> properties determine the color and thickness of the
-  /// border.
-  ///
-  /// TImageLabel publishes many of the properties, events, and methods of
-  /// <see cref="TCustomImageLabel"/>, but does not introduce any new behavior.
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TImageLabel is a label control that can include an image on its face.
+/// </summary>
+/// <remarks>
+/// Use TImageLabel to display an icon followed by text on a form. The <see cref="ImageIndex"/>
+/// property determines which image of the image list identified by the <see cref="Images"/>
+/// property will be displayed.
+///
+/// TImageLabel control can have a border. The <see cref="BorderColor"/> and
+/// <see cref="BorderWidth"/> properties determine the color and thickness of the
+/// border.
+///
+/// TImageLabel publishes many of the properties, events, and methods of
+/// <see cref="TCustomImageLabel"/>, but does not introduce any new behavior.
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TImageLabel = class(TCustomImageLabel)
-  published
-    {$region 'xmldoc'}
+  TImageLabel = Class(TCustomImageLabel)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control aligns within its container (parent control).
     /// </summary>
-    {$endregion}
-    property Align;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Align;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the horizontal placement of the text within the label.
     /// </summary>
-    {$endregion}
-    property Alignment;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Alignment;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
     /// </summary>
-    {$endregion}
-    property AlignWithMargins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AlignWithMargins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control is anchored to its parent.
     /// </summary>
-    {$endregion}
-    property Anchors;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Anchors;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control sizes itself automatically to accommodate
     /// its contents.
     /// </summary>
-    {$endregion}
-    property AutoSize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoSize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the control.
     /// </summary>
-    {$endregion}
-    property BiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the color of the control's border.
     /// </summary>
-    {$endregion}
-    property BorderColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the width of the control's border.
     /// </summary>
-    {$endregion}
-    property BorderWidth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderWidth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text of the label.
     /// </summary>
-    {$endregion}
-    property Caption;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Caption;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color nodefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Nodefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size constraints for the control.
     /// </summary>
-    {$endregion}
-    property Constraints;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Constraints;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
     /// into the region covered by the control.
     /// </summary>
-    {$endregion}
-    property DragCursor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragCursor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control is being dragged normally or for docking.
     /// </summary>
-    {$endregion}
-    property DragKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
     /// </summary>
-    {$endregion}
-    property DragMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets a windowed control associated with the label.
     /// </summary>
-    {$endregion}
-    property FocusControl;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FocusControl;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the radius of the glow around the label.
     /// NOTE: This feature is only available in Windows Vista and later.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property GlowSize;
+    Property GlowSize;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which image is displayed as the icon on the label.
     /// </summary>
-    {$endregion}
-    property ImageIndex;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImageIndex;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the images that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Images;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Images;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the margins of the control.
     /// </summary>
-    {$endregion}
-    property Margins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Margins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the distance between the image and the text from the control's border.
     /// </summary>
-    {$endregion}
-    property Padding;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Padding;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
     /// </summary>
-    {$endregion}
-    property ParentColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the pop-up menu associated with the control.
     /// </summary>
-    {$endregion}
-    property PopupMenu;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PopupMenu;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how an ampersand in the label text is displayed.
     /// </summary>
-    {$endregion}
-    property ShowAccelChar;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowAccelChar;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of pixels between the image and the text of the control.
     /// </summary>
-    {$endregion}
-    property Spacing;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Spacing;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the touch manager component associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property Touch;
+    Property Touch;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether controls that sit below the label on a form can be seen
     /// through the label.
     /// </summary>
-    {$endregion}
-    property Transparent;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Transparent;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the vertical placement of the text within the label.
     /// </summary>
-    {$endregion}
-    property Layout;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Layout;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets Specifies whether the label text wraps when it is too long for the
     /// width of the label.
     /// </summary>
-    {$endregion}
-    property WordWrap;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property WordWrap;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user clicks the control.
     /// </summary>
-    {$endregion}
-    property OnClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
     /// menu (such as using the keyboard).
     /// </summary>
-    {$endregion}
-    property OnContextPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnContextPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
     /// is over the control.
     /// </summary>
-    {$endregion}
-    property OnDblClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDblClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drops an object being dragged on the control.
     /// </summary>
-    {$endregion}
-    property OnDragDrop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragDrop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drags an object over the control.
     /// </summary>
-    {$endregion}
-    property OnDragOver;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragOver;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDrag;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDrag;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when user performs a gesture associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnGesture;
+    Property OnGesture;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control and the parent form is not active.
     /// </summary>
-    {$endregion}
-    property OnMouseActivate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseActivate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control.
     /// </summary>
-    {$endregion}
-    property OnMouseDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
     /// the control.
     /// </summary>
-    {$endregion}
-    property OnMouseMove;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseMove;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
     /// pointer over the control.
     /// </summary>
-    {$endregion}
-    property OnMouseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse into the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseEnter;
+    Property OnMouseEnter;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse outside of the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseLeave;
+    Property OnMouseLeave;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated.
     /// </summary>
-    {$endregion}
-    property OnMouseWheel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated downward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated upward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the control is resized.
     /// </summary>
-    {$endregion}
-    property OnResize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnResize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDock"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnStartDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDrag"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDrag;
-  end;
+    {$Endregion}
+    Property OnStartDrag;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomFlagLabel is the base class for label controls that display a country
-  /// flag icon on their face.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomFlagLabel as a base class when defining objects that display a country
-  /// flag icon followed by text on a form. TCustomFlagLabel implements properties that
-  /// specify the flag icon from a flag image list component, along with its appearance
-  /// and placement on the label.
-  /// </remarks>
-  {$endregion}
-  TCustomFlagLabel = class abstract(TCustomImageLabel)
-  private
-    procedure SetFlags(Value: TCustomFlagImageList);
-    function GetFlags: TCustomFlagImageList;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomFlagLabel is the base class for label controls that display a country
+/// flag icon on their face.
+/// </summary>
+/// <remarks>
+/// Use TCustomFlagLabel as a base class when defining objects that display a country
+/// flag icon followed by text on a form. TCustomFlagLabel implements properties that
+/// specify the flag icon from a flag image list component, along with its appearance
+/// and placement on the label.
+/// </remarks>
+{$Endregion}
+
+    TCustomFlagLabel = Class Abstract(TCustomImageLabel)
+   Private
+    Procedure SetFlags(Value : TCustomFlagImageList);
+    Function GetFlags : TCustomFlagImageList;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the flag icons that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Flags: TCustomFlagImageList read GetFlags write SetFlags;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flags : TCustomFlagImageList Read GetFlags Write SetFlags;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-  end;
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the possible locations of a country flag
-  /// icon in regard to a text label.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the possible locations of a country flag
+/// icon in regard to a text label.
+/// </summary>
+{$Endregion}
+
   TFlagPosition = (
-    {$region 'xmldoc'}
-    /// The country flag is placed before the text label.
-    {$endregion}
-    fpBeforeLabel,
-    {$region 'xmldoc'}
-    /// The country flag is placed after the text label.
-    {$endregion}
-    fpAfterLabel
+  {$Region 'xmldoc'}
+  /// The country flag is placed before the text label.
+  {$Endregion}
+  fpBeforeLabel,
+  {$Region 'xmldoc'}
+  /// The country flag is placed after the text label.
+  {$Endregion}
+  fpAfterLabel
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomDrawItemLabelEvent is the type for event handlers that respond when the label of
-  /// a list item is being rendered.
-  /// </summary>
-  /// <param name="Sender">
-  /// The object that generated the event.
-  /// </param>
-  /// <param name="Index">
-  /// The index of the item whose label is being rendered.
-  /// </param>
-  /// <param name="Rect">
-  /// The bounding rectangle of the item's label on the control's canvas.
-  /// </param>
-  /// <param name="State">
-  /// The state information that can affect the way the item is drawn.
-  /// </param>
-  /// <param name="TheLabel">
-  /// The text of the item's label.
-  /// </param>
-  /// <param name="DefaultDraw">
-  /// Indicates whether the default rendering should proceed after
-  /// the event handler exits.
-  /// </param>
-  {$endregion}
-  TCustomDrawItemLabelEvent = procedure(Sender: TObject; Index: Integer;
-    var Rect: TRect; State: TOwnerDrawState;
-    var TheLabel: String; var DefaultDraw: Boolean) of object;
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomDrawItemLabelEvent is the type for event handlers that respond when the label of
+/// a list item is being rendered.
+/// </summary>
+/// <param name="Sender">
+/// The object that generated the event.
+/// </param>
+/// <param name="Index">
+/// The index of the item whose label is being rendered.
+/// </param>
+/// <param name="Rect">
+/// The bounding rectangle of the item's label on the control's canvas.
+/// </param>
+/// <param name="State">
+/// The state information that can affect the way the item is drawn.
+/// </param>
+/// <param name="TheLabel">
+/// The text of the item's label.
+/// </param>
+/// <param name="DefaultDraw">
+/// Indicates whether the default rendering should proceed after
+/// the event handler exits.
+/// </param>
+{$Endregion}
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomFlagBox is the base class for combo box controls that represent a list
-  /// of country/region related items.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomFlagBox as a base class when defining combo box controls that represent a
-  /// list of country/region related items. TCustomFlagBox implements properties to specify
-  /// a country flag icon, along with its appearance and placement for each individual item.
-  /// </remarks>
-  {$endregion}
-  TCustomFlagBox = class abstract(TCustomComboBox)
-  private
-    fSorted: Boolean;
-    fFlags: TCustomFlagImageList;
-    fFlagPosition: TFlagPosition;
-    fStandardItemHeight: Integer;
-    fItemIndex: Integer;
-    fItemsReady: Boolean;
-    fOnDrawItemLabel: TCustomDrawItemLabelEvent;
-    fOnItemsChange: TNotifyEvent;
-    fFlagsLink: TChangeLink;
-    procedure SetSorted(Value: Boolean);
-    procedure SetFlagPosition(Value: TFlagPosition);
-    procedure SetFlags(Value: TCustomFlagImageList);
-    procedure FlagsChanged(Sender: TObject);
-    procedure ResetItemHeight;
-    procedure CMFontChanged(var Message: TMessage); message CM_FONTCHANGED;
-    procedure CMEnter(var Message: TMessage); message CM_ENTER;
-  protected
-    {$region 'xmldoc'}
+  TCustomDrawItemLabelEvent = Procedure(Sender : TObject; Index : Integer; Var Rect : TRect; State : TOwnerDrawState; Var TheLabel : String; Var DefaultDraw : Boolean) Of Object;
+
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomFlagBox is the base class for combo box controls that represent a list
+/// of country/region related items.
+/// </summary>
+/// <remarks>
+/// Use TCustomFlagBox as a base class when defining combo box controls that represent a
+/// list of country/region related items. TCustomFlagBox implements properties to specify
+/// a country flag icon, along with its appearance and placement for each individual item.
+/// </remarks>
+{$Endregion}
+
+    TCustomFlagBox = Class Abstract(TCustomComboBox)
+   Private
+    fSorted             : Boolean;
+    fFlags              : TCustomFlagImageList;
+    fFlagPosition       : TFlagPosition;
+    fStandardItemHeight : Integer;
+    fItemIndex          : Integer;
+    fItemsReady         : Boolean;
+    fOnDrawItemLabel    : TCustomDrawItemLabelEvent;
+    fOnItemsChange      : TNotifyEvent;
+    fFlagsLink          : TChangeLink;
+    Procedure SetSorted(Value : Boolean);
+    Procedure SetFlagPosition(Value : TFlagPosition);
+    Procedure SetFlags(Value : TCustomFlagImageList);
+    Procedure FlagsChanged(Sender : TObject);
+    Procedure ResetItemHeight;
+    Procedure CMFontChanged(Var Message : TMessage); Message CM_FONTCHANGED;
+    Procedure CMEnter(Var Message : TMessage); Message CM_ENTER;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Renders an individual item in the control.
     /// </summary>
@@ -974,9 +980,9 @@ type
     /// <param name="State">
     /// The state information that can affect the way the item is drawn.
     /// </param>
-    {$endregion}
-    procedure DrawItem(Index: Integer; Rect: TRect; State: TOwnerDrawState); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DrawItem(Index : Integer; Rect : TRect; State : TOwnerDrawState); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds to notifications that components are about to be created or destroyed.
     /// </summary>
@@ -986,30 +992,30 @@ type
     /// <param name="Operation">
     /// Indicates whether the component is created or destroyed.
     /// </param>
-    {$endregion}
-    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Notification(AComponent : TComponent; Operation : TOperation); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Initializes the window-creation parameter record.
     /// </summary>
     /// <param name="Params">
     /// The window-creation parameter record.
     /// </param>
-    {$endregion}
-    procedure CreateParams(var Params: TCreateParams); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure CreateParams(Var Params : TCreateParams); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates the underlying Windows control that implements the control.
     /// </summary>
-    {$endregion}
-    procedure CreateWnd; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure CreateWnd; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Regenerates the internal list of items.
     /// </summary>
-    {$endregion}
-    procedure RebuildInternalItems; virtual; abstract;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RebuildInternalItems; Virtual; Abstract;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnDrawItemLabel"/> event.
     /// </summary>
@@ -1029,25 +1035,24 @@ type
     /// Returns <see langword="true"/> if the default rendering should proceed after
     /// the method exits, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function DoDrawItemLabel(Index: Integer; var Rect: TRect;
-      State: TOwnerDrawState; var TheLabel: String): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DoDrawItemLabel(Index : Integer; Var Rect : TRect; State : TOwnerDrawState; Var TheLabel : String) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnItemsChange"/> event.
     /// </summary>
-    {$endregion}
-    procedure DoItemsChange; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoItemsChange; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the standard height of each item, in pixels.
     /// </summary>
     /// <returns>
     /// The height of each item, in pixels.
     /// </returns>
-    {$endregion}
-    function GetStandardItemHeight: Integer; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetStandardItemHeight : Integer; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the index of the selected item.
     /// </summary>
@@ -1055,9 +1060,9 @@ type
     /// The index of the selected item.
     /// </returns>
     /// <seealso cref="SetItemIndex"/>
-    {$endregion}
-    function GetItemIndex: Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetItemIndex : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Selects an item specified by its index.
     /// </summary>
@@ -1065,9 +1070,9 @@ type
     /// The index of item to select.
     /// </param>
     /// <seealso cref="GetItemIndex"/>
-    {$endregion}
-    procedure SetItemIndex(const Value: Integer); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure SetItemIndex(Const Value : Integer); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns an image to display for a particular item.
     /// </summary>
@@ -1077,9 +1082,9 @@ type
     /// <returns>
     /// The index of an image.
     /// </returns>
-    {$endregion}
-    function GetImageIndex(Index: Integer): Integer; virtual; abstract;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetImageIndex(Index : Integer) : Integer; Virtual; Abstract;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a text label to display for a particular item.
     /// </summary>
@@ -1089,37 +1094,37 @@ type
     /// <returns>
     /// The text label.
     /// </returns>
-    {$endregion}
-    function GetLabelText(Index: Integer): String; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetLabelText(Index : Integer) : String; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the standard height of each item, in pixels.
     /// </summary>
-    {$endregion}
-    property StandardItemHeight: Integer read fStandardItemHeight;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property StandardItemHeight : Integer Read fStandardItemHeight;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets whether the internal list of items is generated.
     /// </summary>
-    {$endregion}
-    property ItemsReady: Boolean read fItemsReady;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ItemsReady : Boolean Read fItemsReady;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the control and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the list with all the possible items.
     /// </summary>
@@ -1127,71 +1132,72 @@ type
     /// Returns <see langword="true"/> if the method succeeded, otherwise returns
     /// <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function CollectAll: Boolean; virtual; abstract;
-  protected
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function CollectAll : Boolean; Virtual; Abstract;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the placement of the country flag icon in regard of the text label.
     /// </summary>
-    {$endregion}
-    property FlagPosition: TFlagPosition read fFlagPosition write SetFlagPosition default fpBeforeLabel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FlagPosition : TFlagPosition Read fFlagPosition Write SetFlagPosition Default fpBeforeLabel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the flag icons that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Flags: TCustomFlagImageList read fFlags write SetFlags;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flags : TCustomFlagImageList Read fFlags Write SetFlags;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the items in the list are arranged alphabetically.
     /// </summary>
-    {$endregion}
-    property Sorted: Boolean read fSorted write SetSorted default False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Sorted : Boolean Read fSorted Write SetSorted Default False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when text label of an item needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnDrawItemLabel: TCustomDrawItemLabelEvent read fOnDrawItemLabel write fOnDrawItemLabel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDrawItemLabel : TCustomDrawItemLabelEvent Read fOnDrawItemLabel Write fOnDrawItemLabel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the list is changed.
     /// </summary>
-    {$endregion}
-    property OnItemsChange: TNotifyEvent read fOnItemsChange write fOnItemsChange;
-  end;
+    {$Endregion}
+    Property OnItemsChange : TNotifyEvent Read fOnItemsChange Write fOnItemsChange;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomFlagListBox is the base class for list box controls that represent a list
-  /// of country/region related items.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomFlagListBox as a base class when defining list box controls that represent a
-  /// list of country/region related items. TCustomFlagListBox implements properties to specify
-  /// a country flag icon, along with its appearance and placement for each individual item.
-  /// </remarks>
-  {$endregion}
-  TCustomFlagListBox = class abstract(TCustomListBox)
-  private
-    fSorted: Boolean;
-    fFlags: TCustomFlagImageList;
-    fFlagPosition: TFlagPosition;
-    fStandardItemHeight: Integer;
-    fItemIndex: Integer;
-    fItemsReady: Boolean;
-    fOnDrawItemLabel: TCustomDrawItemLabelEvent;
-    fOnItemsChange: TNotifyEvent;
-    fFlagsLink: TChangeLink;
-    procedure SetSorted(Value: Boolean);
-    procedure SetFlagPosition(Value: TFlagPosition);
-    procedure SetFlags(Value: TCustomFlagImageList);
-    procedure FlagsChanged(Sender: TObject);
-    procedure ResetItemHeight;
-    procedure CMFontChanged(var Message: TMessage); message CM_FONTCHANGED;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomFlagListBox is the base class for list box controls that represent a list
+/// of country/region related items.
+/// </summary>
+/// <remarks>
+/// Use TCustomFlagListBox as a base class when defining list box controls that represent a
+/// list of country/region related items. TCustomFlagListBox implements properties to specify
+/// a country flag icon, along with its appearance and placement for each individual item.
+/// </remarks>
+{$Endregion}
+
+    TCustomFlagListBox = Class Abstract(TCustomListBox)
+   Private
+    fSorted             : Boolean;
+    fFlags              : TCustomFlagImageList;
+    fFlagPosition       : TFlagPosition;
+    fStandardItemHeight : Integer;
+    fItemIndex          : Integer;
+    fItemsReady         : Boolean;
+    fOnDrawItemLabel    : TCustomDrawItemLabelEvent;
+    fOnItemsChange      : TNotifyEvent;
+    fFlagsLink          : TChangeLink;
+    Procedure SetSorted(Value : Boolean);
+    Procedure SetFlagPosition(Value : TFlagPosition);
+    Procedure SetFlags(Value : TCustomFlagImageList);
+    Procedure FlagsChanged(Sender : TObject);
+    Procedure ResetItemHeight;
+    Procedure CMFontChanged(Var Message : TMessage); Message CM_FONTCHANGED;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Renders an individual item in the control.
     /// </summary>
@@ -1204,9 +1210,9 @@ type
     /// <param name="State">
     /// The state information that can affect the way the item is drawn.
     /// </param>
-    {$endregion}
-    procedure DrawItem(Index: Integer; Rect: TRect; State: TOwnerDrawState); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DrawItem(Index : Integer; Rect : TRect; State : TOwnerDrawState); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds to notifications that components are about to be created or destroyed.
     /// </summary>
@@ -1216,21 +1222,21 @@ type
     /// <param name="Operation">
     /// Indicates whether the component is created or destroyed.
     /// </param>
-    {$endregion}
-    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Notification(AComponent : TComponent; Operation : TOperation); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates the underlying Windows control that implements the control.
     /// </summary>
-    {$endregion}
-    procedure CreateWnd; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure CreateWnd; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Regenerates the internal list of items.
     /// </summary>
-    {$endregion}
-    procedure RebuildInternalItems; virtual; abstract;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RebuildInternalItems; Virtual; Abstract;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnDrawItemLabel"/> event.
     /// </summary>
@@ -1250,25 +1256,24 @@ type
     /// Returns <see langword="true"/> if the default rendering should proceed after
     /// the method exits, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function DoDrawItemLabel(Index: Integer; var Rect: TRect;
-      State: TOwnerDrawState; var TheLabel: String): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DoDrawItemLabel(Index : Integer; Var Rect : TRect; State : TOwnerDrawState; Var TheLabel : String) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnItemsChange"/> event.
     /// </summary>
-    {$endregion}
-    procedure DoItemsChange; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoItemsChange; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the standard height of each item, in pixels.
     /// </summary>
     /// <returns>
     /// The height of each item, in pixels.
     /// </returns>
-    {$endregion}
-    function GetStandardItemHeight: Integer; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetStandardItemHeight : Integer; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the index of the selected item.
     /// </summary>
@@ -1276,9 +1281,9 @@ type
     /// The index of the selected item.
     /// </returns>
     /// <seealso cref="SetItemIndex"/>
-    {$endregion}
-    function GetItemIndex: Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetItemIndex : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Selects an item specified by its index.
     /// </summary>
@@ -1286,9 +1291,9 @@ type
     /// The index of item to select.
     /// </param>
     /// <seealso cref="GetItemIndex"/>
-    {$endregion}
-    procedure SetItemIndex(const Value: Integer); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure SetItemIndex(Const Value : Integer); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns an image to display for a particular item.
     /// </summary>
@@ -1298,9 +1303,9 @@ type
     /// <returns>
     /// The index of an image.
     /// </returns>
-    {$endregion}
-    function GetImageIndex(Index: Integer): Integer; virtual; abstract;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetImageIndex(Index : Integer) : Integer; Virtual; Abstract;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a text label to display for a particular item.
     /// </summary>
@@ -1310,37 +1315,37 @@ type
     /// <returns>
     /// The text label.
     /// </returns>
-    {$endregion}
-    function GetLabelText(Index: Integer): String; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetLabelText(Index : Integer) : String; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the standard height of each item, in pixels.
     /// </summary>
-    {$endregion}
-    property StandardItemHeight: Integer read fStandardItemHeight;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property StandardItemHeight : Integer Read fStandardItemHeight;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets whether the internal list of items is generated.
     /// </summary>
-    {$endregion}
-    property ItemsReady: Boolean read fItemsReady;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ItemsReady : Boolean Read fItemsReady;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the control and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the list with all the possible items.
     /// </summary>
@@ -1348,162 +1353,164 @@ type
     /// Returns <see langword="true"/> if the method succeeded, otherwise returns
     /// <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function CollectAll: Boolean; virtual; abstract;
-  protected
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function CollectAll : Boolean; Virtual; Abstract;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the placement of the country flag icon in regard of the text label.
     /// </summary>
-    {$endregion}
-    property FlagPosition: TFlagPosition read fFlagPosition write SetFlagPosition default fpBeforeLabel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FlagPosition : TFlagPosition Read fFlagPosition Write SetFlagPosition Default fpBeforeLabel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the flag icons that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Flags: TCustomFlagImageList read fFlags write SetFlags;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flags : TCustomFlagImageList Read fFlags Write SetFlags;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the items in the list are arranged alphabetically.
     /// </summary>
-    {$endregion}
-    property Sorted: Boolean read fSorted write SetSorted default False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Sorted : Boolean Read fSorted Write SetSorted Default False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when text label of an item needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnDrawItemLabel: TCustomDrawItemLabelEvent read fOnDrawItemLabel write fOnDrawItemLabel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDrawItemLabel : TCustomDrawItemLabelEvent Read fOnDrawItemLabel Write fOnDrawItemLabel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the list is changed.
     /// </summary>
-    {$endregion}
-    property OnItemsChange: TNotifyEvent read fOnItemsChange write fOnItemsChange;
-  end;
+    {$Endregion}
+    Property OnItemsChange : TNotifyEvent Read fOnItemsChange Write fOnItemsChange;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This class stores state of items in a check list for later retrieval.
-  /// </summary>
-  /// <remarks>
-  /// Use TCheckListRecall to save current state of items in a check list.
-  ///
-  /// To restore the state of items in a check list to its original state, all that
-  /// is necessary is to free the TCheckListRecall object and the referenced check
-  /// list is automatically restored to the saved states.
-  ///
-  /// You can update the TCheckListRecall instance to reflect the current state of the
-  /// referenced check list by calling the <see cref="Store"/> method. You can prevent
-  /// the TCheckListRecall destructor from updating the referenced check list by calling
-  /// the <see cref="Forget"/> method.
-  /// </remarks>
-  {$endregion}
-  TCheckListRecall = class(TPersistent)
-  private
-    type
-      TStateRec = packed record
-        State: TCheckBoxState;
-        Disabled: Boolean;
-      end;
-  private
-    CheckList: TPersistent;
-    StateInfo: TKeyLookup<String,TStateRec>;
-    function StateRec(AState: TCheckBoxState; ADisabled: Boolean): TStateRec; inline;
-  public
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// This class stores state of items in a check list for later retrieval.
+/// </summary>
+/// <remarks>
+/// Use TCheckListRecall to save current state of items in a check list.
+///
+/// To restore the state of items in a check list to its original state, all that
+/// is necessary is to free the TCheckListRecall object and the referenced check
+/// list is automatically restored to the saved states.
+///
+/// You can update the TCheckListRecall instance to reflect the current state of the
+/// referenced check list by calling the <see cref="Store"/> method. You can prevent
+/// the TCheckListRecall destructor from updating the referenced check list by calling
+/// the <see cref="Forget"/> method.
+/// </remarks>
+{$Endregion}
+
+  TCheckListRecall = Class(TPersistent)
+   Private
+    Type
+    TStateRec = Packed Record
+     State    : TCheckBoxState;
+     Disabled : Boolean;
+    End;
+   Private
+    CheckList : TPersistent;
+    StateInfo : TKeyLookup<String, TStateRec>;
+    Function StateRec(AState : TCheckBoxState; ADisabled : Boolean) : TStateRec; Inline;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class.
     /// </summary>
     /// <param name="AReference">
     /// The check list object to save and restore its state.
     /// </param>
-    {$endregion}
-    constructor Create(AReference: TPersistent);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AReference : TPersistent);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the TCheckListRecall instance, assigning the stored state to the
     /// referenced object.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Saves the current state of the check list referenced by <see cref="Reference"/> property.
     /// </summary>
     /// <seealso cref="Forget"/>
-    {$endregion}
-    procedure Store;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Store;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Discards the saved states and prevents the TCheckListRecall object from updating the
     /// check list referenced by <see cref="Reference"/> property.
     /// </summary>
     /// <seealso cref="Store"/>
-    {$endregion}
-    procedure Forget;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Forget;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies the state of items from another object.
     /// </summary>
     /// <param name="Source">
     /// The source object.
     /// </param>
-    {$endregion}
-    procedure Assign(Source: TPersistent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Assign(Source : TPersistent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies the state of items to another object.
     /// </summary>
     /// <param name="Dest">
     /// The destination object.
     /// </param>
-    {$endregion}
-    procedure AssignTo(Dest: TPersistent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure AssignTo(Dest : TPersistent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the reference to the check list object that is updated when you destroy
     /// the TCheckListRecall instance.
     /// </summary>
-    {$endregion}
-    property Reference: TPersistent read CheckList write CheckList;
-  end;
+    {$Endregion}
+    Property Reference : TPersistent Read CheckList Write CheckList;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomFlagCheckListBox is the base class for check list box controls that represent
-  /// a list of country/region related items.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomFlagCheckListBox as a base class when defining check list box controls that
-  /// represent a list of country/region related items. TCustomFlagCheckListBox implements
-  /// properties to specify a country flag icon, along with its appearance and placement for
-  /// each individual item.
-  /// </remarks>
-  {$endregion}
-  TCustomFlagCheckListBox = class abstract(TCustomFlagListBox)
-  private
-    fFlat: Boolean;
-    fAllowGrayed: Boolean;
-    fOnClickCheck: TNotifyEvent;
-    fWrapperList: TObjectList;
-    fCheckWidth: Integer;
-    procedure SetFlat(Value: Boolean);
-    procedure SetChecked(Index: Integer; Value: Boolean);
-    function GetChecked(Index: Integer): Boolean;
-    procedure SetState(Index: Integer; Value: TCheckBoxState);
-    function GetState(Index: Integer): TCheckBoxState;
-    function GetItemEnabled(Index: Integer): Boolean;
-    procedure SetItemEnabled(Index: Integer; Value: Boolean);
-    procedure ToggleClickCheck(Index: Integer);
-    procedure InvalidateCheck(Index: Integer);
-    function CreateWrapper(Index: Integer): TObject;
-    function ExtractWrapper(Index: Integer): TObject;
-    function GetWrapper(Index: Integer): TObject;
-    function HaveWrapper(Index: Integer): Boolean;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomFlagCheckListBox is the base class for check list box controls that represent
+/// a list of country/region related items.
+/// </summary>
+/// <remarks>
+/// Use TCustomFlagCheckListBox as a base class when defining check list box controls that
+/// represent a list of country/region related items. TCustomFlagCheckListBox implements
+/// properties to specify a country flag icon, along with its appearance and placement for
+/// each individual item.
+/// </remarks>
+{$Endregion}
+
+    TCustomFlagCheckListBox = Class Abstract(TCustomFlagListBox)
+   Private
+    fFlat         : Boolean;
+    fAllowGrayed  : Boolean;
+    fOnClickCheck : TNotifyEvent;
+    fWrapperList  : TObjectList;
+    fCheckWidth   : Integer;
+    Procedure SetFlat(Value : Boolean);
+    Procedure SetChecked(Index : Integer; Value : Boolean);
+    Function GetChecked(Index : Integer) : Boolean;
+    Procedure SetState(Index : Integer; Value : TCheckBoxState);
+    Function GetState(Index : Integer) : TCheckBoxState;
+    Function GetItemEnabled(Index : Integer) : Boolean;
+    Procedure SetItemEnabled(Index : Integer; Value : Boolean);
+    Procedure ToggleClickCheck(Index : Integer);
+    Procedure InvalidateCheck(Index : Integer);
+    Function CreateWrapper(Index : Integer) : TObject;
+    Function ExtractWrapper(Index : Integer) : TObject;
+    Function GetWrapper(Index : Integer) : TObject;
+    Function HaveWrapper(Index : Integer) : Boolean;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Renders a check box on the control's canvas.
     /// </summary>
@@ -1516,9 +1523,9 @@ type
     /// <param name="AEnabled">
     /// Determines whether the check box is enabled.
     /// </param>
-    {$endregion}
-    procedure DrawCheck(const Rect: TRect; AState: TCheckBoxState; AEnabled: Boolean);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DrawCheck(Const Rect : TRect; AState : TCheckBoxState; AEnabled : Boolean);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Renders an individual item in the control.
     /// </summary>
@@ -1531,9 +1538,9 @@ type
     /// <param name="State">
     /// The state information that can affect the way the item is drawn.
     /// </param>
-    {$endregion}
-    procedure DrawItem(Index: Integer; Rect: TRect; State: TOwnerDrawState); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DrawItem(Index : Integer; Rect : TRect; State : TOwnerDrawState); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Retrieves the data associated with an item in the check list box.
     /// </summary>
@@ -1544,9 +1551,9 @@ type
     /// The data associated with the item.
     /// </returns>
     /// <seealso cref="InternalSetItemData"/>
-    {$endregion}
-    function InternalGetItemData(Index: Integer): TListBoxItemData; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function InternalGetItemData(Index : Integer) : TListBoxItemData; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Associates a data with a specified item in the check list box.
     /// </summary>
@@ -1557,9 +1564,9 @@ type
     /// The data to associate with the item.
     /// </param>
     /// <seealso cref="InternalGetItemData"/>
-    {$endregion}
-    procedure InternalSetItemData(Index: Integer; AData: TListBoxItemData); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure InternalSetItemData(Index : Integer; AData : TListBoxItemData); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the state data associated with an item in the check list box.
     /// </summary>
@@ -1570,9 +1577,9 @@ type
     /// The data associated with the item.
     /// </returns>
     /// <seealso cref="SetItemData"/>
-    {$endregion}
-    function GetItemData(Index: Integer): TListBoxItemData; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetItemData(Index : Integer) : TListBoxItemData; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Updates the state data associated with a specified item in the check list box.
     /// </summary>
@@ -1583,9 +1590,9 @@ type
     /// The data to associate with the item.
     /// </param>
     /// <seealso cref="GetItemData"/>
-    {$endregion}
-    procedure SetItemData(Index: Integer; AData: TListBoxItemData); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure SetItemData(Index : Integer; AData : TListBoxItemData); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Loads the internal list of items from a <see cref="TStrings"/> object.
     /// </summary>
@@ -1593,9 +1600,9 @@ type
     /// The source <see cref="TStrings"/> object.
     /// </param>
     /// <seealso cref="SaveRecreateItems"/>
-    {$endregion}
-    procedure LoadRecreateItems(RecreateItems: TStrings); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure LoadRecreateItems(RecreateItems : TStrings); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Saves the internal list of items into a <see cref="TStrings"/> object.
     /// </summary>
@@ -1603,9 +1610,9 @@ type
     /// The destination <see cref="TStrings"/> object.
     /// </param>
     /// <seealso cref="LoadRecreateItems"/>
-    {$endregion}
-    procedure SaveRecreateItems(RecreateItems: TStrings); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure SaveRecreateItems(RecreateItems : TStrings); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds when the user presses a mouse button down while the cursor's hotspot is
     /// over the control.
@@ -1622,70 +1629,70 @@ type
     /// <param name="Y">
     /// The vertical pixel coordinate of the mouse pointer within the client area of the control.
     /// </param>
-    {$endregion}
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure MouseDown(Button : TMouseButton; Shift : TShiftState; x, y : Integer); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds when the user presses a key while the control has focus.
     /// </summary>
     /// <param name="Key">
     /// The key code of the key that was pressed.
     /// </param>
-    {$endregion}
-    procedure KeyPress(var Key: Char); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure KeyPress(Var Key : Char); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes an item from the internal list of items, and releases its associated data.
     /// </summary>
     /// <param name="Index">
     /// The index of the item.
     /// </param>
-    {$endregion}
-    procedure DeleteString(Index: Integer); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DeleteString(Index : Integer); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Removes all of the items from the internal list of items.
     /// </summary>
-    {$endregion}
-    procedure ResetContent; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ResetContent; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnClickCheck"/> event.
     /// </summary>
-    {$endregion}
-    procedure ClickCheck; dynamic;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ClickCheck; Dynamic;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the standard height of each item, in pixels.
     /// </summary>
     /// <returns>
     /// The height of each item, in pixels.
     /// </returns>
-    {$endregion}
-    function GetStandardItemHeight: Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetStandardItemHeight : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the width of check boxes, in pixels.
     /// </summary>
-    {$endregion}
-    property CheckWidth: Integer read fCheckWidth;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CheckWidth : Integer Read fCheckWidth;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the control and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Changes the state of all items to a specified state.
     /// </summary>
@@ -1702,76 +1709,76 @@ type
     /// <seealso cref="State"/>
     /// <seealso cref="ItemEnabled"/>
     /// <seealso cref="AllowGrayed"/>
-    {$endregion}
-    procedure RestateAll(AState: TCheckBoxState;
-      AllowGrayed: Boolean = True; AllowDisabled: Boolean = True);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RestateAll(AState : TCheckBoxState; AllowGrayed : Boolean = True; AllowDisabled : Boolean = True);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists which items are checked.
     /// </summary>
-    {$endregion}
-    property Checked[Index: Integer]: Boolean read GetChecked write SetChecked;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Checked[Index : Integer] : Boolean Read GetChecked Write SetChecked;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the state of individual items in the list.
     /// </summary>
-    {$endregion}
-    property State[Index: Integer]: TCheckBoxState read GetState write SetState;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property State[Index : Integer] : TCheckBoxState Read GetState Write SetState;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists enabled or disabled state of individual items in the list.
     /// </summary>
-    {$endregion}
-    property ItemEnabled[Index: Integer]: Boolean read GetItemEnabled write SetItemEnabled;
-  protected
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ItemEnabled[Index : Integer] : Boolean Read GetItemEnabled Write SetItemEnabled;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check boxes can be in a "grayed" state.
     /// </summary>
-    {$endregion}
-    property AllowGrayed: Boolean read fAllowGrayed write fAllowGrayed default False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AllowGrayed : Boolean Read fAllowGrayed Write fAllowGrayed Default False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check boxes appear three-dimensional.
     /// </summary>
-    {$endregion}
-    property Flat: Boolean read fFlat write SetFlat default True;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flat : Boolean Read fFlat Write SetFlat Default True;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user selects or deselects an item's check box.
     /// </summary>
-    {$endregion}
-    property OnClickCheck: TNotifyEvent read fOnClickCheck write fOnClickCheck;
-  end;
+    {$Endregion}
+    Property OnClickCheck : TNotifyEvent Read fOnClickCheck Write fOnClickCheck;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomCultureLabel is the base class for label controls that display a
-  /// <see cref="TCultureInfo"/> object on a form.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomCultureLabel as a base class when defining objects that display a
-  /// <see cref="TCultureInfo"/> object. TCustomCultureLabel implements properties to
-  /// specify the <see cref="TCultureInfo"/> object, along with its interested piece
-  /// of information that should be displayed.
-  ///
-  /// TCustomCultureLabel can be linked to a <see cref="TLocalizer"/> component. In
-  /// this case, the <see cref="TLocalizer"/> component determines the culture being
-  /// displayed by the control.
-  /// </remarks>
-  {$endregion}
-  TCustomCultureLabel = class(TCustomFlagLabel, ILocalizerLink)
-  private
-    fCulture: TCultureInfo;
-    fDisplayName: TCultureDisplayName;
-    fLocalizer: TLocalizer;
-    procedure SetCulture(Value: TCultureInfo);
-    procedure SetDisplayName(Value: TCultureDisplayName);
-    procedure SetLocalizer(Value: TLocalizer);
-    procedure ReadCulture(Reader: TReader);
-    procedure WriteCulture(Writer: TWriter);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomCultureLabel is the base class for label controls that display a
+/// <see cref="TCultureInfo"/> object on a form.
+/// </summary>
+/// <remarks>
+/// Use TCustomCultureLabel as a base class when defining objects that display a
+/// <see cref="TCultureInfo"/> object. TCustomCultureLabel implements properties to
+/// specify the <see cref="TCultureInfo"/> object, along with its interested piece
+/// of information that should be displayed.
+///
+/// TCustomCultureLabel can be linked to a <see cref="TLocalizer"/> component. In
+/// this case, the <see cref="TLocalizer"/> component determines the culture being
+/// displayed by the control.
+/// </remarks>
+{$Endregion}
+
+  TCustomCultureLabel = Class(TCustomFlagLabel, ILocalizerLink)
+   Private
+    fCulture     : TCultureInfo;
+    fDisplayName : TCultureDisplayName;
+    fLocalizer   : TLocalizer;
+    Procedure SetCulture(Value : TCultureInfo);
+    Procedure SetDisplayName(Value : TCultureDisplayName);
+    Procedure SetLocalizer(Value : TLocalizer);
+    Procedure ReadCulture(Reader : TReader);
+    Procedure WriteCulture(Writer : TWriter);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Notifies the control about changes in the linked <see cref="TLocalizer"/>
     /// component.
@@ -1782,9 +1789,9 @@ type
     /// <param name="Reason">
     /// The reason of the notification.
     /// </param>
-    {$endregion}
-    procedure LocalizerNotify(Sender: TLocalizer; Reason: TLocalizerNotification);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure LocalizerNotify(Sender : TLocalizer; Reason : TLocalizerNotification);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds to notifications that components are about to be created or destroyed.
     /// </summary>
@@ -1794,9 +1801,9 @@ type
     /// <param name="Operation">
     /// Indicates whether the component is created or destroyed.
     /// </param>
-    {$endregion}
-    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Notification(AComponent : TComponent; Operation : TOperation); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reads and writes the <see cref="Culture"/> property as if it was published.
     /// </summary>
@@ -1804,49 +1811,49 @@ type
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
     /// loading or saving the published properties.
     /// </param>
-    {$endregion}
-    procedure DefineProperties(Filer: TFiler); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DefineProperties(Filer : TFiler); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a country flag icon to display on the control.
     /// </summary>
     /// <returns>
     /// The index of a country flag icon or -1 if no icon should be displayed.
     /// </returns>
-    {$endregion}
-    function GetImageIndex: TImageIndex; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetImageIndex : TImageIndex; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a text label to display for on the control.
     /// </summary>
     /// <returns>
     /// The text label.
     /// </returns>
-    {$endregion}
-    function GetLabelText: String; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetLabelText : String; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
     /// </summary>
-    {$endregion}
-    property Localizer: TLocalizer read fLocalizer write SetLocalizer;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Localizer : TLocalizer Read fLocalizer Write SetLocalizer;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the component and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of <see cref="Culture"/> property is controlled
     /// by a <see cref="TLocalizer"/> component.
@@ -1855,460 +1862,462 @@ type
     /// Rteurns <see langword="true"/> if <see cref="Localizer"/> property is not
     /// <see langword="nil"/>, otherwise returns <see langword="false"/>.</returns>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    function IsManagedByLocalizer: Boolean; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsManagedByLocalizer : Boolean; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCultureInfo.DisplayNames"/> should be
     /// displayed as the text label on the control.
     /// </summary>
-    {$endregion}
-    property DisplayName: TCultureDisplayName read fDisplayName write SetDisplayName default cnEnglishDisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName : TCultureDisplayName Read fDisplayName Write SetDisplayName Default cnEnglishDisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCultureInfo"/> object that the control is displaying.
     /// </summary>
-    {$endregion}
-    property Culture: TCultureInfo read fCulture write SetCulture;
-  end;
+    {$Endregion}
+    Property Culture : TCultureInfo Read fCulture Write SetCulture;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCultureLabel is a label control that displays a <see cref="TCultureInfo"/> object
-  /// on a form.
-  /// </summary>
-  /// <remarks>
-  /// Use TCultureLabel to display a <see cref="TCultureInfo"/> object on a form. The
-  /// <see cref="Culture"/> and <see cref="DisplayName"/> properties determine the content
-  /// that will be displayed.
-  ///
-  /// TCultureLabel can be linked to a <see cref="TLocalizer"/> component. In this case,
-  /// the <see cref="TLocalizer"/> component determines the <see cref="TCultureInfo"/>
-  /// being displayed by the control.
-  ///
-  /// TCultureLabel publishes many of the properties, events, and methods of
-  /// <see cref="TCustomCultureLabel"/>, but does not introduce any new behavior.
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TCultureLabel is a label control that displays a <see cref="TCultureInfo"/> object
+/// on a form.
+/// </summary>
+/// <remarks>
+/// Use TCultureLabel to display a <see cref="TCultureInfo"/> object on a form. The
+/// <see cref="Culture"/> and <see cref="DisplayName"/> properties determine the content
+/// that will be displayed.
+///
+/// TCultureLabel can be linked to a <see cref="TLocalizer"/> component. In this case,
+/// the <see cref="TLocalizer"/> component determines the <see cref="TCultureInfo"/>
+/// being displayed by the control.
+///
+/// TCultureLabel publishes many of the properties, events, and methods of
+/// <see cref="TCustomCultureLabel"/>, but does not introduce any new behavior.
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TCultureLabel = class(TCustomCultureLabel)
-  published
-    {$region 'xmldoc'}
+  TCultureLabel = Class(TCustomCultureLabel)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control aligns within its container (parent control).
     /// </summary>
-    {$endregion}
-    property Align;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Align;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the horizontal placement of the text within the label.
     /// </summary>
-    {$endregion}
-    property Alignment;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Alignment;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
     /// </summary>
-    {$endregion}
-    property AlignWithMargins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AlignWithMargins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control is anchored to its parent.
     /// </summary>
-    {$endregion}
-    property Anchors;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Anchors;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control sizes itself automatically to accommodate
     /// its contents.
     /// </summary>
-    {$endregion}
-    property AutoSize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoSize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the control.
     /// </summary>
-    {$endregion}
-    property BiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the color of the control's border.
     /// </summary>
-    {$endregion}
-    property BorderColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the width of the control's border.
     /// </summary>
-    {$endregion}
-    property BorderWidth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderWidth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text of the label when <see cref="Culture"/> property has no value.
     /// </summary>
-    {$endregion}
-    property Caption;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Caption;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color nodefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Nodefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size constraints for the control.
     /// </summary>
-    {$endregion}
-    property Constraints;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Constraints;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCultureInfo"/> object that the control is displaying.
     /// </summary>
-    {$endregion}
-    property Culture;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Culture;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCultureInfo.DisplayNames"/> should be
     /// displayed as the text label on the control.
     /// </summary>
-    {$endregion}
-    property DisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
     /// into the region covered by the control.
     /// </summary>
-    {$endregion}
-    property DragCursor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragCursor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control is being dragged normally or for docking.
     /// </summary>
-    {$endregion}
-    property DragKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
     /// </summary>
-    {$endregion}
-    property DragMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the flag icons that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Flags;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flags;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets a windowed control associated with the label.
     /// </summary>
-    {$endregion}
-    property FocusControl;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FocusControl;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the radius of the glow around the label.
     /// NOTE: This feature is only available in Windows Vista and later.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property GlowSize;
+    Property GlowSize;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
     /// </summary>
-    {$endregion}
-    property Localizer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Localizer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the margins of the control.
     /// </summary>
-    {$endregion}
-    property Margins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Margins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the distance between the image and the text from the control's border.
     /// </summary>
-    {$endregion}
-    property Padding;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Padding;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
     /// </summary>
-    {$endregion}
-    property ParentColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the pop-up menu associated with the control.
     /// </summary>
-    {$endregion}
-    property PopupMenu;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PopupMenu;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how an ampersand in the label text is displayed.
     /// </summary>
-    {$endregion}
-    property ShowAccelChar;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowAccelChar;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of pixels between the image and the text of the control.
     /// </summary>
-    {$endregion}
-    property Spacing;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Spacing;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the touch manager component associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property Touch;
+    Property Touch;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether controls that sit below the label on a form can be seen
     /// through the label.
     /// </summary>
-    {$endregion}
-    property Transparent;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Transparent;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the vertical placement of the text within the label.
     /// </summary>
-    {$endregion}
-    property Layout;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Layout;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets Specifies whether the label text wraps when it is too long for the
     /// width of the label.
     /// </summary>
-    {$endregion}
-    property WordWrap;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property WordWrap;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user clicks the control.
     /// </summary>
-    {$endregion}
-    property OnClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
     /// menu (such as using the keyboard).
     /// </summary>
-    {$endregion}
-    property OnContextPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnContextPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
     /// is over the control.
     /// </summary>
-    {$endregion}
-    property OnDblClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDblClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drops an object being dragged on the control.
     /// </summary>
-    {$endregion}
-    property OnDragDrop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragDrop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drags an object over the control.
     /// </summary>
-    {$endregion}
-    property OnDragOver;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragOver;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDrag;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDrag;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when user performs a gesture associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnGesture;
+    Property OnGesture;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control and the parent form is not active.
     /// </summary>
-    {$endregion}
-    property OnMouseActivate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseActivate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control.
     /// </summary>
-    {$endregion}
-    property OnMouseDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
     /// the control.
     /// </summary>
-    {$endregion}
-    property OnMouseMove;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseMove;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
     /// pointer over the control.
     /// </summary>
-    {$endregion}
-    property OnMouseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse into the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseEnter;
+    Property OnMouseEnter;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse outside of the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseLeave;
+    Property OnMouseLeave;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated.
     /// </summary>
-    {$endregion}
-    property OnMouseWheel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated downward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated upward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the control is resized.
     /// </summary>
-    {$endregion}
-    property OnResize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnResize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDock"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnStartDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDrag"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDrag;
-  end;
+    {$Endregion}
+    Property OnStartDrag;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomCultureBox is the base class for combo box controls that represent a list
-  /// of <see cref="TCultureInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomCultureBox as a base class when defining combo box controls that represent
-  /// a list of <see cref="TCultureInfo"/> objects. TCustomCultureBox has properties and
-  /// methods to facilitate displaying, retrieving, sorting, and selecting of the stored
-  /// <see cref="TCultureInfo"/> objects.
-  ///
-  /// TCustomCultureBox also implements properties to specify a country flag icon, along
-  /// with its appearance and placement for each individual item.
-  ///
-  /// TCustomCultureBox can be linked to a <see cref="TLocalizer"/> component. In this case,
-  /// the <see cref="TLocalizer"/> component provides the <see cref="TCultureInfo"/> objects
-  /// for the <see cref="Items"/> property. Also the selected item of the control
-  /// will be synchronized with the current culture of the <see cref="TLocalizer"/> component.
-  /// </remarks>
-  {$endregion}
-  TCustomCultureBox = class(TCustomFlagBox, ILocalizerLink)
-  private
-    fCultures: TCultureList;
-    fDisplayName: TCultureDisplayName;
-    fLocalizer: TLocalizer;
-    procedure SetCultures(Value: TCultureList);
-    procedure SetItemSelected(Value: TCultureInfo);
-    function GetItemSelected: TCultureInfo;
-    procedure SetLocalizer(Value: TLocalizer);
-    procedure SetDisplayName(Value: TCultureDisplayName);
-    procedure CulturesChanged(Sender: TObject);
-    procedure ReadItemSelected(Reader: TReader);
-    procedure WriteItemSelected(Writer: TWriter);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomCultureBox is the base class for combo box controls that represent a list
+/// of <see cref="TCultureInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// Use TCustomCultureBox as a base class when defining combo box controls that represent
+/// a list of <see cref="TCultureInfo"/> objects. TCustomCultureBox has properties and
+/// methods to facilitate displaying, retrieving, sorting, and selecting of the stored
+/// <see cref="TCultureInfo"/> objects.
+///
+/// TCustomCultureBox also implements properties to specify a country flag icon, along
+/// with its appearance and placement for each individual item.
+///
+/// TCustomCultureBox can be linked to a <see cref="TLocalizer"/> component. In this case,
+/// the <see cref="TLocalizer"/> component provides the <see cref="TCultureInfo"/> objects
+/// for the <see cref="Items"/> property. Also the selected item of the control
+/// will be synchronized with the current culture of the <see cref="TLocalizer"/> component.
+/// </remarks>
+{$Endregion}
+
+  TCustomCultureBox = Class(TCustomFlagBox, ILocalizerLink)
+   Private
+    fCultures    : TCultureList;
+    fDisplayName : TCultureDisplayName;
+    fLocalizer   : TLocalizer;
+    Procedure SetCultures(Value : TCultureList);
+    Procedure SetItemSelected(Value : TCultureInfo);
+    Function GetItemSelected : TCultureInfo;
+    Procedure SetLocalizer(Value : TLocalizer);
+    Procedure SetDisplayName(Value : TCultureDisplayName);
+    Procedure CulturesChanged(Sender : TObject);
+    Procedure ReadItemSelected(Reader : TReader);
+    Procedure WriteItemSelected(Writer : TWriter);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Notifies the control about changes in the linked <see cref="TLocalizer"/>
     /// component.
@@ -2319,9 +2328,9 @@ type
     /// <param name="Reason">
     /// The reason of the notification.
     /// </param>
-    {$endregion}
-    procedure LocalizerNotify(Sender: TLocalizer; Reason: TLocalizerNotification);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure LocalizerNotify(Sender : TLocalizer; Reason : TLocalizerNotification);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds to notifications that components are about to be created or destroyed.
     /// </summary>
@@ -2331,9 +2340,9 @@ type
     /// <param name="Operation">
     /// Indicates whether the component is created or destroyed.
     /// </param>
-    {$endregion}
-    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Notification(AComponent : TComponent; Operation : TOperation); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reads and writes the <see cref="ItemSelected"/> property as if it was published.
     /// </summary>
@@ -2341,22 +2350,22 @@ type
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
     /// loading or saving the published properties.
     /// </param>
-    {$endregion}
-    procedure DefineProperties(Filer: TFiler); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DefineProperties(Filer : TFiler); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gererates an <see cref="OnSelect"/> event.
     /// </summary>
-    {$endregion}
-    procedure Select; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Select; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the internal list of items by display name of the <see cref="TCultureInfo"/>
     /// objects in the <see cref="Items"/> property.
     /// </summary>
-    {$endregion}
-    procedure RebuildInternalItems; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RebuildInternalItems; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a country flag icon for the specified item.
     /// </summary>
@@ -2366,31 +2375,31 @@ type
     /// <returns>
     /// The index of a country flag icon or -1 if no icon is available.
     /// </returns>
-    {$endregion}
-    function GetImageIndex(Index: Integer): Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetImageIndex(Index : Integer) : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
     /// </summary>
-    {$endregion}
-    property Localizer: TLocalizer read fLocalizer write SetLocalizer;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Localizer : TLocalizer Read fLocalizer Write SetLocalizer;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the control and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the <see cref="Items"/> property with all the known <see cref="TCultureInfo"/>
     /// objects.
@@ -2401,9 +2410,9 @@ type
     /// </returns>
     /// <seealso cref="18nCore.TWorld.Cultures"/>
     /// <seealso cref="IsManagedByLocalizer"/>
-    {$endregion}
-    function CollectAll: Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function CollectAll : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the <see cref="Items"/> property is filled by a <see cref="TLocalizer"/>
     /// component.
@@ -2412,574 +2421,576 @@ type
     /// Rteurns <see langword="true"/> if <see cref="Localizer"/> property is not
     /// <see langword="nil"/>, otherwise returns <see langword="false"/>.</returns>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    function IsManagedByLocalizer: Boolean; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsManagedByLocalizer : Boolean; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCultureInfo.DisplayNames"/> should be
     /// displayed as the label of items.
     /// </summary>
-    {$endregion}
-    property DisplayName: TCultureDisplayName read fDisplayName write SetDisplayName default cnEnglishDisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName : TCultureDisplayName Read fDisplayName Write SetDisplayName Default cnEnglishDisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the currently selected <see cref="TCultureInfo"/> object.
     /// </summary>
-    {$endregion}
-    property ItemSelected: TCultureInfo read GetItemSelected write SetItemSelected;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ItemSelected : TCultureInfo Read GetItemSelected Write SetItemSelected;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TCultureInfo"/> objects in the control.
     /// </summary>
-    {$endregion}
-    property Items: TCultureList read fCultures write SetCultures;
-  end;
+    {$Endregion}
+    Property Items : TCultureList Read fCultures Write SetCultures;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCultureBox is a combo box control that represents a list of <see cref="TCultureInfo"/>
-  /// objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TCultureBox to enable users to select a <see cref="TCultureInfo"/> object from a list.
-  ///
-  /// TCultureBox also implements properties to specify a country flag icon, along with its
-  /// appearance and placement for each individual item.
-  ///
-  /// TCultureBox can be linked to a <see cref="TLocalizer"/> component. In this case,
-  /// the <see cref="TLocalizer"/> component provides the list of <see cref="TCultureInfo"/>
-  /// objects being displayed by the control.
-  ///
-  /// TCultureBox publishes many of the properties, events, and methods of
-  /// <see cref="TCustomCultureBox"/>, but does not introduce any new behavior.
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TCultureBox is a combo box control that represents a list of <see cref="TCultureInfo"/>
+/// objects.
+/// </summary>
+/// <remarks>
+/// Use TCultureBox to enable users to select a <see cref="TCultureInfo"/> object from a list.
+///
+/// TCultureBox also implements properties to specify a country flag icon, along with its
+/// appearance and placement for each individual item.
+///
+/// TCultureBox can be linked to a <see cref="TLocalizer"/> component. In this case,
+/// the <see cref="TLocalizer"/> component provides the list of <see cref="TCultureInfo"/>
+/// objects being displayed by the control.
+///
+/// TCultureBox publishes many of the properties, events, and methods of
+/// <see cref="TCustomCultureBox"/>, but does not introduce any new behavior.
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TCultureBox = class(TCustomCultureBox)
-  published
-    {$region 'xmldoc'}
+  TCultureBox = Class(TCustomCultureBox)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control aligns within its container (parent control).
     /// </summary>
-    {$endregion}
-    property Align;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Align;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
     /// </summary>
-    {$endregion}
-    property AlignWithMargins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AlignWithMargins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control is anchored to its parent.
     /// </summary>
-    {$endregion}
-    property Anchors;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Anchors;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can give focus to items by typing in the list.
     /// </summary>
-    {$endregion}
-    property AutoComplete;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoComplete;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.
     /// </summary>
-    {$endregion}
-    property AutoCompleteDelay;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoCompleteDelay;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the drop-down closes up automatically when the user selects an item.
     /// </summary>
-    {$endregion}
-    property AutoCloseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoCloseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the drop-down list drops down automatically in response to user keystrokes.
     /// </summary>
-    {$endregion}
-    property AutoDropDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoDropDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which edges of the control are beveled.
     /// </summary>
-    {$endregion}
-    property BevelEdges;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelEdges;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the inner bevel.
     /// </summary>
-    {$endregion}
-    property BevelInner;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelInner;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the control's bevel style.
     /// </summary>
-    {$endregion}
-    property BevelKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the outer bevel.
     /// </summary>
-    {$endregion}
-    property BevelOuter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelOuter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the control.
     /// </summary>
-    {$endregion}
-    property BiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color nodefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Nodefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size constraints for the control.
     /// </summary>
-    {$endregion}
-    property Constraints;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Constraints;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control has a three-dimensional look.
     /// </summary>
-    {$endregion}
-    property Ctl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Ctl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCultureInfo.DisplayNames"/> should be
     /// displayed as the label of items.
     /// </summary>
-    {$endregion}
-    property DisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
     /// painted to an in-memory bitmap first.
     /// </summary>
-    {$endregion}
-    property DoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
     /// into the region covered by the control.
     /// </summary>
-    {$endregion}
-    property DragCursor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragCursor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control is being dragged normally or for docking.
     /// </summary>
-    {$endregion}
-    property DragKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
     /// </summary>
-    {$endregion}
-    property DragMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the maximum number of items displayed in the drop-down list.
     /// </summary>
-    {$endregion}
-    property DropDownCount;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DropDownCount;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the placement of the flag icon in regard of the text label.
     /// </summary>
-    {$endregion}
-    property FlagPosition;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FlagPosition;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the flag icons that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Flags;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flags;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the behavior of the input method editor (IME).
     /// </summary>
-    {$endregion}
-    property ImeMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the input method editor (IME) to use for converting keyboard input.
     /// </summary>
-    {$endregion}
-    property ImeName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TCultureInfo"/> objects in the control.
     /// </summary>
-    {$endregion}
-    property Items;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Items;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the currently selected <see cref="TCultureInfo"/> object.
     /// </summary>
-    {$endregion}
-    property ItemSelected;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ItemSelected;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the
     /// control.
     /// </summary>
-    {$endregion}
-    property Localizer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Localizer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the margins of the control.
     /// </summary>
-    {$endregion}
-    property Margins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Margins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
     /// </summary>
-    {$endregion}
-    property ParentColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
     /// </summary>
-    {$endregion}
-    property ParentCtl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentCtl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
     /// </summary>
-    {$endregion}
-    property ParentDoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentDoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the pop-up menu associated with the control.
     /// </summary>
-    {$endregion}
-    property PopupMenu;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PopupMenu;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the items in the list are arranged alphabetically.
     /// </summary>
-    {$endregion}
-    property Sorted;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Sorted;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the position of the control in its parent's tab order.
     /// </summary>
-    {$endregion}
-    property TabOrder;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabOrder;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can tab to a control.
     /// </summary>
-    {$endregion}
-    property TabStop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabStop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text that is displayed as a text watermark in the control.
     /// NOTE: This feature is only available in Windows Vista and later.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property TextHint;
+    Property TextHint;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the touch manager component associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property Touch;
+    Property Touch;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user clicks the control.
     /// </summary>
-    {$endregion}
-    property OnClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the drop-down list closes up due to some user action.
     /// </summary>
-    {$endregion}
-    property OnCloseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCloseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
     /// menu (such as using the keyboard).
     /// </summary>
-    {$endregion}
-    property OnContextPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnContextPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
     /// is over the control.
     /// </summary>
-    {$endregion}
-    property OnDblClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDblClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drops an object being dragged on the control.
     /// </summary>
-    {$endregion}
-    property OnDragDrop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragDrop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drags an object over the control.
     /// </summary>
-    {$endregion}
-    property OnDragOver;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragOver;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when text label of an item needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnDrawItemLabel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDrawItemLabel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user opens the drop-down list.
     /// </summary>
-    {$endregion}
-    property OnDropDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDropDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDrag;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDrag;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a control receives the input focus.
     /// </summary>
-    {$endregion}
-    property OnEnter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEnter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the input focus shifts away from one control to another.
     /// </summary>
-    {$endregion}
-    property OnExit;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnExit;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when user performs a gesture associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnGesture;
+    Property OnGesture;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when <see cref="Items"/> property changed.
     /// </summary>
-    {$endregion}
-    property OnItemsChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnItemsChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a user presses any key while the control has focus.
     /// </summary>
-    {$endregion}
-    property OnKeyDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when key pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyPress;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyPress;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a key that has been pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control and the parent form is not active.
     /// </summary>
-    {$endregion}
-    property OnMouseActivate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseActivate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control.
     /// </summary>
-    {$endregion}
-    property OnMouseDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
     /// the control.
     /// </summary>
-    {$endregion}
-    property OnMouseMove;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseMove;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
     /// pointer over the control.
     /// </summary>
-    {$endregion}
-    property OnMouseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse into the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseEnter;
+    Property OnMouseEnter;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse outside of the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseLeave;
+    Property OnMouseLeave;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated.
     /// </summary>
-    {$endregion}
-    property OnMouseWheel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated downward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated upward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the control is resized.
     /// </summary>
-    {$endregion}
-    property OnResize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnResize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user selects an item in the drop-down list
     /// </summary>
-    {$endregion}
-    property OnSelect;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnSelect;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDock"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnStartDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDrag"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDrag;
-  end;
+    {$Endregion}
+    Property OnStartDrag;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomCultureListBox is the base class for list box controls that represent a list
-  /// of <see cref="TCultureInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomCultureListBox as a base class when defining list box controls that represent
-  /// a list of <see cref="TCultureInfo"/> objects. TCustomCultureListBox has properties and
-  /// methods to facilitate displaying, retrieving, sorting, and selecting of the stored
-  /// <see cref="TCultureInfo"/> objects.
-  ///
-  /// TCustomCultureListBox also implements properties to specify a country flag icon, along
-  /// with its appearance and placement for each individual item.
-  ///
-  /// TCustomCultureListBox can be linked to a <see cref="TLocalizer"/> component. In this
-  /// case, the <see cref="TLocalizer"/> component provides the <see cref="TCultureInfo"/>
-  /// objects for the <see cref="Items"/> property. Also the selected item of the control
-  /// will be synchronized with the current culture of the <see cref="TLocalizer"/> component.
-  /// </remarks>
-  {$endregion}
-  TCustomCultureListBox = class(TCustomFlagListBox, ILocalizerLink)
-  private
-    fCultures: TCultureList;
-    fDisplayName: TCultureDisplayName;
-    fLocalizer: TLocalizer;
-    procedure SetCultures(Value: TCultureList);
-    procedure SetItemSelected(Value: TCultureInfo);
-    function GetItemSelected: TCultureInfo;
-    procedure SetLocalizer(Value: TLocalizer);
-    procedure SetDisplayName(Value: TCultureDisplayName);
-    procedure CulturesChanged(Sender: TObject);
-    procedure ReadItemSelected(Reader: TReader);
-    procedure WriteItemSelected(Writer: TWriter);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomCultureListBox is the base class for list box controls that represent a list
+/// of <see cref="TCultureInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// Use TCustomCultureListBox as a base class when defining list box controls that represent
+/// a list of <see cref="TCultureInfo"/> objects. TCustomCultureListBox has properties and
+/// methods to facilitate displaying, retrieving, sorting, and selecting of the stored
+/// <see cref="TCultureInfo"/> objects.
+///
+/// TCustomCultureListBox also implements properties to specify a country flag icon, along
+/// with its appearance and placement for each individual item.
+///
+/// TCustomCultureListBox can be linked to a <see cref="TLocalizer"/> component. In this
+/// case, the <see cref="TLocalizer"/> component provides the <see cref="TCultureInfo"/>
+/// objects for the <see cref="Items"/> property. Also the selected item of the control
+/// will be synchronized with the current culture of the <see cref="TLocalizer"/> component.
+/// </remarks>
+{$Endregion}
+
+  TCustomCultureListBox = Class(TCustomFlagListBox, ILocalizerLink)
+   Private
+    fCultures    : TCultureList;
+    fDisplayName : TCultureDisplayName;
+    fLocalizer   : TLocalizer;
+    Procedure SetCultures(Value : TCultureList);
+    Procedure SetItemSelected(Value : TCultureInfo);
+    Function GetItemSelected : TCultureInfo;
+    Procedure SetLocalizer(Value : TLocalizer);
+    Procedure SetDisplayName(Value : TCultureDisplayName);
+    Procedure CulturesChanged(Sender : TObject);
+    Procedure ReadItemSelected(Reader : TReader);
+    Procedure WriteItemSelected(Writer : TWriter);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Notifies the control about changes in the linked <see cref="TLocalizer"/>
     /// component.
@@ -2990,9 +3001,9 @@ type
     /// <param name="Reason">
     /// The reason of the notification.
     /// </param>
-    {$endregion}
-    procedure LocalizerNotify(Sender: TLocalizer; Reason: TLocalizerNotification);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure LocalizerNotify(Sender : TLocalizer; Reason : TLocalizerNotification);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds to notifications that components are about to be created or destroyed.
     /// </summary>
@@ -3002,9 +3013,9 @@ type
     /// <param name="Operation">
     /// Indicates whether the component is created or destroyed.
     /// </param>
-    {$endregion}
-    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Notification(AComponent : TComponent; Operation : TOperation); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reads and writes the <see cref="ItemSelected"/> property as if it was published.
     /// </summary>
@@ -3012,31 +3023,31 @@ type
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
     /// loading or saving the published properties.
     /// </param>
-    {$endregion}
-    procedure DefineProperties(Filer: TFiler); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DefineProperties(Filer : TFiler); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnClick"/> event.
     /// </summary>
-    {$endregion}
-    procedure Click; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Click; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets the <see cref="MultiSelect"/> property.
     /// </summary>
     /// <param name="Value">
     /// Determines whether more than one item can be selected.
     /// </param>
-    {$endregion}
-    procedure SetMultiSelect(Value: Boolean); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure SetMultiSelect(Value : Boolean); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the internal list of items by display name of the <see cref="TCultureInfo"/>
     /// objects in the <see cref="Items"/> property.
     /// </summary>
-    {$endregion}
-    procedure RebuildInternalItems; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RebuildInternalItems; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a country flag icon for the specified item.
     /// </summary>
@@ -3046,31 +3057,31 @@ type
     /// <returns>
     /// The index of a country flag icon or -1 if no icon is available.
     /// </returns>
-    {$endregion}
-    function GetImageIndex(Index: Integer): Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetImageIndex(Index : Integer) : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
     /// </summary>
-    {$endregion}
-    property Localizer: TLocalizer read fLocalizer write SetLocalizer;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Localizer : TLocalizer Read fLocalizer Write SetLocalizer;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the control and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the <see cref="Items"/> property with all the known <see cref="TCultureInfo"/>
     /// objects.
@@ -3081,9 +3092,9 @@ type
     /// </returns>
     /// <seealso cref="18nCore.TWorld.Cultures"/>
     /// <seealso cref="IsManagedByLocalizer"/>
-    {$endregion}
-    function CollectAll: Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function CollectAll : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Retrieves the list of currently selected <see cref="TCultureInfo"/> objects.
     /// </summary>
@@ -3091,9 +3102,9 @@ type
     /// The list that receives the selected <see cref="TCultureInfo"/> objects.
     /// </param>
     /// <seealso cref="SetSelection"/>
-    {$endregion}
-    procedure GetSelection(Dest: TCultureList);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure GetSelection(Dest : TCultureList);
+    {$Region 'xmldoc'}
     /// <summary>
     /// If <see cref="MultiSelect"/> is <see langword="true"/>, selects the items that are
     /// identified by a specified list of <see cref="TCultureInfo"/> objects.
@@ -3103,9 +3114,9 @@ type
     /// </param>
     /// <seealso cref="GetSelection"/>
     /// <seealso cref="MultiSelect"/>
-    {$endregion}
-    procedure SetSelection(Source: TReadonlyCultureList);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure SetSelection(Source : TReadonlyCultureList);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the <see cref="Items"/> property is filled by a <see cref="TLocalizer"/>
     /// component.
@@ -3114,569 +3125,571 @@ type
     /// Rteurns <see langword="true"/> if <see cref="Localizer"/> property is not
     /// <see langword="nil"/>, otherwise returns <see langword="false"/>.</returns>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    function IsManagedByLocalizer: Boolean; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsManagedByLocalizer : Boolean; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCultureInfo.DisplayNames"/> should be
     /// displayed as the label of items.
     /// </summary>
-    {$endregion}
-    property DisplayName: TCultureDisplayName read fDisplayName write SetDisplayName default cnEnglishDisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName : TCultureDisplayName Read fDisplayName Write SetDisplayName Default cnEnglishDisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the currently selected <see cref="TCultureInfo"/> object.
     /// </summary>
-    {$endregion}
-    property ItemSelected: TCultureInfo read GetItemSelected write SetItemSelected;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ItemSelected : TCultureInfo Read GetItemSelected Write SetItemSelected;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TCultureInfo"/> objects in the control.
     /// </summary>
-    {$endregion}
-    property Items: TCultureList read fCultures write SetCultures;
-  end;
+    {$Endregion}
+    Property Items : TCultureList Read fCultures Write SetCultures;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCultureListBox is a list box control that represents a list of <see cref="TCultureInfo"/>
-  /// objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TCultureListBox to enable users to select a <see cref="TCultureInfo"/> object from a list.
-  ///
-  /// TCultureListBox also implements properties to specify a country flag icon, along with its
-  /// appearance and placement for each individual item.
-  ///
-  /// TCultureListBox can be linked to a <see cref="TLocalizer"/> component. In this case,
-  /// the <see cref="TLocalizer"/> component provides the list of <see cref="TCultureInfo"/>
-  /// objects being displayed by the control.
-  ///
-  /// TCultureListBox publishes many of the properties, events, and methods of
-  /// <see cref="TCustomCultureListBox"/>, but does not introduce any new behavior.
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TCultureListBox is a list box control that represents a list of <see cref="TCultureInfo"/>
+/// objects.
+/// </summary>
+/// <remarks>
+/// Use TCultureListBox to enable users to select a <see cref="TCultureInfo"/> object from a list.
+///
+/// TCultureListBox also implements properties to specify a country flag icon, along with its
+/// appearance and placement for each individual item.
+///
+/// TCultureListBox can be linked to a <see cref="TLocalizer"/> component. In this case,
+/// the <see cref="TLocalizer"/> component provides the list of <see cref="TCultureInfo"/>
+/// objects being displayed by the control.
+///
+/// TCultureListBox publishes many of the properties, events, and methods of
+/// <see cref="TCustomCultureListBox"/>, but does not introduce any new behavior.
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TCultureListBox = class(TCustomCultureListBox)
-  published
-    {$region 'xmldoc'}
+  TCultureListBox = Class(TCustomCultureListBox)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control aligns within its container (parent control).
     /// </summary>
-    {$endregion}
-    property Align;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Align;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
     /// </summary>
-    {$endregion}
-    property AlignWithMargins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AlignWithMargins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control is anchored to its parent.
     /// </summary>
-    {$endregion}
-    property Anchors;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Anchors;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can give focus to items by typing in the list.
     /// </summary>
-    {$endregion}
-    property AutoComplete;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoComplete;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.
     /// </summary>
-    {$endregion}
-    property AutoCompleteDelay;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoCompleteDelay;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which edges of the control are beveled.
     /// </summary>
-    {$endregion}
-    property BevelEdges;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelEdges;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the inner bevel.
     /// </summary>
-    {$endregion}
-    property BevelInner;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelInner;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the control's bevel style.
     /// </summary>
-    {$endregion}
-    property BevelKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the outer bevel.
     /// </summary>
-    {$endregion}
-    property BevelOuter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelOuter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the control.
     /// </summary>
-    {$endregion}
-    property BiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control has a border.
     /// </summary>
-    {$endregion}
-    property BorderStyle;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderStyle;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color nodefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Nodefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size constraints for the control.
     /// </summary>
-    {$endregion}
-    property Constraints;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Constraints;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control has a three-dimensional look.
     /// </summary>
-    {$endregion}
-    property Ctl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Ctl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of columns, in a multi-column list box, that are visible
     /// without having to scroll.
     /// </summary>
-    {$endregion}
-    property Columns;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Columns;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCultureInfo.DisplayNames"/> should be
     /// displayed as the label of items.
     /// </summary>
-    {$endregion}
-    property DisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
     /// painted to an in-memory bitmap first.
     /// </summary>
-    {$endregion}
-    property DoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
     /// into the region covered by the control.
     /// </summary>
-    {$endregion}
-    property DragCursor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragCursor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control is being dragged normally or for docking.
     /// </summary>
-    {$endregion}
-    property DragKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
     /// </summary>
-    {$endregion}
-    property DragMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can select a sequential range of items in the list box.
     /// </summary>
-    {$endregion}
-    property ExtendedSelect;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ExtendedSelect;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the placement of the flag icon in regard of the text label.
     /// </summary>
-    {$endregion}
-    property FlagPosition;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FlagPosition;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the flag icons that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Flags;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flags;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the behavior of the input method editor (IME).
     /// </summary>
-    {$endregion}
-    property ImeMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the input method editor (IME) to use for converting keyboard input.
     /// </summary>
-    {$endregion}
-    property ImeName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the list box displays the partial items.
     /// </summary>
-    {$endregion}
-    property IntegralHeight;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property IntegralHeight;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TCultureInfo"/> objects in the control.
     /// </summary>
-    {$endregion}
-    property Items;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Items;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the currently selected <see cref="TCultureInfo"/> object.
     /// </summary>
-    {$endregion}
-    property ItemSelected;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ItemSelected;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the
     /// control.
     /// </summary>
-    {$endregion}
-    property Localizer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Localizer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the margins of the control.
     /// </summary>
-    {$endregion}
-    property Margins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Margins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can select more than one item at a time.
     /// </summary>
-    {$endregion}
-    property MultiSelect;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property MultiSelect;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
     /// </summary>
-    {$endregion}
-    property ParentColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
     /// </summary>
-    {$endregion}
-    property ParentCtl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentCtl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
     /// </summary>
-    {$endregion}
-    property ParentDoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentDoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the pop-up menu associated with the control.
     /// </summary>
-    {$endregion}
-    property PopupMenu;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PopupMenu;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the width, in pixels, by which the list box can scroll horizontally.
     /// </summary>
-    {$endregion}
-    property ScrollWidth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ScrollWidth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the items in the list are arranged alphabetically.
     /// </summary>
-    {$endregion}
-    property Sorted;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Sorted;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the position of the control in its parent's tab order.
     /// </summary>
-    {$endregion}
-    property TabOrder;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabOrder;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can tab to a control.
     /// </summary>
-    {$endregion}
-    property TabStop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabStop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size of the tabs in the list box.
     /// </summary>
-    {$endregion}
-    property TabWidth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabWidth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the touch manager component associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property Touch;
+    Property Touch;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user clicks the control.
     /// </summary>
-    {$endregion}
-    property OnClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
     /// menu (such as using the keyboard).
     /// </summary>
-    {$endregion}
-    property OnContextPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnContextPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
     /// is over the control.
     /// </summary>
-    {$endregion}
-    property OnDblClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDblClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drops an object being dragged on the control.
     /// </summary>
-    {$endregion}
-    property OnDragDrop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragDrop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drags an object over the control.
     /// </summary>
-    {$endregion}
-    property OnDragOver;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragOver;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when text label of an item needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnDrawItemLabel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDrawItemLabel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDrag;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDrag;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a control receives the input focus.
     /// </summary>
-    {$endregion}
-    property OnEnter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEnter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the input focus shifts away from one control to another.
     /// </summary>
-    {$endregion}
-    property OnExit;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnExit;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when user performs a gesture associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnGesture;
+    Property OnGesture;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when <see cref="Items"/> property changed.
     /// </summary>
-    {$endregion}
-    property OnItemsChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnItemsChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a user presses any key while the control has focus.
     /// </summary>
-    {$endregion}
-    property OnKeyDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when key pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyPress;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyPress;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a key that has been pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control and the parent form is not active.
     /// </summary>
-    {$endregion}
-    property OnMouseActivate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseActivate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control.
     /// </summary>
-    {$endregion}
-    property OnMouseDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
     /// the control.
     /// </summary>
-    {$endregion}
-    property OnMouseMove;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseMove;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
     /// pointer over the control.
     /// </summary>
-    {$endregion}
-    property OnMouseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse into the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseEnter;
+    Property OnMouseEnter;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse outside of the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseLeave;
+    Property OnMouseLeave;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated.
     /// </summary>
-    {$endregion}
-    property OnMouseWheel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated downward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated upward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the control is resized.
     /// </summary>
-    {$endregion}
-    property OnResize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnResize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDock"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnStartDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDrag"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDrag;
-  end;
+    {$Endregion}
+    Property OnStartDrag;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomCultureCheckListBox is the base class for check list box controls that
-  /// represent a list of <see cref="TCultureInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomCultureCheckListBox as a base class when defining controls that represent
-  /// a check list of <see cref="TCultureInfo"/> objects. TCustomCultureCheckListBox has
-  /// properties and methods to facilitate displaying, retrieving, sorting, and selecting
-  /// of the stored <see cref="TCultureInfo"/> objects.
-  ///
-  /// TCustomCultureCheckListBox also implements properties to specify a country flag
-  /// icon, along with its appearance and placement for each individual item.
-  ///
-  /// TCustomCultureCheckListBox can be linked to a <see cref="TLocalizer"/> component.
-  /// In this case, the <see cref="TLocalizer"/> component provides the <see cref="TCultureInfo"/>
-  /// objects for the <see cref="Items"/> property.
-  /// </remarks>
-  {$endregion}
-  TCustomCultureCheckListBox = class(TCustomFlagCheckListBox, ILocalizerLink)
-  private
-    fCultures: TCultureList;
-    fDisplayName: TCultureDisplayName;
-    fLocalizer: TLocalizer;
-    procedure SetCultures(Value: TCultureList);
-    procedure SetItemSelected(Value: TCultureInfo);
-    function GetItemSelected: TCultureInfo;
-    procedure SetLocalizer(Value: TLocalizer);
-    procedure SetDisplayName(Value: TCultureDisplayName);
-    procedure CulturesChanged(Sender: TObject);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomCultureCheckListBox is the base class for check list box controls that
+/// represent a list of <see cref="TCultureInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// Use TCustomCultureCheckListBox as a base class when defining controls that represent
+/// a check list of <see cref="TCultureInfo"/> objects. TCustomCultureCheckListBox has
+/// properties and methods to facilitate displaying, retrieving, sorting, and selecting
+/// of the stored <see cref="TCultureInfo"/> objects.
+///
+/// TCustomCultureCheckListBox also implements properties to specify a country flag
+/// icon, along with its appearance and placement for each individual item.
+///
+/// TCustomCultureCheckListBox can be linked to a <see cref="TLocalizer"/> component.
+/// In this case, the <see cref="TLocalizer"/> component provides the <see cref="TCultureInfo"/>
+/// objects for the <see cref="Items"/> property.
+/// </remarks>
+{$Endregion}
+
+  TCustomCultureCheckListBox = Class(TCustomFlagCheckListBox, ILocalizerLink)
+   Private
+    fCultures    : TCultureList;
+    fDisplayName : TCultureDisplayName;
+    fLocalizer   : TLocalizer;
+    Procedure SetCultures(Value : TCultureList);
+    Procedure SetItemSelected(Value : TCultureInfo);
+    Function GetItemSelected : TCultureInfo;
+    Procedure SetLocalizer(Value : TLocalizer);
+    Procedure SetDisplayName(Value : TCultureDisplayName);
+    Procedure CulturesChanged(Sender : TObject);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Notifies the control about changes in the linked <see cref="TLocalizer"/>
     /// component.
@@ -3687,9 +3700,9 @@ type
     /// <param name="Reason">
     /// The reason of the notification.
     /// </param>
-    {$endregion}
-    procedure LocalizerNotify(Sender: TLocalizer; Reason: TLocalizerNotification);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure LocalizerNotify(Sender : TLocalizer; Reason : TLocalizerNotification);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds to notifications that components are about to be created or destroyed.
     /// </summary>
@@ -3699,16 +3712,16 @@ type
     /// <param name="Operation">
     /// Indicates whether the component is created or destroyed.
     /// </param>
-    {$endregion}
-    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Notification(AComponent : TComponent; Operation : TOperation); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the internal list of items by display name of the <see cref="TCultureInfo"/>
     /// objects in the <see cref="Items"/> property.
     /// </summary>
-    {$endregion}
-    procedure RebuildInternalItems; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RebuildInternalItems; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a country flag icon for the specified item.
     /// </summary>
@@ -3718,31 +3731,31 @@ type
     /// <returns>
     /// The index of a country flag icon or -1 if no icon is available.
     /// </returns>
-    {$endregion}
-    function GetImageIndex(Index: Integer): Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetImageIndex(Index : Integer) : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
     /// </summary>
-    {$endregion}
-    property Localizer: TLocalizer read fLocalizer write SetLocalizer;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Localizer : TLocalizer Read fLocalizer Write SetLocalizer;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the control and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the <see cref="Items"/> property with all the known <see cref="TCultureInfo"/>
     /// objects.
@@ -3753,9 +3766,9 @@ type
     /// </returns>
     /// <seealso cref="18nCore.TWorld.Cultures"/>
     /// <seealso cref="IsManagedByLocalizer"/>
-    {$endregion}
-    function CollectAll: Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function CollectAll : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Retrieves the list of checked <see cref="TCultureInfo"/> objects.
     /// </summary>
@@ -3766,9 +3779,9 @@ type
     /// Determines whether the disabled items can be retrieved.
     /// </param>
     /// <seealso cref="SetSelection"/>
-    {$endregion}
-    procedure GetSelection(Dest: TCultureList; AllowDisabled: Boolean = True); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure GetSelection(Dest : TCultureList; AllowDisabled : Boolean = True); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes the items that are identified by a specified list of <see cref="TCultureInfo"/> objects.
     /// </summary>
@@ -3779,9 +3792,9 @@ type
     /// Determines whether the disabled items can be altered.
     /// </param>
     /// <seealso cref="GetSelection"/>
-    {$endregion}
-    procedure SetSelection(Source: TReadonlyCultureList; AllowDisabled: Boolean = True); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure SetSelection(Source : TReadonlyCultureList; AllowDisabled : Boolean = True); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the <see cref="Items"/> property is filled by a <see cref="TLocalizer"/>
     /// component.
@@ -3790,560 +3803,562 @@ type
     /// Rteurns <see langword="true"/> if <see cref="Localizer"/> property is not
     /// <see langword="nil"/>, otherwise returns <see langword="false"/>.</returns>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    function IsManagedByLocalizer: Boolean; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsManagedByLocalizer : Boolean; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCultureInfo.DisplayNames"/> should be
     /// displayed as the label of items.
     /// </summary>
-    {$endregion}
-    property DisplayName: TCultureDisplayName read fDisplayName write SetDisplayName default cnEnglishDisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName : TCultureDisplayName Read fDisplayName Write SetDisplayName Default cnEnglishDisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the currently selected <see cref="TCultureInfo"/> object.
     /// </summary>
-    {$endregion}
-    property ItemSelected: TCultureInfo read GetItemSelected write SetItemSelected;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ItemSelected : TCultureInfo Read GetItemSelected Write SetItemSelected;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TCultureInfo"/> objects in the control.
     /// </summary>
-    {$endregion}
-    property Items: TCultureList read fCultures write SetCultures;
-  end;
+    {$Endregion}
+    Property Items : TCultureList Read fCultures Write SetCultures;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCultureCheckListBox is a check list box control that represents a list of
-  /// <see cref="TCultureInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TCultureCheckListBox to enable users to select multiple <see cref="TCultureInfo"/>
-  /// objects from a list.
-  ///
-  /// TCultureCheckListBox also implements properties to specify a country flag icon,
-  /// along with its appearance and placement for each individual item.
-  ///
-  /// TCultureCheckListBox can be linked to a <see cref="TLocalizer"/> component.
-  /// In this case, the <see cref="TLocalizer"/> component provides the list of
-  /// <see cref="TCultureInfo"/> objects being displayed by the control.
-  ///
-  /// TCultureCheckListBox publishes many of the properties, events, and methods of
-  /// <see cref="TCustomCultureCheckListBox"/>, but does not introduce any new behavior.
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TCultureCheckListBox is a check list box control that represents a list of
+/// <see cref="TCultureInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// Use TCultureCheckListBox to enable users to select multiple <see cref="TCultureInfo"/>
+/// objects from a list.
+///
+/// TCultureCheckListBox also implements properties to specify a country flag icon,
+/// along with its appearance and placement for each individual item.
+///
+/// TCultureCheckListBox can be linked to a <see cref="TLocalizer"/> component.
+/// In this case, the <see cref="TLocalizer"/> component provides the list of
+/// <see cref="TCultureInfo"/> objects being displayed by the control.
+///
+/// TCultureCheckListBox publishes many of the properties, events, and methods of
+/// <see cref="TCustomCultureCheckListBox"/>, but does not introduce any new behavior.
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TCultureCheckListBox = class(TCustomCultureCheckListBox)
-  published
-    {$region 'xmldoc'}
+  TCultureCheckListBox = Class(TCustomCultureCheckListBox)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control aligns within its container (parent control).
     /// </summary>
-    {$endregion}
-    property Align;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Align;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
     /// </summary>
-    {$endregion}
-    property AlignWithMargins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AlignWithMargins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check boxes can be in a "grayed" state.
     /// </summary>
-    {$endregion}
-    property AllowGrayed;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AllowGrayed;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control is anchored to its parent.
     /// </summary>
-    {$endregion}
-    property Anchors;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Anchors;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can give focus to items by typing in the list.
     /// </summary>
-    {$endregion}
-    property AutoComplete;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoComplete;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.
     /// </summary>
-    {$endregion}
-    property AutoCompleteDelay;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoCompleteDelay;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which edges of the control are beveled.
     /// </summary>
-    {$endregion}
-    property BevelEdges;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelEdges;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the inner bevel.
     /// </summary>
-    {$endregion}
-    property BevelInner;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelInner;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the control's bevel style.
     /// </summary>
-    {$endregion}
-    property BevelKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the outer bevel.
     /// </summary>
-    {$endregion}
-    property BevelOuter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelOuter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the control.
     /// </summary>
-    {$endregion}
-    property BiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control has a border.
     /// </summary>
-    {$endregion}
-    property BorderStyle;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderStyle;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color nodefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Nodefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size constraints for the control.
     /// </summary>
-    {$endregion}
-    property Constraints;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Constraints;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control has a three-dimensional look.
     /// </summary>
-    {$endregion}
-    property Ctl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Ctl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of columns, in a multi-column list box, that are visible
     /// without having to scroll.
     /// </summary>
-    {$endregion}
-    property Columns;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Columns;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCultureInfo.DisplayNames"/> should be
     /// displayed as the label of items.
     /// </summary>
-    {$endregion}
-    property DisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
     /// painted to an in-memory bitmap first.
     /// </summary>
-    {$endregion}
-    property DoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
     /// into the region covered by the control.
     /// </summary>
-    {$endregion}
-    property DragCursor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragCursor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control is being dragged normally or for docking.
     /// </summary>
-    {$endregion}
-    property DragKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
     /// </summary>
-    {$endregion}
-    property DragMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the placement of the flag icon in regard of the text label.
     /// </summary>
-    {$endregion}
-    property FlagPosition;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FlagPosition;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the flag icons that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Flags;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flags;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check boxes appear three-dimensional.
     /// </summary>
-    {$endregion}
-    property Flat;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flat;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the behavior of the input method editor (IME).
     /// </summary>
-    {$endregion}
-    property ImeMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the input method editor (IME) to use for converting keyboard input.
     /// </summary>
-    {$endregion}
-    property ImeName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the list box displays the partial items.
     /// </summary>
-    {$endregion}
-    property IntegralHeight;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property IntegralHeight;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TCultureInfo"/> objects in the control.
     /// </summary>
-    {$endregion}
-    property Items;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Items;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the
     /// control.
     /// </summary>
-    {$endregion}
-    property Localizer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Localizer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the margins of the control.
     /// </summary>
-    {$endregion}
-    property Margins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Margins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
     /// </summary>
-    {$endregion}
-    property ParentColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
     /// </summary>
-    {$endregion}
-    property ParentCtl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentCtl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
     /// </summary>
-    {$endregion}
-    property ParentDoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentDoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the pop-up menu associated with the control.
     /// </summary>
-    {$endregion}
-    property PopupMenu;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PopupMenu;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the width, in pixels, by which the list box can scroll horizontally.
     /// </summary>
-    {$endregion}
-    property ScrollWidth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ScrollWidth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the items in the list are arranged alphabetically.
     /// </summary>
-    {$endregion}
-    property Sorted;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Sorted;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the position of the control in its parent's tab order.
     /// </summary>
-    {$endregion}
-    property TabOrder;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabOrder;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can tab to a control.
     /// </summary>
-    {$endregion}
-    property TabStop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabStop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size of the tabs in the list box.
     /// </summary>
-    {$endregion}
-    property TabWidth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabWidth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the touch manager component associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property Touch;
+    Property Touch;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user clicks the control.
     /// </summary>
-    {$endregion}
-    property OnClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user selects or deselects an item's check box.
     /// </summary>
-    {$endregion}
-    property OnClickCheck;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClickCheck;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
     /// menu (such as using the keyboard).
     /// </summary>
-    {$endregion}
-    property OnContextPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnContextPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
     /// is over the control.
     /// </summary>
-    {$endregion}
-    property OnDblClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDblClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drops an object being dragged on the control.
     /// </summary>
-    {$endregion}
-    property OnDragDrop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragDrop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drags an object over the control.
     /// </summary>
-    {$endregion}
-    property OnDragOver;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragOver;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when text label of an item needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnDrawItemLabel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDrawItemLabel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDrag;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDrag;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a control receives the input focus.
     /// </summary>
-    {$endregion}
-    property OnEnter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEnter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the input focus shifts away from one control to another.
     /// </summary>
-    {$endregion}
-    property OnExit;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnExit;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when user performs a gesture associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnGesture;
+    Property OnGesture;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when <see cref="Items"/> property changed.
     /// </summary>
-    {$endregion}
-    property OnItemsChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnItemsChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a user presses any key while the control has focus.
     /// </summary>
-    {$endregion}
-    property OnKeyDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when key pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyPress;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyPress;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a key that has been pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control and the parent form is not active.
     /// </summary>
-    {$endregion}
-    property OnMouseActivate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseActivate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control.
     /// </summary>
-    {$endregion}
-    property OnMouseDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
     /// the control.
     /// </summary>
-    {$endregion}
-    property OnMouseMove;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseMove;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
     /// pointer over the control.
     /// </summary>
-    {$endregion}
-    property OnMouseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse into the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseEnter;
+    Property OnMouseEnter;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse outside of the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseLeave;
+    Property OnMouseLeave;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated.
     /// </summary>
-    {$endregion}
-    property OnMouseWheel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated downward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated upward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the control is resized.
     /// </summary>
-    {$endregion}
-    property OnResize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnResize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDock"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnStartDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDrag"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDrag;
-  end;
+    {$Endregion}
+    Property OnStartDrag;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomTerritoryLabel is the base class for label controls that display a
-  /// <see cref="TTerritoryInfo"/> object on a form.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomTerritoryLabel as a base class when defining objects that display a
-  /// <see cref="TTerritoryInfo"/> object. TCustomTerritoryLabel implements properties
-  /// to specify the <see cref="TTerritoryInfo"/> object, along with its interested piece
-  /// of information that should be displayed.
-  /// </remarks>
-  {$endregion}
-  TCustomTerritoryLabel = class(TCustomFlagLabel)
-  private
-    fTerritory: TTerritoryInfo;
-    fDisplayName: TTerritoryDisplayName;
-    procedure SetTerritory(Value: TTerritoryInfo);
-    procedure SetDisplayName(Value: TTerritoryDisplayName);
-    procedure ReadTerritory(Reader: TReader);
-    procedure WriteTerritory(Writer: TWriter);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomTerritoryLabel is the base class for label controls that display a
+/// <see cref="TTerritoryInfo"/> object on a form.
+/// </summary>
+/// <remarks>
+/// Use TCustomTerritoryLabel as a base class when defining objects that display a
+/// <see cref="TTerritoryInfo"/> object. TCustomTerritoryLabel implements properties
+/// to specify the <see cref="TTerritoryInfo"/> object, along with its interested piece
+/// of information that should be displayed.
+/// </remarks>
+{$Endregion}
+
+  TCustomTerritoryLabel = Class(TCustomFlagLabel)
+   Private
+    fTerritory   : TTerritoryInfo;
+    fDisplayName : TTerritoryDisplayName;
+    Procedure SetTerritory(Value : TTerritoryInfo);
+    Procedure SetDisplayName(Value : TTerritoryDisplayName);
+    Procedure ReadTerritory(Reader : TReader);
+    Procedure WriteTerritory(Writer : TWriter);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reads and writes the <see cref="Territory"/> property as if it was published.
     /// </summary>
@@ -4351,471 +4366,473 @@ type
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
     /// loading or saving the published properties.
     /// </param>
-    {$endregion}
-    procedure DefineProperties(Filer: TFiler); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DefineProperties(Filer : TFiler); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a country flag icon to display on the control.
     /// </summary>
     /// <returns>
     /// The index of a country flag icon or -1 if no icon should be displayed.
     /// </returns>
-    {$endregion}
-    function GetImageIndex: TImageIndex; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetImageIndex : TImageIndex; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a text label to display for on the control.
     /// </summary>
     /// <returns>
     /// The text label.
     /// </returns>
-    {$endregion}
-    function GetLabelText: String; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetLabelText : String; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TTerritoryInfo.DisplayNames"/> should be
     /// displayed as the text label on the control.
     /// </summary>
-    {$endregion}
-    property DisplayName: TTerritoryDisplayName read fDisplayName write SetDisplayName default tnFriendlyName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName : TTerritoryDisplayName Read fDisplayName Write SetDisplayName Default tnFriendlyName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TTerritoryInfo"/> object that the control is displaying.
     /// </summary>
-    {$endregion}
-    property Territory: TTerritoryInfo read fTerritory write SetTerritory;
-  end;
+    {$Endregion}
+    Property Territory : TTerritoryInfo Read fTerritory Write SetTerritory;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TTerritoryLabel is a label control that displays a <see cref="TTerritoryInfo"/> object
-  /// on a form.
-  /// </summary>
-  /// <remarks>
-  /// Use TTerritoryLabel to display a <see cref="TTerritoryInfo"/> object on a form. The
-  /// <see cref="Territory"/> and <see cref="DisplayName"/> properties determine the content
-  /// that will be displayed.
-  ///
-  /// TTerritoryLabel publishes many of the properties, events, and methods of
-  /// <see cref="TCustomTerritoryLabel"/>, but does not introduce any new behavior.
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TTerritoryLabel is a label control that displays a <see cref="TTerritoryInfo"/> object
+/// on a form.
+/// </summary>
+/// <remarks>
+/// Use TTerritoryLabel to display a <see cref="TTerritoryInfo"/> object on a form. The
+/// <see cref="Territory"/> and <see cref="DisplayName"/> properties determine the content
+/// that will be displayed.
+///
+/// TTerritoryLabel publishes many of the properties, events, and methods of
+/// <see cref="TCustomTerritoryLabel"/>, but does not introduce any new behavior.
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TTerritoryLabel = class(TCustomTerritoryLabel)
-  published
-    {$region 'xmldoc'}
+  TTerritoryLabel = Class(TCustomTerritoryLabel)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control aligns within its container (parent control).
     /// </summary>
-    {$endregion}
-    property Align;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Align;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the horizontal placement of the text within the label.
     /// </summary>
-    {$endregion}
-    property Alignment;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Alignment;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
     /// </summary>
-    {$endregion}
-    property AlignWithMargins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AlignWithMargins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control is anchored to its parent.
     /// </summary>
-    {$endregion}
-    property Anchors;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Anchors;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control sizes itself automatically to accommodate
     /// its contents.
     /// </summary>
-    {$endregion}
-    property AutoSize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoSize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the control.
     /// </summary>
-    {$endregion}
-    property BiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the color of the control's border.
     /// </summary>
-    {$endregion}
-    property BorderColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the width of the control's border.
     /// </summary>
-    {$endregion}
-    property BorderWidth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderWidth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text of the label when <see cref="Territory"/> property has no value.
     /// </summary>
-    {$endregion}
-    property Caption;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Caption;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color nodefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Nodefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size constraints for the control.
     /// </summary>
-    {$endregion}
-    property Constraints;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Constraints;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TTerritoryInfo.DisplayNames"/> should be
     /// displayed as the text label on the control.
     /// </summary>
-    {$endregion}
-    property DisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
     /// into the region covered by the control.
     /// </summary>
-    {$endregion}
-    property DragCursor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragCursor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control is being dragged normally or for docking.
     /// </summary>
-    {$endregion}
-    property DragKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
     /// </summary>
-    {$endregion}
-    property DragMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the flag icons that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Flags;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flags;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets a windowed control associated with the label.
     /// </summary>
-    {$endregion}
-    property FocusControl;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FocusControl;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the radius of the glow around the label.
     /// NOTE: This feature is only available in Windows Vista and later.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property GlowSize;
+    Property GlowSize;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the margins of the control.
     /// </summary>
-    {$endregion}
-    property Margins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Margins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the distance between the image and the text from the control's border.
     /// </summary>
-    {$endregion}
-    property Padding;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Padding;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
     /// </summary>
-    {$endregion}
-    property ParentColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the pop-up menu associated with the control.
     /// </summary>
-    {$endregion}
-    property PopupMenu;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PopupMenu;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how an ampersand in the label text is displayed.
     /// </summary>
-    {$endregion}
-    property ShowAccelChar;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowAccelChar;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of pixels between the image and the text of the control.
     /// </summary>
-    {$endregion}
-    property Spacing;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Spacing;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TTerritoryInfo"/> object that the control is displaying.
     /// </summary>
-    {$endregion}
-    property Territory;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Territory;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the touch manager component associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property Touch;
+    Property Touch;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether controls that sit below the label on a form can be seen
     /// through the label.
     /// </summary>
-    {$endregion}
-    property Transparent;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Transparent;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the vertical placement of the text within the label.
     /// </summary>
-    {$endregion}
-    property Layout;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Layout;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets Specifies whether the label text wraps when it is too long for the
     /// width of the label.
     /// </summary>
-    {$endregion}
-    property WordWrap;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property WordWrap;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user clicks the control.
     /// </summary>
-    {$endregion}
-    property OnClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
     /// menu (such as using the keyboard).
     /// </summary>
-    {$endregion}
-    property OnContextPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnContextPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
     /// is over the control.
     /// </summary>
-    {$endregion}
-    property OnDblClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDblClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drops an object being dragged on the control.
     /// </summary>
-    {$endregion}
-    property OnDragDrop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragDrop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drags an object over the control.
     /// </summary>
-    {$endregion}
-    property OnDragOver;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragOver;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDrag;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDrag;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when user performs a gesture associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnGesture;
+    Property OnGesture;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control and the parent form is not active.
     /// </summary>
-    {$endregion}
-    property OnMouseActivate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseActivate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control.
     /// </summary>
-    {$endregion}
-    property OnMouseDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
     /// the control.
     /// </summary>
-    {$endregion}
-    property OnMouseMove;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseMove;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
     /// pointer over the control.
     /// </summary>
-    {$endregion}
-    property OnMouseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse into the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseEnter;
+    Property OnMouseEnter;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse outside of the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseLeave;
+    Property OnMouseLeave;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated.
     /// </summary>
-    {$endregion}
-    property OnMouseWheel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated downward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated upward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the control is resized.
     /// </summary>
-    {$endregion}
-    property OnResize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnResize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDock"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnStartDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDrag"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDrag;
-  end;
+    {$Endregion}
+    Property OnStartDrag;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomTerritoryBox is the base class for combo box controls that represent a list
-  /// of <see cref="TTerritoryInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomTerritoryBox as a base class when defining combo box controls that represent
-  /// a list of <see cref="TTerritoryInfo"/> objects. TCustomTerritoryBox has properties and
-  /// methods to facilitate displaying, retrieving, sorting, and selecting of the stored
-  /// <see cref="TTerritoryInfo"/> objects.
-  ///
-  /// TCustomTerritoryBox also implements properties to specify a country flag icon, along
-  /// with its appearance and placement for each individual item.
-  /// </remarks>
-  {$endregion}
-  TCustomTerritoryBox = class(TCustomFlagBox)
-  private
-    fTerritories: TTerritoryList;
-    fDisplayName: TTerritoryDisplayName;
-    procedure SetTerritories(Value: TTerritoryList);
-    procedure SetItemSelected(Value: TTerritoryInfo);
-    function GetItemSelected: TTerritoryInfo;
-    procedure SetDisplayName(Value: TTerritoryDisplayName);
-    procedure TerritoriesChanged(Sender: TObject);
-    procedure ReadItemSelected(Reader: TReader);
-    procedure WriteItemSelected(Writer: TWriter);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomTerritoryBox is the base class for combo box controls that represent a list
+/// of <see cref="TTerritoryInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// Use TCustomTerritoryBox as a base class when defining combo box controls that represent
+/// a list of <see cref="TTerritoryInfo"/> objects. TCustomTerritoryBox has properties and
+/// methods to facilitate displaying, retrieving, sorting, and selecting of the stored
+/// <see cref="TTerritoryInfo"/> objects.
+///
+/// TCustomTerritoryBox also implements properties to specify a country flag icon, along
+/// with its appearance and placement for each individual item.
+/// </remarks>
+{$Endregion}
+
+  TCustomTerritoryBox = Class(TCustomFlagBox)
+   Private
+    fTerritories : TTerritoryList;
+    fDisplayName : TTerritoryDisplayName;
+    Procedure SetTerritories(Value : TTerritoryList);
+    Procedure SetItemSelected(Value : TTerritoryInfo);
+    Function GetItemSelected : TTerritoryInfo;
+    Procedure SetDisplayName(Value : TTerritoryDisplayName);
+    Procedure TerritoriesChanged(Sender : TObject);
+    Procedure ReadItemSelected(Reader : TReader);
+    Procedure WriteItemSelected(Writer : TWriter);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reads and writes the <see cref="ItemSelected"/> property as if it was published.
     /// </summary>
@@ -4823,16 +4840,16 @@ type
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
     /// loading or saving the published properties.
     /// </param>
-    {$endregion}
-    procedure DefineProperties(Filer: TFiler); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DefineProperties(Filer : TFiler); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the internal list of items by display name of the <see cref="TTerritoryInfo"/>
     /// objects in the <see cref="Items"/> property.
     /// </summary>
-    {$endregion}
-    procedure RebuildInternalItems; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RebuildInternalItems; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a country flag icon for the specified item.
     /// </summary>
@@ -4842,25 +4859,25 @@ type
     /// <returns>
     /// The index of a country flag icon or -1 if no icon is available.
     /// </returns>
-    {$endregion}
-    function GetImageIndex(Index: Integer): Integer; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetImageIndex(Index : Integer) : Integer; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the control and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the <see cref="Items"/> property with all the known <see cref="TTerritoryInfo"/>
     /// objects.
@@ -4869,556 +4886,558 @@ type
     /// Returns <see langword="true"/>.
     /// </returns>
     /// <seealso cref="18nCore.TWorld.Territories"/>
-    {$endregion}
-    function CollectAll: Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function CollectAll : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TTerritoryInfo.DisplayNames"/> should be
     /// displayed as the label of items.
     /// </summary>
-    {$endregion}
-    property DisplayName: TTerritoryDisplayName read fDisplayName write SetDisplayName default tnFriendlyName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName : TTerritoryDisplayName Read fDisplayName Write SetDisplayName Default tnFriendlyName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the currently selected <see cref="TTerritoryInfo"/> object.
     /// </summary>
-    {$endregion}
-    property ItemSelected: TTerritoryInfo read GetItemSelected write SetItemSelected;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ItemSelected : TTerritoryInfo Read GetItemSelected Write SetItemSelected;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TTerritoryInfo"/> objects in the control.
     /// </summary>
-    {$endregion}
-    property Items: TTerritoryList read fTerritories write SetTerritories;
-  end;
+    {$Endregion}
+    Property Items : TTerritoryList Read fTerritories Write SetTerritories;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TTerritoryBox is a combo box control that represents a list of <see cref="TTerritoryInfo"/>
-  /// objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TTerritoryBox to enable users to select a <see cref="TTerritoryInfo"/> object from a list.
-  ///
-  /// TTerritoryBox also implements properties to specify a country flag icon, along with its
-  /// appearance and placement for each individual item.
-  ///
-  /// TTerritoryBox publishes many of the properties, events, and methods of
-  /// <see cref="TCustomTerritoryBox"/>, but does not introduce any new behavior.
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TTerritoryBox is a combo box control that represents a list of <see cref="TTerritoryInfo"/>
+/// objects.
+/// </summary>
+/// <remarks>
+/// Use TTerritoryBox to enable users to select a <see cref="TTerritoryInfo"/> object from a list.
+///
+/// TTerritoryBox also implements properties to specify a country flag icon, along with its
+/// appearance and placement for each individual item.
+///
+/// TTerritoryBox publishes many of the properties, events, and methods of
+/// <see cref="TCustomTerritoryBox"/>, but does not introduce any new behavior.
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TTerritoryBox = class(TCustomTerritoryBox)
-  published
-    {$region 'xmldoc'}
+  TTerritoryBox = Class(TCustomTerritoryBox)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control aligns within its container (parent control).
     /// </summary>
-    {$endregion}
-    property Align;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Align;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
     /// </summary>
-    {$endregion}
-    property AlignWithMargins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AlignWithMargins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control is anchored to its parent.
     /// </summary>
-    {$endregion}
-    property Anchors;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Anchors;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can give focus to items by typing in the list.
     /// </summary>
-    {$endregion}
-    property AutoComplete;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoComplete;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.
     /// </summary>
-    {$endregion}
-    property AutoCompleteDelay;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoCompleteDelay;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the drop-down closes up automatically when the user selects an item.
     /// </summary>
-    {$endregion}
-    property AutoCloseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoCloseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the drop-down list drops down automatically in response to user keystrokes.
     /// </summary>
-    {$endregion}
-    property AutoDropDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoDropDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which edges of the control are beveled.
     /// </summary>
-    {$endregion}
-    property BevelEdges;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelEdges;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the inner bevel.
     /// </summary>
-    {$endregion}
-    property BevelInner;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelInner;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the control's bevel style.
     /// </summary>
-    {$endregion}
-    property BevelKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the outer bevel.
     /// </summary>
-    {$endregion}
-    property BevelOuter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelOuter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the control.
     /// </summary>
-    {$endregion}
-    property BiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color nodefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Nodefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size constraints for the control.
     /// </summary>
-    {$endregion}
-    property Constraints;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Constraints;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control has a three-dimensional look.
     /// </summary>
-    {$endregion}
-    property Ctl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Ctl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TTerritoryInfo.DisplayNames"/> should be
     /// displayed as the label of items.
     /// </summary>
-    {$endregion}
-    property DisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
     /// painted to an in-memory bitmap first.
     /// </summary>
-    {$endregion}
-    property DoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
     /// into the region covered by the control.
     /// </summary>
-    {$endregion}
-    property DragCursor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragCursor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control is being dragged normally or for docking.
     /// </summary>
-    {$endregion}
-    property DragKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
     /// </summary>
-    {$endregion}
-    property DragMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the maximum number of items displayed in the drop-down list.
     /// </summary>
-    {$endregion}
-    property DropDownCount;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DropDownCount;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the placement of the flag icon in regard of the text label.
     /// </summary>
-    {$endregion}
-    property FlagPosition;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FlagPosition;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the flag icons that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Flags;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flags;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the behavior of the input method editor (IME).
     /// </summary>
-    {$endregion}
-    property ImeMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the input method editor (IME) to use for converting keyboard input.
     /// </summary>
-    {$endregion}
-    property ImeName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TTerritoryInfo"/> objects in the control.
     /// </summary>
-    {$endregion}
-    property Items;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Items;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the currently selected <see cref="TTerritoryInfo"/> object.
     /// </summary>
-    {$endregion}
-    property ItemSelected;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ItemSelected;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the margins of the control.
     /// </summary>
-    {$endregion}
-    property Margins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Margins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
     /// </summary>
-    {$endregion}
-    property ParentColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
     /// </summary>
-    {$endregion}
-    property ParentCtl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentCtl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
     /// </summary>
-    {$endregion}
-    property ParentDoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentDoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the pop-up menu associated with the control.
     /// </summary>
-    {$endregion}
-    property PopupMenu;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PopupMenu;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the items in the list are arranged alphabetically.
     /// </summary>
-    {$endregion}
-    property Sorted;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Sorted;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the position of the control in its parent's tab order.
     /// </summary>
-    {$endregion}
-    property TabOrder;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabOrder;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can tab to a control.
     /// </summary>
-    {$endregion}
-    property TabStop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabStop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text that is displayed as a text watermark in the control.
     /// NOTE: This feature is only available in Windows Vista and later.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property TextHint;
+    Property TextHint;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the touch manager component associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property Touch;
+    Property Touch;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user clicks the control.
     /// </summary>
-    {$endregion}
-    property OnClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the drop-down list closes up due to some user action.
     /// </summary>
-    {$endregion}
-    property OnCloseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCloseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
     /// menu (such as using the keyboard).
     /// </summary>
-    {$endregion}
-    property OnContextPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnContextPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
     /// is over the control.
     /// </summary>
-    {$endregion}
-    property OnDblClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDblClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drops an object being dragged on the control.
     /// </summary>
-    {$endregion}
-    property OnDragDrop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragDrop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drags an object over the control.
     /// </summary>
-    {$endregion}
-    property OnDragOver;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragOver;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when text label of an item needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnDrawItemLabel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDrawItemLabel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user opens the drop-down list.
     /// </summary>
-    {$endregion}
-    property OnDropDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDropDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDrag;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDrag;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a control receives the input focus.
     /// </summary>
-    {$endregion}
-    property OnEnter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEnter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the input focus shifts away from one control to another.
     /// </summary>
-    {$endregion}
-    property OnExit;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnExit;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when user performs a gesture associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnGesture;
+    Property OnGesture;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when <see cref="Items"/> property changed.
     /// </summary>
-    {$endregion}
-    property OnItemsChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnItemsChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a user presses any key while the control has focus.
     /// </summary>
-    {$endregion}
-    property OnKeyDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when key pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyPress;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyPress;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a key that has been pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control and the parent form is not active.
     /// </summary>
-    {$endregion}
-    property OnMouseActivate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseActivate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control.
     /// </summary>
-    {$endregion}
-    property OnMouseDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
     /// the control.
     /// </summary>
-    {$endregion}
-    property OnMouseMove;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseMove;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
     /// pointer over the control.
     /// </summary>
-    {$endregion}
-    property OnMouseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse into the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseEnter;
+    Property OnMouseEnter;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse outside of the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseLeave;
+    Property OnMouseLeave;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated.
     /// </summary>
-    {$endregion}
-    property OnMouseWheel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated downward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated upward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the control is resized.
     /// </summary>
-    {$endregion}
-    property OnResize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnResize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user selects an item in the drop-down list
     /// </summary>
-    {$endregion}
-    property OnSelect;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnSelect;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDock"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnStartDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDrag"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDrag;
-  end;
+    {$Endregion}
+    Property OnStartDrag;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomTerritoryListBox is the base class for list box controls that represent a list
-  /// of <see cref="TTerritoryInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomTerritoryListBox as a base class when defining list box controls that represent
-  /// a list of <see cref="TTerritoryInfo"/> objects. TCustomTerritoryListBox has properties and
-  /// methods to facilitate displaying, retrieving, sorting, and selecting of the stored
-  /// <see cref="TTerritoryInfo"/> objects.
-  ///
-  /// TCustomTerritoryListBox also implements properties to specify a country flag icon, along
-  /// with its appearance and placement for each individual item.
-  /// </remarks>
-  {$endregion}
-  TCustomTerritoryListBox = class(TCustomFlagListBox)
-  private
-    fTerritories: TTerritoryList;
-    fDisplayName: TTerritoryDisplayName;
-    procedure SetTerritories(Value: TTerritoryList);
-    procedure SetItemSelected(Value: TTerritoryInfo);
-    function GetItemSelected: TTerritoryInfo;
-    procedure SetDisplayName(Value: TTerritoryDisplayName);
-    procedure TerritoriesChanged(Sender: TObject);
-    procedure ReadItemSelected(Reader: TReader);
-    procedure WriteItemSelected(Writer: TWriter);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomTerritoryListBox is the base class for list box controls that represent a list
+/// of <see cref="TTerritoryInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// Use TCustomTerritoryListBox as a base class when defining list box controls that represent
+/// a list of <see cref="TTerritoryInfo"/> objects. TCustomTerritoryListBox has properties and
+/// methods to facilitate displaying, retrieving, sorting, and selecting of the stored
+/// <see cref="TTerritoryInfo"/> objects.
+///
+/// TCustomTerritoryListBox also implements properties to specify a country flag icon, along
+/// with its appearance and placement for each individual item.
+/// </remarks>
+{$Endregion}
+
+  TCustomTerritoryListBox = Class(TCustomFlagListBox)
+   Private
+    fTerritories : TTerritoryList;
+    fDisplayName : TTerritoryDisplayName;
+    Procedure SetTerritories(Value : TTerritoryList);
+    Procedure SetItemSelected(Value : TTerritoryInfo);
+    Function GetItemSelected : TTerritoryInfo;
+    Procedure SetDisplayName(Value : TTerritoryDisplayName);
+    Procedure TerritoriesChanged(Sender : TObject);
+    Procedure ReadItemSelected(Reader : TReader);
+    Procedure WriteItemSelected(Writer : TWriter);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reads and writes the <see cref="ItemSelected"/> property as if it was published.
     /// </summary>
@@ -5426,16 +5445,16 @@ type
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
     /// loading or saving the published properties.
     /// </param>
-    {$endregion}
-    procedure DefineProperties(Filer: TFiler); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DefineProperties(Filer : TFiler); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the internal list of items by display name of the <see cref="TTerritoryInfo"/>
     /// objects in the <see cref="Items"/> property.
     /// </summary>
-    {$endregion}
-    procedure RebuildInternalItems; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RebuildInternalItems; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a country flag icon for the specified item.
     /// </summary>
@@ -5445,25 +5464,25 @@ type
     /// <returns>
     /// The index of a country flag icon or -1 if no icon is available.
     /// </returns>
-    {$endregion}
-    function GetImageIndex(Index: Integer): Integer; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetImageIndex(Index : Integer) : Integer; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the control and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the <see cref="Items"/> property with all the known <see cref="TTerritoryInfo"/>
     /// objects.
@@ -5473,9 +5492,9 @@ type
     /// component, otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="18nCore.TWorld.Territorys"/>
-    {$endregion}
-    function CollectAll: Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function CollectAll : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Retrieves the list of currently selected <see cref="TTerritoryInfo"/> objects.
     /// </summary>
@@ -5483,9 +5502,9 @@ type
     /// The list that receives the selected <see cref="TTerritoryInfo"/> objects.
     /// </param>
     /// <seealso cref="SetSelection"/>
-    {$endregion}
-    procedure GetSelection(Dest: TTerritoryList);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure GetSelection(Dest : TTerritoryList);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Selects the items that are identified by a specified list of <see cref="TTerritoryInfo"/> objects.
     /// </summary>
@@ -5494,560 +5513,562 @@ type
     /// </param>
     /// <seealso cref="GetSelection"/>
     /// <seealso cref="MultiSelect"/>
-    {$endregion}
-    procedure SetSelection(Source: TReadonlyTerritoryList);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure SetSelection(Source : TReadonlyTerritoryList);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TTerritoryInfo.DisplayNames"/> should be
     /// displayed as the label of items.
     /// </summary>
-    {$endregion}
-    property DisplayName: TTerritoryDisplayName read fDisplayName write SetDisplayName default tnFriendlyName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName : TTerritoryDisplayName Read fDisplayName Write SetDisplayName Default tnFriendlyName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the currently selected <see cref="TTerritoryInfo"/> object.
     /// </summary>
-    {$endregion}
-    property ItemSelected: TTerritoryInfo read GetItemSelected write SetItemSelected;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ItemSelected : TTerritoryInfo Read GetItemSelected Write SetItemSelected;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TTerritoryInfo"/> objects in the control.
     /// </summary>
-    {$endregion}
-    property Items: TTerritoryList read fTerritories write SetTerritories;
-  end;
+    {$Endregion}
+    Property Items : TTerritoryList Read fTerritories Write SetTerritories;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TTerritoryListBox is a list box control that represents a list of
-  /// <see cref="TTerritoryInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TTerritoryListBox to enable users to select a <see cref="TTerritoryInfo"/>
-  /// object from a list.
-  ///
-  /// TTerritoryListBox also implements properties to specify a country flag icon,
-  /// along with its appearance and placement for each individual item.
-  ///
-  /// TTerritoryListBox publishes many of the properties, events, and methods of
-  /// <see cref="TCustomTerritoryListBox"/>, but does not introduce any new behavior.
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TTerritoryListBox is a list box control that represents a list of
+/// <see cref="TTerritoryInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// Use TTerritoryListBox to enable users to select a <see cref="TTerritoryInfo"/>
+/// object from a list.
+///
+/// TTerritoryListBox also implements properties to specify a country flag icon,
+/// along with its appearance and placement for each individual item.
+///
+/// TTerritoryListBox publishes many of the properties, events, and methods of
+/// <see cref="TCustomTerritoryListBox"/>, but does not introduce any new behavior.
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TTerritoryListBox = class(TCustomTerritoryListBox)
-  published
-    {$region 'xmldoc'}
+  TTerritoryListBox = Class(TCustomTerritoryListBox)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control aligns within its container (parent control).
     /// </summary>
-    {$endregion}
-    property Align;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Align;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
     /// </summary>
-    {$endregion}
-    property AlignWithMargins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AlignWithMargins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control is anchored to its parent.
     /// </summary>
-    {$endregion}
-    property Anchors;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Anchors;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can give focus to items by typing in the list.
     /// </summary>
-    {$endregion}
-    property AutoComplete;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoComplete;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.
     /// </summary>
-    {$endregion}
-    property AutoCompleteDelay;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoCompleteDelay;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which edges of the control are beveled.
     /// </summary>
-    {$endregion}
-    property BevelEdges;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelEdges;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the inner bevel.
     /// </summary>
-    {$endregion}
-    property BevelInner;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelInner;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the control's bevel style.
     /// </summary>
-    {$endregion}
-    property BevelKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the outer bevel.
     /// </summary>
-    {$endregion}
-    property BevelOuter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelOuter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the control.
     /// </summary>
-    {$endregion}
-    property BiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control has a border.
     /// </summary>
-    {$endregion}
-    property BorderStyle;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderStyle;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color nodefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Nodefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size constraints for the control.
     /// </summary>
-    {$endregion}
-    property Constraints;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Constraints;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control has a three-dimensional look.
     /// </summary>
-    {$endregion}
-    property Ctl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Ctl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of columns, in a multi-column list box, that are visible
     /// without having to scroll.
     /// </summary>
-    {$endregion}
-    property Columns;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Columns;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TTerritoryInfo.DisplayNames"/> should be
     /// displayed as the label of items.
     /// </summary>
-    {$endregion}
-    property DisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
     /// painted to an in-memory bitmap first.
     /// </summary>
-    {$endregion}
-    property DoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
     /// into the region covered by the control.
     /// </summary>
-    {$endregion}
-    property DragCursor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragCursor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control is being dragged normally or for docking.
     /// </summary>
-    {$endregion}
-    property DragKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
     /// </summary>
-    {$endregion}
-    property DragMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can select a sequential range of items in the list box.
     /// </summary>
-    {$endregion}
-    property ExtendedSelect;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ExtendedSelect;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the placement of the flag icon in regard of the text label.
     /// </summary>
-    {$endregion}
-    property FlagPosition;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FlagPosition;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the flag icons that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Flags;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flags;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the behavior of the input method editor (IME).
     /// </summary>
-    {$endregion}
-    property ImeMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the input method editor (IME) to use for converting keyboard input.
     /// </summary>
-    {$endregion}
-    property ImeName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the list box displays the partial items.
     /// </summary>
-    {$endregion}
-    property IntegralHeight;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property IntegralHeight;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TTerritoryInfo"/> objects in the control.
     /// </summary>
-    {$endregion}
-    property Items;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Items;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the currently selected <see cref="TTerritoryInfo"/> object.
     /// </summary>
-    {$endregion}
-    property ItemSelected;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ItemSelected;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the margins of the control.
     /// </summary>
-    {$endregion}
-    property Margins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Margins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can select more than one item at a time.
     /// </summary>
-    {$endregion}
-    property MultiSelect;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property MultiSelect;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
     /// </summary>
-    {$endregion}
-    property ParentColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
     /// </summary>
-    {$endregion}
-    property ParentCtl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentCtl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
     /// </summary>
-    {$endregion}
-    property ParentDoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentDoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the pop-up menu associated with the control.
     /// </summary>
-    {$endregion}
-    property PopupMenu;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PopupMenu;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the width, in pixels, by which the list box can scroll horizontally.
     /// </summary>
-    {$endregion}
-    property ScrollWidth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ScrollWidth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the items in the list are arranged alphabetically.
     /// </summary>
-    {$endregion}
-    property Sorted;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Sorted;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the position of the control in its parent's tab order.
     /// </summary>
-    {$endregion}
-    property TabOrder;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabOrder;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can tab to a control.
     /// </summary>
-    {$endregion}
-    property TabStop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabStop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size of the tabs in the list box.
     /// </summary>
-    {$endregion}
-    property TabWidth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabWidth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the touch manager component associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property Touch;
+    Property Touch;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user clicks the control.
     /// </summary>
-    {$endregion}
-    property OnClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
     /// menu (such as using the keyboard).
     /// </summary>
-    {$endregion}
-    property OnContextPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnContextPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
     /// is over the control.
     /// </summary>
-    {$endregion}
-    property OnDblClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDblClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drops an object being dragged on the control.
     /// </summary>
-    {$endregion}
-    property OnDragDrop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragDrop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drags an object over the control.
     /// </summary>
-    {$endregion}
-    property OnDragOver;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragOver;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when text label of an item needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnDrawItemLabel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDrawItemLabel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDrag;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDrag;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a control receives the input focus.
     /// </summary>
-    {$endregion}
-    property OnEnter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEnter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the input focus shifts away from one control to another.
     /// </summary>
-    {$endregion}
-    property OnExit;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnExit;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when user performs a gesture associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnGesture;
+    Property OnGesture;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when <see cref="Items"/> property changed.
     /// </summary>
-    {$endregion}
-    property OnItemsChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnItemsChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a user presses any key while the control has focus.
     /// </summary>
-    {$endregion}
-    property OnKeyDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when key pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyPress;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyPress;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a key that has been pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control and the parent form is not active.
     /// </summary>
-    {$endregion}
-    property OnMouseActivate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseActivate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control.
     /// </summary>
-    {$endregion}
-    property OnMouseDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
     /// the control.
     /// </summary>
-    {$endregion}
-    property OnMouseMove;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseMove;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
     /// pointer over the control.
     /// </summary>
-    {$endregion}
-    property OnMouseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse into the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseEnter;
+    Property OnMouseEnter;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse outside of the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseLeave;
+    Property OnMouseLeave;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated.
     /// </summary>
-    {$endregion}
-    property OnMouseWheel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated downward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated upward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the control is resized.
     /// </summary>
-    {$endregion}
-    property OnResize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnResize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDock"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnStartDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDrag"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDrag;
-  end;
+    {$Endregion}
+    Property OnStartDrag;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomTerritoryCheckListBox is the base class for check list box controls that
-  /// represent a list of <see cref="TTerritoryInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomTerritoryCheckListBox as a base class when defining controls that represent
-  /// a check list of <see cref="TTerritoryInfo"/> objects. TCustomTerritoryCheckListBox has
-  /// properties and methods to facilitate displaying, retrieving, sorting, and selecting
-  /// of the stored <see cref="TTerritoryInfo"/> objects.
-  ///
-  /// TCustomTerritoryCheckListBox also implements properties to specify a country flag
-  /// icon, along with its appearance and placement for each individual item.
-  /// </remarks>
-  {$endregion}
-  TCustomTerritoryCheckListBox = class(TCustomFlagCheckListBox)
-  private
-    fTerritories: TTerritoryList;
-    fDisplayName: TTerritoryDisplayName;
-    procedure SetTerritories(Value: TTerritoryList);
-    procedure SetItemSelected(Value: TTerritoryInfo);
-    function GetItemSelected: TTerritoryInfo;
-    procedure SetDisplayName(Value: TTerritoryDisplayName);
-    procedure TerritoriesChanged(Sender: TObject);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomTerritoryCheckListBox is the base class for check list box controls that
+/// represent a list of <see cref="TTerritoryInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// Use TCustomTerritoryCheckListBox as a base class when defining controls that represent
+/// a check list of <see cref="TTerritoryInfo"/> objects. TCustomTerritoryCheckListBox has
+/// properties and methods to facilitate displaying, retrieving, sorting, and selecting
+/// of the stored <see cref="TTerritoryInfo"/> objects.
+///
+/// TCustomTerritoryCheckListBox also implements properties to specify a country flag
+/// icon, along with its appearance and placement for each individual item.
+/// </remarks>
+{$Endregion}
+
+  TCustomTerritoryCheckListBox = Class(TCustomFlagCheckListBox)
+   Private
+    fTerritories : TTerritoryList;
+    fDisplayName : TTerritoryDisplayName;
+    Procedure SetTerritories(Value : TTerritoryList);
+    Procedure SetItemSelected(Value : TTerritoryInfo);
+    Function GetItemSelected : TTerritoryInfo;
+    Procedure SetDisplayName(Value : TTerritoryDisplayName);
+    Procedure TerritoriesChanged(Sender : TObject);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the internal list of items by display name of the <see cref="TTerritoryInfo"/>
     /// objects in the <see cref="Items"/> property.
     /// </summary>
-    {$endregion}
-    procedure RebuildInternalItems; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RebuildInternalItems; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a country flag icon for the specified item.
     /// </summary>
@@ -6057,25 +6078,25 @@ type
     /// <returns>
     /// The index of a country flag icon or -1 if no icon is available.
     /// </returns>
-    {$endregion}
-    function GetImageIndex(Index: Integer): Integer; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetImageIndex(Index : Integer) : Integer; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the control and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the <see cref="Items"/> property with all the known <see cref="TTerritoryInfo"/>
     /// objects.
@@ -6085,9 +6106,9 @@ type
     /// component, otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="18nCore.TWorld.Territorys"/>
-    {$endregion}
-    function CollectAll: Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function CollectAll : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Retrieves the list of checked <see cref="TTerritoryInfo"/> objects.
     /// </summary>
@@ -6098,9 +6119,9 @@ type
     /// Determines whether the disabled items can be retrieved.
     /// </param>
     /// <seealso cref="SetSelection"/>
-    {$endregion}
-    procedure GetSelection(Dest: TTerritoryList; AllowDisabled: Boolean = True); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure GetSelection(Dest : TTerritoryList; AllowDisabled : Boolean = True); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes the items that are identified by a specified list of <see cref="TTerritoryInfo"/> objects.
     /// </summary>
@@ -6111,549 +6132,551 @@ type
     /// Determines whether the disabled items can be altered.
     /// </param>
     /// <seealso cref="GetSelection"/>
-    {$endregion}
-    procedure SetSelection(Source: TReadonlyTerritoryList; AllowDisabled: Boolean = True); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure SetSelection(Source : TReadonlyTerritoryList; AllowDisabled : Boolean = True); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TTerritoryInfo.DisplayNames"/> should be
     /// displayed as the label of items.
     /// </summary>
-    {$endregion}
-    property DisplayName: TTerritoryDisplayName read fDisplayName write SetDisplayName default tnFriendlyName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName : TTerritoryDisplayName Read fDisplayName Write SetDisplayName Default tnFriendlyName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the currently selected <see cref="TTerritoryInfo"/> object.
     /// </summary>
-    {$endregion}
-    property ItemSelected: TTerritoryInfo read GetItemSelected write SetItemSelected;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ItemSelected : TTerritoryInfo Read GetItemSelected Write SetItemSelected;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TTerritoryInfo"/> objects in the control.
     /// </summary>
-    {$endregion}
-    property Items: TTerritoryList read fTerritories write SetTerritories;
-  end;
+    {$Endregion}
+    Property Items : TTerritoryList Read fTerritories Write SetTerritories;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TTerritoryCheckListBox is a check list box control that represents a list of
-  /// <see cref="TTerritoryInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TTerritoryCheckListBox to enable users to select multiple <see cref="TTerritoryInfo"/>
-  /// objects from a list.
-  ///
-  /// TTerritoryCheckListBox also implements properties to specify a country flag icon,
-  /// along with its appearance and placement for each individual item.
-  ///
-  /// TTerritoryCheckListBox publishes many of the properties, events, and methods of
-  /// <see cref="TCustomTerritoryCheckListBox"/>, but does not introduce any new behavior.
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TTerritoryCheckListBox is a check list box control that represents a list of
+/// <see cref="TTerritoryInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// Use TTerritoryCheckListBox to enable users to select multiple <see cref="TTerritoryInfo"/>
+/// objects from a list.
+///
+/// TTerritoryCheckListBox also implements properties to specify a country flag icon,
+/// along with its appearance and placement for each individual item.
+///
+/// TTerritoryCheckListBox publishes many of the properties, events, and methods of
+/// <see cref="TCustomTerritoryCheckListBox"/>, but does not introduce any new behavior.
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TTerritoryCheckListBox = class(TCustomTerritoryCheckListBox)
-  published
-    {$region 'xmldoc'}
+  TTerritoryCheckListBox = Class(TCustomTerritoryCheckListBox)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control aligns within its container (parent control).
     /// </summary>
-    {$endregion}
-    property Align;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Align;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
     /// </summary>
-    {$endregion}
-    property AlignWithMargins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AlignWithMargins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check boxes can be in a "grayed" state.
     /// </summary>
-    {$endregion}
-    property AllowGrayed;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AllowGrayed;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control is anchored to its parent.
     /// </summary>
-    {$endregion}
-    property Anchors;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Anchors;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can give focus to items by typing in the list.
     /// </summary>
-    {$endregion}
-    property AutoComplete;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoComplete;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.
     /// </summary>
-    {$endregion}
-    property AutoCompleteDelay;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoCompleteDelay;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which edges of the control are beveled.
     /// </summary>
-    {$endregion}
-    property BevelEdges;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelEdges;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the inner bevel.
     /// </summary>
-    {$endregion}
-    property BevelInner;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelInner;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the control's bevel style.
     /// </summary>
-    {$endregion}
-    property BevelKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the outer bevel.
     /// </summary>
-    {$endregion}
-    property BevelOuter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelOuter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the control.
     /// </summary>
-    {$endregion}
-    property BiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control has a border.
     /// </summary>
-    {$endregion}
-    property BorderStyle;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderStyle;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color nodefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Nodefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size constraints for the control.
     /// </summary>
-    {$endregion}
-    property Constraints;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Constraints;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control has a three-dimensional look.
     /// </summary>
-    {$endregion}
-    property Ctl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Ctl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of columns, in a multi-column list box, that are visible
     /// without having to scroll.
     /// </summary>
-    {$endregion}
-    property Columns;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Columns;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TTerritoryInfo.DisplayNames"/> should be
     /// displayed as the label of items.
     /// </summary>
-    {$endregion}
-    property DisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
     /// painted to an in-memory bitmap first.
     /// </summary>
-    {$endregion}
-    property DoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
     /// into the region covered by the control.
     /// </summary>
-    {$endregion}
-    property DragCursor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragCursor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control is being dragged normally or for docking.
     /// </summary>
-    {$endregion}
-    property DragKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
     /// </summary>
-    {$endregion}
-    property DragMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the placement of the flag icon in regard of the text label.
     /// </summary>
-    {$endregion}
-    property FlagPosition;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FlagPosition;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the flag icons that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Flags;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flags;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check boxes appear three-dimensional.
     /// </summary>
-    {$endregion}
-    property Flat;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flat;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the behavior of the input method editor (IME).
     /// </summary>
-    {$endregion}
-    property ImeMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the input method editor (IME) to use for converting keyboard input.
     /// </summary>
-    {$endregion}
-    property ImeName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the list box displays the partial items.
     /// </summary>
-    {$endregion}
-    property IntegralHeight;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property IntegralHeight;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TTerritoryInfo"/> objects in the control.
     /// </summary>
-    {$endregion}
-    property Items;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Items;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the margins of the control.
     /// </summary>
-    {$endregion}
-    property Margins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Margins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
     /// </summary>
-    {$endregion}
-    property ParentColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
     /// </summary>
-    {$endregion}
-    property ParentCtl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentCtl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
     /// </summary>
-    {$endregion}
-    property ParentDoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentDoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the pop-up menu associated with the control.
     /// </summary>
-    {$endregion}
-    property PopupMenu;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PopupMenu;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the width, in pixels, by which the list box can scroll horizontally.
     /// </summary>
-    {$endregion}
-    property ScrollWidth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ScrollWidth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the items in the list are arranged alphabetically.
     /// </summary>
-    {$endregion}
-    property Sorted;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Sorted;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the position of the control in its parent's tab order.
     /// </summary>
-    {$endregion}
-    property TabOrder;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabOrder;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can tab to a control.
     /// </summary>
-    {$endregion}
-    property TabStop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabStop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size of the tabs in the list box.
     /// </summary>
-    {$endregion}
-    property TabWidth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabWidth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the touch manager component associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property Touch;
+    Property Touch;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user clicks the control.
     /// </summary>
-    {$endregion}
-    property OnClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user selects or deselects an item's check box.
     /// </summary>
-    {$endregion}
-    property OnClickCheck;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClickCheck;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
     /// menu (such as using the keyboard).
     /// </summary>
-    {$endregion}
-    property OnContextPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnContextPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
     /// is over the control.
     /// </summary>
-    {$endregion}
-    property OnDblClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDblClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drops an object being dragged on the control.
     /// </summary>
-    {$endregion}
-    property OnDragDrop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragDrop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drags an object over the control.
     /// </summary>
-    {$endregion}
-    property OnDragOver;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragOver;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when text label of an item needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnDrawItemLabel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDrawItemLabel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDrag;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDrag;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a control receives the input focus.
     /// </summary>
-    {$endregion}
-    property OnEnter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEnter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the input focus shifts away from one control to another.
     /// </summary>
-    {$endregion}
-    property OnExit;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnExit;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when user performs a gesture associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnGesture;
+    Property OnGesture;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when <see cref="Items"/> property changed.
     /// </summary>
-    {$endregion}
-    property OnItemsChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnItemsChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a user presses any key while the control has focus.
     /// </summary>
-    {$endregion}
-    property OnKeyDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when key pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyPress;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyPress;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a key that has been pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control and the parent form is not active.
     /// </summary>
-    {$endregion}
-    property OnMouseActivate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseActivate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control.
     /// </summary>
-    {$endregion}
-    property OnMouseDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
     /// the control.
     /// </summary>
-    {$endregion}
-    property OnMouseMove;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseMove;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
     /// pointer over the control.
     /// </summary>
-    {$endregion}
-    property OnMouseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse into the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseEnter;
+    Property OnMouseEnter;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse outside of the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseLeave;
+    Property OnMouseLeave;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated.
     /// </summary>
-    {$endregion}
-    property OnMouseWheel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated downward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated upward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the control is resized.
     /// </summary>
-    {$endregion}
-    property OnResize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnResize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDock"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnStartDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDrag"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDrag;
-  end;
+    {$Endregion}
+    Property OnStartDrag;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomCurrencyLabel is the base class for label controls that display a
-  /// <see cref="TCurrencyInfo"/> object on a form.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomCurrencyLabel as a base class when defining objects that display a
-  /// <see cref="TCurrencyInfo"/> object. TCustomCurrencyLabel implements properties
-  /// to specify the <see cref="TCurrencyInfo"/> object, along with its interested piece
-  /// of information that should be displayed.
-  /// </remarks>
-  {$endregion}
-  TCustomCurrencyLabel = class(TCustomFlagLabel)
-  private
-    fCurrency: TCurrencyInfo;
-    fDisplayName: TCurrencyDisplayName;
-    procedure SetCurrency(Value: TCurrencyInfo);
-    procedure SetDisplayName(Value: TCurrencyDisplayName);
-    procedure ReadCurrency(Reader: TReader);
-    procedure WriteCurrency(Writer: TWriter);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomCurrencyLabel is the base class for label controls that display a
+/// <see cref="TCurrencyInfo"/> object on a form.
+/// </summary>
+/// <remarks>
+/// Use TCustomCurrencyLabel as a base class when defining objects that display a
+/// <see cref="TCurrencyInfo"/> object. TCustomCurrencyLabel implements properties
+/// to specify the <see cref="TCurrencyInfo"/> object, along with its interested piece
+/// of information that should be displayed.
+/// </remarks>
+{$Endregion}
+
+  TCustomCurrencyLabel = Class(TCustomFlagLabel)
+   Private
+    fCurrency    : TCurrencyInfo;
+    fDisplayName : TCurrencyDisplayName;
+    Procedure SetCurrency(Value : TCurrencyInfo);
+    Procedure SetDisplayName(Value : TCurrencyDisplayName);
+    Procedure ReadCurrency(Reader : TReader);
+    Procedure WriteCurrency(Writer : TWriter);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reads and writes the <see cref="Currency"/> property as if it was published.
     /// </summary>
@@ -6661,471 +6684,473 @@ type
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
     /// loading or saving the published properties.
     /// </param>
-    {$endregion}
-    procedure DefineProperties(Filer: TFiler); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DefineProperties(Filer : TFiler); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a country flag icon to display on the control.
     /// </summary>
     /// <returns>
     /// The index of a country flag icon or -1 if no icon should be displayed.
     /// </returns>
-    {$endregion}
-    function GetImageIndex: TImageIndex; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetImageIndex : TImageIndex; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a text label to display for on the control.
     /// </summary>
     /// <returns>
     /// The text label.
     /// </returns>
-    {$endregion}
-    function GetLabelText: String; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetLabelText : String; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCurrencyInfo.DisplayNames"/> should be
     /// displayed as the text label on the control.
     /// </summary>
-    {$endregion}
-    property DisplayName: TCurrencyDisplayName read fDisplayName write SetDisplayName default crnEnglishName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName : TCurrencyDisplayName Read fDisplayName Write SetDisplayName Default crnEnglishName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCurrencyInfo"/> object that the control is displaying.
     /// </summary>
-    {$endregion}
-    property Currency: TCurrencyInfo read fCurrency write SetCurrency;
-  end;
+    {$Endregion}
+    Property Currency : TCurrencyInfo Read fCurrency Write SetCurrency;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCurrencyLabel is a label control that displays a <see cref="TCurrencyInfo"/> object
-  /// on a form.
-  /// </summary>
-  /// <remarks>
-  /// Use TCurrencyLabel to display a <see cref="TCurrencyInfo"/> object on a form. The
-  /// <see cref="Currency"/> and <see cref="DisplayName"/> properties determine the content
-  /// that will be displayed.
-  ///
-  /// TCurrencyLabel publishes many of the properties, events, and methods of
-  /// <see cref="TCustomCurrencyLabel"/>, but does not introduce any new behavior.
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TCurrencyLabel is a label control that displays a <see cref="TCurrencyInfo"/> object
+/// on a form.
+/// </summary>
+/// <remarks>
+/// Use TCurrencyLabel to display a <see cref="TCurrencyInfo"/> object on a form. The
+/// <see cref="Currency"/> and <see cref="DisplayName"/> properties determine the content
+/// that will be displayed.
+///
+/// TCurrencyLabel publishes many of the properties, events, and methods of
+/// <see cref="TCustomCurrencyLabel"/>, but does not introduce any new behavior.
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TCurrencyLabel = class(TCustomCurrencyLabel)
-  published
-    {$region 'xmldoc'}
+  TCurrencyLabel = Class(TCustomCurrencyLabel)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control aligns within its container (parent control).
     /// </summary>
-    {$endregion}
-    property Align;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Align;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the horizontal placement of the text within the label.
     /// </summary>
-    {$endregion}
-    property Alignment;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Alignment;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
     /// </summary>
-    {$endregion}
-    property AlignWithMargins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AlignWithMargins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control is anchored to its parent.
     /// </summary>
-    {$endregion}
-    property Anchors;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Anchors;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control sizes itself automatically to accommodate
     /// its contents.
     /// </summary>
-    {$endregion}
-    property AutoSize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoSize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the control.
     /// </summary>
-    {$endregion}
-    property BiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the color of the control's border.
     /// </summary>
-    {$endregion}
-    property BorderColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the width of the control's border.
     /// </summary>
-    {$endregion}
-    property BorderWidth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderWidth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text of the label when <see cref="Currency"/> property has no value.
     /// </summary>
-    {$endregion}
-    property Caption;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Caption;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color nodefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Nodefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size constraints for the control.
     /// </summary>
-    {$endregion}
-    property Constraints;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Constraints;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCurrencyInfo"/> object that the control is displaying.
     /// </summary>
-    {$endregion}
-    property Currency;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Currency;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCurrencyInfo.DisplayNames"/> should be
     /// displayed as the text label on the control.
     /// </summary>
-    {$endregion}
-    property DisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
     /// into the region covered by the control.
     /// </summary>
-    {$endregion}
-    property DragCursor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragCursor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control is being dragged normally or for docking.
     /// </summary>
-    {$endregion}
-    property DragKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
     /// </summary>
-    {$endregion}
-    property DragMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the flag icons that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Flags;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flags;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets a windowed control associated with the label.
     /// </summary>
-    {$endregion}
-    property FocusControl;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FocusControl;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the radius of the glow around the label.
     /// NOTE: This feature is only available in Windows Vista and later.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property GlowSize;
+    Property GlowSize;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the margins of the control.
     /// </summary>
-    {$endregion}
-    property Margins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Margins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the distance between the image and the text from the control's border.
     /// </summary>
-    {$endregion}
-    property Padding;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Padding;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
     /// </summary>
-    {$endregion}
-    property ParentColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the pop-up menu associated with the control.
     /// </summary>
-    {$endregion}
-    property PopupMenu;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PopupMenu;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how an ampersand in the label text is displayed.
     /// </summary>
-    {$endregion}
-    property ShowAccelChar;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowAccelChar;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of pixels between the image and the text of the control.
     /// </summary>
-    {$endregion}
-    property Spacing;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Spacing;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the touch manager component associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property Touch;
+    Property Touch;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether controls that sit below the label on a form can be seen
     /// through the label.
     /// </summary>
-    {$endregion}
-    property Transparent;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Transparent;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the vertical placement of the text within the label.
     /// </summary>
-    {$endregion}
-    property Layout;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Layout;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets Specifies whether the label text wraps when it is too long for the
     /// width of the label.
     /// </summary>
-    {$endregion}
-    property WordWrap;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property WordWrap;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user clicks the control.
     /// </summary>
-    {$endregion}
-    property OnClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
     /// menu (such as using the keyboard).
     /// </summary>
-    {$endregion}
-    property OnContextPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnContextPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
     /// is over the control.
     /// </summary>
-    {$endregion}
-    property OnDblClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDblClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drops an object being dragged on the control.
     /// </summary>
-    {$endregion}
-    property OnDragDrop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragDrop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drags an object over the control.
     /// </summary>
-    {$endregion}
-    property OnDragOver;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragOver;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDrag;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDrag;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when user performs a gesture associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnGesture;
+    Property OnGesture;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control and the parent form is not active.
     /// </summary>
-    {$endregion}
-    property OnMouseActivate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseActivate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control.
     /// </summary>
-    {$endregion}
-    property OnMouseDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
     /// the control.
     /// </summary>
-    {$endregion}
-    property OnMouseMove;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseMove;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
     /// pointer over the control.
     /// </summary>
-    {$endregion}
-    property OnMouseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse into the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseEnter;
+    Property OnMouseEnter;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse outside of the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseLeave;
+    Property OnMouseLeave;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated.
     /// </summary>
-    {$endregion}
-    property OnMouseWheel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated downward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated upward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the control is resized.
     /// </summary>
-    {$endregion}
-    property OnResize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnResize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDock"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnStartDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDrag"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDrag;
-  end;
+    {$Endregion}
+    Property OnStartDrag;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomCurrencyBox is the base class for combo box controls that represent a list
-  /// of <see cref="TCurrencyInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomCurrencyBox as a base class when defining combo box controls that represent
-  /// a list of <see cref="TCurrencyInfo"/> objects. TCustomCurrencyBox has properties and
-  /// methods to facilitate displaying, retrieving, sorting, and selecting of the stored
-  /// <see cref="TCurrencyInfo"/> objects.
-  ///
-  /// TCustomCurrencyBox also implements properties to specify a country flag icon, along
-  /// with its appearance and placement for each individual item.
-  /// </remarks>
-  {$endregion}
-  TCustomCurrencyBox = class(TCustomFlagBox)
-  private
-    fCurrencies: TCurrencyList;
-    fDisplayName: TCurrencyDisplayName;
-    procedure SetCurrencies(Value: TCurrencyList);
-    procedure SetItemSelected(Value: TCurrencyInfo);
-    function GetItemSelected: TCurrencyInfo;
-    procedure SetDisplayName(Value: TCurrencyDisplayName);
-    procedure CurrenciesChanged(Sender: TObject);
-    procedure ReadItemSelected(Reader: TReader);
-    procedure WriteItemSelected(Writer: TWriter);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomCurrencyBox is the base class for combo box controls that represent a list
+/// of <see cref="TCurrencyInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// Use TCustomCurrencyBox as a base class when defining combo box controls that represent
+/// a list of <see cref="TCurrencyInfo"/> objects. TCustomCurrencyBox has properties and
+/// methods to facilitate displaying, retrieving, sorting, and selecting of the stored
+/// <see cref="TCurrencyInfo"/> objects.
+///
+/// TCustomCurrencyBox also implements properties to specify a country flag icon, along
+/// with its appearance and placement for each individual item.
+/// </remarks>
+{$Endregion}
+
+  TCustomCurrencyBox = Class(TCustomFlagBox)
+   Private
+    fCurrencies  : TCurrencyList;
+    fDisplayName : TCurrencyDisplayName;
+    Procedure SetCurrencies(Value : TCurrencyList);
+    Procedure SetItemSelected(Value : TCurrencyInfo);
+    Function GetItemSelected : TCurrencyInfo;
+    Procedure SetDisplayName(Value : TCurrencyDisplayName);
+    Procedure CurrenciesChanged(Sender : TObject);
+    Procedure ReadItemSelected(Reader : TReader);
+    Procedure WriteItemSelected(Writer : TWriter);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reads and writes the <see cref="ItemSelected"/> property as if it was published.
     /// </summary>
@@ -7133,16 +7158,16 @@ type
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
     /// loading or saving the published properties.
     /// </param>
-    {$endregion}
-    procedure DefineProperties(Filer: TFiler); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DefineProperties(Filer : TFiler); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the internal list of items by display name of the <see cref="TCurrencyInfo"/>
     /// objects in the <see cref="Items"/> property.
     /// </summary>
-    {$endregion}
-    procedure RebuildInternalItems; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RebuildInternalItems; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a country flag icon for the specified item.
     /// </summary>
@@ -7152,25 +7177,25 @@ type
     /// <returns>
     /// The index of a country flag icon or -1 if no icon is available.
     /// </returns>
-    {$endregion}
-    function GetImageIndex(Index: Integer): Integer; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetImageIndex(Index : Integer) : Integer; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the control and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the <see cref="Items"/> property with all the known <see cref="TCurrencyInfo"/>
     /// objects.
@@ -7179,556 +7204,558 @@ type
     /// Returns <see langword="true"/>.
     /// </returns>
     /// <seealso cref="18nCore.TWorld.Currencies"/>
-    {$endregion}
-    function CollectAll: Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function CollectAll : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCurrencyInfo.DisplayNames"/> should be
     /// displayed as the label of items.
     /// </summary>
-    {$endregion}
-    property DisplayName: TCurrencyDisplayName read fDisplayName write SetDisplayName default crnEnglishName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName : TCurrencyDisplayName Read fDisplayName Write SetDisplayName Default crnEnglishName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the currently selected <see cref="TCurrencyInfo"/> object.
     /// </summary>
-    {$endregion}
-    property ItemSelected: TCurrencyInfo read GetItemSelected write SetItemSelected;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ItemSelected : TCurrencyInfo Read GetItemSelected Write SetItemSelected;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TCurrencyInfo"/> objects in the control.
     /// </summary>
-    {$endregion}
-    property Items: TCurrencyList read fCurrencies write SetCurrencies;
-  end;
+    {$Endregion}
+    Property Items : TCurrencyList Read fCurrencies Write SetCurrencies;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCurrencyBox is a combo box control that represents a list of <see cref="TCurrencyInfo"/>
-  /// objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TCurrencyBox to enable users to select a <see cref="TCurrencyInfo"/> object from a list.
-  ///
-  /// TCurrencyBox also implements properties to specify a country flag icon, along with its
-  /// appearance and placement for each individual item.
-  ///
-  /// TCurrencyBox publishes many of the properties, events, and methods of
-  /// <see cref="TCustomCurrencyBox"/>, but does not introduce any new behavior.
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TCurrencyBox is a combo box control that represents a list of <see cref="TCurrencyInfo"/>
+/// objects.
+/// </summary>
+/// <remarks>
+/// Use TCurrencyBox to enable users to select a <see cref="TCurrencyInfo"/> object from a list.
+///
+/// TCurrencyBox also implements properties to specify a country flag icon, along with its
+/// appearance and placement for each individual item.
+///
+/// TCurrencyBox publishes many of the properties, events, and methods of
+/// <see cref="TCustomCurrencyBox"/>, but does not introduce any new behavior.
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TCurrencyBox = class(TCustomCurrencyBox)
-  published
-    {$region 'xmldoc'}
+  TCurrencyBox = Class(TCustomCurrencyBox)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control aligns within its container (parent control).
     /// </summary>
-    {$endregion}
-    property Align;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Align;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
     /// </summary>
-    {$endregion}
-    property AlignWithMargins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AlignWithMargins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control is anchored to its parent.
     /// </summary>
-    {$endregion}
-    property Anchors;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Anchors;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can give focus to items by typing in the list.
     /// </summary>
-    {$endregion}
-    property AutoComplete;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoComplete;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.
     /// </summary>
-    {$endregion}
-    property AutoCompleteDelay;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoCompleteDelay;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the drop-down closes up automatically when the user selects an item.
     /// </summary>
-    {$endregion}
-    property AutoCloseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoCloseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the drop-down list drops down automatically in response to user keystrokes.
     /// </summary>
-    {$endregion}
-    property AutoDropDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoDropDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which edges of the control are beveled.
     /// </summary>
-    {$endregion}
-    property BevelEdges;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelEdges;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the inner bevel.
     /// </summary>
-    {$endregion}
-    property BevelInner;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelInner;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the control's bevel style.
     /// </summary>
-    {$endregion}
-    property BevelKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the outer bevel.
     /// </summary>
-    {$endregion}
-    property BevelOuter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelOuter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the control.
     /// </summary>
-    {$endregion}
-    property BiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color nodefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Nodefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size constraints for the control.
     /// </summary>
-    {$endregion}
-    property Constraints;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Constraints;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control has a three-dimensional look.
     /// </summary>
-    {$endregion}
-    property Ctl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Ctl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCurrencyInfo.DisplayNames"/> should be
     /// displayed as the label of items.
     /// </summary>
-    {$endregion}
-    property DisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
     /// painted to an in-memory bitmap first.
     /// </summary>
-    {$endregion}
-    property DoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
     /// into the region covered by the control.
     /// </summary>
-    {$endregion}
-    property DragCursor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragCursor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control is being dragged normally or for docking.
     /// </summary>
-    {$endregion}
-    property DragKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
     /// </summary>
-    {$endregion}
-    property DragMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the maximum number of items displayed in the drop-down list.
     /// </summary>
-    {$endregion}
-    property DropDownCount;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DropDownCount;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the placement of the flag icon in regard of the text label.
     /// </summary>
-    {$endregion}
-    property FlagPosition;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FlagPosition;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the flag icons that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Flags;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flags;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the behavior of the input method editor (IME).
     /// </summary>
-    {$endregion}
-    property ImeMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the input method editor (IME) to use for converting keyboard input.
     /// </summary>
-    {$endregion}
-    property ImeName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TCurrencyInfo"/> objects in the control.
     /// </summary>
-    {$endregion}
-    property Items;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Items;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the currently selected <see cref="TCurrencyInfo"/> object.
     /// </summary>
-    {$endregion}
-    property ItemSelected;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ItemSelected;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the margins of the control.
     /// </summary>
-    {$endregion}
-    property Margins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Margins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
     /// </summary>
-    {$endregion}
-    property ParentColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
     /// </summary>
-    {$endregion}
-    property ParentCtl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentCtl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
     /// </summary>
-    {$endregion}
-    property ParentDoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentDoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the pop-up menu associated with the control.
     /// </summary>
-    {$endregion}
-    property PopupMenu;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PopupMenu;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the items in the list are arranged alphabetically.
     /// </summary>
-    {$endregion}
-    property Sorted;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Sorted;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the position of the control in its parent's tab order.
     /// </summary>
-    {$endregion}
-    property TabOrder;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabOrder;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can tab to a control.
     /// </summary>
-    {$endregion}
-    property TabStop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabStop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text that is displayed as a text watermark in the control.
     /// NOTE: This feature is only available in Windows Vista and later.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property TextHint;
+    Property TextHint;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the touch manager component associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property Touch;
+    Property Touch;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user clicks the control.
     /// </summary>
-    {$endregion}
-    property OnClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the drop-down list closes up due to some user action.
     /// </summary>
-    {$endregion}
-    property OnCloseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCloseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
     /// menu (such as using the keyboard).
     /// </summary>
-    {$endregion}
-    property OnContextPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnContextPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
     /// is over the control.
     /// </summary>
-    {$endregion}
-    property OnDblClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDblClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drops an object being dragged on the control.
     /// </summary>
-    {$endregion}
-    property OnDragDrop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragDrop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drags an object over the control.
     /// </summary>
-    {$endregion}
-    property OnDragOver;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragOver;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when text label of an item needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnDrawItemLabel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDrawItemLabel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user opens the drop-down list.
     /// </summary>
-    {$endregion}
-    property OnDropDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDropDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDrag;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDrag;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a control receives the input focus.
     /// </summary>
-    {$endregion}
-    property OnEnter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEnter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the input focus shifts away from one control to another.
     /// </summary>
-    {$endregion}
-    property OnExit;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnExit;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when user performs a gesture associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnGesture;
+    Property OnGesture;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when <see cref="Items"/> property changed.
     /// </summary>
-    {$endregion}
-    property OnItemsChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnItemsChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a user presses any key while the control has focus.
     /// </summary>
-    {$endregion}
-    property OnKeyDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when key pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyPress;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyPress;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a key that has been pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control and the parent form is not active.
     /// </summary>
-    {$endregion}
-    property OnMouseActivate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseActivate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control.
     /// </summary>
-    {$endregion}
-    property OnMouseDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
     /// the control.
     /// </summary>
-    {$endregion}
-    property OnMouseMove;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseMove;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
     /// pointer over the control.
     /// </summary>
-    {$endregion}
-    property OnMouseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse into the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseEnter;
+    Property OnMouseEnter;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse outside of the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseLeave;
+    Property OnMouseLeave;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated.
     /// </summary>
-    {$endregion}
-    property OnMouseWheel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated downward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated upward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the control is resized.
     /// </summary>
-    {$endregion}
-    property OnResize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnResize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user selects an item in the drop-down list
     /// </summary>
-    {$endregion}
-    property OnSelect;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnSelect;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDock"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnStartDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDrag"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDrag;
-  end;
+    {$Endregion}
+    Property OnStartDrag;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomCurrencyListBox is the base class for list box controls that represent a list
-  /// of <see cref="TCurrencyInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomCurrencyListBox as a base class when defining list box controls that represent
-  /// a list of <see cref="TCurrencyInfo"/> objects. TCustomCurrencyListBox has properties and
-  /// methods to facilitate displaying, retrieving, sorting, and selecting of the stored
-  /// <see cref="TCurrencyInfo"/> objects.
-  ///
-  /// TCustomCurrencyListBox also implements properties to specify a country flag icon, along
-  /// with its appearance and placement for each individual item.
-  /// </remarks>
-  {$endregion}
-  TCustomCurrencyListBox = class(TCustomFlagListBox)
-  private
-    fCurrencies: TCurrencyList;
-    fDisplayName: TCurrencyDisplayName;
-    procedure SetCurrencies(Value: TCurrencyList);
-    procedure SetItemSelected(Value: TCurrencyInfo);
-    function GetItemSelected: TCurrencyInfo;
-    procedure SetDisplayName(Value: TCurrencyDisplayName);
-    procedure CurrenciesChanged(Sender: TObject);
-    procedure ReadItemSelected(Reader: TReader);
-    procedure WriteItemSelected(Writer: TWriter);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomCurrencyListBox is the base class for list box controls that represent a list
+/// of <see cref="TCurrencyInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// Use TCustomCurrencyListBox as a base class when defining list box controls that represent
+/// a list of <see cref="TCurrencyInfo"/> objects. TCustomCurrencyListBox has properties and
+/// methods to facilitate displaying, retrieving, sorting, and selecting of the stored
+/// <see cref="TCurrencyInfo"/> objects.
+///
+/// TCustomCurrencyListBox also implements properties to specify a country flag icon, along
+/// with its appearance and placement for each individual item.
+/// </remarks>
+{$Endregion}
+
+  TCustomCurrencyListBox = Class(TCustomFlagListBox)
+   Private
+    fCurrencies  : TCurrencyList;
+    fDisplayName : TCurrencyDisplayName;
+    Procedure SetCurrencies(Value : TCurrencyList);
+    Procedure SetItemSelected(Value : TCurrencyInfo);
+    Function GetItemSelected : TCurrencyInfo;
+    Procedure SetDisplayName(Value : TCurrencyDisplayName);
+    Procedure CurrenciesChanged(Sender : TObject);
+    Procedure ReadItemSelected(Reader : TReader);
+    Procedure WriteItemSelected(Writer : TWriter);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reads and writes the <see cref="ItemSelected"/> property as if it was published.
     /// </summary>
@@ -7736,16 +7763,16 @@ type
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
     /// loading or saving the published properties.
     /// </param>
-    {$endregion}
-    procedure DefineProperties(Filer: TFiler); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DefineProperties(Filer : TFiler); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the internal list of items by display name of the <see cref="TCurrencyInfo"/>
     /// objects in the <see cref="Items"/> property.
     /// </summary>
-    {$endregion}
-    procedure RebuildInternalItems; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RebuildInternalItems; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a country flag icon for the specified item.
     /// </summary>
@@ -7755,25 +7782,25 @@ type
     /// <returns>
     /// The index of a country flag icon or -1 if no icon is available.
     /// </returns>
-    {$endregion}
-    function GetImageIndex(Index: Integer): Integer; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetImageIndex(Index : Integer) : Integer; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the control and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the <see cref="Items"/> property with all the known <see cref="TCurrencyInfo"/>
     /// objects.
@@ -7783,9 +7810,9 @@ type
     /// component, otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="18nCore.TWorld.Currencys"/>
-    {$endregion}
-    function CollectAll: Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function CollectAll : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Retrieves the list of currently selected <see cref="TCurrencyInfo"/> objects.
     /// </summary>
@@ -7793,9 +7820,9 @@ type
     /// The list that receives the selected <see cref="TCurrencyInfo"/> objects.
     /// </param>
     /// <seealso cref="SetSelection"/>
-    {$endregion}
-    procedure GetSelection(Dest: TCurrencyList);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure GetSelection(Dest : TCurrencyList);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Selects the items that are identified by a specified list of <see cref="TCurrencyInfo"/> objects.
     /// </summary>
@@ -7804,560 +7831,562 @@ type
     /// </param>
     /// <seealso cref="GetSelection"/>
     /// <seealso cref="MultiSelect"/>
-    {$endregion}
-    procedure SetSelection(Source: TReadonlyCurrencyList);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure SetSelection(Source : TReadonlyCurrencyList);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCurrencyInfo.DisplayNames"/> should be
     /// displayed as the label of items.
     /// </summary>
-    {$endregion}
-    property DisplayName: TCurrencyDisplayName read fDisplayName write SetDisplayName default crnEnglishName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName : TCurrencyDisplayName Read fDisplayName Write SetDisplayName Default crnEnglishName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the currently selected <see cref="TCurrencyInfo"/> object.
     /// </summary>
-    {$endregion}
-    property ItemSelected: TCurrencyInfo read GetItemSelected write SetItemSelected;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ItemSelected : TCurrencyInfo Read GetItemSelected Write SetItemSelected;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TCurrencyInfo"/> objects in the control.
     /// </summary>
-    {$endregion}
-    property Items: TCurrencyList read fCurrencies write SetCurrencies;
-  end;
+    {$Endregion}
+    Property Items : TCurrencyList Read fCurrencies Write SetCurrencies;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCurrencyListBox is a list box control that represents a list of
-  /// <see cref="TCurrencyInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TCurrencyListBox to enable users to select a <see cref="TCurrencyInfo"/>
-  /// object from a list.
-  ///
-  /// TCurrencyListBox also implements properties to specify a country flag icon,
-  /// along with its appearance and placement for each individual item.
-  ///
-  /// TCurrencyListBox publishes many of the properties, events, and methods of
-  /// <see cref="TCustomCurrencyListBox"/>, but does not introduce any new behavior.
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TCurrencyListBox is a list box control that represents a list of
+/// <see cref="TCurrencyInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// Use TCurrencyListBox to enable users to select a <see cref="TCurrencyInfo"/>
+/// object from a list.
+///
+/// TCurrencyListBox also implements properties to specify a country flag icon,
+/// along with its appearance and placement for each individual item.
+///
+/// TCurrencyListBox publishes many of the properties, events, and methods of
+/// <see cref="TCustomCurrencyListBox"/>, but does not introduce any new behavior.
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TCurrencyListBox = class(TCustomCurrencyListBox)
-  published
-    {$region 'xmldoc'}
+  TCurrencyListBox = Class(TCustomCurrencyListBox)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control aligns within its container (parent control).
     /// </summary>
-    {$endregion}
-    property Align;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Align;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
     /// </summary>
-    {$endregion}
-    property AlignWithMargins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AlignWithMargins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control is anchored to its parent.
     /// </summary>
-    {$endregion}
-    property Anchors;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Anchors;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can give focus to items by typing in the list.
     /// </summary>
-    {$endregion}
-    property AutoComplete;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoComplete;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.
     /// </summary>
-    {$endregion}
-    property AutoCompleteDelay;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoCompleteDelay;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which edges of the control are beveled.
     /// </summary>
-    {$endregion}
-    property BevelEdges;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelEdges;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the inner bevel.
     /// </summary>
-    {$endregion}
-    property BevelInner;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelInner;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the control's bevel style.
     /// </summary>
-    {$endregion}
-    property BevelKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the outer bevel.
     /// </summary>
-    {$endregion}
-    property BevelOuter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelOuter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the control.
     /// </summary>
-    {$endregion}
-    property BiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control has a border.
     /// </summary>
-    {$endregion}
-    property BorderStyle;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderStyle;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color nodefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Nodefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size constraints for the control.
     /// </summary>
-    {$endregion}
-    property Constraints;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Constraints;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control has a three-dimensional look.
     /// </summary>
-    {$endregion}
-    property Ctl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Ctl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of columns, in a multi-column list box, that are visible
     /// without having to scroll.
     /// </summary>
-    {$endregion}
-    property Columns;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Columns;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCurrencyInfo.DisplayNames"/> should be
     /// displayed as the label of items.
     /// </summary>
-    {$endregion}
-    property DisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
     /// painted to an in-memory bitmap first.
     /// </summary>
-    {$endregion}
-    property DoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
     /// into the region covered by the control.
     /// </summary>
-    {$endregion}
-    property DragCursor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragCursor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control is being dragged normally or for docking.
     /// </summary>
-    {$endregion}
-    property DragKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
     /// </summary>
-    {$endregion}
-    property DragMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can select a sequential range of items in the list box.
     /// </summary>
-    {$endregion}
-    property ExtendedSelect;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ExtendedSelect;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the placement of the flag icon in regard of the text label.
     /// </summary>
-    {$endregion}
-    property FlagPosition;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FlagPosition;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the flag icons that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Flags;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flags;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the behavior of the input method editor (IME).
     /// </summary>
-    {$endregion}
-    property ImeMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the input method editor (IME) to use for converting keyboard input.
     /// </summary>
-    {$endregion}
-    property ImeName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the list box displays the partial items.
     /// </summary>
-    {$endregion}
-    property IntegralHeight;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property IntegralHeight;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TCurrencyInfo"/> objects in the control.
     /// </summary>
-    {$endregion}
-    property Items;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Items;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the currently selected <see cref="TCurrencyInfo"/> object.
     /// </summary>
-    {$endregion}
-    property ItemSelected;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ItemSelected;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the margins of the control.
     /// </summary>
-    {$endregion}
-    property Margins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Margins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can select more than one item at a time.
     /// </summary>
-    {$endregion}
-    property MultiSelect;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property MultiSelect;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
     /// </summary>
-    {$endregion}
-    property ParentColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
     /// </summary>
-    {$endregion}
-    property ParentCtl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentCtl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
     /// </summary>
-    {$endregion}
-    property ParentDoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentDoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the pop-up menu associated with the control.
     /// </summary>
-    {$endregion}
-    property PopupMenu;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PopupMenu;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the width, in pixels, by which the list box can scroll horizontally.
     /// </summary>
-    {$endregion}
-    property ScrollWidth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ScrollWidth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the items in the list are arranged alphabetically.
     /// </summary>
-    {$endregion}
-    property Sorted;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Sorted;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the position of the control in its parent's tab order.
     /// </summary>
-    {$endregion}
-    property TabOrder;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabOrder;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can tab to a control.
     /// </summary>
-    {$endregion}
-    property TabStop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabStop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size of the tabs in the list box.
     /// </summary>
-    {$endregion}
-    property TabWidth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabWidth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the touch manager component associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property Touch;
+    Property Touch;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user clicks the control.
     /// </summary>
-    {$endregion}
-    property OnClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
     /// menu (such as using the keyboard).
     /// </summary>
-    {$endregion}
-    property OnContextPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnContextPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
     /// is over the control.
     /// </summary>
-    {$endregion}
-    property OnDblClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDblClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drops an object being dragged on the control.
     /// </summary>
-    {$endregion}
-    property OnDragDrop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragDrop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drags an object over the control.
     /// </summary>
-    {$endregion}
-    property OnDragOver;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragOver;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when text label of an item needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnDrawItemLabel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDrawItemLabel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDrag;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDrag;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a control receives the input focus.
     /// </summary>
-    {$endregion}
-    property OnEnter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEnter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the input focus shifts away from one control to another.
     /// </summary>
-    {$endregion}
-    property OnExit;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnExit;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when user performs a gesture associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnGesture;
+    Property OnGesture;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when <see cref="Items"/> property changed.
     /// </summary>
-    {$endregion}
-    property OnItemsChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnItemsChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a user presses any key while the control has focus.
     /// </summary>
-    {$endregion}
-    property OnKeyDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when key pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyPress;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyPress;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a key that has been pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control and the parent form is not active.
     /// </summary>
-    {$endregion}
-    property OnMouseActivate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseActivate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control.
     /// </summary>
-    {$endregion}
-    property OnMouseDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
     /// the control.
     /// </summary>
-    {$endregion}
-    property OnMouseMove;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseMove;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
     /// pointer over the control.
     /// </summary>
-    {$endregion}
-    property OnMouseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse into the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseEnter;
+    Property OnMouseEnter;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse outside of the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseLeave;
+    Property OnMouseLeave;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated.
     /// </summary>
-    {$endregion}
-    property OnMouseWheel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated downward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated upward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the control is resized.
     /// </summary>
-    {$endregion}
-    property OnResize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnResize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDock"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnStartDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDrag"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDrag;
-  end;
+    {$Endregion}
+    Property OnStartDrag;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomCurrencyCheckListBox is the base class for check list box controls that
-  /// represent a list of <see cref="TCurrencyInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomCurrencyCheckListBox as a base class when defining controls that represent
-  /// a check list of <see cref="TCurrencyInfo"/> objects. TCustomCurrencyCheckListBox has
-  /// properties and methods to facilitate displaying, retrieving, sorting, and selecting
-  /// of the stored <see cref="TCurrencyInfo"/> objects.
-  ///
-  /// TCustomCurrencyCheckListBox also implements properties to specify a country flag
-  /// icon, along with its appearance and placement for each individual item.
-  /// </remarks>
-  {$endregion}
-  TCustomCurrencyCheckListBox = class(TCustomFlagCheckListBox)
-  private
-    fCurrencies: TCurrencyList;
-    fDisplayName: TCurrencyDisplayName;
-    procedure SetCurrencies(Value: TCurrencyList);
-    procedure SetItemSelected(Value: TCurrencyInfo);
-    function GetItemSelected: TCurrencyInfo;
-    procedure SetDisplayName(Value: TCurrencyDisplayName);
-    procedure CurrenciesChanged(Sender: TObject);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomCurrencyCheckListBox is the base class for check list box controls that
+/// represent a list of <see cref="TCurrencyInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// Use TCustomCurrencyCheckListBox as a base class when defining controls that represent
+/// a check list of <see cref="TCurrencyInfo"/> objects. TCustomCurrencyCheckListBox has
+/// properties and methods to facilitate displaying, retrieving, sorting, and selecting
+/// of the stored <see cref="TCurrencyInfo"/> objects.
+///
+/// TCustomCurrencyCheckListBox also implements properties to specify a country flag
+/// icon, along with its appearance and placement for each individual item.
+/// </remarks>
+{$Endregion}
+
+  TCustomCurrencyCheckListBox = Class(TCustomFlagCheckListBox)
+   Private
+    fCurrencies  : TCurrencyList;
+    fDisplayName : TCurrencyDisplayName;
+    Procedure SetCurrencies(Value : TCurrencyList);
+    Procedure SetItemSelected(Value : TCurrencyInfo);
+    Function GetItemSelected : TCurrencyInfo;
+    Procedure SetDisplayName(Value : TCurrencyDisplayName);
+    Procedure CurrenciesChanged(Sender : TObject);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the internal list of items by display name of the <see cref="TCurrencyInfo"/>
     /// objects in the <see cref="Items"/> property.
     /// </summary>
-    {$endregion}
-    procedure RebuildInternalItems; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RebuildInternalItems; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a country flag icon for the specified item.
     /// </summary>
@@ -8367,25 +8396,25 @@ type
     /// <returns>
     /// The index of a country flag icon or -1 if no icon is available.
     /// </returns>
-    {$endregion}
-    function GetImageIndex(Index: Integer): Integer; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetImageIndex(Index : Integer) : Integer; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the control and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Fills the <see cref="Items"/> property with all the known <see cref="TCurrencyInfo"/>
     /// objects.
@@ -8395,9 +8424,9 @@ type
     /// component, otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="18nCore.TWorld.Currencys"/>
-    {$endregion}
-    function CollectAll: Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function CollectAll : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Retrieves the list of checked <see cref="TCurrencyInfo"/> objects.
     /// </summary>
@@ -8408,9 +8437,9 @@ type
     /// Determines whether the disabled items can be retrieved.
     /// </param>
     /// <seealso cref="SetSelection"/>
-    {$endregion}
-    procedure GetSelection(Dest: TCurrencyList; AllowDisabled: Boolean = True); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure GetSelection(Dest : TCurrencyList; AllowDisabled : Boolean = True); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes the items that are identified by a specified list of <see cref="TCurrencyInfo"/> objects.
     /// </summary>
@@ -8421,528 +8450,529 @@ type
     /// Determines whether the disabled items can be altered.
     /// </param>
     /// <seealso cref="GetSelection"/>
-    {$endregion}
-    procedure SetSelection(Source: TReadonlyCurrencyList; AllowDisabled: Boolean = True); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure SetSelection(Source : TReadonlyCurrencyList; AllowDisabled : Boolean = True); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCurrencyInfo.DisplayNames"/> should be
     /// displayed as the label of items.
     /// </summary>
-    {$endregion}
-    property DisplayName: TCurrencyDisplayName read fDisplayName write SetDisplayName default crnEnglishName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName : TCurrencyDisplayName Read fDisplayName Write SetDisplayName Default crnEnglishName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the currently selected <see cref="TCurrencyInfo"/> object.
     /// </summary>
-    {$endregion}
-    property ItemSelected: TCurrencyInfo read GetItemSelected write SetItemSelected;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ItemSelected : TCurrencyInfo Read GetItemSelected Write SetItemSelected;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TCurrencyInfo"/> objects in the control.
     /// </summary>
-    {$endregion}
-    property Items: TCurrencyList read fCurrencies write SetCurrencies;
-  end;
+    {$Endregion}
+    Property Items : TCurrencyList Read fCurrencies Write SetCurrencies;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCurrencyCheckListBox is a check list box control that represents a list of
-  /// <see cref="TCurrencyInfo"/> objects.
-  /// </summary>
-  /// <remarks>
-  /// Use TCurrencyCheckListBox to enable users to select multiple <see cref="TCurrencyInfo"/>
-  /// objects from a list.
-  ///
-  /// TCurrencyCheckListBox also implements properties to specify a country flag icon,
-  /// along with its appearance and placement for each individual item.
-  ///
-  /// TCurrencyCheckListBox publishes many of the properties, events, and methods of
-  /// <see cref="TCustomCurrencyCheckListBox"/>, but does not introduce any new behavior.
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TCurrencyCheckListBox is a check list box control that represents a list of
+/// <see cref="TCurrencyInfo"/> objects.
+/// </summary>
+/// <remarks>
+/// Use TCurrencyCheckListBox to enable users to select multiple <see cref="TCurrencyInfo"/>
+/// objects from a list.
+///
+/// TCurrencyCheckListBox also implements properties to specify a country flag icon,
+/// along with its appearance and placement for each individual item.
+///
+/// TCurrencyCheckListBox publishes many of the properties, events, and methods of
+/// <see cref="TCustomCurrencyCheckListBox"/>, but does not introduce any new behavior.
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TCurrencyCheckListBox = class(TCustomCurrencyCheckListBox)
-  published
-    {$region 'xmldoc'}
+  TCurrencyCheckListBox = Class(TCustomCurrencyCheckListBox)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control aligns within its container (parent control).
     /// </summary>
-    {$endregion}
-    property Align;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Align;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
     /// </summary>
-    {$endregion}
-    property AlignWithMargins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AlignWithMargins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check boxes can be in a "grayed" state.
     /// </summary>
-    {$endregion}
-    property AllowGrayed;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AllowGrayed;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control is anchored to its parent.
     /// </summary>
-    {$endregion}
-    property Anchors;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Anchors;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can give focus to items by typing in the list.
     /// </summary>
-    {$endregion}
-    property AutoComplete;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoComplete;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the delay between a key press and an attempt to <see cref="AutoComplete"/>.
     /// </summary>
-    {$endregion}
-    property AutoCompleteDelay;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoCompleteDelay;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which edges of the control are beveled.
     /// </summary>
-    {$endregion}
-    property BevelEdges;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelEdges;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the inner bevel.
     /// </summary>
-    {$endregion}
-    property BevelInner;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelInner;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the control's bevel style.
     /// </summary>
-    {$endregion}
-    property BevelKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the outer bevel.
     /// </summary>
-    {$endregion}
-    property BevelOuter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelOuter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the control.
     /// </summary>
-    {$endregion}
-    property BiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control has a border.
     /// </summary>
-    {$endregion}
-    property BorderStyle;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderStyle;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color nodefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Nodefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size constraints for the control.
     /// </summary>
-    {$endregion}
-    property Constraints;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Constraints;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control has a three-dimensional look.
     /// </summary>
-    {$endregion}
-    property Ctl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Ctl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of columns, in a multi-column list box, that are visible
     /// without having to scroll.
     /// </summary>
-    {$endregion}
-    property Columns;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Columns;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which value of <see cref="TCurrencyInfo.DisplayNames"/> should be
     /// displayed as the label of items.
     /// </summary>
-    {$endregion}
-    property DisplayName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DisplayName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
     /// painted to an in-memory bitmap first.
     /// </summary>
-    {$endregion}
-    property DoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
     /// into the region covered by the control.
     /// </summary>
-    {$endregion}
-    property DragCursor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragCursor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control is being dragged normally or for docking.
     /// </summary>
-    {$endregion}
-    property DragKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
     /// </summary>
-    {$endregion}
-    property DragMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the placement of the flag icon in regard of the text label.
     /// </summary>
-    {$endregion}
-    property FlagPosition;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FlagPosition;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the flag icons that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Flags;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flags;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check boxes appear three-dimensional.
     /// </summary>
-    {$endregion}
-    property Flat;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Flat;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the behavior of the input method editor (IME).
     /// </summary>
-    {$endregion}
-    property ImeMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the input method editor (IME) to use for converting keyboard input.
     /// </summary>
-    {$endregion}
-    property ImeName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the list box displays the partial items.
     /// </summary>
-    {$endregion}
-    property IntegralHeight;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property IntegralHeight;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TCurrencyInfo"/> objects in the control.
     /// </summary>
-    {$endregion}
-    property Items;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Items;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the margins of the control.
     /// </summary>
-    {$endregion}
-    property Margins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Margins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
     /// </summary>
-    {$endregion}
-    property ParentColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
     /// </summary>
-    {$endregion}
-    property ParentCtl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentCtl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
     /// </summary>
-    {$endregion}
-    property ParentDoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentDoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the pop-up menu associated with the control.
     /// </summary>
-    {$endregion}
-    property PopupMenu;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PopupMenu;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the width, in pixels, by which the list box can scroll horizontally.
     /// </summary>
-    {$endregion}
-    property ScrollWidth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ScrollWidth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the items in the list are arranged alphabetically.
     /// </summary>
-    {$endregion}
-    property Sorted;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Sorted;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the position of the control in its parent's tab order.
     /// </summary>
-    {$endregion}
-    property TabOrder;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabOrder;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can tab to a control.
     /// </summary>
-    {$endregion}
-    property TabStop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabStop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size of the tabs in the list box.
     /// </summary>
-    {$endregion}
-    property TabWidth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabWidth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the touch manager component associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property Touch;
+    Property Touch;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user clicks the control.
     /// </summary>
-    {$endregion}
-    property OnClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user selects or deselects an item's check box.
     /// </summary>
-    {$endregion}
-    property OnClickCheck;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClickCheck;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
     /// menu (such as using the keyboard).
     /// </summary>
-    {$endregion}
-    property OnContextPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnContextPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
     /// is over the control.
     /// </summary>
-    {$endregion}
-    property OnDblClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDblClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drops an object being dragged on the control.
     /// </summary>
-    {$endregion}
-    property OnDragDrop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragDrop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drags an object over the control.
     /// </summary>
-    {$endregion}
-    property OnDragOver;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragOver;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when text label of an item needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnDrawItemLabel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDrawItemLabel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDrag;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDrag;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a control receives the input focus.
     /// </summary>
-    {$endregion}
-    property OnEnter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEnter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the input focus shifts away from one control to another.
     /// </summary>
-    {$endregion}
-    property OnExit;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnExit;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when user performs a gesture associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnGesture;
+    Property OnGesture;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when <see cref="Items"/> property changed.
     /// </summary>
-    {$endregion}
-    property OnItemsChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnItemsChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a user presses any key while the control has focus.
     /// </summary>
-    {$endregion}
-    property OnKeyDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when key pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyPress;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyPress;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a key that has been pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control and the parent form is not active.
     /// </summary>
-    {$endregion}
-    property OnMouseActivate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseActivate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control.
     /// </summary>
-    {$endregion}
-    property OnMouseDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
     /// the control.
     /// </summary>
-    {$endregion}
-    property OnMouseMove;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseMove;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
     /// pointer over the control.
     /// </summary>
-    {$endregion}
-    property OnMouseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse into the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseEnter;
+    Property OnMouseEnter;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse outside of the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseLeave;
+    Property OnMouseLeave;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated.
     /// </summary>
-    {$endregion}
-    property OnMouseWheel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated downward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated upward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the control is resized.
     /// </summary>
-    {$endregion}
-    property OnResize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnResize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDock"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnStartDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDrag"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDrag;
-  end;
+    {$Endregion}
+    Property OnStartDrag;
+  End;
 
-{$region 'xmldoc'}
+{$Region 'xmldoc'}
 /// <summary>
 /// Returns the size of the check box drawn by the <see cref="DrawCheckBox"/> global function.
 /// </summary>
@@ -8950,3176 +8980,3145 @@ type
 /// The width and height of the check box, in pixels.
 /// </returns>
 /// <seealso cref="DrawCheckBox"/>
-{$endregion}
-function GetCheckBoxSize: TSize;
+{$Endregion}
 
-{$region 'xmldoc'}
-/// <summary>
-/// Draws a check box on a specified device context.
-/// </summary>
-/// <param name="DC">
-/// Handle to the device context.
-/// </param>
-/// <param name="Rect">
-/// Specifies the boundaries that the check box will be centered in.
-/// </param>
-/// <param name="State">
-/// Specifies the state of the check box.
-/// </param>
-/// <param name="DrawState">
-/// Specifies how the check box should appear.
-/// </param>
-/// <param name="Flat">
-/// Indicates whether the check box appears three-dimensional.
-/// </param>
-/// <param name="Themed">
-/// Indicates whether the check box should be drawn using the Windows theme.
-/// </param>
-/// <returns>
-/// The bounding rectangle of the check box.
-/// </returns>
-/// <seealso cref="GetCheckBoxSize"/>
-{$endregion}
-function DrawCheckBox(DC: HDC; const Rect: TRect; State: TCheckBoxState;
-  DrawState: TPartDrawState; Flat, Themed: Boolean): TRect;
+ Function GetCheckBoxSize : TSize;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Returns the size of the drop-down button drawn by the <see cref="DrawDropDown"/> global function.
-/// </summary>
-/// <returns>
-/// The width and height of the drop-down button, in pixels.
-/// </returns>
-/// <seealso cref="DrawDropDown"/>
-{$endregion}
-function GetDropDownSize: TSize;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Draws a check box on a specified device context.
+ /// </summary>
+ /// <param name="DC">
+ /// Handle to the device context.
+ /// </param>
+ /// <param name="Rect">
+ /// Specifies the boundaries that the check box will be centered in.
+ /// </param>
+ /// <param name="State">
+ /// Specifies the state of the check box.
+ /// </param>
+ /// <param name="DrawState">
+ /// Specifies how the check box should appear.
+ /// </param>
+ /// <param name="Flat">
+ /// Indicates whether the check box appears three-dimensional.
+ /// </param>
+ /// <param name="Themed">
+ /// Indicates whether the check box should be drawn using the Windows theme.
+ /// </param>
+ /// <returns>
+ /// The bounding rectangle of the check box.
+ /// </returns>
+ /// <seealso cref="GetCheckBoxSize"/>
+ {$Endregion}
+ Function DrawCheckBox(DC : HDC; Const Rect : TRect; State : TCheckBoxState; DrawState : TPartDrawState; Flat, Themed : Boolean) : TRect;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Draws a drop-down button on a specified device context.
-/// </summary>
-/// <param name="DC">
-/// Handle to the device context.
-/// </param>
-/// <param name="Rect">
-/// Specifies the boundaries that the drop-down button will be centered in.
-/// </param>
-/// <param name="DrawState">
-/// Specifies how the drop-down button should appear.
-/// </param>
-/// <param name="Themed">
-/// Indicates whether the drop-down button should be drawn using the Windows theme.
-/// </param>
-/// <returns>
-/// The bounding rectangle of the drop-down button.
-/// </returns>
-/// <seealso cref="GetDropDownSize"/>
-{$endregion}
-procedure DrawDropDown(DC: HDC; const Rect: TRect; DrawState: TPartDrawState; Themed: Boolean);
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Returns the size of the drop-down button drawn by the <see cref="DrawDropDown"/> global function.
+ /// </summary>
+ /// <returns>
+ /// The width and height of the drop-down button, in pixels.
+ /// </returns>
+ /// <seealso cref="DrawDropDown"/>
+ {$Endregion}
+ Function GetDropDownSize : TSize;
 
-implementation
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Draws a drop-down button on a specified device context.
+ /// </summary>
+ /// <param name="DC">
+ /// Handle to the device context.
+ /// </param>
+ /// <param name="Rect">
+ /// Specifies the boundaries that the drop-down button will be centered in.
+ /// </param>
+ /// <param name="DrawState">
+ /// Specifies how the drop-down button should appear.
+ /// </param>
+ /// <param name="Themed">
+ /// Indicates whether the drop-down button should be drawn using the Windows theme.
+ /// </param>
+ /// <returns>
+ /// The bounding rectangle of the drop-down button.
+ /// </returns>
+ /// <seealso cref="GetDropDownSize"/>
+ {$Endregion}
+ Procedure DrawDropDown(DC : HDC; Const Rect : TRect; DrawState : TPartDrawState; Themed : Boolean);
 
-uses
+Implementation
+
+ Uses
   UxTheme, SysUtils, Types, CommCtrl, Themes, RTLConsts, CheckLst;
 
 {$R i18nFlags_16x11.res}
 
-const
+ Const
   HorzSpacing = 2;
   VertSpacing = 1;
 
 {$IFNDEF COMPILER_XE2_UP}
-type
-  TCustomStyleServices = class (TThemeServices)
-  public
-    function Enabled: boolean;
-  end;
 
-  function TCustomStyleServices.Enabled: boolean;
-  begin
-    Result := ThemesEnabled;
-  end;
+ Type
+  TCustomStyleServices = Class(TThemeServices)
+   Public
+    Function Enabled : Boolean;
+  End;
 
-function StyleServices: TCustomStyleServices;
-begin
-  Result := TCustomStyleServices(ThemeServices);
-end;
+ Function TCustomStyleServices.Enabled : Boolean;
+  Begin
+   Result := ThemesEnabled;
+  End;
+
+ Function StyleServices : TCustomStyleServices;
+  Begin
+   Result := TCustomStyleServices(ThemeServices);
+  End;
 {$ENDIF}
 
 { Helper Functions }
 
-var CheckBoxSize: TSize;
+ Var
+  CheckBoxSize : TSize;
 
-function GetCheckBoxSize: TSize;
-begin
-  Result := CheckBoxSize;
-end;
+ Function GetCheckBoxSize : TSize;
+  Begin
+   Result := CheckBoxSize;
+  End;
 
-function CalcCheckBoxSize: TSize;
-begin
-  with TBitmap.Create do
-    try
-      Handle := LoadBitmap(0, PChar(OBM_CHECKBOXES));
-      Result.cx := Width div 4;
-      Result.cy := Height div 3;
-    finally
-      Free;
-    end;
-end;
+ Function CalcCheckBoxSize : TSize;
+  Begin
+   With TBitmap.Create Do
+    Try
+     Handle    := LoadBitmap(0, PChar(OBM_CHECKBOXES));
+     Result.cx := Width Div 4;
+     Result.cy := Height Div 3;
+    Finally
+     Free;
+    End;
+  End;
 
-function DrawCheckBox(DC: HDC; const Rect: TRect; State: TCheckBoxState;
-  DrawState: TPartDrawState; Flat, Themed: Boolean): TRect;
-var
-  DrawRect: TRect absolute Result;
-  DrawDetail: TThemedButton;
-  DrawFlag: Integer;
-  OldRgn, Rgn: HRgn;
-  Brush: HBRUSH;
-  ElementDetails: TThemedElementDetails;
-begin
-  OldRgn := 0;
-  DrawRect.Left := (Rect.Left + Rect.Right - CheckBoxSize.cx) div 2;
-  DrawRect.Top := (Rect.Top + Rect.Bottom - CheckBoxSize.cy) div 2;
-  DrawRect.Right := DrawRect.Left + CheckBoxSize.cx;
-  DrawRect.Bottom := DrawRect.Top + CheckBoxSize.cy;
-  if not RectVisible(DC, DrawRect) then
+ Function DrawCheckBox(DC : HDC; Const Rect : TRect; State : TCheckBoxState; DrawState : TPartDrawState; Flat, Themed : Boolean) : TRect;
+  Var
+   DrawRect       : TRect Absolute Result;
+   DrawDetail     : TThemedButton;
+   DrawFlag       : Integer;
+   OldRgn, Rgn    : HRgn;
+   Brush          : HBRUSH;
+   ElementDetails : TThemedElementDetails;
+  Begin
+   OldRgn          := 0;
+   DrawRect.Left   := (Rect.Left + Rect.Right - CheckBoxSize.cx) Div 2;
+   DrawRect.Top    := (Rect.Top + Rect.Bottom - CheckBoxSize.cy) Div 2;
+   DrawRect.Right  := DrawRect.Left + CheckBoxSize.cx;
+   DrawRect.Bottom := DrawRect.Top + CheckBoxSize.cy;
+   If Not RectVisible(DC, DrawRect) Then
     Exit;
-  if Flat then
-  begin
-    OldRgn := CreateRectRgn(0, 0, 0, 0);
-    GetClipRgn(DC, OldRgn);
-    with DrawRect do
+   If Flat Then
+    Begin
+     OldRgn := CreateRectRgn(0, 0, 0, 0);
+     GetClipRgn(DC, OldRgn);
+     With DrawRect Do
       Rgn := CreateRectRgn(Left + 2, Top + 2, Right - 2, Bottom - 2);
-    SelectClipRgn(DC, Rgn);
-    DeleteObject(Rgn);
-  end;
-  if Themed and StyleServices.Enabled then
-  begin
-    case State of
-      cbChecked:
-        case DrawState of
-          pdsNormal:
-            DrawDetail := tbCheckBoxCheckedNormal;
-          pdsHot:
-            DrawDetail := tbCheckBoxCheckedHot;
-          pdsPressed:
-            DrawDetail := tbCheckBoxCheckedPressed;
-          else // pdsDisabled
-            DrawDetail := tbCheckBoxCheckedDisabled;
-        end;
-      cbUnchecked:
-        case DrawState of
-          pdsNormal:
-            DrawDetail := tbCheckBoxUncheckedNormal;
-          pdsHot:
-            DrawDetail := tbCheckBoxUncheckedHot;
-          pdsPressed:
-            DrawDetail := tbCheckBoxUncheckedPressed;
-          else // pdsDisabled
-            DrawDetail := tbCheckBoxUncheckedDisabled;
-        end;
-      else // cbGrayed
-        case DrawState of
-          pdsNormal:
-            DrawDetail := tbCheckBoxMixedNormal;
-          pdsHot:
-            DrawDetail := tbCheckBoxMixedHot;
-          pdsPressed:
-            DrawDetail := tbCheckBoxMixedPressed;
-          else // pdsDisabled
-            DrawDetail := tbCheckBoxMixedDisabled;
-        end;
-    end;
-    ElementDetails := StyleServices.GetElementDetails(DrawDetail);
-    StyleServices.DrawElement(DC, ElementDetails, DrawRect);
-  end
-  else
-  begin
-    case State of
-      cbChecked:
-        DrawFlag := DFCS_BUTTONCHECK or DFCS_CHECKED;
-      cbUnchecked:
-        DrawFlag := DFCS_BUTTONCHECK;
-      else // cbGrayed
-        DrawFlag := DFCS_BUTTON3STATE or DFCS_CHECKED;
-    end;
-    case DrawState of
-      pdsDisabled:
-        DrawFlag := DrawFlag or DFCS_INACTIVE;
-      pdsHot:
-        DrawFlag := DrawFlag or DFCS_HOT;
-      pdsPressed:
-        DrawFlag := DrawFlag or DFCS_PUSHED;
-    end;
-    DrawFrameControl(DC, DrawRect, DFC_BUTTON, DrawFlag);
-  end;
-  if Flat then
-  begin
-    InflateRect(DrawRect, -1, -1);
-    SelectClipRgn(DC, OldRgn);
-    DeleteObject(OldRgn);
-    Brush := CreateSolidBrush(ColorToRGB(clBtnShadow));
-    FrameRect(DC, DrawRect, Brush);
-    DeleteObject(Brush);
-  end;
-end;
+     SelectClipRgn(DC, Rgn);
+     DeleteObject(Rgn);
+    End;
+   If Themed And StyleServices.Enabled Then
+    Begin
+     Case State Of
+      cbChecked :
+       Case DrawState Of
+        pdsNormal :
+         DrawDetail := tbCheckBoxCheckedNormal;
+        pdsHot :
+         DrawDetail := tbCheckBoxCheckedHot;
+        pdsPressed :
+         DrawDetail := tbCheckBoxCheckedPressed;
+       Else // pdsDisabled
+         DrawDetail := tbCheckBoxCheckedDisabled;
+       End;
+      cbUnchecked :
+       Case DrawState Of
+        pdsNormal :
+         DrawDetail := tbCheckBoxUncheckedNormal;
+        pdsHot :
+         DrawDetail := tbCheckBoxUncheckedHot;
+        pdsPressed :
+         DrawDetail := tbCheckBoxUncheckedPressed;
+       Else // pdsDisabled
+         DrawDetail := tbCheckBoxUncheckedDisabled;
+       End;
+     Else // cbGrayed
+       Case DrawState Of
+        pdsNormal :
+         DrawDetail := tbCheckBoxMixedNormal;
+        pdsHot :
+         DrawDetail := tbCheckBoxMixedHot;
+        pdsPressed :
+         DrawDetail := tbCheckBoxMixedPressed;
+       Else // pdsDisabled
+         DrawDetail := tbCheckBoxMixedDisabled;
+       End;
+     End;
+     ElementDetails := StyleServices.GetElementDetails(DrawDetail);
+     StyleServices.DrawElement(DC, ElementDetails, DrawRect);
+    End
+   Else
+    Begin
+     Case State Of
+      cbChecked :
+       DrawFlag := DFCS_BUTTONCHECK Or DFCS_CHECKED;
+      cbUnchecked :
+       DrawFlag := DFCS_BUTTONCHECK;
+     Else // cbGrayed
+       DrawFlag := DFCS_BUTTON3STATE Or DFCS_CHECKED;
+     End;
+     Case DrawState Of
+      pdsDisabled : DrawFlag := DrawFlag Or DFCS_INACTIVE;
+      pdsHot      : DrawFlag := DrawFlag Or DFCS_HOT;
+      pdsPressed  : DrawFlag := DrawFlag Or DFCS_PUSHED;
+     End;
+     DrawFrameControl(DC, DrawRect, DFC_BUTTON, DrawFlag);
+    End;
+   If Flat Then
+    Begin
+     InflateRect(DrawRect, -1, -1);
+     SelectClipRgn(DC, OldRgn);
+     DeleteObject(OldRgn);
+     Brush := CreateSolidBrush(ColorToRGB(clBtnShadow));
+     FrameRect(DC, DrawRect, Brush);
+     DeleteObject(Brush);
+    End;
+  End;
 
-var DropDownSize: TSize;
+ Var
+  DropDownSize : TSize;
 
-function GetDropDownSize: TSize;
-begin
-  Result := DropDownSize;
-end;
+ Function GetDropDownSize : TSize;
+  Begin
+   Result := DropDownSize;
+  End;
 
-function CalcDropDownSize: TSize;
-begin
-  Result.cx := GetSystemMetrics(SM_CXVSCROLL);
-  Result.cy := GetSystemMetrics(SM_CYVSCROLL);
-end;
+ Function CalcDropDownSize : TSize;
+  Begin
+   Result.cx := GetSystemMetrics(SM_CXVSCROLL);
+   Result.cy := GetSystemMetrics(SM_CYVSCROLL);
+  End;
 
-procedure DrawDropDown(DC: HDC; const Rect: TRect; DrawState: TPartDrawState;
-  Themed: Boolean);
-var
-  DrawDetail: TThemedComboBox;
-  DrawFlag: Integer;
-  ElementDetails: TThemedElementDetails;
-begin
-  if not RectVisible(DC, Rect) then
+ Procedure DrawDropDown(DC : HDC; Const Rect : TRect; DrawState : TPartDrawState; Themed : Boolean);
+  Var
+   DrawDetail     : TThemedComboBox;
+   DrawFlag       : Integer;
+   ElementDetails : TThemedElementDetails;
+  Begin
+   If Not RectVisible(DC, Rect) Then
     Exit;
-  if Themed and StyleServices.Enabled then
-  begin
-    case DrawState of
-      pdsNormal:
-        DrawDetail := tcDropDownButtonNormal;
-      pdsHot:
-        DrawDetail := tcDropDownButtonHot;
-      pdsPressed:
-        DrawDetail := tcDropDownButtonPressed;
-      else // pdsDisabled
-        DrawDetail := tcDropDownButtonDisabled;
-    end;
-    ElementDetails := StyleServices.GetElementDetails(DrawDetail);
-    StyleServices.DrawElement(DC, ElementDetails, Rect);
-  end
-  else
-  begin
-    DrawFlag := DFCS_SCROLLCOMBOBOX;
-    case DrawState of
-      pdsDisabled:
-        DrawFlag := DrawFlag or DFCS_INACTIVE;
-      pdsHot:
-        DrawFlag := DrawFlag or DFCS_HOT;
-      pdsPressed:
-        DrawFlag := DrawFlag or DFCS_PUSHED;
-    end;
-    DrawFrameControl(DC, Rect, DFC_SCROLL, DrawFlag);
-  end;
-end;
+   If Themed And StyleServices.Enabled Then
+    Begin
+     Case DrawState Of
+      pdsNormal :
+       DrawDetail := tcDropDownButtonNormal;
+      pdsHot :
+       DrawDetail := tcDropDownButtonHot;
+      pdsPressed :
+       DrawDetail := tcDropDownButtonPressed;
+     Else // pdsDisabled
+       DrawDetail := tcDropDownButtonDisabled;
+     End;
+     ElementDetails := StyleServices.GetElementDetails(DrawDetail);
+     StyleServices.DrawElement(DC, ElementDetails, Rect);
+    End
+   Else
+    Begin
+     DrawFlag := DFCS_SCROLLCOMBOBOX;
+     Case DrawState Of
+      pdsDisabled : DrawFlag := DrawFlag Or DFCS_INACTIVE;
+      pdsHot      : DrawFlag := DrawFlag Or DFCS_HOT;
+      pdsPressed  : DrawFlag := DrawFlag Or DFCS_PUSHED;
+     End;
+     DrawFrameControl(DC, Rect, DFC_SCROLL, DrawFlag);
+    End;
+  End;
 
 {$IFDEF COMPILER2010_UP}
-procedure FillGlassRect(Canvas: TCanvas; Rect: TRect);
-var
-  MemDC: HDC;
-  PaintBuffer: HPAINTBUFFER;
-begin
-  PaintBuffer := BeginBufferedPaint(Canvas.Handle, Rect, BPBF_TOPDOWNDIB, nil, MemDC);
-  try
+
+ Procedure FillGlassRect(Canvas : TCanvas; Rect : TRect);
+  Var
+   MemDC       : HDC;
+   PaintBuffer : HPAINTBUFFER;
+  Begin
+   PaintBuffer := BeginBufferedPaint(Canvas.Handle, Rect, BPBF_TOPDOWNDIB, Nil, MemDC);
+   Try
     FillRect(MemDC, Rect, Canvas.Brush.Handle);
     BufferedPaintMakeOpaque(PaintBuffer, Rect);
-  finally
+   Finally
     EndBufferedPaint(PaintBuffer, True);
-  end;
-end;
+   End;
+  End;
 {$ENDIF}
 
-function FindFlags(Root: TComponent): TCustomFlagImageList;
-var
-  I: Integer;
-begin
-  Result := nil;
-  if Assigned(Root) then
-    for I := 0 to Root.ComponentCount - 1 do
-      if Root.Components[I] is TCustomFlagImageList then
-      begin
-        Result := TCustomFlagImageList(Root.Components[I]);
-        Exit;
-      end;
-end;
+ Function FindFlags(Root : TComponent) : TCustomFlagImageList;
+  Var
+   i : Integer;
+  Begin
+   Result := Nil;
+   If Assigned(Root) Then
+    For i := 0 To Root.ComponentCount - 1 Do
+     If Root.Components[i] Is TCustomFlagImageList Then
+      Begin
+       Result := TCustomFlagImageList(Root.Components[i]);
+       Exit;
+      End;
+  End;
 
 { TCustomFlagImageList }
 
-constructor TCustomFlagImageList.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  Regions := TKeyLookup<String,Integer>.Create;
-  BlendColor := clFuchsia;
-  HelperDC := CreateCompatibleDC(0);
-  try
+ Constructor TCustomFlagImageList.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   Regions    := TKeyLookup<String, Integer>.Create;
+   BlendColor := clFuchsia;
+   HelperDC   := CreateCompatibleDC(0);
+   Try
     PrepareFlags;
-  finally
+   Finally
     DeleteDC(HelperDC);
-  end;
-end;
+   End;
+  End;
 
 {$IFDEF COMPILER2010_UP}
-function TCustomFlagImageList.GetColorDepth: TColorDepth;
-begin
-  Result := inherited ColorDepth;
-end;
-{$ENDIF}
 
+ Function TCustomFlagImageList.GetColorDepth : TColorDepth;
+  Begin
+   Result := Inherited ColorDepth;
+  End;
+{$ENDIF}
 {$IFDEF COMPILER2010_UP}
-procedure TCustomFlagImageList.SetColorDepth(Value: TColorDepth);
-begin
-  if inherited ColorDepth <> Value then
-  begin
-    inherited ColorDepth := Value;
-    PrepareFlags;
-  end;
-end;
+
+ Procedure TCustomFlagImageList.SetColorDepth(Value : TColorDepth);
+  Begin
+   If Inherited ColorDepth <> Value Then
+    Begin
+     Inherited ColorDepth := Value;
+     PrepareFlags;
+    End;
+  End;
 {$ENDIF}
 
-procedure TCustomFlagImageList.DefineProperties(Filer: TFiler);
-var
-  Stream: TMemoryStream;
-begin
-  Stream := TMemoryStream.Create;
-  try
+ Procedure TCustomFlagImageList.DefineProperties(Filer : TFiler);
+  Var
+   Stream : TMemoryStream;
+  Begin
+   Stream := TMemoryStream.Create;
+   Try
     WriteData(Stream);
     Handle := 0;
-    inherited DefineProperties(Filer);
+    Inherited DefineProperties(Filer);
     Stream.Position := 0;
     ReadData(Stream);
-  finally
+   Finally
     Stream.Free;
-  end;
-end;
+   End;
+  End;
 
-destructor TCustomFlagImageList.Destroy;
-begin
-  Regions.Free;
-  inherited Destroy;
-end;
+ Destructor TCustomFlagImageList.Destroy;
+  Begin
+   Regions.Free;
+   Inherited Destroy;
+  End;
 
-procedure TCustomFlagImageList.NormalizeImage(var hImage: HBITMAP;
-  TranparentPixel: TTransparentPixel);
-var
-  Image: TBitmap;
-  NormalizedImage: TBitmap;
-begin
-  NormalizedImage := TBitmap.Create;
-  try
+ Procedure TCustomFlagImageList.NormalizeImage(Var hImage : HBITMAP; TranparentPixel : TTransparentPixel);
+  Var
+   Image           : TBitmap;
+   NormalizedImage : TBitmap;
+  Begin
+   NormalizedImage := TBitmap.Create;
+   Try
     NormalizedImage.Canvas.Brush.Color := BlendColor;
-    NormalizedImage.Width := Width;
-    NormalizedImage.Height := Height;
-    if hImage <> 0 then
-    begin
+    NormalizedImage.Width              := Width;
+    NormalizedImage.Height             := Height;
+    If hImage <> 0 Then
+     Begin
       Image := TBitmap.Create;
-      try
-        Image.Handle := hImage;
-        Image.Transparent := (TranparentPixel <> tpNone);
-        case TranparentPixel of
-          tpTopLeft:
-            Image.TransparentColor := Image.Canvas.Pixels[0, 0];
-          tpTopRight:
-            Image.TransparentColor := Image.Canvas.Pixels[Image.Width - 1, 0];
-          tpBottomRight:
-            Image.TransparentColor := Image.Canvas.Pixels[Image.Width - 1, Image.Height - 1];
-          tpBottomLeft:
-            Image.TransparentColor := Image.Canvas.Pixels[0, Image.Height - 1];
-        end;
-        NormalizedImage.Canvas.Draw(
-          (NormalizedImage.Width - Image.Width) div 2,
-          (NormalizedImage.Height - Image.Height) div 2, Image);
-      finally
-        Image.Free;
-      end;
-    end;
+      Try
+       Image.Handle      := hImage;
+       Image.Transparent := (TranparentPixel <> tpNone);
+       Case TranparentPixel Of
+        tpTopLeft     : Image.TransparentColor := Image.Canvas.Pixels[0, 0];
+        tpTopRight    : Image.TransparentColor := Image.Canvas.Pixels[Image.Width - 1, 0];
+        tpBottomRight : Image.TransparentColor := Image.Canvas.Pixels[Image.Width - 1, Image.Height - 1];
+        tpBottomLeft  : Image.TransparentColor := Image.Canvas.Pixels[0, Image.Height - 1];
+       End;
+       NormalizedImage.Canvas.Draw(
+       (NormalizedImage.Width - Image.Width) Div 2,
+       (NormalizedImage.Height - Image.Height) Div 2, Image);
+      Finally
+       Image.Free;
+      End;
+     End;
     hImage := NormalizedImage.ReleaseHandle;
-  finally
+   Finally
     NormalizedImage.Free;
-  end;
-end;
+   End;
+  End;
 
-procedure TCustomFlagImageList.NormalizeFlag(var hImage: HBITMAP;
-  const ISO_3166_2: String);
-var
-  Info: TBitmapInfo;
-begin
-  FillChar(Info, SizeOf(Info), 0);
-  Info.bmiHeader.biSize := SizeOf(Info.bmiHeader);
-  GetDIBits(HelperDC, hImage, 0, 0, nil, Info, DIB_RGB_COLORS);
-  if (Info.bmiHeader.biWidth <> Width) or (Info.bmiHeader.biHeight <> Height) then
-  begin
-    if ISO_3166_2 = 'NP' then            // Nepal's flag is triangular
+ Procedure TCustomFlagImageList.NormalizeFlag(Var hImage : HBITMAP; Const ISO_3166_2 : String);
+  Var
+   Info : TBitmapInfo;
+  Begin
+   FillChar(Info, SizeOf(Info), 0);
+   Info.bmiHeader.biSize := SizeOf(Info.bmiHeader);
+   GetDIBits(HelperDC, hImage, 0, 0, Nil, Info, DIB_RGB_COLORS);
+   If (Info.bmiHeader.biWidth <> Width) Or (Info.bmiHeader.biHeight <> Height) Then
+    Begin
+     If ISO_3166_2 = 'NP' Then            // Nepal's flag is triangular
       NormalizeImage(hImage, tpTopRight)
-    else
+     Else
       NormalizeImage(hImage);
-  end;
-end;
+    End;
+  End;
 
-function TCustomFlagImageList.AddFlag(const ISO_3166_2: String;
-  hImage: HBITMAP): Integer;
-begin
-  NormalizeFlag(hImage, ISO_3166_2);
-  Result := ImageList_AddMasked(Handle, hImage, BlendColor);
-  Regions.Add(ISO_3166_2, Result);
-end;
+ Function TCustomFlagImageList.AddFlag(Const ISO_3166_2 : String; hImage : HBITMAP) : Integer;
+  Begin
+   NormalizeFlag(hImage, ISO_3166_2);
+   Result := ImageList_AddMasked(Handle, hImage, BlendColor);
+   Regions.Add(ISO_3166_2, Result);
+  End;
 
-function TCustomFlagImageList.ImageIndexOf(const ISO_3166_2: String): Integer;
-begin
-  if not Regions.Retrieve(UpperCase(ISO_3166_2), Result) then
+ Function TCustomFlagImageList.ImageIndexOf(Const ISO_3166_2 : String) : Integer;
+  Begin
+   If Not Regions.Retrieve(UpperCase(ISO_3166_2), Result) Then
     Result := -1;
-end;
+  End;
 
-function TCustomFlagImageList.ImageIndexOf(Territory: TTerritoryInfo): Integer;
-begin
-  if not Assigned(Territory) or not Regions.Retrieve(Territory.Code2, Result) then
+ Function TCustomFlagImageList.ImageIndexOf(Territory : TTerritoryInfo) : Integer;
+  Begin
+   If Not Assigned(Territory) Or Not Regions.Retrieve(Territory.Code2, Result) Then
     Result := -1;
-end;
+  End;
 
-function TCustomFlagImageList.ImageIndexOf(Culture: TCultureInfo): Integer;
-begin
-  if not Assigned(Culture) or not Assigned(Culture.Country) or
-     not Regions.Retrieve(Culture.Country.Code2, Result)
-  then
+ Function TCustomFlagImageList.ImageIndexOf(Culture : TCultureInfo) : Integer;
+  Begin
+   If Not Assigned(Culture) Or Not Assigned(Culture.Country) Or
+   Not Regions.Retrieve(Culture.Country.Code2, Result)
+   Then
     Result := -1;
-end;
+  End;
 
-function TCustomFlagImageList.ImageIndexOf(Currency: TCurrencyInfo): Integer;
-var
-  Code: String;
-begin
-  if Assigned(Currency) then
-  begin
-    if Assigned(Currency.OriginCountry) then
+ Function TCustomFlagImageList.ImageIndexOf(Currency : TCurrencyInfo) : Integer;
+  Var
+   Code : String;
+  Begin
+   If Assigned(Currency) Then
+    Begin
+     If Assigned(Currency.OriginCountry) Then
       Code := Currency.OriginCountry.Code2
-    else
+     Else
       Code := 'EU';
-    if not Regions.Retrieve(Code, Result) then
+     If Not Regions.Retrieve(Code, Result) Then
       Result := -1;
-  end
-  else
+    End
+   Else
     Result := -1;
-end;
+  End;
 
 { TCustomResFlagImageList }
 
-function EnumBitmapsCallback(hModule: HMODULE; lpszType, lpszName: PChar;
-  lParam: LPARAM): Integer; stdcall;
-var
-  IL: TCustomResFlagImageList absolute lParam;
-  ISO_3166_2: String;
-begin
-  if (lpszType = RT_BITMAP) and (ULONG_PTR(lpszName) shr 16 <> 0) and
-     (AnsiStrPos(lpszName, PChar(IL.GetResourcePrefix)) = lpszName) then
-  begin
-    SetString(ISO_3166_2, lpszName + Length(IL.GetResourcePrefix),
-      StrLen(lpszName) - Cardinal(Length(IL.GetResourcePrefix)));
-    IL.AddFlagFromResource(ISO_3166_2, lpszName, hModule);
-  end;
-  Result := 1;
-end;
+ Function EnumBitmapsCallback(hModule : hModule; lpszType, lpszName : PChar; lParam : lParam) : Integer; Stdcall;
+  Var
+   IL         : TCustomResFlagImageList Absolute lParam;
+   ISO_3166_2 : String;
+  Begin
+   If (lpszType = RT_BITMAP) And (ULONG_PTR(lpszName) Shr 16 <> 0) And
+   (AnsiStrPos(lpszName, PChar(IL.GetResourcePrefix)) = lpszName) Then
+    Begin
+     SetString(ISO_3166_2, lpszName + Length(IL.GetResourcePrefix),
+     StrLen(lpszName) - Cardinal(Length(IL.GetResourcePrefix)));
+     IL.AddFlagFromResource(ISO_3166_2, lpszName, hModule);
+    End;
+   Result := 1;
+  End;
 
-function TCustomResFlagImageList.AddFlagFromResource(const ISO_3166_2,
-  ResName: String; hModule: HMODULE): Integer;
-var
-  hImage: HBITMAP;
-begin
-  if hModule = 0 then
+ Function TCustomResFlagImageList.AddFlagFromResource(Const ISO_3166_2, ResName : String; hModule : hModule) : Integer;
+  Var
+   hImage : HBITMAP;
+  Begin
+   If hModule = 0 Then
     hModule := HInstance;
-  hImage := LoadImage(hModule, PChar(ResName), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
-  try
-    Result := addFlag(UpperCase(ISO_3166_2), hImage);
-  finally
+   hImage   := LoadImage(hModule, PChar(ResName), IMAGE_BITMAP, 0, 0, LR_CREATEDIBSECTION);
+   Try
+    Result := AddFlag(UpperCase(ISO_3166_2), hImage);
+   Finally
     DeleteObject(hImage);
-  end;
-end;
+   End;
+  End;
 
-procedure TCustomResFlagImageList.PrepareFlags;
-begin
-  Handle := 0;
-  with GetFlagSize do SetSize(cx, cy);
-  EnumResourceNames(HInstance, RT_BITMAP, @EnumBitmapsCallback, LPARAM(Self));
-end;
+ Procedure TCustomResFlagImageList.PrepareFlags;
+  Begin
+   Handle := 0;
+   With GetFlagSize Do
+    SetSize(cx, cy);
+   EnumResourceNames(HInstance, RT_BITMAP, @EnumBitmapsCallback, lParam(Self));
+  End;
 
 { TFlagImageList }
 
-function TFlagImageList.GetFlagSize: TSize;
-begin
-  Result.cx := 16;
-  Result.cy := 11;
-end;
+ Function TFlagImageList.GetFlagSize : TSize;
+  Begin
+   Result.cx := 16;
+   Result.cy := 11;
+  End;
 
-function TFlagImageList.GetResourcePrefix: String;
-begin
-  Result := 'FLAG_';
-end;
+ Function TFlagImageList.GetResourcePrefix : String;
+  Begin
+   Result := 'FLAG_';
+  End;
 
 { TCustomImageLabel }
 
-constructor TCustomImageLabel.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  fImagesLink := TChangeLink.Create;
-  fImagesLink.OnChange := ImagesChanged;
-  fPadding := TPadding.Create(Self);
-  fPadding.OnChange := PaddingChanged;
-  fBorderColor := clNone;
-  fImageIndex := -1;
-  fSpacing := 4;
-end;
+ Constructor TCustomImageLabel.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   fImagesLink          := TChangeLink.Create;
+   fImagesLink.OnChange := ImagesChanged;
+   fPadding             := TPadding.Create(Self);
+   fPadding.OnChange    := PaddingChanged;
+   fBorderColor         := clNone;
+   fImageIndex          := -1;
+   fSpacing             := 4;
+  End;
 
-destructor TCustomImageLabel.Destroy;
-begin
-  Images := nil;
-  fImagesLink.Free;
-  fPadding.Free;
-  inherited Destroy;
-end;
+ Destructor TCustomImageLabel.Destroy;
+  Begin
+   Images := Nil;
+   fImagesLink.Free;
+   fPadding.Free;
+   Inherited Destroy;
+  End;
 
-procedure TCustomImageLabel.SetSpacing(Value: Integer);
-begin
-  if Spacing <> Value then
-  begin
-    fSpacing := Value;
-    if Assigned(Images) and (ImageIndex >= 0) then
-    begin
-      AdjustBounds;
+ Procedure TCustomImageLabel.SetSpacing(Value : Integer);
+  Begin
+   If Spacing <> Value Then
+    Begin
+     fSpacing := Value;
+     If Assigned(Images) And (ImageIndex >= 0) Then
+      Begin
+       AdjustBounds;
+       Invalidate;
+      End;
+    End;
+  End;
+
+ Procedure TCustomImageLabel.SetBorderWidth(Value : TBorderWidth);
+  Begin
+   If BorderWidth <> Value Then
+    Begin
+     fBorderWidth := Value;
+     AdjustBounds;
+     Invalidate;
+    End;
+  End;
+
+ Procedure TCustomImageLabel.SetBorderColor(Value : TColor);
+  Begin
+   If BorderColor <> Value Then
+    Begin
+     fBorderColor := Value;
+     If BorderWidth <> 0 Then
       Invalidate;
-    end;
-  end;
-end;
+    End;
+  End;
 
-procedure TCustomImageLabel.SetBorderWidth(Value: TBorderWidth);
-begin
-  if BorderWidth <> Value then
-  begin
-    fBorderWidth := Value;
-    AdjustBounds;
-    Invalidate;
-  end;
-end;
+ Function TCustomImageLabel.GetImageIndex : TImageIndex;
+  Begin
+   Result := fImageIndex;
+  End;
 
-procedure TCustomImageLabel.SetBorderColor(Value: TColor);
-begin
-  if BorderColor <> Value then
-  begin
-    fBorderColor := Value;
-    if BorderWidth <> 0 then
-      Invalidate;
-  end;
-end;
-
-function TCustomImageLabel.GetImageIndex: TImageIndex;
-begin
-  Result := fImageIndex;
-end;
-
-procedure TCustomImageLabel.SetImageIndex(Value: TImageIndex);
-var
-  NeedsAdjustment: Boolean;
-begin
-  if ImageIndex <> Value then
-  begin
-    NeedsAdjustment := (ImageIndex < 0) or (Value < 0);
-    fImageIndex := Value;
-    if Assigned(Images) and NeedsAdjustment then
+ Procedure TCustomImageLabel.SetImageIndex(Value : TImageIndex);
+  Var
+   NeedsAdjustment : Boolean;
+  Begin
+   If ImageIndex <> Value Then
+    Begin
+     NeedsAdjustment := (ImageIndex < 0) Or (Value < 0);
+     fImageIndex     := Value;
+     If Assigned(Images) And NeedsAdjustment Then
       AdjustBounds;
-    Invalidate;
-  end;
-end;
+     Invalidate;
+    End;
+  End;
 
-procedure TCustomImageLabel.SetImages(Value: TCustomImageList);
-begin
-  if Images <> Value then
-  begin
-    if Assigned(Images) then
-    begin
-      Images.RemoveFreeNotification(Self);
-      Images.UnRegisterChanges(fImagesLink);
-    end;
-    fImages := Value;
-    if Assigned(Images) then
-    begin
-      Images.FreeNotification(Self);
-      Images.RegisterChanges(fImagesLink);
-    end;
-    fImagesLink.Change;
-  end;
-end;
+ Procedure TCustomImageLabel.SetImages(Value : TCustomImageList);
+  Begin
+   If Images <> Value Then
+    Begin
+     If Assigned(Images) Then
+      Begin
+       Images.RemoveFreeNotification(Self);
+       Images.UnRegisterChanges(fImagesLink);
+      End;
+     fImages := Value;
+     If Assigned(Images) Then
+      Begin
+       Images.FreeNotification(Self);
+       Images.RegisterChanges(fImagesLink);
+      End;
+     fImagesLink.Change;
+    End;
+  End;
 
-procedure TCustomImageLabel.SetPadding(Value: TPadding);
-begin
-  Padding.Assign(Value);
-end;
+ Procedure TCustomImageLabel.SetPadding(Value : TPadding);
+  Begin
+   Padding.Assign(Value);
+  End;
 
-procedure TCustomImageLabel.ImagesChanged(Sender: TObject);
-begin
-  AdjustBounds;
-  Invalidate;
-end;
+ Procedure TCustomImageLabel.ImagesChanged(Sender : TObject);
+  Begin
+   AdjustBounds;
+   Invalidate;
+  End;
 
-procedure TCustomImageLabel.PaddingChanged(Sender: TObject);
-begin
-  AdjustBounds;
-  Invalidate;
-end;
+ Procedure TCustomImageLabel.PaddingChanged(Sender : TObject);
+  Begin
+   AdjustBounds;
+   Invalidate;
+  End;
 
-procedure TCustomImageLabel.CNVisibleChanged(var Message: TMessage);
-begin
-  inherited;
-  if Visible then
-  begin
-    AdjustBounds;
-    Invalidate;
-  end;
-end;
+ Procedure TCustomImageLabel.CNVisibleChanged(Var Message : TMessage);
+  Begin
+   Inherited;
+   If Visible Then
+    Begin
+     AdjustBounds;
+     Invalidate;
+    End;
+  End;
 
-procedure TCustomImageLabel.Notification(AComponent: TComponent;
-  Operation: TOperation);
-begin
-  inherited Notification(AComponent, Operation);
-  if (Operation = opRemove) and (AComponent = Images) then
-    Images := nil;
-end;
+ Procedure TCustomImageLabel.Notification(AComponent : TComponent; Operation : TOperation);
+  Begin
+   Inherited Notification(AComponent, Operation);
+   If (Operation = opRemove) And (AComponent = Images) Then
+    Images := Nil;
+  End;
 
-procedure TCustomImageLabel.DoDrawText(var Rect: TRect; DrawFlags: Integer);
-var
-  ConsiderImage: Boolean;
-  ConsiderText: Boolean;
-  X, Y, I: Integer;
-  tm: TTextMetric;
-begin
-  ConsiderText := (GetLabelText <> '');
-  ConsiderImage := Assigned(Images) and (ImageIndex >= 0);
-  if (DrawFlags and DT_CALCRECT) = DT_CALCRECT then
-  begin
-    if ConsiderText then
-    begin
-      if ConsiderImage then
+ Procedure TCustomImageLabel.DoDrawText(Var Rect : TRect; DrawFlags : Integer);
+  Var
+   ConsiderImage : Boolean;
+   ConsiderText  : Boolean;
+   x, y, i       : Integer;
+   tm            : TTextMetric;
+  Begin
+   ConsiderText  := (GetLabelText <> '');
+   ConsiderImage := Assigned(Images) And (ImageIndex >= 0);
+   If (DrawFlags And DT_CALCRECT) = DT_CALCRECT Then
+    Begin
+     If ConsiderText Then
+      Begin
+       If ConsiderImage Then
         Dec(Rect.Right, Images.Width + Spacing);
-      inherited DoDrawText(Rect, DrawFlags);
-      if ConsiderImage then
-      begin
-        Inc(Rect.Right, Images.Width + Spacing);
-        if Images.Height > (Rect.Bottom - Rect.Top) then
+       Inherited DoDrawText(Rect, DrawFlags);
+       If ConsiderImage Then
+        Begin
+         Inc(Rect.Right, Images.Width + Spacing);
+         If Images.Height > (Rect.Bottom - Rect.Top) Then
           Rect.Bottom := Rect.Top + Images.Height;
-      end;
-    end
-    else if ConsiderImage then
-    begin
-      Rect.Right := Rect.Left + Images.Width;
-      Rect.Bottom := Rect.Top + Images.Height;
-    end
-    else if not (csDesigning in ComponentState) then
-    begin
-      Rect.Right := Rect.Left;
-      Rect.Bottom := Rect.Top;
-    end;
-  end
-  else
-  begin
-    if ConsiderImage then
-    begin
-      if UseRightToLeftAlignment then
-      begin
-        X := Rect.Right - Images.Width;
-        Dec(Rect.Right, Images.Width + Spacing);
-      end
-      else
-      begin
-        X := Rect.Left;
-        Inc(Rect.Left, Images.Width + Spacing);
-      end;
-      if ConsiderText then
-      begin
-        GetTextMetrics(Canvas.Handle, tm);
-        I := (tm.tmHeight - Images.Height) div 2;
-        if I < 0 then
-        begin
-          Y := Rect.Top;
-          if (Rect.Bottom - Rect.Top) = Images.Height then
-            Inc(Rect.Top, -I);
-        end
-        else
-          Y := Rect.Top + I;
-        inherited DoDrawText(Rect, DrawFlags);
-      end
-      else
-        Y := (Rect.Top + Rect.Bottom - Images.Height) div 2;
-      Images.Draw(Canvas, X, Y, GetImageIndex, Enabled);
-    end
-    else if ConsiderText then
-      inherited DoDrawText(Rect, DrawFlags)
-  end;
-end;
+        End;
+      End
+     Else If ConsiderImage Then
+      Begin
+       Rect.Right  := Rect.Left + Images.Width;
+       Rect.Bottom := Rect.Top + Images.Height;
+      End
+     Else If Not(csDesigning In ComponentState) Then
+      Begin
+       Rect.Right  := Rect.Left;
+       Rect.Bottom := Rect.Top;
+      End;
+    End
+   Else
+    Begin
+     If ConsiderImage Then
+      Begin
+       If UseRightToLeftAlignment Then
+        Begin
+         x := Rect.Right - Images.Width;
+         Dec(Rect.Right, Images.Width + Spacing);
+        End
+       Else
+        Begin
+         x := Rect.Left;
+         Inc(Rect.Left, Images.Width + Spacing);
+        End;
+       If ConsiderText Then
+        Begin
+         GetTextMetrics(Canvas.Handle, tm);
+         i := (tm.tmHeight - Images.Height) Div 2;
+         If i < 0 Then
+          Begin
+           y := Rect.Top;
+           If (Rect.Bottom - Rect.Top) = Images.Height Then
+            Inc(Rect.Top, -i);
+          End
+         Else
+          y := Rect.Top + i;
+         Inherited DoDrawText(Rect, DrawFlags);
+        End
+       Else
+        y := (Rect.Top + Rect.Bottom - Images.Height) Div 2;
+       Images.Draw(Canvas, x, y, GetImageIndex, Enabled);
+      End
+     Else If ConsiderText Then
+      Inherited DoDrawText(Rect, DrawFlags)
+    End;
+  End;
 
-procedure TCustomImageLabel.AdjustBounds;
-const
-  WordWraps: array[Boolean] of Word = (0, DT_WordBREAK);
-var
-  DC: HDC;
-  X: Integer;
-  Rect: TRect;
-  TheAlignment: TAlignment;
-begin
-  if (([csReading, csLoading, csDestroying] * ComponentState) = []) and
-     AutoSize and (Visible or (csDesigning in ComponentState)) then
-  begin
-    Rect := ClientRect;
-    Dec(Rect.Right, Padding.Left + Padding.Right + 2 * BorderWidth);
-    Dec(Rect.Bottom, Padding.Top + Padding.Bottom + 2 * BorderWidth);
-    DC := GetDC(0);
-    try
+ Procedure TCustomImageLabel.AdjustBounds;
+  Const
+   WordWraps : Array[Boolean] Of Word = (0, DT_WordBREAK);
+  Var
+   DC           : HDC;
+   x            : Integer;
+   Rect         : TRect;
+   TheAlignment : TAlignment;
+  Begin
+   If (([csReading, csLoading, csDestroying] * ComponentState) = []) And
+   AutoSize And (Visible Or (csDesigning In ComponentState)) Then
+    Begin
+     Rect := ClientRect;
+     Dec(Rect.Right, Padding.Left + Padding.Right + 2 * BorderWidth);
+     Dec(Rect.Bottom, Padding.Top + Padding.Bottom + 2 * BorderWidth);
+     DC := GetDC(0);
+     Try
       Canvas.Handle := DC;
-      DoDrawText(Rect, DT_EXPANDTABS or DT_CALCRECT or WordWraps[WordWrap]);
+      DoDrawText(Rect, DT_EXPANDTABS Or DT_CALCRECT Or WordWraps[WordWrap]);
       Canvas.Handle := 0;
-    finally
+     Finally
       ReleaseDC(0, DC);
-    end;
-    Inc(Rect.Right, Padding.Left + Padding.Right + 2 * BorderWidth);
-    Inc(Rect.Bottom, Padding.Top + Padding.Bottom + 2 * BorderWidth);
-    X := Left;
-    TheAlignment := Alignment;
-    if UseRightToLeftAlignment then
+     End;
+     Inc(Rect.Right, Padding.Left + Padding.Right + 2 * BorderWidth);
+     Inc(Rect.Bottom, Padding.Top + Padding.Bottom + 2 * BorderWidth);
+     x            := Left;
+     TheAlignment := Alignment;
+     If UseRightToLeftAlignment Then
       ChangeBiDiModeAlignment(TheAlignment);
-    if TheAlignment = taRightJustify then
-      Inc(X, Width - Rect.Right);
-    SetBounds(X, Top, Rect.Right, Rect.Bottom);
-  end;
-end;
+     If TheAlignment = taRightJustify Then
+      Inc(x, Width - Rect.Right);
+     SetBounds(x, Top, Rect.Right, Rect.Bottom);
+    End;
+  End;
 
-procedure TCustomImageLabel.Paint;
-const
-  Alignments: array[TAlignment] of Word = (DT_LEFT, DT_RIGHT, DT_CENTER);
-  WordWraps: array[Boolean] of Word = (0, DT_WordBREAK);
-var
-  Rect, CalcRect: TRect;
-  DrawStyle: Longint;
-  TheAlignment: TAlignment;
-begin
-  with Canvas do
-  begin
-    Rect := ClientRect;
-    if not Transparent then
-    begin
-      Brush.Color := Self.Color;
-      Brush.Style := bsSolid;
-      {$IFDEF COMPILER2010_UP}
-      if not (csGlassPaint in ControlState) then
+ Procedure TCustomImageLabel.Paint;
+  Const
+   Alignments : Array[TAlignment] Of Word = (DT_LEFT, DT_RIGHT, DT_CENTER);
+   WordWraps : Array[Boolean] Of Word = (0, DT_WordBREAK);
+  Var
+   Rect, CalcRect : TRect;
+   DrawStyle      : LongInt;
+   TheAlignment   : TAlignment;
+  Begin
+   With Canvas Do
+    Begin
+     Rect := ClientRect;
+     If Not Transparent Then
+      Begin
+       Brush.Color := Self.Color;
+       Brush.Style := bsSolid;
+       {$IFDEF COMPILER2010_UP}
+       If Not(csGlassPaint In ControlState) Then
         FillRect(Rect)
-      else
+       Else
         FillGlassRect(Canvas, Rect);
-      {$ELSE}
-      FillRect(Rect);
-      {$ENDIF}
-    end;
-    Brush.Style := bsClear;
-    if BorderWidth <> 0 then
-    begin
-      if BorderColor <> clNone then
-      begin
-        if BorderColor = clDefault then
+       {$ELSE}
+       FillRect(Rect);
+       {$ENDIF}
+      End;
+     Brush.Style := bsClear;
+     If BorderWidth <> 0 Then
+      Begin
+       If BorderColor <> clNone Then
+        Begin
+         If BorderColor = clDefault Then
           Pen.Color := Font.Color
-        else
+         Else
           Pen.Color := BorderColor;
-        Pen.Width := BorderWidth;
-        Pen.Style := psInsideFrame;
-        Rectangle(Rect);
-      end;
-      InflateRect(Rect, -BorderWidth, -BorderWidth);
-    end;
-    Inc(Rect.Left, Padding.Left);
-    Inc(Rect.Top, Padding.Top);
-    Dec(Rect.Right, Padding.Right);
-    Dec(Rect.Bottom, Padding.Bottom);
-    DrawStyle := DT_EXPANDTABS or WordWraps[WordWrap] or Alignments[Alignment];
-    if not AutoSize or (Align <> alNone) then
-    begin
-      CalcRect := Rect;
-      DoDrawText(CalcRect, DrawStyle or DT_CALCRECT);
-      TheAlignment := Alignment;
-      if UseRightToLeftAlignment then
+         Pen.Width  := BorderWidth;
+         Pen.Style  := psInsideFrame;
+         Rectangle(Rect);
+        End;
+       InflateRect(Rect, -BorderWidth, -BorderWidth);
+      End;
+     Inc(Rect.Left, Padding.Left);
+     Inc(Rect.Top, Padding.Top);
+     Dec(Rect.Right, Padding.Right);
+     Dec(Rect.Bottom, Padding.Bottom);
+     DrawStyle := DT_EXPANDTABS Or WordWraps[WordWrap] Or Alignments[Alignment];
+     If Not AutoSize Or (Align <> alNone) Then
+      Begin
+       CalcRect := Rect;
+       DoDrawText(CalcRect, DrawStyle Or DT_CALCRECT);
+       TheAlignment := Alignment;
+       If UseRightToLeftAlignment Then
         ChangeBiDiModeAlignment(TheAlignment);
-      case TheAlignment of
-        taRightJustify: OffsetRect(CalcRect, Rect.Right - CalcRect.Right, 0);
-        taCenter: OffsetRect(CalcRect, (Rect.Right - CalcRect.Right) div 2, 0);
-      end;
-      case Layout of
-        tlBottom: OffsetRect(CalcRect, 0, Rect.Bottom - CalcRect.Bottom);
-        tlCenter: OffsetRect(CalcRect, 0, (Rect.Bottom - CalcRect.Bottom) div 2);
-      end;
-      DoDrawText(CalcRect, DrawStyle);
-    end
-    else
+       Case TheAlignment Of
+        taRightJustify : OffsetRect(CalcRect, Rect.Right - CalcRect.Right, 0);
+        taCenter       : OffsetRect(CalcRect, (Rect.Right - CalcRect.Right) Div 2, 0);
+       End;
+       Case Layout Of
+        tlBottom : OffsetRect(CalcRect, 0, Rect.Bottom - CalcRect.Bottom);
+        tlCenter : OffsetRect(CalcRect, 0, (Rect.Bottom - CalcRect.Bottom) Div 2);
+       End;
+       DoDrawText(CalcRect, DrawStyle);
+      End
+     Else
       DoDrawText(Rect, DrawStyle);
-  end;
-end;
+    End;
+  End;
 
 { TCustomFlagLabel }
 
-constructor TCustomFlagLabel.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  if csDesigning in ComponentState then
+ Constructor TCustomFlagLabel.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   If csDesigning In ComponentState Then
     Flags := FindFlags(AOwner);
-end;
+  End;
 
-procedure TCustomFlagLabel.SetFlags(Value: TCustomFlagImageList);
-begin
-  inherited Images := Value;
-end;
+ Procedure TCustomFlagLabel.SetFlags(Value : TCustomFlagImageList);
+  Begin
+   Inherited Images := Value;
+  End;
 
-function TCustomFlagLabel.GetFlags: TCustomFlagImageList;
-begin
-  Result := TCustomFlagImageList(inherited Images);
-end;
+ Function TCustomFlagLabel.GetFlags : TCustomFlagImageList;
+  Begin
+   Result := TCustomFlagImageList(Inherited Images);
+  End;
 
 { TCustomFlagBox }
 
-constructor TCustomFlagBox.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  Style := csDropDownList;
-  fFlagsLink := TChangeLink.Create;
-  if csDesigning in ComponentState then
-    Flags := FindFlags(AOwner);
-  fFlagsLink.OnChange := FlagsChanged;
-  fItemIndex := -1;
-end;
+ Constructor TCustomFlagBox.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   Style      := csDropDownList;
+   fFlagsLink := TChangeLink.Create;
+   If csDesigning In ComponentState Then
+    Flags              := FindFlags(AOwner);
+   fFlagsLink.OnChange := FlagsChanged;
+   fItemIndex          := -1;
+  End;
 
-destructor TCustomFlagBox.Destroy;
-begin
-  Flags := nil;
-  fFlagsLink.Free;
-  inherited Destroy;
-end;
+ Destructor TCustomFlagBox.Destroy;
+  Begin
+   Flags := Nil;
+   fFlagsLink.Free;
+   Inherited Destroy;
+  End;
 
-procedure TCustomFlagBox.FlagsChanged(Sender: TObject);
-begin
-  ResetItemHeight;
-  Invalidate;
-end;
+ Procedure TCustomFlagBox.FlagsChanged(Sender : TObject);
+  Begin
+   ResetItemHeight;
+   Invalidate;
+  End;
 
-procedure TCustomFlagBox.SetSorted(Value: Boolean);
-begin
-  if Sorted <> Value then
-  begin
-    fSorted := Value;
-    RebuildInternalItems;
-  end;
-end;
+ Procedure TCustomFlagBox.SetSorted(Value : Boolean);
+  Begin
+   If Sorted <> Value Then
+    Begin
+     fSorted := Value;
+     RebuildInternalItems;
+    End;
+  End;
 
-procedure TCustomFlagBox.SetFlagPosition(Value: TFlagPosition);
-begin
-  if FlagPosition <> Value then
-  begin
-    fFlagPosition := Value;
-    Invalidate;
-  end;
-end;
+ Procedure TCustomFlagBox.SetFlagPosition(Value : TFlagPosition);
+  Begin
+   If FlagPosition <> Value Then
+    Begin
+     fFlagPosition := Value;
+     Invalidate;
+    End;
+  End;
 
-procedure TCustomFlagBox.SetFlags(Value: TCustomFlagImageList);
-begin
-  if Flags <> Value then
-  begin
-    if Assigned(Flags) then
-    begin
-      Flags.RemoveFreeNotification(Self);
-      Flags.UnRegisterChanges(fFlagsLink);
-    end;
-    fFlags := Value;
-    if Assigned(Flags) then
-    begin
-      Flags.FreeNotification(Self);
-      Flags.RegisterChanges(fFlagsLink);
-    end;
-    fFlagsLink.Change;
-  end;
-end;
+ Procedure TCustomFlagBox.SetFlags(Value : TCustomFlagImageList);
+  Begin
+   If Flags <> Value Then
+    Begin
+     If Assigned(Flags) Then
+      Begin
+       Flags.RemoveFreeNotification(Self);
+       Flags.UnRegisterChanges(fFlagsLink);
+      End;
+     fFlags := Value;
+     If Assigned(Flags) Then
+      Begin
+       Flags.FreeNotification(Self);
+       Flags.RegisterChanges(fFlagsLink);
+      End;
+     fFlagsLink.Change;
+    End;
+  End;
 
-function TCustomFlagBox.GetItemIndex: Integer;
-begin
-  if ItemsReady then
-    Result := inherited GetItemIndex
-  else
+ Function TCustomFlagBox.GetItemIndex : Integer;
+  Begin
+   If ItemsReady Then
+    Result := Inherited GetItemIndex
+   Else
     Result := fItemIndex;
-end;
+  End;
 
-procedure TCustomFlagBox.SetItemIndex(const Value: Integer);
-begin
-  if ItemsReady then
-    inherited SetItemIndex(Value)
-  else
+ Procedure TCustomFlagBox.SetItemIndex(Const Value : Integer);
+  Begin
+   If ItemsReady Then
+    Inherited SetItemIndex(Value)
+   Else
     fItemIndex := Value;
-end;
+  End;
 
-function TCustomFlagBox.DoDrawItemLabel(Index: Integer; var Rect: TRect;
-  State: TOwnerDrawState; var TheLabel: String): Boolean;
-begin
-  Result := True;
-  if Assigned(OnDrawItemLabel) then
+ Function TCustomFlagBox.DoDrawItemLabel(Index : Integer; Var Rect : TRect; State : TOwnerDrawState; Var TheLabel : String) : Boolean;
+  Begin
+   Result := True;
+   If Assigned(OnDrawItemLabel) Then
     OnDrawItemLabel(Self, Index, Rect, State, TheLabel, Result);
-end;
+  End;
 
-procedure TCustomFlagBox.DoItemsChange;
-begin
-  if Assigned(OnItemsChange) then
+ Procedure TCustomFlagBox.DoItemsChange;
+  Begin
+   If Assigned(OnItemsChange) Then
     OnItemsChange(Self);
-end;
+  End;
 
-procedure TCustomFlagBox.DrawItem(Index: Integer; Rect: TRect;
-  State: TOwnerDrawState);
-var
-  TheLabel: String;
-  X, Y: Integer;
-begin
-  Canvas.FillRect(Rect);
-  SetBkMode(Canvas.Handle, TRANSPARENT);
-  if Index >= 0 then
-  begin
-    if Assigned(Flags) then
-    begin
-      if UseRightToLeftAlignment xor (FlagPosition = fpAfterLabel) then
-      begin
-        X := Rect.Right - Flags.Width - HorzSpacing;
-        Dec(Rect.Right, Flags.Width + 2 * HorzSpacing);
-      end
-      else
-      begin
-        X := Rect.Left + HorzSpacing;
-        Inc(Rect.Left, Flags.Width + 2 * HorzSpacing);
-      end;
-      Y := (Rect.Top + Rect.Bottom - Flags.Height) div 2;
-      Flags.Draw(Canvas, X, Y, GetImageIndex(Index));
-    end;
-    TheLabel := GetLabelText(Index);
-    if DoDrawItemLabel(Index, Rect, State, TheLabel) then
-    begin
-      InflateRect(Rect, -HorzSpacing, 0);
-      DrawText(Canvas.Handle, PChar(TheLabel), Length(TheLabel), Rect,
-        DrawTextBiDiModeFlags(DT_LEFT or DT_VCENTER or DT_EXPANDTABS or
-          DT_SINGLELINE or DT_NOPREFIX));
-    end;
-  end;
-end;
+ Procedure TCustomFlagBox.DrawItem(Index : Integer; Rect : TRect; State : TOwnerDrawState);
+  Var
+   TheLabel : String;
+   x, y     : Integer;
+  Begin
+   Canvas.FillRect(Rect);
+   SetBkMode(Canvas.Handle, Transparent);
+   If Index >= 0 Then
+    Begin
+     If Assigned(Flags) Then
+      Begin
+       If UseRightToLeftAlignment Xor (FlagPosition = fpAfterLabel) Then
+        Begin
+         x := Rect.Right - Flags.Width - HorzSpacing;
+         Dec(Rect.Right, Flags.Width + 2 * HorzSpacing);
+        End
+       Else
+        Begin
+         x := Rect.Left + HorzSpacing;
+         Inc(Rect.Left, Flags.Width + 2 * HorzSpacing);
+        End;
+       y := (Rect.Top + Rect.Bottom - Flags.Height) Div 2;
+       Flags.Draw(Canvas, x, y, GetImageIndex(Index));
+      End;
+     TheLabel := GetLabelText(Index);
+     If DoDrawItemLabel(Index, Rect, State, TheLabel) Then
+      Begin
+       InflateRect(Rect, -HorzSpacing, 0);
+       DrawText(Canvas.Handle, PChar(TheLabel), Length(TheLabel), Rect,
+       DrawTextBiDiModeFlags(DT_LEFT Or DT_VCENTER Or DT_EXPANDTABS Or
+       DT_SINGLELINE Or DT_NOPREFIX));
+      End;
+    End;
+  End;
 
-procedure TCustomFlagBox.Notification(AComponent: TComponent;
-  Operation: TOperation);
-begin
-  inherited Notification(AComponent, Operation);
-  if (Operation = opRemove) and (AComponent = Flags) then
-    Flags := nil;
-end;
+ Procedure TCustomFlagBox.Notification(AComponent : TComponent; Operation : TOperation);
+  Begin
+   Inherited Notification(AComponent, Operation);
+   If (Operation = opRemove) And (AComponent = Flags) Then
+    Flags := Nil;
+  End;
 
-procedure TCustomFlagBox.CreateParams(var Params: TCreateParams);
-begin
-  inherited CreateParams(Params);
-  Params.Style := Params.Style or CBS_OWNERDRAWFIXED or CBS_DROPDOWNLIST;
-end;
+ Procedure TCustomFlagBox.CreateParams(Var Params : TCreateParams);
+  Begin
+   Inherited CreateParams(Params);
+   Params.Style := Params.Style Or CBS_OWNERDRAWFIXED Or CBS_DROPDOWNLIST;
+  End;
 
-procedure TCustomFlagBox.CreateWnd;
-begin
-  inherited CreateWnd;
-  ResetItemHeight;
-  if not (csRecreating in ControlState) then
-  begin
-    RebuildInternalItems;
-    fItemsReady := True;
-    if fItemIndex <> -1 then
-      inherited ItemIndex := fItemIndex;
-  end;
-end;
+ Procedure TCustomFlagBox.CreateWnd;
+  Begin
+   Inherited CreateWnd;
+   ResetItemHeight;
+   If Not(csRecreating In ControlState) Then
+    Begin
+     RebuildInternalItems;
+     fItemsReady := True;
+     If fItemIndex <> -1 Then
+      Inherited ItemIndex := fItemIndex;
+    End;
+  End;
 
-procedure TCustomFlagBox.CMFontChanged(var Message: TMessage);
-begin
-  inherited;
-  ResetItemHeight;
-end;
+ Procedure TCustomFlagBox.CMFontChanged(Var Message : TMessage);
+  Begin
+   Inherited;
+   ResetItemHeight;
+  End;
 
-procedure TCustomFlagBox.CMEnter(var Message: TMessage);
-begin
-  inherited;
-  Invalidate;
-end;
+ Procedure TCustomFlagBox.CMEnter(Var Message : TMessage);
+  Begin
+   Inherited;
+   Invalidate;
+  End;
 
-function TCustomFlagBox.GetLabelText(Index: Integer): String;
-begin
-  Result := Items[Index];
-end;
+ Function TCustomFlagBox.GetLabelText(Index : Integer) : String;
+  Begin
+   Result := Items[Index];
+  End;
 
-function TCustomFlagBox.GetStandardItemHeight;
-begin
-  if WindowHandle = 0 then
+ Function TCustomFlagBox.GetStandardItemHeight;
+  Begin
+   If WindowHandle = 0 Then
     Result := Abs(Font.Height) + 2
-  else
+   Else
     Result := Canvas.TextHeight('|');
-  if Assigned(Flags) and (Result < Flags.Height) then
+   If Assigned(Flags) And (Result < Flags.Height) Then
     Result := Flags.Height;
-  Inc(Result, 2 * VertSpacing);
-end;
+   Inc(Result, 2 * VertSpacing);
+  End;
 
-procedure TCustomFlagBox.ResetItemHeight;
-begin
-  fStandardItemHeight := GetStandardItemHeight;
-  if (WindowHandle = 0) or (Style = csOwnerDrawVariable) then
-    inherited ItemHeight := StandardItemHeight
-  else
+ Procedure TCustomFlagBox.ResetItemHeight;
+  Begin
+   fStandardItemHeight := GetStandardItemHeight;
+   If (WindowHandle = 0) Or (Style = csOwnerDrawVariable) Then
+    Inherited ItemHeight := StandardItemHeight
+   Else
     SendMessage(WindowHandle, CB_SETITEMHEIGHT, 0, StandardItemHeight);
-end;
+  End;
 
 { TCustomFlagListBox }
 
-constructor TCustomFlagListBox.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  Style := lbOwnerDrawFixed;
-  fFlagsLink := TChangeLink.Create;
-  if csDesigning in ComponentState then
-    Flags := FindFlags(AOwner);
-  fFlagsLink.OnChange := FlagsChanged;
-  fItemIndex := -1;
-end;
+ Constructor TCustomFlagListBox.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   Style      := lbOwnerDrawFixed;
+   fFlagsLink := TChangeLink.Create;
+   If csDesigning In ComponentState Then
+    Flags              := FindFlags(AOwner);
+   fFlagsLink.OnChange := FlagsChanged;
+   fItemIndex          := -1;
+  End;
 
-destructor TCustomFlagListBox.Destroy;
-begin
-  Flags := nil;
-  fFlagsLink.Free;
-  inherited Destroy;
-end;
+ Destructor TCustomFlagListBox.Destroy;
+  Begin
+   Flags := Nil;
+   fFlagsLink.Free;
+   Inherited Destroy;
+  End;
 
-procedure TCustomFlagListBox.FlagsChanged(Sender: TObject);
-begin
-  ResetItemHeight;
-  Invalidate;
-end;
+ Procedure TCustomFlagListBox.FlagsChanged(Sender : TObject);
+  Begin
+   ResetItemHeight;
+   Invalidate;
+  End;
 
-procedure TCustomFlagListBox.SetSorted(Value: Boolean);
-begin
-  if Sorted <> Value then
-  begin
-    fSorted := Value;
-    RebuildInternalItems;
-  end;
-end;
+ Procedure TCustomFlagListBox.SetSorted(Value : Boolean);
+  Begin
+   If Sorted <> Value Then
+    Begin
+     fSorted := Value;
+     RebuildInternalItems;
+    End;
+  End;
 
-procedure TCustomFlagListBox.SetFlagPosition(Value: TFlagPosition);
-begin
-  if FlagPosition <> Value then
-  begin
-    fFlagPosition := Value;
-    Invalidate;
-  end;
-end;
+ Procedure TCustomFlagListBox.SetFlagPosition(Value : TFlagPosition);
+  Begin
+   If FlagPosition <> Value Then
+    Begin
+     fFlagPosition := Value;
+     Invalidate;
+    End;
+  End;
 
-procedure TCustomFlagListBox.SetFlags(Value: TCustomFlagImageList);
-begin
-  if Flags <> Value then
-  begin
-    if Assigned(Flags) then
-    begin
-      Flags.RemoveFreeNotification(Self);
-      Flags.UnRegisterChanges(fFlagsLink);
-    end;
-    fFlags := Value;
-    if Assigned(Flags) then
-    begin
-      Flags.FreeNotification(Self);
-      Flags.RegisterChanges(fFlagsLink);
-    end;
-    fFlagsLink.Change;
-  end;
-end;
+ Procedure TCustomFlagListBox.SetFlags(Value : TCustomFlagImageList);
+  Begin
+   If Flags <> Value Then
+    Begin
+     If Assigned(Flags) Then
+      Begin
+       Flags.RemoveFreeNotification(Self);
+       Flags.UnRegisterChanges(fFlagsLink);
+      End;
+     fFlags := Value;
+     If Assigned(Flags) Then
+      Begin
+       Flags.FreeNotification(Self);
+       Flags.RegisterChanges(fFlagsLink);
+      End;
+     fFlagsLink.Change;
+    End;
+  End;
 
-function TCustomFlagListBox.GetItemIndex: Integer;
-begin
-  if ItemsReady then
-    Result := inherited GetItemIndex
-  else
+ Function TCustomFlagListBox.GetItemIndex : Integer;
+  Begin
+   If ItemsReady Then
+    Result := Inherited GetItemIndex
+   Else
     Result := fItemIndex;
-end;
+  End;
 
-procedure TCustomFlagListBox.SetItemIndex(const Value: Integer);
-begin
-  if ItemsReady then
-    inherited SetItemIndex(Value)
-  else
+ Procedure TCustomFlagListBox.SetItemIndex(Const Value : Integer);
+  Begin
+   If ItemsReady Then
+    Inherited SetItemIndex(Value)
+   Else
     fItemIndex := Value;
-end;
+  End;
 
-function TCustomFlagListBox.GetLabelText(Index: Integer): String;
-begin
-  Result := Items[Index];
-end;
+ Function TCustomFlagListBox.GetLabelText(Index : Integer) : String;
+  Begin
+   Result := Items[Index];
+  End;
 
-procedure TCustomFlagListBox.DrawItem(Index: Integer; Rect: TRect;
-  State: TOwnerDrawState);
-var
-  TheLabel: String;
-  X, Y: Integer;
-begin
-  Canvas.FillRect(Rect);
-  SetBkMode(Canvas.Handle, TRANSPARENT);
-  if Index >= 0 then
-  begin
-    if Assigned(Flags) then
-    begin
-      if UseRightToLeftAlignment xor (FlagPosition = fpAfterLabel) then
-      begin
-        X := Rect.Right - Flags.Width - HorzSpacing;
-        Dec(Rect.Right, Flags.Width + 2 * HorzSpacing);
-      end
-      else
-      begin
-        X := Rect.Left + HorzSpacing;
-        Inc(Rect.Left, Flags.Width + 2 * HorzSpacing);
-      end;
-      Y := (Rect.Top + Rect.Bottom - Flags.Height) div 2;
-      Flags.Draw(Canvas, X, Y, GetImageIndex(Index));
-    end;
-    TheLabel := GetLabelText(Index);
-    if DoDrawItemLabel(Index, Rect, State, TheLabel) then
-    begin
-      InflateRect(Rect, -HorzSpacing, 0);
-      DrawText(Canvas.Handle, PChar(TheLabel), Length(TheLabel), Rect,
-        DrawTextBiDiModeFlags(DT_LEFT or DT_VCENTER or DT_EXPANDTABS or
-          DT_SINGLELINE or DT_NOPREFIX));
-    end;
-  end;
-end;
+ Procedure TCustomFlagListBox.DrawItem(Index : Integer; Rect : TRect; State : TOwnerDrawState);
+  Var
+   TheLabel : String;
+   x, y     : Integer;
+  Begin
+   Canvas.FillRect(Rect);
+   SetBkMode(Canvas.Handle, Transparent);
+   If Index >= 0 Then
+    Begin
+     If Assigned(Flags) Then
+      Begin
+       If UseRightToLeftAlignment Xor (FlagPosition = fpAfterLabel) Then
+        Begin
+         x := Rect.Right - Flags.Width - HorzSpacing;
+         Dec(Rect.Right, Flags.Width + 2 * HorzSpacing);
+        End
+       Else
+        Begin
+         x := Rect.Left + HorzSpacing;
+         Inc(Rect.Left, Flags.Width + 2 * HorzSpacing);
+        End;
+       y := (Rect.Top + Rect.Bottom - Flags.Height) Div 2;
+       Flags.Draw(Canvas, x, y, GetImageIndex(Index));
+      End;
+     TheLabel := GetLabelText(Index);
+     If DoDrawItemLabel(Index, Rect, State, TheLabel) Then
+      Begin
+       InflateRect(Rect, -HorzSpacing, 0);
+       DrawText(Canvas.Handle, PChar(TheLabel), Length(TheLabel), Rect,
+       DrawTextBiDiModeFlags(DT_LEFT Or DT_VCENTER Or DT_EXPANDTABS Or
+       DT_SINGLELINE Or DT_NOPREFIX));
+      End;
+    End;
+  End;
 
-procedure TCustomFlagListBox.Notification(AComponent: TComponent;
-  Operation: TOperation);
-begin
-  inherited Notification(AComponent, Operation);
-  if (Operation = opRemove) and (AComponent = Flags) then
-    Flags := nil;
-end;
+ Procedure TCustomFlagListBox.Notification(AComponent : TComponent; Operation : TOperation);
+  Begin
+   Inherited Notification(AComponent, Operation);
+   If (Operation = opRemove) And (AComponent = Flags) Then
+    Flags := Nil;
+  End;
 
-procedure TCustomFlagListBox.CreateWnd;
-begin
-  inherited CreateWnd;
-  ResetItemHeight;
-  if not (csRecreating in ControlState) then
-  begin
-    RebuildInternalItems;
-    fItemsReady := True;
-    if fItemIndex <> -1 then
-      inherited ItemIndex := fItemIndex;
-  end;
-end;
+ Procedure TCustomFlagListBox.CreateWnd;
+  Begin
+   Inherited CreateWnd;
+   ResetItemHeight;
+   If Not(csRecreating In ControlState) Then
+    Begin
+     RebuildInternalItems;
+     fItemsReady := True;
+     If fItemIndex <> -1 Then
+      Inherited ItemIndex := fItemIndex;
+    End;
+  End;
 
-procedure TCustomFlagListBox.CMFontChanged(var Message: TMessage);
-begin
-  inherited;
-  ResetItemHeight;
-end;
+ Procedure TCustomFlagListBox.CMFontChanged(Var Message : TMessage);
+  Begin
+   Inherited;
+   ResetItemHeight;
+  End;
 
-function TCustomFlagListBox.DoDrawItemLabel(Index: Integer; var Rect: TRect;
-  State: TOwnerDrawState; var TheLabel: String): Boolean;
-begin
-  Result := True;
-  if Assigned(OnDrawItemLabel) then
+ Function TCustomFlagListBox.DoDrawItemLabel(Index : Integer; Var Rect : TRect; State : TOwnerDrawState; Var TheLabel : String) : Boolean;
+  Begin
+   Result := True;
+   If Assigned(OnDrawItemLabel) Then
     OnDrawItemLabel(Self, Index, Rect, State, TheLabel, Result);
-end;
+  End;
 
-procedure TCustomFlagListBox.DoItemsChange;
-begin
-  if Assigned(OnItemsChange) then
+ Procedure TCustomFlagListBox.DoItemsChange;
+  Begin
+   If Assigned(OnItemsChange) Then
     OnItemsChange(Self);
-end;
+  End;
 
-function TCustomFlagListBox.GetStandardItemHeight;
-begin
-  if WindowHandle = 0 then
+ Function TCustomFlagListBox.GetStandardItemHeight;
+  Begin
+   If WindowHandle = 0 Then
     Result := Abs(Font.Height) + 2
-  else
+   Else
     Result := Canvas.TextHeight('|');
-  if Assigned(Flags) and (Result < Flags.Height) then
+   If Assigned(Flags) And (Result < Flags.Height) Then
     Result := Flags.Height;
-  Inc(Result, 2 * VertSpacing);
-end;
+   Inc(Result, 2 * VertSpacing);
+  End;
 
-procedure TCustomFlagListBox.ResetItemHeight;
-begin
-  fStandardItemHeight := GetStandardItemHeight;
-  if (WindowHandle = 0) or (Style = lbOwnerDrawVariable) then
-    inherited ItemHeight := StandardItemHeight
-  else
+ Procedure TCustomFlagListBox.ResetItemHeight;
+  Begin
+   fStandardItemHeight := GetStandardItemHeight;
+   If (WindowHandle = 0) Or (Style = lbOwnerDrawVariable) Then
+    Inherited ItemHeight := StandardItemHeight
+   Else
     SendMessage(WindowHandle, LB_SETITEMHEIGHT, 0, StandardItemHeight);
-end;
+  End;
 
 { TCheckListBoxDataWrapper }
 
-type
-  TCheckListBoxDataWrapper = class
-  private
-    fState: TCheckBoxState;
-    fDisabled: Boolean;
-    procedure SetChecked(Value: Boolean); inline;
-    function GetChecked: Boolean; inline;
-  protected
-    Data: TListBoxItemData;
-  public
-    class function GetDefaultState: TCheckBoxState; static;
-    property Checked: Boolean read GetChecked write SetChecked;
-    property State: TCheckBoxState read fState write fState;
-    property Disabled: Boolean read fDisabled write fDisabled;
-  end;
+ Type
+  TCheckListBoxDataWrapper = Class
+   Private
+    fState    : TCheckBoxState;
+    fDisabled : Boolean;
+    Procedure SetChecked(Value : Boolean); Inline;
+    Function GetChecked : Boolean; Inline;
+   Protected
+    Data : TListBoxItemData;
+   Public
+    Class Function GetDefaultState : TCheckBoxState; Static;
+    Property Checked  : Boolean Read GetChecked Write SetChecked;
+    Property State    : TCheckBoxState Read fState Write fState;
+    Property Disabled : Boolean Read fDisabled Write fDisabled;
+  End;
 
-class function TCheckListBoxDataWrapper.GetDefaultState: TCheckBoxState;
-begin
-  Result := cbUnchecked;
-end;
+  Class Function TCheckListBoxDataWrapper.GetDefaultState : TCheckBoxState;
 
-procedure TCheckListBoxDataWrapper.SetChecked(Value: Boolean);
-begin
-  fState := TCheckBoxState(Value);
-end;
+Begin
+ Result := cbUnchecked;
 
-function TCheckListBoxDataWrapper.GetChecked: Boolean;
-begin
-  Result := (fState = cbChecked);
-end;
+End;
+
+ Procedure TCheckListBoxDataWrapper.SetChecked(Value : Boolean);
+  Begin
+   fState := TCheckBoxState(Value);
+  End;
+
+ Function TCheckListBoxDataWrapper.GetChecked : Boolean;
+  Begin
+   Result := (fState = cbChecked);
+  End;
 
 { TCheckListRecall }
 
-constructor TCheckListRecall.Create(AReference: TPersistent);
-begin
-  CheckList := AReference;
-  StateInfo := TKeyLookup<String,TStateRec>.Create;
-  if Assigned(CheckList) then
+ Constructor TCheckListRecall.Create(AReference : TPersistent);
+  Begin
+   CheckList := AReference;
+   StateInfo := TKeyLookup<String, TStateRec>.Create;
+   If Assigned(CheckList) Then
     Assign(CheckList);
-end;
+  End;
 
-destructor TCheckListRecall.Destroy;
-begin
-  if Assigned(CheckList) then
+ Destructor TCheckListRecall.Destroy;
+  Begin
+   If Assigned(CheckList) Then
     AssignTo(CheckList);
-  StateInfo.Free;
-  inherited Destroy;
-end;
+   StateInfo.Free;
+   Inherited Destroy;
+  End;
 
-procedure TCheckListRecall.Store;
-begin
-  if Assigned(CheckList) then
+ Procedure TCheckListRecall.Store;
+  Begin
+   If Assigned(CheckList) Then
     Assign(CheckList);
-end;
+  End;
 
-procedure TCheckListRecall.Forget;
-begin
-  CheckList := nil;
-  StateInfo.Clear;
-end;
+ Procedure TCheckListRecall.Forget;
+  Begin
+   CheckList := Nil;
+   StateInfo.Clear;
+  End;
 
-procedure TCheckListRecall.Assign(Source: TPersistent);
-var
-  I: Integer;
-begin
-  if Source is TCheckListRecall then
+ Procedure TCheckListRecall.Assign(Source : TPersistent);
+  Var
+   i : Integer;
+  Begin
+   If Source Is TCheckListRecall Then
     StateInfo.CopyFrom(TCheckListRecall(Source).StateInfo)
-  else if Source is TCustomCultureCheckListBox then
-  begin
-    StateInfo.Clear;
-    with TCustomCultureCheckListBox(Source), StateInfo do
-      for I := 0 to Items.Count - 1 do
-        Add(Items[I].Locale, StateRec(State[I], not ItemEnabled[I]));
-  end
-  else if Source is TCustomTerritoryCheckListBox then
-  begin
-    StateInfo.Clear;
-    with TCustomTerritoryCheckListBox(Source), StateInfo do
-      for I := 0 to Items.Count - 1 do
-        Add(Items[I].Code2, StateRec(State[I], not ItemEnabled[I]));
-  end
-  else if Source is TCustomCurrencyCheckListBox then
-  begin
-    StateInfo.Clear;
-    with TCustomCurrencyCheckListBox(Source), StateInfo do
-      for I := 0 to Items.Count - 1 do
-        Add(Items[I].IntlSymbol, StateRec(State[I], not ItemEnabled[I]));
-  end
-  else if Source is TCheckListBox then
-  begin
-    StateInfo.Clear;
-    with TCheckListBox(Source), StateInfo do
-      for I := 0 to Items.Count - 1 do
-        Add(Items[I], StateRec(State[I], not ItemEnabled[I]));
-  end
-  else
-    inherited Assign(Source);
-end;
+   Else If Source Is TCustomCultureCheckListBox Then
+    Begin
+     StateInfo.Clear;
+     With TCustomCultureCheckListBox(Source), StateInfo Do
+      For i := 0 To Items.Count - 1 Do
+       Add(Items[i].Locale, StateRec(State[i], Not ItemEnabled[i]));
+    End
+   Else If Source Is TCustomTerritoryCheckListBox Then
+    Begin
+     StateInfo.Clear;
+     With TCustomTerritoryCheckListBox(Source), StateInfo Do
+      For i := 0 To Items.Count - 1 Do
+       Add(Items[i].Code2, StateRec(State[i], Not ItemEnabled[i]));
+    End
+   Else If Source Is TCustomCurrencyCheckListBox Then
+    Begin
+     StateInfo.Clear;
+     With TCustomCurrencyCheckListBox(Source), StateInfo Do
+      For i := 0 To Items.Count - 1 Do
+       Add(Items[i].IntlSymbol, StateRec(State[i], Not ItemEnabled[i]));
+    End
+   Else If Source Is TCheckListBox Then
+    Begin
+     StateInfo.Clear;
+     With TCheckListBox(Source), StateInfo Do
+      For i := 0 To Items.Count - 1 Do
+       Add(Items[i], StateRec(State[i], Not ItemEnabled[i]));
+    End
+   Else
+    Inherited Assign(Source);
+  End;
 
-procedure TCheckListRecall.AssignTo(Dest: TPersistent);
-var
-  I: Integer;
-  Rec: TStateRec;
-begin
-  if Dest is TCustomCultureCheckListBox then
-    with TCustomCultureCheckListBox(Dest) do
-      for I := 0 to Items.Count - 1 do
-      begin
-        if StateInfo.Retrieve(Items[I].Locale, Rec) then
-        begin
-          State[I] := Rec.State;
-          ItemEnabled[I] := not Rec.Disabled;
-        end
-        else
-        begin
-          State[I] := TCheckListBoxDataWrapper.GetDefaultState;
-          ItemEnabled[I] := True;
-        end;
-      end
-  else if Dest is TCustomTerritoryCheckListBox then
-    with TCustomTerritoryCheckListBox(Dest) do
-      for I := 0 to Items.Count - 1 do
-      begin
-        if StateInfo.Retrieve(Items[I].Code2, Rec) then
-        begin
-          State[I] := Rec.State;
-          ItemEnabled[I] := not Rec.Disabled;
-        end
-        else
-        begin
-          State[I] := TCheckListBoxDataWrapper.GetDefaultState;
-          ItemEnabled[I] := True;
-        end;
-      end
-  else if Dest is TCustomCurrencyCheckListBox then
-    with TCustomCurrencyCheckListBox(Dest) do
-      for I := 0 to Items.Count - 1 do
-      begin
-        if StateInfo.Retrieve(Items[I].IntlSymbol, Rec) then
-        begin
-          State[I] := Rec.State;
-          ItemEnabled[I] := not Rec.Disabled;
-        end
-        else
-        begin
-          State[I] := TCheckListBoxDataWrapper.GetDefaultState;
-          ItemEnabled[I] := True;
-        end;
-      end
-  else if Dest is TCheckListBox then
-    with TCheckListBox(Dest) do
-      for I := 0 to Items.Count - 1 do
-      begin
-        if StateInfo.Retrieve(Items[I], Rec) then
-        begin
-          State[I] := Rec.State;
-          ItemEnabled[I] := not Rec.Disabled;
-        end
-        else
-        begin
-          State[I] := TCheckListBoxDataWrapper.GetDefaultState;
-          ItemEnabled[I] := True;
-        end;
-      end
-  else
-    inherited AssignTo(Dest);
-end;
+ Procedure TCheckListRecall.AssignTo(Dest : TPersistent);
+  Var
+   i   : Integer;
+   Rec : TStateRec;
+  Begin
+   If Dest Is TCustomCultureCheckListBox Then
+    With TCustomCultureCheckListBox(Dest) Do
+     For i := 0 To Items.Count - 1 Do
+      Begin
+       If StateInfo.Retrieve(Items[i].Locale, Rec) Then
+        Begin
+         State[i]       := Rec.State;
+         ItemEnabled[i] := Not Rec.Disabled;
+        End
+       Else
+        Begin
+         State[i]       := TCheckListBoxDataWrapper.GetDefaultState;
+         ItemEnabled[i] := True;
+        End;
+      End
+   Else If Dest Is TCustomTerritoryCheckListBox Then
+    With TCustomTerritoryCheckListBox(Dest) Do
+     For i := 0 To Items.Count - 1 Do
+      Begin
+       If StateInfo.Retrieve(Items[i].Code2, Rec) Then
+        Begin
+         State[i]       := Rec.State;
+         ItemEnabled[i] := Not Rec.Disabled;
+        End
+       Else
+        Begin
+         State[i]       := TCheckListBoxDataWrapper.GetDefaultState;
+         ItemEnabled[i] := True;
+        End;
+      End
+   Else If Dest Is TCustomCurrencyCheckListBox Then
+    With TCustomCurrencyCheckListBox(Dest) Do
+     For i := 0 To Items.Count - 1 Do
+      Begin
+       If StateInfo.Retrieve(Items[i].IntlSymbol, Rec) Then
+        Begin
+         State[i]       := Rec.State;
+         ItemEnabled[i] := Not Rec.Disabled;
+        End
+       Else
+        Begin
+         State[i]       := TCheckListBoxDataWrapper.GetDefaultState;
+         ItemEnabled[i] := True;
+        End;
+      End
+   Else If Dest Is TCheckListBox Then
+    With TCheckListBox(Dest) Do
+     For i := 0 To Items.Count - 1 Do
+      Begin
+       If StateInfo.Retrieve(Items[i], Rec) Then
+        Begin
+         State[i]       := Rec.State;
+         ItemEnabled[i] := Not Rec.Disabled;
+        End
+       Else
+        Begin
+         State[i]       := TCheckListBoxDataWrapper.GetDefaultState;
+         ItemEnabled[i] := True;
+        End;
+      End
+   Else
+    Inherited AssignTo(Dest);
+  End;
 
-function TCheckListRecall.StateRec(AState: TCheckBoxState; ADisabled: Boolean): TStateRec;
-begin
-  Result.State := AState;
-  Result.Disabled := ADisabled;
-end;
+ Function TCheckListRecall.StateRec(AState : TCheckBoxState; ADisabled : Boolean) : TStateRec;
+  Begin
+   Result.State    := AState;
+   Result.Disabled := ADisabled;
+  End;
 
 { TCustomFlagCheckListBox }
 
-constructor TCustomFlagCheckListBox.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  fWrapperList := TObjectList.Create;
-  fCheckWidth := CheckBoxSize.cx + HorzSpacing;
-  fFlat := True;
-end;
+ Constructor TCustomFlagCheckListBox.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   fWrapperList := TObjectList.Create;
+   fCheckWidth  := CheckBoxSize.cx + HorzSpacing;
+   fFlat        := True;
+  End;
 
-destructor TCustomFlagCheckListBox.Destroy;
-begin
-  fWrapperList.Free;
-  inherited Destroy;
-end;
+ Destructor TCustomFlagCheckListBox.Destroy;
+  Begin
+   fWrapperList.Free;
+   Inherited Destroy;
+  End;
 
-procedure TCustomFlagCheckListBox.SetFlat(Value: Boolean);
-begin
-  if Flat <> Value then
-  begin
-    fFlat := Value;
-    Invalidate;
-  end;
-end;
+ Procedure TCustomFlagCheckListBox.SetFlat(Value : Boolean);
+  Begin
+   If Flat <> Value Then
+    Begin
+     fFlat := Value;
+     Invalidate;
+    End;
+  End;
 
-function TCustomFlagCheckListBox.GetChecked(Index: Integer): Boolean;
-begin
-  if ItemsReady and HaveWrapper(Index) then
+ Function TCustomFlagCheckListBox.GetChecked(Index : Integer) : Boolean;
+  Begin
+   If ItemsReady And HaveWrapper(Index) Then
     Result := TCheckListBoxDataWrapper(GetWrapper(Index)).Checked
-  else
+   Else
     Result := False;
-end;
+  End;
 
-procedure TCustomFlagCheckListBox.SetChecked(Index: Integer; Value: Boolean);
-begin
-  if ItemsReady and (Checked[Index] <> Value) then
-  begin
-    TCheckListBoxDataWrapper(GetWrapper(Index)).Checked := Value;
-    InvalidateCheck(Index);
-  end;
-end;
+ Procedure TCustomFlagCheckListBox.SetChecked(Index : Integer; Value : Boolean);
+  Begin
+   If ItemsReady And (Checked[Index] <> Value) Then
+    Begin
+     TCheckListBoxDataWrapper(GetWrapper(Index)).Checked := Value;
+     InvalidateCheck(Index);
+    End;
+  End;
 
-function TCustomFlagCheckListBox.GetState(Index: Integer): TCheckBoxState;
-begin
-  if ItemsReady and HaveWrapper(Index) then
+ Function TCustomFlagCheckListBox.GetState(Index : Integer) : TCheckBoxState;
+  Begin
+   If ItemsReady And HaveWrapper(Index) Then
     Result := TCheckListBoxDataWrapper(GetWrapper(Index)).State
-  else
+   Else
     Result := TCheckListBoxDataWrapper.GetDefaultState;
-end;
+  End;
 
-procedure TCustomFlagCheckListBox.SetState(Index: Integer; Value: TCheckBoxState);
-begin
-  if ItemsReady and (State[Index] <> Value) then
-  begin
-    TCheckListBoxDataWrapper(GetWrapper(Index)).State := Value;
-    InvalidateCheck(Index);
-  end;
-end;
+ Procedure TCustomFlagCheckListBox.SetState(Index : Integer; Value : TCheckBoxState);
+  Begin
+   If ItemsReady And (State[Index] <> Value) Then
+    Begin
+     TCheckListBoxDataWrapper(GetWrapper(Index)).State := Value;
+     InvalidateCheck(Index);
+    End;
+  End;
 
-function TCustomFlagCheckListBox.GetItemEnabled(Index: Integer): Boolean;
-begin
-  if ItemsReady and HaveWrapper(Index) then
-    Result := not TCheckListBoxDataWrapper(GetWrapper(Index)).Disabled
-  else
+ Function TCustomFlagCheckListBox.GetItemEnabled(Index : Integer) : Boolean;
+  Begin
+   If ItemsReady And HaveWrapper(Index) Then
+    Result := Not TCheckListBoxDataWrapper(GetWrapper(Index)).Disabled
+   Else
     Result := True;
-end;
+  End;
 
-procedure TCustomFlagCheckListBox.SetItemEnabled(Index: Integer; Value: Boolean);
-begin
-  if ItemsReady and (ItemEnabled[Index] <> Value) then
-  begin
-    TCheckListBoxDataWrapper(GetWrapper(Index)).Disabled := not Value;
-    InvalidateCheck(Index);
-  end;
-end;
+ Procedure TCustomFlagCheckListBox.SetItemEnabled(Index : Integer; Value : Boolean);
+  Begin
+   If ItemsReady And (ItemEnabled[Index] <> Value) Then
+    Begin
+     TCheckListBoxDataWrapper(GetWrapper(Index)).Disabled := Not Value;
+     InvalidateCheck(Index);
+    End;
+  End;
 
-procedure TCustomFlagCheckListBox.ClickCheck;
-begin
-  if Assigned(fOnClickCheck) then
+ Procedure TCustomFlagCheckListBox.ClickCheck;
+  Begin
+   If Assigned(fOnClickCheck) Then
     fOnClickCheck(Self);
-end;
+  End;
 
-procedure TCustomFlagCheckListBox.KeyPress(var Key: Char);
-begin
-  if Key = ' ' then
+ Procedure TCustomFlagCheckListBox.KeyPress(Var Key : Char);
+  Begin
+   If Key = ' ' Then
     ToggleClickCheck(ItemIndex);
-  inherited KeyPress(Key);
-end;
+   Inherited KeyPress(Key);
+  End;
 
-procedure TCustomFlagCheckListBox.MouseDown(Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-var
-  Index: Integer;
-begin
-  inherited;
-  if Button = mbLeft then
-  begin
-    Index := ItemAtPos(Point(X,Y),True);
-    if (Index >= 0) and GetItemEnabled(Index) then
-      if UseRightToLeftAlignment then
-      begin
-        Dec(X, ItemRect(Index).Right - CheckWidth);
-        if (X > 0) and (X < CheckWidth) then
-          ToggleClickCheck(Index)
-      end
-      else
-      begin
-        if X - ItemRect(Index).Left < CheckWidth then
-          ToggleClickCheck(Index)
-      end;
-  end;
-end;
+ Procedure TCustomFlagCheckListBox.MouseDown(Button : TMouseButton; Shift : TShiftState; x, y : Integer);
+  Var
+   Index : Integer;
+  Begin
+   Inherited;
+   If Button = mbLeft Then
+    Begin
+     Index := ItemAtPos(Point(x, y), True);
+     If (Index >= 0) And GetItemEnabled(Index) Then
+      If UseRightToLeftAlignment Then
+       Begin
+        Dec(x, ItemRect(Index).Right - CheckWidth);
+        If (x > 0) And (x < CheckWidth) Then
+         ToggleClickCheck(Index)
+       End
+      Else
+       Begin
+        If x - ItemRect(Index).Left < CheckWidth Then
+         ToggleClickCheck(Index)
+       End;
+    End;
+  End;
 
-function TCustomFlagCheckListBox.CreateWrapper(Index: Integer): TObject;
-begin
-  Result := TCheckListBoxDataWrapper.Create;
-  fWrapperList.Add(Result);
-  inherited SetItemData(Index, TListBoxItemData(Result));
-end;
+ Function TCustomFlagCheckListBox.CreateWrapper(Index : Integer) : TObject;
+  Begin
+   Result := TCheckListBoxDataWrapper.Create;
+   fWrapperList.Add(Result);
+   Inherited SetItemData(Index, TListBoxItemData(Result));
+  End;
 
-function TCustomFlagCheckListBox.ExtractWrapper(Index: Integer): TObject;
-begin
-  Result := TCheckListBoxDataWrapper(inherited GetItemData(Index));
-  if LB_ERR = Integer(Result) then
-    raise EListError.CreateResFmt(@SListIndexError, [Index]);
-  if (Result <> nil) and not (Result is TCheckListBoxDataWrapper) then
-    Result := nil;
-end;
+ Function TCustomFlagCheckListBox.ExtractWrapper(Index : Integer) : TObject;
+  Begin
+   Result := TCheckListBoxDataWrapper(Inherited GetItemData(Index));
+   If LB_ERR = Integer(Result) Then
+    Raise EListError.CreateResFmt(@SListIndexError, [Index]);
+   If (Result <> Nil) And Not(Result Is TCheckListBoxDataWrapper) Then
+    Result := Nil;
+  End;
 
-function TCustomFlagCheckListBox.HaveWrapper(Index: Integer): Boolean;
-begin
-  Result := ExtractWrapper(Index) <> nil;
-end;
+ Function TCustomFlagCheckListBox.HaveWrapper(Index : Integer) : Boolean;
+  Begin
+   Result := ExtractWrapper(Index) <> Nil;
+  End;
 
-function TCustomFlagCheckListBox.GetWrapper(Index: Integer): TObject;
-begin
-  Result := ExtractWrapper(Index);
-  if Result = nil then
+ Function TCustomFlagCheckListBox.GetWrapper(Index : Integer) : TObject;
+  Begin
+   Result := ExtractWrapper(Index);
+   If Result = Nil Then
     Result := CreateWrapper(Index);
-end;
+  End;
 
-function TCustomFlagCheckListBox.InternalGetItemData(Index: Integer): TListBoxItemData;
-begin
-  Result := inherited GetItemData(Index);
-end;
+ Function TCustomFlagCheckListBox.InternalGetItemData(Index : Integer) : TListBoxItemData;
+  Begin
+   Result := Inherited GetItemData(Index);
+  End;
 
-procedure TCustomFlagCheckListBox.InternalSetItemData(Index: Integer; AData: TListBoxItemData);
-begin
-  inherited SetItemData(Index, AData);
-end;
+ Procedure TCustomFlagCheckListBox.InternalSetItemData(Index : Integer; AData : TListBoxItemData);
+  Begin
+   Inherited SetItemData(Index, AData);
+  End;
 
-function TCustomFlagCheckListBox.GetItemData(Index: Integer): TListBoxItemData;
-begin
-  Result := 0;
-  if HaveWrapper(Index) then
+ Function TCustomFlagCheckListBox.GetItemData(Index : Integer) : TListBoxItemData;
+  Begin
+   Result := 0;
+   If HaveWrapper(Index) Then
     Result := TCheckListBoxDataWrapper(GetWrapper(Index)).Data;
-end;
+  End;
 
-procedure TCustomFlagCheckListBox.SetItemData(Index: Integer; AData: TListBoxItemData);
-var
-  Wrapper: TCheckListBoxDataWrapper;
-begin
-  if HaveWrapper(Index) or (AData <> 0) then
-  begin
-    Wrapper := TCheckListBoxDataWrapper(GetWrapper(Index));
-    Wrapper.Data := AData;
-  end;
-end;
+ Procedure TCustomFlagCheckListBox.SetItemData(Index : Integer; AData : TListBoxItemData);
+  Var
+   Wrapper : TCheckListBoxDataWrapper;
+  Begin
+   If HaveWrapper(Index) Or (AData <> 0) Then
+    Begin
+     Wrapper      := TCheckListBoxDataWrapper(GetWrapper(Index));
+     Wrapper.Data := AData;
+    End;
+  End;
 
-procedure TCustomFlagCheckListBox.ResetContent;
-begin
-  fWrapperList.Clear;
-  inherited ResetContent;
-end;
+ Procedure TCustomFlagCheckListBox.ResetContent;
+  Begin
+   fWrapperList.Clear;
+   Inherited ResetContent;
+  End;
 
-procedure TCustomFlagCheckListBox.LoadRecreateItems(RecreateItems: TStrings);
-var
-  I, Index: Integer;
-begin
-  with RecreateItems do
-  begin
-    BeginUpdate;
-    try
+ Procedure TCustomFlagCheckListBox.LoadRecreateItems(RecreateItems : TStrings);
+  Var
+   i, Index : Integer;
+  Begin
+   With RecreateItems Do
+    Begin
+     BeginUpdate;
+     Try
       Items.NameValueSeparator := NameValueSeparator;
-      Items.QuoteChar := QuoteChar;
-      Items.Delimiter := Delimiter;
-      Items.LineBreak := LineBreak;
-      for I := 0 to Count - 1 do
-      begin
-        Index := Items.Add(RecreateItems[I]);
-        if Objects[I] <> nil then
-          InternalSetItemData(Index, TListBoxItemData(Objects[I]));
-      end;
-    finally
+      Items.QuoteChar          := QuoteChar;
+      Items.Delimiter          := Delimiter;
+      Items.LineBreak          := LineBreak;
+      For i                    := 0 To Count - 1 Do
+       Begin
+        Index := Items.Add(RecreateItems[i]);
+        If Objects[i] <> Nil Then
+         InternalSetItemData(Index, TListBoxItemData(Objects[i]));
+       End;
+     Finally
       EndUpdate;
-    end;
-  end;
-end;
+     End;
+    End;
+  End;
 
-procedure TCustomFlagCheckListBox.SaveRecreateItems(RecreateItems: TStrings);
-var
-  I: Integer;
-  Wrapper: TCheckListBoxDataWrapper;
-begin
-  fWrapperList.OwnsObjects := False;
-  fWrapperList.Clear;
-  fWrapperList.OwnsObjects := True;
-  with RecreateItems do
-  begin
-    BeginUpdate;
-    try
+ Procedure TCustomFlagCheckListBox.SaveRecreateItems(RecreateItems : TStrings);
+  Var
+   i       : Integer;
+   Wrapper : TCheckListBoxDataWrapper;
+  Begin
+   fWrapperList.OwnsObjects := False;
+   fWrapperList.Clear;
+   fWrapperList.OwnsObjects := True;
+   With RecreateItems Do
+    Begin
+     BeginUpdate;
+     Try
       NameValueSeparator := Items.NameValueSeparator;
-      QuoteChar := Items.QuoteChar;
-      Delimiter := Items.Delimiter;
-      LineBreak := Items.LineBreak;
-      for I := 0 to Items.Count - 1 do
-      begin
-        Wrapper := TCheckListBoxDataWrapper(ExtractWrapper(I));
-        AddObject(Items[I], Wrapper);
-        if Wrapper <> nil then
-          fWrapperList.Add(Wrapper);
-      end;
-    finally
+      QuoteChar          := Items.QuoteChar;
+      Delimiter          := Items.Delimiter;
+      LineBreak          := Items.LineBreak;
+      For i              := 0 To Items.Count - 1 Do
+       Begin
+        Wrapper := TCheckListBoxDataWrapper(ExtractWrapper(i));
+        AddObject(Items[i], Wrapper);
+        If Wrapper <> Nil Then
+         fWrapperList.Add(Wrapper);
+       End;
+     Finally
       EndUpdate;
-    end;
-  end;
-end;
+     End;
+    End;
+  End;
 
-procedure TCustomFlagCheckListBox.DeleteString(Index: Integer);
-var
-  Wrapper: TCheckListBoxDataWrapper;
-begin
-  if HaveWrapper(Index) then
-  begin
-    Wrapper := TCheckListBoxDataWrapper(GetWrapper(Index));
-    fWrapperList.Remove(Wrapper);
-  end;
-  inherited DeleteString(Index);
-end;
+ Procedure TCustomFlagCheckListBox.DeleteString(Index : Integer);
+  Var
+   Wrapper : TCheckListBoxDataWrapper;
+  Begin
+   If HaveWrapper(Index) Then
+    Begin
+     Wrapper := TCheckListBoxDataWrapper(GetWrapper(Index));
+     fWrapperList.Remove(Wrapper);
+    End;
+   Inherited DeleteString(Index);
+  End;
 
-procedure TCustomFlagCheckListBox.ToggleClickCheck;
-begin
-  if (Index >= 0) and (Index < Count) and ItemEnabled[Index] then
-  begin
-    case State[Index] of
-      cbUnchecked:
-        if AllowGrayed then
-          State[Index] := cbGrayed
-        else
-          State[Index] := cbChecked;
-      cbChecked:
-        State[Index] := cbUnchecked;
-      cbGrayed:
+ Procedure TCustomFlagCheckListBox.ToggleClickCheck;
+  Begin
+   If (Index >= 0) And (Index < Count) And ItemEnabled[Index] Then
+    Begin
+     Case State[Index] Of
+      cbUnchecked :
+       If AllowGrayed Then
+        State[Index] := cbGrayed
+       Else
         State[Index] := cbChecked;
-    end;
-    ClickCheck;
-  end;
-end;
+      cbChecked :
+       State[Index] := cbUnchecked;
+      cbGrayed :
+       State[Index] := cbChecked;
+     End;
+     ClickCheck;
+    End;
+  End;
 
-procedure TCustomFlagCheckListBox.InvalidateCheck(Index: Integer);
-var
-  Rect: TRect;
-begin
-  if WindowHandle <> 0 then
-  begin
-    Rect := ItemRect(Index);
-    if UseRightToLeftAlignment then
+ Procedure TCustomFlagCheckListBox.InvalidateCheck(Index : Integer);
+  Var
+   Rect : TRect;
+  Begin
+   If WindowHandle <> 0 Then
+    Begin
+     Rect := ItemRect(Index);
+     If UseRightToLeftAlignment Then
       Rect.Left := Rect.Right - CheckWidth
-    else
+     Else
       Rect.Right := Rect.Left + CheckWidth;
-    InvalidateRect(WindowHandle, Rect, not (csOpaque in ControlStyle));
-    UpdateWindow(WindowHandle);
-  end;
-end;
+     InvalidateRect(WindowHandle, Rect, Not(csOpaque In ControlStyle));
+     UpdateWindow(WindowHandle);
+    End;
+  End;
 
-procedure TCustomFlagCheckListBox.RestateAll(AState: TCheckBoxState; AllowGrayed: Boolean; AllowDisabled: Boolean);
-var
-  I: Integer;
-begin
-  for I := 0 to Items.Count - 1 do
-    if ItemEnabled[I] or (not ItemEnabled[I] and AllowDisabled) then
-      if(AllowGrayed or (GetState(I) <> cbGrayed))then
-        SetState(I, AState);
-end;
+ Procedure TCustomFlagCheckListBox.RestateAll(AState : TCheckBoxState; AllowGrayed : Boolean; AllowDisabled : Boolean);
+  Var
+   i : Integer;
+  Begin
+   For i := 0 To Items.Count - 1 Do
+    If ItemEnabled[i] Or (Not ItemEnabled[i] And AllowDisabled) Then
+     If(AllowGrayed Or (GetState(i) <> cbGrayed))Then
+      SetState(i, AState);
+  End;
 
-function TCustomFlagCheckListBox.GetStandardItemHeight: Integer;
-begin
-  Result := inherited GetStandardItemHeight;
-  if Result < CheckBoxSize.cy + 2 * VertSpacing then
+ Function TCustomFlagCheckListBox.GetStandardItemHeight : Integer;
+  Begin
+   Result := Inherited GetStandardItemHeight;
+   If Result < CheckBoxSize.cy + 2 * VertSpacing Then
     Result := CheckBoxSize.cy + 2 * VertSpacing;
-end;
+  End;
 
-procedure TCustomFlagCheckListBox.DrawItem(Index: Integer; Rect: TRect;
-  State: TOwnerDrawState);
-var
-  R: TRect;
-  Enable: Boolean;
-begin
-  if (Index >= 0) and (Index < Count) then
-  begin
-    R := Rect;
-    if UseRightToLeftAlignment then
-    begin
-      R.Left := R.Right - CheckWidth;
-      Dec(Rect.Right, CheckWidth);
-    end
-    else
-    begin
-      R.Right := R.Left + CheckWidth;
-      Inc(Rect.Left, CheckWidth);
-    end;
-    Canvas.FillRect(R);
-    Enable := Self.Enabled and ItemEnabled[Index];
-    DrawCheck(R, GetState(Index), Enable);
-    if IntersectRect(R, Rect, Canvas.ClipRect) then
-    begin
-      if not Enable then
+ Procedure TCustomFlagCheckListBox.DrawItem(Index : Integer; Rect : TRect; State : TOwnerDrawState);
+  Var
+   r      : TRect;
+   Enable : Boolean;
+  Begin
+   If (Index >= 0) And (Index < Count) Then
+    Begin
+     r := Rect;
+     If UseRightToLeftAlignment Then
+      Begin
+       r.Left := r.Right - CheckWidth;
+       Dec(Rect.Right, CheckWidth);
+      End
+     Else
+      Begin
+       r.Right := r.Left + CheckWidth;
+       Inc(Rect.Left, CheckWidth);
+      End;
+     Canvas.FillRect(r);
+     Enable := Self.Enabled And ItemEnabled[Index];
+     DrawCheck(r, GetState(Index), Enable);
+     If IntersectRect(r, Rect, Canvas.ClipRect) Then
+      Begin
+       If Not Enable Then
         Canvas.Font.Color := clGrayText;
-      inherited DrawItem(Index, Rect, State);
-    end;
-  end;
-end;
+       Inherited DrawItem(Index, Rect, State);
+      End;
+    End;
+  End;
 
-procedure TCustomFlagCheckListBox.DrawCheck(const Rect: TRect;
-  AState: TCheckBoxState; AEnabled: Boolean);
-var
-  DrawState: TPartDrawState;
-begin
-  if AEnabled then
+ Procedure TCustomFlagCheckListBox.DrawCheck(Const Rect : TRect; AState : TCheckBoxState; AEnabled : Boolean);
+  Var
+   DrawState : TPartDrawState;
+  Begin
+   If AEnabled Then
     DrawState := pdsNormal
-  else
+   Else
     DrawState := pdsDisabled;
-  DrawCheckBox(Canvas.Handle, Rect, AState, DrawState, Flat, ThemeControl(Self));
-end;
+   DrawCheckBox(Canvas.Handle, Rect, AState, DrawState, Flat, ThemeControl(Self));
+  End;
 
 { TCustomCultureLabel }
 
-constructor TCustomCultureLabel.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  fDisplayName := cnEnglishDisplayName;
-end;
+ Constructor TCustomCultureLabel.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   fDisplayName := cnEnglishDisplayName;
+  End;
 
-destructor TCustomCultureLabel.Destroy;
-begin
-  Localizer := nil;
-  inherited Destroy;
-end;
+ Destructor TCustomCultureLabel.Destroy;
+  Begin
+   Localizer := Nil;
+   Inherited Destroy;
+  End;
 
-procedure TCustomCultureLabel.ReadCulture(Reader: TReader);
-begin
-  Culture := CultureOf(Reader.ReadString);
-end;
+ Procedure TCustomCultureLabel.ReadCulture(Reader : TReader);
+  Begin
+   Culture := CultureOf(Reader.ReadString);
+  End;
 
-procedure TCustomCultureLabel.WriteCulture(Writer: TWriter);
-begin
-  Writer.WriteString(Culture.Locale);
-end;
+ Procedure TCustomCultureLabel.WriteCulture(Writer : TWriter);
+  Begin
+   Writer.WriteString(Culture.Locale);
+  End;
 
-procedure TCustomCultureLabel.DefineProperties(Filer: TFiler);
-begin
-  inherited DefineProperties(Filer);
-  Filer.DefineProperty('CultureInfo', ReadCulture, WriteCulture,
-    not Assigned(Localizer) and Assigned(Culture));
-end;
+ Procedure TCustomCultureLabel.DefineProperties(Filer : TFiler);
+  Begin
+   Inherited DefineProperties(Filer);
+   Filer.DefineProperty('CultureInfo', ReadCulture, WriteCulture,
+   Not Assigned(Localizer) And Assigned(Culture));
+  End;
 
-procedure TCustomCultureLabel.Notification(AComponent: TComponent;
-  Operation: TOperation);
-begin
-  inherited Notification(AComponent, Operation);
-  if (Operation = opRemove) and (AComponent = Localizer) then
-    Localizer := nil;
-end;
+ Procedure TCustomCultureLabel.Notification(AComponent : TComponent; Operation : TOperation);
+  Begin
+   Inherited Notification(AComponent, Operation);
+   If (Operation = opRemove) And (AComponent = Localizer) Then
+    Localizer := Nil;
+  End;
 
-function TCustomCultureLabel.GetImageIndex: TImageIndex;
-begin
-  Result := Flags.ImageIndexOf(Culture);
-end;
+ Function TCustomCultureLabel.GetImageIndex : TImageIndex;
+  Begin
+   Result := Flags.ImageIndexOf(Culture);
+  End;
 
-function TCustomCultureLabel.GetLabelText: String;
-begin
-  if (DisplayName = cnNone) or not Assigned(Culture) then
+ Function TCustomCultureLabel.GetLabelText : String;
+  Begin
+   If (DisplayName = cnNone) Or Not Assigned(Culture) Then
     Result := Caption
-  else
+   Else
     Result := Culture.DisplayNames[DisplayName];
-end;
+  End;
 
-procedure TCustomCultureLabel.SetDisplayName(Value: TCultureDisplayName);
-begin
-  if DisplayName <> Value then
-  begin
-    fDisplayName := Value;
-    AdjustBounds;
-    Invalidate;
-  end;
-end;
+ Procedure TCustomCultureLabel.SetDisplayName(Value : TCultureDisplayName);
+  Begin
+   If DisplayName <> Value Then
+    Begin
+     fDisplayName := Value;
+     AdjustBounds;
+     Invalidate;
+    End;
+  End;
 
-procedure TCustomCultureLabel.SetCulture(Value: TCultureInfo);
-begin
-  if Culture <> Value then
-  begin
-    fCulture := Value;
-    AdjustBounds;
-    Invalidate;
-  end;
-end;
+ Procedure TCustomCultureLabel.SetCulture(Value : TCultureInfo);
+  Begin
+   If Culture <> Value Then
+    Begin
+     fCulture := Value;
+     AdjustBounds;
+     Invalidate;
+    End;
+  End;
 
-procedure TCustomCultureLabel.SetLocalizer(Value: TLocalizer);
-begin
-  if Localizer <> Value then
-  begin
-    if Assigned(Localizer) then
-    begin
-      Localizer.RemoveFreeNotification(Self);
-      Localizer.UnregisterListener(Self);
-    end;
-    fLocalizer := Value;
-    if Assigned(Localizer) then
-    begin
-      Localizer.FreeNotification(Self);
-      Localizer.RegisterListener(Self);
-    end;
-    if not (csDestroying in ComponentState) then
+ Procedure TCustomCultureLabel.SetLocalizer(Value : TLocalizer);
+  Begin
+   If Localizer <> Value Then
+    Begin
+     If Assigned(Localizer) Then
+      Begin
+       Localizer.RemoveFreeNotification(Self);
+       Localizer.UnregisterListener(Self);
+      End;
+     fLocalizer := Value;
+     If Assigned(Localizer) Then
+      Begin
+       Localizer.FreeNotification(Self);
+       Localizer.RegisterListener(Self);
+      End;
+     If Not(csDestroying In ComponentState) Then
       LocalizerNotify(Localizer, lnCultureChanged);
-  end;
-end;
+    End;
+  End;
 
-procedure TCustomCultureLabel.LocalizerNotify(Sender: TLocalizer;
-  Reason: TLocalizerNotification);
-begin
-  if Reason = lnCultureChanged then
-  begin
-    if Assigned(Localizer) then
+ Procedure TCustomCultureLabel.LocalizerNotify(Sender : TLocalizer; Reason : TLocalizerNotification);
+  Begin
+   If Reason = lnCultureChanged Then
+    Begin
+     If Assigned(Localizer) Then
       Culture := Localizer.Culture
-    else
-      Culture := nil;
-  end;
-end;
+     Else
+      Culture := Nil;
+    End;
+  End;
 
-function TCustomCultureLabel.IsManagedByLocalizer: Boolean;
-begin
-  Result := Assigned(Localizer);
-end;
+ Function TCustomCultureLabel.IsManagedByLocalizer : Boolean;
+  Begin
+   Result := Assigned(Localizer);
+  End;
 
 { TCustomCultureBox }
 
-constructor TCustomCultureBox.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  fCultures := TCultureList.Create;
-  fCultures.OnChange := CulturesChanged;
-  fDisplayName := cnEnglishDisplayName;
-end;
+ Constructor TCustomCultureBox.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   fCultures          := TCultureList.Create;
+   fCultures.OnChange := CulturesChanged;
+   fDisplayName       := cnEnglishDisplayName;
+  End;
 
-destructor TCustomCultureBox.Destroy;
-begin
-  fCultures.OnChange := nil;
-  Localizer := nil;
-  fCultures.Free;
-  inherited Destroy;
-end;
+ Destructor TCustomCultureBox.Destroy;
+  Begin
+   fCultures.OnChange := Nil;
+   Localizer          := Nil;
+   fCultures.Free;
+   Inherited Destroy;
+  End;
 
-procedure TCustomCultureBox.CulturesChanged(Sender: TObject);
-begin
-  if ItemsReady then
-  begin
-    fCultures.AssignLabelsTo(inherited Items, DisplayName);
-    DoItemsChange;
-  end;
-end;
+ Procedure TCustomCultureBox.CulturesChanged(Sender : TObject);
+  Begin
+   If ItemsReady Then
+    Begin
+     fCultures.AssignLabelsTo(Inherited Items, DisplayName);
+     DoItemsChange;
+    End;
+  End;
 
-procedure TCustomCultureBox.LocalizerNotify(Sender: TLocalizer;
-  Reason: TLocalizerNotification);
-begin
-  case Reason of
-    lnCatalogChanged:
-      if Assigned(Localizer) then
-      begin
-        fCultures.Assign(Localizer.Cultures);
-        ItemSelected := Localizer.Culture;
-      end
-      else
-        fCultures.Clear;
-    lnCultureChanged:
-      if Assigned(Localizer) then
-        ItemSelected := Localizer.Culture
-      else
-        ItemSelected := nil;
-  end;
-end;
+ Procedure TCustomCultureBox.LocalizerNotify(Sender : TLocalizer; Reason : TLocalizerNotification);
+  Begin
+   Case Reason Of
+    lnCatalogChanged :
+     If Assigned(Localizer) Then
+      Begin
+       fCultures.Assign(Localizer.Cultures);
+       ItemSelected := Localizer.Culture;
+      End
+     Else
+      fCultures.Clear;
+    lnCultureChanged :
+     If Assigned(Localizer) Then
+      ItemSelected := Localizer.Culture
+     Else
+      ItemSelected := Nil;
+   End;
+  End;
 
-procedure TCustomCultureBox.SetLocalizer(Value: TLocalizer);
-begin
-  if Localizer <> Value then
-  begin
-    if Assigned(Localizer) then
-    begin
-      Localizer.RemoveFreeNotification(Self);
-      Localizer.UnregisterListener(Self);
-    end;
-    fLocalizer := Value;
-    if Assigned(Localizer) then
-    begin
-      Localizer.FreeNotification(Self);
-      Localizer.RegisterListener(Self);
-    end;
-    if not (csDestroying in ComponentState) then
+ Procedure TCustomCultureBox.SetLocalizer(Value : TLocalizer);
+  Begin
+   If Localizer <> Value Then
+    Begin
+     If Assigned(Localizer) Then
+      Begin
+       Localizer.RemoveFreeNotification(Self);
+       Localizer.UnregisterListener(Self);
+      End;
+     fLocalizer := Value;
+     If Assigned(Localizer) Then
+      Begin
+       Localizer.FreeNotification(Self);
+       Localizer.RegisterListener(Self);
+      End;
+     If Not(csDestroying In ComponentState) Then
       LocalizerNotify(Localizer, lnCatalogChanged);
-  end;
-end;
+    End;
+  End;
 
-procedure TCustomCultureBox.SetCultures(Value: TCultureList);
-begin
-  fCultures.Assign(Value);
-end;
+ Procedure TCustomCultureBox.SetCultures(Value : TCultureList);
+  Begin
+   fCultures.Assign(Value);
+  End;
 
-procedure TCustomCultureBox.SetItemSelected(Value: TCultureInfo);
-begin
-  ItemIndex := fCultures.IndexOf(Value);
-end;
+ Procedure TCustomCultureBox.SetItemSelected(Value : TCultureInfo);
+  Begin
+   ItemIndex := fCultures.IndexOf(Value);
+  End;
 
-function TCustomCultureBox.GetItemSelected: TCultureInfo;
-begin
-  if Cardinal(ItemIndex) < Cardinal(fCultures.Count) then
+ Function TCustomCultureBox.GetItemSelected : TCultureInfo;
+  Begin
+   If Cardinal(ItemIndex) < Cardinal(fCultures.Count) Then
     Result := fCultures[ItemIndex]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-procedure TCustomCultureBox.SetDisplayName(Value: TCultureDisplayName);
-begin
-  if DisplayName <> Value then
-  begin
-    fDisplayName := Value;
-    RebuildInternalItems;
-  end;
-end;
+ Procedure TCustomCultureBox.SetDisplayName(Value : TCultureDisplayName);
+  Begin
+   If DisplayName <> Value Then
+    Begin
+     fDisplayName := Value;
+     RebuildInternalItems;
+    End;
+  End;
 
-function TCustomCultureBox.GetImageIndex(Index: Integer): Integer;
-begin
-  if (Index >= 0) and (Index < fCultures.Count) and Assigned(Flags) then
+ Function TCustomCultureBox.GetImageIndex(Index : Integer) : Integer;
+  Begin
+   If (Index >= 0) And (Index < fCultures.Count) And Assigned(Flags) Then
     Result := Flags.ImageIndexOf(fCultures[Index])
-  else
+   Else
     Result := -1;
-end;
+  End;
 
-function TCustomCultureBox.IsManagedByLocalizer: Boolean;
-begin
-  Result := Assigned(Localizer);
-end;
+ Function TCustomCultureBox.IsManagedByLocalizer : Boolean;
+  Begin
+   Result := Assigned(Localizer);
+  End;
 
-procedure TCustomCultureBox.ReadItemSelected(Reader: TReader);
-begin
-  ItemSelected := CultureOf(Reader.ReadString);
-end;
+ Procedure TCustomCultureBox.ReadItemSelected(Reader : TReader);
+  Begin
+   ItemSelected := CultureOf(Reader.ReadString);
+  End;
 
-procedure TCustomCultureBox.WriteItemSelected(Writer: TWriter);
-begin
-  Writer.WriteString(ItemSelected.Locale);
-end;
+ Procedure TCustomCultureBox.WriteItemSelected(Writer : TWriter);
+  Begin
+   Writer.WriteString(ItemSelected.Locale);
+  End;
 
-procedure TCustomCultureBox.DefineProperties(Filer: TFiler);
-begin
-  inherited DefineProperties(Filer);
-  Filer.DefineProperty('Selected', ReadItemSelected, WriteItemSelected,
-    not Assigned(Localizer) and Assigned(ItemSelected));
-end;
+ Procedure TCustomCultureBox.DefineProperties(Filer : TFiler);
+  Begin
+   Inherited DefineProperties(Filer);
+   Filer.DefineProperty('Selected', ReadItemSelected, WriteItemSelected,
+   Not Assigned(Localizer) And Assigned(ItemSelected));
+  End;
 
-procedure TCustomCultureBox.Notification(AComponent: TComponent;
-  Operation: TOperation);
-begin
-  inherited Notification(AComponent, Operation);
-  if (Operation = opRemove) and (AComponent = Localizer) then
-    Localizer := nil;
-end;
+ Procedure TCustomCultureBox.Notification(AComponent : TComponent; Operation : TOperation);
+  Begin
+   Inherited Notification(AComponent, Operation);
+   If (Operation = opRemove) And (AComponent = Localizer) Then
+    Localizer := Nil;
+  End;
 
-procedure TCustomCultureBox.Select;
-begin
-  inherited Select;
-  if Assigned(Localizer) then
+ Procedure TCustomCultureBox.Select;
+  Begin
+   Inherited Select;
+   If Assigned(Localizer) Then
     Localizer.Culture := ItemSelected;
-end;
+  End;
 
-function TCustomCultureBox.CollectAll: Boolean;
-begin
-  Result := False;
-  if not Assigned(Localizer) then
-  begin
-    fCultures.Assign(World.Cultures);
-    Result := True;
-  end
-end;
+ Function TCustomCultureBox.CollectAll : Boolean;
+  Begin
+   Result := False;
+   If Not Assigned(Localizer) Then
+    Begin
+     fCultures.Assign(World.Cultures);
+     Result := True;
+    End
+  End;
 
-procedure TCustomCultureBox.RebuildInternalItems;
-var
-  Sel: TCultureInfo;
-begin
-  fCultures.OnChange := nil;
-  try
+ Procedure TCustomCultureBox.RebuildInternalItems;
+  Var
+   Sel : TCultureInfo;
+  Begin
+   fCultures.OnChange := Nil;
+   Try
     Sel := ItemSelected;
-    if Sorted then
-      fCultures.Sort(DisplayName);
-    if WindowHandle <> 0 then
-    begin
-      fCultures.AssignLabelsTo(inherited Items, DisplayName);
+    If Sorted Then
+     fCultures.Sort(DisplayName);
+    If WindowHandle <> 0 Then
+     Begin
+      fCultures.AssignLabelsTo(Inherited Items, DisplayName);
       DoItemsChange;
-    end;
+     End;
     ItemSelected := Sel;
-  finally
+   Finally
     fCultures.OnChange := CulturesChanged;
-  end;
-end;
+   End;
+  End;
 
 { TCustomCultureListBox }
 
-constructor TCustomCultureListBox.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  fCultures := TCultureList.Create;
-  fCultures.OnChange := CulturesChanged;
-  fDisplayName := cnEnglishDisplayName;
-end;
+ Constructor TCustomCultureListBox.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   fCultures          := TCultureList.Create;
+   fCultures.OnChange := CulturesChanged;
+   fDisplayName       := cnEnglishDisplayName;
+  End;
 
-destructor TCustomCultureListBox.Destroy;
-begin
-  fCultures.OnChange := nil;
-  Localizer := nil;
-  fCultures.Free;
-  inherited Destroy;
-end;
+ Destructor TCustomCultureListBox.Destroy;
+  Begin
+   fCultures.OnChange := Nil;
+   Localizer          := Nil;
+   fCultures.Free;
+   Inherited Destroy;
+  End;
 
-procedure TCustomCultureListBox.CulturesChanged(Sender: TObject);
-begin
-  if ItemsReady then
-  begin
-    fCultures.AssignLabelsTo(inherited Items, DisplayName);
-    DoItemsChange;
-  end;
-end;
+ Procedure TCustomCultureListBox.CulturesChanged(Sender : TObject);
+  Begin
+   If ItemsReady Then
+    Begin
+     fCultures.AssignLabelsTo(Inherited Items, DisplayName);
+     DoItemsChange;
+    End;
+  End;
 
-procedure TCustomCultureListBox.LocalizerNotify(Sender: TLocalizer;
-  Reason: TLocalizerNotification);
-begin
-  case Reason of
-    lnCatalogChanged:
-      if Assigned(Localizer) then
-      begin
-        fCultures.Assign(Localizer.Cultures);
-        ItemSelected := Localizer.Culture;
-      end
-      else
-        fCultures.Clear;
-    lnCultureChanged:
-      if Assigned(Localizer) then
-        ItemSelected := Localizer.Culture
-      else
-        ItemSelected := nil;
-  end;
-end;
+ Procedure TCustomCultureListBox.LocalizerNotify(Sender : TLocalizer; Reason : TLocalizerNotification);
+  Begin
+   Case Reason Of
+    lnCatalogChanged :
+     If Assigned(Localizer) Then
+      Begin
+       fCultures.Assign(Localizer.Cultures);
+       ItemSelected := Localizer.Culture;
+      End
+     Else
+      fCultures.Clear;
+    lnCultureChanged :
+     If Assigned(Localizer) Then
+      ItemSelected := Localizer.Culture
+     Else
+      ItemSelected := Nil;
+   End;
+  End;
 
-procedure TCustomCultureListBox.SetLocalizer(Value: TLocalizer);
-begin
-  if Localizer <> Value then
-  begin
-    if Assigned(Localizer) then
-    begin
-      Localizer.RemoveFreeNotification(Self);
-      Localizer.UnregisterListener(Self);
-    end;
-    fLocalizer := Value;
-    if Assigned(Localizer) then
-    begin
-      MultiSelect := False;
-      Localizer.FreeNotification(Self);
-      Localizer.RegisterListener(Self);
-    end;
-    if not (csDestroying in ComponentState) then
+ Procedure TCustomCultureListBox.SetLocalizer(Value : TLocalizer);
+  Begin
+   If Localizer <> Value Then
+    Begin
+     If Assigned(Localizer) Then
+      Begin
+       Localizer.RemoveFreeNotification(Self);
+       Localizer.UnregisterListener(Self);
+      End;
+     fLocalizer := Value;
+     If Assigned(Localizer) Then
+      Begin
+       MultiSelect := False;
+       Localizer.FreeNotification(Self);
+       Localizer.RegisterListener(Self);
+      End;
+     If Not(csDestroying In ComponentState) Then
       LocalizerNotify(Localizer, lnCatalogChanged);
-  end;
-end;
+    End;
+  End;
 
-procedure TCustomCultureListBox.SetMultiSelect(Value: Boolean);
-begin
-  inherited SetMultiSelect(Value and not Assigned(Localizer));
-end;
+ Procedure TCustomCultureListBox.SetMultiSelect(Value : Boolean);
+  Begin
+   Inherited SetMultiSelect(Value And Not Assigned(Localizer));
+  End;
 
-procedure TCustomCultureListBox.SetCultures(Value: TCultureList);
-begin
-  fCultures.Assign(Value);
-end;
+ Procedure TCustomCultureListBox.SetCultures(Value : TCultureList);
+  Begin
+   fCultures.Assign(Value);
+  End;
 
-procedure TCustomCultureListBox.SetItemSelected(Value: TCultureInfo);
-begin
-  ItemIndex := fCultures.IndexOf(Value);
-end;
+ Procedure TCustomCultureListBox.SetItemSelected(Value : TCultureInfo);
+  Begin
+   ItemIndex := fCultures.IndexOf(Value);
+  End;
 
-function TCustomCultureListBox.GetItemSelected: TCultureInfo;
-begin
-  if Cardinal(ItemIndex) < Cardinal(fCultures.Count) then
+ Function TCustomCultureListBox.GetItemSelected : TCultureInfo;
+  Begin
+   If Cardinal(ItemIndex) < Cardinal(fCultures.Count) Then
     Result := fCultures[ItemIndex]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-procedure TCustomCultureListBox.SetDisplayName(Value: TCultureDisplayName);
-begin
-  if DisplayName <> Value then
-  begin
-    fDisplayName := Value;
-    RebuildInternalItems;
-  end;
-end;
+ Procedure TCustomCultureListBox.SetDisplayName(Value : TCultureDisplayName);
+  Begin
+   If DisplayName <> Value Then
+    Begin
+     fDisplayName := Value;
+     RebuildInternalItems;
+    End;
+  End;
 
-function TCustomCultureListBox.GetImageIndex(Index: Integer): Integer;
-begin
-  if (Index >= 0) and (Index < fCultures.Count) and Assigned(Flags) then
+ Function TCustomCultureListBox.GetImageIndex(Index : Integer) : Integer;
+  Begin
+   If (Index >= 0) And (Index < fCultures.Count) And Assigned(Flags) Then
     Result := Flags.ImageIndexOf(fCultures[Index])
-  else
+   Else
     Result := -1;
-end;
+  End;
 
-function TCustomCultureListBox.IsManagedByLocalizer: Boolean;
-begin
-  Result := Assigned(Localizer);
-end;
+ Function TCustomCultureListBox.IsManagedByLocalizer : Boolean;
+  Begin
+   Result := Assigned(Localizer);
+  End;
 
-procedure TCustomCultureListBox.ReadItemSelected(Reader: TReader);
-begin
-  ItemSelected := CultureOf(Reader.ReadString);
-end;
+ Procedure TCustomCultureListBox.ReadItemSelected(Reader : TReader);
+  Begin
+   ItemSelected := CultureOf(Reader.ReadString);
+  End;
 
-procedure TCustomCultureListBox.WriteItemSelected(Writer: TWriter);
-begin
-  Writer.WriteString(ItemSelected.Locale);
-end;
+ Procedure TCustomCultureListBox.WriteItemSelected(Writer : TWriter);
+  Begin
+   Writer.WriteString(ItemSelected.Locale);
+  End;
 
-procedure TCustomCultureListBox.DefineProperties(Filer: TFiler);
-begin
-  inherited DefineProperties(Filer);
-  Filer.DefineProperty('Selected', ReadItemSelected, WriteItemSelected,
-    not Assigned(Localizer) and Assigned(ItemSelected));
-end;
+ Procedure TCustomCultureListBox.DefineProperties(Filer : TFiler);
+  Begin
+   Inherited DefineProperties(Filer);
+   Filer.DefineProperty('Selected', ReadItemSelected, WriteItemSelected,
+   Not Assigned(Localizer) And Assigned(ItemSelected));
+  End;
 
-procedure TCustomCultureListBox.Notification(AComponent: TComponent;
-  Operation: TOperation);
-begin
-  inherited Notification(AComponent, Operation);
-  if (Operation = opRemove) and (AComponent = Localizer) then
-    Localizer := nil;
-end;
+ Procedure TCustomCultureListBox.Notification(AComponent : TComponent; Operation : TOperation);
+  Begin
+   Inherited Notification(AComponent, Operation);
+   If (Operation = opRemove) And (AComponent = Localizer) Then
+    Localizer := Nil;
+  End;
 
-procedure TCustomCultureListBox.Click;
-begin
-  inherited Click;
-  if Assigned(Localizer) then
+ Procedure TCustomCultureListBox.Click;
+  Begin
+   Inherited Click;
+   If Assigned(Localizer) Then
     Localizer.Culture := ItemSelected;
-end;
+  End;
 
-function TCustomCultureListBox.CollectAll: Boolean;
-begin
-  Result := False;
-  if not Assigned(Localizer) then
-  begin
-    fCultures.Assign(World.Cultures);
-    Result := True;
-  end
-end;
+ Function TCustomCultureListBox.CollectAll : Boolean;
+  Begin
+   Result := False;
+   If Not Assigned(Localizer) Then
+    Begin
+     fCultures.Assign(World.Cultures);
+     Result := True;
+    End
+  End;
 
-procedure TCustomCultureListBox.RebuildInternalItems;
-var
-  Sel: TCultureInfo;
-begin
-  fCultures.OnChange := nil;
-  try
+ Procedure TCustomCultureListBox.RebuildInternalItems;
+  Var
+   Sel : TCultureInfo;
+  Begin
+   fCultures.OnChange := Nil;
+   Try
     Sel := ItemSelected;
-    if Sorted then
-      fCultures.Sort(DisplayName);
-    if WindowHandle <> 0 then
-    begin
-      fCultures.AssignLabelsTo(inherited Items, DisplayName);
+    If Sorted Then
+     fCultures.Sort(DisplayName);
+    If WindowHandle <> 0 Then
+     Begin
+      fCultures.AssignLabelsTo(Inherited Items, DisplayName);
       DoItemsChange;
-    end;
+     End;
     ItemSelected := Sel;
-  finally
+   Finally
     fCultures.OnChange := CulturesChanged;
-  end;
-end;
+   End;
+  End;
 
-procedure TCustomCultureListBox.SetSelection(Source: TReadonlyCultureList);
-var
-  I: Integer;
-begin
-  if MultiSelect then
-    for I := 0 to fCultures.Count - 1 do
-      Selected[I] := Source.Exists(fCultures[I]);
-end;
+ Procedure TCustomCultureListBox.SetSelection(Source : TReadonlyCultureList);
+  Var
+   i : Integer;
+  Begin
+   If MultiSelect Then
+    For i        := 0 To fCultures.Count - 1 Do
+     Selected[i] := Source.Exists(fCultures[i]);
+  End;
 
-procedure TCustomCultureListBox.GetSelection(Dest: TCultureList);
-var
-  I: Integer;
-begin
-  Dest.BeginUpdate;
-  try
+ Procedure TCustomCultureListBox.GetSelection(Dest : TCultureList);
+  Var
+   i : Integer;
+  Begin
+   Dest.BeginUpdate;
+   Try
     Dest.Clear;
-    for I := 0 to fCultures.Count - 1 do
-      if Selected[I] then
-        Dest.Add(fCultures[I]);
-  finally
+    For i := 0 To fCultures.Count - 1 Do
+     If Selected[i] Then
+      Dest.Add(fCultures[i]);
+   Finally
     Dest.EndUpdate;
-  end;
-end;
+   End;
+  End;
 
 { TCustomCultureCheckListBox }
 
-constructor TCustomCultureCheckListBox.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  fCultures := TCultureList.Create;
-  fCultures.OnChange := CulturesChanged;
-  fDisplayName := cnEnglishDisplayName;
-end;
+ Constructor TCustomCultureCheckListBox.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   fCultures          := TCultureList.Create;
+   fCultures.OnChange := CulturesChanged;
+   fDisplayName       := cnEnglishDisplayName;
+  End;
 
-destructor TCustomCultureCheckListBox.Destroy;
-begin
-  fCultures.OnChange := nil;
-  Localizer := nil;
-  fCultures.Free;
-  inherited Destroy;
-end;
+ Destructor TCustomCultureCheckListBox.Destroy;
+  Begin
+   fCultures.OnChange := Nil;
+   Localizer          := Nil;
+   fCultures.Free;
+   Inherited Destroy;
+  End;
 
-procedure TCustomCultureCheckListBox.CulturesChanged(Sender: TObject);
-begin
-  if ItemsReady then
-  begin
-    fCultures.AssignLabelsTo(inherited Items, DisplayName);
-    DoItemsChange;
-  end;
-end;
+ Procedure TCustomCultureCheckListBox.CulturesChanged(Sender : TObject);
+  Begin
+   If ItemsReady Then
+    Begin
+     fCultures.AssignLabelsTo(Inherited Items, DisplayName);
+     DoItemsChange;
+    End;
+  End;
 
-procedure TCustomCultureCheckListBox.LocalizerNotify(Sender: TLocalizer;
-  Reason: TLocalizerNotification);
-begin
-  if Reason = lnCatalogChanged then
-  begin
-    if Assigned(Localizer) then
+ Procedure TCustomCultureCheckListBox.LocalizerNotify(Sender : TLocalizer; Reason : TLocalizerNotification);
+  Begin
+   If Reason = lnCatalogChanged Then
+    Begin
+     If Assigned(Localizer) Then
       fCultures.Assign(Localizer.Cultures)
-    else
+     Else
       fCultures.Clear;
-  end;
-end;
+    End;
+  End;
 
-procedure TCustomCultureCheckListBox.SetLocalizer(Value: TLocalizer);
-begin
-  if Localizer <> Value then
-  begin
-    if Assigned(Localizer) then
-    begin
-      Localizer.RemoveFreeNotification(Self);
-      Localizer.UnregisterListener(Self);
-    end;
-    fLocalizer := Value;
-    if Assigned(Localizer) then
-    begin
-      Localizer.FreeNotification(Self);
-      Localizer.RegisterListener(Self);
-    end;
-    if not (csDestroying in ComponentState) then
+ Procedure TCustomCultureCheckListBox.SetLocalizer(Value : TLocalizer);
+  Begin
+   If Localizer <> Value Then
+    Begin
+     If Assigned(Localizer) Then
+      Begin
+       Localizer.RemoveFreeNotification(Self);
+       Localizer.UnregisterListener(Self);
+      End;
+     fLocalizer := Value;
+     If Assigned(Localizer) Then
+      Begin
+       Localizer.FreeNotification(Self);
+       Localizer.RegisterListener(Self);
+      End;
+     If Not(csDestroying In ComponentState) Then
       LocalizerNotify(Localizer, lnCatalogChanged);
-  end;
-end;
+    End;
+  End;
 
-procedure TCustomCultureCheckListBox.SetCultures(Value: TCultureList);
-begin
-  fCultures.Assign(Value);
-end;
+ Procedure TCustomCultureCheckListBox.SetCultures(Value : TCultureList);
+  Begin
+   fCultures.Assign(Value);
+  End;
 
-procedure TCustomCultureCheckListBox.SetItemSelected(Value: TCultureInfo);
-begin
-  ItemIndex := fCultures.IndexOf(Value);
-end;
+ Procedure TCustomCultureCheckListBox.SetItemSelected(Value : TCultureInfo);
+  Begin
+   ItemIndex := fCultures.IndexOf(Value);
+  End;
 
-function TCustomCultureCheckListBox.GetItemSelected: TCultureInfo;
-begin
-  if Cardinal(ItemIndex) < Cardinal(fCultures.Count) then
+ Function TCustomCultureCheckListBox.GetItemSelected : TCultureInfo;
+  Begin
+   If Cardinal(ItemIndex) < Cardinal(fCultures.Count) Then
     Result := fCultures[ItemIndex]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-procedure TCustomCultureCheckListBox.SetDisplayName(Value: TCultureDisplayName);
-begin
-  if DisplayName <> Value then
-  begin
-    fDisplayName := Value;
-    RebuildInternalItems;
-  end;
-end;
+ Procedure TCustomCultureCheckListBox.SetDisplayName(Value : TCultureDisplayName);
+  Begin
+   If DisplayName <> Value Then
+    Begin
+     fDisplayName := Value;
+     RebuildInternalItems;
+    End;
+  End;
 
-function TCustomCultureCheckListBox.GetImageIndex(Index: Integer): Integer;
-begin
-  if (Index >= 0) and (Index < fCultures.Count) and Assigned(Flags) then
+ Function TCustomCultureCheckListBox.GetImageIndex(Index : Integer) : Integer;
+  Begin
+   If (Index >= 0) And (Index < fCultures.Count) And Assigned(Flags) Then
     Result := Flags.ImageIndexOf(fCultures[Index])
-  else
+   Else
     Result := -1;
-end;
+  End;
 
-function TCustomCultureCheckListBox.IsManagedByLocalizer: Boolean;
-begin
-  Result := Assigned(Localizer);
-end;
+ Function TCustomCultureCheckListBox.IsManagedByLocalizer : Boolean;
+  Begin
+   Result := Assigned(Localizer);
+  End;
 
-procedure TCustomCultureCheckListBox.Notification(AComponent: TComponent;
-  Operation: TOperation);
-begin
-  inherited Notification(AComponent, Operation);
-  if (Operation = opRemove) and (AComponent = Localizer) then
-    Localizer := nil;
-end;
+ Procedure TCustomCultureCheckListBox.Notification(AComponent : TComponent; Operation : TOperation);
+  Begin
+   Inherited Notification(AComponent, Operation);
+   If (Operation = opRemove) And (AComponent = Localizer) Then
+    Localizer := Nil;
+  End;
 
-function TCustomCultureCheckListBox.CollectAll: Boolean;
-begin
-  Result := False;
-  if not Assigned(Localizer) then
-  begin
-    fCultures.Assign(World.Cultures);
-    Result := True;
-  end
-end;
+ Function TCustomCultureCheckListBox.CollectAll : Boolean;
+  Begin
+   Result := False;
+   If Not Assigned(Localizer) Then
+    Begin
+     fCultures.Assign(World.Cultures);
+     Result := True;
+    End
+  End;
 
-procedure TCustomCultureCheckListBox.RebuildInternalItems;
-var
-  Sel: TCultureInfo;
-  RestorePoint: TCheckListRecall;
-begin
-  fCultures.OnChange := nil;
-  try
+ Procedure TCustomCultureCheckListBox.RebuildInternalItems;
+  Var
+   Sel          : TCultureInfo;
+   RestorePoint : TCheckListRecall;
+  Begin
+   fCultures.OnChange := Nil;
+   Try
     RestorePoint := TCheckListRecall.Create(Self);
-    try
-      Sel := ItemSelected;
-      if Self.Sorted then
-        fCultures.Sort(DisplayName);
-      if WindowHandle <> 0 then
-      begin
-        fCultures.AssignLabelsTo(inherited Items, DisplayName);
-        DoItemsChange;
-      end;
-      ItemSelected := Sel;
-      Assign(RestorePoint);
-    finally
-      RestorePoint.Free;
-    end;
-  finally
+    Try
+     Sel := ItemSelected;
+     If Self.Sorted Then
+      fCultures.Sort(DisplayName);
+     If WindowHandle <> 0 Then
+      Begin
+       fCultures.AssignLabelsTo(Inherited Items, DisplayName);
+       DoItemsChange;
+      End;
+     ItemSelected := Sel;
+     Assign(RestorePoint);
+    Finally
+     RestorePoint.Free;
+    End;
+   Finally
     fCultures.OnChange := CulturesChanged;
-  end;
-end;
+   End;
+  End;
 
-procedure TCustomCultureCheckListBox.GetSelection(Dest: TCultureList;
-  AllowDisabled: Boolean);
-var
-  I: Integer;
-begin
-  Dest.BeginUpdate;
-  try
+ Procedure TCustomCultureCheckListBox.GetSelection(Dest : TCultureList; AllowDisabled : Boolean);
+  Var
+   i : Integer;
+  Begin
+   Dest.BeginUpdate;
+   Try
     Dest.Clear;
-    for I := 0 to Count - 1 do
-      if Checked[I] and (AllowDisabled or ItemEnabled[I]) then
-        Dest.Add(Items[I]);
-  finally
+    For i := 0 To Count - 1 Do
+     If Checked[i] And (AllowDisabled Or ItemEnabled[i]) Then
+      Dest.Add(Items[i]);
+   Finally
     Dest.EndUpdate;
-  end;
-end;
+   End;
+  End;
 
-procedure TCustomCultureCheckListBox.SetSelection(Source: TReadonlyCultureList;
-  AllowDisabled: Boolean);
-var
-  I: Integer;
-begin
-  for I := 0 to Count - 1 do
-    if AllowDisabled or ItemEnabled[I] then
-      Checked[I] := Source.Exists(Items[I]);
-end;
+ Procedure TCustomCultureCheckListBox.SetSelection(Source : TReadonlyCultureList; AllowDisabled : Boolean);
+  Var
+   i : Integer;
+  Begin
+   For i := 0 To Count - 1 Do
+    If AllowDisabled Or ItemEnabled[i] Then
+     Checked[i] := Source.Exists(Items[i]);
+  End;
 
 { TCustomTerritoryLabel }
 
-constructor TCustomTerritoryLabel.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  fDisplayName := tnFriendlyName;
-end;
+ Constructor TCustomTerritoryLabel.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   fDisplayName := tnFriendlyName;
+  End;
 
-procedure TCustomTerritoryLabel.ReadTerritory(Reader: TReader);
-begin
-  Territory := TerritoryOf(Reader.ReadString);
-end;
+ Procedure TCustomTerritoryLabel.ReadTerritory(Reader : TReader);
+  Begin
+   Territory := TerritoryOf(Reader.ReadString);
+  End;
 
-procedure TCustomTerritoryLabel.WriteTerritory(Writer: TWriter);
-begin
-  Writer.WriteString(Territory.Code2);
-end;
+ Procedure TCustomTerritoryLabel.WriteTerritory(Writer : TWriter);
+  Begin
+   Writer.WriteString(Territory.Code2);
+  End;
 
-procedure TCustomTerritoryLabel.DefineProperties(Filer: TFiler);
-begin
-  inherited DefineProperties(Filer);
-  Filer.DefineProperty('TerritoryInfo', ReadTerritory, WriteTerritory, Assigned(Territory));
-end;
+ Procedure TCustomTerritoryLabel.DefineProperties(Filer : TFiler);
+  Begin
+   Inherited DefineProperties(Filer);
+   Filer.DefineProperty('TerritoryInfo', ReadTerritory, WriteTerritory, Assigned(Territory));
+  End;
 
-function TCustomTerritoryLabel.GetImageIndex: TImageIndex;
-begin
-  Result := Flags.ImageIndexOf(Territory);
-end;
+ Function TCustomTerritoryLabel.GetImageIndex : TImageIndex;
+  Begin
+   Result := Flags.ImageIndexOf(Territory);
+  End;
 
-function TCustomTerritoryLabel.GetLabelText: String;
-begin
-  if (DisplayName = tnNone) or not Assigned(Territory) then
+ Function TCustomTerritoryLabel.GetLabelText : String;
+  Begin
+   If (DisplayName = tnNone) Or Not Assigned(Territory) Then
     Result := Caption
-  else
+   Else
     Result := Territory.DisplayNames[DisplayName];
-end;
+  End;
 
-procedure TCustomTerritoryLabel.SetDisplayName(Value: TTerritoryDisplayName);
-begin
-  if DisplayName <> Value then
-  begin
-    fDisplayName := Value;
-    AdjustBounds;
-    Invalidate;
-  end;
-end;
+ Procedure TCustomTerritoryLabel.SetDisplayName(Value : TTerritoryDisplayName);
+  Begin
+   If DisplayName <> Value Then
+    Begin
+     fDisplayName := Value;
+     AdjustBounds;
+     Invalidate;
+    End;
+  End;
 
-procedure TCustomTerritoryLabel.SetTerritory(Value: TTerritoryInfo);
-begin
-  if Territory <> Value then
-  begin
-    fTerritory := Value;
-    AdjustBounds;
-    Invalidate;
-  end;
-end;
+ Procedure TCustomTerritoryLabel.SetTerritory(Value : TTerritoryInfo);
+  Begin
+   If Territory <> Value Then
+    Begin
+     fTerritory := Value;
+     AdjustBounds;
+     Invalidate;
+    End;
+  End;
 
 { TCustomTerritoryBox }
 
-constructor TCustomTerritoryBox.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  fTerritories := TTerritoryList.Create;
-  fTerritories.OnChange := TerritoriesChanged;
-  fDisplayName := tnFriendlyName;
-end;
+ Constructor TCustomTerritoryBox.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   fTerritories          := TTerritoryList.Create;
+   fTerritories.OnChange := TerritoriesChanged;
+   fDisplayName          := tnFriendlyName;
+  End;
 
-destructor TCustomTerritoryBox.Destroy;
-begin
-  fTerritories.OnChange := nil;
-  fTerritories.Free;
-  inherited Destroy;
-end;
+ Destructor TCustomTerritoryBox.Destroy;
+  Begin
+   fTerritories.OnChange := Nil;
+   fTerritories.Free;
+   Inherited Destroy;
+  End;
 
-procedure TCustomTerritoryBox.TerritoriesChanged(Sender: TObject);
-begin
-  if ItemsReady then
-  begin
-    fTerritories.AssignLabelsTo(inherited Items, DisplayName);
-    DoItemsChange;
-  end;
-end;
+ Procedure TCustomTerritoryBox.TerritoriesChanged(Sender : TObject);
+  Begin
+   If ItemsReady Then
+    Begin
+     fTerritories.AssignLabelsTo(Inherited Items, DisplayName);
+     DoItemsChange;
+    End;
+  End;
 
-procedure TCustomTerritoryBox.ReadItemSelected(Reader: TReader);
-begin
-  ItemSelected := TerritoryOf(Reader.ReadString);
-end;
+ Procedure TCustomTerritoryBox.ReadItemSelected(Reader : TReader);
+  Begin
+   ItemSelected := TerritoryOf(Reader.ReadString);
+  End;
 
-procedure TCustomTerritoryBox.WriteItemSelected(Writer: TWriter);
-begin
-  Writer.WriteString(ItemSelected.Code2);
-end;
+ Procedure TCustomTerritoryBox.WriteItemSelected(Writer : TWriter);
+  Begin
+   Writer.WriteString(ItemSelected.Code2);
+  End;
 
-procedure TCustomTerritoryBox.DefineProperties(Filer: TFiler);
-begin
-  inherited DefineProperties(Filer);
-  Filer.DefineProperty('Selected', ReadItemSelected, WriteItemSelected, Assigned(ItemSelected));
-end;
+ Procedure TCustomTerritoryBox.DefineProperties(Filer : TFiler);
+  Begin
+   Inherited DefineProperties(Filer);
+   Filer.DefineProperty('Selected', ReadItemSelected, WriteItemSelected, Assigned(ItemSelected));
+  End;
 
-procedure TCustomTerritoryBox.SetTerritories(Value: TTerritoryList);
-begin
-  fTerritories.Assign(Value);
-end;
+ Procedure TCustomTerritoryBox.SetTerritories(Value : TTerritoryList);
+  Begin
+   fTerritories.Assign(Value);
+  End;
 
-procedure TCustomTerritoryBox.SetItemSelected(Value: TTerritoryInfo);
-begin
-  ItemIndex := fTerritories.IndexOf(Value);
-end;
+ Procedure TCustomTerritoryBox.SetItemSelected(Value : TTerritoryInfo);
+  Begin
+   ItemIndex := fTerritories.IndexOf(Value);
+  End;
 
-function TCustomTerritoryBox.GetItemSelected: TTerritoryInfo;
-begin
-  if Cardinal(ItemIndex) < Cardinal(fTerritories.Count) then
+ Function TCustomTerritoryBox.GetItemSelected : TTerritoryInfo;
+  Begin
+   If Cardinal(ItemIndex) < Cardinal(fTerritories.Count) Then
     Result := fTerritories[ItemIndex]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-procedure TCustomTerritoryBox.SetDisplayName(Value: TTerritoryDisplayName);
-begin
-  if DisplayName <> Value then
-  begin
-    fDisplayName := Value;
-    RebuildInternalItems;
-  end;
-end;
+ Procedure TCustomTerritoryBox.SetDisplayName(Value : TTerritoryDisplayName);
+  Begin
+   If DisplayName <> Value Then
+    Begin
+     fDisplayName := Value;
+     RebuildInternalItems;
+    End;
+  End;
 
-function TCustomTerritoryBox.GetImageIndex(Index: Integer): Integer;
-begin
-  if (Index >= 0) and (Index < fTerritories.Count) and Assigned(Flags) then
+ Function TCustomTerritoryBox.GetImageIndex(Index : Integer) : Integer;
+  Begin
+   If (Index >= 0) And (Index < fTerritories.Count) And Assigned(Flags) Then
     Result := Flags.ImageIndexOf(fTerritories[Index])
-  else
+   Else
     Result := -1;
-end;
+  End;
 
-function TCustomTerritoryBox.CollectAll: Boolean;
-begin
-  fTerritories.Assign(World.Territories);
-  Result := True;
-end;
+ Function TCustomTerritoryBox.CollectAll : Boolean;
+  Begin
+   fTerritories.Assign(World.Territories);
+   Result := True;
+  End;
 
-procedure TCustomTerritoryBox.RebuildInternalItems;
-var
-  Sel: TTerritoryInfo;
-begin
-  fTerritories.OnChange := nil;
-  try
+ Procedure TCustomTerritoryBox.RebuildInternalItems;
+  Var
+   Sel : TTerritoryInfo;
+  Begin
+   fTerritories.OnChange := Nil;
+   Try
     Sel := ItemSelected;
-    if Sorted then
-      fTerritories.Sort(DisplayName);
-    if WindowHandle <> 0 then
-    begin
-      fTerritories.AssignLabelsTo(inherited Items, DisplayName);
+    If Sorted Then
+     fTerritories.Sort(DisplayName);
+    If WindowHandle <> 0 Then
+     Begin
+      fTerritories.AssignLabelsTo(Inherited Items, DisplayName);
       DoItemsChange;
-    end;
+     End;
     ItemSelected := Sel;
-  finally
+   Finally
     fTerritories.OnChange := TerritoriesChanged;
-  end;
-end;
+   End;
+  End;
 
 { TCustomTerritoryListBox }
 
-constructor TCustomTerritoryListBox.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  fTerritories := TTerritoryList.Create;
-  fTerritories.OnChange := TerritoriesChanged;
-  fDisplayName := tnFriendlyName;
-end;
+ Constructor TCustomTerritoryListBox.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   fTerritories          := TTerritoryList.Create;
+   fTerritories.OnChange := TerritoriesChanged;
+   fDisplayName          := tnFriendlyName;
+  End;
 
-destructor TCustomTerritoryListBox.Destroy;
-begin
-  fTerritories.OnChange := nil;
-  fTerritories.Free;
-  inherited Destroy;
-end;
+ Destructor TCustomTerritoryListBox.Destroy;
+  Begin
+   fTerritories.OnChange := Nil;
+   fTerritories.Free;
+   Inherited Destroy;
+  End;
 
-procedure TCustomTerritoryListBox.TerritoriesChanged(Sender: TObject);
-begin
-  if ItemsReady then
-  begin
-    fTerritories.AssignLabelsTo(inherited Items, DisplayName);
-    DoItemsChange;
-  end;
-end;
+ Procedure TCustomTerritoryListBox.TerritoriesChanged(Sender : TObject);
+  Begin
+   If ItemsReady Then
+    Begin
+     fTerritories.AssignLabelsTo(Inherited Items, DisplayName);
+     DoItemsChange;
+    End;
+  End;
 
-procedure TCustomTerritoryListBox.ReadItemSelected(Reader: TReader);
-begin
-  ItemSelected := TerritoryOf(Reader.ReadString);
-end;
+ Procedure TCustomTerritoryListBox.ReadItemSelected(Reader : TReader);
+  Begin
+   ItemSelected := TerritoryOf(Reader.ReadString);
+  End;
 
-procedure TCustomTerritoryListBox.WriteItemSelected(Writer: TWriter);
-begin
-  Writer.WriteString(ItemSelected.Code2);
-end;
+ Procedure TCustomTerritoryListBox.WriteItemSelected(Writer : TWriter);
+  Begin
+   Writer.WriteString(ItemSelected.Code2);
+  End;
 
-procedure TCustomTerritoryListBox.DefineProperties(Filer: TFiler);
-begin
-  inherited DefineProperties(Filer);
-  Filer.DefineProperty('Selected', ReadItemSelected, WriteItemSelected, Assigned(ItemSelected));
-end;
-procedure TCustomTerritoryListBox.SetTerritories(Value: TTerritoryList);
-begin
-  fTerritories.Assign(Value);
-end;
+ Procedure TCustomTerritoryListBox.DefineProperties(Filer : TFiler);
+  Begin
+   Inherited DefineProperties(Filer);
+   Filer.DefineProperty('Selected', ReadItemSelected, WriteItemSelected, Assigned(ItemSelected));
+  End;
 
-procedure TCustomTerritoryListBox.SetItemSelected(Value: TTerritoryInfo);
-begin
-  ItemIndex := fTerritories.IndexOf(Value);
-end;
+ Procedure TCustomTerritoryListBox.SetTerritories(Value : TTerritoryList);
+  Begin
+   fTerritories.Assign(Value);
+  End;
 
-function TCustomTerritoryListBox.GetItemSelected: TTerritoryInfo;
-begin
-  if Cardinal(ItemIndex) < Cardinal(fTerritories.Count) then
+ Procedure TCustomTerritoryListBox.SetItemSelected(Value : TTerritoryInfo);
+  Begin
+   ItemIndex := fTerritories.IndexOf(Value);
+  End;
+
+ Function TCustomTerritoryListBox.GetItemSelected : TTerritoryInfo;
+  Begin
+   If Cardinal(ItemIndex) < Cardinal(fTerritories.Count) Then
     Result := fTerritories[ItemIndex]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-procedure TCustomTerritoryListBox.SetDisplayName(Value: TTerritoryDisplayName);
-begin
-  if DisplayName <> Value then
-  begin
-    fDisplayName := Value;
-    RebuildInternalItems;
-  end;
-end;
+ Procedure TCustomTerritoryListBox.SetDisplayName(Value : TTerritoryDisplayName);
+  Begin
+   If DisplayName <> Value Then
+    Begin
+     fDisplayName := Value;
+     RebuildInternalItems;
+    End;
+  End;
 
-function TCustomTerritoryListBox.GetImageIndex(Index: Integer): Integer;
-begin
-  if (Index >= 0) and (Index < fTerritories.Count) and Assigned(Flags) then
+ Function TCustomTerritoryListBox.GetImageIndex(Index : Integer) : Integer;
+  Begin
+   If (Index >= 0) And (Index < fTerritories.Count) And Assigned(Flags) Then
     Result := Flags.ImageIndexOf(fTerritories[Index])
-  else
+   Else
     Result := -1;
-end;
+  End;
 
-function TCustomTerritoryListBox.CollectAll: Boolean;
-begin
-  fTerritories.Assign(World.Territories);
-  Result := True;
-end;
+ Function TCustomTerritoryListBox.CollectAll : Boolean;
+  Begin
+   fTerritories.Assign(World.Territories);
+   Result := True;
+  End;
 
-procedure TCustomTerritoryListBox.RebuildInternalItems;
-var
-  Sel: TTerritoryInfo;
-begin
-  fTerritories.OnChange := nil;
-  try
+ Procedure TCustomTerritoryListBox.RebuildInternalItems;
+  Var
+   Sel : TTerritoryInfo;
+  Begin
+   fTerritories.OnChange := Nil;
+   Try
     Sel := ItemSelected;
-    if Sorted then
-      fTerritories.Sort(DisplayName);
-    if WindowHandle <> 0 then
-    begin
-      fTerritories.AssignLabelsTo(inherited Items, DisplayName);
+    If Sorted Then
+     fTerritories.Sort(DisplayName);
+    If WindowHandle <> 0 Then
+     Begin
+      fTerritories.AssignLabelsTo(Inherited Items, DisplayName);
       DoItemsChange;
-    end;
+     End;
     ItemSelected := Sel;
-  finally
+   Finally
     fTerritories.OnChange := TerritoriesChanged;
-  end;
-end;
+   End;
+  End;
 
-procedure TCustomTerritoryListBox.SetSelection(Source: TReadonlyTerritoryList);
-var
-  I: Integer;
-begin
-  if MultiSelect then
-    for I := 0 to fTerritories.Count - 1 do
-      Selected[I] := Source.Exists(fTerritories[I]);
-end;
+ Procedure TCustomTerritoryListBox.SetSelection(Source : TReadonlyTerritoryList);
+  Var
+   i : Integer;
+  Begin
+   If MultiSelect Then
+    For i        := 0 To fTerritories.Count - 1 Do
+     Selected[i] := Source.Exists(fTerritories[i]);
+  End;
 
-procedure TCustomTerritoryListBox.GetSelection(Dest: TTerritoryList);
-var
-  I: Integer;
-begin
-  Dest.BeginUpdate;
-  try
+ Procedure TCustomTerritoryListBox.GetSelection(Dest : TTerritoryList);
+  Var
+   i : Integer;
+  Begin
+   Dest.BeginUpdate;
+   Try
     Dest.Clear;
-    for I := 0 to fTerritories.Count - 1 do
-      if Selected[I] then
-        Dest.Add(fTerritories[I]);
-  finally
+    For i := 0 To fTerritories.Count - 1 Do
+     If Selected[i] Then
+      Dest.Add(fTerritories[i]);
+   Finally
     Dest.EndUpdate;
-  end;
-end;
+   End;
+  End;
 
 { TCustomTerritoryCheckListBox }
 
-constructor TCustomTerritoryCheckListBox.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  fTerritories := TTerritoryList.Create;
-  fTerritories.OnChange := TerritoriesChanged;
-  fDisplayName := tnFriendlyName;
-end;
+ Constructor TCustomTerritoryCheckListBox.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   fTerritories          := TTerritoryList.Create;
+   fTerritories.OnChange := TerritoriesChanged;
+   fDisplayName          := tnFriendlyName;
+  End;
 
-destructor TCustomTerritoryCheckListBox.Destroy;
-begin
-  fTerritories.OnChange := nil;
-  fTerritories.Free;
-  inherited Destroy;
-end;
+ Destructor TCustomTerritoryCheckListBox.Destroy;
+  Begin
+   fTerritories.OnChange := Nil;
+   fTerritories.Free;
+   Inherited Destroy;
+  End;
 
-procedure TCustomTerritoryCheckListBox.TerritoriesChanged(Sender: TObject);
-begin
-  if ItemsReady then
-  begin
-    fTerritories.AssignLabelsTo(inherited Items, DisplayName);
-    DoItemsChange;
-  end;
-end;
+ Procedure TCustomTerritoryCheckListBox.TerritoriesChanged(Sender : TObject);
+  Begin
+   If ItemsReady Then
+    Begin
+     fTerritories.AssignLabelsTo(Inherited Items, DisplayName);
+     DoItemsChange;
+    End;
+  End;
 
-procedure TCustomTerritoryCheckListBox.SetTerritories(Value: TTerritoryList);
-begin
-  fTerritories.Assign(Value);
-end;
+ Procedure TCustomTerritoryCheckListBox.SetTerritories(Value : TTerritoryList);
+  Begin
+   fTerritories.Assign(Value);
+  End;
 
-procedure TCustomTerritoryCheckListBox.SetItemSelected(Value: TTerritoryInfo);
-begin
-  ItemIndex := fTerritories.IndexOf(Value);
-end;
+ Procedure TCustomTerritoryCheckListBox.SetItemSelected(Value : TTerritoryInfo);
+  Begin
+   ItemIndex := fTerritories.IndexOf(Value);
+  End;
 
-function TCustomTerritoryCheckListBox.GetItemSelected: TTerritoryInfo;
-begin
-  if Cardinal(ItemIndex) < Cardinal(fTerritories.Count) then
+ Function TCustomTerritoryCheckListBox.GetItemSelected : TTerritoryInfo;
+  Begin
+   If Cardinal(ItemIndex) < Cardinal(fTerritories.Count) Then
     Result := fTerritories[ItemIndex]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-procedure TCustomTerritoryCheckListBox.SetDisplayName(Value: TTerritoryDisplayName);
-begin
-  if DisplayName <> Value then
-  begin
-    fDisplayName := Value;
-    RebuildInternalItems;
-  end;
-end;
+ Procedure TCustomTerritoryCheckListBox.SetDisplayName(Value : TTerritoryDisplayName);
+  Begin
+   If DisplayName <> Value Then
+    Begin
+     fDisplayName := Value;
+     RebuildInternalItems;
+    End;
+  End;
 
-function TCustomTerritoryCheckListBox.GetImageIndex(Index: Integer): Integer;
-begin
-  if (Index >= 0) and (Index < fTerritories.Count) and Assigned(Flags) then
+ Function TCustomTerritoryCheckListBox.GetImageIndex(Index : Integer) : Integer;
+  Begin
+   If (Index >= 0) And (Index < fTerritories.Count) And Assigned(Flags) Then
     Result := Flags.ImageIndexOf(fTerritories[Index])
-  else
+   Else
     Result := -1;
-end;
+  End;
 
-function TCustomTerritoryCheckListBox.CollectAll: Boolean;
-begin
-  fTerritories.Assign(World.Territories);
-  Result := True;
-end;
+ Function TCustomTerritoryCheckListBox.CollectAll : Boolean;
+  Begin
+   fTerritories.Assign(World.Territories);
+   Result := True;
+  End;
 
-procedure TCustomTerritoryCheckListBox.RebuildInternalItems;
-var
-  Sel: TTerritoryInfo;
-  RestorePoint: TCheckListRecall;
-begin
-  fTerritories.OnChange := nil;
-  try
+ Procedure TCustomTerritoryCheckListBox.RebuildInternalItems;
+  Var
+   Sel          : TTerritoryInfo;
+   RestorePoint : TCheckListRecall;
+  Begin
+   fTerritories.OnChange := Nil;
+   Try
     RestorePoint := TCheckListRecall.Create(Self);
-    try
-      Sel := ItemSelected;
-      if Sorted then
-        fTerritories.Sort(DisplayName);
-      if WindowHandle <> 0 then
-      begin
-        fTerritories.AssignLabelsTo(inherited Items, DisplayName);
-        DoItemsChange;
-      end;
-      ItemSelected := Sel;
-    finally
-      RestorePoint.Free;
-    end;
-  finally
+    Try
+     Sel := ItemSelected;
+     If Sorted Then
+      fTerritories.Sort(DisplayName);
+     If WindowHandle <> 0 Then
+      Begin
+       fTerritories.AssignLabelsTo(Inherited Items, DisplayName);
+       DoItemsChange;
+      End;
+     ItemSelected := Sel;
+    Finally
+     RestorePoint.Free;
+    End;
+   Finally
     fTerritories.OnChange := TerritoriesChanged;
-  end;
-end;
+   End;
+  End;
 
-procedure TCustomTerritoryCheckListBox.GetSelection(Dest: TTerritoryList;
-  AllowDisabled: Boolean);
-var
-  I: Integer;
-begin
-  Dest.BeginUpdate;
-  try
+ Procedure TCustomTerritoryCheckListBox.GetSelection(Dest : TTerritoryList; AllowDisabled : Boolean);
+  Var
+   i : Integer;
+  Begin
+   Dest.BeginUpdate;
+   Try
     Dest.Clear;
-    for I := 0 to Count - 1 do
-      if Checked[I] and (AllowDisabled or ItemEnabled[I]) then
-        Dest.Add(Items[I]);
-  finally
+    For i := 0 To Count - 1 Do
+     If Checked[i] And (AllowDisabled Or ItemEnabled[i]) Then
+      Dest.Add(Items[i]);
+   Finally
     Dest.EndUpdate;
-  end;
-end;
+   End;
+  End;
 
-procedure TCustomTerritoryCheckListBox.SetSelection(Source: TReadonlyTerritoryList;
-  AllowDisabled: Boolean);
-var
-  I: Integer;
-begin
-  for I := 0 to Count - 1 do
-    if AllowDisabled or ItemEnabled[I] then
-      Checked[I] := Source.Exists(Items[I]);
-end;
+ Procedure TCustomTerritoryCheckListBox.SetSelection(Source : TReadonlyTerritoryList; AllowDisabled : Boolean);
+  Var
+   i : Integer;
+  Begin
+   For i := 0 To Count - 1 Do
+    If AllowDisabled Or ItemEnabled[i] Then
+     Checked[i] := Source.Exists(Items[i]);
+  End;
 
 { TCustomCurrencyLabel }
 
-constructor TCustomCurrencyLabel.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  fDisplayName := crnEnglishName;
-end;
+ Constructor TCustomCurrencyLabel.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   fDisplayName := crnEnglishName;
+  End;
 
-procedure TCustomCurrencyLabel.ReadCurrency(Reader: TReader);
-begin
-  Currency := CurrencyOf(Reader.ReadString);
-end;
+ Procedure TCustomCurrencyLabel.ReadCurrency(Reader : TReader);
+  Begin
+   Currency := CurrencyOf(Reader.ReadString);
+  End;
 
-procedure TCustomCurrencyLabel.WriteCurrency(Writer: TWriter);
-begin
-  Writer.WriteString(Currency.IntlSymbol);
-end;
+ Procedure TCustomCurrencyLabel.WriteCurrency(Writer : TWriter);
+  Begin
+   Writer.WriteString(Currency.IntlSymbol);
+  End;
 
-procedure TCustomCurrencyLabel.DefineProperties(Filer: TFiler);
-begin
-  inherited DefineProperties(Filer);
-  Filer.DefineProperty('CurrencyInfo', ReadCurrency, WriteCurrency, Assigned(Currency));
-end;
+ Procedure TCustomCurrencyLabel.DefineProperties(Filer : TFiler);
+  Begin
+   Inherited DefineProperties(Filer);
+   Filer.DefineProperty('CurrencyInfo', ReadCurrency, WriteCurrency, Assigned(Currency));
+  End;
 
-function TCustomCurrencyLabel.GetImageIndex: TImageIndex;
-begin
-  Result := Flags.ImageIndexOf(Currency);
-end;
+ Function TCustomCurrencyLabel.GetImageIndex : TImageIndex;
+  Begin
+   Result := Flags.ImageIndexOf(Currency);
+  End;
 
-function TCustomCurrencyLabel.GetLabelText: String;
-begin
-  if (DisplayName = crnNone) or not Assigned(Currency) then
+ Function TCustomCurrencyLabel.GetLabelText : String;
+  Begin
+   If (DisplayName = crnNone) Or Not Assigned(Currency) Then
     Result := Caption
-  else
+   Else
     Result := Currency.DisplayNames[DisplayName];
-end;
+  End;
 
-procedure TCustomCurrencyLabel.SetDisplayName(Value: TCurrencyDisplayName);
-begin
-  if DisplayName <> Value then
-  begin
-    fDisplayName := Value;
-    AdjustBounds;
-    Invalidate;
-  end;
-end;
+ Procedure TCustomCurrencyLabel.SetDisplayName(Value : TCurrencyDisplayName);
+  Begin
+   If DisplayName <> Value Then
+    Begin
+     fDisplayName := Value;
+     AdjustBounds;
+     Invalidate;
+    End;
+  End;
 
-procedure TCustomCurrencyLabel.SetCurrency(Value: TCurrencyInfo);
-begin
-  if Currency <> Value then
-  begin
-    fCurrency := Value;
-    AdjustBounds;
-    Invalidate;
-  end;
-end;
+ Procedure TCustomCurrencyLabel.SetCurrency(Value : TCurrencyInfo);
+  Begin
+   If Currency <> Value Then
+    Begin
+     fCurrency := Value;
+     AdjustBounds;
+     Invalidate;
+    End;
+  End;
 
 { TCustomCurrencyBox }
 
-constructor TCustomCurrencyBox.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  fCurrencies := TCurrencyList.Create;
-  fCurrencies.OnChange := CurrenciesChanged;
-  fDisplayName := crnEnglishName;
-end;
+ Constructor TCustomCurrencyBox.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   fCurrencies          := TCurrencyList.Create;
+   fCurrencies.OnChange := CurrenciesChanged;
+   fDisplayName         := crnEnglishName;
+  End;
 
-destructor TCustomCurrencyBox.Destroy;
-begin
-  fCurrencies.OnChange := nil;
-  fCurrencies.Free;
-  inherited Destroy;
-end;
+ Destructor TCustomCurrencyBox.Destroy;
+  Begin
+   fCurrencies.OnChange := Nil;
+   fCurrencies.Free;
+   Inherited Destroy;
+  End;
 
-procedure TCustomCurrencyBox.CurrenciesChanged(Sender: TObject);
-begin
-  if ItemsReady then
-  begin
-    fCurrencies.AssignLabelsTo(inherited Items, DisplayName);
-    DoItemsChange;
-  end;
-end;
+ Procedure TCustomCurrencyBox.CurrenciesChanged(Sender : TObject);
+  Begin
+   If ItemsReady Then
+    Begin
+     fCurrencies.AssignLabelsTo(Inherited Items, DisplayName);
+     DoItemsChange;
+    End;
+  End;
 
-procedure TCustomCurrencyBox.ReadItemSelected(Reader: TReader);
-begin
-  ItemSelected := CurrencyOf(Reader.ReadString);
-end;
+ Procedure TCustomCurrencyBox.ReadItemSelected(Reader : TReader);
+  Begin
+   ItemSelected := CurrencyOf(Reader.ReadString);
+  End;
 
-procedure TCustomCurrencyBox.WriteItemSelected(Writer: TWriter);
-begin
-  Writer.WriteString(ItemSelected.IntlSymbol);
-end;
+ Procedure TCustomCurrencyBox.WriteItemSelected(Writer : TWriter);
+  Begin
+   Writer.WriteString(ItemSelected.IntlSymbol);
+  End;
 
-procedure TCustomCurrencyBox.DefineProperties(Filer: TFiler);
-begin
-  inherited DefineProperties(Filer);
-  Filer.DefineProperty('Selected', ReadItemSelected, WriteItemSelected, Assigned(ItemSelected));
-end;
+ Procedure TCustomCurrencyBox.DefineProperties(Filer : TFiler);
+  Begin
+   Inherited DefineProperties(Filer);
+   Filer.DefineProperty('Selected', ReadItemSelected, WriteItemSelected, Assigned(ItemSelected));
+  End;
 
-procedure TCustomCurrencyBox.SetCurrencies(Value: TCurrencyList);
-begin
-  fCurrencies.Assign(Value);
-end;
+ Procedure TCustomCurrencyBox.SetCurrencies(Value : TCurrencyList);
+  Begin
+   fCurrencies.Assign(Value);
+  End;
 
-procedure TCustomCurrencyBox.SetItemSelected(Value: TCurrencyInfo);
-begin
-  ItemIndex := fCurrencies.IndexOf(Value);
-end;
+ Procedure TCustomCurrencyBox.SetItemSelected(Value : TCurrencyInfo);
+  Begin
+   ItemIndex := fCurrencies.IndexOf(Value);
+  End;
 
-function TCustomCurrencyBox.GetItemSelected: TCurrencyInfo;
-begin
-  if Cardinal(ItemIndex) < Cardinal(fCurrencies.Count) then
+ Function TCustomCurrencyBox.GetItemSelected : TCurrencyInfo;
+  Begin
+   If Cardinal(ItemIndex) < Cardinal(fCurrencies.Count) Then
     Result := fCurrencies[ItemIndex]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-procedure TCustomCurrencyBox.SetDisplayName(Value: TCurrencyDisplayName);
-begin
-  if DisplayName <> Value then
-  begin
-    fDisplayName := Value;
-    RebuildInternalItems;
-  end;
-end;
+ Procedure TCustomCurrencyBox.SetDisplayName(Value : TCurrencyDisplayName);
+  Begin
+   If DisplayName <> Value Then
+    Begin
+     fDisplayName := Value;
+     RebuildInternalItems;
+    End;
+  End;
 
-function TCustomCurrencyBox.GetImageIndex(Index: Integer): Integer;
-begin
-  if (Index >= 0) and (Index < fCurrencies.Count) and Assigned(Flags) then
+ Function TCustomCurrencyBox.GetImageIndex(Index : Integer) : Integer;
+  Begin
+   If (Index >= 0) And (Index < fCurrencies.Count) And Assigned(Flags) Then
     Result := Flags.ImageIndexOf(fCurrencies[Index])
-  else
+   Else
     Result := -1;
-end;
+  End;
 
-function TCustomCurrencyBox.CollectAll: Boolean;
-begin
-  fCurrencies.Assign(World.Currencies);
-  Result := True;
-end;
+ Function TCustomCurrencyBox.CollectAll : Boolean;
+  Begin
+   fCurrencies.Assign(World.Currencies);
+   Result := True;
+  End;
 
-procedure TCustomCurrencyBox.RebuildInternalItems;
-var
-  Sel: TCurrencyInfo;
-begin
-  fCurrencies.OnChange := nil;
-  try
+ Procedure TCustomCurrencyBox.RebuildInternalItems;
+  Var
+   Sel : TCurrencyInfo;
+  Begin
+   fCurrencies.OnChange := Nil;
+   Try
     Sel := ItemSelected;
-    if Sorted then
-      fCurrencies.Sort(DisplayName);
-    if WindowHandle <> 0 then
-    begin
-      fCurrencies.AssignLabelsTo(inherited Items, DisplayName);
+    If Sorted Then
+     fCurrencies.Sort(DisplayName);
+    If WindowHandle <> 0 Then
+     Begin
+      fCurrencies.AssignLabelsTo(Inherited Items, DisplayName);
       DoItemsChange;
-    end;
+     End;
     ItemSelected := Sel;
-  finally
+   Finally
     fCurrencies.OnChange := CurrenciesChanged;
-  end;
-end;
+   End;
+  End;
 
 { TCustomCurrencyListBox }
 
-constructor TCustomCurrencyListBox.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  fCurrencies := TCurrencyList.Create;
-  fCurrencies.OnChange := CurrenciesChanged;
-  fDisplayName := crnEnglishName;
-end;
+ Constructor TCustomCurrencyListBox.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   fCurrencies          := TCurrencyList.Create;
+   fCurrencies.OnChange := CurrenciesChanged;
+   fDisplayName         := crnEnglishName;
+  End;
 
-destructor TCustomCurrencyListBox.Destroy;
-begin
-  fCurrencies.OnChange := nil;
-  fCurrencies.Free;
-  inherited Destroy;
-end;
+ Destructor TCustomCurrencyListBox.Destroy;
+  Begin
+   fCurrencies.OnChange := Nil;
+   fCurrencies.Free;
+   Inherited Destroy;
+  End;
 
-procedure TCustomCurrencyListBox.CurrenciesChanged(Sender: TObject);
-begin
-  if ItemsReady then
-  begin
-    fCurrencies.AssignLabelsTo(inherited Items, DisplayName);
-    DoItemsChange;
-  end;
-end;
+ Procedure TCustomCurrencyListBox.CurrenciesChanged(Sender : TObject);
+  Begin
+   If ItemsReady Then
+    Begin
+     fCurrencies.AssignLabelsTo(Inherited Items, DisplayName);
+     DoItemsChange;
+    End;
+  End;
 
-procedure TCustomCurrencyListBox.ReadItemSelected(Reader: TReader);
-begin
-  ItemSelected := CurrencyOf(Reader.ReadString);
-end;
+ Procedure TCustomCurrencyListBox.ReadItemSelected(Reader : TReader);
+  Begin
+   ItemSelected := CurrencyOf(Reader.ReadString);
+  End;
 
-procedure TCustomCurrencyListBox.WriteItemSelected(Writer: TWriter);
-begin
-  Writer.WriteString(ItemSelected.IntlSymbol);
-end;
+ Procedure TCustomCurrencyListBox.WriteItemSelected(Writer : TWriter);
+  Begin
+   Writer.WriteString(ItemSelected.IntlSymbol);
+  End;
 
-procedure TCustomCurrencyListBox.DefineProperties(Filer: TFiler);
-begin
-  inherited DefineProperties(Filer);
-  Filer.DefineProperty('Selected', ReadItemSelected, WriteItemSelected, Assigned(ItemSelected));
-end;
+ Procedure TCustomCurrencyListBox.DefineProperties(Filer : TFiler);
+  Begin
+   Inherited DefineProperties(Filer);
+   Filer.DefineProperty('Selected', ReadItemSelected, WriteItemSelected, Assigned(ItemSelected));
+  End;
 
-procedure TCustomCurrencyListBox.SetCurrencies(Value: TCurrencyList);
-begin
-  fCurrencies.Assign(Value);
-end;
+ Procedure TCustomCurrencyListBox.SetCurrencies(Value : TCurrencyList);
+  Begin
+   fCurrencies.Assign(Value);
+  End;
 
-procedure TCustomCurrencyListBox.SetItemSelected(Value: TCurrencyInfo);
-begin
-  ItemIndex := fCurrencies.IndexOf(Value);
-end;
+ Procedure TCustomCurrencyListBox.SetItemSelected(Value : TCurrencyInfo);
+  Begin
+   ItemIndex := fCurrencies.IndexOf(Value);
+  End;
 
-function TCustomCurrencyListBox.GetItemSelected: TCurrencyInfo;
-begin
-  if Cardinal(ItemIndex) < Cardinal(fCurrencies.Count) then
+ Function TCustomCurrencyListBox.GetItemSelected : TCurrencyInfo;
+  Begin
+   If Cardinal(ItemIndex) < Cardinal(fCurrencies.Count) Then
     Result := fCurrencies[ItemIndex]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-procedure TCustomCurrencyListBox.SetDisplayName(Value: TCurrencyDisplayName);
-begin
-  if DisplayName <> Value then
-  begin
-    fDisplayName := Value;
-    RebuildInternalItems;
-  end;
-end;
+ Procedure TCustomCurrencyListBox.SetDisplayName(Value : TCurrencyDisplayName);
+  Begin
+   If DisplayName <> Value Then
+    Begin
+     fDisplayName := Value;
+     RebuildInternalItems;
+    End;
+  End;
 
-function TCustomCurrencyListBox.GetImageIndex(Index: Integer): Integer;
-begin
-  if (Index >= 0) and (Index < fCurrencies.Count) and Assigned(Flags) then
+ Function TCustomCurrencyListBox.GetImageIndex(Index : Integer) : Integer;
+  Begin
+   If (Index >= 0) And (Index < fCurrencies.Count) And Assigned(Flags) Then
     Result := Flags.ImageIndexOf(fCurrencies[Index])
-  else
+   Else
     Result := -1;
-end;
+  End;
 
-function TCustomCurrencyListBox.CollectAll: Boolean;
-begin
-  fCurrencies.Assign(World.Currencies);
-  Result := True;
-end;
+ Function TCustomCurrencyListBox.CollectAll : Boolean;
+  Begin
+   fCurrencies.Assign(World.Currencies);
+   Result := True;
+  End;
 
-procedure TCustomCurrencyListBox.RebuildInternalItems;
-var
-  Sel: TCurrencyInfo;
-begin
-  fCurrencies.OnChange := nil;
-  try
+ Procedure TCustomCurrencyListBox.RebuildInternalItems;
+  Var
+   Sel : TCurrencyInfo;
+  Begin
+   fCurrencies.OnChange := Nil;
+   Try
     Sel := ItemSelected;
-    if Sorted then
-      fCurrencies.Sort(DisplayName);
-    if WindowHandle <> 0 then
-    begin
-      fCurrencies.AssignLabelsTo(inherited Items, DisplayName);
+    If Sorted Then
+     fCurrencies.Sort(DisplayName);
+    If WindowHandle <> 0 Then
+     Begin
+      fCurrencies.AssignLabelsTo(Inherited Items, DisplayName);
       DoItemsChange;
-    end;
+     End;
     ItemSelected := Sel;
-  finally
+   Finally
     fCurrencies.OnChange := CurrenciesChanged;
-  end;
-end;
+   End;
+  End;
 
-procedure TCustomCurrencyListBox.SetSelection(Source: TReadonlyCurrencyList);
-var
-  I: Integer;
-begin
-  if MultiSelect then
-    for I := 0 to fCurrencies.Count - 1 do
-      Selected[I] := Source.Exists(fCurrencies[I]);
-end;
+ Procedure TCustomCurrencyListBox.SetSelection(Source : TReadonlyCurrencyList);
+  Var
+   i : Integer;
+  Begin
+   If MultiSelect Then
+    For i        := 0 To fCurrencies.Count - 1 Do
+     Selected[i] := Source.Exists(fCurrencies[i]);
+  End;
 
-procedure TCustomCurrencyListBox.GetSelection(Dest: TCurrencyList);
-var
-  I: Integer;
-begin
-  Dest.BeginUpdate;
-  try
+ Procedure TCustomCurrencyListBox.GetSelection(Dest : TCurrencyList);
+  Var
+   i : Integer;
+  Begin
+   Dest.BeginUpdate;
+   Try
     Dest.Clear;
-    for I := 0 to fCurrencies.Count - 1 do
-      if Selected[I] then
-        Dest.Add(fCurrencies[I]);
-  finally
+    For i := 0 To fCurrencies.Count - 1 Do
+     If Selected[i] Then
+      Dest.Add(fCurrencies[i]);
+   Finally
     Dest.EndUpdate;
-  end;
-end;
+   End;
+  End;
 
 { TCustomCurrencyCheckListBox }
 
-constructor TCustomCurrencyCheckListBox.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  fCurrencies := TCurrencyList.Create;
-  fCurrencies.OnChange := CurrenciesChanged;
-  fDisplayName := crnEnglishName;
-end;
+ Constructor TCustomCurrencyCheckListBox.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   fCurrencies          := TCurrencyList.Create;
+   fCurrencies.OnChange := CurrenciesChanged;
+   fDisplayName         := crnEnglishName;
+  End;
 
-destructor TCustomCurrencyCheckListBox.Destroy;
-begin
-  fCurrencies.OnChange := nil;
-  fCurrencies.Free;
-  inherited Destroy;
-end;
+ Destructor TCustomCurrencyCheckListBox.Destroy;
+  Begin
+   fCurrencies.OnChange := Nil;
+   fCurrencies.Free;
+   Inherited Destroy;
+  End;
 
-procedure TCustomCurrencyCheckListBox.CurrenciesChanged(Sender: TObject);
-begin
-  if ItemsReady then
-  begin
-    fCurrencies.AssignLabelsTo(inherited Items, DisplayName);
-    DoItemsChange;
-  end;
-end;
+ Procedure TCustomCurrencyCheckListBox.CurrenciesChanged(Sender : TObject);
+  Begin
+   If ItemsReady Then
+    Begin
+     fCurrencies.AssignLabelsTo(Inherited Items, DisplayName);
+     DoItemsChange;
+    End;
+  End;
 
-procedure TCustomCurrencyCheckListBox.SetCurrencies(Value: TCurrencyList);
-begin
-  fCurrencies.Assign(Value);
-end;
+ Procedure TCustomCurrencyCheckListBox.SetCurrencies(Value : TCurrencyList);
+  Begin
+   fCurrencies.Assign(Value);
+  End;
 
-procedure TCustomCurrencyCheckListBox.SetItemSelected(Value: TCurrencyInfo);
-begin
-  ItemIndex := fCurrencies.IndexOf(Value);
-end;
+ Procedure TCustomCurrencyCheckListBox.SetItemSelected(Value : TCurrencyInfo);
+  Begin
+   ItemIndex := fCurrencies.IndexOf(Value);
+  End;
 
-function TCustomCurrencyCheckListBox.GetItemSelected: TCurrencyInfo;
-begin
-  if Cardinal(ItemIndex) < Cardinal(fCurrencies.Count) then
+ Function TCustomCurrencyCheckListBox.GetItemSelected : TCurrencyInfo;
+  Begin
+   If Cardinal(ItemIndex) < Cardinal(fCurrencies.Count) Then
     Result := fCurrencies[ItemIndex]
-  else
-    Result := nil;
-end;
+   Else
+    Result := Nil;
+  End;
 
-procedure TCustomCurrencyCheckListBox.SetDisplayName(Value: TCurrencyDisplayName);
-begin
-  if DisplayName <> Value then
-  begin
-    fDisplayName := Value;
-    RebuildInternalItems;
-  end;
-end;
+ Procedure TCustomCurrencyCheckListBox.SetDisplayName(Value : TCurrencyDisplayName);
+  Begin
+   If DisplayName <> Value Then
+    Begin
+     fDisplayName := Value;
+     RebuildInternalItems;
+    End;
+  End;
 
-function TCustomCurrencyCheckListBox.GetImageIndex(Index: Integer): Integer;
-begin
-  if (Index >= 0) and (Index < fCurrencies.Count) and Assigned(Flags) then
+ Function TCustomCurrencyCheckListBox.GetImageIndex(Index : Integer) : Integer;
+  Begin
+   If (Index >= 0) And (Index < fCurrencies.Count) And Assigned(Flags) Then
     Result := Flags.ImageIndexOf(fCurrencies[Index])
-  else
+   Else
     Result := -1;
-end;
+  End;
 
-function TCustomCurrencyCheckListBox.CollectAll: Boolean;
-begin
-  fCurrencies.Assign(World.Currencies);
-  Result := True;
-end;
+ Function TCustomCurrencyCheckListBox.CollectAll : Boolean;
+  Begin
+   fCurrencies.Assign(World.Currencies);
+   Result := True;
+  End;
 
-procedure TCustomCurrencyCheckListBox.RebuildInternalItems;
-var
-  Sel: TCurrencyInfo;
-  RestorePoint: TCheckListRecall;
-begin
-  fCurrencies.OnChange := nil;
-  try
+ Procedure TCustomCurrencyCheckListBox.RebuildInternalItems;
+  Var
+   Sel          : TCurrencyInfo;
+   RestorePoint : TCheckListRecall;
+  Begin
+   fCurrencies.OnChange := Nil;
+   Try
     RestorePoint := TCheckListRecall.Create(Self);
-    try
-      Sel := ItemSelected;
-      if Sorted then
-        fCurrencies.Sort(DisplayName);
-      if WindowHandle <> 0 then
-      begin
-        fCurrencies.AssignLabelsTo(inherited Items, DisplayName);
-        DoItemsChange;
-      end;
-      ItemSelected := Sel;
-    finally
-      RestorePoint.Free;
-    end;
-  finally
+    Try
+     Sel := ItemSelected;
+     If Sorted Then
+      fCurrencies.Sort(DisplayName);
+     If WindowHandle <> 0 Then
+      Begin
+       fCurrencies.AssignLabelsTo(Inherited Items, DisplayName);
+       DoItemsChange;
+      End;
+     ItemSelected := Sel;
+    Finally
+     RestorePoint.Free;
+    End;
+   Finally
     fCurrencies.OnChange := CurrenciesChanged;
-  end;
-end;
+   End;
+  End;
 
-procedure TCustomCurrencyCheckListBox.GetSelection(Dest: TCurrencyList;
-  AllowDisabled: Boolean);
-var
-  I: Integer;
-begin
-  Dest.BeginUpdate;
-  try
+ Procedure TCustomCurrencyCheckListBox.GetSelection(Dest : TCurrencyList; AllowDisabled : Boolean);
+  Var
+   i : Integer;
+  Begin
+   Dest.BeginUpdate;
+   Try
     Dest.Clear;
-    for I := 0 to Count - 1 do
-      if Checked[I] and (AllowDisabled or ItemEnabled[I]) then
-        Dest.Add(Items[I]);
-  finally
+    For i := 0 To Count - 1 Do
+     If Checked[i] And (AllowDisabled Or ItemEnabled[i]) Then
+      Dest.Add(Items[i]);
+   Finally
     Dest.EndUpdate;
-  end;
-end;
+   End;
+  End;
 
-procedure TCustomCurrencyCheckListBox.SetSelection(Source: TReadonlyCurrencyList;
-  AllowDisabled: Boolean);
-var
-  I: Integer;
-begin
-  for I := 0 to Count - 1 do
-    if AllowDisabled or ItemEnabled[I] then
-      Checked[I] := Source.Exists(Items[I]);
-end;
+ Procedure TCustomCurrencyCheckListBox.SetSelection(Source : TReadonlyCurrencyList; AllowDisabled : Boolean);
+  Var
+   i : Integer;
+  Begin
+   For i := 0 To Count - 1 Do
+    If AllowDisabled Or ItemEnabled[i] Then
+     Checked[i] := Source.Exists(Items[i]);
+  End;
 
-initialization
-  CheckBoxSize := CalcCheckBoxSize;
-  DropDownSize := CalcDropDownSize;
-end.
+Initialization
+ CheckBoxSize := CalcCheckBoxSize;
+ DropDownSize := CalcDropDownSize;
+
+End.

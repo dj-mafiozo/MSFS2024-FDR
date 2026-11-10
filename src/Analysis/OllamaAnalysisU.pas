@@ -27,7 +27,7 @@ Interface
 Implementation
 
  Uses
-  Winapi.Windows, Winapi.WinHttp, System.JSON,
+  Winapi.Windows, Winapi.WinHTTP, System.JSON,
   System.SyncObjs, System.Net.URLClient;
 
  Type
@@ -50,13 +50,13 @@ Implementation
 
  Function OllamaChatURL(Const BaseURL : String) : String;
   Var
-   U : TURI;
+   u : TURI;
   Begin
    Result := Trim(BaseURL);
    If Result = '' Then
     Result := 'http://localhost:11434';
-   U       := TURI.Create(Result);
-   If Not(SameText(U.Scheme, 'http') Or SameText(U.Scheme, 'https')) Or (U.Host = '') Or (U.Query <> '') Or (U.Fragment <> '') Or (U.Username <> '') Then
+   u       := TURI.Create(Result);
+   If Not(SameText(u.Scheme, 'http') Or SameText(u.Scheme, 'https')) Or (u.Host = '') Or (u.Query <> '') Or (u.Fragment <> '') Or (u.Username <> '') Then
     Raise Exception.Create(Tr('Ollama: podaj adres HTTP/HTTPS serwera bez query, fragmentu i danych logowania.'));
    While (Result <> '') And (Result[Length(Result)] = '/') Do
     Delete(Result, Length(Result), 1);
@@ -89,10 +89,10 @@ Implementation
   Begin
    Try
     Models := ListOllamaModels(fBaseURL,
-      Function : Boolean
-      Begin
-       Result := Terminated;
-      End);
+    Function : Boolean
+    Begin
+    Result := Terminated;
+    End);
    Except
     On E : Exception Do
      Error := E.Message;
@@ -136,7 +136,7 @@ Implementation
    Session    : HINTERNET;
    Connection : HINTERNET;
    Request    : HINTERNET;
-   U          : TURI;
+   u          : TURI;
    Flags      : DWORD;
    Status     : DWORD;
    Size       : DWORD;
@@ -147,9 +147,9 @@ Implementation
    Buffer     : TBytes;
    Output     : TMemoryStream;
 
-   Procedure Check(B : BOOL);
+   Procedure Check(b : BOOL);
     Begin
-     If Not B Then
+     If Not b Then
       RaiseLastOSError;
     End;
 
@@ -159,19 +159,19 @@ Implementation
    Output     := TMemoryStream.Create;
    Try
     Try
-     U       := TURI.Create(fURL);
+     u       := TURI.Create(fURL);
      Session := WinHttpOpen('MSFSFDR/1.0', WINHTTP_ACCESS_TYPE_NO_PROXY, Nil, Nil, 0);
      Check(Session <> Nil);
      Check(WinHttpSetTimeouts(Session, 5000, 5000, 5000, 1800000));
-     Connection := WinHttpConnect(Session, PChar(U.Host), U.Port, 0);
+     Connection := WinHttpConnect(Session, PChar(u.Host), u.Port, 0);
      Check(Connection <> Nil);
      Flags := 0;
-     If SameText(U.Scheme, 'https') Then
+     If SameText(u.Scheme, 'https') Then
       Flags := WINHTTP_FLAG_SECURE;
      Method := 'POST';
      If fBody = '' Then
       Method := 'GET';
-     Request := WinHttpOpenRequest(Connection, PChar(Method), PChar(U.Path), Nil, Nil, Nil, Flags);
+     Request := WinHttpOpenRequest(Connection, PChar(Method), PChar(u.Path), Nil, Nil, Nil, Flags);
      Check(Request <> Nil);
      fLock.Acquire;
      Try
@@ -299,7 +299,7 @@ Implementation
    Worker   : TOllamaHTTP;
    Started  : UInt64;
    JSON     : TJSONValue;
-   V        : TJSONValue;
+   v        : TJSONValue;
   Begin
    If Trim(Model) = '' Then
     Raise Exception.Create(Tr('Ollama: wpisz nazwe zainstalowanego modelu w ustawieniach AI.'));
@@ -344,19 +344,19 @@ Implementation
     Try
      If Not(JSON Is TJSONObject) Then
       Raise Exception.Create(Tr('Ollama: nieprawidlowa odpowiedz JSON.'));
-     V := TJSONObject(JSON).GetValue('error');
-     If V <> Nil Then
-      Raise Exception.Create(Tr('Ollama: ') + V.Value);
-     V := TJSONObject(JSON).GetValue('done');
-     If Not(V Is TJSONBool) Or Not TJSONBool(V).AsBoolean Then
+     v := TJSONObject(JSON).GetValue('error');
+     If v <> Nil Then
+      Raise Exception.Create(Tr('Ollama: ') + v.Value);
+     v := TJSONObject(JSON).GetValue('done');
+     If Not(v Is TJSONBool) Or Not TJSONBool(v).AsBoolean Then
       Raise Exception.Create(Tr('Ollama: niekompletna odpowiedz.'));
-     V := TJSONObject(JSON).GetValue('message');
-     If Not(V Is TJSONObject) Then
+     v := TJSONObject(JSON).GetValue('message');
+     If Not(v Is TJSONObject) Then
       Raise Exception.Create(Tr('Ollama: brak wiadomosci odpowiedzi.'));
-     V := TJSONObject(V).GetValue('content');
-     If Not(V Is TJSONString) Or (Trim(V.Value) = '') Then
+     v := TJSONObject(v).GetValue('content');
+     If Not(v Is TJSONString) Or (Trim(v.Value) = '') Then
       Raise Exception.Create(Tr('Ollama: pusty raport.'));
-     Result := V.Value;
+     Result := v.Value;
     Finally
      JSON.Free;
     End;

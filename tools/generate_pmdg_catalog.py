@@ -42,3 +42,6 @@ cpp=['#include "PMDG_NG3_SDK.h"',f'static_assert(sizeof(PMDG_NG3_Data)=={struct_
 cpp += [f'static_assert(__builtin_offsetof(PMDG_NG3_Data,{n})=={o},"{n}");' for n,o in assertions]
 (args.root/'.build/VerifyPMDGLayout.cpp').write_text('\n'.join(cpp)+'\n')
 print(f'Generated {len(fields)} named SDK fields, {struct_size} bytes, alignment {alignment}; independent ctypes layout matches.')
+
+from apply_display_values import update_catalog
+update_catalog(args.root/'src/aircraft/pmdg/PMDGNG3CatalogU.pas')

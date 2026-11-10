@@ -4,7 +4,7 @@ Unit FlightMapU;
 Interface
 
  Uses
-  Winapi.Windows, System.SysUtils, System.Classes, System.Types, System.Math, System.IOUtils,
+  AppPathsU, Winapi.Windows, System.SysUtils, System.Classes, System.Types, System.Math, System.UITypes, System.IOUtils,
   System.SyncObjs, System.Generics.Collections, System.Net.HttpClient, Vcl.Controls,
   Vcl.Graphics, Vcl.ExtCtrls, Vcl.Imaging.pngimage,
   FlightDatabaseU, FlightPlanU, LocalizationU;
@@ -30,7 +30,8 @@ Interface
     fTimer     : TTimer;
     fRoot      : String;
     fZoom      : Integer;
-    fX, fY     : Double;
+    fX         : Double;
+    fY         : Double;
     fDrag      : Boolean;
     fLast      : TPoint;
     fData      : TTripPlot;
@@ -39,9 +40,9 @@ Interface
     Function Project(Lat, Lon : Double) : TPointF;
    Protected
     Procedure Paint; Override;
-    Procedure MouseDown(Button : TMouseButton; Shift : TShiftState; X, Y : Integer); Override;
-    Procedure MouseUp(Button : TMouseButton; Shift : TShiftState; X, Y : Integer); Override;
-    Procedure MouseMove(Shift : TShiftState; X, Y : Integer); Override;
+    Procedure MouseDown(Button : TMouseButton; Shift : TShiftState; x, y : Integer); Override;
+    Procedure MouseUp(Button : TMouseButton; Shift : TShiftState; x, y : Integer); Override;
+    Procedure MouseMove(Shift : TShiftState; x, y : Integer); Override;
     Function DoMouseWheel(Shift : TShiftState; WheelDelta : Integer; MousePos : TPoint) : Boolean; Override;
    Public
     TilesEnabled : Boolean;
@@ -140,7 +141,7 @@ Implementation
    DoubleBuffered := True;
    fZoom          := 4;
    TilesEnabled   := True;
-   fRoot          := TPath.Combine(GetEnvironmentVariable('LOCALAPPDATA'), 'MSFS-FDR-Delphi\tiles');
+   fRoot          := TPath.Combine(AppDataDirectory, 'tiles');
    fCache         := TObjectDictionary<String, TPngImage>.Create([doOwnsValues]);
    fRequested     := TDictionary<String, Boolean>.Create;
    fWorker        := TTileWorker.Create(fRoot);
@@ -148,8 +149,8 @@ Implementation
    fTimer          := TTimer.Create(Self);
    fTimer.Interval := 500;
    fTimer.OnTimer  := Tick;
-   fX              := Project(52, 19).X;
-   fY              := Project(52, 19).Y;
+   fX              := Project(52, 19).x;
+   fY              := Project(52, 19).y;
   End;
 
  Destructor TFlightMap.Destroy;
@@ -173,38 +174,70 @@ Implementation
   Begin
    Size     := 256 * Power(2, fZoom);
    Lat      := EnsureRange(Lat, -85.051128, 85.051128);
-   Result.X := (Lon + 180) / 360 * Size;
-   Result.Y := (1 - Ln(Tan(DegToRad(Lat)) + 1 / Cos(DegToRad(Lat))) / Pi) / 2 * Size;
+   Result.x := (Lon + 180) / 360 * Size;
+   Result.y := (1 - Ln(Tan(DegToRad(Lat)) + 1 / Cos(DegToRad(Lat))) / Pi) / 2 * Size;
   End;
 
  Procedure TFlightMap.Paint;
   Const
-   Colors : Array [0 .. 7] Of Integer = ($55BB11, $3344DD, $CC6600, $AA44AA, $00AAAA, $EE6699, $CCAAAA, $8855EE);
+   Colors : Array [0..7] Of Integer = ($55BB11, $3344DD, $CC6600, $AA44AA, $00AAAA, $EE6699, $CCAAAA, $8855EE);
   Var
-   X            : Integer;
-   Y            : Integer;
+   x            : Integer;
+   y            : Integer;
    TX           : Integer;
    TY           : Integer;
-   N            : Integer;
+   n            : Integer;
    Key          : String;
    Path         : String;
    PNG          : TPngImage;
-   P            : TPointF;
-   I            : Integer;
+   p            : TPointF;
+   i            : Integer;
    ContactPoint : TContactView;
    PlanPoint    : TPlanPoint;
+
+   Procedure HoldingSymbol(Const Fix : TPlanPoint; CX, CY : Integer);
+    Var
+     Step  : Integer;
+     Angle : Double;
+     h     : Double;
+     n     : Double;
+     e     : Double;
+     PX    : Integer;
+     PY    : Integer;
+    Begin
+     // A fixed-size cartographic holding symbol, not a predicted flown trajectory.
+     If IsNan(Fix.Course) Or IsInfinite(Fix.Course) Then
+      Exit;
+     h                := DegToRad(Fix.Course);
+     Canvas.Pen.Width := 1;
+     For Step         := 0 To 48 Do
+      Begin
+       Angle := Step * 2 * Pi / 48;
+       n     := 22 + 22 * Cos(Angle);
+       e     := 9 * Sin(Angle);
+       If Fix.TurnDirection = 1 Then
+        e := -e;
+       PX := CX + Round(n * Sin(h) + e * Cos(h));
+       PY := CY - Round(n * Cos(h) - e * Sin(h));
+       If Step = 0 Then
+        Canvas.MoveTo(PX, PY)
+       Else
+        Canvas.LineTo(PX, PY);
+      End;
+    End;
+
   Begin
    Canvas.Brush.Color := $30251B;
    Canvas.FillRect(ClientRect);
-   N := Round(Power(2, fZoom));
+   n := Round(Power(2, fZoom));
    If TilesEnabled Then
-    For Y  := Floor((fY - Height / 2) / 256) To Floor((fY + Height / 2) / 256) Do
-     For X := Floor((fX - Width / 2) / 256) To Floor((fX + Width / 2) / 256) Do
+    For y  := Floor((fY - Height / 2) / 256) To Floor((fY + Height / 2) / 256) Do
+     For x := Floor((fX - Width / 2) / 256) To Floor((fX + Width / 2) / 256) Do
       Begin
-       If (Y < 0) Or (Y >= N) Then
+       If (y < 0) Or (y >= n) Then
         Continue;
-       TX  := ((X Mod N) + N) Mod N;
-       TY  := Y;
+       TX  := ((x Mod n) + n) Mod n;
+       TY  := y;
        Key := IntToStr(fZoom) + '/' + IntToStr(TX) + '/' + IntToStr(TY);
        If Not fCache.TryGetValue(Key, PNG) Then
         Begin
@@ -227,7 +260,7 @@ Implementation
           End;
         End;
        If Assigned(PNG) Then
-        Canvas.Draw(Round(X * 256 - fX + Width / 2), Round(Y * 256 - fY + Height / 2), PNG);
+        Canvas.Draw(Round(x * 256 - fX + Width / 2), Round(y * 256 - fY + Height / 2), PNG);
       End;
    If Assigned(fData) Then
     Begin
@@ -235,54 +268,77 @@ Implementation
       Begin
        Canvas.Pen.Color := clFuchsia;
        Canvas.Pen.Width := 1;
-       Canvas.Pen.Style := psDash;
-       For I            := 0 To fData.FlightPlan.Points.Count - 1 Do
+       Canvas.Pen.Style := psSolid;
+       For i            := 0 To fData.FlightPlan.Points.Count - 1 Do
         Begin
-         PlanPoint := fData.FlightPlan.Points[I];
-         P         := Project(PlanPoint.Lat, PlanPoint.Lon);
-         X         := Round(P.X - fX + Width / 2);
-         Y         := Round(P.Y - fY + Height / 2);
-         If (I = 0) Or PlanPoint.BreakBefore Then
-          Canvas.MoveTo(X, Y)
+         PlanPoint := fData.FlightPlan.Points[i];
+         If PlanPoint.MissedApproach Then
+          Canvas.Pen.Color := clDkGray
          Else
-          Canvas.LineTo(X, Y);
-         Canvas.Brush.Style := bsClear;
-         Canvas.Font.Color  := clFuchsia;
-         Canvas.TextOut(X + 3, Y + 3, PlanPoint.Ident);
-         Canvas.Brush.Style := bsSolid;
+          Canvas.Pen.Color := clFuchsia;
+         p                 := Project(PlanPoint.Lat, PlanPoint.Lon);
+         x                 := Round(p.x - fX + Width / 2);
+         y                 := Round(p.y - fY + Height / 2);
+         If (i = 0) Or PlanPoint.BreakBefore Then
+          Canvas.MoveTo(x, y)
+         Else
+          Canvas.LineTo(x, y);
+
         End;
        Canvas.Pen.Style := psSolid;
       End;
      Canvas.Pen.Color := $55BB11;
      Canvas.Pen.Width := 3;
-     For I            := 0 To fData.Points.Count - 1 Do
+     For i            := 0 To fData.Points.Count - 1 Do
       Begin
-       P                := Project(fData.Points[I].Lat, fData.Points[I].Lon);
-       Canvas.Pen.Color := Colors[fData.Points[I].GroupID Mod 8];
-       If (I = 0) Or fData.Points[I].BreakBefore Then
-        Canvas.MoveTo(Round(P.X - fX + Width / 2), Round(P.Y - fY + Height / 2))
+       p                := Project(fData.Points[i].Lat, fData.Points[i].Lon);
+       Canvas.Pen.Color := Colors[fData.Points[i].GroupID Mod 8];
+       If (i = 0) Or fData.Points[i].BreakBefore Then
+        Canvas.MoveTo(Round(p.x - fX + Width / 2), Round(p.y - fY + Height / 2))
        Else
-        Canvas.LineTo(Round(P.X - fX + Width / 2), Round(P.Y - fY + Height / 2));
+        Canvas.LineTo(Round(p.x - fX + Width / 2), Round(p.y - fY + Height / 2));
       End;
+     If fData.FlightPlan <> Nil Then
+      For PlanPoint In fData.FlightPlan.Points Do
+       Begin
+        If PlanPoint.Ident = '' Then
+         Continue;
+        p                  := Project(PlanPoint.Lat, PlanPoint.Lon);
+        x                  := Round(p.x - fX + Width / 2);
+        y                  := Round(p.y - fY + Height / 2);
+        Canvas.Pen.Width   := 1;
+        Canvas.Pen.Style   := psSolid;
+        Canvas.Brush.Style := bsClear;
+        If PlanPoint.MissedApproach Then
+         Canvas.Pen.Color := clDkGray
+        Else
+         Canvas.Pen.Color := clFuchsia;
+        Canvas.Font.Color := Canvas.Pen.Color;
+        Canvas.Rectangle(x - 3, y - 3, x + 4, y + 4);
+        Canvas.TextOut(x + 5, y + 3, Trim(PlanPoint.Ident + ' ' + PlanPoint.ConstraintText));
+        If (PlanPoint.LegType = 'HA') Or (PlanPoint.LegType = 'HF') Or (PlanPoint.LegType = 'HM') Then
+         HoldingSymbol(PlanPoint, x, y);
+        Canvas.Brush.Style := bsSolid;
+       End;
      For ContactPoint In fData.Contacts Do
       Begin
-       P                  := Project(ContactPoint.Lat, ContactPoint.Lon);
-       X                  := Round(P.X - fX + Width / 2);
-       Y                  := Round(P.Y - fY + Height / 2);
+       p                  := Project(ContactPoint.Lat, ContactPoint.Lon);
+       x                  := Round(p.x - fX + Width / 2);
+       y                  := Round(p.y - fY + Height / 2);
        Canvas.Pen.Color   := clWhite;
        Canvas.Brush.Color := clLime;
        If ContactPoint.Kind = Tr('Landing') Then
         Canvas.Brush.Color := clRed;
-       Canvas.Rectangle(X - 5, Y - 5, X + 5, Y + 5);
+       Canvas.Rectangle(x - 5, y - 5, x + 5, y + 5);
       End;
      If (fCursor >= 0) And (fCursor < fData.Points.Count) Then
       Begin
-       P                  := Project(fData.Points[fCursor].Lat, fData.Points[fCursor].Lon);
-       X                  := Round(P.X - fX + Width / 2);
-       Y                  := Round(P.Y - fY + Height / 2);
+       p                  := Project(fData.DisplayPoint(fCursor).Lat, fData.DisplayPoint(fCursor).Lon);
+       x                  := Round(p.x - fX + Width / 2);
+       y                  := Round(p.y - fY + Height / 2);
        Canvas.Brush.Color := clYellow;
        Canvas.Pen.Color   := clBlack;
-       Canvas.Ellipse(X - 6, Y - 6, X + 6, Y + 6);
+       Canvas.Ellipse(x - 6, y - 6, x + 6, y + 6);
       End;
     End;
    Canvas.Font.Color  := clBlack;
@@ -309,7 +365,7 @@ Implementation
    MaxX      : Double;
    MinY      : Double;
    MaxY      : Double;
-   P         : TPointF;
+   p         : TPointF;
    Item      : TPlotPoint;
    PlanPoint : TPlanPoint;
   Begin
@@ -326,20 +382,20 @@ Implementation
     MaxY := -MaxDouble;
     For Item In fData.Points Do
      Begin
-      P    := Project(Item.Lat, Item.Lon);
-      MinX := Min(MinX, P.X);
-      MaxX := Max(MaxX, P.X);
-      MinY := Min(MinY, P.Y);
-      MaxY := Max(MaxY, P.Y);
+      p    := Project(Item.Lat, Item.Lon);
+      MinX := Min(MinX, p.x);
+      MaxX := Max(MaxX, p.x);
+      MinY := Min(MinY, p.y);
+      MaxY := Max(MaxY, p.y);
      End;
     If fData.FlightPlan <> Nil Then
      For PlanPoint In fData.FlightPlan.Points Do
       Begin
-       P    := Project(PlanPoint.Lat, PlanPoint.Lon);
-       MinX := Min(MinX, P.X);
-       MaxX := Max(MaxX, P.X);
-       MinY := Min(MinY, P.Y);
-       MaxY := Max(MaxY, P.Y);
+       p    := Project(PlanPoint.Lat, PlanPoint.Lon);
+       MinX := Min(MinX, p.x);
+       MaxX := Max(MaxX, p.x);
+       MinY := Min(MinY, p.y);
+       MaxY := Max(MaxY, p.y);
       End;
     If ((MaxX - MinX < Width - 60) And (MaxY - MinY < Height - 60)) Or (fZoom = 2) Then
      Break;
@@ -350,32 +406,32 @@ Implementation
    Invalidate;
   End;
 
- Procedure TFlightMap.MouseDown(Button : TMouseButton; Shift : TShiftState; X, Y : Integer);
+ Procedure TFlightMap.MouseDown(Button : TMouseButton; Shift : TShiftState; x, y : Integer);
   Begin
    Inherited;
    If Button = mbLeft Then
     Begin
      fDrag        := True;
-     fLast        := Point(X, Y);
+     fLast        := Point(x, y);
      MouseCapture := True;
     End;
   End;
 
- Procedure TFlightMap.MouseUp(Button : TMouseButton; Shift : TShiftState; X, Y : Integer);
+ Procedure TFlightMap.MouseUp(Button : TMouseButton; Shift : TShiftState; x, y : Integer);
   Begin
    Inherited;
    fDrag        := False;
    MouseCapture := False;
   End;
 
- Procedure TFlightMap.MouseMove(Shift : TShiftState; X, Y : Integer);
+ Procedure TFlightMap.MouseMove(Shift : TShiftState; x, y : Integer);
   Begin
    Inherited;
    If fDrag Then
     Begin
-     fX    := fX + fLast.X - X;
-     fY    := fY + fLast.Y - Y;
-     fLast := Point(X, Y);
+     fX    := fX + fLast.x - x;
+     fY    := fY + fLast.y - y;
+     fLast := Point(x, y);
      Invalidate;
     End;
   End;

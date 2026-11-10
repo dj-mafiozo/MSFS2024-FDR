@@ -5,12 +5,12 @@ Unit WinSlimLock;
   - TSlimRWLock: Structure that wraps Windows' built-in Slim Reader/Writer Lock.
 }
 
-{$include LibOptions.inc}
-{$ifdef MEMTEST_DEBUG}
+{$Include LibOptions.inc}
+{$Ifdef MEMTEST_DEBUG}
 {$DebugInfo on}
-{$else}
+{$Else}
 {$DebugInfo off}
-{$endif}
+{$Endif}
 
 Interface
 
@@ -20,16 +20,17 @@ Interface
  Type
   TConditionVariable = Winapi.Windows.CONDITION_VARIABLE;
 
-  // Wraps Windows' built-in Slim Reader/Writer Lock (needs Windows Vista):
-  // An initialization is not necessary if the corresponding variable is zero-initialized.
+// Wraps Windows' built-in Slim Reader/Writer Lock (needs Windows Vista):
+// An initialization is not necessary if the corresponding variable is zero-initialized.
+
   TSlimRWLock = Record
    Strict Private
 
     { WinNt.h + WinBase.h }
-   Type
-    SRWLOCK = Type pointer;
+    Type
+    SRWLOCK = Type Pointer;
 
-   Const
+    Const
     SRWLOCK_INIT = SRWLOCK(Nil);
 
     Class Procedure _AcquireSRWLockExclusive(Var SRWLOCK : SRWLOCK); Stdcall; Static;
@@ -40,105 +41,158 @@ Interface
     Class Function _TryAcquireSRWLockExclusive(Var SRWLOCK : SRWLOCK) : BOOL; Stdcall; Static;
     Class Function _TryAcquireSRWLockShared(Var SRWLOCK : SRWLOCK) : BOOL; Stdcall; Static;
 
-   Var
+    Var
     FLock : SRWLOCK;
    Public
     Procedure Init; Inline; // not needed if zero-initialized
 
     Procedure AcquireExclusive; Inline;
-    Function TryAcquireExclusive : boolean; Inline;
+    Function TryAcquireExclusive : Boolean; Inline;
     Procedure ReleaseExclusive; Inline;
 
     Procedure AcquireShared; Inline;
-    Function TryAcquireShared : boolean; Inline;
+    Function TryAcquireShared : Boolean; Inline;
     Procedure ReleaseShared; Inline;
 
-    Function SleepConditionVariable(Var ConditionVariable : TConditionVariable; Milliseconds : DWORD; Flags : ULONG) : boolean; Inline;
+    Function SleepConditionVariable(Var ConditionVariable : TConditionVariable; Milliseconds : DWORD; Flags : ULONG) : Boolean; Inline;
 
     Class Procedure WakeAllConditionVariable(Var ConditionVariable : TConditionVariable); Stdcall; Static;
     Class Procedure WakeConditionVariable(Var ConditionVariable : TConditionVariable); Stdcall; Static;
   End;
 
-  { ############################################################################ }
+{ ############################################################################ }
+
 Implementation
 
- { ############################################################################ }
+{ ############################################################################ }
 
- { TSlimRWLock }
+{ TSlimRWLock }
 
- Class Procedure TSlimRWLock._AcquireSRWLockExclusive(Var SRWLOCK : SRWLOCK); Stdcall; External Winapi.Windows.kernel32 Name 'AcquireSRWLockExclusive';
- Class Procedure TSlimRWLock._AcquireSRWLockShared(Var SRWLOCK : SRWLOCK); Stdcall; External Winapi.Windows.kernel32 Name 'AcquireSRWLockShared';
- Class Procedure TSlimRWLock._ReleaseSRWLockExclusive(Var SRWLOCK : SRWLOCK); Stdcall; External Winapi.Windows.kernel32 Name 'ReleaseSRWLockExclusive';
- Class Procedure TSlimRWLock._ReleaseSRWLockShared(Var SRWLOCK : SRWLOCK); Stdcall; External Winapi.Windows.kernel32 Name 'ReleaseSRWLockShared';
- Class Function TSlimRWLock._SleepConditionVariableSRW(Var ConditionVariable : TConditionVariable; Var SRWLOCK : SRWLOCK; dwMilliseconds : DWORD; Flags : ULONG) : BOOL; Stdcall; External Winapi.Windows.kernel32 Name 'SleepConditionVariableSRW';
- Class Function TSlimRWLock._TryAcquireSRWLockExclusive(Var SRWLOCK : SRWLOCK) : BOOL; Stdcall; External Winapi.Windows.kernel32 Name 'TryAcquireSRWLockExclusive';
- Class Function TSlimRWLock._TryAcquireSRWLockShared(Var SRWLOCK : SRWLOCK) : BOOL; Stdcall; External Winapi.Windows.kernel32 Name 'TryAcquireSRWLockShared';
+  Class Procedure TSlimRWLock._AcquireSRWLockExclusive(Var SRWLOCK : SRWLOCK);
 
- // D2009: this functions are also in Windows.pas:
- Class Procedure TSlimRWLock.WakeAllConditionVariable(Var ConditionVariable : TConditionVariable); Stdcall; External Winapi.Windows.kernel32 Name 'WakeAllConditionVariable';
- Class Procedure TSlimRWLock.WakeConditionVariable(Var ConditionVariable : TConditionVariable); Stdcall; External Winapi.Windows.kernel32 Name 'WakeConditionVariable';
+  Stdcall;
 
- // =============================================================================
- // =============================================================================
+  External Winapi.Windows.kernel32 Name 'AcquireSRWLockExclusive';
+
+  Class Procedure TSlimRWLock._AcquireSRWLockShared(Var SRWLOCK : SRWLOCK);
+
+  Stdcall;
+
+  External Winapi.Windows.kernel32 Name 'AcquireSRWLockShared';
+
+  Class Procedure TSlimRWLock._ReleaseSRWLockExclusive(Var SRWLOCK : SRWLOCK);
+
+  Stdcall;
+
+  External Winapi.Windows.kernel32 Name 'ReleaseSRWLockExclusive';
+
+  Class Procedure TSlimRWLock._ReleaseSRWLockShared(Var SRWLOCK : SRWLOCK);
+
+  Stdcall;
+
+  External Winapi.Windows.kernel32 Name 'ReleaseSRWLockShared';
+
+  Class Function TSlimRWLock._SleepConditionVariableSRW(Var ConditionVariable : TConditionVariable; Var SRWLOCK : SRWLOCK; dwMilliseconds : DWORD; Flags : ULONG) : BOOL;
+
+  Stdcall;
+
+  External Winapi.Windows.kernel32 Name 'SleepConditionVariableSRW';
+
+  Class Function TSlimRWLock._TryAcquireSRWLockExclusive(Var SRWLOCK : SRWLOCK) : BOOL;
+
+  Stdcall;
+
+  External Winapi.Windows.kernel32 Name 'TryAcquireSRWLockExclusive';
+
+  Class Function TSlimRWLock._TryAcquireSRWLockShared(Var SRWLOCK : SRWLOCK) : BOOL;
+
+  Stdcall;
+
+  External Winapi.Windows.kernel32 Name 'TryAcquireSRWLockShared';
+
+// D2009: this functions are also in Windows.pas:
+
+  Class Procedure TSlimRWLock.WakeAllConditionVariable(Var ConditionVariable : TConditionVariable);
+
+  Stdcall;
+
+  External Winapi.Windows.kernel32 Name 'WakeAllConditionVariable';
+
+  Class Procedure TSlimRWLock.WakeConditionVariable(Var ConditionVariable : TConditionVariable);
+
+  Stdcall;
+
+  External Winapi.Windows.kernel32 Name 'WakeConditionVariable';
+
+// =============================================================================
+// =============================================================================
+
  Procedure TSlimRWLock.Init;
   Begin
    FLock := SRWLOCK_INIT;
   End;
 
- // =============================================================================
- // Acquires the lock in exclusive mode:
- // =============================================================================
+// =============================================================================
+// Acquires the lock in exclusive mode:
+// =============================================================================
+
  Procedure TSlimRWLock.AcquireExclusive;
   Begin
    _AcquireSRWLockExclusive(FLock);
   End;
 
- // =============================================================================
- // Acquires the lock in shared mode:
- // =============================================================================
+// =============================================================================
+// Acquires the lock in shared mode:
+// =============================================================================
+
  Procedure TSlimRWLock.AcquireShared;
   Begin
    _AcquireSRWLockShared(FLock);
   End;
 
- // =============================================================================
- // Attempts to acquire the lock in exclusive mode. If the lock could be acquired,
- // it returns true.
- // =============================================================================
- Function TSlimRWLock.TryAcquireExclusive : boolean;
+// =============================================================================
+// Attempts to acquire the lock in exclusive mode. If the lock could be acquired,
+// it returns true.
+// =============================================================================
+
+ Function TSlimRWLock.TryAcquireExclusive : Boolean;
   Begin
    Result := _TryAcquireSRWLockExclusive(FLock);
   End;
 
- // =============================================================================
- // Attempts to acquire the lock in shared mode. If the lock could be acquired,
- // it returns true.
- // =============================================================================
- Function TSlimRWLock.TryAcquireShared : boolean;
+// =============================================================================
+// Attempts to acquire the lock in shared mode. If the lock could be acquired,
+// it returns true.
+// =============================================================================
+
+ Function TSlimRWLock.TryAcquireShared : Boolean;
   Begin
    Result := _TryAcquireSRWLockShared(FLock);
   End;
 
- // =============================================================================
- // Releases an lock that was opened in exclusive mode.
- // =============================================================================
+// =============================================================================
+// Releases an lock that was opened in exclusive mode.
+// =============================================================================
+
  Procedure TSlimRWLock.ReleaseExclusive;
   Begin
    _ReleaseSRWLockExclusive(FLock);
   End;
 
- // =============================================================================
- // Releases an SRW lock that was opened in shared mode.
- // =============================================================================
+// =============================================================================
+// Releases an SRW lock that was opened in shared mode.
+// =============================================================================
+
  Procedure TSlimRWLock.ReleaseShared;
   Begin
    _ReleaseSRWLockShared(FLock);
   End;
 
- // =============================================================================
- // Sleeps on the condition variable and releases the specified lock as an atomic operation.
- // =============================================================================
- Function TSlimRWLock.SleepConditionVariable(Var ConditionVariable : TConditionVariable; Milliseconds : DWORD; Flags : ULONG) : boolean;
+// =============================================================================
+// Sleeps on the condition variable and releases the specified lock as an atomic operation.
+// =============================================================================
+
+ Function TSlimRWLock.SleepConditionVariable(Var ConditionVariable : TConditionVariable; Milliseconds : DWORD; Flags : ULONG) : Boolean;
   Begin
    Result := _SleepConditionVariableSRW(ConditionVariable, FLock, Milliseconds, Flags);
   End;

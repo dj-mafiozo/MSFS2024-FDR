@@ -3,212 +3,218 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
 
 /// This unit contains base classes for calendar systems and date-time
 /// manipulation.
-unit i18nCalendar;
+Unit i18nCalendar;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-uses
+ Uses
   SysUtils, Classes;
 
-type
+ Type
+  TCalendar         = Class;
+  TCalendarSettings = Class;
 
-  TCalendar = class;
-  TCalendarSettings = class;
+{$Region 'xmldoc'}
+/// <summary>
+/// This is a class reference for the <see cref="TCalendar"/> class or for one of
+/// its descendants.
+/// </summary>
+/// <remarks>
+/// TCalendarClass is the metaclass for <see cref="TCalendar"/>. Its value
+/// is the class reference for <see cref="TCalendar"/> or for one of its
+/// descendants.
+/// </remarks>
+{$Endregion}
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This is a class reference for the <see cref="TCalendar"/> class or for one of
-  /// its descendants.
-  /// </summary>
-  /// <remarks>
-  /// TCalendarClass is the metaclass for <see cref="TCalendar"/>. Its value
-  /// is the class reference for <see cref="TCalendar"/> or for one of its
-  /// descendants.
-  /// </remarks>
-  {$endregion}
-  TCalendarClass = class of TCalendar;
+  TCalendarClass = Class Of TCalendar;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This is a class reference for the <see cref="TCalendarSettings"/> class or for
-  /// one of its descendants.
-  /// </summary>
-  /// <remarks>
-  /// TCalendarSettingsClass is the metaclass for <see cref="TCalendarSettings"/>.
-  /// Its value is the class reference for <see cref="TCalendarSettings"/> or for
-  /// one of its descendants.
-  /// </remarks>
-  {$endregion}
-  TCalendarSettingsClass = class of TCalendarSettings;
+{$Region 'xmldoc'}
+/// <summary>
+/// This is a class reference for the <see cref="TCalendarSettings"/> class or for
+/// one of its descendants.
+/// </summary>
+/// <remarks>
+/// TCalendarSettingsClass is the metaclass for <see cref="TCalendarSettings"/>.
+/// Its value is the class reference for <see cref="TCalendarSettings"/> or for
+/// one of its descendants.
+/// </remarks>
+{$Endregion}
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies days of the week.
-  /// </summary>
-  {$endregion}
+  TCalendarSettingsClass = Class Of TCalendarSettings;
+
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies days of the week.
+/// </summary>
+{$Endregion}
+
   TDayOfWeek = (Monday = 1, Tuesday, Wednesday, Thursday, Friday, Saturday, Sunday);
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This data type represents a set of days of the week.
-  /// </summary>
-  {$endregion}
-  TDaysOfWeek = set of TDayOfWeek;
+{$Region 'xmldoc'}
+/// <summary>
+/// This data type represents a set of days of the week.
+/// </summary>
+{$Endregion}
 
+  TDaysOfWeek = Set Of TDayOfWeek;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the rules that determine which week is the
-  /// first week of a year.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the rules that determine which week is the
+/// first week of a year.
+/// </summary>
+{$Endregion}
+
   TWeekRule = (
-    {$region 'xmldoc'}
-    /// The first week of the year starts on the first day of the year and
-    /// ends before the following designated first day of the week.
-    {$endregion}
-    wrFirstDayWeek,
-    {$region 'xmldoc'}
-    /// The first week of the year is the first week with four or more days
-    /// before the designated first day of the week (if Monday is specified
-    /// as the first day of the week, this rule complies with ISO 8601).
-    {$endregion}
-    wrFirstFourDayWeek,
-    {$region 'xmldoc'}
-    /// The first week of the year begins on the first occurrence of the
-    /// designated first day of the week on or after the first day of the year.
-    {$endregion}
-    wrFullWeek
+  {$Region 'xmldoc'}
+  /// The first week of the year starts on the first day of the year and
+  /// ends before the following designated first day of the week.
+  {$Endregion}
+  wrFirstDayWeek,
+  {$Region 'xmldoc'}
+  /// The first week of the year is the first week with four or more days
+  /// before the designated first day of the week (if Monday is specified
+  /// as the first day of the week, this rule complies with ISO 8601).
+  {$Endregion}
+  wrFirstFourDayWeek,
+  {$Region 'xmldoc'}
+  /// The first week of the year begins on the first occurrence of the
+  /// designated first day of the week on or after the first day of the year.
+  {$Endregion}
+  wrFullWeek
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the algorithm types of the calendar systems.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the algorithm types of the calendar systems.
+/// </summary>
+{$Endregion}
+
   TCalendarKind = (
-    {$region 'xmldoc'}
-    /// The calendar type is unknown.
-    {$endregion}
-    ckUnknown,
-    {$region 'xmldoc'}
-    /// The calendar is based on the solar year and seasons.
-    {$endregion}
-    ckSolar,
-    {$region 'xmldoc'}
-    /// The calendar is based on the path of the moon.
-    {$endregion}
-    ckLunar,
-    {$region 'xmldoc'}
-    /// The calendar indicates both the moon phase and the time of the solar year.
-    {$endregion}
-    ckLunisolar
+  {$Region 'xmldoc'}
+  /// The calendar type is unknown.
+  {$Endregion}
+  ckUnknown,
+  {$Region 'xmldoc'}
+  /// The calendar is based on the solar year and seasons.
+  {$Endregion}
+  ckSolar,
+  {$Region 'xmldoc'}
+  /// The calendar is based on the path of the moon.
+  {$Endregion}
+  ckLunar,
+  {$Region 'xmldoc'}
+  /// The calendar indicates both the moon phase and the time of the solar year.
+  {$Endregion}
+  ckLunisolar
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This data type represents a date as a four-byte (DWORD) value.
-  /// </summary>
-  {$endregion}
-  TDateYMD = packed record
-    {$region 'xmldoc'}
-    /// Year in range -32768 to 32767
-    {$endregion}
-    Year: SmallInt;
-    {$region 'xmldoc'}
-    /// Month of the year
-    {$endregion}
-    Month: Byte;
-    {$region 'xmldoc'}
-    /// Day of the month
-    {$endregion}
-    Day: Byte;
-  end;
+{$Region 'xmldoc'}
+/// <summary>
+/// This data type represents a date as a four-byte (DWORD) value.
+/// </summary>
+{$Endregion}
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This class is the base class for classes that provide locale-specific settings
-  /// for a calendar.
-  /// </summary>
-  /// <remarks>
-  /// TCalendarSettings is an abstract class that cannot be instantiated. Descendant
-  /// classes override many of the methods of the TCalendarSettings class to provide
-  /// calendar-specific information.
-  /// </remarks>
-  {$endregion}
-  TCalendarSettings = class abstract(TPersistent)
-  private
-    fLocale: String;
-    fCalendarName: String;
-    fEraNames: array of String;
-    fShortEraNames: array of String;
-    fMonthNames: array of String;
-    fShortMonthNames: array of String;
-    fGenitiveMonthNames: array of String;
-    fDayNames: array[TDayOfWeek] of String;
-    fShortDayNames: array[TDayOfWeek] of String;
-    fShortestDayNames: array[TDayOfWeek] of String;
-    fLongDateFormat: String;
-    fShortDateFormat: String;
-    fYearMonthFormat: String;
-    fMonthDayFormat: String;
-    fYearFormat: String;
-    fTwoDigitYearMax: Word;
-    fWeekRule: TWeekRule;
-    fFirstDayOfWeek: TDayOfWeek;
-    fDateSeparator: String;
-    fTimeSeparator: String;
-    fTimeAMString: String;
-    fTimePMString: String;
-    fShortTimeFormat: String;
-    fLongTimeFormat: String;
-    fUpdateCount: Integer;
-    fUpdateAffected: Boolean;
-    fOnChange: TNotifyEvent;
-    procedure SetCalendarName(const Value: String);
-    function GetEraCount: Integer; inline;
-    function GetEraNames(Era: Integer): String; inline;
-    procedure SetEraNames(Era: Integer; const Value: String);
-    function GetShortEraNames(Era: Integer): String; inline;
-    procedure SetShortEraNames(Era: Integer; const Value: String);
-    function GetMonthCount: Integer; inline;
-    function GetMonthNames(Month: Integer): String; inline;
-    procedure SetMonthNames(Month: Integer; const Value: String);
-    function GetShortMonthNames(Month: Integer): String; inline;
-    procedure SetShortMonthNames(Month: Integer; const Value: String);
-    function GetGenitiveMonthNames(Month: Integer): String; inline;
-    procedure SetGenitiveMonthNames(Month: Integer; const Value: String);
-    function GetDayNames(DoW: TDayOfWeek): String; inline;
-    procedure SetDayNames(DoW: TDayOfWeek; const Value: String);
-    function GetShortDayNames(DoW: TDayOfWeek): String; inline;
-    procedure SetShortDayNames(DoW: TDayOfWeek; const Value: String);
-    function GetShortestDayNames(DoW: TDayOfWeek): String; inline;
-    procedure SetShortestDayNames(DoW: TDayOfWeek; const Value: String);
-    procedure SetLongDateFormat(const Value: String);
-    procedure SetShortDateFormat(const Value: String);
-    procedure SetYearMonthFormat(const Value: String);
-    procedure SetMonthDayFormat(const Value: String);
-    procedure SetYearFormat(const Value: String);
-    procedure SetTwoDigitYearMax(Value: Word);
-    procedure SetWeekRule(Value: TWeekRule);
-    procedure SetFirstDayOfWeek(Value: TDayOfWeek);
-    procedure SetDateSeparator(const Value: String);
-    procedure SetTimeSeparator(const Value: String);
-    procedure SetTimeAMString(const Value: String);
-    procedure SetTimePMString(const Value: String);
-    procedure SetShortTimeFormat(const Value: String);
-    procedure SetLongTimeFormat(const Value: String);
-  protected
-    {$region 'xmldoc'}
+  TDateYMD = Packed Record
+   {$Region 'xmldoc'}
+   /// Year in range -32768 to 32767
+   {$Endregion}
+   Year : SmallInt;
+   {$Region 'xmldoc'}
+   /// Month of the year
+   {$Endregion}
+   Month : Byte;
+   {$Region 'xmldoc'}
+   /// Day of the month
+   {$Endregion}
+   Day : Byte;
+  End;
+
+{$Region 'xmldoc'}
+/// <summary>
+/// This class is the base class for classes that provide locale-specific settings
+/// for a calendar.
+/// </summary>
+/// <remarks>
+/// TCalendarSettings is an abstract class that cannot be instantiated. Descendant
+/// classes override many of the methods of the TCalendarSettings class to provide
+/// calendar-specific information.
+/// </remarks>
+{$Endregion}
+
+    TCalendarSettings = Class Abstract(TPersistent)
+   Private
+    fLocale             : String;
+    fCalendarName       : String;
+    fEraNames           : Array Of String;
+    fShortEraNames      : Array Of String;
+    fMonthNames         : Array Of String;
+    fShortMonthNames    : Array Of String;
+    fGenitiveMonthNames : Array Of String;
+    fDayNames           : Array[TDayOfWeek] Of String;
+    fShortDayNames      : Array[TDayOfWeek] Of String;
+    fShortestDayNames   : Array[TDayOfWeek] Of String;
+    fLongDateFormat     : String;
+    fShortDateFormat    : String;
+    fYearMonthFormat    : String;
+    fMonthDayFormat     : String;
+    fYearFormat         : String;
+    fTwoDigitYearMax    : Word;
+    fWeekRule           : TWeekRule;
+    fFirstDayOfWeek     : TDayOfWeek;
+    fDateSeparator      : String;
+    fTimeSeparator      : String;
+    fTimeAMString       : String;
+    fTimePMString       : String;
+    fShortTimeFormat    : String;
+    fLongTimeFormat     : String;
+    fUpdateCount        : Integer;
+    fUpdateAffected     : Boolean;
+    fOnChange           : TNotifyEvent;
+    Procedure SetCalendarName(Const Value : String);
+    Function GetEraCount : Integer; Inline;
+    Function GetEraNames(Era : Integer) : String; Inline;
+    Procedure SetEraNames(Era : Integer; Const Value : String);
+    Function GetShortEraNames(Era : Integer) : String; Inline;
+    Procedure SetShortEraNames(Era : Integer; Const Value : String);
+    Function GetMonthCount : Integer; Inline;
+    Function GetMonthNames(Month : Integer) : String; Inline;
+    Procedure SetMonthNames(Month : Integer; Const Value : String);
+    Function GetShortMonthNames(Month : Integer) : String; Inline;
+    Procedure SetShortMonthNames(Month : Integer; Const Value : String);
+    Function GetGenitiveMonthNames(Month : Integer) : String; Inline;
+    Procedure SetGenitiveMonthNames(Month : Integer; Const Value : String);
+    Function GetDayNames(DoW : TDayOfWeek) : String; Inline;
+    Procedure SetDayNames(DoW : TDayOfWeek; Const Value : String);
+    Function GetShortDayNames(DoW : TDayOfWeek) : String; Inline;
+    Procedure SetShortDayNames(DoW : TDayOfWeek; Const Value : String);
+    Function GetShortestDayNames(DoW : TDayOfWeek) : String; Inline;
+    Procedure SetShortestDayNames(DoW : TDayOfWeek; Const Value : String);
+    Procedure SetLongDateFormat(Const Value : String);
+    Procedure SetShortDateFormat(Const Value : String);
+    Procedure SetYearMonthFormat(Const Value : String);
+    Procedure SetMonthDayFormat(Const Value : String);
+    Procedure SetYearFormat(Const Value : String);
+    Procedure SetTwoDigitYearMax(Value : Word);
+    Procedure SetWeekRule(Value : TWeekRule);
+    Procedure SetFirstDayOfWeek(Value : TDayOfWeek);
+    Procedure SetDateSeparator(Const Value : String);
+    Procedure SetTimeSeparator(Const Value : String);
+    Procedure SetTimeAMString(Const Value : String);
+    Procedure SetTimePMString(Const Value : String);
+    Procedure SetShortTimeFormat(Const Value : String);
+    Procedure SetLongTimeFormat(Const Value : String);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Performs a case-insensitive search in the <paramref name="Names"/> array
     /// to find the block of characters given by the <paramref name="S"/> parameter.
@@ -227,9 +233,9 @@ type
     /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
     /// by the length of the matched name.
     /// </remarks>
-    {$endregion}
-    function ScanNames(var S: PChar; Names: array of String): Integer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ScanNames(Var s : PChar; Names : Array Of String) : Integer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Searches for the block of characters given by the <paramref name="S"/> parameter
     /// within the <see cref="EraNames"/> property. The search is case-insensitive.
@@ -245,9 +251,9 @@ type
     /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
     /// by the length of the matched name.
     /// </remarks>
-    {$endregion}
-    function ScanEraNames(var S: PChar): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ScanEraNames(Var s : PChar) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Searches for the block of characters given by the <paramref name="S"/> parameter
     /// within the <see cref="ShortEraNames"/> property. The search is case-insensitive.
@@ -263,9 +269,9 @@ type
     /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
     /// by the length of the matched name.
     /// </remarks>
-    {$endregion}
-    function ScanShortEraNames(var S: PChar): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ScanShortEraNames(Var s : PChar) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Searches for the block of characters given by the <paramref name="S"/> parameter
     /// within the <see cref="MonthNames"/> property. The search is case-insensitive.
@@ -281,9 +287,9 @@ type
     /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
     /// by the length of the matched name.
     /// </remarks>
-    {$endregion}
-    function ScanMonthNames(var S: PChar): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ScanMonthNames(Var s : PChar) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Searches for the block of characters given by the <paramref name="S"/> parameter
     /// within the <see cref="ShortMonthNames"/> property. The search is case-insensitive.
@@ -299,9 +305,9 @@ type
     /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
     /// by the length of the matched name.
     /// </remarks>
-    {$endregion}
-    function ScanShortMonthNames(var S: PChar): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ScanShortMonthNames(Var s : PChar) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Searches for the block of characters given by the <paramref name="S"/> parameter
     /// within the <see cref="GenitiveMonthNames"/> property. The search is case-insensitive.
@@ -317,9 +323,9 @@ type
     /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
     /// by the length of the matched name.
     /// </remarks>
-    {$endregion}
-    function ScanGenitiveMonthNames(var S: PChar): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ScanGenitiveMonthNames(Var s : PChar) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Searches for the block of characters given by the <paramref name="S"/> parameter
     /// within the <see cref="DayNames"/> property. The search is case-insensitive.
@@ -335,9 +341,9 @@ type
     /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
     /// by the length of the matched name.
     /// </remarks>
-    {$endregion}
-    function ScanDayNames(var S: PChar): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ScanDayNames(Var s : PChar) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Searches for the block of characters given by the <paramref name="S"/> parameter
     /// within the <see cref="ShortDayNames"/> property. The search is case-insensitive.
@@ -353,9 +359,9 @@ type
     /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
     /// by the length of the matched name.
     /// </remarks>
-    {$endregion}
-    function ScanShortDayNames(var S: PChar): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ScanShortDayNames(Var s : PChar) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Searches for the block of characters given by the <paramref name="S"/> parameter
     /// within the <see cref="ShortestDayNames"/> property. The search is case-insensitive.
@@ -371,9 +377,9 @@ type
     /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
     /// by the length of the matched name.
     /// </remarks>
-    {$endregion}
-    function ScanShortestDayNames(var S: PChar): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ScanShortestDayNames(Var s : PChar) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Searches for the block of characters given by the <paramref name="S"/> parameter
     /// within the <see cref="TimeAMString"/> and <see cref="TimePMString"/> properties.
@@ -391,9 +397,9 @@ type
     /// If the search succeeds, the <paramref name="S"/> pointer will be advanced
     /// by the length of the matched name.
     /// </remarks>
-    {$endregion}
-    function ScanAMPM(var S: PChar): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ScanAMPM(Var s : PChar) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Retrieves a piece of information for a locale by looking in the Windows calendar
     /// information. If the retrieval from Windows calendar information fails, then tries
@@ -417,10 +423,9 @@ type
     /// <returns>
     /// The locale or calendar information.
     /// </returns>
-    {$endregion}
-    function SafeGetInfoStr(const Locale: String; CalID: Cardinal;
-      LType, CType: Cardinal; const Default: String): String;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function SafeGetInfoStr(Const Locale : String; CalID : Cardinal; LType, CType : Cardinal; Const Default : String) : String;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a given month number to its index in the Windows calendar
     /// information.
@@ -432,16 +437,16 @@ type
     /// The zero-based index of the given month number in the Windows calendar
     /// information.
     /// </returns>
-    {$endregion}
-    function GetMonthInfoIndex(Month: Integer): Integer; virtual;
-  protected
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetMonthInfoIndex(Month : Integer) : Integer; Virtual;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnChange"/> event.
     /// </summary>
-    {$endregion}
-    procedure DoChange; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoChange; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="EraNames"/> and <see cref="ShortEraNames"/> properties for
     /// the specified era based on the given locale and calendar identifier.
@@ -455,9 +460,9 @@ type
     /// <param name="CalendarID">
     /// The identifier of calendar system.
     /// </param>
-    {$endregion}
-    procedure PrepareEraName(Era: Integer; const Locale: String; CalendarID: Cardinal); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure PrepareEraName(Era : Integer; Const Locale : String; CalendarID : Cardinal); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="MonthNames"/>, <see cref="ShortMonthNames"/> and
     /// <see cref="GenitiveMonthNames"/> properties based on the given locale and
@@ -469,9 +474,9 @@ type
     /// <param name="CalendarID">
     /// The identifier of calendar system.
     /// </param>
-    {$endregion}
-    procedure PrepareMonthNames(const Locale: String; CalendarID: Cardinal); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure PrepareMonthNames(Const Locale : String; CalendarID : Cardinal); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="DayNames"/>, <see cref="ShortDayNames"/> and
     /// <see cref="ShortestDayNames"/> properties based on the given locale and
@@ -483,9 +488,9 @@ type
     /// <param name="CalendarID">
     /// The identifier of calendar system.
     /// </param>
-    {$endregion}
-    procedure PrepareDayNames(const Locale: String; CalendarID: Cardinal); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure PrepareDayNames(Const Locale : String; CalendarID : Cardinal); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="LongDateFormat"/>, <see cref="ShortDateFormat"/>,
     /// <see cref="YearMonthFormat"/>, <see cref="MonthDayFormat"/> and
@@ -498,9 +503,9 @@ type
     /// <param name="CalendarID">
     /// The identifier of calendar system.
     /// </param>
-    {$endregion}
-    procedure PrepareDateFormats(const Locale: String; CalendarID: Cardinal); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure PrepareDateFormats(Const Locale : String; CalendarID : Cardinal); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="LongTimeFormat"/>, <see cref="ShortTimeFormat"/>,
     /// <see cref="TimeAMString"/>, <see cref="TimePMString"/>,
@@ -510,9 +515,9 @@ type
     /// <param name="Locale">
     /// The locale of the formats.
     /// </param>
-    {$endregion}
-    procedure PrepareTimeFormats(const Locale: String); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure PrepareTimeFormats(Const Locale : String); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="FirstDayOfWeek"/> and <see cref="WeekRule"/> properties
     /// based on the given locale.
@@ -520,9 +525,9 @@ type
     /// <param name="Locale">
     /// The locale for the week information.
     /// </param>
-    {$endregion}
-    procedure PrepareWeekParams(const Locale: String); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure PrepareWeekParams(Const Locale : String); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets all writable properties based on the given locale and calendar
     /// identifier.
@@ -533,9 +538,9 @@ type
     /// <param name="CalendarID">
     /// The identifier of calendar system.
     /// </param>
-    {$endregion}
-    procedure PrepareSettings(const Locale: String; CalendarID: Cardinal); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure PrepareSettings(Const Locale : String; CalendarID : Cardinal); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Loads all the writable properties from a stream.
     /// </summary>
@@ -543,9 +548,9 @@ type
     /// The reader object connected to the stream.
     /// </param>
     /// <seealso cref="WriteSettings"/>
-    {$endregion}
-    procedure ReadSettings(Reader: TReader); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ReadSettings(Reader : TReader); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Saves all the writable properties to a stream.
     /// </summary>
@@ -553,17 +558,17 @@ type
     /// The writer object connected to the stream.
     /// </param>
     /// <seealso cref="ReadSettings"/>
-    {$endregion}
-    procedure WriteSettings(Writer: TWriter); virtual;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure WriteSettings(Writer : TWriter); Virtual;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class without setting any value for the locale
     /// specific properties.
     /// </summary>
-    {$endregion}
-    constructor Create; overload; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create; Overload; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class, and collects the values of the properties based
     /// on the given locale identifier.
@@ -571,9 +576,9 @@ type
     /// <param name="LocaleID">
     /// The locale identifier.
     /// </param>
-    {$endregion}
-    constructor Create(LocaleID: Cardinal); overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(LocaleID : Cardinal); Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class, and collects the values of the properties based
     /// on the given locale name.
@@ -581,42 +586,42 @@ type
     /// <param name="Locale">
     /// The locale name.
     /// </param>
-    {$endregion}
-    constructor Create(const Locale: String); overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(Const Locale : String); Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the instance and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines the calendar system that these settings are provided for.
     /// </summary>
     /// <returns>
     /// The <see cref="TCalendar"/> class or one of its descendants.
     /// </returns>
-    {$endregion}
-    class function CalendarClass: TCalendarClass; virtual; abstract;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function CalendarClass : TCalendarClass; Virtual; Abstract;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Collects the values of the properties based on the given locale identifier.
     /// </summary>
     /// <param name="LocaleID">
     /// The locale identifier.
     /// </param>
-    {$endregion}
-    procedure Prepare(LocaleID: Cardinal); overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Prepare(LocaleID : Cardinal); Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Collects the values of the properties based on the given locale name.
     /// </summary>
     /// <param name="Locale">
     /// The locale name.
     /// </param>
-    {$endregion}
-    procedure Prepare(const Locale: String); overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Prepare(Const Locale : String); Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Loads the settings from a stream. The stream must be created previously
     /// by the same <see cref="TCalendarSettings"/> class.
@@ -625,9 +630,9 @@ type
     /// The stream containing the previously saved settings.
     /// </param>
     /// <seealso cref="SaveToStream"/>
-    {$endregion}
-    procedure LoadFromStream(Stream: TStream);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure LoadFromStream(Stream : TStream);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Saves the settings to a stream.
     /// </summary>
@@ -635,217 +640,218 @@ type
     /// The stream to store the settings.
     /// </param>
     /// <seealso cref="LoadFromStream"/>
-    {$endregion}
-    procedure SaveToStream(Stream: TStream);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure SaveToStream(Stream : TStream);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies the contents of another object to the current one.
     /// </summary>
     /// <param name="Source">
     /// The source object.
     /// </param>
-    {$endregion}
-    procedure Assign(Source: TPersistent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Assign(Source : TPersistent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Prevents generation of the <see cref="OnChange"/> event until the
     /// <see cref="EndUpdate"/> method is called.
     /// </summary>
     /// <seealso cref="EndUpdate"/>
-    {$endregion}
-    procedure BeginUpdate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure BeginUpdate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reenables <see cref="OnChange"/> event generation that was turned off
     /// with the <see cref="BeginUpdate"/> method.
     /// </summary>
     /// <seealso cref="BeginUpdate"/>
-    {$endregion}
-    procedure EndUpdate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure EndUpdate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the locale name of the current settings.
     /// </summary>
-    {$endregion}
-    property Locale: String read fLocale;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Locale : String Read fLocale;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the native name of the calendar in the current locale.
     /// </summary>
-    {$endregion}
-    property CalendarName: String read fCalendarName write SetCalendarName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CalendarName : String Read fCalendarName Write SetCalendarName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the number of eras supported by the calendar.
     /// </summary>
-    {$endregion}
-    property EraCount: Integer read GetEraCount;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property EraCount : Integer Read GetEraCount;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the full name of each calendar's eras in the current locale.
     /// </summary>
-    {$endregion}
-    property EraNames[Era: Integer]: String read GetEraNames write SetEraNames;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property EraNames[Era : Integer] : String Read GetEraNames Write SetEraNames;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the short name of each calendar's eras in the current locale.
     /// </summary>
-    {$endregion}
-    property ShortEraNames[Era: Integer]: String read GetShortEraNames write SetShortEraNames;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShortEraNames[Era : Integer] : String Read GetShortEraNames Write SetShortEraNames;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the maximum number of months in the calendar in the current locale.
     /// </summary>
-    {$endregion}
-    property MonthCount: Integer read GetMonthCount;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property MonthCount : Integer Read GetMonthCount;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the full name of each month of the calendar in the current locale.
     /// </summary>
-    {$endregion}
-    property MonthNames[Month: Integer]: string read GetMonthNames write SetMonthNames;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property MonthNames[Month : Integer] : String Read GetMonthNames Write SetMonthNames;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the short name of each month of the calendar in the current locale.
     /// </summary>
-    {$endregion}
-    property ShortMonthNames[Month: Integer]: string read GetShortMonthNames write SetShortMonthNames;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShortMonthNames[Month : Integer] : String Read GetShortMonthNames Write SetShortMonthNames;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the genitive name of each month of the calendar in the current locale.
     /// </summary>
-    {$endregion}
-    property GenitiveMonthNames[Month: Integer]: string read GetGenitiveMonthNames write SetGenitiveMonthNames;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property GenitiveMonthNames[Month : Integer] : String Read GetGenitiveMonthNames Write SetGenitiveMonthNames;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the full name of each day of week in the current locale.
     /// </summary>
-    {$endregion}
-    property DayNames[DoW: TDayOfWeek]: String read GetDayNames write SetDayNames;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DayNames[DoW : TDayOfWeek] : String Read GetDayNames Write SetDayNames;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the short name of each day of week in the current locale.
     /// </summary>
-    {$endregion}
-    property ShortDayNames[DoW: TDayOfWeek]: String read GetShortDayNames write SetShortDayNames;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShortDayNames[DoW : TDayOfWeek] : String Read GetShortDayNames Write SetShortDayNames;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the shortest name of each day of week in the current locale.
     /// </summary>
-    {$endregion}
-    property ShortestDayNames[DoW: TDayOfWeek]: String read GetShortestDayNames write SetShortestDayNames;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShortestDayNames[DoW : TDayOfWeek] : String Read GetShortestDayNames Write SetShortestDayNames;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the long date format in the current locale.
     /// </summary>
-    {$endregion}
-    property LongDateFormat: String read fLongDateFormat write SetLongDateFormat;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property LongDateFormat : String Read fLongDateFormat Write SetLongDateFormat;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the short date format in the current locale.
     /// </summary>
-    {$endregion}
-    property ShortDateFormat: String read fShortDateFormat write SetShortDateFormat;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShortDateFormat : String Read fShortDateFormat Write SetShortDateFormat;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the year-month format in the current locale.
     /// </summary>
-    {$endregion}
-    property YearMonthFormat: String read fYearMonthFormat write SetYearMonthFormat;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property YearMonthFormat : String Read fYearMonthFormat Write SetYearMonthFormat;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the month-day format in the current locale.
     /// </summary>
-    {$endregion}
-    property MonthDayFormat: String read fMonthDayFormat write SetMonthDayFormat;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property MonthDayFormat : String Read fMonthDayFormat Write SetMonthDayFormat;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the year format in the current locale.
     /// </summary>
-    {$endregion}
-    property YearFormat: String read fYearFormat write SetYearFormat;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property YearFormat : String Read fYearFormat Write SetYearFormat;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the last year of a 100-year range that can be represented by a 2-digit year.
     /// </summary>
-    {$endregion}
-    property TwoDigitYearMax: Word read fTwoDigitYearMax write SetTwoDigitYearMax;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TwoDigitYearMax : Word Read fTwoDigitYearMax Write SetTwoDigitYearMax;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the rule for determining the first week of the year for the current locale.
     /// </summary>
-    {$endregion}
-    property WeekRule: TWeekRule read fWeekRule write SetWeekRule;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property WeekRule : TWeekRule Read fWeekRule Write SetWeekRule;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the starting day of a week for the current locale.
     /// </summary>
-    {$endregion}
-    property FirstDayOfWeek: TDayOfWeek read fFirstDayOfWeek write SetFirstDayOfWeek;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FirstDayOfWeek : TDayOfWeek Read fFirstDayOfWeek Write SetFirstDayOfWeek;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the string that separates the components of a date, that is, the year, month, and day.
     /// </summary>
-    {$endregion}
-    property DateSeparator: String read fDateSeparator write SetDateSeparator;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateSeparator : String Read fDateSeparator Write SetDateSeparator;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the string that separates the components of time, that is, the hour, minutes, and seconds.
     /// </summary>
-    {$endregion}
-    property TimeSeparator: String read fTimeSeparator write SetTimeSeparator;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TimeSeparator : String Read fTimeSeparator Write SetTimeSeparator;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the string designator for hours that are "ante meridiem" (before noon).
     /// </summary>
-    {$endregion}
-    property TimeAMString: String read fTimeAMString write SetTimeAMString;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TimeAMString : String Read fTimeAMString Write SetTimeAMString;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the string designator for hours that are "post meridiem" (after noon).
     /// </summary>
-    {$endregion}
-    property TimePMString: String read fTimePMString write SetTimePMString;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TimePMString : String Read fTimePMString Write SetTimePMString;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the long time format in the current locale.
     /// </summary>
-    {$endregion}
-    property ShortTimeFormat: String read fShortTimeFormat write SetShortTimeFormat;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShortTimeFormat : String Read fShortTimeFormat Write SetShortTimeFormat;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the short time format in the current locale.
     /// </summary>
-    {$endregion}
-    property LongTimeFormat: String read fLongTimeFormat write SetLongTimeFormat;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property LongTimeFormat : String Read fLongTimeFormat Write SetLongTimeFormat;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when there is a change in any of the properties.
     /// </summary>
-    {$endregion}
-    property OnChange: TNotifyEvent read fOnChange write fOnChange;
-  end;
+    {$Endregion}
+    Property OnChange : TNotifyEvent Read fOnChange Write fOnChange;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This class is the base class for classes that encapsulate a calendar system.
-  /// </summary>
-  /// <remarks>
-  /// TCalendar is an abstract class that cannot be instantiated. This class provides
-  /// a uniform interface for managing date and time. Descendant classes override many
-  /// of the methods of <see cref="TCalendar"/> class to provide calendar specific functionality.
-  /// </remarks>
-  {$endregion}
-  TCalendar = class abstract(TPersistent)
-  private
-    fSettings: TCalendarSettings;
-    fDefaultEra: Integer;
-    fOnChange: TNotifyEvent;
-    procedure SetSettings(Value: TCalendarSettings); inline;
-    procedure SetDefaultEra(Value: Integer);
-    procedure SettingsChanged(Sender: TObject);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// This class is the base class for classes that encapsulate a calendar system.
+/// </summary>
+/// <remarks>
+/// TCalendar is an abstract class that cannot be instantiated. This class provides
+/// a uniform interface for managing date and time. Descendant classes override many
+/// of the methods of <see cref="TCalendar"/> class to provide calendar specific functionality.
+/// </remarks>
+{$Endregion}
+
+    TCalendar = Class Abstract(TPersistent)
+   Private
+    fSettings   : TCalendarSettings;
+    fDefaultEra : Integer;
+    fOnChange   : TNotifyEvent;
+    Procedure SetSettings(Value : TCalendarSettings); Inline;
+    Procedure SetDefaultEra(Value : Integer);
+    Procedure SettingsChanged(Sender : TObject);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Call this method when an Era is not in the valid range to raise an EEncodingError
     /// exception.
@@ -853,9 +859,9 @@ type
     /// <param name="Era">
     /// The era, which caused the error.
     /// </param>
-    {$endregion}
-    class procedure EraError(Era: Integer);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure EraError(Era : Integer);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Call this method when a year is not in the valid range to raise an EEncodingError
     /// exception.
@@ -866,9 +872,9 @@ type
     /// <param name="Year">
     /// The year of the era, which caused the error.
     /// </param>
-    {$endregion}
-    class procedure YearError(Era, Year: Integer);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure YearError(Era, Year : Integer);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Call this method when a month is not in the valid range to raise an EEncodingError
     /// exception.
@@ -882,9 +888,9 @@ type
     /// <param name="Month">
     /// The month of the year, which caused the error.
     /// </param>
-    {$endregion}
-    class procedure MonthError(Era, Year, Month: Integer);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure MonthError(Era, Year, Month : Integer);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Call this method when a day is not in the valid range to raise an EEncodingError
     /// exception.
@@ -901,9 +907,9 @@ type
     /// <param name="Day">
     /// The day of the month, which caused the error.
     /// </param>
-    {$endregion}
-    class procedure DayError(Era, Year, Month, Day: Integer);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure DayError(Era, Year, Month, Day : Integer);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Call this method when a numeral representation of the day of the week is not
     /// in range 1 to 7 to raise an EConvertError exception.
@@ -911,9 +917,9 @@ type
     /// <param name="DayNum">
     /// The numeral representation of the day of the week.
     /// </param>
-    {$endregion}
-    class procedure DayNumError(DayNum: Integer);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure DayNumError(DayNum : Integer);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Call this method when a <see cref="TDateTime"/> value is not in the valid range
     /// to raise an EConvertError exception.
@@ -921,9 +927,9 @@ type
     /// <param name="DateTime">
     /// The <see cref="TDateTime"/> value, which caused the error.
     /// </param>
-    {$endregion}
-    class procedure DateError(const DateTime: TDateTime);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure DateError(Const DateTime : TDateTime);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Call this method when a day of year is not in the valid range to raise an
     /// EEncodingError exception.
@@ -937,9 +943,9 @@ type
     /// <param name="DayOfYear">
     /// The day of the year, which caused the error.
     /// </param>
-    {$endregion}
-    class procedure DateDayError(Era, Year, DayOfYear: Integer);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure DateDayError(Era, Year, DayOfYear : Integer);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Call this method when a week of year is not in the valid range to raise
     /// an EEncodingError exception.
@@ -956,9 +962,9 @@ type
     /// <param name="DoW">
     /// The day of the week, which caused the error.
     /// </param>
-    {$endregion}
-    class procedure DateWeekError(Era, Year, Week: Integer; DoW: TDayOfWeek);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure DateWeekError(Era, Year, Week : Integer; DoW : TDayOfWeek);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Call this method when conversion of a year from one era to another fails
     /// to raise an EConvertError exception.
@@ -972,10 +978,10 @@ type
     /// <param name="ToEra">
     /// The target era.
     /// </param>
-    {$endregion}
-    class procedure ConvertEraError(Year, FromEra, ToEra: Integer);
-  protected
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure ConvertEraError(Year, FromEra, ToEra : Integer);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Divides two integers, returning both quotient and remainder.
     /// </summary>
@@ -992,9 +998,9 @@ type
     /// The remainder of the division.
     /// </param>
     /// <seealso cref="Modulus"/>
-    {$endregion}
-    class procedure Divide(Numerator, Denominator: Integer; out Quotient, Reminder: Integer); inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure Divide(Numerator, Denominator : Integer; Out Quotient, Reminder : Integer); Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns remainder of an integer division.
     /// </summary>
@@ -1008,22 +1014,22 @@ type
     /// The remainder of the division.
     /// </returns>
     /// <seealso cref="Divide"/>
-    {$endregion}
-    class function Modulus(Numerator, Denominator: Integer): Integer; inline;
-  protected
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function Modulus(Numerator, Denominator : Integer) : Integer; Inline;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// The starting epoch of <see cref="TDateTime"/> values in Julian days.
     /// </summary>
-    {$endregion}
-    const DATETIME_EPOCH = 2415018.5;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const DATETIME_EPOCH = 2415018.5;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnChange"/> event.
     /// </summary>
-    {$endregion}
-    procedure DoChange; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoChange; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a date represented by its year, month and day components to its
     /// corresponding Julian day. The year should be in the calendar's base era.
@@ -1042,9 +1048,9 @@ type
     /// </returns>
     /// <seealso cref="FromJulianDay"/>
     /// <seealso cref="BaseEra"/>
-    {$endregion}
-    function ToJulianDay(Year, Month, Day: Integer): Extended; virtual; abstract;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ToJulianDay(Year, Month, Day : Integer) : Extended; Virtual; Abstract;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a date expressed in Julian day, to its year, month, and day components.
     /// The result year is in the calendar's base era.
@@ -1067,9 +1073,9 @@ type
     /// </returns>
     /// <seealso cref="ToJulianDay"/>
     /// <seealso cref="BaseEra"/>
-    {$endregion}
-    function FromJulianDay(const JD: Extended; out Year, Month, Day: Integer): Boolean; virtual; abstract;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function FromJulianDay(Const JD : Extended; Out Year, Month, Day : Integer) : Boolean; Virtual; Abstract;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Adjusts a Julian day before or after being converted to or from a date in a
     /// calendar system.
@@ -1085,18 +1091,18 @@ type
     /// <returns>
     /// Returns the adjusted Julian day.
     /// </returns>
-    {$endregion}
-    function AdjustJulianDay(const JD: Extended; Backward: Boolean): Extended; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function AdjustJulianDay(Const JD : Extended; Backward : Boolean) : Extended; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the era that is used for internal calculations of the calendar.
     /// </summary>
     /// <returns>
     /// The base era of the calendar.
     /// </returns>
-    {$endregion}
-    function BaseEra: Integer; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function BaseEra : Integer; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the era that is more suitable for expressing a year in the calendar's
     /// base era.
@@ -1108,9 +1114,9 @@ type
     /// The best era to express the specified year.
     /// </returns>
     /// <seealso cref="BaseEra"/>
-    {$endregion}
-    function BestEraOfBaseEraYear(Year: Integer): Integer; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function BestEraOfBaseEraYear(Year : Integer) : Integer; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a year to zero-based year. Most calendar systems do not have year
     /// zero, but the TCalendar class uses zero-based year in its internal calculations.
@@ -1129,9 +1135,9 @@ type
     /// a valid year for it.
     /// </remarks>
     /// <seealso cref="FromZeroBase"/>
-    {$endregion}
-    function ToZeroBase(Era, Year: Integer): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ToZeroBase(Era, Year : Integer) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a year previously converted to zero-based year by using the
     /// <see cref="ToZeroBase"/> method.
@@ -1150,66 +1156,66 @@ type
     /// a valid year for it.
     /// </remarks>
     /// <seealso cref="ToZeroBase"/>
-    {$endregion}
-    function FromZeroBase(Era, Year: Integer): Integer; inline;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function FromZeroBase(Era, Year : Integer) : Integer; Inline;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Represents the number of days in a week.
     /// </summary>
-    {$endregion}
-    const DaysPerWeek = 7;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const DaysPerWeek = 7;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Represents one day.
     /// </summary>
-    {$endregion}
-    const OneDay = 1.0;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const OneDay = 1.0;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Represents one hour as fraction of a day.
     /// </summary>
-    {$endregion}
-    const OneHour = OneDay / HoursPerDay;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const OneHour = OneDay / HoursPerDay;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Represents one minute as fraction of a day.
     /// </summary>
-    {$endregion}
-    const OneMinute = OneDay / MinsPerDay;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const OneMinute = OneDay / MinsPerDay;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Represents one second as fraction of a day.
     /// </summary>
-    {$endregion}
-    const OneSecond = OneDay / SecsPerDay;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const OneSecond = OneDay / SecsPerDay;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Represents one millisecond as fraction of a day.
     /// </summary>
-    {$endregion}
-    const OneMillisecond = OneDay / MSecsPerDay;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const OneMillisecond = OneDay / MSecsPerDay;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Represents one week.
     /// </summary>
-    {$endregion}
-    const OneWeek = OneDay * DaysPerWeek;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const OneWeek = OneDay * DaysPerWeek;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Represents no date or an invalid date value.
     /// </summary>
-    {$endregion}
-    const NoDate: TDateTime = -0.5;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const NoDate : TDateTime = -0.5;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class without initializing the locale-specific
     /// settings.
     /// </summary>
-    {$endregion}
-    constructor Create; overload; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create; Overload; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class, and initializes the locale-specific settings
     /// based on the given locale identifier.
@@ -1217,9 +1223,9 @@ type
     /// <param name="LocaleID">
     /// The locale identifier.
     /// </param>
-    {$endregion}
-    constructor Create(LocaleID: Integer); overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(LocaleID : Integer); Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class, and initializes the locale-specific settings
     /// based on the given locale name.
@@ -1227,33 +1233,33 @@ type
     /// <param name="Locale">
     /// The locale name.
     /// </param>
-    {$endregion}
-    constructor Create(const Locale: String); overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(Const Locale : String); Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the instance and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies the contents of another object to the current one.
     /// </summary>
     /// <param name="Source">
     /// The source object.
     /// </param>
-    {$endregion}
-    procedure Assign(Source: TPersistent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Assign(Source : TPersistent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies the contents of this object to another object.
     /// </summary>
     /// <param name="Dest">
     /// The target object.
     /// </param>
-    {$endregion}
-    procedure AssignTo(Dest: TPersistent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure AssignTo(Dest : TPersistent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates and returns a copy of the object, with the same class and with all the
     /// properties having the same values.
@@ -1261,28 +1267,28 @@ type
     /// <returns>
     /// The newly created <see cref="TCalendar"/> object.
     /// </returns>
-    {$endregion}
-    function Clone: TCalendar; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Clone : TCalendar; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the locale-specific settings of the calendar.
     /// </summary>
-    {$endregion}
-    property Settings: TCalendarSettings read fSettings write SetSettings;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Settings : TCalendarSettings Read fSettings Write SetSettings;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the default era of the calendar.
     /// </summary>
-    {$endregion}
-    property DefaultEra: Integer read fDefaultEra write SetDefaultEra;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DefaultEra : Integer Read fDefaultEra Write SetDefaultEra;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when any of the calendar settings is changed.
     /// </summary>
-    {$endregion}
-    property OnChange: TNotifyEvent read fOnChange write fOnChange;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnChange : TNotifyEvent Read fOnChange Write fOnChange;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the friendly name of the calendar system. This name is automatically
     /// made from the class name.
@@ -1290,27 +1296,27 @@ type
     /// <returns>
     /// The friendly name of the calendar system.
     /// </returns>
-    {$endregion}
-    class function CalendarName: String;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function CalendarName : String;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the unique identifier of the calendar.
     /// </summary>
     /// <returns>
     /// The unique identifier of the calendar.
     /// </returns>
-    {$endregion}
-    class function CalendarID: Cardinal; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function CalendarID : Cardinal; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the algorithm type of the calendar system.
     /// </summary>
     /// <returns>
     /// The algorithm type of the calendar system.
     /// </returns>
-    {$endregion}
-    class function CalendarKind: TCalendarKind; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function CalendarKind : TCalendarKind; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TCalendarSettings"/> class that provides locale
     /// specific settings for the calendar.
@@ -1318,28 +1324,28 @@ type
     /// <returns>
     /// The <see cref="TCalendarSettings"/> class or one of its descendents.
     /// </returns>
-    {$endregion}
-    class function SettingsClass: TCalendarSettingsClass; virtual;
-  { Min/Max Functions }
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function SettingsClass : TCalendarSettingsClass; Virtual;
+    { Min/Max Functions }
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of eras that the calendar class supports.
     /// </summary>
     /// <returns>
     /// The maximum number of eras.
     /// </returns>
-    {$endregion}
-    class function MaxEra: Integer; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MaxEra : Integer; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the maximum number of months that the calendar may have in a year.
     /// </summary>
     /// <returns>
     /// The maximum number of months per year.
     /// </returns>
-    {$endregion}
-    class function MaxMonthsPerYear: Integer; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MaxMonthsPerYear : Integer; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the minimum <see cref="TDateTime"/> value that can be managed by
     /// the calendar.
@@ -1348,9 +1354,9 @@ type
     /// The minimum supported <see cref="TDateTime"/> value.
     /// </returns>
     /// <seealso cref="MaxSupportedDateTime"/>
-    {$endregion}
-    class function MinSupportedDateTime: TDateTime; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MinSupportedDateTime : TDateTime; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the maximum <see cref="TDateTime"/> value that can be managed by
     /// the calendar.
@@ -1359,10 +1365,10 @@ type
     /// The maximum supported <see cref="TDateTime"/> value.
     /// </returns>
     /// <seealso cref="MinSupportedDateTime"/>
-    {$endregion}
-    class function MaxSupportedDateTime: TDateTime; virtual;
-  { Miscellaneous Functions }
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MaxSupportedDateTime : TDateTime; Virtual;
+    { Miscellaneous Functions }
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the current date.
     /// </summary>
@@ -1371,9 +1377,9 @@ type
     /// </returns>
     /// <seealso cref="Yesterday"/>
     /// <seealso cref="Tomorrow"/>
-    {$endregion}
-    class function Today: TDate; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function Today : TDate; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the preceding day.
     /// </summary>
@@ -1382,9 +1388,9 @@ type
     /// </returns>
     /// <seealso cref="Today"/>
     /// <seealso cref="Tomorrow"/>
-    {$endregion}
-    class function Yesterday: TDate; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function Yesterday : TDate; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the following day.
     /// </summary>
@@ -1393,18 +1399,18 @@ type
     /// </returns>
     /// <seealso cref="Today"/>
     /// <seealso cref="Yesterday"/>
-    {$endregion}
-    class function Tomorrow: TDate; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function Tomorrow : TDate; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the first month of the year for the calendar.
     /// </summary>
     /// <returns>
     /// The first month of the year.
     /// </returns>
-    {$endregion}
-    class function FirstMonthOfYear: Integer; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function FirstMonthOfYear : Integer; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of days from beginning of a specified year to beginning
     /// of a specified month.
@@ -1421,9 +1427,9 @@ type
     /// <returns>
     /// The number of days between start of the year and start of the month.
     /// </returns>
-    {$endregion}
-    function DaysToMonth(Era, Year, Month: Integer): Integer; overload; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DaysToMonth(Era, Year, Month : Integer) : Integer; Overload; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of days from beginning of a specified year to beginning
     /// of a specified month.
@@ -1438,9 +1444,9 @@ type
     /// The number of days between start of the year and start of the month.
     /// </returns>
     /// <seealso cref="DefaultEra"/>
-    {$endregion}
-    function DaysToMonth(Year, Month: Integer): Integer; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DaysToMonth(Year, Month : Integer) : Integer; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of days from beginning of the year to beginning of the month
     /// of a specified <see cref="TDateTime"/> value.
@@ -1451,9 +1457,9 @@ type
     /// <returns>
     /// The number of days between start of the year and start of the month.
     /// </returns>
-    {$endregion}
-    function DaysToMonth(const DateTime: TDateTime): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DaysToMonth(Const DateTime : TDateTime) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of days in a specified month of a specified year.
     /// </summary>
@@ -1469,9 +1475,9 @@ type
     /// <returns>
     /// The number of days in the month.
     /// </returns>
-    {$endregion}
-    function DaysInMonth(Era, Year, Month: Integer): Integer; overload; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DaysInMonth(Era, Year, Month : Integer) : Integer; Overload; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of days in a specified month of a specified year.
     /// </summary>
@@ -1485,9 +1491,9 @@ type
     /// The number of days in the month.
     /// </returns>
     /// <seealso cref="DefaultEra"/>
-    {$endregion}
-    function DaysInMonth(Year, Month: Integer): Integer; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DaysInMonth(Year, Month : Integer) : Integer; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of days in the month of a specified <see cref="TDateTime"/> value.
     /// </summary>
@@ -1497,9 +1503,9 @@ type
     /// <returns>
     /// The number of days in the month.
     /// </returns>
-    {$endregion}
-    function DaysInMonth(const DateTime: TDateTime): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DaysInMonth(Const DateTime : TDateTime) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of days in a specified year.
     /// </summary>
@@ -1512,9 +1518,9 @@ type
     /// <returns>
     /// The number of days in the year.
     /// </returns>
-    {$endregion}
-    function DaysInYear(Era, Year: Integer): Integer; overload; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DaysInYear(Era, Year : Integer) : Integer; Overload; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of days in a specified year.
     /// </summary>
@@ -1525,9 +1531,9 @@ type
     /// The number of days in the year.
     /// </returns>
     /// <seealso cref="DefaultEra"/>
-    {$endregion}
-    function DaysInYear(Year: Integer): Integer; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DaysInYear(Year : Integer) : Integer; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of days in the year of a specified <see cref="TDateTime"/> value.
     /// </summary>
@@ -1537,9 +1543,9 @@ type
     /// <returns>
     /// The number of days in the year.
     /// </returns>
-    {$endregion}
-    function DaysInYear(const DateTime: TDateTime): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DaysInYear(Const DateTime : TDateTime) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of months in a specified year.
     /// </summary>
@@ -1552,9 +1558,9 @@ type
     /// <returns>
     /// The number of months in the year.
     /// </returns>
-    {$endregion}
-    function MonthsInYear(Era, Year: Integer): Integer; overload; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function MonthsInYear(Era, Year : Integer) : Integer; Overload; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of months in a specified year.
     /// </summary>
@@ -1565,9 +1571,9 @@ type
     /// The number of months in the year.
     /// </returns>
     /// <seealso cref="DefaultEra"/>
-    {$endregion}
-    function MonthsInYear(Year: Integer): Integer; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function MonthsInYear(Year : Integer) : Integer; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of months in the year of a specified <see cref="TDateTime"/> value.
     /// </summary>
@@ -1577,9 +1583,9 @@ type
     /// <returns>
     /// The number of months in the year.
     /// </returns>
-    {$endregion}
-    function MonthsInYear(const DateTime: TDateTime): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function MonthsInYear(Const DateTime : TDateTime) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of weeks in a specified year.
     /// </summary>
@@ -1592,9 +1598,9 @@ type
     /// <returns>
     /// The number of weeks in the year.
     /// </returns>
-    {$endregion}
-    function WeeksInYear(Era, Year: Integer): Integer; overload; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function WeeksInYear(Era, Year : Integer) : Integer; Overload; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of weeks in a specified year.
     /// </summary>
@@ -1605,9 +1611,9 @@ type
     /// The number of weeks in the year.
     /// </returns>
     /// <seealso cref="DefaultEra"/>
-    {$endregion}
-    function WeeksInYear(Year: Integer): Integer; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function WeeksInYear(Year : Integer) : Integer; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of weeks in the year of a specified <see cref="TDateTime"/> value.
     /// </summary>
@@ -1617,9 +1623,9 @@ type
     /// <returns>
     /// The number of weeks in the year.
     /// </returns>
-    {$endregion}
-    function WeeksInYear(const DateTime: TDateTime): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function WeeksInYear(Const DateTime : TDateTime) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of whole weeks in a specified month of a specified year.
     /// </summary>
@@ -1635,9 +1641,9 @@ type
     /// <returns>
     /// The number of whole weeks in the month.
     /// </returns>
-    {$endregion}
-    function WeeksInMonth(Era, Year, Month: Integer): Integer; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function WeeksInMonth(Era, Year, Month : Integer) : Integer; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of whole weeks in a specified month of a specified year.
     /// </summary>
@@ -1651,9 +1657,9 @@ type
     /// The number of whole weeks in the month.
     /// </returns>
     /// <seealso cref="DefaultEra"/>
-    {$endregion}
-    function WeeksInMonth(Year, Month: Integer): Integer; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function WeeksInMonth(Year, Month : Integer) : Integer; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of whole weeks in the month of a specified <see cref="TDateTime"/> value.
     /// </summary>
@@ -1663,9 +1669,9 @@ type
     /// <returns>
     /// The number of whole weeks in the month.
     /// </returns>
-    {$endregion}
-    function WeeksInMonth(const DateTime: TDateTime): Integer; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function WeeksInMonth(Const DateTime : TDateTime) : Integer; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds month and day of the month for a specified day of a specified year.
     /// </summary>
@@ -1688,9 +1694,9 @@ type
     /// Returns <see langword="true"/> if the function is succeeded, otherwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function DayOfYearToDayOfMonth(Era, Year, DayOfYear: Integer; var Month, Day: Integer): Boolean; overload; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DayOfYearToDayOfMonth(Era, Year, DayOfYear : Integer; Var Month, Day : Integer) : Boolean; Overload; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds month and day of the month for a specified day of a specified year.
     /// </summary>
@@ -1711,9 +1717,9 @@ type
     /// returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="DefaultEra"/>
-    {$endregion}
-    function DayOfYearToDayOfMonth(Year, DayOfYear: Integer; var Month, Day: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DayOfYearToDayOfMonth(Year, DayOfYear : Integer; Var Month, Day : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds day of year for a date specified by its era, year, month, and day
     /// components.
@@ -1737,9 +1743,9 @@ type
     /// Returns <see langword="true"/> if the function is succeeded, otherwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function DayOfMonthToDayOfYear(Era, Year, Month, Day: Integer; out DayOfYear: Integer): Boolean; overload; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DayOfMonthToDayOfYear(Era, Year, Month, Day : Integer; Out DayOfYear : Integer) : Boolean; Overload; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds day of year for a date specified by its year, month, and day
     /// components.
@@ -1761,9 +1767,9 @@ type
     /// returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="DefaultEra"/>
-    {$endregion}
-    function DayOfMonthToDayOfYear(Year, Month, Day: Integer; out DayOfYear: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DayOfMonthToDayOfYear(Year, Month, Day : Integer; Out DayOfYear : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a year from one era to another.
     /// </summary>
@@ -1779,9 +1785,9 @@ type
     /// <returns>
     /// The year expressed in the target era.
     /// </returns>
-    {$endregion}
-    function ConvertYear(Year, FromEra, ToEra: Integer): Integer; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ConvertYear(Year, FromEra, ToEra : Integer) : Integer; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a two-digit year to four-digit.
     /// </summary>
@@ -1791,9 +1797,9 @@ type
     /// <returns>
     /// The four-digit year.
     /// </returns>
-    {$endregion}
-    function ToFourDigitYear(Year: Integer): Integer; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ToFourDigitYear(Year : Integer) : Integer; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the year zero is a valid year for an era.
     /// </summary>
@@ -1804,9 +1810,9 @@ type
     /// Returns <see langword="true"/> if the era can have year zero, otherwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function CanHaveZeroYear(Era: Integer): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function CanHaveZeroYear(Era : Integer) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a year by a specified number of years, and converts era of
     /// the year as well.
@@ -1830,9 +1836,9 @@ type
     /// Use this method to safely increment/decrement year regardless of whether
     /// year zero is a valid year for the source and target eras or not.
     /// </remarks>
-    {$endregion}
-    function OffsetYear(Year, NumberOfYears: Integer; FromEra, ToEra: Integer): Integer; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function OffsetYear(Year, NumberOfYears : Integer; FromEra, ToEra : Integer) : Integer; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a year by a specified number of years.
     /// </summary>
@@ -1852,9 +1858,9 @@ type
     /// Use this method to safely increment/decrement year regardless of whether
     /// year zero is a valid year for the source and target eras or not.
     /// </remarks>
-    {$endregion}
-    function OffsetYear(Era, Year, NumberOfYears: Integer): Integer; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function OffsetYear(Era, Year, NumberOfYears : Integer) : Integer; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a year by a specified number of years.
     /// </summary>
@@ -1872,9 +1878,9 @@ type
     /// year zero is a valid year for the source and target eras or not.
     /// </remarks>
     /// <seealso cref="DefaultEra"/>
-    {$endregion}
-    function OffsetYear(Year, NumberOfYears: Integer): Integer; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function OffsetYear(Year, NumberOfYears : Integer) : Integer; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Adds the amount of days and fraction of a day to a specified <see cref="TDateTime"/> value.
     /// </summary>
@@ -1898,9 +1904,9 @@ type
     /// <returns>
     /// The new <see cref="TDateTime"/> value.
     /// </returns>
-    {$endregion}
-    class function OffsetDateTime(const DateTime: TDateTime; const Delta: Double): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function OffsetDateTime(Const DateTime : TDateTime; Const Delta : Double) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the whole days between two specified <see cref="TDateTime"/> values.
     /// </summary>
@@ -1913,9 +1919,9 @@ type
     /// <returns>
     /// The whole days between two dates.
     /// </returns>
-    {$endregion}
-    class function DaysBetween(DateTime1, DateTime2: TDateTime): Integer; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function DaysBetween(DateTime1, DateTime2 : TDateTime) : Integer; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of days between two specified days of week.
     /// </summary>
@@ -1928,9 +1934,9 @@ type
     /// <returns>
     /// The number of whole days between two days of week.
     /// </returns>
-    {$endregion}
-    class function DaysOfWeekBetween(DoW1, DoW2: TDayOfWeek): Integer; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function DaysOfWeekBetween(DoW1, DoW2 : TDayOfWeek) : Integer; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a specified TDayOfWeek value to its numeral representation,
     /// where the first day of the week is 1 and the last day of the week is 7.
@@ -1945,9 +1951,9 @@ type
     /// The returned value is locale dependent.
     /// </remarks>
     /// <seealso cref="DayNumToDayOfWeek"/>
-    {$endregion}
-    function DayOfWeekToDayNum(DoW: TDayOfWeek): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DayOfWeekToDayNum(DoW : TDayOfWeek) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a number in range 1 to 7 that represents the day of the week to
     /// a TDayOfWeek value.
@@ -1963,10 +1969,10 @@ type
     /// The input value is locale dependent.
     /// </remarks>
     /// <seealso cref="DayOfWeekToDayNum"/>
-    {$endregion}
-    function DayNumToDayOfWeek(DayNum: Integer): TDayOfWeek;
-  { Is Functions }
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DayNumToDayOfWeek(DayNum : Integer) : TDayOfWeek;
+    { Is Functions }
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checks whether a specified <see cref="TDateTime"/> value is invalid.
     /// </summary>
@@ -1978,9 +1984,9 @@ type
     /// otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="IsValidDate"/>
-    {$endregion}
-    class function IsNoDate(const DateTime: TDateTime): Boolean; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function IsNoDate(Const DateTime : TDateTime) : Boolean; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checks whether a specified <see cref="TDateTime"/> value is valid and supported
     /// by the calendar.
@@ -1992,9 +1998,9 @@ type
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is valid and
     /// in the supported range of the calendar, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsValidDate(const DateTime: TDateTime): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsValidDate(Const DateTime : TDateTime) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checks whether a specified day in a specified year is valid.
     /// </summary>
@@ -2011,9 +2017,9 @@ type
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is valid,
     /// otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsValidDateDay(Era, Year, DayOfYear: Integer): Boolean; overload; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsValidDateDay(Era, Year, DayOfYear : Integer) : Boolean; Overload; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checks whether a specified day in a specified year is valid.
     /// </summary>
@@ -2028,9 +2034,9 @@ type
     /// otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="DefaultEra"/>
-    {$endregion}
-    function IsValidDateDay(Year, DayOfYear: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsValidDateDay(Year, DayOfYear : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checks whether a specified day of a specified week in a speified year is
     /// valid.
@@ -2051,9 +2057,9 @@ type
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is valid,
     /// otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsValidDateWeek(Era, Year, Week: Integer; DoW: TDayOfWeek): Boolean; overload; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsValidDateWeek(Era, Year, Week : Integer; DoW : TDayOfWeek) : Boolean; Overload; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checks whether a specified day of a specified week in a speified year is
     /// valid.
@@ -2072,9 +2078,9 @@ type
     /// otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="DefaultEra"/>
-    {$endregion}
-    function IsValidDateWeek(Year, Week: Integer; DoW: TDayOfWeek): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsValidDateWeek(Year, Week : Integer; DoW : TDayOfWeek) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checks whether a era is valid.
     /// </summary>
@@ -2085,9 +2091,9 @@ type
     /// Returns <see langword="true"/> if the era is valid, otherwise returns
     /// <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsValidEra(Era: Integer): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsValidEra(Era : Integer) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checks whether a specified year in a specified era is valid.
     /// </summary>
@@ -2101,9 +2107,9 @@ type
     /// Returns <see langword="true"/> if the era and year pair is valid, otherwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsValidYear(Era, Year: Integer): Boolean; overload; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsValidYear(Era, Year : Integer) : Boolean; Overload; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checks whether a specified year is valid.
     /// </summary>
@@ -2115,9 +2121,9 @@ type
     /// <see langword="false"/>.
     /// </returns>
     /// <seealso cref="DefaultEra"/>
-    {$endregion}
-    function IsValidYear(Year: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsValidYear(Year : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checks whether a specified month in a specified year is valid.
     /// </summary>
@@ -2134,9 +2140,9 @@ type
     /// Returns <see langword="true"/> if the era, year and month triple is valid,
     /// otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsValidMonth(Era, Year, Month: Integer): Boolean; overload; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsValidMonth(Era, Year, Month : Integer) : Boolean; Overload; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checks whether a specified month in a specified year is valid.
     /// </summary>
@@ -2151,9 +2157,9 @@ type
     /// returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="DefaultEra"/>
-    {$endregion}
-    function IsValidMonth(Year, Month: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsValidMonth(Year, Month : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified day of a specified month in a specified year
     /// is valid.
@@ -2174,9 +2180,9 @@ type
     /// Returns <see langword="true"/> if the date is valid, otherwise returns
     /// <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsValidDay(Era, Year, Month, Day: Integer): Boolean; overload; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsValidDay(Era, Year, Month, Day : Integer) : Boolean; Overload; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified day of a specified month in a specified year
     /// is valid.
@@ -2195,9 +2201,9 @@ type
     /// <see langword="false"/>.
     /// </returns>
     /// <seealso cref="DefaultEra"/>
-    {$endregion}
-    function IsValidDay(Year, Month, Day: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsValidDay(Year, Month, Day : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified year in a specified era is a leap year.
     /// </summary>
@@ -2211,9 +2217,9 @@ type
     /// Returns <see langword="true"/> if the year is a leap year, otherwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsLeapYear(Era, Year: Integer): Boolean; overload; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsLeapYear(Era, Year : Integer) : Boolean; Overload; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified year is a leap year.
     /// </summary>
@@ -2225,9 +2231,9 @@ type
     /// returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="DefaultEra"/>
-    {$endregion}
-    function IsLeapYear(Year: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsLeapYear(Year : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified <see cref="TDateTime"/> value is within a leap year.
     /// </summary>
@@ -2238,9 +2244,9 @@ type
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is in a leap
     /// year, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsInLeapYear(const DateTime: TDateTime): Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsInLeapYear(Const DateTime : TDateTime) : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checks whether a specified <see cref="TDateTime"/> value is within the given date
     /// range (inclusive).
@@ -2258,9 +2264,9 @@ type
     /// Returns <see langword="true"/> if the datetime is within the range, otherwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    class function IsInRange(const DateTime, RangeStart, RangeEnd: TDateTime): Boolean; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function IsInRange(Const DateTime, RangeStart, RangeEnd : TDateTime) : Boolean; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified <see cref="TDateTime"/> value is within the
     /// current era.
@@ -2272,9 +2278,9 @@ type
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is within
     /// the current era, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsThisEra(const DateTime: TDateTime): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsThisEra(Const DateTime : TDateTime) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified era is the current era.
     /// </summary>
@@ -2285,9 +2291,9 @@ type
     /// Returns <see langword="true"/> if the era is the current era, otherwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsThisEra(Era: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsThisEra(Era : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified <see cref="TDateTime"/> value is within the
     /// current year.
@@ -2299,9 +2305,9 @@ type
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is within
     /// the current year, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsThisYear(const DateTime: TDateTime): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsThisYear(Const DateTime : TDateTime) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified year in a specified era represents the current year.
     /// </summary>
@@ -2315,9 +2321,9 @@ type
     /// Returns <see langword="true"/> if the era and year pair represents the
     /// current year, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsThisYear(Era, Year: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsThisYear(Era, Year : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified year is the current year.
     /// </summary>
@@ -2329,9 +2335,9 @@ type
     /// returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="DefaultEra"/>
-    {$endregion}
-    function IsThisYear(Year: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsThisYear(Year : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified <see cref="TDateTime"/> value is within the
     /// current month.
@@ -2343,9 +2349,9 @@ type
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is within
     /// the current month, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsThisMonth(const DateTime: TDateTime): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsThisMonth(Const DateTime : TDateTime) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified month in a specified year represents the
     /// current month.
@@ -2363,9 +2369,9 @@ type
     /// Returns <see langword="true"/> if the era, year, and month triple represents
     /// the current month, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsThisMonth(Era, Year, Month: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsThisMonth(Era, Year, Month : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified month in a specified year represents the
     /// current month.
@@ -2381,9 +2387,9 @@ type
     /// current month, otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="DefaultEra"/>
-    {$endregion}
-    function IsThisMonth(Year, Month: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsThisMonth(Year, Month : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified month is the current month.
     /// </summary>
@@ -2394,9 +2400,9 @@ type
     /// Returns <see langword="true"/> if the month is the current month, otherwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsThisMonth(Month: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsThisMonth(Month : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified <see cref="TDateTime"/> value is within the
     /// current week.
@@ -2408,9 +2414,9 @@ type
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value is within
     ///  the current week, otherwise returns <see langword="false"/>.
     ///  </returns>
-    {$endregion}
-    function IsThisWeek(const DateTime: TDateTime): Boolean; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsThisWeek(Const DateTime : TDateTime) : Boolean; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified <see cref="TDateTime"/> value represents the
     /// current date.
@@ -2422,9 +2428,9 @@ type
     /// Returns <see langword="true"/> if the <see cref="TDateTime"/> value represents
     /// the current date, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    class function IsToday(const DateTime: TDateTime): Boolean; overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function IsToday(Const DateTime : TDateTime) : Boolean; Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether a specified day of week is the today's day of week.
     /// </summary>
@@ -2435,9 +2441,9 @@ type
     /// Returns <see langword="true"/> if the day of week is the today's day of week,
     /// otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    class function IsToday(DoW: TDayOfWeek): Boolean; overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function IsToday(DoW : TDayOfWeek) : Boolean; Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the time portion of a specified <see cref="TDateTime"/>
     /// value occurs after noon.
@@ -2449,9 +2455,9 @@ type
     /// Returns <see langword="true"/> if the time is  after noon, and returns
     /// <see langword="false"/> if the time is before noon.
     /// </returns>
-    {$endregion}
-    class function IsPM(const DateTime: TDateTime): Boolean; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function IsPM(Const DateTime : TDateTime) : Boolean; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// CHeckes whether two specified <see cref="TDateTime"/> values are equal.
     /// </summary>
@@ -2465,9 +2471,9 @@ type
     /// Returns <see langword="true"/> if the two <see cref="TDateTime"/> values are
     /// equal, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    class function IsSame(const DateTime1, DateTime2: TDateTime): Boolean; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function IsSame(Const DateTime1, DateTime2 : TDateTime) : Boolean; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether two specified <see cref="TDateTime"/> values are within the
     /// same era.
@@ -2482,9 +2488,9 @@ type
     /// Returns <see langword="true"/> if the two <see cref="TDateTime"/> values are
     /// within the same era, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsSameEra(const DateTime1, DateTime2: TDateTime): Boolean; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsSameEra(Const DateTime1, DateTime2 : TDateTime) : Boolean; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether two specified <see cref="TDateTime"/> values are within the
     /// same year.
@@ -2499,9 +2505,9 @@ type
     /// Returns <see langword="true"/> if the two <see cref="TDateTime"/> values are
     /// within the same year, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsSameYear(const DateTime1, DateTime2: TDateTime): Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsSameYear(Const DateTime1, DateTime2 : TDateTime) : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether two specified <see cref="TDateTime"/> values are within the
     /// same month.
@@ -2516,9 +2522,9 @@ type
     /// Returns <see langword="true"/> if the two <see cref="TDateTime"/> values are
     /// within the same month, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsSameMonth(const DateTime1, DateTime2: TDateTime): Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsSameMonth(Const DateTime1, DateTime2 : TDateTime) : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether two specified <see cref="TDateTime"/> values are within the
     /// same week.
@@ -2533,9 +2539,9 @@ type
     /// Returns <see langword="true"/> if the two <see cref="TDateTime"/> values are
     /// within the same week, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsSameWeek(const DateTime1, DateTime2: TDateTime): Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsSameWeek(Const DateTime1, DateTime2 : TDateTime) : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Checkes whether two specified <see cref="TDateTime"/> values reperesent
     /// the same day.
@@ -2550,9 +2556,9 @@ type
     /// Returns <see langword="true"/> if the two <see cref="TDateTime"/> values
     /// reperesent the same day, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    class function IsSameDay(const DateTime1, DateTime2: TDateTime): Boolean; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function IsSameDay(Const DateTime1, DateTime2 : TDateTime) : Boolean; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Compares two specified <see cref="TDateTime"/> values.
     /// </summary>
@@ -2566,9 +2572,9 @@ type
     /// Returns -1 if <paramref name="DateTime1"/> is less than <paramref name="DateTime2"/>,
     /// returns zero if <paramref name="DateTime1"/> is equal to <paramref name="DateTime2"/>,
     /// and returns 1 if <paramref name="DateTime1"/> is greater than <paramref name="DateTime2"/>.</returns>
-    {$endregion}
-    class function Compare(const DateTime1, DateTime2: TDateTime): Integer; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function Compare(Const DateTime1, DateTime2 : TDateTime) : Integer; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Compares the date portion of two specified <see cref="TDateTime"/> values.
     /// </summary>
@@ -2583,9 +2589,9 @@ type
     /// <paramref name="DateTime2"/>, returns zero if date of <paramref name="DateTime1"/>
     /// is equal to date of <paramref name="DateTime2"/>, and returns 1 if date of
     /// <paramref name="DateTime1"/> is greater than date of <paramref name="DateTime2"/>.</returns>
-    {$endregion}
-    class function CompareDate(const DateTime1, DateTime2: TDateTime): Integer; overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function CompareDate(Const DateTime1, DateTime2 : TDateTime) : Integer; Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Compares the time portion of two specified <see cref="TDateTime"/> values.
     /// </summary>
@@ -2600,10 +2606,10 @@ type
     /// <paramref name="DateTime2"/>, returns zero if time of <paramref name="DateTime1"/>
     /// is equal to time of <paramref name="DateTime2"/>, and returns 1 if time of
     /// <paramref name="DateTime1"/> is greater than time of <paramref name="DateTime2"/>.</returns>
-    {$endregion}
-    class function CompareTime(const DateTime1, DateTime2: TDateTime): Integer; overload; static; inline;
-  { Encode/Decode Functions }
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function CompareTime(Const DateTime1, DateTime2 : TDateTime) : Integer; Overload; Static; Inline;
+    { Encode/Decode Functions }
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates a <see cref="TDateTime"/> value that represents a specified day
     /// of a specified week in a specified year.
@@ -2627,9 +2633,9 @@ type
     /// <see langword="false"/>.
     /// </returns>
     /// <seealso cref="EncodeDateWeek"/>
-    {$endregion}
-    function TryEncodeDateWeek(Era, Year, Week: Integer; DoW: TDayOfWeek; out DateTime: TDateTime): Boolean; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function TryEncodeDateWeek(Era, Year, Week : Integer; DoW : TDayOfWeek; Out DateTime : TDateTime) : Boolean; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates a <see cref="TDateTime"/> value that represents a specified day
     /// of a specified week in a specified year.
@@ -2651,9 +2657,9 @@ type
     /// </returns>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="EncodeDateWeek"/>
-    {$endregion}
-    function TryEncodeDateWeek(Year, Week: Integer; DoW: TDayOfWeek; out DateTime: TDateTime): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function TryEncodeDateWeek(Year, Week : Integer; DoW : TDayOfWeek; Out DateTime : TDateTime) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TDateTime"/> value that represents a specified day
     /// of a specified week in a specified year.
@@ -2677,9 +2683,9 @@ type
     /// Occurs when the conversion is failed.
     /// </exception>
     /// <seealso cref="TryEncodeDateWeek"/>
-    {$endregion}
-    function EncodeDateWeek(Era, Year, Week: Integer; DoW: TDayOfWeek): TDateTime; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function EncodeDateWeek(Era, Year, Week : Integer; DoW : TDayOfWeek) : TDateTime; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TDateTime"/> value that represents a specified day
     /// of a specified week in a specified year.
@@ -2701,9 +2707,9 @@ type
     /// </exception>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="TryEncodeDateWeek"/>
-    {$endregion}
-    function EncodeDateWeek(Year, Week: Integer; DoW: TDayOfWeek): TDateTime; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function EncodeDateWeek(Year, Week : Integer; DoW : TDayOfWeek) : TDateTime; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the era, year of the era, week of the year, and day of the week
     /// for a specified <see cref="TDateTime"/> value.
@@ -2728,9 +2734,9 @@ type
     /// <see langword="false"/>.
     /// </returns>
     /// <seealso cref="DecodeDateWeek"/>
-    {$endregion}
-    function TryDecodeDateWeek(const DateTime: TDateTime; out Era, Year, Week: Integer; out DoW: TDayOfWeek): Boolean; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function TryDecodeDateWeek(Const DateTime : TDateTime; Out Era, Year, Week : Integer; Out DoW : TDayOfWeek) : Boolean; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the year, week of the year, and day of the week for a specified
     /// <see cref="TDateTime"/> value.
@@ -2753,9 +2759,9 @@ type
     /// </returns>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="DecodeDateWeek"/>
-    {$endregion}
-    function TryDecodeDateWeek(const DateTime: TDateTime; out Year, Week: Integer; out DoW: TDayOfWeek): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function TryDecodeDateWeek(Const DateTime : TDateTime; Out Year, Week : Integer; Out DoW : TDayOfWeek) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the era, year of the era, week of the year, and day of the week
     /// for a specified <see cref="TDateTime"/> value.
@@ -2779,9 +2785,9 @@ type
     /// Occurs when the conversion is failed.
     /// </exception>
     /// <seealso cref="TryDecodeDateWeek"/>
-    {$endregion}
-    procedure DecodeDateWeek(const DateTime: TDateTime; out Era, Year, Week: Integer; out DoW: TDayOfWeek); overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DecodeDateWeek(Const DateTime : TDateTime; Out Era, Year, Week : Integer; Out DoW : TDayOfWeek); Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the year, week of the year, and day of the week for a specified
     /// <see cref="TDateTime"/> value.
@@ -2803,9 +2809,9 @@ type
     /// </exception>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="TryDecodeDateWeek"/>
-    {$endregion}
-    procedure DecodeDateWeek(const DateTime: TDateTime; out Year, Week: Integer; out DoW: TDayOfWeek); overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DecodeDateWeek(Const DateTime : TDateTime; Out Year, Week : Integer; Out DoW : TDayOfWeek); Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the <see cref="TDateTime"/> value that represents a specified
     /// day of the year for a specified year.
@@ -2827,9 +2833,9 @@ type
     /// <see langword="false"/>.
     /// </returns>
     /// <seealso cref="EncodeDateDay"/>
-    {$endregion}
-    function TryEncodeDateDay(Era, Year, DayOfYear: Integer; out DateTime: TDateTime): Boolean; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function TryEncodeDateDay(Era, Year, DayOfYear : Integer; Out DateTime : TDateTime) : Boolean; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the <see cref="TDateTime"/> value that represents a specified day
     /// of the year for a specified year.
@@ -2849,9 +2855,9 @@ type
     /// </returns>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="EncodeDateDay"/>
-    {$endregion}
-    function TryEncodeDateDay(Year, DayOfYear: Integer; out DateTime: TDateTime): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function TryEncodeDateDay(Year, DayOfYear : Integer; Out DateTime : TDateTime) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TDateTime"/> value that represents a specified day
     /// of the year for a specified year.
@@ -2872,9 +2878,9 @@ type
     /// Occurs when the conversion is failed.
     /// </exception>
     /// <seealso cref="TryEncodeDateDay"/>
-    {$endregion}
-    function EncodeDateDay(Era, Year, DayOfYear: Integer): TDateTime; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function EncodeDateDay(Era, Year, DayOfYear : Integer) : TDateTime; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TDateTime"/> value that represents a specified day
     /// of the year for a specified year.
@@ -2893,9 +2899,9 @@ type
     /// </exception>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="TryEncodeDateDay"/>
-    {$endregion}
-    function EncodeDateDay(Year, DayOfYear: Integer): TDateTime; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function EncodeDateDay(Year, DayOfYear : Integer) : TDateTime; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the year and day of the year for a specified <see cref="TDateTime"/> value.
     /// </summary>
@@ -2916,9 +2922,9 @@ type
     /// <see langword="false"/>.
     /// </returns>
     /// <seealso cref="DecodeDateDay"/>
-    {$endregion}
-    function TryDecodeDateDay(const DateTime: TDateTime; out Era, Year, DayOfYear: Integer): Boolean; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function TryDecodeDateDay(Const DateTime : TDateTime; Out Era, Year, DayOfYear : Integer) : Boolean; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the year and day of the year for a specified <see cref="TDateTime"/> value.
     /// </summary>
@@ -2937,9 +2943,9 @@ type
     /// </returns>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="DecodeDateDay"/>
-    {$endregion}
-    function TryDecodeDateDay(const DateTime: TDateTime; out Year, DayOfYear: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function TryDecodeDateDay(Const DateTime : TDateTime; Out Year, DayOfYear : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the year and day of the year for a specified <see cref="TDateTime"/> value.
     /// </summary>
@@ -2959,9 +2965,9 @@ type
     /// Occurs when the conversion is failed.
     /// </exception>
     /// <seealso cref="TryDecodeDateDay"/>
-    {$endregion}
-    procedure DecodeDateDay(const DateTime: TDateTime; out Era, Year, DayOfYear: Integer); overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DecodeDateDay(Const DateTime : TDateTime; Out Era, Year, DayOfYear : Integer); Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the year and day of the year for a specified <see cref="TDateTime"/> value.
     /// </summary>
@@ -2979,9 +2985,9 @@ type
     /// </exception>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="TryDecodeDateDay"/>
-    {$endregion}
-    procedure DecodeDateDay(const DateTime: TDateTime; out Year, DayOfYear: Integer); overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DecodeDateDay(Const DateTime : TDateTime; Out Year, DayOfYear : Integer); Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the <see cref="TDateTime"/> value that represents a specified
     /// era, year, month, and day.
@@ -3006,9 +3012,9 @@ type
     /// <see langword="false"/>.
     /// </returns>
     /// <seealso cref="EncodeDate"/>
-    {$endregion}
-    function TryEncodeDate(Era, Year, Month, Day: Integer; out DateTime: TDateTime): Boolean; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function TryEncodeDate(Era, Year, Month, Day : Integer; Out DateTime : TDateTime) : Boolean; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the <see cref="TDateTime"/> value that represents a specified
     /// year, month, and day.
@@ -3031,9 +3037,9 @@ type
     /// </returns>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="EncodeDate"/>
-    {$endregion}
-    function TryEncodeDate(Year, Month, Day: Integer; out DateTime: TDateTime): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function TryEncodeDate(Year, Month, Day : Integer; Out DateTime : TDateTime) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TDateTime"/> value that represents a specified era,
     /// year, month, and day.
@@ -3057,9 +3063,9 @@ type
     /// Occurs when the conversion is failed.
     /// </exception>
     /// <seealso cref="TryEncodeDate"/>
-    {$endregion}
-    function EncodeDate(Era, Year, Month, Day: Integer): TDateTime; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function EncodeDate(Era, Year, Month, Day : Integer) : TDateTime; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TDateTime"/> value that represents a specified year,
     /// month, and day.
@@ -3081,9 +3087,9 @@ type
     /// </exception>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="TryEncodeDate"/>
-    {$endregion}
-    function EncodeDate(Year, Month, Day: Integer): TDateTime; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function EncodeDate(Year, Month, Day : Integer) : TDateTime; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the era, year, month, and day values for a specified <see cref="TDateTime"/>
     /// value.
@@ -3108,9 +3114,9 @@ type
     /// <see langword="false"/>.
     /// </returns>
     /// <seealso cref="DecodeDate"/>
-    {$endregion}
-    function TryDecodeDate(const DateTime: TDateTime; out Era, Year, Month, Day: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function TryDecodeDate(Const DateTime : TDateTime; Out Era, Year, Month, Day : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the year, month, and day values for a specified <see cref="TDateTime"/>
     /// value.
@@ -3133,9 +3139,9 @@ type
     /// </returns>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="DecodeDate"/>
-    {$endregion}
-    function TryDecodeDate(const DateTime: TDateTime; out Year, Month, Day: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function TryDecodeDate(Const DateTime : TDateTime; Out Year, Month, Day : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the era, year, month, and day values for a specified <see cref="TDateTime"/>
     /// value.
@@ -3159,9 +3165,9 @@ type
     /// Occurs when the conversion is failed.
     /// </exception>
     /// <seealso cref="TryDecodeDate"/>
-    {$endregion}
-    procedure DecodeDate(const DateTime: TDateTime; out Era, Year, Month, Day: Integer); overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DecodeDate(Const DateTime : TDateTime; Out Era, Year, Month, Day : Integer); Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the year, month, and day values for a specified <see cref="TDateTime"/>
     /// value.
@@ -3183,9 +3189,9 @@ type
     /// </exception>
     /// <seealso cref="DefaultEra"/>
     /// <seealso cref="TryDecodeDate"/>
-    {$endregion}
-    procedure DecodeDate(const DateTime: TDateTime; out Year, Month, Day: Integer); overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DecodeDate(Const DateTime : TDateTime; Out Year, Month, Day : Integer); Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the Julian day for a specified <see cref="TDateTime"/> value.
     /// </summary>
@@ -3196,9 +3202,9 @@ type
     /// The Julian day.
     /// </returns>
     /// <seealso cref="JulianDayToDateTime"/>
-    {$endregion}
-    class function DateTimeToJulianDay(const DateTime: TDateTime): Extended; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function DateTimeToJulianDay(Const DateTime : TDateTime) : Extended; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TDateTime"/> value for a specified Julian day.
     /// </summary>
@@ -3209,9 +3215,9 @@ type
     /// The <see cref="TDateTime"/> value.
     /// </returns>
     /// <seealso cref="DateTimeToJulianDay"/>
-    {$endregion}
-    class function JulianDayToDateTime(const JulianDate: Extended): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function JulianDayToDateTime(Const JulianDate : Extended) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value, which is the result of combining
     /// a specified date with a specified time.
@@ -3225,9 +3231,9 @@ type
     /// <returns>
     /// The <see cref="TDateTime"/> value.
     /// </returns>
-    {$endregion}
-    class function CombineDateTime(const Date: TDate; const Time: TTime): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function CombineDateTime(Const Date : TDate; Const Time : TTime) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the universal time coosrdinate of a specified local time.
     /// </summary>
@@ -3238,9 +3244,9 @@ type
     /// The <see cref="TDateTime"/> value in universal time coordinate.
     /// </returns>
     /// <seealso cref="UniversalToLocalDateTime"/>
-    {$endregion}
-    class function LocalToUniversalDateTime(const DateTime: TDateTime): TDateTime; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function LocalToUniversalDateTime(Const DateTime : TDateTime) : TDateTime; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the local time of a specified universal time coosrdinate.
     /// </summary>
@@ -3251,10 +3257,10 @@ type
     /// The <see cref="TDateTime"/> value in local time coordinate.
     /// </returns>
     /// <seealso cref="LocalToUniversalDateTime"/>
-    {$endregion}
-    class function UniversalToLocalDateTime(const DateTime: TDateTime): TDateTime; static;
-  { Pick-a-Field Functions }
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function UniversalToLocalDateTime(Const DateTime : TDateTime) : TDateTime; Static;
+    { Pick-a-Field Functions }
+    {$Region 'xmldoc'}
     /// <summary>
     /// Strips the time portion from a <see cref="TDateTime"/> value.
     /// </summary>
@@ -3265,9 +3271,9 @@ type
     /// The date portion of the <see cref="TDateTime"/> value.
     /// </returns>
     /// <seealso cref="TimeOf"/>
-    {$endregion}
-    class function DateOf(const DateTime: TDateTime): TDate; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function DateOf(Const DateTime : TDateTime) : TDate; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the era represented by a <see cref="TDateTime"/> value.
     /// </summary>
@@ -3277,9 +3283,9 @@ type
     /// <returns>
     /// The era represented by the <see cref="TDateTime"/> value.
     /// </returns>
-    {$endregion}
-    function EraOf(const DateTime: TDateTime): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function EraOf(Const DateTime : TDateTime) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the year represented by a <see cref="TDateTime"/> value.
     /// </summary>
@@ -3289,9 +3295,9 @@ type
     /// <returns>
     /// The year represented by the <see cref="TDateTime"/> value.
     /// </returns>
-    {$endregion}
-    function YearOf(const DateTime: TDateTime): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function YearOf(Const DateTime : TDateTime) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the month of the year represented by a <see cref="TDateTime"/> value.
     /// </summary>
@@ -3301,9 +3307,9 @@ type
     /// <returns>
     /// The month of the year represented by the <see cref="TDateTime"/> value.
     /// </returns>
-    {$endregion}
-    function MonthOfYear(const DateTime: TDateTime): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function MonthOfYear(Const DateTime : TDateTime) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the week of the year represented by a <see cref="TDateTime"/> value.
     /// </summary>
@@ -3313,9 +3319,9 @@ type
     /// <returns>
     /// The week of the year represented by the <see cref="TDateTime"/> value.
     /// </returns>
-    {$endregion}
-    function WeekOfYear(const DateTime: TDateTime): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function WeekOfYear(Const DateTime : TDateTime) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the month of the month represented by a <see cref="TDateTime"/> value.
     /// </summary>
@@ -3325,9 +3331,9 @@ type
     /// <returns>
     /// The week of the month represented by the <see cref="TDateTime"/> value.
     /// </returns>
-    {$endregion}
-    function WeekOfMonth(const DateTime: TDateTime): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function WeekOfMonth(Const DateTime : TDateTime) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the day of the year represented by a <see cref="TDateTime"/> value.
     /// </summary>
@@ -3337,9 +3343,9 @@ type
     /// <returns>
     /// The day of the year represented by the <see cref="TDateTime"/> value.
     /// </returns>
-    {$endregion}
-    function DayOfYear(const DateTime: TDateTime): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DayOfYear(Const DateTime : TDateTime) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the day of the month represented by a <see cref="TDateTime"/> value.
     /// </summary>
@@ -3349,9 +3355,9 @@ type
     /// <returns>
     /// The day of the month represented by the <see cref="TDateTime"/> value.
     /// </returns>
-    {$endregion}
-    function DayOfMonth(const DateTime: TDateTime): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DayOfMonth(Const DateTime : TDateTime) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the day of the week represented by a <see cref="TDateTime"/> value.
     /// </summary>
@@ -3361,9 +3367,9 @@ type
     /// <returns>
     /// The day of the week represented by the <see cref="TDateTime"/> value.
     /// </returns>
-    {$endregion}
-    class function DayOfWeek(const DateTime: TDateTime): TDayOfWeek; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function DayOfWeek(Const DateTime : TDateTime) : TDayOfWeek; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Strips the date portion from a <see cref="TDateTime"/> value.
     /// </summary>
@@ -3374,9 +3380,9 @@ type
     /// The time portion of the <see cref="TDateTime"/> value.
     /// </returns>
     /// <seealso cref="DateOf"/>
-    {$endregion}
-    class function TimeOf(const DateTime: TDateTime): TTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function TimeOf(Const DateTime : TDateTime) : TTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the hour of the day represented by a <see cref="TDateTime"/> value.
     /// </summary>
@@ -3386,9 +3392,9 @@ type
     /// <returns>
     /// The hour of the day represented by the <see cref="TDateTime"/> value.
     /// </returns>
-    {$endregion}
-    class function HourOfDay(const DateTime: TDateTime): Integer; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function HourOfDay(Const DateTime : TDateTime) : Integer; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of minutes between a specified <see cref="TDateTime"/>
     /// value and midnight of the same day.
@@ -3399,9 +3405,9 @@ type
     /// <returns>
     /// The minute of the day represented by the <see cref="TDateTime"/> value.
     /// </returns>
-    {$endregion}
-    class function MinuteOfDay(const DateTime: TDateTime): Integer; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MinuteOfDay(Const DateTime : TDateTime) : Integer; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the minute of the hour represented by a <see cref="TDateTime"/> value.
     /// </summary>
@@ -3411,9 +3417,9 @@ type
     /// <returns>
     /// The minute of the hour represented by the <see cref="TDateTime"/> value.
     /// </returns>
-    {$endregion}
-    class function MinuteOfHour(const DateTime: TDateTime): Integer; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MinuteOfHour(Const DateTime : TDateTime) : Integer; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of seconds between a specified <see cref="TDateTime"/>
     /// value and midnight of the same day.
@@ -3424,9 +3430,9 @@ type
     /// <returns>
     /// The second of the day represented by the <see cref="TDateTime"/> value.
     /// </returns>
-    {$endregion}
-    class function SecondOfDay(const DateTime: TDateTime): Integer; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function SecondOfDay(Const DateTime : TDateTime) : Integer; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the second of the minute represented by a <see cref="TDateTime"/> value.
     /// </summary>
@@ -3436,9 +3442,9 @@ type
     /// <returns>
     /// The second of the minute represented by the <see cref="TDateTime"/> value.
     /// </returns>
-    {$endregion}
-    class function SecondOfMinute(const DateTime: TDateTime): Integer; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function SecondOfMinute(Const DateTime : TDateTime) : Integer; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of milliseconds between a specified <see cref="TDateTime"/>
     /// value and midnight of the same day.
@@ -3449,9 +3455,9 @@ type
     /// <returns>
     /// The millisecond of the day represented by the <see cref="TDateTime"/> value.
     /// </returns>
-    {$endregion}
-    class function MillisecondOfDay(const DateTime: TDateTime): Integer; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MillisecondOfDay(Const DateTime : TDateTime) : Integer; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the millisecond of the second represented by a <see cref="TDateTime"/> value.
     /// </summary>
@@ -3461,10 +3467,10 @@ type
     /// <returns>
     /// The millisecond of the second represented by the <see cref="TDateTime"/> value.
     /// </returns>
-    {$endregion}
-    class function MillisecondOfSecond(const DateTime: TDateTime): Integer; static; inline;
-  { Start of a Field Functions }
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MillisecondOfSecond(Const DateTime : TDateTime) : Integer; Static; Inline;
+    { Start of a Field Functions }
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
     /// moment of a specified era.
@@ -3476,9 +3482,9 @@ type
     /// The <see cref="TDateTime"/> value of the first moment.
     /// </returns>
     /// <seealso cref="EndOfEra"/>
-    {$endregion}
-    function StartOfEra(Era: Integer): TDateTime; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function StartOfEra(Era : Integer) : TDateTime; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
     /// moment of a specified year.
@@ -3493,9 +3499,9 @@ type
     /// The <see cref="TDateTime"/> value of the first moment.
     /// </returns>
     /// <seealso cref="EndOfYear"/>
-    {$endregion}
-    function StartOfYear(Era, Year: Integer): TDateTime; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function StartOfYear(Era, Year : Integer) : TDateTime; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
     /// moment of a specified year.
@@ -3507,9 +3513,9 @@ type
     /// The <see cref="TDateTime"/> value of the first moment.
     /// </returns>
     /// <seealso cref="EndOfYear"/>
-    {$endregion}
-    function StartOfYear(Year: Integer): TDateTime; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function StartOfYear(Year : Integer) : TDateTime; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
     /// moment of the year identified by a specified <see cref="TDateTime"/> value.
@@ -3521,9 +3527,9 @@ type
     /// The <see cref="TDateTime"/> value of the first moment.
     /// </returns>
     /// <seealso cref="EndOfYear"/>
-    {$endregion}
-    function StartOfYear(const DateTime: TDateTime): TDateTime; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function StartOfYear(Const DateTime : TDateTime) : TDateTime; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
     /// moment of a specified month in a specified year.
@@ -3541,9 +3547,9 @@ type
     /// The <see cref="TDateTime"/> value of the first moment.
     /// </returns>
     /// <seealso cref="EndOfMonth"/>
-    {$endregion}
-    function StartOfMonth(Era, Year, Month: Integer): TDateTime; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function StartOfMonth(Era, Year, Month : Integer) : TDateTime; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
     /// moment of a specified month in a specified year.
@@ -3558,9 +3564,9 @@ type
     /// The <see cref="TDateTime"/> value of the first moment.
     /// </returns>
     /// <seealso cref="EndOfMonth"/>
-    {$endregion}
-    function StartOfMonth(Year, Month: Integer): TDateTime; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function StartOfMonth(Year, Month : Integer) : TDateTime; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
     /// moment of the month identified by a specified <see cref="TDateTime"/> value.
@@ -3572,9 +3578,9 @@ type
     /// The <see cref="TDateTime"/> value of the first moment.
     /// </returns>
     /// <seealso cref="EndOfMonth"/>
-    {$endregion}
-    function StartOfMonth(const DateTime: TDateTime): TDateTime; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function StartOfMonth(Const DateTime : TDateTime) : TDateTime; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
     /// moment of the week identified by a specified <see cref="TDateTime"/> value.
@@ -3586,9 +3592,9 @@ type
     /// The <see cref="TDateTime"/> value of the first moment.
     /// </returns>
     /// <seealso cref="EndOfWeek"/>
-    {$endregion}
-    function StartOfWeek(const DateTime: TDateTime): TDateTime; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function StartOfWeek(Const DateTime : TDateTime) : TDateTime; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
     /// moment of the day identified by a specified <see cref="TDateTime"/> value.
@@ -3600,9 +3606,9 @@ type
     /// The <see cref="TDateTime"/> value of the first moment.
     /// </returns>
     /// <seealso cref="EndOfDay"/>
-    {$endregion}
-    class function StartOfDay(const DateTime: TDateTime): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function StartOfDay(Const DateTime : TDateTime) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
     /// moment of the hour identified by a specified <see cref="TDateTime"/> value.
@@ -3614,9 +3620,9 @@ type
     /// The <see cref="TDateTime"/> value of the first moment.
     /// </returns>
     /// <seealso cref="EndOfHour"/>
-    {$endregion}
-    class function StartOfHour(const DateTime: TDateTime): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function StartOfHour(Const DateTime : TDateTime) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
     /// moment of the minute identified by a specified <see cref="TDateTime"/> value.
@@ -3628,9 +3634,9 @@ type
     /// The <see cref="TDateTime"/> value of the first moment.
     /// </returns>
     /// <seealso cref="EndOfMinute"/>
-    {$endregion}
-    class function StartOfMinute(const DateTime: TDateTime): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function StartOfMinute(Const DateTime : TDateTime) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
     /// moment of the second identified by a specified <see cref="TDateTime"/> value.
@@ -3642,10 +3648,10 @@ type
     /// The <see cref="TDateTime"/> value of the first moment.
     /// </returns>
     /// <seealso cref="EndOfSecond"/>
-    {$endregion}
-    class function StartOfSecond(const DateTime: TDateTime): TDateTime; static; inline;
-  { End of a Field Functions }
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function StartOfSecond(Const DateTime : TDateTime) : TDateTime; Static; Inline;
+    { End of a Field Functions }
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
     /// moment of a specified era.
@@ -3657,9 +3663,9 @@ type
     /// The <see cref="TDateTime"/> value of the last moment.
     /// </returns>
     /// <seealso cref="StartOfEra"/>
-    {$endregion}
-    function EndOfEra(Era: Integer): TDateTime; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function EndOfEra(Era : Integer) : TDateTime; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
     /// moment of a specified year.
@@ -3674,9 +3680,9 @@ type
     /// The <see cref="TDateTime"/> value of the last moment.
     /// </returns>
     /// <seealso cref="StartOfYear"/>
-    {$endregion}
-    function EndOfYear(Era, Year: Integer): TDateTime; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function EndOfYear(Era, Year : Integer) : TDateTime; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
     /// moment of a specified year.
@@ -3688,9 +3694,9 @@ type
     /// The <see cref="TDateTime"/> value of the last moment.
     /// </returns>
     /// <seealso cref="StartOfYear"/>
-    {$endregion}
-    function EndOfYear(Year: Integer): TDateTime; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function EndOfYear(Year : Integer) : TDateTime; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
     /// moment of the year identified by a specified <see cref="TDateTime"/> value.
@@ -3702,9 +3708,9 @@ type
     /// The <see cref="TDateTime"/> value of the last moment.
     /// </returns>
     /// <seealso cref="StartOfYear"/>
-    {$endregion}
-    function EndOfYear(const DateTime: TDateTime): TDateTime; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function EndOfYear(Const DateTime : TDateTime) : TDateTime; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
     /// moment of a specified month in a specified year.
@@ -3722,9 +3728,9 @@ type
     /// The <see cref="TDateTime"/> value of the last moment.
     /// </returns>
     /// <seealso cref="StartOfMonth"/>
-    {$endregion}
-    function EndOfMonth(Era, Year, Month: Integer): TDateTime; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function EndOfMonth(Era, Year, Month : Integer) : TDateTime; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
     /// moment of a specified month in a specified year.
@@ -3739,9 +3745,9 @@ type
     /// The <see cref="TDateTime"/> value of the last moment.
     /// </returns>
     /// <seealso cref="StartOfMonth"/>
-    {$endregion}
-    function EndOfMonth(Year, Month: Integer): TDateTime; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function EndOfMonth(Year, Month : Integer) : TDateTime; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
     /// moment of the month identified by a specified <see cref="TDateTime"/> value.
@@ -3753,9 +3759,9 @@ type
     /// The <see cref="TDateTime"/> value of the last moment.
     /// </returns>
     /// <seealso cref="StartOfMonth"/>
-    {$endregion}
-    function EndOfMonth(const DateTime: TDateTime): TDateTime; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function EndOfMonth(Const DateTime : TDateTime) : TDateTime; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
     /// moment of the week identified by a specified <see cref="TDateTime"/> value.
@@ -3767,9 +3773,9 @@ type
     /// The <see cref="TDateTime"/> value of the last moment.
     /// </returns>
     /// <seealso cref="StartOfWeek"/>
-    {$endregion}
-    function EndOfWeek(const DateTime: TDateTime): TDateTime; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function EndOfWeek(Const DateTime : TDateTime) : TDateTime; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
     /// moment of the day identified by a specified <see cref="TDateTime"/> value.
@@ -3781,9 +3787,9 @@ type
     /// The <see cref="TDateTime"/> value of the last moment.
     /// </returns>
     /// <seealso cref="StartOfDay"/>
-    {$endregion}
-    class function EndOfDay(const DateTime: TDateTime): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function EndOfDay(Const DateTime : TDateTime) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
     /// moment of the hour identified by a specified <see cref="TDateTime"/> value.
@@ -3795,9 +3801,9 @@ type
     /// The <see cref="TDateTime"/> value of the last moment.
     /// </returns>
     /// <seealso cref="StartOfHour"/>
-    {$endregion}
-    class function EndOfHour(const DateTime: TDateTime): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function EndOfHour(Const DateTime : TDateTime) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
     /// moment of the minute identified by a specified <see cref="TDateTime"/> value.
@@ -3809,9 +3815,9 @@ type
     /// The <see cref="TDateTime"/> value of the last moment.
     /// </returns>
     /// <seealso cref="StartOfMinute"/>
-    {$endregion}
-    class function EndOfMinute(const DateTime: TDateTime): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function EndOfMinute(Const DateTime : TDateTime) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last expressible
     /// moment of the second identified by a specified <see cref="TDateTime"/> value.
@@ -3823,10 +3829,10 @@ type
     /// The <see cref="TDateTime"/> value of the last moment.
     /// </returns>
     /// <seealso cref="StartOfSecond"/>
-    {$endregion}
-    class function EndOfSecond(const DateTime: TDateTime): TDateTime; static; inline;
-  { Previous of a Field Functions }
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function EndOfSecond(Const DateTime : TDateTime) : TDateTime; Static; Inline;
+    { Previous of a Field Functions }
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of years.
     /// </summary>
@@ -3842,9 +3848,9 @@ type
     /// <seealso cref="NextYear"/>
     /// <seealso cref="IncYear"/>
     /// <seealso cref="DecYear"/>
-    {$endregion}
-    function PrevYear(const DateTime: TDateTime; NumberOfYears: Integer = 1): TDateTime; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function PrevYear(Const DateTime : TDateTime; NumberOfYears : Integer = 1) : TDateTime; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of months.
     /// </summary>
@@ -3860,9 +3866,9 @@ type
     /// <seealso cref="NextMonth"/>
     /// <seealso cref="IncMonth"/>
     /// <seealso cref="DecMonth"/>
-    {$endregion}
-    function PrevMonth(const DateTime: TDateTime; NumberOfMonths: Integer = 1): TDateTime; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function PrevMonth(Const DateTime : TDateTime; NumberOfMonths : Integer = 1) : TDateTime; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of weeks.
     /// </summary>
@@ -3878,9 +3884,9 @@ type
     /// <seealso cref="NextWeek"/>
     /// <seealso cref="IncWeek"/>
     /// <seealso cref="DecWeek"/>
-    {$endregion}
-    class function PrevWeek(const DateTime: TDateTime; NumberOfWeeks: Integer = 1): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function PrevWeek(Const DateTime : TDateTime; NumberOfWeeks : Integer = 1) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of days.
     /// </summary>
@@ -3896,9 +3902,9 @@ type
     /// <seealso cref="NextDay"/>
     /// <seealso cref="IncDay"/>
     /// <seealso cref="DecDay"/>
-    {$endregion}
-    class function PrevDay(const DateTime: TDateTime; NumberOfDays: Integer = 1): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function PrevDay(Const DateTime : TDateTime; NumberOfDays : Integer = 1) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the last day of the
     /// week of a specified day in a specified <see cref="TDateTime"/> value.
@@ -3913,9 +3919,9 @@ type
     /// The <see cref="TDateTime"/> value of the last day of the week.
     /// </returns>
     /// <seealso cref="NextDayOfWeek"/>
-    {$endregion}
-    function PrevDayOfWeek(const DateTime: TDateTime; DoW: TDayOfWeek): TDateTime;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function PrevDayOfWeek(Const DateTime : TDateTime; DoW : TDayOfWeek) : TDateTime;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of hours.
     /// </summary>
@@ -3931,9 +3937,9 @@ type
     /// <seealso cref="NextHour"/>
     /// <seealso cref="IncHour"/>
     /// <seealso cref="DecHour"/>
-    {$endregion}
-    class function PrevHour(const DateTime: TDateTime; NumberOfHours: Integer = 1): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function PrevHour(Const DateTime : TDateTime; NumberOfHours : Integer = 1) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of minutes.
     /// </summary>
@@ -3949,9 +3955,9 @@ type
     /// <seealso cref="NextMinute"/>
     /// <seealso cref="IncMinute"/>
     /// <seealso cref="DecMinute"/>
-    {$endregion}
-    class function PrevMinute(const DateTime: TDateTime; NumberOfMinutes: Integer = 1): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function PrevMinute(Const DateTime : TDateTime; NumberOfMinutes : Integer = 1) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of seconds.
     /// </summary>
@@ -3967,9 +3973,9 @@ type
     /// <seealso cref="NextSecond"/>
     /// <seealso cref="IncSecond"/>
     /// <seealso cref="DecSecond"/>
-    {$endregion}
-    class function PrevSecond(const DateTime: TDateTime; NumberOfSeconds: Integer = 1): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function PrevSecond(Const DateTime : TDateTime; NumberOfSeconds : Integer = 1) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value shifted back by a specified number of milliseconds.
     /// </summary>
@@ -3985,10 +3991,10 @@ type
     /// <seealso cref="NextMillisecond"/>
     /// <seealso cref="IncMillisecond"/>
     /// <seealso cref="DecMillisecond"/>
-    {$endregion}
-    class function PrevMillisecond(const DateTime: TDateTime; NumberOfMilliseconds: Integer = 1): TDateTime; static; inline;
-  { Next of a Field Functions }
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function PrevMillisecond(Const DateTime : TDateTime; NumberOfMilliseconds : Integer = 1) : TDateTime; Static; Inline;
+    { Next of a Field Functions }
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of years.
     /// </summary>
@@ -4004,9 +4010,9 @@ type
     /// <seealso cref="PrevYear"/>
     /// <seealso cref="IncYear"/>
     /// <seealso cref="DecYear"/>
-    {$endregion}
-    function NextYear(const DateTime: TDateTime; NumberOfYears: Integer = 1): TDateTime;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function NextYear(Const DateTime : TDateTime; NumberOfYears : Integer = 1) : TDateTime;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of months.
     /// </summary>
@@ -4022,9 +4028,9 @@ type
     /// <seealso cref="PrevMonth"/>
     /// <seealso cref="IncMonth"/>
     /// <seealso cref="DecMonth"/>
-    {$endregion}
-    function NextMonth(const DateTime: TDateTime; NumberOfMonths: Integer = 1): TDateTime;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function NextMonth(Const DateTime : TDateTime; NumberOfMonths : Integer = 1) : TDateTime;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of weeks.
     /// </summary>
@@ -4040,9 +4046,9 @@ type
     /// <seealso cref="PrevWeek"/>
     /// <seealso cref="IncWeek"/>
     /// <seealso cref="DecWeek"/>
-    {$endregion}
-    class function NextWeek(const DateTime: TDateTime; NumberOfWeeks: Integer = 1): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function NextWeek(Const DateTime : TDateTime; NumberOfWeeks : Integer = 1) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of days.
     /// </summary>
@@ -4058,9 +4064,9 @@ type
     /// <seealso cref="PrevDay"/>
     /// <seealso cref="IncDay"/>
     /// <seealso cref="DecDay"/>
-    {$endregion}
-    class function NextDay(const DateTime: TDateTime; NumberOfDays: Integer = 1): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function NextDay(Const DateTime : TDateTime; NumberOfDays : Integer = 1) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the next day of the
     /// week of a specified day in a specified <see cref="TDateTime"/> value.
@@ -4075,9 +4081,9 @@ type
     /// The <see cref="TDateTime"/> value of the next day of the week.
     /// </returns>
     /// <seealso cref="PrevDayOfWeek"/>
-    {$endregion}
-    function NextDayOfWeek(const DateTime: TDateTime; DoW: TDayOfWeek): TDateTime;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function NextDayOfWeek(Const DateTime : TDateTime; DoW : TDayOfWeek) : TDateTime;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of hours.
     /// </summary>
@@ -4093,9 +4099,9 @@ type
     /// <seealso cref="PrevHour"/>
     /// <seealso cref="IncHour"/>
     /// <seealso cref="DecHour"/>
-    {$endregion}
-    class function NextHour(const DateTime: TDateTime; NumberOfHours: Integer = 1): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function NextHour(Const DateTime : TDateTime; NumberOfHours : Integer = 1) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of minutes.
     /// </summary>
@@ -4111,9 +4117,9 @@ type
     /// <seealso cref="PrevMinute"/>
     /// <seealso cref="IncMinute"/>
     /// <seealso cref="DecMinute"/>
-    {$endregion}
-    class function NextMinute(const DateTime: TDateTime; NumberOfMinutes: Integer = 1): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function NextMinute(Const DateTime : TDateTime; NumberOfMinutes : Integer = 1) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of seconds.
     /// </summary>
@@ -4129,9 +4135,9 @@ type
     /// <seealso cref="PrevSecond"/>
     /// <seealso cref="IncSecond"/>
     /// <seealso cref="DecSecond"/>
-    {$endregion}
-    class function NextSecond(const DateTime: TDateTime; NumberOfSeconds: Integer = 1): TDateTime; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function NextSecond(Const DateTime : TDateTime; NumberOfSeconds : Integer = 1) : TDateTime; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value shifted forward by a specified number of milliseconds.
     /// </summary>
@@ -4147,10 +4153,10 @@ type
     /// <seealso cref="PrevMillisecond"/>
     /// <seealso cref="IncMillisecond"/>
     /// <seealso cref="DecMillisecond"/>
-    {$endregion}
-    class function NextMillisecond(const DateTime: TDateTime; NumberOfMilliseconds: Integer = 1): TDateTime; static; inline;
-  { Increment Field Functions }
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function NextMillisecond(Const DateTime : TDateTime; NumberOfMilliseconds : Integer = 1) : TDateTime; Static; Inline;
+    { Increment Field Functions }
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a <see cref="TDateTime"/> value by a specified number of years.
     /// </summary>
@@ -4163,9 +4169,9 @@ type
     /// <seealso cref="DecYear"/>
     /// <seealso cref="NextYear"/>
     /// <seealso cref="PrevYear"/>
-    {$endregion}
-    procedure IncYear(var DateTime: TDateTime; NumberOfYears: Integer = 1); overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure IncYear(Var DateTime : TDateTime; NumberOfYears : Integer = 1); Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a <see cref="TDate"/> value by a specified number of years.
     /// </summary>
@@ -4178,9 +4184,9 @@ type
     /// <seealso cref="DecYear"/>
     /// <seealso cref="NextYear"/>
     /// <seealso cref="PrevYear"/>
-    {$endregion}
-    procedure IncYear(var Date: TDate; NumberOfYears: Integer = 1); overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure IncYear(Var Date : TDate; NumberOfYears : Integer = 1); Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a <see cref="TDateTime"/> value by a specified number of months.
     /// </summary>
@@ -4193,9 +4199,9 @@ type
     /// <seealso cref="DecMonth"/>
     /// <seealso cref="NextMonth"/>
     /// <seealso cref="PrevMonth"/>
-    {$endregion}
-    procedure IncMonth(var DateTime: TDateTime; NumberOfMonths: Integer = 1); overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure IncMonth(Var DateTime : TDateTime; NumberOfMonths : Integer = 1); Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a <see cref="TDate"/> value by a specified number of months.
     /// </summary>
@@ -4208,9 +4214,9 @@ type
     /// <seealso cref="DecMonth"/>
     /// <seealso cref="NextMonth"/>
     /// <seealso cref="PrevMonth"/>
-    {$endregion}
-    procedure IncMonth(var Date: TDate; NumberOfMonths: Integer = 1); overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure IncMonth(Var Date : TDate; NumberOfMonths : Integer = 1); Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a <see cref="TDateTime"/> value by a specified number of weeks.
     /// </summary>
@@ -4223,9 +4229,9 @@ type
     /// <seealso cref="DecWeek"/>
     /// <seealso cref="NextWeek"/>
     /// <seealso cref="PrevWeek"/>
-    {$endregion}
-    class procedure IncWeek(var DateTime: TDateTime; NumberOfWeeks: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure IncWeek(Var DateTime : TDateTime; NumberOfWeeks : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a <see cref="TDate"/> value by a specified number of weeks.
     /// </summary>
@@ -4238,9 +4244,9 @@ type
     /// <seealso cref="DecWeek"/>
     /// <seealso cref="NextWeek"/>
     /// <seealso cref="PrevWeek"/>
-    {$endregion}
-    class procedure IncWeek(var Date: TDate; NumberOfWeeks: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure IncWeek(Var Date : TDate; NumberOfWeeks : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a <see cref="TDateTime"/> value by a specified number of days.
     /// </summary>
@@ -4253,9 +4259,9 @@ type
     /// <seealso cref="DecDay"/>
     /// <seealso cref="NextDay"/>
     /// <seealso cref="PrevDay"/>
-    {$endregion}
-    class procedure IncDay(var DateTime: TDateTime; NumberOfDays: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure IncDay(Var DateTime : TDateTime; NumberOfDays : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a <see cref="TDate"/> value by a specified number of days.
     /// </summary>
@@ -4268,9 +4274,9 @@ type
     /// <seealso cref="DecDay"/>
     /// <seealso cref="NextDay"/>
     /// <seealso cref="PrevDay"/>
-    {$endregion}
-    class procedure IncDay(var Date: TDate; NumberOfDays: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure IncDay(Var Date : TDate; NumberOfDays : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a <see cref="TDateTime"/> value by a specified number of hours.
     /// </summary>
@@ -4283,9 +4289,9 @@ type
     /// <seealso cref="DecHour"/>
     /// <seealso cref="NextHour"/>
     /// <seealso cref="PrevHour"/>
-    {$endregion}
-    class procedure IncHour(var DateTime: TDateTime; NumberOfHours: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure IncHour(Var DateTime : TDateTime; NumberOfHours : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a <see cref="TTime"/> value by a specified number of hours.
     /// </summary>
@@ -4298,9 +4304,9 @@ type
     /// <seealso cref="DecHour"/>
     /// <seealso cref="NextHour"/>
     /// <seealso cref="PrevHour"/>
-    {$endregion}
-    class procedure IncHour(var Time: TTime; NumberOfHours: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure IncHour(Var Time : TTime; NumberOfHours : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a <see cref="TDateTime"/> value by a specified number of minutes.
     /// </summary>
@@ -4313,9 +4319,9 @@ type
     /// <seealso cref="DecMinute"/>
     /// <seealso cref="NextMinute"/>
     /// <seealso cref="PrevMinute"/>
-    {$endregion}
-    class procedure IncMinute(var DateTime: TDateTime; NumberOfMinutes: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure IncMinute(Var DateTime : TDateTime; NumberOfMinutes : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a <see cref="TTime"/> value by a specified number of minutes.
     /// </summary>
@@ -4328,9 +4334,9 @@ type
     /// <seealso cref="DecMinute"/>
     /// <seealso cref="NextMinute"/>
     /// <seealso cref="PrevMinute"/>
-    {$endregion}
-    class procedure IncMinute(var Time: TTime; NumberOfMinutes: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure IncMinute(Var Time : TTime; NumberOfMinutes : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a <see cref="TDateTime"/> value by a specified number of seconds.
     /// </summary>
@@ -4343,9 +4349,9 @@ type
     /// <seealso cref="DecSecond"/>
     /// <seealso cref="NextSecond"/>
     /// <seealso cref="PrevSecond"/>
-    {$endregion}
-    class procedure IncSecond(var DateTime: TDateTime; NumberOfSeconds: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure IncSecond(Var DateTime : TDateTime; NumberOfSeconds : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a <see cref="TTime"/> value by a specified number of seconds.
     /// </summary>
@@ -4358,9 +4364,9 @@ type
     /// <seealso cref="DecSecond"/>
     /// <seealso cref="NextSecond"/>
     /// <seealso cref="PrevSecond"/>
-    {$endregion}
-    class procedure IncSecond(var Time: TTime; NumberOfSeconds: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure IncSecond(Var Time : TTime; NumberOfSeconds : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a <see cref="TDateTime"/> value by a specified number of milliseconds.
     /// </summary>
@@ -4373,9 +4379,9 @@ type
     /// <seealso cref="DecMillisecond"/>
     /// <seealso cref="NextMillisecond"/>
     /// <seealso cref="PrevMillisecond"/>
-    {$endregion}
-    class procedure IncMillisecond(var DateTime: TDateTime; NumberOfMilliseconds: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure IncMillisecond(Var DateTime : TDateTime; NumberOfMilliseconds : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a <see cref="TTime"/> value by a specified number of milliseconds.
     /// </summary>
@@ -4388,9 +4394,9 @@ type
     /// <seealso cref="DecMillisecond"/>
     /// <seealso cref="NextMillisecond"/>
     /// <seealso cref="PrevMillisecond"/>
-    {$endregion}
-    class procedure IncMillisecond(var Time: TTime; NumberOfMilliseconds: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure IncMillisecond(Var Time : TTime; NumberOfMilliseconds : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Increments a <see cref="TDateTime"/> value by a specified number of days
     /// including fraction of a day.
@@ -4402,10 +4408,10 @@ type
     /// The number of days including fraction of a day.
     /// </param>
     /// <seealso cref="DecDateTime"/>
-    {$endregion}
-    class procedure IncDateTime(var DateTime: TDateTime; const Delta: Double); static; inline;
-  { Decrement Field procedures }
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure IncDateTime(Var DateTime : TDateTime; Const Delta : Double); Static; Inline;
+    { Decrement Field procedures }
+    {$Region 'xmldoc'}
     /// <summary>
     /// Decrements a <see cref="TDateTime"/> value by a specified number of years.
     /// </summary>
@@ -4418,9 +4424,9 @@ type
     /// <seealso cref="IncYear"/>
     /// <seealso cref="NextYear"/>
     /// <seealso cref="PrevYear"/>
-    {$endregion}
-    procedure DecYear(var DateTime: TDateTime; NumberOfYears: Integer = 1); overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DecYear(Var DateTime : TDateTime; NumberOfYears : Integer = 1); Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Decrements a <see cref="TDate"/> value by a specified number of years.
     /// </summary>
@@ -4433,9 +4439,9 @@ type
     /// <seealso cref="IncYear"/>
     /// <seealso cref="NextYear"/>
     /// <seealso cref="PrevYear"/>
-    {$endregion}
-    procedure DecYear(var Date: TDate; NumberOfYears: Integer = 1); overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DecYear(Var Date : TDate; NumberOfYears : Integer = 1); Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Decrements a <see cref="TDateTime"/> value by a specified number of months.
     /// </summary>
@@ -4448,9 +4454,9 @@ type
     /// <seealso cref="IncMonth"/>
     /// <seealso cref="NextMonth"/>
     /// <seealso cref="PrevMonth"/>
-    {$endregion}
-    procedure DecMonth(var DateTime: TDateTime; NumberOfMonths: Integer = 1); overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DecMonth(Var DateTime : TDateTime; NumberOfMonths : Integer = 1); Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Decrements a <see cref="TDate"/> value by a specified number of months.
     /// </summary>
@@ -4463,9 +4469,9 @@ type
     /// <seealso cref="IncMonth"/>
     /// <seealso cref="NextMonth"/>
     /// <seealso cref="PrevMonth"/>
-    {$endregion}
-    procedure DecMonth(var Date: TDate; NumberOfMonths: Integer = 1); overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DecMonth(Var Date : TDate; NumberOfMonths : Integer = 1); Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Decrements a <see cref="TDateTime"/> value by a specified number of weeks.
     /// </summary>
@@ -4478,9 +4484,9 @@ type
     /// <seealso cref="IncWeek"/>
     /// <seealso cref="NextWeek"/>
     /// <seealso cref="PrevWeek"/>
-    {$endregion}
-    class procedure DecWeek(var DateTime: TDateTime; NumberOfWeeks: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure DecWeek(Var DateTime : TDateTime; NumberOfWeeks : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Decrements a <see cref="TDate"/> value by a specified number of weeks.
     /// </summary>
@@ -4493,9 +4499,9 @@ type
     /// <seealso cref="IncWeek"/>
     /// <seealso cref="NextWeek"/>
     /// <seealso cref="PrevWeek"/>
-    {$endregion}
-    class procedure DecWeek(var Date: TDate; NumberOfWeeks: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure DecWeek(Var Date : TDate; NumberOfWeeks : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Decrements a <see cref="TDateTime"/> value by a specified number of days.
     /// </summary>
@@ -4508,9 +4514,9 @@ type
     /// <seealso cref="IncDay"/>
     /// <seealso cref="NextDay"/>
     /// <seealso cref="PrevDay"/>
-    {$endregion}
-    class procedure DecDay(var DateTime: TDateTime; NumberOfDays: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure DecDay(Var DateTime : TDateTime; NumberOfDays : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Decrements a <see cref="TDate"/> value by a specified number of days.
     /// </summary>
@@ -4523,9 +4529,9 @@ type
     /// <seealso cref="IncDay"/>
     /// <seealso cref="NextDay"/>
     /// <seealso cref="PrevDay"/>
-    {$endregion}
-    class procedure DecDay(var Date: TDate; NumberOfDays: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure DecDay(Var Date : TDate; NumberOfDays : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Decrements a <see cref="TDateTime"/> value by a specified number of hours.
     /// </summary>
@@ -4538,9 +4544,9 @@ type
     /// <seealso cref="IncHour"/>
     /// <seealso cref="NextHour"/>
     /// <seealso cref="PrevHour"/>
-    {$endregion}
-    class procedure DecHour(var DateTime: TDateTime; NumberOfHours: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure DecHour(Var DateTime : TDateTime; NumberOfHours : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Decrements a <see cref="TTime"/> value by a specified number of hours.
     /// </summary>
@@ -4553,9 +4559,9 @@ type
     /// <seealso cref="IncHour"/>
     /// <seealso cref="NextHour"/>
     /// <seealso cref="PrevHour"/>
-    {$endregion}
-    class procedure DecHour(var Time: TTime; NumberOfHours: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure DecHour(Var Time : TTime; NumberOfHours : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Decrements a <see cref="TDateTime"/> value by a specified number of minutes.
     /// </summary>
@@ -4568,9 +4574,9 @@ type
     /// <seealso cref="IncMinute"/>
     /// <seealso cref="NextMinute"/>
     /// <seealso cref="PrevMinute"/>
-    {$endregion}
-    class procedure DecMinute(var DateTime: TDateTime; NumberOfMinutes: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure DecMinute(Var DateTime : TDateTime; NumberOfMinutes : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Decrements a <see cref="TTime"/> value by a specified number of minutes.
     /// </summary>
@@ -4583,9 +4589,9 @@ type
     /// <seealso cref="IncMinute"/>
     /// <seealso cref="NextMinute"/>
     /// <seealso cref="PrevMinute"/>
-    {$endregion}
-    class procedure DecMinute(var Time: TTime; NumberOfMinutes: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure DecMinute(Var Time : TTime; NumberOfMinutes : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Decrements a <see cref="TDateTime"/> value by a specified number of seconds.
     /// </summary>
@@ -4598,9 +4604,9 @@ type
     /// <seealso cref="IncSecond"/>
     /// <seealso cref="NextSecond"/>
     /// <seealso cref="PrevSecond"/>
-    {$endregion}
-    class procedure DecSecond(var DateTime: TDateTime; NumberOfSeconds: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure DecSecond(Var DateTime : TDateTime; NumberOfSeconds : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Decrements a <see cref="TTime"/> value by a specified number of seconds.
     /// </summary>
@@ -4613,9 +4619,9 @@ type
     /// <seealso cref="IncSecond"/>
     /// <seealso cref="NextSecond"/>
     /// <seealso cref="PrevSecond"/>
-    {$endregion}
-    class procedure DecSecond(var Time: TTime; NumberOfSeconds: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure DecSecond(Var Time : TTime; NumberOfSeconds : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Decrements a <see cref="TDateTime"/> value by a specified number of milliseconds.
     /// </summary>
@@ -4628,9 +4634,9 @@ type
     /// <seealso cref="IncMillisecond"/>
     /// <seealso cref="NextMillisecond"/>
     /// <seealso cref="PrevMillisecond"/>
-    {$endregion}
-    class procedure DecMillisecond(var DateTime: TDateTime; NumberOfMilliseconds: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure DecMillisecond(Var DateTime : TDateTime; NumberOfMilliseconds : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Decrements a <see cref="TTime"/> value by a specified number of milliseconds.
     /// </summary>
@@ -4643,9 +4649,9 @@ type
     /// <seealso cref="IncMillisecond"/>
     /// <seealso cref="NextMillisecond"/>
     /// <seealso cref="PrevMillisecond"/>
-    {$endregion}
-    class procedure DecMillisecond(var Time: TTime; NumberOfMilliseconds: Integer = 1); overload; static; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure DecMillisecond(Var Time : TTime; NumberOfMilliseconds : Integer = 1); Overload; Static; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Decrements a <see cref="TDateTime"/> value by a specified number of days
     /// including fraction of a day.
@@ -4657,10 +4663,10 @@ type
     /// The number of days including fraction of a day.
     /// </param>
     /// <seealso cref="IncDateTime"/>
-    {$endregion}
-    class procedure DecDateTime(var DateTime: TDateTime; const Delta: Double); static; inline;
-  { String Conversion Functions }
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure DecDateTime(Var DateTime : TDateTime; Const Delta : Double); Static; Inline;
+    { String Conversion Functions }
+    {$Region 'xmldoc'}
     /// <summary>
     /// Formats a <see cref="TDateTime"/> value.
     /// </summary>
@@ -5004,9 +5010,9 @@ type
     /// <seealso cref="Settings"/>
     /// <seealso cref="Parse"/>
     /// <seealso cref="TryParse"/>
-    {$endregion}
-    function Format(const FmtStr: String; const DateTime: TDateTime): String; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Format(Const FmtStr : String; Const DateTime : TDateTime) : String; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a string to a <see cref="TDateTime"/> value using a specified
     /// format string.
@@ -5037,9 +5043,9 @@ type
     /// </exception>
     /// <seealso cref="TryParse"/>
     /// <seealso cref="Format"/>
-    {$endregion}
-    function Parse(const FmtStr: String; const DateTimeStr: String): TDateTime; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Parse(Const FmtStr : String; Const DateTimeStr : String) : TDateTime; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a string to a <see cref="TDateTime"/> value using a specified
     /// format string.
@@ -5069,26 +5075,27 @@ type
     /// </returns>
     /// <seealso cref="Parse"/>
     /// <seealso cref="Format"/>
-    {$endregion}
-    function TryParse(const FmtStr: String; const DateTimeStr: String; var DateTime: TDateTime): Boolean;
-  end;
+    {$Endregion}
+    Function TryParse(Const FmtStr : String; Const DateTimeStr : String; Var DateTime : TDateTime) : Boolean;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCalendarClassList maintains a list of <see cref="TCalendar"/> classes.
-  /// </summary>
-  /// <remarks>
-  /// Use TCalendarClassList to store and maintain a list of <see cref="TCalendar"/>
-  /// classes. TCalendarClassList provides properties and methods to add, delete,
-  /// rearrange, locate, access, and sort <see cref="TCalendar"/> classes.
-  /// </remarks>
-  {$endregion}
-  TCalendarClassList = class(TList)
-  private
-    function GetItems(Index: NativeInt): TCalendarClass; inline;
-    procedure SetItems(Index: NativeInt; Value: TCalendarClass);
-  public
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCalendarClassList maintains a list of <see cref="TCalendar"/> classes.
+/// </summary>
+/// <remarks>
+/// Use TCalendarClassList to store and maintain a list of <see cref="TCalendar"/>
+/// classes. TCalendarClassList provides properties and methods to add, delete,
+/// rearrange, locate, access, and sort <see cref="TCalendar"/> classes.
+/// </remarks>
+{$Endregion}
+
+  TCalendarClassList = Class(TList)
+   Private
+    Function GetItems(Index : NativeInt) : TCalendarClass; Inline;
+    Procedure SetItems(Index : NativeInt; Value : TCalendarClass);
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Retrieves the first <see cref="TCalendar"/> class in the <see cref="Items"/>
     /// array.
@@ -5097,9 +5104,9 @@ type
     /// The first item in the list.
     /// </returns>
     /// <seealso cref="Last"/>
-    {$endregion}
-    function First: TCalendarClass; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function First : TCalendarClass; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Retrieves the last <see cref="TCalendar"/> class in the <see cref="Items"/>
     /// array.
@@ -5108,9 +5115,9 @@ type
     /// The last item in the list.
     /// </returns>
     /// <seealso cref="First"/>
-    {$endregion}
-    function Last: TCalendarClass; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Last : TCalendarClass; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Inserts the <paramref name="Item"/> parameter at the end of the <see cref="Items"/>
     /// array.
@@ -5122,9 +5129,9 @@ type
     /// The index of the new item.
     /// </returns>
     /// <seealso cref="Insert"/>
-    {$endregion}
-    function Add(Item: TCalendarClass): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Add(Item : TCalendarClass) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Inserts the <paramref name="Item"/> parameter in the <see cref="Items"/> array,
     /// at the position specified by <paramref name="Index"/>.
@@ -5136,9 +5143,9 @@ type
     /// The <see cref="TCalendar"/> class to insert.
     /// </param>
     /// <seealso cref="Add"/>
-    {$endregion}
-    procedure Insert(Index: Integer; Item: TCalendarClass); inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Insert(Index : Integer; Item : TCalendarClass); Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes the first reference to the <paramref name="Item"/> parameter from
     /// the <see cref="Items"/> array.
@@ -5150,9 +5157,9 @@ type
     /// The index of the removed item, or -1 if the item is not found.
     /// </returns>
     /// <seealso cref="RemoveItem"/>
-    {$endregion}
-    function Remove(Item: TCalendarClass): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Remove(Item : TCalendarClass) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes the first or last reference to the <paramref name="Item"/> parameter
     /// from the <see cref="Items"/> array.
@@ -5167,11 +5174,11 @@ type
     /// The index of the removed item, or -1 if the item is not found.
     /// </returns>
     /// <seealso cref="Remove"/>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    function RemoveItem(Item: TCalendarClass; Direction: TList.TDirection): Integer;
+    Function RemoveItem(Item : TCalendarClass; Direction : TList.TDirection) : Integer;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes the first reference to the <paramref name="Item"/> parameter from
     /// the <see cref="Items"/> array.
@@ -5183,9 +5190,9 @@ type
     /// The extracted item, or <see langword="nil"/> if the item is not found.
     /// </returns>
     /// <seealso cref="ExtractItem"/>
-    {$endregion}
-    function Extract(Item: TCalendarClass): TCalendarClass; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Extract(Item : TCalendarClass) : TCalendarClass; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes the first or last reference to the <paramref name="Item"/> parameter
     /// from the <see cref="Items"/> array.
@@ -5200,11 +5207,11 @@ type
     /// The extracted item, or <see langword="nil"/> if the item is not found.
     /// </returns>
     /// <seealso cref="Extract"/>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    function ExtractItem(Item: TCalendarClass; Direction: TList.TDirection): TCalendarClass; inline;
+    Function ExtractItem(Item : TCalendarClass; Direction : TList.TDirection) : TCalendarClass; Inline;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns index of the first reference to the <paramref name="Item"/> parameter
     /// in the <see cref="Items"/> array.
@@ -5216,9 +5223,9 @@ type
     /// The index of item, or -1 if the item is not found.
     /// </returns>
     /// <seealso cref="IndexOfItem"/>
-    {$endregion}
-    function IndexOf(Item: TCalendarClass): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IndexOf(Item : TCalendarClass) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns index of the first or last reference to the <paramref name="Item"/>
     /// parameter in the <see cref="Items"/> array.
@@ -5233,98 +5240,99 @@ type
     /// The index of item, or -1 if the item is not found.
     /// </returns>
     /// <seealso cref="IndexOf"/>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    function IndexOfItem(Item: TCalendarClass; Direction: TList.TDirection): Integer; inline;
+    Function IndexOfItem(Item : TCalendarClass; Direction : TList.TDirection) : Integer; Inline;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TCalendar"/> classes.
     /// </summary>
-    {$endregion}
-    property Items[Index: NativeInt]: TCalendarClass read GetItems write SetItems; default;
-  end;
+    {$Endregion}
+    Property Items[Index : NativeInt] : TCalendarClass Read GetItems Write SetItems; Default;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// CalendarTypes maintains a list of registered <see cref="TCalendar"/> classes.
-  /// </summary>
-  /// <remarks>
-  /// Use CalendarTypes to register or unregister a <see cref="TCalendar"/> class.
-  /// Also, CalendarTypes provides properties and methods to locate. and access the
-  /// registered <see cref="TCalendar"/> classes by their identifier, name, or
-  /// associated locale names.
-  /// </remarks>
-  {$endregion}
-  CalendarTypes = class
-  private
-    class var CalendarList: TStringList;
-    class procedure Cleanup;
-  protected
-    type
-      {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// CalendarTypes maintains a list of registered <see cref="TCalendar"/> classes.
+/// </summary>
+/// <remarks>
+/// Use CalendarTypes to register or unregister a <see cref="TCalendar"/> class.
+/// Also, CalendarTypes provides properties and methods to locate. and access the
+/// registered <see cref="TCalendar"/> classes by their identifier, name, or
+/// associated locale names.
+/// </remarks>
+{$Endregion}
+
+  CalendarTypes = Class
+   Private
+    Class Var CalendarList : TStringList;
+    Class Procedure Cleanup;
+   Protected
+    Type
+    {$Region 'xmldoc'}
+    /// <summary>
+    /// TCalendarRegInfo associates a <see cref="TCalendar"/> class with a set of locales.
+    /// </summary>
+    {$Endregion}
+    TCalendarRegInfo = Class(TObject)
+     Private
+      fCalendarClass : TCalendarClass;
+      fLocales       : TStringList;
+     Public
+      {$Region 'xmldoc'}
       /// <summary>
-      /// TCalendarRegInfo associates a <see cref="TCalendar"/> class with a set of locales.
+      /// Creates an instance of the class.
       /// </summary>
-      {$endregion}
-      TCalendarRegInfo = class(TObject)
-      private
-        fCalendarClass: TCalendarClass;
-        fLocales: TStringList;
-      public
-        {$region 'xmldoc'}
-        /// <summary>
-        /// Creates an instance of the class.
-        /// </summary>
-        /// <param name="ACalendarClass">
-        /// The <see cref="TCalendar"/> class that is referenced by the object.
-        /// </param>
-        {$endregion}
-        constructor Create(ACalendarClass: TCalendarClass);
-        {$region 'xmldoc'}
-        /// <summary>
-        /// Destroys the instance and releases its allocated momory.
-        /// </summary>
-        {$endregion}
-        destructor Destroy; override;
-        {$region 'xmldoc'}
-        /// <summary>
-        /// Links a set of locale names to the <see cref="TCalendar"/> class
-        /// referenced by the <see cref="CalendarClass"/> property.
-        /// </summary>
-        /// <param name="Locales">
-        /// The array of locale names.
-        /// </param>
-        /// <seealso cref="Dissociate"/>
-        {$endregion}
-        procedure Associate(const Locales: array of String);
-        {$region 'xmldoc'}
-        /// <summary>
-        /// Unlinks a set of locale names from the <see cref="TCalendar"/> class
-        /// referenced by the <see cref="CalendarClass"/> property.
-        /// </summary>
-        /// <param name="Locales">
-        /// The array of locale names.
-        /// </param>
-        /// <seealso cref="Associate"/>
-        {$endregion}
-        procedure Dissociate(const Locales: array of String);
-        {$region 'xmldoc'}
-        /// <summary>
-        /// Lists the locale names, which are linked to the <see cref="TCalendar"/>
-        /// class referenced by the <see cref="CalendarClass"/> property.
-        /// </summary>
-        {$endregion}
-        property AssociatedLocales: TStringList read fLocales;
-        {$region 'xmldoc'}
-        /// <summary>
-        /// Gets the <see cref="TCalendar"/> class referenced by the object.
-        /// </summary>
-        {$endregion}
-        property CalendarClass: TCalendarClass read fCalendarClass;
-      end;
-  public
-    {$region 'xmldoc'}
+      /// <param name="ACalendarClass">
+      /// The <see cref="TCalendar"/> class that is referenced by the object.
+      /// </param>
+      {$Endregion}
+      Constructor Create(ACalendarClass : TCalendarClass);
+      {$Region 'xmldoc'}
+      /// <summary>
+      /// Destroys the instance and releases its allocated momory.
+      /// </summary>
+      {$Endregion}
+      Destructor Destroy; Override;
+      {$Region 'xmldoc'}
+      /// <summary>
+      /// Links a set of locale names to the <see cref="TCalendar"/> class
+      /// referenced by the <see cref="CalendarClass"/> property.
+      /// </summary>
+      /// <param name="Locales">
+      /// The array of locale names.
+      /// </param>
+      /// <seealso cref="Dissociate"/>
+      {$Endregion}
+      Procedure Associate(Const Locales : Array Of String);
+      {$Region 'xmldoc'}
+      /// <summary>
+      /// Unlinks a set of locale names from the <see cref="TCalendar"/> class
+      /// referenced by the <see cref="CalendarClass"/> property.
+      /// </summary>
+      /// <param name="Locales">
+      /// The array of locale names.
+      /// </param>
+      /// <seealso cref="Associate"/>
+      {$Endregion}
+      Procedure Dissociate(Const Locales : Array Of String);
+      {$Region 'xmldoc'}
+      /// <summary>
+      /// Lists the locale names, which are linked to the <see cref="TCalendar"/>
+      /// class referenced by the <see cref="CalendarClass"/> property.
+      /// </summary>
+      {$Endregion}
+      Property AssociatedLocales : TStringList Read fLocales;
+      {$Region 'xmldoc'}
+      /// <summary>
+      /// Gets the <see cref="TCalendar"/> class referenced by the object.
+      /// </summary>
+      {$Endregion}
+      Property CalendarClass : TCalendarClass Read fCalendarClass;
+    End;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Registers a <see cref="TCalendar"/> class for all locales.
     /// </summary>
@@ -5332,9 +5340,9 @@ type
     /// The <see cref="TCalendar"/> class to register.
     /// </param>
     /// <seealso cref="Unregister"/>
-    {$endregion}
-    class procedure Register(CalendarClass: TCalendarClass); overload; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure Register(CalendarClass : TCalendarClass); Overload; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Registers a <see cref="TCalendar"/> class for a list of specific locales.
     /// </summary>
@@ -5345,10 +5353,9 @@ type
     /// The array of locale names.
     /// </param>
     /// <seealso cref="Unregister"/>
-    {$endregion}
-    class procedure Register(CalendarClass: TCalendarClass;
-      const Locales: array of String); overload; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure Register(CalendarClass : TCalendarClass; Const Locales : Array Of String); Overload; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Unregisters a previously registered <see cref="TCalendar"/> class for all locales.
     /// </summary>
@@ -5356,9 +5363,9 @@ type
     /// The <see cref="TCalendar"/> class to unregister.
     /// </param>
     /// <seealso cref="Register"/>
-    {$endregion}
-    class procedure Unregister(CalendarClass: TCalendarClass); overload; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure Unregister(CalendarClass : TCalendarClass); Overload; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Unregisters a previously registered <see cref="TCalendar"/> class, only for
     /// a list of specific locales.
@@ -5370,10 +5377,9 @@ type
     /// The array of locale names.
     /// </param>
     /// <seealso cref="Register"/>
-    {$endregion}
-    class procedure Unregister(CalendarClass: TCalendarClass;
-      const Locales: array of String); overload; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Procedure Unregister(CalendarClass : TCalendarClass; Const Locales : Array Of String); Overload; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the minimum <see cref="TDateTime"/> value that is supported by all
     /// registered <see cref="TCalendar"/> classes.
@@ -5382,9 +5388,9 @@ type
     /// The smallest <see cref="TDateTime"/> value that is supported by all the
     /// registered <see cref="TCalendar"/> classes.
     /// </returns>
-    {$endregion}
-    class function MinSupportedDateTime: TDateTime; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MinSupportedDateTime : TDateTime; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the maximum <see cref="TDateTime"/> value that is supported by all registered
     /// <see cref="TCalendar"/> classes.
@@ -5393,18 +5399,18 @@ type
     /// The largest <see cref="TDateTime"/> value that is supported by all the
     /// registered <see cref="TCalendar"/> classes.
     /// </returns>
-    {$endregion}
-    class function MaxSupportedDateTime: TDateTime; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MaxSupportedDateTime : TDateTime; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the number of registered <see cref="TCalendar"/> classes.
     /// </summary>
     /// <returns>
     /// The number of registered <see cref="TCalendar"/> classes.
     /// </returns>
-    {$endregion}
-    class function Count: Integer; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function Count : Integer; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets a registered <see cref="TCalendar"/> classe by its index.
     /// </summary>
@@ -5415,9 +5421,9 @@ type
     /// <seealso cref="ByID"/>
     /// <seealso cref="ByName"/>
     /// <seealso cref="ByLocale"/>
-    {$endregion}
-    class function ByIndex(Index: Integer): TCalendarClass; inline; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function ByIndex(Index : Integer) : TCalendarClass; Inline; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets a <see cref="TCalendar"/> class by its unique identifier.
     /// </summary>
@@ -5431,9 +5437,9 @@ type
     /// <seealso cref="ByIndex"/>
     /// <seealso cref="ByName"/>
     /// <seealso cref="ByLocale"/>
-    {$endregion}
-    class function ByID(ID: Cardinal): TCalendarClass; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function ByID(ID : Cardinal) : TCalendarClass; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets a <see cref="TCalendar"/> class by its unique name.
     /// </summary>
@@ -5447,9 +5453,9 @@ type
     /// <seealso cref="ByIndex"/>
     /// <seealso cref="ByID"/>
     /// <seealso cref="ByLocale"/>
-    {$endregion}
-    class function ByName(const Name: String): TCalendarClass; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function ByName(Const Name : String) : TCalendarClass; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets a <see cref="TCalendar"/> class by its associated locale name.
     /// </summary>
@@ -5463,9 +5469,9 @@ type
     /// <seealso cref="ByIndex"/>
     /// <seealso cref="ByID"/>
     /// <seealso cref="ByLocale"/>
-    {$endregion}
-    class function ByLocale(const Locale: String): TCalendarClass; static;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function ByLocale(Const Locale : String) : TCalendarClass; Static;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Collects the list of <see cref="TCalendar"/> classes, which are associated
     /// with a specified locale name.
@@ -5476,3487 +5482,3642 @@ type
     /// <param name="CalendarClasses">
     /// The list of matched <see cref="TCalendar"/> classes.
     /// </param>
-    {$endregion}
-    class procedure GetCalendersOfLocale(const Locale: String; CalendarClasses: TCalendarClassList); static;
-  end;
+    {$Endregion}
+    Class Procedure GetCalendersOfLocale(Const Locale : String; CalendarClasses : TCalendarClassList); Static;
+  End;
 
-implementation
+Implementation
 
-uses
+ Uses
   Math, Types, SysConst, RTLConsts, Windows, i18nWinNLS, i18nCore, i18nUnicode;
 
-resourcestring
-  SStreamReadError        = 'Incompatible calendar settings';
-  SInvalidEraError        = '%d is not a valid era in %s';
-  SInvalidYearError       = '%d is not a valid year in %s (Era = %d)';
-  SInvalidMonthError      = '%d/%d is not a valid year/month in %s (Era = %d)';
-  SInvalidDayError        = '%d/%d/%d is not a valid year/month/day in %s (Era = %d)';
-  SInvalidDayNumError     = 'The numeric value of a day of the week (%d) must be in range 1 to 7.';
-  SInvalidDateError       = 'The Gregorian date (%s) is not supported by %s';
-  SInvalidDateDayError    = '(%d, %d) is not a valid DateDay pair in %s (Era = %d)';
-  SInvalidDateWeekError   = '(%d, %d, %d) is not a valid DateWeek triplet in %s (Era = %d)';
+ Resourcestring
+  SStreamReadError = 'Incompatible calendar settings';
+  SInvalidEraError = '%d is not a valid era in %s';
+  SInvalidYearError = '%d is not a valid year in %s (Era = %d)';
+  SInvalidMonthError = '%d/%d is not a valid year/month in %s (Era = %d)';
+  SInvalidDayError = '%d/%d/%d is not a valid year/month/day in %s (Era = %d)';
+  SInvalidDayNumError = 'The numeric value of a day of the week (%d) must be in range 1 to 7.';
+  SInvalidDateError = 'The Gregorian date (%s) is not supported by %s';
+  SInvalidDateDayError = '(%d, %d) is not a valid DateDay pair in %s (Era = %d)';
+  SInvalidDateWeekError = '(%d, %d, %d) is not a valid DateWeek triplet in %s (Era = %d)';
   SInvalidConvertEraError = 'Year %d cannot be converted from era %d to era %d in %s';
 
 { TCalendarSettings }
 
-constructor TCalendarSettings.Create;
-begin
-  SetLength(fEraNames, CalendarClass.MaxEra);
-  SetLength(fShortEraNames, CalendarClass.MaxEra);
-  SetLength(fMonthNames, CalendarClass.MaxMonthsPerYear);
-  SetLength(fShortMonthNames, CalendarClass.MaxMonthsPerYear);
-  SetLength(fGenitiveMonthNames, CalendarClass.MaxMonthsPerYear);
-end;
+ Constructor TCalendarSettings.Create;
+  Begin
+   SetLength(fEraNames, CalendarClass.MaxEra);
+   SetLength(fShortEraNames, CalendarClass.MaxEra);
+   SetLength(fMonthNames, CalendarClass.MaxMonthsPerYear);
+   SetLength(fShortMonthNames, CalendarClass.MaxMonthsPerYear);
+   SetLength(fGenitiveMonthNames, CalendarClass.MaxMonthsPerYear);
+  End;
 
-constructor TCalendarSettings.Create(LocaleID: Cardinal);
-begin
-  Create;
-  Prepare(LocaleID);
-end;
+ Constructor TCalendarSettings.Create(LocaleID : Cardinal);
+  Begin
+   Create;
+   Prepare(LocaleID);
+  End;
 
-constructor TCalendarSettings.Create(const Locale: String);
-begin
-  Create;
-  Prepare(Locale);
-end;
+ Constructor TCalendarSettings.Create(Const Locale : String);
+  Begin
+   Create;
+   Prepare(Locale);
+  End;
 
-destructor TCalendarSettings.Destroy;
-begin
-  fEraNames := nil;
-  fShortEraNames := nil;
-  fMonthNames := nil;
-  fShortMonthNames := nil;
-  fGenitiveMonthNames := nil;
-  inherited Destroy;
-end;
+ Destructor TCalendarSettings.Destroy;
+  Begin
+   fEraNames           := Nil;
+   fShortEraNames      := Nil;
+   fMonthNames         := Nil;
+   fShortMonthNames    := Nil;
+   fGenitiveMonthNames := Nil;
+   Inherited Destroy;
+  End;
 
-procedure TCalendarSettings.SetCalendarName(const Value: String);
-begin
-  if CalendarName <> Value then
-  begin
-    fCalendarName := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetCalendarName(Const Value : String);
+  Begin
+   If CalendarName <> Value Then
+    Begin
+     fCalendarName := Value;
+     DoChange;
+    End;
+  End;
 
-function TCalendarSettings.GetEraCount: Integer;
-begin
-  Result := Length(fEraNames);
-end;
+ Function TCalendarSettings.GetEraCount : Integer;
+  Begin
+   Result := Length(fEraNames);
+  End;
 
-function TCalendarSettings.GetEraNames(Era: Integer): String;
-begin
-  Result := fEraNames[Era - 1];
-end;
+ Function TCalendarSettings.GetEraNames(Era : Integer) : String;
+  Begin
+   Result := fEraNames[Era - 1];
+  End;
 
-procedure TCalendarSettings.SetEraNames(Era: Integer; const Value: String);
-begin
-  if EraNames[Era] <> Value then
-  begin
-    fEraNames[Era - 1] := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetEraNames(Era : Integer; Const Value : String);
+  Begin
+   If EraNames[Era] <> Value Then
+    Begin
+     fEraNames[Era - 1] := Value;
+     DoChange;
+    End;
+  End;
 
-function TCalendarSettings.GetShortEraNames(Era: Integer): String;
-begin
-  Result := fShortEraNames[Era - 1];
-end;
+ Function TCalendarSettings.GetShortEraNames(Era : Integer) : String;
+  Begin
+   Result := fShortEraNames[Era - 1];
+  End;
 
-procedure TCalendarSettings.SetShortEraNames(Era: Integer; const Value: String);
-begin
-  if ShortEraNames[Era] <> Value then
-  begin
-    fShortEraNames[Era - 1] := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetShortEraNames(Era : Integer; Const Value : String);
+  Begin
+   If ShortEraNames[Era] <> Value Then
+    Begin
+     fShortEraNames[Era - 1] := Value;
+     DoChange;
+    End;
+  End;
 
-function TCalendarSettings.GetMonthCount: Integer;
-begin
-  Result := Length(fMonthNames);
-end;
+ Function TCalendarSettings.GetMonthCount : Integer;
+  Begin
+   Result := Length(fMonthNames);
+  End;
 
-function TCalendarSettings.GetMonthNames(Month: Integer): String;
-begin
-  Result := fMonthNames[Month - 1];
-end;
+ Function TCalendarSettings.GetMonthNames(Month : Integer) : String;
+  Begin
+   Result := fMonthNames[Month - 1];
+  End;
 
-procedure TCalendarSettings.SetMonthNames(Month: Integer; const Value: String);
-begin
-  if MonthNames[Month] <> Value then
-  begin
-    fMonthNames[Month - 1] := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetMonthNames(Month : Integer; Const Value : String);
+  Begin
+   If MonthNames[Month] <> Value Then
+    Begin
+     fMonthNames[Month - 1] := Value;
+     DoChange;
+    End;
+  End;
 
-function TCalendarSettings.GetShortMonthNames(Month: Integer): String;
-begin
-  Result := fShortMonthNames[Month - 1];
-end;
+ Function TCalendarSettings.GetShortMonthNames(Month : Integer) : String;
+  Begin
+   Result := fShortMonthNames[Month - 1];
+  End;
 
-procedure TCalendarSettings.SetShortMonthNames(Month: Integer; const Value: String);
-begin
-  if ShortMonthNames[Month] <> Value then
-  begin
-    fShortMonthNames[Month - 1] := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetShortMonthNames(Month : Integer; Const Value : String);
+  Begin
+   If ShortMonthNames[Month] <> Value Then
+    Begin
+     fShortMonthNames[Month - 1] := Value;
+     DoChange;
+    End;
+  End;
 
-function TCalendarSettings.GetGenitiveMonthNames(Month: Integer): String;
-begin
-  Result := fGenitiveMonthNames[Month - 1];
-end;
+ Function TCalendarSettings.GetGenitiveMonthNames(Month : Integer) : String;
+  Begin
+   Result := fGenitiveMonthNames[Month - 1];
+  End;
 
-procedure TCalendarSettings.SetGenitiveMonthNames(Month: Integer; const Value: String);
-begin
-  if GenitiveMonthNames[Month] <> Value then
-  begin
-    fGenitiveMonthNames[Month - 1] := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetGenitiveMonthNames(Month : Integer; Const Value : String);
+  Begin
+   If GenitiveMonthNames[Month] <> Value Then
+    Begin
+     fGenitiveMonthNames[Month - 1] := Value;
+     DoChange;
+    End;
+  End;
 
-function TCalendarSettings.GetDayNames(DoW: TDayOfWeek): String;
-begin
-  Result := fDayNames[DoW];
-end;
+ Function TCalendarSettings.GetDayNames(DoW : TDayOfWeek) : String;
+  Begin
+   Result := fDayNames[DoW];
+  End;
 
-procedure TCalendarSettings.SetDayNames(DoW: TDayOfWeek; const Value: String);
-begin
-  if DayNames[DoW] <> Value then
-  begin
-    fDayNames[DoW] := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetDayNames(DoW : TDayOfWeek; Const Value : String);
+  Begin
+   If DayNames[DoW] <> Value Then
+    Begin
+     fDayNames[DoW] := Value;
+     DoChange;
+    End;
+  End;
 
-function TCalendarSettings.GetShortDayNames(DoW: TDayOfWeek): String;
-begin
-  Result := fShortDayNames[DoW];
-end;
+ Function TCalendarSettings.GetShortDayNames(DoW : TDayOfWeek) : String;
+  Begin
+   Result := fShortDayNames[DoW];
+  End;
 
-procedure TCalendarSettings.SetShortDayNames(DoW: TDayOfWeek; const Value: String);
-begin
-  if ShortDayNames[DoW] <> Value then
-  begin
-    fShortDayNames[DoW] := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetShortDayNames(DoW : TDayOfWeek; Const Value : String);
+  Begin
+   If ShortDayNames[DoW] <> Value Then
+    Begin
+     fShortDayNames[DoW] := Value;
+     DoChange;
+    End;
+  End;
 
-function TCalendarSettings.GetShortestDayNames(DoW: TDayOfWeek): String;
-begin
-  Result := fShortestDayNames[DoW];
-end;
+ Function TCalendarSettings.GetShortestDayNames(DoW : TDayOfWeek) : String;
+  Begin
+   Result := fShortestDayNames[DoW];
+  End;
 
-procedure TCalendarSettings.SetShortestDayNames(DoW: TDayOfWeek; const Value: String);
-begin
-  if ShortestDayNames[DoW] <> Value then
-  begin
-    fShortestDayNames[DoW] := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetShortestDayNames(DoW : TDayOfWeek; Const Value : String);
+  Begin
+   If ShortestDayNames[DoW] <> Value Then
+    Begin
+     fShortestDayNames[DoW] := Value;
+     DoChange;
+    End;
+  End;
 
-procedure TCalendarSettings.SetLongDateFormat(const Value: String);
-begin
-  if LongDateFormat <> Value then
-  begin
-    fLongDateFormat := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetLongDateFormat(Const Value : String);
+  Begin
+   If LongDateFormat <> Value Then
+    Begin
+     fLongDateFormat := Value;
+     DoChange;
+    End;
+  End;
 
-procedure TCalendarSettings.SetShortDateFormat(const Value: String);
-begin
-  if ShortDateFormat <> Value then
-  begin
-    fShortDateFormat := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetShortDateFormat(Const Value : String);
+  Begin
+   If ShortDateFormat <> Value Then
+    Begin
+     fShortDateFormat := Value;
+     DoChange;
+    End;
+  End;
 
-procedure TCalendarSettings.SetYearMonthFormat(const Value: String);
-begin
-  if YearMonthFormat <> Value then
-  begin
-    fYearMonthFormat := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetYearMonthFormat(Const Value : String);
+  Begin
+   If YearMonthFormat <> Value Then
+    Begin
+     fYearMonthFormat := Value;
+     DoChange;
+    End;
+  End;
 
-procedure TCalendarSettings.SetMonthDayFormat(const Value: String);
-begin
-  if MonthDayFormat <> Value then
-  begin
-    fMonthDayFormat := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetMonthDayFormat(Const Value : String);
+  Begin
+   If MonthDayFormat <> Value Then
+    Begin
+     fMonthDayFormat := Value;
+     DoChange;
+    End;
+  End;
 
-procedure TCalendarSettings.SetYearFormat(const Value: String);
-begin
-  if YearFormat <> Value then
-  begin
-    fYearFormat := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetYearFormat(Const Value : String);
+  Begin
+   If YearFormat <> Value Then
+    Begin
+     fYearFormat := Value;
+     DoChange;
+    End;
+  End;
 
-procedure TCalendarSettings.SetTwoDigitYearMax(Value: Word);
-begin
-  if TwoDigitYearMax <> Value then
-  begin
-    fTwoDigitYearMax := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetTwoDigitYearMax(Value : Word);
+  Begin
+   If TwoDigitYearMax <> Value Then
+    Begin
+     fTwoDigitYearMax := Value;
+     DoChange;
+    End;
+  End;
 
-procedure TCalendarSettings.SetWeekRule(Value: TWeekRule);
-begin
-  if WeekRule <> Value then
-  begin
-    fWeekRule := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetWeekRule(Value : TWeekRule);
+  Begin
+   If WeekRule <> Value Then
+    Begin
+     fWeekRule := Value;
+     DoChange;
+    End;
+  End;
 
-procedure TCalendarSettings.SetFirstDayOfWeek(Value: TDayOfWeek);
-begin
-  if FirstDayOfWeek <> Value then
-  begin
-    fFirstDayOfWeek := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetFirstDayOfWeek(Value : TDayOfWeek);
+  Begin
+   If FirstDayOfWeek <> Value Then
+    Begin
+     fFirstDayOfWeek := Value;
+     DoChange;
+    End;
+  End;
 
-procedure TCalendarSettings.SetDateSeparator(const Value: String);
-begin
-  if DateSeparator <> Value then
-  begin
-    fDateSeparator := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetDateSeparator(Const Value : String);
+  Begin
+   If DateSeparator <> Value Then
+    Begin
+     fDateSeparator := Value;
+     DoChange;
+    End;
+  End;
 
-procedure TCalendarSettings.SetTimeSeparator(const Value: String);
-begin
-  if TimeSeparator <> Value then
-  begin
-    fTimeSeparator := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetTimeSeparator(Const Value : String);
+  Begin
+   If TimeSeparator <> Value Then
+    Begin
+     fTimeSeparator := Value;
+     DoChange;
+    End;
+  End;
 
-procedure TCalendarSettings.SetTimeAMString(const Value: String);
-begin
-  if TimeAMString <> Value then
-  begin
-    fTimeAMString := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetTimeAMString(Const Value : String);
+  Begin
+   If TimeAMString <> Value Then
+    Begin
+     fTimeAMString := Value;
+     DoChange;
+    End;
+  End;
 
-procedure TCalendarSettings.SetTimePMString(const Value: String);
-begin
-  if fTimePMString <> Value then
-  begin
-    fTimePMString := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetTimePMString(Const Value : String);
+  Begin
+   If fTimePMString <> Value Then
+    Begin
+     fTimePMString := Value;
+     DoChange;
+    End;
+  End;
 
-procedure TCalendarSettings.SetShortTimeFormat(const Value: String);
-begin
-  if ShortTimeFormat <> Value then
-  begin
-    fShortTimeFormat := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetShortTimeFormat(Const Value : String);
+  Begin
+   If ShortTimeFormat <> Value Then
+    Begin
+     fShortTimeFormat := Value;
+     DoChange;
+    End;
+  End;
 
-procedure TCalendarSettings.SetLongTimeFormat(const Value: String);
-begin
-  if LongTimeFormat <> Value then
-  begin
-    fLongTimeFormat := Value;
-    DoChange;
-  end;
-end;
+ Procedure TCalendarSettings.SetLongTimeFormat(Const Value : String);
+  Begin
+   If LongTimeFormat <> Value Then
+    Begin
+     fLongTimeFormat := Value;
+     DoChange;
+    End;
+  End;
 
-function TCalendarSettings.ScanNames(var S: PChar; Names: array of String): Integer;
-var
-  I, Len, MaxMatchedLen: Integer;
-begin
-  Result := 0;
-  MaxMatchedLen := 0;
-  for I := Low(Names) to High(Names) do
-  begin
-    Len := Length(Names[I]);
-    if (AnsiStrLIComp(S, PChar(Names[I]), Len) = 0) then
-    begin
-      if Len > MaxMatchedLen then
-      begin
-        MaxMatchedLen := Len;
-        Result := I + 1;
-      end;
-    end;
-  end;
-  Inc(S, MaxMatchedLen);
-end;
+ Function TCalendarSettings.ScanNames(Var s : PChar; Names : Array Of String) : Integer;
+  Var
+   i, Len, MaxMatchedLen : Integer;
+  Begin
+   Result        := 0;
+   MaxMatchedLen := 0;
+   For i         := Low(Names) To High(Names) Do
+    Begin
+     Len := Length(Names[i]);
+     If (AnsiStrLIComp(s, PChar(Names[i]), Len) = 0) Then
+      Begin
+       If Len > MaxMatchedLen Then
+        Begin
+         MaxMatchedLen := Len;
+         Result        := i + 1;
+        End;
+      End;
+    End;
+   Inc(s, MaxMatchedLen);
+  End;
 
-function TCalendarSettings.ScanEraNames(var S: PChar): Integer;
-begin
-  Result := ScanNames(S, fEraNames);
-end;
+ Function TCalendarSettings.ScanEraNames(Var s : PChar) : Integer;
+  Begin
+   Result := ScanNames(s, fEraNames);
+  End;
 
-function TCalendarSettings.ScanShortEraNames(var S: PChar): Integer;
-begin
-  Result := ScanNames(S, fShortEraNames);
-end;
+ Function TCalendarSettings.ScanShortEraNames(Var s : PChar) : Integer;
+  Begin
+   Result := ScanNames(s, fShortEraNames);
+  End;
 
-function TCalendarSettings.ScanMonthNames(var S: PChar): Integer;
-begin
-  Result := ScanNames(S, fMonthNames);
-end;
+ Function TCalendarSettings.ScanMonthNames(Var s : PChar) : Integer;
+  Begin
+   Result := ScanNames(s, fMonthNames);
+  End;
 
-function TCalendarSettings.ScanShortMonthNames(var S: PChar): Integer;
-begin
-  Result := ScanNames(S, fShortMonthNames);
-end;
+ Function TCalendarSettings.ScanShortMonthNames(Var s : PChar) : Integer;
+  Begin
+   Result := ScanNames(s, fShortMonthNames);
+  End;
 
-function TCalendarSettings.ScanGenitiveMonthNames(var S: PChar): Integer;
-begin
-  Result := ScanNames(S, fGenitiveMonthNames);
-end;
+ Function TCalendarSettings.ScanGenitiveMonthNames(Var s : PChar) : Integer;
+  Begin
+   Result := ScanNames(s, fGenitiveMonthNames);
+  End;
 
-function TCalendarSettings.ScanDayNames(var S: PChar): Integer;
-begin
-  Result := ScanNames(S, fDayNames);
-end;
+ Function TCalendarSettings.ScanDayNames(Var s : PChar) : Integer;
+  Begin
+   Result := ScanNames(s, fDayNames);
+  End;
 
-function TCalendarSettings.ScanShortDayNames(var S: PChar): Integer;
-begin
-  Result := ScanNames(S, fShortDayNames);
-end;
+ Function TCalendarSettings.ScanShortDayNames(Var s : PChar) : Integer;
+  Begin
+   Result := ScanNames(s, fShortDayNames);
+  End;
 
-function TCalendarSettings.ScanShortestDayNames(var S: PChar): Integer;
-begin
-  Result := ScanNames(S, fShortestDayNames);
-end;
+ Function TCalendarSettings.ScanShortestDayNames(Var s : PChar) : Integer;
+  Begin
+   Result := ScanNames(s, fShortestDayNames);
+  End;
 
-function TCalendarSettings.ScanAMPM(var S: PChar): Integer;
-begin
-  Result := ScanNames(S, [TimeAMString, TimePMString]);
-end;
+ Function TCalendarSettings.ScanAMPM(Var s : PChar) : Integer;
+  Begin
+   Result := ScanNames(s, [TimeAMString, TimePMString]);
+  End;
 
-function TCalendarSettings.SafeGetInfoStr(const Locale: String; CalID: Cardinal;
-  LType, CType: Cardinal; const Default: String): String;
-begin
-  if CalID <> 0 then
-  begin
-    Result := GetCalendarStr(Locale, CalID, CType, '');
-    if Result <> '' then Exit;
-  end;
-  Result := GetLocaleStr(Locale, LType, Default);
-end;
+ Function TCalendarSettings.SafeGetInfoStr(Const Locale : String; CalID : Cardinal; LType, CType : Cardinal; Const Default : String) : String;
+  Begin
+   If CalID <> 0 Then
+    Begin
+     Result := GetCalendarStr(Locale, CalID, CType, '');
+     If Result <> '' Then
+      Exit;
+    End;
+   Result := GetLocaleStr(Locale, LType, Default);
+  End;
 
-function TCalendarSettings.GetMonthInfoIndex(Month: Integer): Integer;
-begin
-  Result := Month - 1;
-end;
+ Function TCalendarSettings.GetMonthInfoIndex(Month : Integer) : Integer;
+  Begin
+   Result := Month - 1;
+  End;
 
-procedure TCalendarSettings.DoChange;
-begin
-  if fUpdateCount <> 0 then
+ Procedure TCalendarSettings.DoChange;
+  Begin
+   If fUpdateCount <> 0 Then
     fUpdateAffected := True
-  else if Assigned(OnChange) then
+   Else If Assigned(OnChange) Then
     OnChange(Self);
-end;
+  End;
 
-procedure TCalendarSettings.Prepare(LocaleID: Cardinal);
-begin
-  Prepare(LCIDToLocaleName(LocaleID));
-end;
+ Procedure TCalendarSettings.Prepare(LocaleID : Cardinal);
+  Begin
+   Prepare(LCIDToLocaleName(LocaleID));
+  End;
 
-procedure TCalendarSettings.Prepare(const Locale: String);
-begin
-  fLocale := Locale;
-  BeginUpdate;
-  try
+ Procedure TCalendarSettings.Prepare(Const Locale : String);
+  Begin
+   fLocale := Locale;
+   BeginUpdate;
+   Try
     PrepareSettings(Locale, CalendarClass.CalendarID);
-  finally
+   Finally
     EndUpdate;
-  end;
-end;
+   End;
+  End;
 
-procedure TCalendarSettings.LoadFromStream(Stream: TStream);
-var
-  Reader: TReader;
-  SourceClassName: String;
-begin
-  BeginUpdate;
-  try
+ Procedure TCalendarSettings.LoadFromStream(Stream : TStream);
+  Var
+   Reader          : TReader;
+   SourceClassName : String;
+  Begin
+   BeginUpdate;
+   Try
     Reader := TReader.Create(Stream, 1024);
-    try
-      SourceClassName := Reader.ReadString;
-      if not SameText(SourceClassName, CalendarClass.ClassName) then
-        EStreamError.CreateRes(@SStreamReadError);
-      fLocale := Reader.ReadString;
-      ReadSettings(Reader);
-    finally
-      Reader.Free;
-    end;
-  finally
+    Try
+     SourceClassName := Reader.ReadString;
+     If Not SameText(SourceClassName, CalendarClass.ClassName) Then
+      EStreamError.CreateRes(@SStreamReadError);
+     fLocale := Reader.ReadString;
+     ReadSettings(Reader);
+    Finally
+     Reader.Free;
+    End;
+   Finally
     EndUpdate;
-  end;
-end;
+   End;
+  End;
 
-procedure TCalendarSettings.SaveToStream(Stream: TStream);
-var
-  Writer: TWriter;
-begin
-  Writer := TWriter.Create(Stream, 1024);
-  try
+ Procedure TCalendarSettings.SaveToStream(Stream : TStream);
+  Var
+   Writer : TWriter;
+  Begin
+   Writer := TWriter.Create(Stream, 1024);
+   Try
     Writer.WriteString(CalendarClass.ClassName);
     Writer.WriteString(Locale);
     WriteSettings(Writer);
     Writer.FlushBuffer;
-  finally
+   Finally
     Writer.Free;
-  end;
-end;
+   End;
+  End;
 
-procedure TCalendarSettings.BeginUpdate;
-begin
-  if fUpdateCount = 0 then
+ Procedure TCalendarSettings.BeginUpdate;
+  Begin
+   If fUpdateCount = 0 Then
     fUpdateAffected := False;
-  Inc(fUpdateCount);
-end;
+   Inc(fUpdateCount);
+  End;
 
-procedure TCalendarSettings.EndUpdate;
-begin
-  Dec(fUpdateCount);
-  if (fUpdateCount = 0) and fUpdateAffected then
+ Procedure TCalendarSettings.EndUpdate;
+  Begin
+   Dec(fUpdateCount);
+   If (fUpdateCount = 0) And fUpdateAffected Then
     DoChange;
-end;
+  End;
 
-procedure TCalendarSettings.Assign(Source: TPersistent);
-var
-  I: Integer;
-  Day: TDayOfWeek;
-begin
-  if (Source is TCalendarSettings) and
-     (CalendarClass = TCalendarSettings(Source).CalendarClass) then
-  begin
-    BeginUpdate;
-    try
-      WeekRule := TCalendarSettings(Source).WeekRule;
-      FirstDayOfWeek := TCalendarSettings(Source).FirstDayOfWeek;
+ Procedure TCalendarSettings.Assign(Source : TPersistent);
+  Var
+   i   : Integer;
+   Day : TDayOfWeek;
+  Begin
+   If (Source Is TCalendarSettings) And
+   (CalendarClass = TCalendarSettings(Source).CalendarClass) Then
+    Begin
+     BeginUpdate;
+     Try
+      WeekRule        := TCalendarSettings(Source).WeekRule;
+      FirstDayOfWeek  := TCalendarSettings(Source).FirstDayOfWeek;
       TwoDigitYearMax := TCalendarSettings(Source).TwoDigitYearMax;
-      CalendarName := TCalendarSettings(Source).CalendarName;
-      for I := 1 to EraCount do
-      begin
-        EraNames[I] := TCalendarSettings(Source).EraNames[I];
-        ShortEraNames[I] := TCalendarSettings(Source).ShortEraNames[I];
-      end;
-      for I := 1 to MonthCount do
-      begin
-        MonthNames[I] := TCalendarSettings(Source).MonthNames[I];
-        ShortMonthNames[I] := TCalendarSettings(Source).ShortMonthNames[I];
-        GenitiveMonthNames[I] := TCalendarSettings(Source).GenitiveMonthNames[I];
-      end;
-      for Day := Low(TDayOfWeek) to High(TDayOfWeek) do
-      begin
-        DayNames[Day] := TCalendarSettings(Source).DayNames[Day];
-        ShortDayNames[Day] := TCalendarSettings(Source).ShortDayNames[Day];
+      CalendarName    := TCalendarSettings(Source).CalendarName;
+      For i           := 1 To EraCount Do
+       Begin
+        EraNames[i]      := TCalendarSettings(Source).EraNames[i];
+        ShortEraNames[i] := TCalendarSettings(Source).ShortEraNames[i];
+       End;
+      For i := 1 To MonthCount Do
+       Begin
+        MonthNames[i]         := TCalendarSettings(Source).MonthNames[i];
+        ShortMonthNames[i]    := TCalendarSettings(Source).ShortMonthNames[i];
+        GenitiveMonthNames[i] := TCalendarSettings(Source).GenitiveMonthNames[i];
+       End;
+      For Day := Low(TDayOfWeek) To High(TDayOfWeek) Do
+       Begin
+        DayNames[Day]         := TCalendarSettings(Source).DayNames[Day];
+        ShortDayNames[Day]    := TCalendarSettings(Source).ShortDayNames[Day];
         ShortestDayNames[Day] := TCalendarSettings(Source).ShortestDayNames[Day];
-      end;
-      LongDateFormat := TCalendarSettings(Source).LongDateFormat;
+       End;
+      LongDateFormat  := TCalendarSettings(Source).LongDateFormat;
       ShortDateFormat := TCalendarSettings(Source).ShortDateFormat;
       YearMonthFormat := TCalendarSettings(Source).YearMonthFormat;
-      MonthDayFormat := TCalendarSettings(Source).MonthDayFormat;
-      YearFormat := TCalendarSettings(Source).YearFormat;
+      MonthDayFormat  := TCalendarSettings(Source).MonthDayFormat;
+      YearFormat      := TCalendarSettings(Source).YearFormat;
       ShortTimeFormat := TCalendarSettings(Source).ShortTimeFormat;
-      LongTimeFormat := TCalendarSettings(Source).LongTimeFormat;
-      DateSeparator := TCalendarSettings(Source).DateSeparator;
-      TimeSeparator := TCalendarSettings(Source).TimeSeparator;
-      TimeAMString := TCalendarSettings(Source).TimeAMString;
-      TimePMString := TCalendarSettings(Source).TimePMString;
-    finally
+      LongTimeFormat  := TCalendarSettings(Source).LongTimeFormat;
+      DateSeparator   := TCalendarSettings(Source).DateSeparator;
+      TimeSeparator   := TCalendarSettings(Source).TimeSeparator;
+      TimeAMString    := TCalendarSettings(Source).TimeAMString;
+      TimePMString    := TCalendarSettings(Source).TimePMString;
+     Finally
       EndUpdate;
-    end;
-  end
-  else
-    inherited Assign(Source);
-end;
+     End;
+    End
+   Else
+    Inherited Assign(Source);
+  End;
 
-procedure TCalendarSettings.PrepareEraName(Era: Integer; const Locale: String;
-  CalendarID: Cardinal);
-var
-  Temp: String;
-begin
-  Temp := GetCalendarStr(Locale, CalendarID, CAL_SERASTRING, '');
-  SetLength(Temp, StrLen(PChar(Temp)));
-  EraNames[Era] := Temp;
-  Temp := GetCalendarStr(Locale, CalendarID, CAL_SABBREVERASTRING, '');
-  SetLength(Temp, StrLen(PChar(Temp)));
-  ShortEraNames[Era] := Temp;
-end;
+ Procedure TCalendarSettings.PrepareEraName(Era : Integer; Const Locale : String; CalendarID : Cardinal);
+  Var
+   Temp : String;
+  Begin
+   Temp := GetCalendarStr(Locale, CalendarID, CAL_SERASTRING, '');
+   SetLength(Temp, StrLen(PChar(Temp)));
+   EraNames[Era] := Temp;
+   Temp          := GetCalendarStr(Locale, CalendarID, CAL_SABBREVERASTRING, '');
+   SetLength(Temp, StrLen(PChar(Temp)));
+   ShortEraNames[Era] := Temp;
+  End;
 
-procedure TCalendarSettings.PrepareMonthNames(const Locale: String;
-  CalendarID: Cardinal);
-var
-  M, I: Integer;
-begin
-  for M := 1 to MonthCount do
-  begin
-    I := GetMonthInfoIndex(M);
-    MonthNames[M] := SafeGetInfoStr(Locale, CalendarID,
-      LOCALE_SMONTHNAME1 + I, CAL_SMONTHNAME1 + I, '');
-    ShortMonthNames[M] := SafeGetInfoStr(Locale, CalendarID,
-      LOCALE_SABBREVMONTHNAME1 + I, CAL_SABBREVMONTHNAME1 + I, '');
-    GenitiveMonthNames[M] := SafeGetInfoStr(Locale, CalendarID,
-      LOCALE_RETURN_GENITIVE_NAMES or CAL_SMONTHNAME1 + I,
-      CAL_RETURN_GENITIVE_NAMES or CAL_SMONTHNAME1 + I, MonthNames[M]);
-  end;
-end;
+ Procedure TCalendarSettings.PrepareMonthNames(Const Locale : String; CalendarID : Cardinal);
+  Var
+   m, i : Integer;
+  Begin
+   For m := 1 To MonthCount Do
+    Begin
+     i             := GetMonthInfoIndex(m);
+     MonthNames[m] := SafeGetInfoStr(Locale, CalendarID,
+     LOCALE_SMONTHNAME1 + i, CAL_SMONTHNAME1 + i, '');
+     ShortMonthNames[m] := SafeGetInfoStr(Locale, CalendarID,
+     LOCALE_SABBREVMONTHNAME1 + i, CAL_SABBREVMONTHNAME1 + i, '');
+     GenitiveMonthNames[m] := SafeGetInfoStr(Locale, CalendarID,
+     LOCALE_RETURN_GENITIVE_NAMES Or CAL_SMONTHNAME1 + i,
+     CAL_RETURN_GENITIVE_NAMES Or CAL_SMONTHNAME1 + i, MonthNames[m]);
+    End;
+  End;
 
-procedure TCalendarSettings.PrepareDayNames(const Locale: String;
-  CalendarID: Cardinal);
-var
-  Day: TDayOfWeek;
-  I: Integer;
-begin
-  for Day := Low(TDayOfWeek) to High(TDayOfWeek) do
-  begin
-    I := Ord(Day) - Ord(Monday);
-    DayNames[Day] := SafeGetInfoStr(Locale, CalendarID,
-      LOCALE_SDAYNAME1 + I, CAL_SDAYNAME1 + I, '');
-    ShortDayNames[Day] := SafeGetInfoStr(Locale, CalendarID,
-      LOCALE_SABBREVDAYNAME1 + I, CAL_SABBREVDAYNAME1 + I, '');
-    ShortestDayNames[Day] := SafeGetInfoStr(Locale, CalendarID,
-      LOCALE_SSHORTESTDAYNAME1 + I, CAL_SSHORTESTDAYNAME1 + I, ShortDayNames[Day]);
-  end;
-end;
+ Procedure TCalendarSettings.PrepareDayNames(Const Locale : String; CalendarID : Cardinal);
+  Var
+   Day : TDayOfWeek;
+   i   : Integer;
+  Begin
+   For Day := Low(TDayOfWeek) To High(TDayOfWeek) Do
+    Begin
+     i             := Ord(Day) - Ord(Monday);
+     DayNames[Day] := SafeGetInfoStr(Locale, CalendarID,
+     LOCALE_SDAYNAME1 + i, CAL_SDAYNAME1 + i, '');
+     ShortDayNames[Day] := SafeGetInfoStr(Locale, CalendarID,
+     LOCALE_SABBREVDAYNAME1 + i, CAL_SABBREVDAYNAME1 + i, '');
+     ShortestDayNames[Day] := SafeGetInfoStr(Locale, CalendarID,
+     LOCALE_SSHORTESTDAYNAME1 + i, CAL_SSHORTESTDAYNAME1 + i, ShortDayNames[Day]);
+    End;
+  End;
 
-procedure TCalendarSettings.PrepareDateFormats(const Locale: String;
-  CalendarID: Cardinal);
-const
-  ArabicComma = #$60C;
-var
-  TranslateComma: Boolean;
-  Format: String;
-begin
-  TranslateComma := (Pos('Arab;', GetLocaleScripts(Locale)) <> 0);
-  Format := SafeGetInfoStr(Locale, CalendarID,
-    LOCALE_SLONGDATE, CAL_SLONGDATE, 'dddd, MMMM d, y');
-  if TranslateComma then
+ Procedure TCalendarSettings.PrepareDateFormats(Const Locale : String; CalendarID : Cardinal);
+  Const
+   ArabicComma = #$60C;
+  Var
+   TranslateComma : Boolean;
+   Format         : String;
+  Begin
+   TranslateComma := (Pos('Arab;', GetLocaleScripts(Locale)) <> 0);
+   Format         := SafeGetInfoStr(Locale, CalendarID,
+   LOCALE_SLONGDATE, CAL_SLONGDATE, 'dddd, MMMM d, y');
+   If TranslateComma Then
     LongDateFormat := StringReplace(Format, ',', ArabicComma, [rfReplaceAll])
-  else
+   Else
     LongDateFormat := Format;
-  Format := SafeGetInfoStr(Locale, CalendarID,
-    LOCALE_SSHORTDATE, CAL_SSHORTDATE, 'dd/MM/yyyy');
-  if TranslateComma then
+   Format          := SafeGetInfoStr(Locale, CalendarID,
+   LOCALE_SSHORTDATE, CAL_SSHORTDATE, 'dd/MM/yyyy');
+   If TranslateComma Then
     ShortDateFormat := StringReplace(Format, ',', ArabicComma, [rfReplaceAll])
-  else
+   Else
     ShortDateFormat := Format;
-  Format := SafeGetInfoStr(Locale, CalendarID,
-    LOCALE_SYEARMONTH, CAL_SYEARMONTH, 'MMMM, y');
-  if TranslateComma then
+   Format           := SafeGetInfoStr(Locale, CalendarID,
+   LOCALE_SYEARMONTH, CAL_SYEARMONTH, 'MMMM, y');
+   If TranslateComma Then
     YearMonthFormat := StringReplace(Format, ',', ArabicComma, [rfReplaceAll])
-  else
+   Else
     YearMonthFormat := Format;
-  Format := SafeGetInfoStr(Locale, CalendarID,
-    LOCALE_SMONTHDAY, CAL_SMONTHDAY, 'd MMMM');
-  if TranslateComma then
+   Format           := SafeGetInfoStr(Locale, CalendarID,
+   LOCALE_SMONTHDAY, CAL_SMONTHDAY, 'd MMMM');
+   If TranslateComma Then
     MonthDayFormat := StringReplace(Format, ',', ArabicComma, [rfReplaceAll])
-  else
+   Else
     MonthDayFormat := Format;
-  YearFormat := 'y';
-end;
+   YearFormat      := 'y';
+  End;
 
-procedure TCalendarSettings.PrepareTimeFormats(const Locale: String);
-var
-  TimePrefix, TimePostfix: String;
-  HourFmt: String;
-begin
-  TimePrefix := '';
-  TimePostfix := '';
-  if GetLocaleInt(Locale, LOCALE_ITIME, 0) = 0 then
-  begin
-    if GetLocaleInt(Locale, LOCALE_ITIMEMARKPOSN, 0) = 0 then
+ Procedure TCalendarSettings.PrepareTimeFormats(Const Locale : String);
+  Var
+   TimePrefix, TimePostfix : String;
+   HourFmt                 : String;
+  Begin
+   TimePrefix  := '';
+   TimePostfix := '';
+   If GetLocaleInt(Locale, LOCALE_ITIME, 0) = 0 Then
+    Begin
+     If GetLocaleInt(Locale, LOCALE_ITIMEMARKPOSN, 0) = 0 Then
       TimePostfix := ' AMPM'
-    else
+     Else
       TimePrefix := 'AMPM ';
-  end;
-  if GetLocaleInt(Locale, LOCALE_ITLZERO, 0) = 0 then
+    End;
+   If GetLocaleInt(Locale, LOCALE_ITLZERO, 0) = 0 Then
     HourFmt := 'h'
-  else
-    HourFmt := 'hh';
-  DateSeparator := GetLocaleStr(Locale, LOCALE_SDATE, '/');
-  TimeSeparator := GetLocaleStr(Locale, LOCALE_STIME, ':');
-  TimeAMString := GetLocaleStr(Locale, LOCALE_S1159, 'am');
-  TimePMString := GetLocaleStr(Locale, LOCALE_S2359, 'pm');
-  ShortTimeFormat := GetLocaleStr(Locale, LOCALE_SSHORTTIME, TimePrefix + HourFmt + ':nn' + TimePostfix);
-  ShortTimeFormat := StringReplace(ShortTimeFormat, 'tt', 'ampm', [rfReplaceAll]);
-  LongTimeFormat := GetLocaleStr(Locale, LOCALE_STIMEFORMAT, TimePrefix + HourFmt + ':nn:ss' + TimePostfix);
-  LongTimeFormat := StringReplace(LongTimeFormat, 'tt', 'ampm', [rfReplaceAll]);
-end;
+   Else
+    HourFmt        := 'hh';
+   DateSeparator   := GetLocaleStr(Locale, LOCALE_SDATE, '/');
+   TimeSeparator   := GetLocaleStr(Locale, LOCALE_STIME, ':');
+   TimeAMString    := GetLocaleStr(Locale, LOCALE_S1159, 'am');
+   TimePMString    := GetLocaleStr(Locale, LOCALE_S2359, 'pm');
+   ShortTimeFormat := GetLocaleStr(Locale, LOCALE_SSHORTTIME, TimePrefix + HourFmt + ':nn' + TimePostfix);
+   ShortTimeFormat := StringReplace(ShortTimeFormat, 'tt', 'ampm', [rfReplaceAll]);
+   LongTimeFormat  := GetLocaleStr(Locale, LOCALE_STIMEFORMAT, TimePrefix + HourFmt + ':nn:ss' + TimePostfix);
+   LongTimeFormat  := StringReplace(LongTimeFormat, 'tt', 'ampm', [rfReplaceAll]);
+  End;
 
-procedure TCalendarSettings.PrepareWeekParams(const Locale: String);
-const
-  FullWeekLocales: array[1..2] of String = ('et-EE', 'ur-PK');
-  FirstFourWeekLocales: array[1..34] of String = ('de-AT', 'fr-BE', 'nl-BE',
-    'cs-CZ', 'da-DK', 'et-EE', 'fo-FO', 'fi-FI', 'sv-FI', 'mk-MK', 'fr-FR',
-    'de-DE', 'el-GR', 'is-IS', 'en-IE', 'it-IT', 'lv-LV', 'de-LI', 'de-LU',
-    'fr-LU', 'nl-NL', 'nb-NO', 'nn-NO', 'pl-PL', 'pt-PT', 'ca-ES', 'es-ES',
-    'es-ES_tradnl', 'eu-ES', 'sv-SE', 'de-CH', 'it-CH', 'fr-CH', 'en-GB');
+ Procedure TCalendarSettings.PrepareWeekParams(Const Locale : String);
+  Const
+   FullWeekLocales : Array[1..2] Of String = ('et-EE', 'ur-PK');
+   FirstFourWeekLocales : Array[1..34] Of String = ('de-AT', 'fr-BE', 'nl-BE',
+   'cs-CZ', 'da-DK', 'et-EE', 'fo-FO', 'fi-FI', 'sv-FI', 'mk-MK', 'fr-FR',
+   'de-DE', 'el-GR', 'is-IS', 'en-IE', 'it-IT', 'lv-LV', 'de-LI', 'de-LU',
+   'fr-LU', 'nl-NL', 'nb-NO', 'nn-NO', 'pl-PL', 'pt-PT', 'ca-ES', 'es-ES',
+   'es-ES_tradnl', 'eu-ES', 'sv-SE', 'de-CH', 'it-CH', 'fr-CH', 'en-GB');
 
-  function IsMemberOf(const Locales: array of String): Boolean;
-  var
-    I: Integer;
-  begin
-    for I := Low(Locales) to High(Locales) do
-      if SameText(Locale, Locales[I]) then
-      begin
+   Function IsMemberOf(Const Locales : Array Of String) : Boolean;
+    Var
+     i : Integer;
+    Begin
+     For i := Low(Locales) To High(Locales) Do
+      If SameText(Locale, Locales[i]) Then
+       Begin
         Result := True;
         Exit;
-      end;
-    Result := False;
-  end;
+       End;
+     Result := False;
+    End;
 
-begin
-  FirstDayOfWeek := TDayOfWeek(GetLocaleInt(Locale, LOCALE_IFIRSTDAYOFWEEK, 0) + 1);
-  if IsMemberOf(FullWeekLocales) then
+  Begin
+   FirstDayOfWeek := TDayOfWeek(GetLocaleInt(Locale, LOCALE_IFIRSTDAYOFWEEK, 0) + 1);
+   If IsMemberOf(FullWeekLocales) Then
     WeekRule := wrFullWeek
-  else if IsMemberOf(FirstFourWeekLocales) then
+   Else If IsMemberOf(FirstFourWeekLocales) Then
     WeekRule := wrFirstFourDayWeek
-  else
+   Else
     WeekRule := wrFirstDayWeek;
-end;
+  End;
 
-procedure TCalendarSettings.PrepareSettings(const Locale: String;
-  CalendarID: Cardinal);
-var
-  Era: Integer;
-begin
-  CalendarName := GetCalendarStr(Locale, CalendarID, CAL_SCALNAME, CalendarClass.CalendarName);
-  for Era := 1 to  EraCount do
+ Procedure TCalendarSettings.PrepareSettings(Const Locale : String; CalendarID : Cardinal);
+  Var
+   Era : Integer;
+  Begin
+   CalendarName := GetCalendarStr(Locale, CalendarID, CAL_SCALNAME, CalendarClass.CalendarName);
+   For Era      := 1 To  EraCount Do
     PrepareEraName(Era, Locale, CalendarID);
-  PrepareMonthNames(Locale, CalendarID);
-  PrepareDayNames(Locale, CalendarID);
-  PrepareDateFormats(Locale, CalendarID);
-  PrepareDateFormats(Locale, CalendarID);
-  PrepareTimeFormats(Locale);
-  PrepareWeekParams(Locale);
-  TwoDigitYearMax := GetCalendarInt(Locale, CalendarID, CAL_ITWODIGITYEARMAX, 99);
-end;
+   PrepareMonthNames(Locale, CalendarID);
+   PrepareDayNames(Locale, CalendarID);
+   PrepareDateFormats(Locale, CalendarID);
+   PrepareDateFormats(Locale, CalendarID);
+   PrepareTimeFormats(Locale);
+   PrepareWeekParams(Locale);
+   TwoDigitYearMax := GetCalendarInt(Locale, CalendarID, CAL_ITWODIGITYEARMAX, 99);
+  End;
 
-procedure TCalendarSettings.ReadSettings(Reader: TReader);
-var
-  I: Integer;
-  Day: TDayOfWeek;
-begin
-  WeekRule := TWeekRule(Reader.ReadInteger);
-  FirstDayOfWeek := TDayOfWeek(Reader.ReadInteger);
-  TwoDigitYearMax := Reader.ReadInteger;
-  CalendarName := Reader.ReadString;
-  for I := 1 to EraCount do
-  begin
-    EraNames[I] := Reader.ReadString;
-    ShortEraNames[I] := Reader.ReadString;
-  end;
-  for I := 1 to MonthCount do
-  begin
-    MonthNames[I] := Reader.ReadString;
-    ShortMonthNames[I] := Reader.ReadString;
-    GenitiveMonthNames[I] := Reader.ReadString;
-  end;
-  for Day := Low(TDayOfWeek) to High(TDayOfWeek) do
-  begin
-    DayNames[Day] := Reader.ReadString;
-    ShortDayNames[Day] := Reader.ReadString;
-    ShortestDayNames[Day] := Reader.ReadString;
-  end;
-  LongDateFormat := Reader.ReadString;
-  ShortDateFormat := Reader.ReadString;
-  YearMonthFormat := Reader.ReadString;
-  MonthDayFormat := Reader.ReadString;
-  YearFormat := Reader.ReadString;
-  ShortTimeFormat := Reader.ReadString;
-  LongTimeFormat := Reader.ReadString;
-  DateSeparator := Reader.ReadString;
-  TimeSeparator := Reader.ReadString;
-  TimeAMString := Reader.ReadString;
-  TimePMString := Reader.ReadString;
-end;
+ Procedure TCalendarSettings.ReadSettings(Reader : TReader);
+  Var
+   i   : Integer;
+   Day : TDayOfWeek;
+  Begin
+   WeekRule        := TWeekRule(Reader.ReadInteger);
+   FirstDayOfWeek  := TDayOfWeek(Reader.ReadInteger);
+   TwoDigitYearMax := Reader.ReadInteger;
+   CalendarName    := Reader.ReadString;
+   For i           := 1 To EraCount Do
+    Begin
+     EraNames[i]      := Reader.ReadString;
+     ShortEraNames[i] := Reader.ReadString;
+    End;
+   For i := 1 To MonthCount Do
+    Begin
+     MonthNames[i]         := Reader.ReadString;
+     ShortMonthNames[i]    := Reader.ReadString;
+     GenitiveMonthNames[i] := Reader.ReadString;
+    End;
+   For Day := Low(TDayOfWeek) To High(TDayOfWeek) Do
+    Begin
+     DayNames[Day]         := Reader.ReadString;
+     ShortDayNames[Day]    := Reader.ReadString;
+     ShortestDayNames[Day] := Reader.ReadString;
+    End;
+   LongDateFormat  := Reader.ReadString;
+   ShortDateFormat := Reader.ReadString;
+   YearMonthFormat := Reader.ReadString;
+   MonthDayFormat  := Reader.ReadString;
+   YearFormat      := Reader.ReadString;
+   ShortTimeFormat := Reader.ReadString;
+   LongTimeFormat  := Reader.ReadString;
+   DateSeparator   := Reader.ReadString;
+   TimeSeparator   := Reader.ReadString;
+   TimeAMString    := Reader.ReadString;
+   TimePMString    := Reader.ReadString;
+  End;
 
-procedure TCalendarSettings.WriteSettings(Writer: TWriter);
-var
-  I: Integer;
-  Day: TDayOfWeek;
-begin
-  Writer.WriteInteger(Ord(WeekRule));
-  Writer.WriteInteger(Ord(FirstDayOfWeek));
-  Writer.WriteInteger(TwoDigitYearMax);
-  Writer.WriteString(CalendarName);
-  for I := 1 to EraCount do
-  begin
-    Writer.WriteString(EraNames[I]);
-    Writer.WriteString(ShortEraNames[I]);
-  end;
-  for I := 1 to MonthCount do
-  begin
-    Writer.WriteString(MonthNames[I]);
-    Writer.WriteString(ShortMonthNames[I]);
-    Writer.WriteString(GenitiveMonthNames[I]);
-  end;
-  for Day := Low(TDayOfWeek) to High(TDayOfWeek) do
-  begin
-    Writer.WriteString(DayNames[Day]);
-    Writer.WriteString(ShortDayNames[Day]);
-    Writer.WriteString(ShortestDayNames[Day]);
-  end;
-  Writer.WriteString(LongDateFormat);
-  Writer.WriteString(ShortDateFormat);
-  Writer.WriteString(YearMonthFormat);
-  Writer.WriteString(MonthDayFormat);
-  Writer.WriteString(YearFormat);
-  Writer.WriteString(ShortTimeFormat);
-  Writer.WriteString(LongTimeFormat);
-  Writer.WriteString(DateSeparator);
-  Writer.WriteString(TimeSeparator);
-  Writer.WriteString(TimeAMString);
-  Writer.WriteString(TimePMString);
-end;
+ Procedure TCalendarSettings.WriteSettings(Writer : TWriter);
+  Var
+   i   : Integer;
+   Day : TDayOfWeek;
+  Begin
+   Writer.WriteInteger(Ord(WeekRule));
+   Writer.WriteInteger(Ord(FirstDayOfWeek));
+   Writer.WriteInteger(TwoDigitYearMax);
+   Writer.WriteString(CalendarName);
+   For i := 1 To EraCount Do
+    Begin
+     Writer.WriteString(EraNames[i]);
+     Writer.WriteString(ShortEraNames[i]);
+    End;
+   For i := 1 To MonthCount Do
+    Begin
+     Writer.WriteString(MonthNames[i]);
+     Writer.WriteString(ShortMonthNames[i]);
+     Writer.WriteString(GenitiveMonthNames[i]);
+    End;
+   For Day := Low(TDayOfWeek) To High(TDayOfWeek) Do
+    Begin
+     Writer.WriteString(DayNames[Day]);
+     Writer.WriteString(ShortDayNames[Day]);
+     Writer.WriteString(ShortestDayNames[Day]);
+    End;
+   Writer.WriteString(LongDateFormat);
+   Writer.WriteString(ShortDateFormat);
+   Writer.WriteString(YearMonthFormat);
+   Writer.WriteString(MonthDayFormat);
+   Writer.WriteString(YearFormat);
+   Writer.WriteString(ShortTimeFormat);
+   Writer.WriteString(LongTimeFormat);
+   Writer.WriteString(DateSeparator);
+   Writer.WriteString(TimeSeparator);
+   Writer.WriteString(TimeAMString);
+   Writer.WriteString(TimePMString);
+  End;
 
 { TCalendar }
 
-constructor TCalendar.Create;
-begin
-  fSettings := SettingsClass.Create;
-  fSettings.OnChange := SettingsChanged;
-  fDefaultEra := MaxEra;
-end;
+ Constructor TCalendar.Create;
+  Begin
+   fSettings          := SettingsClass.Create;
+   fSettings.OnChange := SettingsChanged;
+   fDefaultEra        := MaxEra;
+  End;
 
-constructor TCalendar.Create(LocaleID: Integer);
-begin
-  Create;
-  Settings.Prepare(LocaleID);
-end;
+ Constructor TCalendar.Create(LocaleID : Integer);
+  Begin
+   Create;
+   Settings.Prepare(LocaleID);
+  End;
 
-constructor TCalendar.Create(const Locale: String);
-begin
-  Create;
-  Settings.Prepare(Locale);
-end;
+ Constructor TCalendar.Create(Const Locale : String);
+  Begin
+   Create;
+   Settings.Prepare(Locale);
+  End;
 
-destructor TCalendar.Destroy;
-begin
-  fSettings.Free;
-  inherited Destroy;
-end;
+ Destructor TCalendar.Destroy;
+  Begin
+   fSettings.Free;
+   Inherited Destroy;
+  End;
 
-procedure TCalendar.SettingsChanged(Sender: TObject);
-begin
-  DoChange;
-end;
+ Procedure TCalendar.SettingsChanged(Sender : TObject);
+  Begin
+   DoChange;
+  End;
 
-procedure TCalendar.Assign(Source: TPersistent);
-begin
-  if Source is TCalendar then
-  begin
-    DefaultEra := TCalendar(Source).DefaultEra;
-    Settings.Assign(TCalendar(Source).Settings);
-  end
-  else if Source is TCalendarSettings then
+ Procedure TCalendar.Assign(Source : TPersistent);
+  Begin
+   If Source Is TCalendar Then
+    Begin
+     DefaultEra := TCalendar(Source).DefaultEra;
+     Settings.Assign(TCalendar(Source).Settings);
+    End
+   Else If Source Is TCalendarSettings Then
     Settings.Assign(Source)
-  else
-    inherited Assign(Source);
-end;
+   Else
+    Inherited Assign(Source);
+  End;
 
-procedure TCalendar.AssignTo(Dest: TPersistent);
-begin
-  if Dest is TCalendar then
+ Procedure TCalendar.AssignTo(Dest : TPersistent);
+  Begin
+   If Dest Is TCalendar Then
     TCalendar(Dest).Assign(Self)
-  else if Dest is TCalendarSettings then
+   Else If Dest Is TCalendarSettings Then
     TCalendarSettings(Dest).Assign(Self.Settings)
-  else
-    inherited AssignTo(Dest);
-end;
+   Else
+    Inherited AssignTo(Dest);
+  End;
 
-function TCalendar.Clone: TCalendar;
-begin
-  Result := TCalendarClass(ClassType).Create;
-  Result.Assign(Self);
-end;
+ Function TCalendar.Clone : TCalendar;
+  Begin
+   Result := TCalendarClass(ClassType).Create;
+   Result.Assign(Self);
+  End;
 
-procedure TCalendar.SetSettings(Value: TCalendarSettings);
-begin
-  Settings.Assign(Value);
-end;
+ Procedure TCalendar.SetSettings(Value : TCalendarSettings);
+  Begin
+   Settings.Assign(Value);
+  End;
 
-procedure TCalendar.SetDefaultEra(Value: Integer);
-begin
-  if DefaultEra <> Value then
-  begin
-    if not IsValidEra(Value) then
+ Procedure TCalendar.SetDefaultEra(Value : Integer);
+  Begin
+   If DefaultEra <> Value Then
+    Begin
+     If Not IsValidEra(Value) Then
       EraError(Value);
-    fDefaultEra := Value;
-    DoChange;
-  end;
-end;
+     fDefaultEra := Value;
+     DoChange;
+    End;
+  End;
 
-class function TCalendar.SettingsClass: TCalendarSettingsClass;
-begin
-  Result := TCalendarSettings;
-end;
+  Class Function TCalendar.SettingsClass : TCalendarSettingsClass;
 
-procedure TCalendar.DoChange;
-begin
-  if Assigned(OnChange) then
+Begin
+ Result := TCalendarSettings;
+
+End;
+
+ Procedure TCalendar.DoChange;
+  Begin
+   If Assigned(OnChange) Then
     OnChange(Self);
-end;
+  End;
 
-class procedure TCalendar.EraError(Era: Integer);
-begin
-  raise EEncodingError.CreateResFmt(@SInvalidEraError,
-    [Era, CalendarName]);
-end;
+  Class Procedure TCalendar.EraError(Era : Integer);
 
-class procedure TCalendar.YearError(Era, Year: Integer);
-begin
-  raise EEncodingError.CreateResFmt(@SInvalidYearError,
-    [Year, CalendarName, Era]);
-end;
+Begin
+ Raise EEncodingError.CreateResFmt(@SInvalidEraError,
+ [Era, CalendarName]);
 
-class procedure TCalendar.MonthError(Era, Year, Month: Integer);
-begin
-  raise EEncodingError.CreateResFmt(@SInvalidMonthError,
-    [Year, Month, CalendarName, Era]);
-end;
+End;
 
-class procedure TCalendar.DayError(Era, Year, Month, Day: Integer);
-begin
-  raise EEncodingError.CreateResFmt(@SInvalidDayError,
-    [Year, Month, Day, CalendarName, Era]);
-end;
+  Class Procedure TCalendar.YearError(Era, Year : Integer);
 
-class procedure TCalendar.DayNumError(DayNum: Integer);
-begin
-  raise EConvertError.CreateResFmt(@SInvalidDayNumError,
-    [DayNum]);
-end;
+Begin
+ Raise EEncodingError.CreateResFmt(@SInvalidYearError,
+ [Year, CalendarName, Era]);
 
-class procedure TCalendar.DateError(const DateTime: TDateTime);
-begin
-  raise EConvertError.CreateResFmt(@SInvalidDateError,
-    [DateToStr(DateTime), CalendarName]);
-end;
+End;
 
-class procedure TCalendar.DateDayError(Era, Year, DayOfYear: Integer);
-begin
-  raise EEncodingError.CreateResFmt(@SInvalidDateDayError,
-    [Year, DayOfYear, CalendarName, Era]);
-end;
+  Class Procedure TCalendar.MonthError(Era, Year, Month : Integer);
 
-class procedure TCalendar.DateWeekError(Era, Year, Week: Integer; DoW: TDayOfWeek);
-begin
-  raise EEncodingError.CreateResFmt(@SInvalidDateWeekError,
-    [Year, Week, Ord(DoW), CalendarName, Era]);
-end;
+Begin
+ Raise EEncodingError.CreateResFmt(@SInvalidMonthError,
+ [Year, Month, CalendarName, Era]);
 
-class procedure TCalendar.ConvertEraError(Year, FromEra, ToEra: Integer);
-begin
-  raise EComponentError.CreateResFmt(@SInvalidConvertEraError, [Year, FromEra, ToEra, CalendarName]);
-end;
+End;
 
-class procedure TCalendar.Divide(Numerator, Denominator: Integer;
-  out Quotient, Reminder: Integer);
-begin
-  Quotient := Floor(Numerator / Denominator);
-  Reminder := Numerator - (Denominator * Quotient);
-end;
+  Class Procedure TCalendar.DayError(Era, Year, Month, Day : Integer);
 
-class function TCalendar.Modulus(Numerator, Denominator: Integer): Integer;
-begin
-  Result := Numerator - (Denominator * Floor(Numerator / Denominator));
-end;
+Begin
+ Raise EEncodingError.CreateResFmt(@SInvalidDayError,
+ [Year, Month, Day, CalendarName, Era]);
 
-function TCalendar.ToZeroBase(Era, Year: Integer): Integer;
-begin
-  Result := Year;
-  if (Year < 1) and not CanHaveZeroYear(Era) then
+End;
+
+  Class Procedure TCalendar.DayNumError(DayNum : Integer);
+
+Begin
+ Raise EConvertError.CreateResFmt(@SInvalidDayNumError,
+ [DayNum]);
+
+End;
+
+  Class Procedure TCalendar.DateError(Const DateTime : TDateTime);
+
+Begin
+ Raise EConvertError.CreateResFmt(@SInvalidDateError,
+ [DateToStr(DateTime), CalendarName]);
+
+End;
+
+  Class Procedure TCalendar.DateDayError(Era, Year, DayOfYear : Integer);
+
+Begin
+ Raise EEncodingError.CreateResFmt(@SInvalidDateDayError,
+ [Year, DayOfYear, CalendarName, Era]);
+
+End;
+
+  Class Procedure TCalendar.DateWeekError(Era, Year, Week : Integer; DoW : TDayOfWeek);
+
+Begin
+ Raise EEncodingError.CreateResFmt(@SInvalidDateWeekError,
+ [Year, Week, Ord(DoW), CalendarName, Era]);
+
+End;
+
+  Class Procedure TCalendar.ConvertEraError(Year, FromEra, ToEra : Integer);
+
+Begin
+ Raise EComponentError.CreateResFmt(@SInvalidConvertEraError, [Year, FromEra, ToEra, CalendarName]);
+
+End;
+
+  Class Procedure TCalendar.Divide(Numerator, Denominator : Integer; Out Quotient, Reminder : Integer);
+
+Begin
+ Quotient := Floor(Numerator / Denominator);
+ Reminder := Numerator - (Denominator * Quotient);
+
+End;
+
+  Class Function TCalendar.Modulus(Numerator, Denominator : Integer) : Integer;
+
+Begin
+ Result := Numerator - (Denominator * Floor(Numerator / Denominator));
+
+End;
+
+ Function TCalendar.ToZeroBase(Era, Year : Integer) : Integer;
+  Begin
+   Result := Year;
+   If (Year < 1) And Not CanHaveZeroYear(Era) Then
     Inc(Result)
-end;
+  End;
 
-function TCalendar.FromZeroBase(Era, Year: Integer): Integer;
-begin
-  Result := Year;
-  if (Year < 1) and not CanHaveZeroYear(Era) then
+ Function TCalendar.FromZeroBase(Era, Year : Integer) : Integer;
+  Begin
+   Result := Year;
+   If (Year < 1) And Not CanHaveZeroYear(Era) Then
     Dec(Result)
-end;
+  End;
 
-class function TCalendar.CalendarID: Cardinal;
-begin
-  Result := 0;
-end;
+  Class Function TCalendar.CalendarID : Cardinal;
 
-class function TCalendar.CalendarKind: TCalendarKind;
-begin
-  Result := ckUnknown;
-end;
+Begin
+ Result := 0;
 
-class function TCalendar.CalendarName: String;
-var
-  I: Integer;
-  NeedsSpace: Boolean;
-  NeedsCloseParenthesis: Boolean;
-begin
-  Result := String(ClassName);
-  Delete(Result, 1, 1);
-  NeedsSpace := False;
-  NeedsCloseParenthesis := False;
-  I := 1;
-  while I <= Length(Result) do
-  begin
-    if (Result[I] = '_') and not NeedsCloseParenthesis then
-    begin
-      Result[I] := ' ';
-      Inc(I);
-      Insert('(', Result, I);
-      NeedsSpace := False;
-      NeedsCloseParenthesis := True;
-    end
-    else if not CharInSet(Result[I], ['A'..'Z', '0'..'9']) then
-      NeedsSpace := True
-    else if NeedsSpace then
-    begin
-      Insert(' ', Result, I);
-      Inc(I);
-      NeedsSpace := False;
-    end;
-    Inc(I);
-  end;
-  if NeedsCloseParenthesis then
-    Insert(')', Result, I);
-end;
+End;
 
-class function TCalendar.MaxEra: Integer;
-begin
-  Result := 1;
-end;
+  Class Function TCalendar.CalendarKind : TCalendarKind;
 
-class function TCalendar.MaxMonthsPerYear: Integer;
-begin
-  Result := 12;
-end;
+Begin
+ Result := ckUnknown;
 
-class function TCalendar.MinSupportedDateTime: TDateTime;
-begin
-  Result := SysUtils.MinDateTime;
-end;
+End;
 
-class function TCalendar.MaxSupportedDateTime: TDateTime;
-begin
-  Result := SysUtils.MaxDateTime;
-end;
+  Class Function TCalendar.CalendarName : String;
 
-class function TCalendar.Today: TDate;
-begin
-  Result := SysUtils.Date;
-end;
+ Var
+  i                     : Integer;
+  NeedsSpace            : Boolean;
+  NeedsCloseParenthesis : Boolean;
 
-class function TCalendar.Yesterday: TDate;
-begin
-  Result := PrevDay(Today);
-end;
+Begin
+ Result := String(ClassName);
+ Delete(Result, 1, 1);
+ NeedsSpace            := False;
+ NeedsCloseParenthesis := False;
+ i                     := 1;
+ While i <= Length(Result) Do
+  Begin
+   If (Result[i] = '_') And Not NeedsCloseParenthesis Then
+    Begin
+     Result[i] := ' ';
+     Inc(i);
+     Insert('(', Result, i);
+     NeedsSpace            := False;
+     NeedsCloseParenthesis := True;
+    End
+   Else If Not CharInSet(Result[i], ['A'..'Z', '0'..'9']) Then
+    NeedsSpace := True
+   Else If NeedsSpace Then
+    Begin
+     Insert(' ', Result, i);
+     Inc(i);
+     NeedsSpace := False;
+    End;
+   Inc(i);
+  End;
+ If NeedsCloseParenthesis Then
+  Insert(')', Result, i);
 
-class function TCalendar.Tomorrow: TDate;
-begin
-  Result := NextDay(Today);
-end;
+End;
 
-class function TCalendar.FirstMonthOfYear: Integer;
-begin
-  Result := 1;
-end;
+  Class Function TCalendar.MaxEra : Integer;
 
-function TCalendar.DaysToMonth(Era, Year, Month: Integer): Integer;
-begin
-  if Month <> FirstMonthOfYear then
+Begin
+ Result := 1;
+
+End;
+
+  Class Function TCalendar.MaxMonthsPerYear : Integer;
+
+Begin
+ Result := 12;
+
+End;
+
+  Class Function TCalendar.MinSupportedDateTime : TDateTime;
+
+Begin
+ Result := SysUtils.MinDateTime;
+
+End;
+
+  Class Function TCalendar.MaxSupportedDateTime : TDateTime;
+
+Begin
+ Result := SysUtils.MaxDateTime;
+
+End;
+
+  Class Function TCalendar.Today : TDate;
+
+Begin
+ Result := SysUtils.Date;
+
+End;
+
+  Class Function TCalendar.Yesterday : TDate;
+
+Begin
+ Result := PrevDay(Today);
+
+End;
+
+  Class Function TCalendar.Tomorrow : TDate;
+
+Begin
+ Result := NextDay(Today);
+
+End;
+
+  Class Function TCalendar.FirstMonthOfYear : Integer;
+
+Begin
+ Result := 1;
+
+End;
+
+ Function TCalendar.DaysToMonth(Era, Year, Month : Integer) : Integer;
+  Begin
+   If Month <> FirstMonthOfYear Then
     Result := DaysBetween(StartOfMonth(Era, Year, Month), StartOfYear(Era, Year))
-  else
+   Else
     Result := 0;
-end;
+  End;
 
-function TCalendar.DaysToMonth(Year, Month: Integer): Integer;
-begin
-  Result := DaysToMonth(DefaultEra, Year, Month);
-end;
+ Function TCalendar.DaysToMonth(Year, Month : Integer) : Integer;
+  Begin
+   Result := DaysToMonth(DefaultEra, Year, Month);
+  End;
 
-function TCalendar.DaysToMonth(const DateTime: TDateTime): Integer;
-var
-  Era, Year, Month, Day: Integer;
-begin
-  DecodeDate(DateTime, Era, Year, Month, Day);
-  Result := DaysToMonth(Era, Year, Month);
-end;
+ Function TCalendar.DaysToMonth(Const DateTime : TDateTime) : Integer;
+  Var
+   Era, Year, Month, Day : Integer;
+  Begin
+   DecodeDate(DateTime, Era, Year, Month, Day);
+   Result := DaysToMonth(Era, Year, Month);
+  End;
 
-function TCalendar.DaysInMonth(Era, Year, Month: Integer): Integer;
-begin
-  Result := DaysBetween(EndOfMonth(Era, Year, Month), StartOfMonth(Era, Year, Month)) + 1;
-end;
+ Function TCalendar.DaysInMonth(Era, Year, Month : Integer) : Integer;
+  Begin
+   Result := DaysBetween(EndOfMonth(Era, Year, Month), StartOfMonth(Era, Year, Month)) + 1;
+  End;
 
-function TCalendar.DaysInMonth(Year, Month: Integer): Integer;
-begin
-  Result := DaysInMonth(DefaultEra, Year, Month);
-end;
+ Function TCalendar.DaysInMonth(Year, Month : Integer) : Integer;
+  Begin
+   Result := DaysInMonth(DefaultEra, Year, Month);
+  End;
 
-function TCalendar.DaysInMonth(const DateTime: TDateTime): Integer;
-var
-  Era, Year, Month, Day: Integer;
-begin
-  DecodeDate(DateTime, Era, Year, Month, Day);
-  Result := DaysInMonth(Era, Year, Month);
-end;
+ Function TCalendar.DaysInMonth(Const DateTime : TDateTime) : Integer;
+  Var
+   Era, Year, Month, Day : Integer;
+  Begin
+   DecodeDate(DateTime, Era, Year, Month, Day);
+   Result := DaysInMonth(Era, Year, Month);
+  End;
 
-function TCalendar.DaysInYear(Era, Year: Integer): Integer;
-begin
-  Result := DaysBetween(EndOfYear(Era, Year), StartOfYear(Era, Year)) + 1;
-end;
+ Function TCalendar.DaysInYear(Era, Year : Integer) : Integer;
+  Begin
+   Result := DaysBetween(EndOfYear(Era, Year), StartOfYear(Era, Year)) + 1;
+  End;
 
-function TCalendar.DaysInYear(Year: Integer): Integer;
-begin
-  Result := DaysInYear(DefaultEra, Year);
-end;
+ Function TCalendar.DaysInYear(Year : Integer) : Integer;
+  Begin
+   Result := DaysInYear(DefaultEra, Year);
+  End;
 
-function TCalendar.DaysInYear(const DateTime: TDateTime): Integer;
-var
-  Era, Year, Month, Day: Integer;
-begin
-  DecodeDate(DateTime, Era, Year, Month, Day);
-  Result := DaysInYear(Era, Year);
-end;
+ Function TCalendar.DaysInYear(Const DateTime : TDateTime) : Integer;
+  Var
+   Era, Year, Month, Day : Integer;
+  Begin
+   DecodeDate(DateTime, Era, Year, Month, Day);
+   Result := DaysInYear(Era, Year);
+  End;
 
-function TCalendar.MonthsInYear(Era, Year: Integer): Integer;
-begin
-  Result := MaxMonthsPerYear;
-end;
+ Function TCalendar.MonthsInYear(Era, Year : Integer) : Integer;
+  Begin
+   Result := MaxMonthsPerYear;
+  End;
 
-function TCalendar.MonthsInYear(Year: Integer): Integer;
-begin
-  Result := MonthsInYear(DefaultEra, Year);
-end;
+ Function TCalendar.MonthsInYear(Year : Integer) : Integer;
+  Begin
+   Result := MonthsInYear(DefaultEra, Year);
+  End;
 
-function TCalendar.MonthsInYear(const DateTime: TDateTime): Integer;
-var
-  Era, Year, Month, Day: Integer;
-begin
-  DecodeDate(DateTime, Era, Year, Month, Day);
-  Result := MonthsInYear(Era, Year);
-end;
+ Function TCalendar.MonthsInYear(Const DateTime : TDateTime) : Integer;
+  Var
+   Era, Year, Month, Day : Integer;
+  Begin
+   DecodeDate(DateTime, Era, Year, Month, Day);
+   Result := MonthsInYear(Era, Year);
+  End;
 
-function TCalendar.WeeksInYear(Era, Year: Integer): Integer;
-var
-  LastWeekDate: TDate;
-begin
-  LastWeekDate := StartOfWeek(EndOfYear(Era, Year));
-  Result := WeekOfYear(LastWeekDate);
-  if Result = 1 then
-  begin
-    DecWeek(LastWeekDate);
-    Result := WeekOfYear(LastWeekDate);
-  end;
-end;
+ Function TCalendar.WeeksInYear(Era, Year : Integer) : Integer;
+  Var
+   LastWeekDate : TDate;
+  Begin
+   LastWeekDate := StartOfWeek(EndOfYear(Era, Year));
+   Result       := WeekOfYear(LastWeekDate);
+   If Result = 1 Then
+    Begin
+     DecWeek(LastWeekDate);
+     Result := WeekOfYear(LastWeekDate);
+    End;
+  End;
 
-function TCalendar.WeeksInYear(Year: Integer): Integer;
-begin
-  Result := WeeksInYear(DefaultEra, Year);
-end;
+ Function TCalendar.WeeksInYear(Year : Integer) : Integer;
+  Begin
+   Result := WeeksInYear(DefaultEra, Year);
+  End;
 
-function TCalendar.WeeksInYear(const DateTime: TDateTime): Integer;
-var
-  Era, Year, Month, Day: Integer;
-begin
-  DecodeDate(DateTime, Era, Year, Month, Day);
-  Result := WeeksInYear(Era, Year);
-end;
+ Function TCalendar.WeeksInYear(Const DateTime : TDateTime) : Integer;
+  Var
+   Era, Year, Month, Day : Integer;
+  Begin
+   DecodeDate(DateTime, Era, Year, Month, Day);
+   Result := WeeksInYear(Era, Year);
+  End;
 
-function TCalendar.WeeksInMonth(Era, Year, Month: Integer): Integer;
-begin
-  Result := ((DaysInMonth(Era, Year, Month) - 1) div DaysPerWeek) + 1;
-end;
+ Function TCalendar.WeeksInMonth(Era, Year, Month : Integer) : Integer;
+  Begin
+   Result := ((DaysInMonth(Era, Year, Month) - 1) Div DaysPerWeek) + 1;
+  End;
 
-function TCalendar.WeeksInMonth(Year, Month: Integer): Integer;
-begin
-  Result := WeeksInMonth(DefaultEra, Year, Month);
-end;
+ Function TCalendar.WeeksInMonth(Year, Month : Integer) : Integer;
+  Begin
+   Result := WeeksInMonth(DefaultEra, Year, Month);
+  End;
 
-function TCalendar.WeeksInMonth(const DateTime: TDateTime): Integer;
-var
-  Era, Year, Month, Day: Integer;
-begin
-  DecodeDate(DateTime, Era, Year, Month, Day);
-  Result := WeeksInMonth(Era, Year, Month);
-end;
+ Function TCalendar.WeeksInMonth(Const DateTime : TDateTime) : Integer;
+  Var
+   Era, Year, Month, Day : Integer;
+  Begin
+   DecodeDate(DateTime, Era, Year, Month, Day);
+   Result := WeeksInMonth(Era, Year, Month);
+  End;
 
-function TCalendar.DayOfYearToDayOfMonth(Era, Year, DayOfYear: Integer;
-  var Month, Day: Integer): Boolean;
-var
-  FirstMonth: Integer;
-  MonthsPerYear: Integer;
-  DaysPerMonth: Integer;
-begin
-  FirstMonth := FirstMonthOfYear;
-  Day := DayOfYear;
-  Month := FirstMonth;
-  MonthsPerYear := MonthsInYear(Era, Year);
-  DaysPerMonth := DaysInMonth(Era, Year, Month);
-  while Day > DaysPerMonth do
-  begin
-    Dec(Day, DaysPerMonth);
-    Inc(Month);
-    if Month > MonthsPerYear then
-    begin
-      Month := 1;
-      if Month = FirstMonth then
-      begin
-        Result := False;
-        Exit;
-      end;
-    end;
-    DaysPerMonth := DaysInMonth(Era, Year, Month);
-  end;
-  Result := (Day >= 1);
-end;
+ Function TCalendar.DayOfYearToDayOfMonth(Era, Year, DayOfYear : Integer; Var Month, Day : Integer) : Boolean;
+  Var
+   FirstMonth    : Integer;
+   MonthsPerYear : Integer;
+   DaysPerMonth  : Integer;
+  Begin
+   FirstMonth    := FirstMonthOfYear;
+   Day           := DayOfYear;
+   Month         := FirstMonth;
+   MonthsPerYear := MonthsInYear(Era, Year);
+   DaysPerMonth  := DaysInMonth(Era, Year, Month);
+   While Day > DaysPerMonth Do
+    Begin
+     Dec(Day, DaysPerMonth);
+     Inc(Month);
+     If Month > MonthsPerYear Then
+      Begin
+       Month := 1;
+       If Month = FirstMonth Then
+        Begin
+         Result := False;
+         Exit;
+        End;
+      End;
+     DaysPerMonth := DaysInMonth(Era, Year, Month);
+    End;
+   Result := (Day >= 1);
+  End;
 
-function TCalendar.DayOfYearToDayOfMonth(Year, DayOfYear: Integer;
-  var Month, Day: Integer): Boolean;
-begin
-  Result := DayOfYearToDayOfMonth(DefaultEra, Year, DayOfYear, Month, Day);
-end;
+ Function TCalendar.DayOfYearToDayOfMonth(Year, DayOfYear : Integer; Var Month, Day : Integer) : Boolean;
+  Begin
+   Result := DayOfYearToDayOfMonth(DefaultEra, Year, DayOfYear, Month, Day);
+  End;
 
-function TCalendar.DayOfMonthToDayOfYear(Era, Year, Month, Day: Integer;
-  out DayOfYear: Integer): Boolean;
-begin
-  if IsValidDay(Era, Year, Month, Day) then
-  begin
-    if Month = FirstMonthOfYear then
+ Function TCalendar.DayOfMonthToDayOfYear(Era, Year, Month, Day : Integer; Out DayOfYear : Integer) : Boolean;
+  Begin
+   If IsValidDay(Era, Year, Month, Day) Then
+    Begin
+     If Month = FirstMonthOfYear Then
       DayOfYear := Day
-    else
+     Else
       DayOfYear := DaysToMonth(Era, Year, Month) + Day;
-    Result := True;
-  end
-  else
+     Result     := True;
+    End
+   Else
     Result := False;
-end;
+  End;
 
-function TCalendar.DayOfMonthToDayOfYear(Year, Month, Day: Integer;
-  out DayOfYear: Integer): Boolean;
-begin
-  Result := DayOfMonthToDayOfYear(DefaultEra, Year, Month, Day, DayOfYear);
-end;
+ Function TCalendar.DayOfMonthToDayOfYear(Year, Month, Day : Integer; Out DayOfYear : Integer) : Boolean;
+  Begin
+   Result := DayOfMonthToDayOfYear(DefaultEra, Year, Month, Day, DayOfYear);
+  End;
 
-function TCalendar.ConvertYear(Year, FromEra, ToEra: Integer): Integer;
-begin
-  if FromEra <> ToEra then
+ Function TCalendar.ConvertYear(Year, FromEra, ToEra : Integer) : Integer;
+  Begin
+   If FromEra <> ToEra Then
     ConvertEraError(Year, FromEra, ToEra);
-  if not IsValidYear(FromEra, Year) then
+   If Not IsValidYear(FromEra, Year) Then
     YearError(FromEra, Year);
-  Result := Year;
-end;
+   Result := Year;
+  End;
 
-function TCalendar.AdjustJulianDay(const JD: Extended; Backward: Boolean): Extended;
-begin
-  Result := JD;
-end;
+ Function TCalendar.AdjustJulianDay(Const JD : Extended; Backward : Boolean) : Extended;
+  Begin
+   Result := JD;
+  End;
 
-function TCalendar.BaseEra: Integer;
-begin
-  Result := 1;
-end;
+ Function TCalendar.BaseEra : Integer;
+  Begin
+   Result := 1;
+  End;
 
-function TCalendar.BestEraOfBaseEraYear(Year: Integer): Integer;
-begin
-  Result := DefaultEra;
-end;
+ Function TCalendar.BestEraOfBaseEraYear(Year : Integer) : Integer;
+  Begin
+   Result := DefaultEra;
+  End;
 
-function TCalendar.ToFourDigitYear(Year: Integer): Integer;
-begin
-  Result := Year;
-  if (Year > 0) and (Year < 100) then
-  begin
-    Inc(Result, 100 * (Settings.TwoDigitYearMax div 100));
-    if Result > Settings.TwoDigitYearMax then
+ Function TCalendar.ToFourDigitYear(Year : Integer) : Integer;
+  Begin
+   Result := Year;
+   If (Year > 0) And (Year < 100) Then
+    Begin
+     Inc(Result, 100 * (Settings.TwoDigitYearMax Div 100));
+     If Result > Settings.TwoDigitYearMax Then
       Dec(Result, 100);
-  end;
-end;
+    End;
+  End;
 
-function TCalendar.OffsetYear(Year, NumberOfYears, FromEra, ToEra: Integer): Integer;
-begin
-  // In most calendars the year zero is meaningless and we should take care of it.
-  Result := FromZeroBase(ToEra, ToZeroBase(FromEra, Year) + NumberOfYears);
-end;
+ Function TCalendar.OffsetYear(Year, NumberOfYears, FromEra, ToEra : Integer) : Integer;
+  Begin
+   // In most calendars the year zero is meaningless and we should take care of it.
+   Result := FromZeroBase(ToEra, ToZeroBase(FromEra, Year) + NumberOfYears);
+  End;
 
-function TCalendar.OffsetYear(Era, Year, NumberOfYears: Integer): Integer;
-begin
-  Result := OffsetYear(Year, NumberOfYears, Era, Era);
-end;
+ Function TCalendar.OffsetYear(Era, Year, NumberOfYears : Integer) : Integer;
+  Begin
+   Result := OffsetYear(Year, NumberOfYears, Era, Era);
+  End;
 
-function TCalendar.OffsetYear(Year, NumberOfYears: Integer): Integer;
-begin
-  Result := OffsetYear(DefaultEra, Year, NumberOfYears);
-end;
+ Function TCalendar.OffsetYear(Year, NumberOfYears : Integer) : Integer;
+  Begin
+   Result := OffsetYear(DefaultEra, Year, NumberOfYears);
+  End;
 
-class function TCalendar.OffsetDateTime(const DateTime: TDateTime;
-  const Delta: Double): TDateTime;
-begin
-  // We should take in account that in TDateTime type
-  // 1. The fraction part is always a positive value even when the whole value is negative
-  // 2. There is no value in range (-1, 0)
-  Result := JulianDayToDateTime(DateTimeToJulianDay(DateTime) + Delta);
-end;
+  Class Function TCalendar.OffsetDateTime(Const DateTime : TDateTime; Const Delta : Double) : TDateTime;
 
-class function TCalendar.DaysBetween(DateTime1, DateTime2: TDateTime): Integer;
-begin
-  Result := Abs(Trunc(DateTime1) - Trunc(DateTime2));
-end;
+Begin
+ // We should take in account that in TDateTime type
+ // 1. The fraction part is always a positive value even when the whole value is negative
+ // 2. There is no value in range (-1, 0)
+ Result := JulianDayToDateTime(DateTimeToJulianDay(DateTime) + Delta);
 
-class function TCalendar.DaysOfWeekBetween(DoW1, DoW2: TDayOfWeek): Integer;
-begin
-  Result := (Ord(DoW1) - Ord(DoW2) + DaysPerWeek) mod DaysPerWeek;
-end;
+End;
 
-function TCalendar.DayOfWeekToDayNum(DoW: TDayOfWeek): Integer;
-begin
-  Result := ((DaysPerWeek - Ord(Settings.FirstDayOfWeek) + Ord(Dow)) mod DaysPerWeek) + 1;
-end;
+  Class Function TCalendar.DaysBetween(DateTime1, DateTime2 : TDateTime) : Integer;
 
-function TCalendar.DayNumToDayOfWeek(DayNum: Integer): TDayOfWeek;
-begin
-  if DayNum in [1..7] then
+Begin
+ Result := Abs(Trunc(DateTime1) - Trunc(DateTime2));
+
+End;
+
+  Class Function TCalendar.DaysOfWeekBetween(DoW1, DoW2 : TDayOfWeek) : Integer;
+
+Begin
+ Result := (Ord(DoW1) - Ord(DoW2) + DaysPerWeek) Mod DaysPerWeek;
+
+End;
+
+ Function TCalendar.DayOfWeekToDayNum(DoW : TDayOfWeek) : Integer;
+  Begin
+   Result := ((DaysPerWeek - Ord(Settings.FirstDayOfWeek) + Ord(DoW)) Mod DaysPerWeek) + 1;
+  End;
+
+ Function TCalendar.DayNumToDayOfWeek(DayNum : Integer) : TDayOfWeek;
+  Begin
+   If DayNum In [1..7] Then
     DayNumError(DayNum);
-  Result := TDayOfWeek(((Ord(Settings.FirstDayOfWeek) + DayNum - 2) mod DaysPerWeek) + 1);
-end;
+   Result := TDayOfWeek(((Ord(Settings.FirstDayOfWeek) + DayNum - 2) Mod DaysPerWeek) + 1);
+  End;
 
-function TCalendar.CanHaveZeroYear(Era: Integer): Boolean;
-begin
-  Result := False;
-end;
+ Function TCalendar.CanHaveZeroYear(Era : Integer) : Boolean;
+  Begin
+   Result := False;
+  End;
 
-class function TCalendar.IsNoDate(const DateTime: TDateTime): Boolean;
-begin
-  Result := (DateTime > -1) and (DateTime < 0);
-end;
+  Class Function TCalendar.IsNoDate(Const DateTime : TDateTime) : Boolean;
 
-function TCalendar.IsValidDate(const DateTime: TDateTime): Boolean;
-begin
-  Result := IsInRange(DateTime, MinSupportedDateTime, MaxSupportedDateTime);
-end;
+Begin
+ Result := (DateTime > -1) And (DateTime < 0);
 
-function TCalendar.IsValidDateDay(Era, Year, DayOfYear: Integer): Boolean;
-begin
-  Result := IsValidYear(Era, Year)
-        and (DayOfYear >= 1) and (DayOfYear <= DaysInYear(Era, Year));
-end;
+End;
 
-function TCalendar.IsValidDateDay(Year, DayOfYear: Integer): Boolean;
-begin
-  Result := IsValidDateDay(DefaultEra, Year);
-end;
+ Function TCalendar.IsValidDate(Const DateTime : TDateTime) : Boolean;
+  Begin
+   Result := IsInRange(DateTime, MinSupportedDateTime, MaxSupportedDateTime);
+  End;
 
-function TCalendar.IsValidDateWeek(Era, Year, Week: Integer;
-  DoW: TDayOfWeek): Boolean;
-begin
-  Result := IsValidYear(Era, Year)
-        and (Week >= 1) and (Week <= WeeksInYear(Era, Year))
-        and (Ord(DoW) in [Ord(Low(TDayOfWeek))..Ord(High(TDayOfWeek))]);
-end;
+ Function TCalendar.IsValidDateDay(Era, Year, DayOfYear : Integer) : Boolean;
+  Begin
+   Result := IsValidYear(Era, Year)
+   And (DayOfYear >= 1) And (DayOfYear <= DaysInYear(Era, Year));
+  End;
 
-function TCalendar.IsValidDateWeek(Year, Week: Integer;
-  DoW: TDayOfWeek): Boolean;
-begin
-  Result := IsValidDateWeek(DefaultEra, Year, DoW);
-end;
+ Function TCalendar.IsValidDateDay(Year, DayOfYear : Integer) : Boolean;
+  Begin
+   Result := IsValidDateDay(DefaultEra, Year);
+  End;
 
-function TCalendar.IsValidEra(Era: Integer): Boolean;
-begin
-  Result := (Era = DefaultEra) or ((Era >= 1) and (Era <= MaxEra));
-end;
+ Function TCalendar.IsValidDateWeek(Era, Year, Week : Integer; DoW : TDayOfWeek) : Boolean;
+  Begin
+   Result := IsValidYear(Era, Year)
+   And (Week >= 1) And (Week <= WeeksInYear(Era, Year))
+   And (Ord(DoW) In [Ord(Low(TDayOfWeek))..Ord(High(TDayOfWeek))]);
+  End;
 
-function TCalendar.IsValidYear(Era, Year: Integer): Boolean;
-begin
-  Result := IsValidEra(Era) and ((Year <> 0) or CanHaveZeroYear(Era));
-end;
+ Function TCalendar.IsValidDateWeek(Year, Week : Integer; DoW : TDayOfWeek) : Boolean;
+  Begin
+   Result := IsValidDateWeek(DefaultEra, Year, DoW);
+  End;
 
-function TCalendar.IsValidYear(Year: Integer): Boolean;
-begin
-  Result := IsValidYear(DefaultEra, Year);
-end;
+ Function TCalendar.IsValidEra(Era : Integer) : Boolean;
+  Begin
+   Result := (Era = DefaultEra) Or ((Era >= 1) And (Era <= MaxEra));
+  End;
 
-function TCalendar.IsValidMonth(Era, Year, Month: Integer): Boolean;
-begin
-  Result := IsValidYear(Era, Year)
-        and ((Month = FirstMonthOfYear) or ((Month >= 1) and (Month <= MonthsInYear(Era, Year))));
-end;
+ Function TCalendar.IsValidYear(Era, Year : Integer) : Boolean;
+  Begin
+   Result := IsValidEra(Era) And ((Year <> 0) Or CanHaveZeroYear(Era));
+  End;
 
-function TCalendar.IsValidMonth(Year, Month: Integer): Boolean;
-begin
-  Result := IsValidMonth(DefaultEra, Year, Month);
-end;
+ Function TCalendar.IsValidYear(Year : Integer) : Boolean;
+  Begin
+   Result := IsValidYear(DefaultEra, Year);
+  End;
 
-function TCalendar.IsValidDay(Era, Year, Month, Day: Integer): Boolean;
-begin
-  Result := IsValidMonth(Era, Year, Month)
-        and ((Day = 1) or ((Day >= 1) and (Day <= DaysInMonth(Era, Year, Month))));
-end;
+ Function TCalendar.IsValidMonth(Era, Year, Month : Integer) : Boolean;
+  Begin
+   Result := IsValidYear(Era, Year)
+   And ((Month = FirstMonthOfYear) Or ((Month >= 1) And (Month <= MonthsInYear(Era, Year))));
+  End;
 
-function TCalendar.IsValidDay(Year, Month, Day: Integer): Boolean;
-begin
-  Result := IsValidDay(DefaultEra, Year, Month)
-end;
+ Function TCalendar.IsValidMonth(Year, Month : Integer) : Boolean;
+  Begin
+   Result := IsValidMonth(DefaultEra, Year, Month);
+  End;
 
-function TCalendar.IsLeapYear(Era, Year: Integer): Boolean;
-begin
-  if not IsValidYear(Era, Year) then
+ Function TCalendar.IsValidDay(Era, Year, Month, Day : Integer) : Boolean;
+  Begin
+   Result := IsValidMonth(Era, Year, Month)
+   And ((Day = 1) Or ((Day >= 1) And (Day <= DaysInMonth(Era, Year, Month))));
+  End;
+
+ Function TCalendar.IsValidDay(Year, Month, Day : Integer) : Boolean;
+  Begin
+   Result := IsValidDay(DefaultEra, Year, Month)
+  End;
+
+ Function TCalendar.IsLeapYear(Era, Year : Integer) : Boolean;
+  Begin
+   If Not IsValidYear(Era, Year) Then
     YearError(Era, Year);
-  Result := False;
-end;
+   Result := False;
+  End;
 
-function TCalendar.IsLeapYear(Year: Integer): Boolean;
-begin
-  Result := IsLeapYear(DefaultEra, Year);
-end;
+ Function TCalendar.IsLeapYear(Year : Integer) : Boolean;
+  Begin
+   Result := IsLeapYear(DefaultEra, Year);
+  End;
 
-function TCalendar.IsInLeapYear(const DateTime: TDateTime): Boolean;
-var
-  Era, Year, Month, Day: Integer;
-begin
-  DecodeDate(DateTime, Era, Year, Month, Day);
-  Result := IsLeapYear(Era, Year);
-end;
+ Function TCalendar.IsInLeapYear(Const DateTime : TDateTime) : Boolean;
+  Var
+   Era, Year, Month, Day : Integer;
+  Begin
+   DecodeDate(DateTime, Era, Year, Month, Day);
+   Result := IsLeapYear(Era, Year);
+  End;
 
-class function TCalendar.IsInRange(const DateTime, RangeStart, RangeEnd: TDateTime): Boolean;
-begin
-  Result := not IsNoDate(DateTime)
-        and (Compare(DateTime, RangeStart) >= 0) and (Compare(DateTime, RangeEnd) <= 0);
-end;
+  Class Function TCalendar.IsInRange(Const DateTime, RangeStart, RangeEnd : TDateTime) : Boolean;
 
-function TCalendar.IsThisEra(const DateTime: TDateTime): Boolean;
-begin
-  Result := IsSameEra(DateTime, Today);
-end;
+Begin
+ Result := Not IsNoDate(DateTime)
+ And (Compare(DateTime, RangeStart) >= 0) And (Compare(DateTime, RangeEnd) <= 0);
 
-function TCalendar.IsThisEra(Era: Integer): Boolean;
-begin
-  Result := (EraOf(Today) = Era);
-end;
+End;
 
-function TCalendar.IsThisYear(const DateTime: TDateTime): Boolean;
-begin
-  Result := IsSameYear(DateTime, Today);
-end;
+ Function TCalendar.IsThisEra(Const DateTime : TDateTime) : Boolean;
+  Begin
+   Result := IsSameEra(DateTime, Today);
+  End;
 
-function TCalendar.IsThisYear(Era, Year: Integer): Boolean;
-begin
-  Result := IsThisYear(ConvertYear(Year, Era, DefaultEra));
-end;
+ Function TCalendar.IsThisEra(Era : Integer) : Boolean;
+  Begin
+   Result := (EraOf(Today) = Era);
+  End;
 
-function TCalendar.IsThisYear(Year: Integer): Boolean;
-begin
-  Result := (YearOf(Today) = Year);
-end;
+ Function TCalendar.IsThisYear(Const DateTime : TDateTime) : Boolean;
+  Begin
+   Result := IsSameYear(DateTime, Today);
+  End;
 
-function TCalendar.IsThisMonth(const DateTime: TDateTime): Boolean;
-begin
-  Result := IsSameMonth(DateTime, Today);
-end;
+ Function TCalendar.IsThisYear(Era, Year : Integer) : Boolean;
+  Begin
+   Result := IsThisYear(ConvertYear(Year, Era, DefaultEra));
+  End;
 
-function TCalendar.IsThisMonth(Era, Year, Month: Integer): Boolean;
-begin
-  Result := IsThisMonth(ConvertYear(Year, Era, DefaultEra), Month);
-end;
+ Function TCalendar.IsThisYear(Year : Integer) : Boolean;
+  Begin
+   Result := (YearOf(Today) = Year);
+  End;
 
-function TCalendar.IsThisMonth(Year, Month: Integer): Boolean;
-var
-  TodayYear, TodayMonth, TodayDay: Integer;
-begin
-  DecodeDate(Today, TodayYear, TodayMonth, TodayDay);
-  Result := (TodayYear = Year) and (TodayMonth = Month);
-end;
+ Function TCalendar.IsThisMonth(Const DateTime : TDateTime) : Boolean;
+  Begin
+   Result := IsSameMonth(DateTime, Today);
+  End;
 
-function TCalendar.IsThisMonth(Month: Integer): Boolean;
-begin
-  Result := (MonthOfYear(Today) = Month);
-end;
+ Function TCalendar.IsThisMonth(Era, Year, Month : Integer) : Boolean;
+  Begin
+   Result := IsThisMonth(ConvertYear(Year, Era, DefaultEra), Month);
+  End;
 
-function TCalendar.IsThisWeek(const DateTime: TDateTime): Boolean;
-begin
-  Result := IsSameWeek(DateTime, Today);
-end;
+ Function TCalendar.IsThisMonth(Year, Month : Integer) : Boolean;
+  Var
+   TodayYear, TodayMonth, TodayDay : Integer;
+  Begin
+   DecodeDate(Today, TodayYear, TodayMonth, TodayDay);
+   Result := (TodayYear = Year) And (TodayMonth = Month);
+  End;
 
-class function TCalendar.IsToday(const DateTime: TDateTime): Boolean;
-begin
-  Result := IsSameDay(DateTime, Today);
-end;
+ Function TCalendar.IsThisMonth(Month : Integer) : Boolean;
+  Begin
+   Result := (MonthOfYear(Today) = Month);
+  End;
 
-class function TCalendar.IsToday(DoW: TDayOfWeek): Boolean;
-begin
-  Result := (DayOfWeek(Today) = DoW);
-end;
+ Function TCalendar.IsThisWeek(Const DateTime : TDateTime) : Boolean;
+  Begin
+   Result := IsSameWeek(DateTime, Today);
+  End;
 
-class function TCalendar.IsPM(const DateTime: TDateTime): Boolean;
-begin
-  Result := TimeOf(DateTime) >= 0.5;
-end;
+  Class Function TCalendar.IsToday(Const DateTime : TDateTime) : Boolean;
 
-class function TCalendar.IsSame(const DateTime1, DateTime2: TDateTime): Boolean;
-begin
-  Result := (Abs(DateTime1 - DateTime2) < OneMilliSecond);
-end;
+Begin
+ Result := IsSameDay(DateTime, Today);
 
-function TCalendar.IsSameEra(const DateTime1, DateTime2: TDateTime): Boolean;
-begin
-  Result := (EraOf(DateTime1) = EraOf(DateTime2));
-end;
+End;
 
-function TCalendar.IsSameYear(const DateTime1, DateTime2: TDateTime): Boolean;
-var
-  Era1, Year1, Month1, Day1: Integer;
-  Era2, Year2, Month2, Day2: Integer;
-begin
-  DecodeDate(DateTime1, Era1, Year1, Month1, Day1);
-  DecodeDate(DateTime2, Era2, Year2, Month2, Day2);
-  Result := (Era1 = Era2) and (Year1 = Year2);
-end;
+  Class Function TCalendar.IsToday(DoW : TDayOfWeek) : Boolean;
 
-function TCalendar.IsSameMonth(const DateTime1, DateTime2: TDateTime): Boolean;
-var
-  Era1, Year1, Month1, Day1: Integer;
-  Era2, Year2, Month2, Day2: Integer;
-begin
-  DecodeDate(DateTime1, Era1, Year1, Month1, Day1);
-  DecodeDate(DateTime2, Era2, Year2, Month2, Day2);
-  Result := (Era1 = Era2) and (Year1 = Year2) and (Month1 = Month2);
-end;
+Begin
+ Result := (DayOfWeek(Today) = DoW);
 
-function TCalendar.IsSameWeek(const DateTime1, DateTime2: TDateTime): Boolean;
-begin
-  Result := IsInRange(DateTime1, StartOfWeek(DateTime2), EndOfWeek(DateTime2));
-end;
+End;
 
-class function TCalendar.IsSameDay(const DateTime1, DateTime2: TDateTime): Boolean;
-begin
-  Result := (Trunc(DateTime1) = Trunc(DateTime2));
-end;
+  Class Function TCalendar.IsPM(Const DateTime : TDateTime) : Boolean;
 
-class function TCalendar.Compare(const DateTime1, DateTime2: TDateTime): Integer;
-begin
-  if IsSame(DateTime1, DateTime2) then
-    Result := 0
-  else if DateTime1 < DateTime2 then
-    Result := -1
-  else
-    Result := +1;
-end;
+Begin
+ Result := TimeOf(DateTime) >= 0.5;
 
-class function TCalendar.CompareDate(const DateTime1, DateTime2: TDateTime): Integer;
-begin
-  Result := Compare(DateOf(DateTime1), DateOf(DateTime2));
-end;
+End;
 
-class function TCalendar.CompareTime(const DateTime1, DateTime2: TDateTime): Integer;
-begin
-  Result := Compare(TimeOf(DateTime1), TimeOf(DateTime2));
-end;
+  Class Function TCalendar.IsSame(Const DateTime1, DateTime2 : TDateTime) : Boolean;
 
-function TCalendar.TryEncodeDateWeek(Era, Year, Week: Integer;
-  DoW: TDayOfWeek; out DateTime: TDateTime): Boolean;
-var
-  YearStart: TDateTime;
-  DayOfYear: Integer;
-  Offset: Integer;
-begin
-  Result := False;
-  if IsValidDateWeek(Era, Year, Week, DoW) then
-  begin
-    YearStart := StartOfYear(Era, Year);
-    DayOfYear := ((Week - 1) * DaysPerWeek) + DaysOfWeekBetween(DoW, Settings.FirstDayOfWeek);
-    Offset := DaysOfWeekBetween(DayOfWeek(YearStart), Settings.FirstDayOfWeek);
-    case Settings.WeekRule of
-      wrFirstFourDayWeek:
-        if Offset >= 4 then
-          Dec(Offset, DaysPerWeek);
-      wrFullWeek:
-        if Offset <> 0 then
-          Dec(Offset, DaysPerWeek);
-    end;
-    DateTime := YearStart + DayOfYear - Offset;
-    Result := True;
-  end;
-end;
+Begin
+ Result := (Abs(DateTime1 - DateTime2) < OneMillisecond);
 
-function TCalendar.TryEncodeDateWeek(Year, Week: Integer;
-  DoW: TDayOfWeek; out DateTime: TDateTime): Boolean;
-begin
-  Result := TryEncodeDateWeek(DefaultEra, Year, Week, DoW, DateTime);
-end;
+End;
 
-function TCalendar.EncodeDateWeek(Era, Year, Week: Integer;
-  DoW: TDayOfWeek): TDateTime;
-begin
-  if not TryEncodeDateWeek(Era, Year, Week, DoW, Result) then
+ Function TCalendar.IsSameEra(Const DateTime1, DateTime2 : TDateTime) : Boolean;
+  Begin
+   Result := (EraOf(DateTime1) = EraOf(DateTime2));
+  End;
+
+ Function TCalendar.IsSameYear(Const DateTime1, DateTime2 : TDateTime) : Boolean;
+  Var
+   Era1, Year1, Month1, Day1 : Integer;
+   Era2, Year2, Month2, Day2 : Integer;
+  Begin
+   DecodeDate(DateTime1, Era1, Year1, Month1, Day1);
+   DecodeDate(DateTime2, Era2, Year2, Month2, Day2);
+   Result := (Era1 = Era2) And (Year1 = Year2);
+  End;
+
+ Function TCalendar.IsSameMonth(Const DateTime1, DateTime2 : TDateTime) : Boolean;
+  Var
+   Era1, Year1, Month1, Day1 : Integer;
+   Era2, Year2, Month2, Day2 : Integer;
+  Begin
+   DecodeDate(DateTime1, Era1, Year1, Month1, Day1);
+   DecodeDate(DateTime2, Era2, Year2, Month2, Day2);
+   Result := (Era1 = Era2) And (Year1 = Year2) And (Month1 = Month2);
+  End;
+
+ Function TCalendar.IsSameWeek(Const DateTime1, DateTime2 : TDateTime) : Boolean;
+  Begin
+   Result := IsInRange(DateTime1, StartOfWeek(DateTime2), EndOfWeek(DateTime2));
+  End;
+
+  Class Function TCalendar.IsSameDay(Const DateTime1, DateTime2 : TDateTime) : Boolean;
+
+Begin
+ Result := (Trunc(DateTime1) = Trunc(DateTime2));
+
+End;
+
+  Class Function TCalendar.Compare(Const DateTime1, DateTime2 : TDateTime) : Integer;
+
+Begin
+ If IsSame(DateTime1, DateTime2) Then
+  Result := 0
+ Else If DateTime1 < DateTime2 Then
+  Result := -1
+ Else
+  Result := +1;
+
+End;
+
+  Class Function TCalendar.CompareDate(Const DateTime1, DateTime2 : TDateTime) : Integer;
+
+Begin
+ Result := Compare(DateOf(DateTime1), DateOf(DateTime2));
+
+End;
+
+  Class Function TCalendar.CompareTime(Const DateTime1, DateTime2 : TDateTime) : Integer;
+
+Begin
+ Result := Compare(TimeOf(DateTime1), TimeOf(DateTime2));
+
+End;
+
+ Function TCalendar.TryEncodeDateWeek(Era, Year, Week : Integer; DoW : TDayOfWeek; Out DateTime : TDateTime) : Boolean;
+  Var
+   YearStart : TDateTime;
+   DayOfYear : Integer;
+   Offset    : Integer;
+  Begin
+   Result := False;
+   If IsValidDateWeek(Era, Year, Week, DoW) Then
+    Begin
+     YearStart := StartOfYear(Era, Year);
+     DayOfYear := ((Week - 1) * DaysPerWeek) + DaysOfWeekBetween(DoW, Settings.FirstDayOfWeek);
+     Offset    := DaysOfWeekBetween(DayOfWeek(YearStart), Settings.FirstDayOfWeek);
+     Case Settings.WeekRule Of
+      wrFirstFourDayWeek :
+       If Offset >= 4 Then
+        Dec(Offset, DaysPerWeek);
+      wrFullWeek :
+       If Offset <> 0 Then
+        Dec(Offset, DaysPerWeek);
+     End;
+     DateTime := YearStart + DayOfYear - Offset;
+     Result   := True;
+    End;
+  End;
+
+ Function TCalendar.TryEncodeDateWeek(Year, Week : Integer; DoW : TDayOfWeek; Out DateTime : TDateTime) : Boolean;
+  Begin
+   Result := TryEncodeDateWeek(DefaultEra, Year, Week, DoW, DateTime);
+  End;
+
+ Function TCalendar.EncodeDateWeek(Era, Year, Week : Integer; DoW : TDayOfWeek) : TDateTime;
+  Begin
+   If Not TryEncodeDateWeek(Era, Year, Week, DoW, Result) Then
     DateWeekError(Era, Year, Week, DoW);
-end;
+  End;
 
-function TCalendar.EncodeDateWeek(Year, Week: Integer;
-  DoW: TDayOfWeek): TDateTime;
-begin
-  Result := EncodeDateWeek(DefaultEra, Year, Week, DoW);
-end;
+ Function TCalendar.EncodeDateWeek(Year, Week : Integer; DoW : TDayOfWeek) : TDateTime;
+  Begin
+   Result := EncodeDateWeek(DefaultEra, Year, Week, DoW);
+  End;
 
-function TCalendar.TryDecodeDateWeek(const DateTime: TDateTime;
-  out Era, Year, Week: Integer; out DoW: TDayOfWeek): Boolean;
+ Function TCalendar.TryDecodeDateWeek(Const DateTime : TDateTime; Out Era, Year, Week : Integer; Out DoW : TDayOfWeek) : Boolean;
 
-  function DoDecode(const Date: TDateTime): Boolean;
-  var
-    DayOfYear: Integer;
-    FirstOffset, Offset: Integer;
-  begin
-    Result := TryDecodeDateDay(Date, Era, Year, DayOfYear);
-    if Result then
-    begin
-      FirstOffset := Ord(DayOfWeek(Date)) - ((DayOfYear - 1) mod DaysPerWeek);
-      if Settings.WeekRule = wrFirstDayWeek then
-      begin
-        Offset := (FirstOffset - Ord(Settings.FirstDayOfWeek) + 2 * DaysPerWeek) mod DaysPerWeek;
-        Week := ((DayOfYear + Offset - 1) div DaysPerWeek) + 1;
-      end
-      else
-      begin
-        Offset := (Ord(Settings.FirstDayOfWeek) - FirstOffset + 2 * DaysPerWeek) mod DaysPerWeek;
-        if (Settings.WeekRule = wrFirstFourDayWeek) and (Offset >= 4) then
+   Function DoDecode(Const Date : TDateTime) : Boolean;
+    Var
+     DayOfYear           : Integer;
+     FirstOffset, Offset : Integer;
+    Begin
+     Result := TryDecodeDateDay(Date, Era, Year, DayOfYear);
+     If Result Then
+      Begin
+       FirstOffset := Ord(DayOfWeek(Date)) - ((DayOfYear - 1) Mod DaysPerWeek);
+       If Settings.WeekRule = wrFirstDayWeek Then
+        Begin
+         Offset := (FirstOffset - Ord(Settings.FirstDayOfWeek) + 2 * DaysPerWeek) Mod DaysPerWeek;
+         Week   := ((DayOfYear + Offset - 1) Div DaysPerWeek) + 1;
+        End
+       Else
+        Begin
+         Offset := (Ord(Settings.FirstDayOfWeek) - FirstOffset + 2 * DaysPerWeek) Mod DaysPerWeek;
+         If (Settings.WeekRule = wrFirstFourDayWeek) And (Offset >= 4) Then
           Dec(Offset, DaysPerWeek);
-        if DayOfYear > Offset then
-          Week := ((DayOfYear - Offset - 1) div DaysPerWeek) + 1
-        else
+         If DayOfYear > Offset Then
+          Week := ((DayOfYear - Offset - 1) Div DaysPerWeek) + 1
+         Else
           Result := DoDecode(Date - DayOfYear);
-      end;
-    end;
-  end;
+        End;
+      End;
+    End;
 
-begin
-  DoW := DayOfWeek(DateTime);
-  if (Settings.WeekRule = wrFirstFourDayWeek) and
-     (DaysOfWeekBetween(DoW, Settings.FirstDayOfWeek) <= 2)
-  then
+  Begin
+   DoW := DayOfWeek(DateTime);
+   If (Settings.WeekRule = wrFirstFourDayWeek) And
+   (DaysOfWeekBetween(DoW, Settings.FirstDayOfWeek) <= 2)
+   Then
     Result := DoDecode(DateTime + 3)
-  else
+   Else
     Result := DoDecode(DateTime);
-end;
+  End;
 
-function TCalendar.TryDecodeDateWeek(const DateTime: TDateTime;
-  out Year, Week: Integer; out DoW: TDayOfWeek): Boolean;
-var
-  Era: Integer;
-begin
-  Result := TryDecodeDateWeek(DateTime, Era, Year, Week, DoW);
-  if Result and (Era <> DefaultEra) then
+ Function TCalendar.TryDecodeDateWeek(Const DateTime : TDateTime; Out Year, Week : Integer; Out DoW : TDayOfWeek) : Boolean;
+  Var
+   Era : Integer;
+  Begin
+   Result := TryDecodeDateWeek(DateTime, Era, Year, Week, DoW);
+   If Result And (Era <> DefaultEra) Then
     Year := ConvertYear(Year, Era, DefaultEra);
-end;
+  End;
 
-procedure TCalendar.DecodeDateWeek(const DateTime: TDateTime;
-  out Era, Year, Week: Integer; out DoW: TDayOfWeek);
-begin
-  if not TryDecodeDateWeek(DateTime, Era, Year, Week, DoW) then
+ Procedure TCalendar.DecodeDateWeek(Const DateTime : TDateTime; Out Era, Year, Week : Integer; Out DoW : TDayOfWeek);
+  Begin
+   If Not TryDecodeDateWeek(DateTime, Era, Year, Week, DoW) Then
     DateError(DateTime);
-end;
+  End;
 
-procedure TCalendar.DecodeDateWeek(const DateTime: TDateTime;
-  out Year, Week: Integer; out DoW: TDayOfWeek);
-begin
-  if not TryDecodeDateWeek(DateTime, Year, Week, DoW) then
+ Procedure TCalendar.DecodeDateWeek(Const DateTime : TDateTime; Out Year, Week : Integer; Out DoW : TDayOfWeek);
+  Begin
+   If Not TryDecodeDateWeek(DateTime, Year, Week, DoW) Then
     DateError(DateTime);
-end;
+  End;
 
-function TCalendar.TryEncodeDateDay(Era, Year, DayOfYear: Integer;
-  out DateTime: TDateTime): Boolean;
-begin
-  if IsValidDateDay(Era, Year, DayOfYear) then
-  begin
-    DateTime := StartOfYear(Era, Year) + (DayOfYear - 1);
-    Result := True;
-  end
-  else
+ Function TCalendar.TryEncodeDateDay(Era, Year, DayOfYear : Integer; Out DateTime : TDateTime) : Boolean;
+  Begin
+   If IsValidDateDay(Era, Year, DayOfYear) Then
+    Begin
+     DateTime := StartOfYear(Era, Year) + (DayOfYear - 1);
+     Result   := True;
+    End
+   Else
     Result := False;
-end;
+  End;
 
-function TCalendar.TryEncodeDateDay(Year, DayOfYear: Integer;
-  out DateTime: TDateTime): Boolean;
-begin
-  Result := TryEncodeDateDay(DefaultEra, Year, DayOfYear, DateTime);
-end;
+ Function TCalendar.TryEncodeDateDay(Year, DayOfYear : Integer; Out DateTime : TDateTime) : Boolean;
+  Begin
+   Result := TryEncodeDateDay(DefaultEra, Year, DayOfYear, DateTime);
+  End;
 
-function TCalendar.EncodeDateDay(Era, Year, DayOfYear: Integer): TDateTime;
-begin
-  if not TryEncodeDateDay(Era, Year, DayOfYear, Result) then
+ Function TCalendar.EncodeDateDay(Era, Year, DayOfYear : Integer) : TDateTime;
+  Begin
+   If Not TryEncodeDateDay(Era, Year, DayOfYear, Result) Then
     DateDayError(Era, Year, DayOfYear);
-end;
+  End;
 
-function TCalendar.EncodeDateDay(Year, DayOfYear: Integer): TDateTime;
-begin
-  Result := EncodeDateDay(DefaultEra, Year, DayOfYear);
-end;
+ Function TCalendar.EncodeDateDay(Year, DayOfYear : Integer) : TDateTime;
+  Begin
+   Result := EncodeDateDay(DefaultEra, Year, DayOfYear);
+  End;
 
-function TCalendar.TryDecodeDateDay(const DateTime: TDateTime;
-  out Era, Year, DayOfYear: Integer): Boolean;
-var
-  Month, Day: Integer;
-begin
-  Result := TryDecodeDate(DateTime, Era, Year, Month, Day)
-        and DayOfMonthToDayOfYear(Era, Year, Month, Day, DayOfYear);
-end;
+ Function TCalendar.TryDecodeDateDay(Const DateTime : TDateTime; Out Era, Year, DayOfYear : Integer) : Boolean;
+  Var
+   Month, Day : Integer;
+  Begin
+   Result := TryDecodeDate(DateTime, Era, Year, Month, Day)
+   And DayOfMonthToDayOfYear(Era, Year, Month, Day, DayOfYear);
+  End;
 
-function TCalendar.TryDecodeDateDay(const DateTime: TDateTime;
-  out Year, DayOfYear: Integer): Boolean;
-var
-  Era: Integer;
-begin
-  Result := TryDecodeDateDay(DateTime, Era, Year, DayOfYear);
-  if Result and (Era <> DefaultEra) then
+ Function TCalendar.TryDecodeDateDay(Const DateTime : TDateTime; Out Year, DayOfYear : Integer) : Boolean;
+  Var
+   Era : Integer;
+  Begin
+   Result := TryDecodeDateDay(DateTime, Era, Year, DayOfYear);
+   If Result And (Era <> DefaultEra) Then
     Year := ConvertYear(Year, Era, DefaultEra);
-end;
+  End;
 
-procedure TCalendar.DecodeDateDay(const DateTime: TDateTime;
-  out Era, Year, DayOfYear: Integer);
-begin
-  if not TryDecodeDateDay(DateTime, Era, Year, DayOfYear) then
+ Procedure TCalendar.DecodeDateDay(Const DateTime : TDateTime; Out Era, Year, DayOfYear : Integer);
+  Begin
+   If Not TryDecodeDateDay(DateTime, Era, Year, DayOfYear) Then
     DateError(DateTime);
-end;
+  End;
 
-procedure TCalendar.DecodeDateDay(const DateTime: TDateTime;
-  out Year, DayOfYear: Integer);
-begin
-  if not TryDecodeDateDay(DateTime, Year, DayOfYear) then
+ Procedure TCalendar.DecodeDateDay(Const DateTime : TDateTime; Out Year, DayOfYear : Integer);
+  Begin
+   If Not TryDecodeDateDay(DateTime, Year, DayOfYear) Then
     DateError(DateTime);
-end;
+  End;
 
-function TCalendar.TryEncodeDate(Era, Year, Month, Day: Integer;
-  out DateTime: TDateTime): Boolean;
-var
-  JD: Extended;
-begin
-  Result := False;
-  if IsValidDay(Era, Year, Month, Day) then
-  begin
-    Year := ConvertYear(Year, Era, BaseEra);
-    JD := ToJulianDay(Year, Month, Day);
-    JD := AdjustJulianDay(JD, True);
-    DateTime := JulianDayToDateTime(JD);
-    Result := True;
-  end;
-end;
+ Function TCalendar.TryEncodeDate(Era, Year, Month, Day : Integer; Out DateTime : TDateTime) : Boolean;
+  Var
+   JD : Extended;
+  Begin
+   Result := False;
+   If IsValidDay(Era, Year, Month, Day) Then
+    Begin
+     Year     := ConvertYear(Year, Era, BaseEra);
+     JD       := ToJulianDay(Year, Month, Day);
+     JD       := AdjustJulianDay(JD, True);
+     DateTime := JulianDayToDateTime(JD);
+     Result   := True;
+    End;
+  End;
 
-function TCalendar.TryEncodeDate(Year, Month, Day: Integer;
-  out DateTime: TDateTime): Boolean;
-begin
-  Result := TryEncodeDate(DefaultEra, Year, Month, Day, DateTime);
-end;
+ Function TCalendar.TryEncodeDate(Year, Month, Day : Integer; Out DateTime : TDateTime) : Boolean;
+  Begin
+   Result := TryEncodeDate(DefaultEra, Year, Month, Day, DateTime);
+  End;
 
-function TCalendar.EncodeDate(Era, Year, Month, Day: Integer): TDateTime;
-begin
-  if not TryEncodeDate(Era, Year, Month, Day, Result) then
+ Function TCalendar.EncodeDate(Era, Year, Month, Day : Integer) : TDateTime;
+  Begin
+   If Not TryEncodeDate(Era, Year, Month, Day, Result) Then
     DayError(Era, Year, Month, Day);
-end;
+  End;
 
-function TCalendar.EncodeDate(Year, Month, Day: Integer): TDateTime;
-begin
-  Result := EncodeDate(DefaultEra, Year, Month, Day);
-end;
+ Function TCalendar.EncodeDate(Year, Month, Day : Integer) : TDateTime;
+  Begin
+   Result := EncodeDate(DefaultEra, Year, Month, Day);
+  End;
 
-function TCalendar.TryDecodeDate(const DateTime: TDateTime;
-  out Era, Year, Month, Day: Integer): Boolean;
-var
-  JD: Extended;
-begin
-  JD := DateTimeToJulianDay(DateTime);
-  JD := AdjustJulianDay(JD, False);
-  Result := FromJulianDay(JD, Year, Month, Day);
-  if Result then
-  begin
-    Era := BestEraOfBaseEraYear(Year);
-    if Era <> BaseEra then
+ Function TCalendar.TryDecodeDate(Const DateTime : TDateTime; Out Era, Year, Month, Day : Integer) : Boolean;
+  Var
+   JD : Extended;
+  Begin
+   JD     := DateTimeToJulianDay(DateTime);
+   JD     := AdjustJulianDay(JD, False);
+   Result := FromJulianDay(JD, Year, Month, Day);
+   If Result Then
+    Begin
+     Era := BestEraOfBaseEraYear(Year);
+     If Era <> BaseEra Then
       Year := ConvertYear(Year, BaseEra, Era);
-  end;
-end;
+    End;
+  End;
 
-function TCalendar.TryDecodeDate(const DateTime: TDateTime;
-  out Year, Month, Day: Integer): Boolean;
-var
-  JD: Extended;
-begin
-  JD := DateTimeToJulianDay(DateTime);
-  JD := AdjustJulianDay(JD, False);
-  Result := FromJulianDay(JD, Year, Month, Day);
-  if Result and (DefaultEra <> BaseEra) then
+ Function TCalendar.TryDecodeDate(Const DateTime : TDateTime; Out Year, Month, Day : Integer) : Boolean;
+  Var
+   JD : Extended;
+  Begin
+   JD     := DateTimeToJulianDay(DateTime);
+   JD     := AdjustJulianDay(JD, False);
+   Result := FromJulianDay(JD, Year, Month, Day);
+   If Result And (DefaultEra <> BaseEra) Then
     Year := ConvertYear(Year, BaseEra, DefaultEra);
-end;
+  End;
 
-procedure TCalendar.DecodeDate(const DateTime: TDateTime;
-  out Era, Year, Month, Day: Integer);
-begin
-  if not TryDecodeDate(DateTime, Era, Year, Month, Day) then
+ Procedure TCalendar.DecodeDate(Const DateTime : TDateTime; Out Era, Year, Month, Day : Integer);
+  Begin
+   If Not TryDecodeDate(DateTime, Era, Year, Month, Day) Then
     DateError(DateTime);
-end;
+  End;
 
-procedure TCalendar.DecodeDate(const DateTime: TDateTime;
-  out Year, Month, Day: Integer);
-begin
-  if not TryDecodeDate(DateTime, Year, Month, Day) then
+ Procedure TCalendar.DecodeDate(Const DateTime : TDateTime; Out Year, Month, Day : Integer);
+  Begin
+   If Not TryDecodeDate(DateTime, Year, Month, Day) Then
     DateError(DateTime);
-end;
+  End;
 
-class function TCalendar.DateTimeToJulianDay(const DateTime: TDateTime): Extended;
-begin
-  Result := DateTime + DATETIME_EPOCH;
-  // We should take in account that in TDateTime type
-  // 1. The fraction part is always a positive value even when the whole value is negative
-  // 2. There is no value in range (-1, 0)
-  if DateTime < 0 then
-    Result := Result - 2 * Frac(DateTime);
-end;
+  Class Function TCalendar.DateTimeToJulianDay(Const DateTime : TDateTime) : Extended;
 
-class function TCalendar.JulianDayToDateTime(const JulianDate: Extended): TDateTime;
-var
-  F: Double;
-begin
-  Result := JulianDate - DATETIME_EPOCH;
-  // We should take in account that in TDateTime type
-  // 1. The fraction part is always a positive value even when the whole value is negative
-  // 2. There is no value in range (-1, 0)
-  if Result < 0 then
-  begin
-    F := Frac(Result);
-    if F <> 0 then
-      Result := Result - 2 * (F + 1);
-  end;
-end;
+Begin
+ Result := DateTime + DATETIME_EPOCH;
+ // We should take in account that in TDateTime type
+ // 1. The fraction part is always a positive value even when the whole value is negative
+ // 2. There is no value in range (-1, 0)
+ If DateTime < 0 Then
+  Result := Result - 2 * Frac(DateTime);
 
-class function TCalendar.CombineDateTime(const Date: TDate; const Time: TTime): TDateTime;
-begin
-  if Date < 0 then
-    Result := Date - Time
-  else
-    Result := Date + Time;
-end;
+End;
 
-class function TCalendar.LocalToUniversalDateTime(const DateTime: TDateTime): TDateTime;
-var
-  LocalSystemTime, UniversalSystemTime: TSystemTime;
-  LocalFileTime, UniversalFileTime: TFileTime;
-begin
-  DateTimeToSystemTime(DateTime, LocalSystemTime);
-  SystemTimeToFileTime(LocalSystemTime, LocalFileTime);
-  LocalFileTimeToFileTime(LocalFileTime, UniversalFileTime);
-  FileTimeToSystemTime(UniversalFileTime, UniversalSystemTime);
-  Result := SystemTimeToDateTime(UniversalSystemTime);
-end;
+  Class Function TCalendar.JulianDayToDateTime(Const JulianDate : Extended) : TDateTime;
 
-class function TCalendar.UniversalToLocalDateTime(const DateTime: TDateTime): TDateTime;
-var
-  LocalTime, UniversalTime: TSystemTime;
-begin
-  DateTimeToSystemTime(DateTime, UniversalTime);
-  SystemTimeToTzSpecificLocalTime(nil, UniversalTime, LocalTime);
-  Result := SystemTimeToDateTime(LocalTime);
-end;
+ Var
+  f : Double;
 
-class function TCalendar.DateOf(const DateTime: TDateTime): TDate;
-begin
-  Result := Trunc(DateTime);
-end;
+Begin
+ Result := JulianDate - DATETIME_EPOCH;
+ // We should take in account that in TDateTime type
+ // 1. The fraction part is always a positive value even when the whole value is negative
+ // 2. There is no value in range (-1, 0)
+ If Result < 0 Then
+  Begin
+   f := Frac(Result);
+   If f <> 0 Then
+    Result := Result - 2 * (f + 1);
+  End;
 
-function TCalendar.EraOf(const DateTime: TDateTime): Integer;
-var
-  Year, Month, Day: Integer;
-begin
-  DecodeDate(DateTime, Result, Year, Month, Day);
-end;
+End;
 
-function TCalendar.YearOf(const DateTime: TDateTime): Integer;
-var
-  Month, Day: Integer;
-begin
-  DecodeDate(DateTime, Result, Month, Day);
-end;
+  Class Function TCalendar.CombineDateTime(Const Date : TDate; Const Time : TTime) : TDateTime;
 
-function TCalendar.MonthOfYear(const DateTime: TDateTime): Integer;
-var
-  Year, Day: Integer;
-begin
-  DecodeDate(DateTime, Year, Result, Day);
-end;
+Begin
+ If Date < 0 Then
+  Result := Date - Time
+ Else
+  Result := Date + Time;
 
-function TCalendar.WeekOfYear(const DateTime: TDateTime): Integer;
-var
-  Year: Integer;
-  DoW: TDayOfWeek;
-begin
-  DecodeDateWeek(DateTime, Year, Result, DoW);
-end;
+End;
 
-function TCalendar.WeekOfMonth(const DateTime: TDateTime): Integer;
-begin
-  Result := ((DayOfMonth(DateTime) - 1) div DaysPerWeek) + 1;
-end;
+  Class Function TCalendar.LocalToUniversalDateTime(Const DateTime : TDateTime) : TDateTime;
 
-function TCalendar.DayOfYear(const DateTime: TDateTime): Integer;
-begin
-  Result := DaysBetween(DateTime, StartOfYear(DateTime)) + 1;
-end;
+ Var
+  LocalSystemTime, UniversalSystemTime : TSystemTime;
+  LocalFileTime, UniversalFileTime     : TFileTime;
 
-function TCalendar.DayOfMonth(const DateTime: TDateTime): Integer;
-var
-  Year, Month: Integer;
-begin
-  DecodeDate(DateTime, Year, Month, Result);
-end;
+Begin
+ DateTimeToSystemTime(DateTime, LocalSystemTime);
+ SystemTimeToFileTime(LocalSystemTime, LocalFileTime);
+ LocalFileTimeToFileTime(LocalFileTime, UniversalFileTime);
+ FileTimeToSystemTime(UniversalFileTime, UniversalSystemTime);
+ Result := SystemTimeToDateTime(UniversalSystemTime);
 
-class function TCalendar.DayOfWeek(const DateTime: TDateTime): TDayOfWeek;
-begin
-  Result := TDayOfWeek((Trunc(DateTimeToJulianDay(DateTime) + 0.5) mod DaysPerWeek) + 1);
-end;
+End;
 
-class function TCalendar.TimeOf(const DateTime: TDateTime): TTime;
-begin
-  Result := Abs(Frac(DateTime));
-end;
+  Class Function TCalendar.UniversalToLocalDateTime(Const DateTime : TDateTime) : TDateTime;
 
-class function TCalendar.HourOfDay(const DateTime: TDateTime): Integer;
-begin
-  Result := Trunc(TimeOf(DateTime) * HoursPerDay);
-end;
+ Var
+  LocalTime, UniversalTime : TSystemTime;
 
-class function TCalendar.MinuteOfDay(const DateTime: TDateTime): Integer;
-begin
-  Result := Trunc(TimeOf(DateTime) * MinsPerDay);
-end;
+Begin
+ DateTimeToSystemTime(DateTime, UniversalTime);
+ SystemTimeToTzSpecificLocalTime(Nil, UniversalTime, LocalTime);
+ Result := SystemTimeToDateTime(LocalTime);
 
-class function TCalendar.MinuteOfHour(const DateTime: TDateTime): Integer;
-begin
-  Result := MinuteOfDay(DateTime) mod MinsPerHour;
-end;
+End;
 
-class function TCalendar.SecondOfDay(const DateTime: TDateTime): Integer;
-begin
-  Result := Trunc(TimeOf(DateTime) * SecsPerDay);
-end;
+  Class Function TCalendar.DateOf(Const DateTime : TDateTime) : TDate;
 
-class function TCalendar.SecondOfMinute(const DateTime: TDateTime): Integer;
-begin
-  Result := SecondOfDay(DateTime) mod SecsPerMin;
-end;
+Begin
+ Result := Trunc(DateTime);
 
-class function TCalendar.MillisecondOfDay(const DateTime: TDateTime): Integer;
-begin
-  Result := Trunc(TimeOf(DateTime) * MSecsPerDay);
-end;
+End;
 
-class function TCalendar.MillisecondOfSecond(const DateTime: TDateTime): Integer;
-begin
-  Result := MillisecondOfDay(DateTime) mod MSecsPerSec;
-end;
+ Function TCalendar.EraOf(Const DateTime : TDateTime) : Integer;
+  Var
+   Year, Month, Day : Integer;
+  Begin
+   DecodeDate(DateTime, Result, Year, Month, Day);
+  End;
 
-function TCalendar.StartOfEra(Era: Integer): TDateTime;
-begin
-  if not IsValidEra(Era) then
+ Function TCalendar.YearOf(Const DateTime : TDateTime) : Integer;
+  Var
+   Month, Day : Integer;
+  Begin
+   DecodeDate(DateTime, Result, Month, Day);
+  End;
+
+ Function TCalendar.MonthOfYear(Const DateTime : TDateTime) : Integer;
+  Var
+   Year, Day : Integer;
+  Begin
+   DecodeDate(DateTime, Year, Result, Day);
+  End;
+
+ Function TCalendar.WeekOfYear(Const DateTime : TDateTime) : Integer;
+  Var
+   Year : Integer;
+   DoW  : TDayOfWeek;
+  Begin
+   DecodeDateWeek(DateTime, Year, Result, DoW);
+  End;
+
+ Function TCalendar.WeekOfMonth(Const DateTime : TDateTime) : Integer;
+  Begin
+   Result := ((DayOfMonth(DateTime) - 1) Div DaysPerWeek) + 1;
+  End;
+
+ Function TCalendar.DayOfYear(Const DateTime : TDateTime) : Integer;
+  Begin
+   Result := DaysBetween(DateTime, StartOfYear(DateTime)) + 1;
+  End;
+
+ Function TCalendar.DayOfMonth(Const DateTime : TDateTime) : Integer;
+  Var
+   Year, Month : Integer;
+  Begin
+   DecodeDate(DateTime, Year, Month, Result);
+  End;
+
+  Class Function TCalendar.DayOfWeek(Const DateTime : TDateTime) : TDayOfWeek;
+
+Begin
+ Result := TDayOfWeek((Trunc(DateTimeToJulianDay(DateTime) + 0.5) Mod DaysPerWeek) + 1);
+
+End;
+
+  Class Function TCalendar.TimeOf(Const DateTime : TDateTime) : TTime;
+
+Begin
+ Result := Abs(Frac(DateTime));
+
+End;
+
+  Class Function TCalendar.HourOfDay(Const DateTime : TDateTime) : Integer;
+
+Begin
+ Result := Trunc(TimeOf(DateTime) * HoursPerDay);
+
+End;
+
+  Class Function TCalendar.MinuteOfDay(Const DateTime : TDateTime) : Integer;
+
+Begin
+ Result := Trunc(TimeOf(DateTime) * MinsPerDay);
+
+End;
+
+  Class Function TCalendar.MinuteOfHour(Const DateTime : TDateTime) : Integer;
+
+Begin
+ Result := MinuteOfDay(DateTime) Mod MinsPerHour;
+
+End;
+
+  Class Function TCalendar.SecondOfDay(Const DateTime : TDateTime) : Integer;
+
+Begin
+ Result := Trunc(TimeOf(DateTime) * SecsPerDay);
+
+End;
+
+  Class Function TCalendar.SecondOfMinute(Const DateTime : TDateTime) : Integer;
+
+Begin
+ Result := SecondOfDay(DateTime) Mod SecsPerMin;
+
+End;
+
+  Class Function TCalendar.MillisecondOfDay(Const DateTime : TDateTime) : Integer;
+
+Begin
+ Result := Trunc(TimeOf(DateTime) * MSecsPerDay);
+
+End;
+
+  Class Function TCalendar.MillisecondOfSecond(Const DateTime : TDateTime) : Integer;
+
+Begin
+ Result := MillisecondOfDay(DateTime) Mod MSecsPerSec;
+
+End;
+
+ Function TCalendar.StartOfEra(Era : Integer) : TDateTime;
+  Begin
+   If Not IsValidEra(Era) Then
     EraError(Era);
-  if CanHaveZeroYear(Era) then
+   If CanHaveZeroYear(Era) Then
     Result := StartOfYear(Era, 0)
-  else
+   Else
     Result := StartOfYear(Era, 1);
-end;
+  End;
 
-function TCalendar.StartOfYear(Era, Year: Integer): TDateTime;
-begin
-  Result := EncodeDate(Era, Year, FirstMonthOfYear, 1);
-end;
+ Function TCalendar.StartOfYear(Era, Year : Integer) : TDateTime;
+  Begin
+   Result := EncodeDate(Era, Year, FirstMonthOfYear, 1);
+  End;
 
-function TCalendar.StartOfYear(Year: Integer): TDateTime;
-begin
-  Result := StartOfYear(DefaultEra, Year);
-end;
+ Function TCalendar.StartOfYear(Year : Integer) : TDateTime;
+  Begin
+   Result := StartOfYear(DefaultEra, Year);
+  End;
 
-function TCalendar.StartOfYear(const DateTime: TDateTime): TDateTime;
-begin
-  Result := StartOfYear(YearOf(DateTime));
-end;
+ Function TCalendar.StartOfYear(Const DateTime : TDateTime) : TDateTime;
+  Begin
+   Result := StartOfYear(YearOf(DateTime));
+  End;
 
-function TCalendar.StartOfMonth(Era, Year, Month: Integer): TDateTime;
-begin
-  Result := EncodeDate(Era, Year, Month, 1);
-end;
+ Function TCalendar.StartOfMonth(Era, Year, Month : Integer) : TDateTime;
+  Begin
+   Result := EncodeDate(Era, Year, Month, 1);
+  End;
 
-function TCalendar.StartOfMonth(Year, Month: Integer): TDateTime;
-begin
-  Result := StartOfMonth(DefaultEra, Year, Month);
-end;
+ Function TCalendar.StartOfMonth(Year, Month : Integer) : TDateTime;
+  Begin
+   Result := StartOfMonth(DefaultEra, Year, Month);
+  End;
 
-function TCalendar.StartOfMonth(const DateTime: TDateTime): TDateTime;
-var
-  Year, Month, Day: Integer;
-begin
-  DecodeDate(DateTime, Year, Month, Day);
-  Result := DateOf(DateTime) - (Day - 1);
-end;
+ Function TCalendar.StartOfMonth(Const DateTime : TDateTime) : TDateTime;
+  Var
+   Year, Month, Day : Integer;
+  Begin
+   DecodeDate(DateTime, Year, Month, Day);
+   Result := DateOf(DateTime) - (Day - 1);
+  End;
 
-function TCalendar.StartOfWeek(const DateTime: TDateTime): TDateTime;
-begin
-  Result := DateOf(DateTime) - DaysOfWeekBetween(DayOfWeek(DateTime), Settings.FirstDayOfWeek);
-end;
+ Function TCalendar.StartOfWeek(Const DateTime : TDateTime) : TDateTime;
+  Begin
+   Result := DateOf(DateTime) - DaysOfWeekBetween(DayOfWeek(DateTime), Settings.FirstDayOfWeek);
+  End;
 
-class function TCalendar.StartOfDay(const DateTime: TDateTime): TDateTime;
-begin
-  Result := DateOf(DateTime);
-end;
+  Class Function TCalendar.StartOfDay(Const DateTime : TDateTime) : TDateTime;
 
-class function TCalendar.StartOfHour(const DateTime: TDateTime): TDateTime;
-begin
-  Result := Trunc(DateTime / OneHour) * OneHour;
-end;
+Begin
+ Result := DateOf(DateTime);
 
-class function TCalendar.StartOfMinute(const DateTime: TDateTime): TDateTime;
-begin
-  Result := Trunc(DateTime / OneMinute) * OneMinute;
-end;
+End;
 
-class function TCalendar.StartOfSecond(const DateTime: TDateTime): TDateTime;
-begin
-  Result := Trunc(DateTime / OneSecond) * OneSecond;
-end;
+  Class Function TCalendar.StartOfHour(Const DateTime : TDateTime) : TDateTime;
 
-function TCalendar.EndOfEra(Era: Integer): TDateTime;
-begin
-  if not IsValidEra(Era) then
+Begin
+ Result := Trunc(DateTime / OneHour) * OneHour;
+
+End;
+
+  Class Function TCalendar.StartOfMinute(Const DateTime : TDateTime) : TDateTime;
+
+Begin
+ Result := Trunc(DateTime / OneMinute) * OneMinute;
+
+End;
+
+  Class Function TCalendar.StartOfSecond(Const DateTime : TDateTime) : TDateTime;
+
+Begin
+ Result := Trunc(DateTime / OneSecond) * OneSecond;
+
+End;
+
+ Function TCalendar.EndOfEra(Era : Integer) : TDateTime;
+  Begin
+   If Not IsValidEra(Era) Then
     EraError(Era);
-  if Era < MaxEra then
+   If Era < MaxEra Then
     Result := PrevMillisecond(StartOfEra(Era + 1))
-  else
+   Else
     Result := MaxSupportedDateTime;
-end;
+  End;
 
-function TCalendar.EndOfYear(Era, Year: Integer): TDateTime;
-var
-  NextYear: Integer;
-begin
-  NextYear := OffsetYear(Era, Year, +1);
-  Result := PrevMillisecond(StartOfYear(Era, NextYear));
-end;
+ Function TCalendar.EndOfYear(Era, Year : Integer) : TDateTime;
+  Var
+   NextYear : Integer;
+  Begin
+   NextYear := OffsetYear(Era, Year, +1);
+   Result   := PrevMillisecond(StartOfYear(Era, NextYear));
+  End;
 
-function TCalendar.EndOfYear(Year: Integer): TDateTime;
-begin
-  Result := EndOfYear(DefaultEra, Year);
-end;
+ Function TCalendar.EndOfYear(Year : Integer) : TDateTime;
+  Begin
+   Result := EndOfYear(DefaultEra, Year);
+  End;
 
-function TCalendar.EndOfYear(const DateTime: TDateTime): TDateTime;
-begin
-  Result := EndOfYear(YearOf(DateTime));
-end;
+ Function TCalendar.EndOfYear(Const DateTime : TDateTime) : TDateTime;
+  Begin
+   Result := EndOfYear(YearOf(DateTime));
+  End;
 
-function TCalendar.EndOfMonth(Era, Year, Month: Integer): TDateTime;
-var
-  NextMonth: Integer;
-begin
-  NextMonth := (Month mod MonthsInYear(Era, Year)) + 1;
-  if NextMonth = FirstMonthOfYear then
+ Function TCalendar.EndOfMonth(Era, Year, Month : Integer) : TDateTime;
+  Var
+   NextMonth : Integer;
+  Begin
+   NextMonth := (Month Mod MonthsInYear(Era, Year)) + 1;
+   If NextMonth = FirstMonthOfYear Then
     Result := EndOfYear(Era, Year)
-  else
+   Else
     Result := PrevMillisecond(StartOfMonth(Era, Year, NextMonth));
-end;
+  End;
 
-function TCalendar.EndOfMonth(Year, Month: Integer): TDateTime;
-begin
-  Result := EndOfMonth(DefaultEra, Year, Month);
-end;
+ Function TCalendar.EndOfMonth(Year, Month : Integer) : TDateTime;
+  Begin
+   Result := EndOfMonth(DefaultEra, Year, Month);
+  End;
 
-function TCalendar.EndOfMonth(const DateTime: TDateTime): TDateTime;
-var
-  Era, Year, Month, Day: Integer;
-begin
-  DecodeDate(DateTime, Era, Year, Month, Day);
-  Result := EndOfMonth(Era, Year, Month);
-end;
+ Function TCalendar.EndOfMonth(Const DateTime : TDateTime) : TDateTime;
+  Var
+   Era, Year, Month, Day : Integer;
+  Begin
+   DecodeDate(DateTime, Era, Year, Month, Day);
+   Result := EndOfMonth(Era, Year, Month);
+  End;
 
-function TCalendar.EndOfWeek(const DateTime: TDateTime): TDateTime;
-begin
-  Result := PrevMillisecond(StartOfWeek(DateTime) + OneWeek);
-end;
+ Function TCalendar.EndOfWeek(Const DateTime : TDateTime) : TDateTime;
+  Begin
+   Result := PrevMillisecond(StartOfWeek(DateTime) + OneWeek);
+  End;
 
-class function TCalendar.EndOfDay(const DateTime: TDateTime): TDateTime;
-begin
-  Result := PrevMillisecond(StartOfDay(DateTime) + OneDay);
-end;
+  Class Function TCalendar.EndOfDay(Const DateTime : TDateTime) : TDateTime;
 
-class function TCalendar.EndOfHour(const DateTime: TDateTime): TDateTime;
-begin
-  Result := PrevMillisecond(StartOfHour(DateTime) + OneHour);
-end;
+Begin
+ Result := PrevMillisecond(StartOfDay(DateTime) + OneDay);
 
-class function TCalendar.EndOfMinute(const DateTime: TDateTime): TDateTime;
-begin
-  Result := PrevMillisecond(StartOfMinute(DateTime) + OneMinute);
-end;
+End;
 
-class function TCalendar.EndOfSecond(const DateTime: TDateTime): TDateTime;
-begin
-  Result := PrevMillisecond(StartOfSecond(DateTime) + OneSecond);
-end;
+  Class Function TCalendar.EndOfHour(Const DateTime : TDateTime) : TDateTime;
 
-function TCalendar.PrevYear(const DateTime: TDateTime;
-  NumberOfYears: Integer): TDateTime;
-begin
-  Result := NextYear(DateTime, -NumberOfYears);
-end;
+Begin
+ Result := PrevMillisecond(StartOfHour(DateTime) + OneHour);
 
-function TCalendar.PrevMonth(const DateTime: TDateTime;
-  NumberOfMonths: Integer): TDateTime;
-begin
-  Result := NextMonth(DateTime, -NumberOfMonths)
-end;
+End;
 
-class function TCalendar.PrevWeek(const DateTime: TDateTime;
-  NumberOfWeeks: Integer): TDateTime;
-begin
-  Result := OffsetDateTime(DateTime, -NumberOfWeeks * OneWeek);
-end;
+  Class Function TCalendar.EndOfMinute(Const DateTime : TDateTime) : TDateTime;
 
-class function TCalendar.PrevDay(const DateTime: TDateTime;
-  NumberOfDays: Integer): TDateTime;
-begin
-  Result := OffsetDateTime(DateTime, -NumberOfDays * OneDay);
-end;
+Begin
+ Result := PrevMillisecond(StartOfMinute(DateTime) + OneMinute);
 
-function TCalendar.PrevDayOfWeek(const DateTime: TDateTime;
-  DoW: TDayOfWeek): TDateTime;
-var
-  Days: Integer;
-begin
-  Days := DaysPerWeek - DaysOfWeekBetween(DayOfWeek(DateTime), DoW);
-  Result := PrevDay(DateTime, Days);
-end;
+End;
 
-class function TCalendar.PrevHour(const DateTime: TDateTime;
-  NumberOfHours: Integer): TDateTime;
-begin
-  Result := OffsetDateTime(DateTime, -NumberOfHours * OneHour);
-end;
+  Class Function TCalendar.EndOfSecond(Const DateTime : TDateTime) : TDateTime;
 
-class function TCalendar.PrevMinute(const DateTime: TDateTime;
-  NumberOfMinutes: Integer): TDateTime;
-begin
-  Result := OffsetDateTime(DateTime, -NumberOfMinutes * OneMinute);
-end;
+Begin
+ Result := PrevMillisecond(StartOfSecond(DateTime) + OneSecond);
 
-class function TCalendar.PrevSecond(const DateTime: TDateTime;
-  NumberOfSeconds: Integer): TDateTime;
-begin
-  Result := OffsetDateTime(DateTime, -NumberOfSeconds * OneSecond);
-end;
+End;
 
-class function TCalendar.PrevMillisecond(const DateTime: TDateTime;
-  NumberOfMilliseconds: Integer): TDateTime;
-begin
-  Result := OffsetDateTime(DateTime, -NumberOfMilliseconds * OneMillisecond);
-end;
+ Function TCalendar.PrevYear(Const DateTime : TDateTime; NumberOfYears : Integer) : TDateTime;
+  Begin
+   Result := NextYear(DateTime, -NumberOfYears);
+  End;
 
-function TCalendar.NextYear(const DateTime: TDateTime;
-  NumberOfYears: Integer): TDateTime;
-var
-  Era, Year, Month, Day: Integer;
-begin
-  if NumberOfYears = 0 then
-  begin
-    Result := DateTime;
-    Exit;
-  end;
-  DecodeDate(DateTime, Era, Year, Month, Day);
-  Year := OffsetYear(Era, Year, NumberOfYears);
-  Month := Min(Month, MonthsInYear(Era, Year));
-  Day := Min(Day, DaysInMonth(Era, Year, Month));
-  Result := CombineDateTime(EncodeDate(Era, Year, Month, Day), Frac(DateTime));
-end;
+ Function TCalendar.PrevMonth(Const DateTime : TDateTime; NumberOfMonths : Integer) : TDateTime;
+  Begin
+   Result := NextMonth(DateTime, -NumberOfMonths)
+  End;
 
-function TCalendar.NextMonth(const DateTime: TDateTime;
-  NumberOfMonths: Integer): TDateTime;
-var
-  Era, Year, Month, Day: Integer;
-  MonthsToStartOfYear, MonthsOfThisYear: Integer;
-  FirstMonth: Integer;
-begin
-  if NumberOfMonths = 0 then
-  begin
-    Result := DateTime;
-    Exit;
-  end;
-  DecodeDate(DateTime, Era, Year, Month, Day);
-  MonthsOfThisYear := MonthsInYear(Era, Year);
-  FirstMonth := FirstMonthOfYear;
-  if NumberOfMonths < 0 then
-  begin
-    if Month < FirstMonth then
+  Class Function TCalendar.PrevWeek(Const DateTime : TDateTime; NumberOfWeeks : Integer) : TDateTime;
+
+Begin
+ Result := OffsetDateTime(DateTime, -NumberOfWeeks * OneWeek);
+
+End;
+
+  Class Function TCalendar.PrevDay(Const DateTime : TDateTime; NumberOfDays : Integer) : TDateTime;
+
+Begin
+ Result := OffsetDateTime(DateTime, -NumberOfDays * OneDay);
+
+End;
+
+ Function TCalendar.PrevDayOfWeek(Const DateTime : TDateTime; DoW : TDayOfWeek) : TDateTime;
+  Var
+   Days : Integer;
+  Begin
+   Days   := DaysPerWeek - DaysOfWeekBetween(DayOfWeek(DateTime), DoW);
+   Result := PrevDay(DateTime, Days);
+  End;
+
+  Class Function TCalendar.PrevHour(Const DateTime : TDateTime; NumberOfHours : Integer) : TDateTime;
+
+Begin
+ Result := OffsetDateTime(DateTime, -NumberOfHours * OneHour);
+
+End;
+
+  Class Function TCalendar.PrevMinute(Const DateTime : TDateTime; NumberOfMinutes : Integer) : TDateTime;
+
+Begin
+ Result := OffsetDateTime(DateTime, -NumberOfMinutes * OneMinute);
+
+End;
+
+  Class Function TCalendar.PrevSecond(Const DateTime : TDateTime; NumberOfSeconds : Integer) : TDateTime;
+
+Begin
+ Result := OffsetDateTime(DateTime, -NumberOfSeconds * OneSecond);
+
+End;
+
+  Class Function TCalendar.PrevMillisecond(Const DateTime : TDateTime; NumberOfMilliseconds : Integer) : TDateTime;
+
+Begin
+ Result := OffsetDateTime(DateTime, -NumberOfMilliseconds * OneMillisecond);
+
+End;
+
+ Function TCalendar.NextYear(Const DateTime : TDateTime; NumberOfYears : Integer) : TDateTime;
+  Var
+   Era, Year, Month, Day : Integer;
+  Begin
+   If NumberOfYears = 0 Then
+    Begin
+     Result := DateTime;
+     Exit;
+    End;
+   DecodeDate(DateTime, Era, Year, Month, Day);
+   Year   := OffsetYear(Era, Year, NumberOfYears);
+   Month  := Min(Month, MonthsInYear(Era, Year));
+   Day    := Min(Day, DaysInMonth(Era, Year, Month));
+   Result := CombineDateTime(EncodeDate(Era, Year, Month, Day), Frac(DateTime));
+  End;
+
+ Function TCalendar.NextMonth(Const DateTime : TDateTime; NumberOfMonths : Integer) : TDateTime;
+  Var
+   Era, Year, Month, Day                 : Integer;
+   MonthsToStartOfYear, MonthsOfThisYear : Integer;
+   FirstMonth                            : Integer;
+  Begin
+   If NumberOfMonths = 0 Then
+    Begin
+     Result := DateTime;
+     Exit;
+    End;
+   DecodeDate(DateTime, Era, Year, Month, Day);
+   MonthsOfThisYear := MonthsInYear(Era, Year);
+   FirstMonth       := FirstMonthOfYear;
+   If NumberOfMonths < 0 Then
+    Begin
+     If Month < FirstMonth Then
       MonthsToStartOfYear := MonthsOfThisYear - (FirstMonth - Month)
-    else
+     Else
       MonthsToStartOfYear := Month - FirstMonth;
-    if -NumberOfMonths > MonthsToStartOfYear then
-    begin
-      Inc(NumberOfMonths, MonthsToStartOfYear);
-      Month := FirstMonth;
-      repeat
-        Year := OffsetYear(Era, Year, -1);
+     If - NumberOfMonths > MonthsToStartOfYear Then
+      Begin
+       Inc(NumberOfMonths, MonthsToStartOfYear);
+       Month := FirstMonth;
+       Repeat
+        Year             := OffsetYear(Era, Year, -1);
         MonthsOfThisYear := MonthsInYear(Era, Year);
         Inc(NumberOfMonths, MonthsOfThisYear);
-      until NumberOfMonths >= 0;
-    end;
-  end
-  else
-  begin
-    if Month >= FirstMonth then
+       Until NumberOfMonths >= 0;
+      End;
+    End
+   Else
+    Begin
+     If Month >= FirstMonth Then
       MonthsToStartOfYear := MonthsOfThisYear - (Month - FirstMonth)
-    else
+     Else
       MonthsToStartOfYear := FirstMonth - Month;
-    if NumberOfMonths >= MonthsToStartOfYear then
-    begin
-      Month := FirstMonth;
-      repeat
+     If NumberOfMonths >= MonthsToStartOfYear Then
+      Begin
+       Month := FirstMonth;
+       Repeat
         Dec(NumberOfMonths, MonthsToStartOfYear);
-        Year := OffsetYear(Era, Year, +1);
+        Year                := OffsetYear(Era, Year, +1);
         MonthsToStartOfYear := MonthsInYear(Era, Year);
-      until NumberOfMonths < MonthsToStartOfYear;
-      MonthsOfThisYear := MonthsToStartOfYear;
-    end;
-  end;
-  Month := ((Month + NumberOfMonths + MonthsOfThisYear - 1) mod MonthsOfThisYear) + 1;
-  Day := Min(Day, DaysInMonth(Era, Year, Month));
-  Result := CombineDateTime(EncodeDate(Era, Year, Month, Day), Frac(DateTime));
-end;
+       Until NumberOfMonths < MonthsToStartOfYear;
+       MonthsOfThisYear := MonthsToStartOfYear;
+      End;
+    End;
+   Month  := ((Month + NumberOfMonths + MonthsOfThisYear - 1) Mod MonthsOfThisYear) + 1;
+   Day    := Min(Day, DaysInMonth(Era, Year, Month));
+   Result := CombineDateTime(EncodeDate(Era, Year, Month, Day), Frac(DateTime));
+  End;
 
-class function TCalendar.NextWeek(const DateTime: TDateTime;
-  NumberOfWeeks: Integer): TDateTime;
-begin
-  Result := OffsetDateTime(DateTime, NumberOfWeeks * OneWeek);
-end;
+  Class Function TCalendar.NextWeek(Const DateTime : TDateTime; NumberOfWeeks : Integer) : TDateTime;
 
-class function TCalendar.NextDay(const DateTime: TDateTime;
-  NumberOfDays: Integer): TDateTime;
-begin
-  Result := OffsetDateTime(DateTime, NumberOfDays * OneDay);
-end;
+Begin
+ Result := OffsetDateTime(DateTime, NumberOfWeeks * OneWeek);
 
-function TCalendar.NextDayOfWeek(const DateTime: TDateTime;
-  DoW: TDayOfWeek): TDateTime;
-var
-  Days: Integer;
-begin
-  Days := DaysOfWeekBetween(DayOfWeek(DateTime), DoW);
-  if Days = 0 then
-    Days := DaysPerWeek;
-  Result := NextDay(DateTime, Days);
-end;
+End;
 
-class function TCalendar.NextHour(const DateTime: TDateTime;
-  NumberOfHours: Integer): TDateTime;
-begin
-  Result := OffsetDateTime(DateTime, NumberOfHours * OneHour);
-end;
+  Class Function TCalendar.NextDay(Const DateTime : TDateTime; NumberOfDays : Integer) : TDateTime;
 
-class function TCalendar.NextMinute(const DateTime: TDateTime;
-  NumberOfMinutes: Integer): TDateTime;
-begin
-  Result := OffsetDateTime(DateTime, NumberOfMinutes * OneDay);
-end;
+Begin
+ Result := OffsetDateTime(DateTime, NumberOfDays * OneDay);
 
-class function TCalendar.NextSecond(const DateTime: TDateTime;
-  NumberOfSeconds: Integer): TDateTime;
-begin
-  Result := OffsetDateTime(DateTime, NumberOfSeconds * OneSecond);
-end;
+End;
 
-class function TCalendar.NextMillisecond(const DateTime: TDateTime;
-  NumberOfMilliseconds: Integer): TDateTime;
-begin
-  Result := OffsetDateTime(DateTime, NumberOfMilliseconds * OneSecond);
-end;
+ Function TCalendar.NextDayOfWeek(Const DateTime : TDateTime; DoW : TDayOfWeek) : TDateTime;
+  Var
+   Days : Integer;
+  Begin
+   Days := DaysOfWeekBetween(DayOfWeek(DateTime), DoW);
+   If Days = 0 Then
+    Days  := DaysPerWeek;
+   Result := NextDay(DateTime, Days);
+  End;
 
-procedure TCalendar.IncYear(var DateTime: TDateTime;
-  NumberOfYears: Integer);
-begin
-  DateTime := NextYear(DateTime, NumberOfYears);
-end;
+  Class Function TCalendar.NextHour(Const DateTime : TDateTime; NumberOfHours : Integer) : TDateTime;
 
-procedure TCalendar.IncYear(var Date: TDate;
-  NumberOfYears: Integer);
-begin
-  IncYear(TDateTime(Date), NumberOfYears);
-end;
+Begin
+ Result := OffsetDateTime(DateTime, NumberOfHours * OneHour);
 
-procedure TCalendar.IncMonth(var DateTime: TDateTime;
-  NumberOfMonths: Integer);
-begin
-  DateTime := NextMonth(DateTime, NumberOfMonths);
-end;
+End;
 
-procedure TCalendar.IncMonth(var Date: TDate;
-  NumberOfMonths: Integer);
-begin
-  IncMonth(TDateTime(Date), NumberOfMonths);
-end;
+  Class Function TCalendar.NextMinute(Const DateTime : TDateTime; NumberOfMinutes : Integer) : TDateTime;
 
-class procedure TCalendar.IncWeek(var DateTime: TDateTime;
-  NumberOfWeeks: Integer);
-begin
-  IncDateTime(DateTime, NumberOfWeeks * OneWeek);
-end;
+Begin
+ Result := OffsetDateTime(DateTime, NumberOfMinutes * OneDay);
 
-class procedure TCalendar.IncWeek(var Date: TDate;
-  NumberOfWeeks: Integer);
-begin
-  IncWeek(TDateTime(Date), NumberOfWeeks);
-end;
+End;
 
-class procedure TCalendar.IncDay(var DateTime: TDateTime;
-  NumberOfDays: Integer);
-begin
-  IncDateTime(DateTime, NumberOfDays * OneDay);
-end;
+  Class Function TCalendar.NextSecond(Const DateTime : TDateTime; NumberOfSeconds : Integer) : TDateTime;
 
-class procedure TCalendar.IncDay(var Date: TDate;
-  NumberOfDays: Integer);
-begin
-  IncDay(TDateTime(Date), NumberOfDays);
-end;
+Begin
+ Result := OffsetDateTime(DateTime, NumberOfSeconds * OneSecond);
 
-class procedure TCalendar.IncHour(var DateTime: TDateTime;
-  NumberOfHours: Integer);
-begin
-  IncDateTime(DateTime, NumberOfHours * OneHour);
-end;
+End;
 
-class procedure TCalendar.IncHour(var Time: TTime;
-  NumberOfHours: Integer);
-begin
-  IncHour(TDateTime(Time), NumberOfHours);
-end;
+  Class Function TCalendar.NextMillisecond(Const DateTime : TDateTime; NumberOfMilliseconds : Integer) : TDateTime;
 
-class procedure TCalendar.IncMinute(var DateTime: TDateTime;
-  NumberOfMinutes: Integer);
-begin
-  IncDateTime(DateTime, NumberOfMinutes * OneMinute);
-end;
+Begin
+ Result := OffsetDateTime(DateTime, NumberOfMilliseconds * OneSecond);
 
-class procedure TCalendar.IncMinute(var Time: TTime;
-  NumberOfMinutes: Integer);
-begin
-  IncMinute(TDateTime(Time), NumberOfMinutes);
-end;
+End;
 
-class procedure TCalendar.IncSecond(var DateTime: TDateTime;
-  NumberOfSeconds: Integer);
-begin
-  IncDateTime(DateTime, NumberOfSeconds * OneSecond);
-end;
+ Procedure TCalendar.IncYear(Var DateTime : TDateTime; NumberOfYears : Integer);
+  Begin
+   DateTime := NextYear(DateTime, NumberOfYears);
+  End;
 
-class procedure TCalendar.IncSecond(var Time: TTime;
-  NumberOfSeconds: Integer);
-begin
-  IncSecond(TDateTime(Time), NumberOfSeconds);
-end;
+ Procedure TCalendar.IncYear(Var Date : TDate; NumberOfYears : Integer);
+  Begin
+   IncYear(TDateTime(Date), NumberOfYears);
+  End;
 
-class procedure TCalendar.IncMillisecond(var DateTime: TDateTime;
-  NumberOfMilliseconds: Integer);
-begin
-  IncDateTime(DateTime, NumberOfMilliseconds * OneMillisecond);
-end;
+ Procedure TCalendar.IncMonth(Var DateTime : TDateTime; NumberOfMonths : Integer);
+  Begin
+   DateTime := NextMonth(DateTime, NumberOfMonths);
+  End;
 
-class procedure TCalendar.IncMillisecond(var Time: TTime;
-  NumberOfMilliseconds: Integer);
-begin
-  IncMillisecond(TDateTime(Time), NumberOfMilliseconds);
-end;
+ Procedure TCalendar.IncMonth(Var Date : TDate; NumberOfMonths : Integer);
+  Begin
+   IncMonth(TDateTime(Date), NumberOfMonths);
+  End;
 
-class procedure TCalendar.IncDateTime(var DateTime: TDateTime; const Delta: Double);
-begin
-  DateTime := OffsetDateTime(DateTime, Delta);
-end;
+  Class Procedure TCalendar.IncWeek(Var DateTime : TDateTime; NumberOfWeeks : Integer);
 
-procedure TCalendar.DecYear(var DateTime: TDateTime;
-  NumberOfYears: Integer);
-begin
-  DateTime := PrevYear(DateTime, NumberOfYears);
-end;
+Begin
+ IncDateTime(DateTime, NumberOfWeeks * OneWeek);
 
-procedure TCalendar.DecYear(var Date: TDate;
-  NumberOfYears: Integer);
-begin
-  DecYear(TDateTime(Date), NumberOfYears);
-end;
+End;
 
-procedure TCalendar.DecMonth(var DateTime: TDateTime;
-  NumberOfMonths: Integer);
-begin
-  DateTime := PrevMonth(DateTime, NumberOfMonths);
-end;
+  Class Procedure TCalendar.IncWeek(Var Date : TDate; NumberOfWeeks : Integer);
 
-procedure TCalendar.DecMonth(var Date: TDate;
-  NumberOfMonths: Integer);
-begin
-  DecMonth(TDateTime(Date), NumberOfMonths);
-end;
+Begin
+ IncWeek(TDateTime(Date), NumberOfWeeks);
 
-class procedure TCalendar.DecWeek(var DateTime: TDateTime;
-  NumberOfWeeks: Integer);
-begin
-  DecDateTime(DateTime, NumberOfWeeks * OneWeek);
-end;
+End;
 
-class procedure TCalendar.DecWeek(var Date: TDate;
-  NumberOfWeeks: Integer);
-begin
-  DecWeek(TDateTime(Date), NumberOfWeeks);
-end;
+  Class Procedure TCalendar.IncDay(Var DateTime : TDateTime; NumberOfDays : Integer);
 
-class procedure TCalendar.DecDay(var DateTime: TDateTime;
-  NumberOfDays: Integer);
-begin
-  DecDateTime(DateTime, NumberOfDays * OneDay);
-end;
+Begin
+ IncDateTime(DateTime, NumberOfDays * OneDay);
 
-class procedure TCalendar.DecDay(var Date: TDate;
-  NumberOfDays: Integer);
-begin
-  DecDay(TDateTime(Date), NumberOfDays);
-end;
+End;
 
-class procedure TCalendar.DecHour(var DateTime: TDateTime;
-  NumberOfHours: Integer);
-begin
-  DecDateTime(DateTime, NumberOfHours * OneHour);
-end;
+  Class Procedure TCalendar.IncDay(Var Date : TDate; NumberOfDays : Integer);
 
-class procedure TCalendar.DecHour(var Time: TTime;
-  NumberOfHours: Integer);
-begin
-  DecHour(TDateTime(Time), NumberOfHours);
-end;
+Begin
+ IncDay(TDateTime(Date), NumberOfDays);
 
-class procedure TCalendar.DecMinute(var DateTime: TDateTime;
-  NumberOfMinutes: Integer);
-begin
-  DecDateTime(DateTime, NumberOfMinutes * OneMinute);
-end;
+End;
 
-class procedure TCalendar.DecMinute(var Time: TTime;
-  NumberOfMinutes: Integer);
-begin
-  DecMinute(TDateTime(Time), NumberOfMinutes);
-end;
+  Class Procedure TCalendar.IncHour(Var DateTime : TDateTime; NumberOfHours : Integer);
 
-class procedure TCalendar.DecSecond(var DateTime: TDateTime;
-  NumberOfSeconds: Integer);
-begin
-  DecDateTime(DateTime, NumberOfSeconds * OneSecond);
-end;
+Begin
+ IncDateTime(DateTime, NumberOfHours * OneHour);
 
-class procedure TCalendar.DecSecond(var Time: TTime;
-  NumberOfSeconds: Integer);
-begin
-  DecSecond(TDateTime(Time), NumberOfSeconds);
-end;
+End;
 
-class procedure TCalendar.DecMillisecond(var DateTime: TDateTime;
-  NumberOfMilliseconds: Integer);
-begin
-  DecDateTime(DateTime, NumberOfMilliseconds * OneMillisecond);
-end;
+  Class Procedure TCalendar.IncHour(Var Time : TTime; NumberOfHours : Integer);
 
-class procedure TCalendar.DecMillisecond(var Time: TTime;
-  NumberOfMilliseconds: Integer);
-begin
-  DecMillisecond(TDateTime(Time), NumberOfMilliseconds);
-end;
+Begin
+ IncHour(TDateTime(Time), NumberOfHours);
 
-class procedure TCalendar.DecDateTime(var DateTime: TDateTime; const Delta: Double);
-begin
-  DateTime := OffsetDateTime(DateTime, -Delta);
-end;
+End;
 
-function TCalendar.Format(const FmtStr: String;
-  const DateTime: TDateTime): String;
-var
-  BufPos, AppendLevel: Integer;
-  Buffer: array[0..$3FF] of Char;
-  Era, Year, Month, Day: Integer;
-  Hour, Min, Sec, MSec, H: Word;
-  WeekDecoded, DateDecoded, TimeDecoded: Boolean;
-  WeekYear, WeekNum: Integer;
-  DoW: TDayOfWeek;
+  Class Procedure TCalendar.IncMinute(Var DateTime : TDateTime; NumberOfMinutes : Integer);
 
-  procedure AppendChars(P: PChar; Count: Integer);
-  var
-    N: Integer;
-  begin
-    N := (SizeOf(Buffer) div SizeOf(Char)) - BufPos;
-    if N > Count then
-      N := Count;
-    if N <> 0 then
-    begin
-      Move(P^, Buffer[BufPos], N * SizeOf(Char));
-      Inc(BufPos, N);
-    end;
-  end;
+Begin
+ IncDateTime(DateTime, NumberOfMinutes * OneMinute);
 
-  procedure AppendString(const S: String); inline;
-  begin
-    AppendChars(PChar(S), Length(S));
-  end;
+End;
 
-  procedure AppendNumber(Number, Digits: Integer); inline;
-  begin
-    AppendString(SysUtils.Format('%.*d', [Digits, Number]));
-  end;
+  Class Procedure TCalendar.IncMinute(Var Time : TTime; NumberOfMinutes : Integer);
 
-  procedure AppendFormat(Fmt: PChar; TranslateSeparators: Boolean = False);
-  var
-    Starter, Token, LastToken: Char;
-    Use12HourClock: Boolean;
-    BetweenQuotes: Boolean;
-    Count: Integer;
-    P: PChar;
+Begin
+ IncMinute(TDateTime(Time), NumberOfMinutes);
 
-    procedure GetCount;
-    var
-      P: PChar;
-    begin
-      P := Fmt;
-      while Fmt^ = Starter do
+End;
+
+  Class Procedure TCalendar.IncSecond(Var DateTime : TDateTime; NumberOfSeconds : Integer);
+
+Begin
+ IncDateTime(DateTime, NumberOfSeconds * OneSecond);
+
+End;
+
+  Class Procedure TCalendar.IncSecond(Var Time : TTime; NumberOfSeconds : Integer);
+
+Begin
+ IncSecond(TDateTime(Time), NumberOfSeconds);
+
+End;
+
+  Class Procedure TCalendar.IncMillisecond(Var DateTime : TDateTime; NumberOfMilliseconds : Integer);
+
+Begin
+ IncDateTime(DateTime, NumberOfMilliseconds * OneMillisecond);
+
+End;
+
+  Class Procedure TCalendar.IncMillisecond(Var Time : TTime; NumberOfMilliseconds : Integer);
+
+Begin
+ IncMillisecond(TDateTime(Time), NumberOfMilliseconds);
+
+End;
+
+  Class Procedure TCalendar.IncDateTime(Var DateTime : TDateTime; Const Delta : Double);
+
+Begin
+ DateTime := OffsetDateTime(DateTime, Delta);
+
+End;
+
+ Procedure TCalendar.DecYear(Var DateTime : TDateTime; NumberOfYears : Integer);
+  Begin
+   DateTime := PrevYear(DateTime, NumberOfYears);
+  End;
+
+ Procedure TCalendar.DecYear(Var Date : TDate; NumberOfYears : Integer);
+  Begin
+   DecYear(TDateTime(Date), NumberOfYears);
+  End;
+
+ Procedure TCalendar.DecMonth(Var DateTime : TDateTime; NumberOfMonths : Integer);
+  Begin
+   DateTime := PrevMonth(DateTime, NumberOfMonths);
+  End;
+
+ Procedure TCalendar.DecMonth(Var Date : TDate; NumberOfMonths : Integer);
+  Begin
+   DecMonth(TDateTime(Date), NumberOfMonths);
+  End;
+
+  Class Procedure TCalendar.DecWeek(Var DateTime : TDateTime; NumberOfWeeks : Integer);
+
+Begin
+ DecDateTime(DateTime, NumberOfWeeks * OneWeek);
+
+End;
+
+  Class Procedure TCalendar.DecWeek(Var Date : TDate; NumberOfWeeks : Integer);
+
+Begin
+ DecWeek(TDateTime(Date), NumberOfWeeks);
+
+End;
+
+  Class Procedure TCalendar.DecDay(Var DateTime : TDateTime; NumberOfDays : Integer);
+
+Begin
+ DecDateTime(DateTime, NumberOfDays * OneDay);
+
+End;
+
+  Class Procedure TCalendar.DecDay(Var Date : TDate; NumberOfDays : Integer);
+
+Begin
+ DecDay(TDateTime(Date), NumberOfDays);
+
+End;
+
+  Class Procedure TCalendar.DecHour(Var DateTime : TDateTime; NumberOfHours : Integer);
+
+Begin
+ DecDateTime(DateTime, NumberOfHours * OneHour);
+
+End;
+
+  Class Procedure TCalendar.DecHour(Var Time : TTime; NumberOfHours : Integer);
+
+Begin
+ DecHour(TDateTime(Time), NumberOfHours);
+
+End;
+
+  Class Procedure TCalendar.DecMinute(Var DateTime : TDateTime; NumberOfMinutes : Integer);
+
+Begin
+ DecDateTime(DateTime, NumberOfMinutes * OneMinute);
+
+End;
+
+  Class Procedure TCalendar.DecMinute(Var Time : TTime; NumberOfMinutes : Integer);
+
+Begin
+ DecMinute(TDateTime(Time), NumberOfMinutes);
+
+End;
+
+  Class Procedure TCalendar.DecSecond(Var DateTime : TDateTime; NumberOfSeconds : Integer);
+
+Begin
+ DecDateTime(DateTime, NumberOfSeconds * OneSecond);
+
+End;
+
+  Class Procedure TCalendar.DecSecond(Var Time : TTime; NumberOfSeconds : Integer);
+
+Begin
+ DecSecond(TDateTime(Time), NumberOfSeconds);
+
+End;
+
+  Class Procedure TCalendar.DecMillisecond(Var DateTime : TDateTime; NumberOfMilliseconds : Integer);
+
+Begin
+ DecDateTime(DateTime, NumberOfMilliseconds * OneMillisecond);
+
+End;
+
+  Class Procedure TCalendar.DecMillisecond(Var Time : TTime; NumberOfMilliseconds : Integer);
+
+Begin
+ DecMillisecond(TDateTime(Time), NumberOfMilliseconds);
+
+End;
+
+  Class Procedure TCalendar.DecDateTime(Var DateTime : TDateTime; Const Delta : Double);
+
+Begin
+ DateTime := OffsetDateTime(DateTime, -Delta);
+
+End;
+
+ Function TCalendar.Format(Const FmtStr : String; Const DateTime : TDateTime) : String;
+  Var
+   BufPos, AppendLevel                   : Integer;
+   Buffer                                : Array[0..$3FF] Of Char;
+   Era, Year, Month, Day                 : Integer;
+   Hour, Min, Sec, MSec, h               : Word;
+   WeekDecoded, DateDecoded, TimeDecoded : Boolean;
+   WeekYear, WeekNum                     : Integer;
+   DoW                                   : TDayOfWeek;
+
+   Procedure AppendChars(p : PChar; Count : Integer);
+    Var
+     n : Integer;
+    Begin
+     n := (SizeOf(Buffer) Div SizeOf(Char)) - BufPos;
+     If n > Count Then
+      n := Count;
+     If n <> 0 Then
+      Begin
+       Move(p^, Buffer[BufPos], n * SizeOf(Char));
+       Inc(BufPos, n);
+      End;
+    End;
+
+   Procedure AppendString(Const s : String); Inline;
+    Begin
+     AppendChars(PChar(s), Length(s));
+    End;
+
+   Procedure AppendNumber(Number, Digits : Integer); Inline;
+    Begin
+     AppendString(SysUtils.Format('%.*d', [Digits, Number]));
+    End;
+
+   Procedure AppendFormat(Fmt : PChar; TranslateSeparators : Boolean = False);
+    Var
+     Starter, Token, LastToken : Char;
+     Use12HourClock            : Boolean;
+     BetweenQuotes             : Boolean;
+     Count                     : Integer;
+     p                         : PChar;
+
+     Procedure GetCount;
+      Var
+       p : PChar;
+      Begin
+       p := Fmt;
+       While Fmt^ = Starter Do
         Inc(Fmt);
-      Count := Fmt - P + 1;
-    end;
+       Count := Fmt - p + 1;
+      End;
 
-    procedure GetDateWeek;
-    begin
-      if not WeekDecoded then
-      begin
-        DecodeDateWeek(DateTime, WeekYear, WeekNum, DoW);
-        WeekDecoded := True;
-      end;
-    end;
+     Procedure GetDateWeek;
+      Begin
+       If Not WeekDecoded Then
+        Begin
+         DecodeDateWeek(DateTime, WeekYear, WeekNum, DoW);
+         WeekDecoded := True;
+        End;
+      End;
 
-    procedure GetDate;
-    begin
-      if not DateDecoded then
-      begin
-        DecodeDate(DateTime, Era, Year, Month, Day);
-        DateDecoded := True;
-      end;
-    end;
+     Procedure GetDate;
+      Begin
+       If Not DateDecoded Then
+        Begin
+         DecodeDate(DateTime, Era, Year, Month, Day);
+         DateDecoded := True;
+        End;
+      End;
 
-    procedure GetTime;
-    begin
-      if not TimeDecoded then
-      begin
-        DecodeTime(DateTime, Hour, Min, Sec, MSec);
-        TimeDecoded := True;
-      end;
-    end;
+     Procedure GetTime;
+      Begin
+       If Not TimeDecoded Then
+        Begin
+         DecodeTime(DateTime, Hour, Min, Sec, MSec);
+         TimeDecoded := True;
+        End;
+      End;
 
-    function TryAppendScopedCalendar(var Fmt: PChar): Boolean;
-    var
-      BlockStart, BlockEnd, HeaderEnd, P: PChar;
-      Header, Pattern, CalendarName, EraText: String;
-      CalendarClass: TCalendarClass;
-      ScopedCalendar: TCalendar;
-      ScopedEra, CommaPos, Depth: Integer;
-      Quote: Char;
-    begin
-      Result := False;
-      BlockStart := Fmt;
-      BlockEnd := nil;
-      HeaderEnd := nil;
-      P := Fmt;
-      Depth := 1;
-      Quote := #0;
-      while P^ <> #0 do
-      begin
-        if Quote <> #0 then
-        begin
-          if P^ = Quote then
+     Function TryAppendScopedCalendar(Var Fmt : PChar) : Boolean;
+      Var
+       BlockStart, BlockEnd, HeaderEnd, p     : PChar;
+       Header, Pattern, CalendarName, EraText : String;
+       CalendarClass                          : TCalendarClass;
+       ScopedCalendar                         : TCalendar;
+       ScopedEra, CommaPos, Depth             : Integer;
+       Quote                                  : Char;
+      Begin
+       Result     := False;
+       BlockStart := Fmt;
+       BlockEnd   := Nil;
+       HeaderEnd  := Nil;
+       p          := Fmt;
+       Depth      := 1;
+       Quote      := #0;
+       While p^ <> #0 Do
+        Begin
+         If Quote <> #0 Then
+          Begin
+           If p^ = Quote Then
             Quote := #0;
-        end
-        else
-          case P^ of
-            '''', '"':
-              Quote := P^;
-            '{':
-              Inc(Depth);
-            '}':
-            begin
-              Dec(Depth);
-              if Depth = 0 then
-              begin
-                BlockEnd := P;
-                Break;
-              end;
-            end;
-            ':':
-              if (Depth = 1) and (HeaderEnd = nil) then
-                HeaderEnd := P;
-          end;
-        Inc(P);
-      end;
-      if (BlockEnd = nil) or (HeaderEnd = nil) then
+          End
+         Else
+          Case p^Of
+           '''', '"' :
+            Quote := p^;
+           '{' :
+            Inc(Depth);
+           '}' :
+            Begin
+             Dec(Depth);
+             If Depth = 0 Then
+              Begin
+               BlockEnd := p;
+               Break;
+              End;
+            End;
+           ':' :
+            If (Depth = 1) And (HeaderEnd = Nil) Then
+             HeaderEnd := p;
+          End;
+         Inc(p);
+        End;
+       If (BlockEnd = Nil) Or (HeaderEnd = Nil) Then
         Exit;
 
-      SetString(Header, BlockStart, HeaderEnd - BlockStart);
-      SetString(Pattern, HeaderEnd + 1, BlockEnd - HeaderEnd - 1);
-      Header := Trim(Header);
-      CommaPos := Pos(',', Header);
-      if CommaPos <> 0 then
-      begin
-        CalendarName := Trim(Copy(Header, 1, CommaPos - 1));
-        EraText := Trim(Copy(Header, CommaPos + 1, MaxInt));
-        if (EraText = '') or not TryStrToInt(EraText, ScopedEra) then
+       SetString(Header, BlockStart, HeaderEnd - BlockStart);
+       SetString(Pattern, HeaderEnd + 1, BlockEnd - HeaderEnd - 1);
+       Header   := Trim(Header);
+       CommaPos := Pos(',', Header);
+       If CommaPos <> 0 Then
+        Begin
+         CalendarName := Trim(Copy(Header, 1, CommaPos - 1));
+         EraText      := Trim(Copy(Header, CommaPos + 1, MaxInt));
+         If (EraText = '') Or Not TryStrToInt(EraText, ScopedEra) Then
           Exit;
-      end
-      else
-      begin
-        CalendarName := Header;
-        ScopedEra := 0;
-      end;
-      if CalendarName = '' then
+        End
+       Else
+        Begin
+         CalendarName := Header;
+         ScopedEra    := 0;
+        End;
+       If CalendarName = '' Then
         Exit;
 
-      CalendarClass := CalendarTypes.ByName(CalendarName);
-      if CalendarClass = nil then
+       CalendarClass := CalendarTypes.ByName(CalendarName);
+       If CalendarClass = Nil Then
         CalendarClass := CalendarTypes.ByName(CalendarName + ' Calendar');
-      if CalendarClass = nil then
+       If CalendarClass = Nil Then
         Exit;
 
-      ScopedCalendar := CalendarClass.Create(Settings.Locale);
-      try
-        if ScopedEra <> 0 then
-        begin
-          if not ScopedCalendar.IsValidEra(ScopedEra) then
-            Exit;
+       ScopedCalendar := CalendarClass.Create(Settings.Locale);
+       Try
+        If ScopedEra <> 0 Then
+         Begin
+          If Not ScopedCalendar.IsValidEra(ScopedEra) Then
+           Exit;
           ScopedCalendar.DefaultEra := ScopedEra;
-        end;
+         End;
         AppendString(ScopedCalendar.Format(Pattern, DateTime));
-      finally
+       Finally
         ScopedCalendar.Free;
-      end;
-      Fmt := BlockEnd + 1;
-      Result := True;
-    end;
+       End;
+       Fmt    := BlockEnd + 1;
+       Result := True;
+      End;
 
-  begin
-    if (Fmt <> nil) and (AppendLevel < 2) then
-    begin
-      Inc(AppendLevel);
-      LastToken := ' ';
-      Use12HourClock := False;
-      while Fmt^ <> #0 do
-      begin
-        Starter := Fmt^;
-        Inc(Fmt);
-        Token := UpCase(Starter);
-        if CharInSet(Token, ['A'..'Z']) then
-        begin
-          if (Token = 'M') and (LastToken = 'H') then
+    Begin
+     If (Fmt <> Nil) And (AppendLevel < 2) Then
+      Begin
+       Inc(AppendLevel);
+       LastToken      := ' ';
+       Use12HourClock := False;
+       While Fmt^ <> #0 Do
+        Begin
+         Starter := Fmt^;
+         Inc(Fmt);
+         Token := UpCase(Starter);
+         If CharInSet(Token, ['A'..'Z']) Then
+          Begin
+           If (Token = 'M') And (LastToken = 'H') Then
             Token := 'N'
-          else if Token = 'E' then
-            Token := 'Y';
-          LastToken := Token;
-        end;
-        case Token of
-          'G':
-          begin
+           Else If Token = 'E' Then
+            Token    := 'Y';
+           LastToken := Token;
+          End;
+         Case Token Of
+          'G' :
+           Begin
             GetCount;
             GetDate;
-            if Count = 1 then
-              AppendString(Settings.ShortEraNames[Era])
-            else
-              AppendString(Settings.EraNames[Era]);
-          end;
-          'Y':
-          begin
+            If Count = 1 Then
+             AppendString(Settings.ShortEraNames[Era])
+            Else
+             AppendString(Settings.EraNames[Era]);
+           End;
+          'Y' :
+           Begin
             GetCount;
             GetDate;
-            case Count of
-              1: AppendNumber(Year, 1);
-              2: AppendNumber(Year mod 100, 2);
-            else
-              AppendNumber(Year, 4);
-            end;
-          end;
-          'M':
-          begin
+            Case Count Of
+             1 : AppendNumber(Year, 1);
+             2 : AppendNumber(Year Mod 100, 2);
+            Else AppendNumber(Year, 4);
+            End;
+           End;
+          'M' :
+           Begin
             GetCount;
             GetDate;
-            case Count of
-              1, 2: AppendNumber(Month, Count);
-              3: AppendString(Settings.ShortMonthNames[Month]);
-            else
-              if (LastToken = 'Y') or (LastToken = 'D') then
-                AppendString(Settings.GenitiveMonthNames[Month])
-              else
-                AppendString(Settings.MonthNames[Month]);
-            end;
-          end;
-          'D':
-          begin
+            Case Count Of
+             1, 2 :
+              AppendNumber(Month, Count);
+             3 :
+              AppendString(Settings.ShortMonthNames[Month]);
+            Else
+              If (LastToken = 'Y') Or (LastToken = 'D') Then
+               AppendString(Settings.GenitiveMonthNames[Month])
+              Else
+               AppendString(Settings.MonthNames[Month]);
+            End;
+           End;
+          'D' :
+           Begin
             GetCount;
-            if Count <= 2 then
-              GetDate;
-            case Count of
-              1, 2: AppendNumber(Day, Count);
-              3: AppendString(Settings.ShortDayNames[DayOfWeek(DateTime)]);
-              4: AppendString(Settings.DayNames[DayOfWeek(DateTime)]);
-              5: AppendFormat(PChar(Settings.ShortDateFormat));
-            else
-              AppendFormat(PChar(Settings.LongDateFormat));
-            end;
-          end;
-          'I':
-          begin
+            If Count <= 2 Then
+             GetDate;
+            Case Count Of
+             1, 2 : AppendNumber(Day, Count);
+             3    : AppendString(Settings.ShortDayNames[DayOfWeek(DateTime)]);
+             4    : AppendString(Settings.DayNames[DayOfWeek(DateTime)]);
+             5    : AppendFormat(PChar(Settings.ShortDateFormat));
+            Else AppendFormat(PChar(Settings.LongDateFormat));
+            End;
+           End;
+          'I' :
+           Begin
             GetCount;
             GetDate;
             AppendNumber(DayOfYear(DateTime), Count);
-          end;
-          'O':
-          begin
+           End;
+          'O' :
+           Begin
             GetCount;
             AppendNumber(DayOfWeekToDayNum(DayOfWeek(DateTime)), 1);
-          end;
-          'W':
-          begin
+           End;
+          'W' :
+           Begin
             GetCount;
             GetDateWeek;
             AppendNumber(WeekNum, Count)
-          end;
-          'R':
-          begin
+           End;
+          'R' :
+           Begin
             GetCount;
             GetDateWeek;
-            case Count of
-              1: AppendNumber(WeekYear, 1);
-              2: AppendNumber(WeekYear mod 100, 2);
-            else
-              AppendNumber(WeekYear, 4);
-            end;
-          end;
-          'H':
-          begin
+            Case Count Of
+             1 : AppendNumber(WeekYear, 1);
+             2 : AppendNumber(WeekYear Mod 100, 2);
+            Else AppendNumber(WeekYear, 4);
+            End;
+           End;
+          'H' :
+           Begin
             GetCount;
             GetTime;
             BetweenQuotes := False;
-            P := Fmt;
-            while P^ <> #0 do
-            begin
-              case P^ of
-                'A', 'a':
-                  if not BetweenQuotes then
-                  begin
-                    if ((AnsiStrLIComp(P, 'AM/PM', 5) = 0) or
-                        (AnsiStrLIComp(P, 'A/P', 3) = 0) or
-                        (AnsiStrLIComp(P, 'AMPM', 4) = 0))
-                    then
-                      Use12HourClock := True;
-                    Break;
-                  end;
-                'H', 'h':
+            p             := Fmt;
+            While p^ <> #0 Do
+             Begin
+              Case p^Of
+               'A', 'a' :
+                If Not BetweenQuotes Then
+                 Begin
+                  If ((AnsiStrLIComp(p, 'AM/PM', 5) = 0) Or
+                  (AnsiStrLIComp(p, 'A/P', 3) = 0) Or
+                  (AnsiStrLIComp(p, 'AMPM', 4) = 0))
+                  Then
+                   Use12HourClock := True;
                   Break;
-                '''', '"':
-                  BetweenQuotes := not BetweenQuotes;
-              end;
-              Inc(P);
-            end;
-            H := Hour;
-            if Use12HourClock then
-              if H = 0 then
-                H := 12
-              else if H > 12 then
-                Dec(H, 12);
-            if Count > 2 then
-              Count := 2;
-            AppendNumber(H, Count);
-          end;
-          'N':
-          begin
+                 End;
+               'H', 'h' :
+                Break;
+               '''', '"' :
+                BetweenQuotes := Not BetweenQuotes;
+              End;
+              Inc(p);
+             End;
+            h := Hour;
+            If Use12HourClock Then
+             If h = 0 Then
+              h := 12
+             Else If h > 12 Then
+              Dec(h, 12);
+            If Count > 2 Then
+             Count := 2;
+            AppendNumber(h, Count);
+           End;
+          'N' :
+           Begin
             GetCount;
             GetTime;
-            if Count > 2 then
-              Count := 2;
+            If Count > 2 Then
+             Count := 2;
             AppendNumber(Min, Count);
-          end;
-          'S':
-          begin
+           End;
+          'S' :
+           Begin
             GetCount;
             GetTime;
-            if Count > 2 then
-              Count := 2;
+            If Count > 2 Then
+             Count := 2;
             AppendNumber(Sec, Count);
-          end;
-          'Z':
-          begin
+           End;
+          'Z' :
+           Begin
             GetCount;
             GetTime;
-            if Count > 3 then
-              Count := 3;
+            If Count > 3 Then
+             Count := 3;
             AppendNumber(MSec, Count);
-          end;
-          'A':
-          begin
+           End;
+          'A' :
+           Begin
             GetTime;
-            P := Fmt - 1;
-            if AnsiStrLIComp(P, 'AM/PM', 5) = 0 then
-            begin
-              if Hour >= 12 then
-                Inc(P, 3);
-              AppendChars(P, 2);
+            p := Fmt - 1;
+            If AnsiStrLIComp(p, 'AM/PM', 5) = 0 Then
+             Begin
+              If Hour >= 12 Then
+               Inc(p, 3);
+              AppendChars(p, 2);
               Inc(Fmt, 4);
               Use12HourClock := True;
-            end
-            else if AnsiStrLIComp(P, 'A/P', 3) = 0 then
-            begin
-              if Hour >= 12 then
-                Inc(P, 2);
-              AppendChars(P, 1);
+             End
+            Else If AnsiStrLIComp(p, 'A/P', 3) = 0 Then
+             Begin
+              If Hour >= 12 Then
+               Inc(p, 2);
+              AppendChars(p, 1);
               Inc(Fmt, 2);
               Use12HourClock := True;
-            end
-            else if AnsiStrLIComp(P, 'AMPM', 4) = 0 then
-            begin
-              if Hour < 12 then
-                AppendString(Settings.TimeAMString)
-              else
-                AppendString(Settings.TimePMString);
+             End
+            Else If AnsiStrLIComp(p, 'AMPM', 4) = 0 Then
+             Begin
+              If Hour < 12 Then
+               AppendString(Settings.TimeAMString)
+              Else
+               AppendString(Settings.TimePMString);
               Inc(Fmt, 3);
               Use12HourClock := True;
-            end
-            else
-              AppendChars(@Starter, 1);
-          end;
-          'C':
-          begin
+             End
+            Else
+             AppendChars(@Starter, 1);
+           End;
+          'C' :
+           Begin
             GetCount;
             AppendFormat(PChar(Settings.ShortDateFormat));
             GetTime;
-            if (Hour <> 0) or (Min <> 0) or (Sec <> 0) then
-            begin
+            If (Hour <> 0) Or (Min <> 0) Or (Sec <> 0) Then
+             Begin
               AppendChars(' ', 1);
               AppendFormat(PChar(Settings.LongTimeFormat));
-            end;
-          end;
-          'T':
-          begin
+             End;
+           End;
+          'T' :
+           Begin
             GetCount;
-            if Count = 1 then
-              AppendFormat(PChar(Settings.ShortTimeFormat))
-            else
-              AppendFormat(PChar(Settings.LongTimeFormat));
-          end;
-          'Q':
-          begin
+            If Count = 1 Then
+             AppendFormat(PChar(Settings.ShortTimeFormat))
+            Else
+             AppendFormat(PChar(Settings.LongTimeFormat));
+           End;
+          'Q' :
+           Begin
             GetCount;
             AppendFormat('YYYY-MM-DD HH:NN:SS');
-          end;
-          'U':
-          begin
+           End;
+          'U' :
+           Begin
             GetCount;
             AppendString(Format('Q', LocalToUniversalDateTime(DateTime)));
-          end;
-          '/':
-          begin
-            if TranslateSeparators then
-              AppendString(Settings.DateSeparator)
-            else
-              AppendChars(@Starter, 1);
-          end;
-          ':':
-          begin
-            if TranslateSeparators then
-              AppendString(Settings.TimeSeparator)
-            else
-              AppendChars(@Starter, 1);
-          end;
-          '{':
-          begin
-            if not TryAppendScopedCalendar(Fmt) then
-              AppendChars(@Starter, 1);
-          end;
-          '"', '''':
-          begin
-            P := Fmt;
-            while (Fmt^ <> #0) and (Fmt^ <> Starter) do
-              Inc(Fmt);
-            AppendChars(P, Fmt - P);
-            if Fmt^ <> #0 then
-              Inc(Fmt);
-          end;
-        else
-          AppendChars(@Starter, 1);
-        end;
-      end;
-      Dec(AppendLevel);
-    end;
-  end;
+           End;
+          '/' :
+           Begin
+            If TranslateSeparators Then
+             AppendString(Settings.DateSeparator)
+            Else
+             AppendChars(@Starter, 1);
+           End;
+          ':' :
+           Begin
+            If TranslateSeparators Then
+             AppendString(Settings.TimeSeparator)
+            Else
+             AppendChars(@Starter, 1);
+           End;
+          '{' :
+           Begin
+            If Not TryAppendScopedCalendar(Fmt) Then
+             AppendChars(@Starter, 1);
+           End;
+          '"', '''' :
+           Begin
+            p := Fmt;
+            While (Fmt^ <> #0) And (Fmt^ <> Starter) Do
+             Inc(Fmt);
+            AppendChars(p, Fmt - p);
+            If Fmt^ <> #0 Then
+             Inc(Fmt);
+           End;
+         Else
+           AppendChars(@Starter, 1);
+         End;
+        End;
+       Dec(AppendLevel);
+      End;
+    End;
 
-begin
-  if IsNoDate(DateTime) then
+  Begin
+   If IsNoDate(DateTime) Then
     Result := ''
-  else
-  begin
-    BufPos := 0;
-    AppendLevel := 0;
-    WeekDecoded := False;
-    DateDecoded := False;
-    TimeDecoded := False;
-    if FmtStr <> '' then
+   Else
+    Begin
+     BufPos      := 0;
+     AppendLevel := 0;
+     WeekDecoded := False;
+     DateDecoded := False;
+     TimeDecoded := False;
+     If FmtStr <> '' Then
       AppendFormat(PChar(FmtStr), True)
-    else
+     Else
       AppendFormat('C');
-    SetString(Result, Buffer, BufPos);
-  end;
-end;
+     SetString(Result, Buffer, BufPos);
+    End;
+  End;
 
-function TCalendar.Parse(const FmtStr: String;
-  const DateTimeStr: String): TDateTime;
-var
-  Era, Year, Month, Day: Integer;
-  Hour, Min, Sec, MSec: Word;
-  WeekYear, WeekNum, DoW, DoY: Integer;
-  WeekScanned, DateScanned, TimeScanned: Boolean;
-  Is12Hours, IsHourPM: Boolean;
-  IsUTC: Boolean;
-  ScanLevel: Integer;
-  S: PChar;
+ Function TCalendar.Parse(Const FmtStr : String; Const DateTimeStr : String) : TDateTime;
+  Var
+   Era, Year, Month, Day                 : Integer;
+   Hour, Min, Sec, MSec                  : Word;
+   WeekYear, WeekNum, DoW, DoY           : Integer;
+   WeekScanned, DateScanned, TimeScanned : Boolean;
+   Is12Hours, IsHourPM                   : Boolean;
+   IsUTC                                 : Boolean;
+   ScanLevel                             : Integer;
+   s                                     : PChar;
 
-  function ScanNumber: Integer;
-  var
-    Negate: Boolean;
-  begin
-    Result := 0;
-    if (S^ = UCC_NODS) or (S^ = UCC_NADS) then
-      Inc(S);
-    Negate := (S^ = '-');
-    if Negate then
-      Inc(S);
-    while CharInSet(S^, ['0'..'9']) do
-    begin
-      Result := Result * 10 + (Ord(S^) - Ord('0'));
-      Inc(S);
-    end;
-    if Negate then
+   Function ScanNumber : Integer;
+    Var
+     Negate : Boolean;
+    Begin
+     Result := 0;
+     If (s^ = UCC_NODS) Or (s^ = UCC_NADS) Then
+      Inc(s);
+     Negate := (s^ = '-');
+     If Negate Then
+      Inc(s);
+     While CharInSet(s^, ['0'..'9']) Do
+      Begin
+       Result := Result * 10 + (Ord(s^) - Ord('0'));
+       Inc(s);
+      End;
+     If Negate Then
       Result := -Result;
-  end;
+    End;
 
-  function ScanString(Terminator: Char): String;
-  var
-    Start: PChar;
-  begin
-    Start := S;
-    while (S^ <> #0) and (S^ <> Terminator) do
-      Inc(S);
-    SetString(Result, Start, S - Start);
-  end;
+   Function ScanString(Terminator : Char) : String;
+    Var
+     Start : PChar;
+    Begin
+     Start := s;
+     While (s^ <> #0) And (s^ <> Terminator) Do
+      Inc(s);
+     SetString(Result, Start, s - Start);
+    End;
 
-  procedure ScanFormat(Fmt: PChar; TranslateSeparators: Boolean = False);
-  var
-    Starter, Token, LastToken: Char;
-    Count: Integer;
-    P: PChar;
+   Procedure ScanFormat(Fmt : PChar; TranslateSeparators : Boolean = False);
+    Var
+     Starter, Token, LastToken : Char;
+     Count                     : Integer;
+     p                         : PChar;
 
-    procedure GetCount;
-    var
-      P: PChar;
-    begin
-      P := Fmt;
-      while Fmt^ = Starter do
+     Procedure GetCount;
+      Var
+       p : PChar;
+      Begin
+       p := Fmt;
+       While Fmt^ = Starter Do
         Inc(Fmt);
-      Count := Fmt - P + 1;
-    end;
+       Count := Fmt - p + 1;
+      End;
 
-  begin
-    if (Fmt <> nil) and (ScanLevel < 2) then
-    begin
-      Inc(ScanLevel);
-      LastToken := ' ';
-      while (Fmt^ <> #0) and (S^ <> #0) do
-      begin
-        Starter := Fmt^;
-        Inc(Fmt);
-        Token := UpCase(Starter);
-        if CharInSet(Token, ['A'..'Z']) then
-        begin
-          if (Token = 'M') and (LastToken = 'H') then
+    Begin
+     If (Fmt <> Nil) And (ScanLevel < 2) Then
+      Begin
+       Inc(ScanLevel);
+       LastToken := ' ';
+       While (Fmt^ <> #0) And (s^ <> #0) Do
+        Begin
+         Starter := Fmt^;
+         Inc(Fmt);
+         Token := UpCase(Starter);
+         If CharInSet(Token, ['A'..'Z']) Then
+          Begin
+           If (Token = 'M') And (LastToken = 'H') Then
             Token := 'N';
-          if Token = 'E' then
-            Token := 'Y';
-          LastToken := Token;
-        end;
-        case Token of
-          'G':
-          begin
+           If Token = 'E' Then
+            Token    := 'Y';
+           LastToken := Token;
+          End;
+         Case Token Of
+          'G' :
+           Begin
             GetCount;
-            if Count = 1 then
-              Era := Settings.ScanShortEraNames(S)
-            else
-              Era := Settings.ScanEraNames(S)
-          end;
-          'Y':
-          begin
+            If Count = 1 Then
+             Era := Settings.ScanShortEraNames(s)
+            Else
+             Era := Settings.ScanEraNames(s)
+           End;
+          'Y' :
+           Begin
             GetCount;
             Year := ScanNumber;
-            if Count <= 2 then
-              Year := ToFourDigitYear(Year);
+            If Count <= 2 Then
+             Year       := ToFourDigitYear(Year);
             DateScanned := True;
-            if not WeekScanned then
-              WeekYear := Year;
-          end;
-          'M':
-          begin
+            If Not WeekScanned Then
+             WeekYear := Year;
+           End;
+          'M' :
+           Begin
             GetCount;
-            case Count of
-              1, 2: Month := ScanNumber;
-              3: Month := Settings.ScanShortMonthNames(S);
-            else
-              Month := Settings.ScanMonthNames(S);
-              if Month = 0 then
-                Month := Settings.ScanGenitiveMonthNames(S);
-            end;
+            Case Count Of
+             1, 2 :
+              Month := ScanNumber;
+             3 :
+              Month := Settings.ScanShortMonthNames(s);
+            Else
+              Month := Settings.ScanMonthNames(s);
+              If Month = 0 Then
+               Month := Settings.ScanGenitiveMonthNames(s);
+            End;
             DateScanned := True;
-          end;
-          'D':
-          begin
+           End;
+          'D' :
+           Begin
             GetCount;
-            case Count of
-              1, 2:
-              begin
-                Day := ScanNumber;
-                DateScanned := True;
-              end;
-              3: DoW := Settings.ScanShortDayNames(S);
-              4: DoW := Settings.ScanDayNames(S);
-              5: ScanFormat(PChar(Settings.ShortDateFormat));
-            else
+            Case Count Of
+             1, 2 :
+              Begin
+               Day         := ScanNumber;
+               DateScanned := True;
+              End;
+             3 :
+              DoW := Settings.ScanShortDayNames(s);
+             4 :
+              DoW := Settings.ScanDayNames(s);
+             5 :
+              ScanFormat(PChar(Settings.ShortDateFormat));
+            Else
               ScanFormat(PChar(Settings.LongDateFormat));
-            end;
-          end;
-          'I':
-          begin
+            End;
+           End;
+          'I' :
+           Begin
             GetCount;
-            DoY := ScanNumber;
+            DoY         := ScanNumber;
             DateScanned := True;
-          end;
-          'O':
-          begin
+           End;
+          'O' :
+           Begin
             GetCount;
-            DoW := Ord(DayNumToDayOfWeek(ScanNumber));
+            DoW         := Ord(DayNumToDayOfWeek(ScanNumber));
             WeekScanned := True;
-          end;
-          'W':
-          begin
+           End;
+          'W' :
+           Begin
             GetCount;
-            WeekNum := ScanNumber;
+            WeekNum     := ScanNumber;
             WeekScanned := True;
-          end;
-          'R':
-          begin
+           End;
+          'R' :
+           Begin
             GetCount;
             WeekYear := ScanNumber;
-            if Count <= 2 then
-              WeekYear := ToFourDigitYear(WeekYear);
+            If Count <= 2 Then
+             WeekYear   := ToFourDigitYear(WeekYear);
             WeekScanned := True;
-          end;
-          'H':
-          begin
+           End;
+          'H' :
+           Begin
             GetCount;
-            Hour := ScanNumber;
+            Hour        := ScanNumber;
             TimeScanned := True;
-          end;
-          'N':
-          begin
+           End;
+          'N' :
+           Begin
             GetCount;
-            Min := ScanNumber;
+            Min         := ScanNumber;
             TimeScanned := True;
-          end;
-          'S':
-          begin
+           End;
+          'S' :
+           Begin
             GetCount;
-            Sec := ScanNumber;
+            Sec         := ScanNumber;
             TimeScanned := True;
-          end;
-          'Z':
-          begin
+           End;
+          'Z' :
+           Begin
             GetCount;
-            MSec := ScanNumber;
+            MSec        := ScanNumber;
             TimeScanned := True;
-          end;
-          'A':
-          begin
-            P := Fmt - 1;
-            if AnsiStrLIComp(P, 'AM/PM', 5) = 0 then
-            begin
+           End;
+          'A' :
+           Begin
+            p := Fmt - 1;
+            If AnsiStrLIComp(p, 'AM/PM', 5) = 0 Then
+             Begin
               Inc(Fmt, 4);
               Is12Hours := True;
-              IsHourPM := (AnsiStrLIComp(S, 'PM', 2) = 0);
-              Inc(S, 2);
-            end
-            else if AnsiStrLIComp(P, 'A/P', 3) = 0 then
-            begin
+              IsHourPM  := (AnsiStrLIComp(s, 'PM', 2) = 0);
+              Inc(s, 2);
+             End
+            Else If AnsiStrLIComp(p, 'A/P', 3) = 0 Then
+             Begin
               Inc(Fmt, 2);
               Is12Hours := True;
-              IsHourPM := (AnsiStrLIComp(S, 'P', 1) = 0);
-              Inc(S, 1);
-            end
-            else if AnsiStrLIComp(P, 'AMPM', 4) = 0 then
-            begin
+              IsHourPM  := (AnsiStrLIComp(s, 'P', 1) = 0);
+              Inc(s, 1);
+             End
+            Else If AnsiStrLIComp(p, 'AMPM', 4) = 0 Then
+             Begin
               Inc(Fmt, 3);
               Is12Hours := True;
-              IsHourPM := (Settings.ScanAMPM(S) = 2);
-            end;
-          end;
-          'C':
-          begin
+              IsHourPM  := (Settings.ScanAMPM(s) = 2);
+             End;
+           End;
+          'C' :
+           Begin
             GetCount;
             ScanFormat(PChar(Settings.ShortDateFormat + ' ' + Settings.LongTimeFormat));
-          end;
-          'T':
-          begin
+           End;
+          'T' :
+           Begin
             GetCount;
-            if Count = 1 then
-              ScanFormat(PChar(Settings.ShortTimeFormat))
-            else
-              ScanFormat(PChar(Settings.LongTimeFormat));
-          end;
-          'Q', 'U':
-          begin
+            If Count = 1 Then
+             ScanFormat(PChar(Settings.ShortTimeFormat))
+            Else
+             ScanFormat(PChar(Settings.LongTimeFormat));
+           End;
+          'Q', 'U' :
+           Begin
             GetCount;
             ScanFormat('YYYY-MM-DD HH:NN:SS');
             IsUTC := (Token = 'U');
-          end;
-          '/':
-          begin
-            if TranslateSeparators then
-            begin
-              P := PChar(Settings.DateSeparator);
-              while (P^ <> #0) and (S^ <> #0) do
-              begin
-                Inc(P);
-                Inc(S);
-              end;
-            end
-            else
-              Inc(S);
-          end;
-          ':':
-          begin
-            if TranslateSeparators then
-            begin
-              P := PChar(Settings.TimeSeparator);
-              while (P^ <> #0) and (S^ <> #0) do
-              begin
-                Inc(P);
-                Inc(S);
-              end;
-            end
-            else
-              Inc(S);
-          end;
-          '"', '''':
-          begin
-            while (Fmt^ <> #0) and (Fmt^ <> Starter) and (S^ <> #0) do
-            begin
+           End;
+          '/' :
+           Begin
+            If TranslateSeparators Then
+             Begin
+              p := PChar(Settings.DateSeparator);
+              While (p^ <> #0) And (s^ <> #0) Do
+               Begin
+                Inc(p);
+                Inc(s);
+               End;
+             End
+            Else
+             Inc(s);
+           End;
+          ':' :
+           Begin
+            If TranslateSeparators Then
+             Begin
+              p := PChar(Settings.TimeSeparator);
+              While (p^ <> #0) And (s^ <> #0) Do
+               Begin
+                Inc(p);
+                Inc(s);
+               End;
+             End
+            Else
+             Inc(s);
+           End;
+          '"', '''' :
+           Begin
+            While (Fmt^ <> #0) And (Fmt^ <> Starter) And (s^ <> #0) Do
+             Begin
               Inc(Fmt);
-              Inc(S);
-            end;
-            if Fmt^ <> #0 then
-              Inc(Fmt);
-          end;
-        else
-          Inc(S);
-        end;
-      end;
-      Dec(ScanLevel);
-    end;
-  end;
+              Inc(s);
+             End;
+            If Fmt^ <> #0 Then
+             Inc(Fmt);
+           End;
+         Else
+           Inc(s);
+         End;
+        End;
+       Dec(ScanLevel);
+      End;
+    End;
+  Var
+   Date : TDate;
+   Time : TTime;
 
-var
-  Date: TDate;
-  Time: TTime;
-begin
-  Era := DefaultEra; Year := 0; Month := 0; Day := 0;
-  Hour := 0; Min := 0; Sec := 0; MSec := 0;
-  WeekYear := 0; WeekNum := 0; DoW := 0;
-  WeekScanned := False;
-  DateScanned := False;
-  TimeScanned := False;
-  Is12Hours := False;
-  IsHourPM := False;
-  IsUTC := False;
-  S := PChar(DateTimeStr);
-  ScanLevel := 0;
-  if FmtStr <> '' then
+  Begin
+   Era         := DefaultEra;
+   Year        := 0;
+   Month       := 0;
+   Day         := 0;
+   Hour        := 0;
+   Min         := 0;
+   Sec         := 0;
+   MSec        := 0;
+   WeekYear    := 0;
+   WeekNum     := 0;
+   DoW         := 0;
+   WeekScanned := False;
+   DateScanned := False;
+   TimeScanned := False;
+   Is12Hours   := False;
+   IsHourPM    := False;
+   IsUTC       := False;
+   s           := PChar(DateTimeStr);
+   ScanLevel   := 0;
+   If FmtStr <> '' Then
     ScanFormat(PChar(FmtStr), True)
-  else
+   Else
     ScanFormat('C');
-  if TimeScanned then
-  begin
-    if Is12Hours then
-    begin
-      if IsHourPM and (Hour < 12) then
-        Hour := (Hour + 12) mod 24
-      else if not IsHourPM and (Hour = 12) then
+   If TimeScanned Then
+    Begin
+     If Is12Hours Then
+      Begin
+       If IsHourPM And (Hour < 12) Then
+        Hour := (Hour + 12) Mod 24
+       Else If Not IsHourPM And (Hour = 12) Then
         Hour := 0;
-    end;
-    Time := EncodeTime(Hour, Min, Sec, MSec);
-  end
-  else
+      End;
+     Time := EncodeTime(Hour, Min, Sec, MSec);
+    End
+   Else
     Time := 0;
-  if DateScanned then
-  begin
-    if (DoY <> 0) and ((Month = 0) or (Day = 0)) then
+   If DateScanned Then
+    Begin
+     If (DoY <> 0) And ((Month = 0) Or (Day = 0)) Then
       Date := EncodeDateDay(Era, Year, DoY)
-    else
+     Else
       Date := EncodeDate(Era, Year, Month, Day);
-  end
-  else if WeekScanned then
+    End
+   Else If WeekScanned Then
     Date := EncodeDateWeek(Era, WeekYear, WeekNum, TDayOfWeek(DoW))
-  else
-    Date := 0;
-  Result := CombineDateTime(Date, Time);
-  if IsUTC then
+   Else
+    Date  := 0;
+   Result := CombineDateTime(Date, Time);
+   If IsUTC Then
     Result := UniversalToLocalDateTime(Result);
-end;
+  End;
 
-function TCalendar.TryParse(const FmtStr: String; const DateTimeStr: String;
-  var DateTime: TDateTime): Boolean;
-begin
-  try
+ Function TCalendar.TryParse(Const FmtStr : String; Const DateTimeStr : String; Var DateTime : TDateTime) : Boolean;
+  Begin
+   Try
     DateTime := Parse(FmtStr, DateTimeStr);
-    Result := True;
-  except
+    Result   := True;
+   Except
     Result := False;
-  end;
-end;
+   End;
+  End;
 
 { TCalendarClassList }
 
-function TCalendarClassList.GetItems(Index: NativeInt): TCalendarClass;
-begin
-  Result := TCalendarClass(Get(Index));
-end;
+ Function TCalendarClassList.GetItems(Index : NativeInt) : TCalendarClass;
+  Begin
+   Result := TCalendarClass(Get(Index));
+  End;
 
-procedure TCalendarClassList.SetItems(Index: NativeInt; Value: TCalendarClass);
-begin
-  Put(Index, Value);
-end;
+ Procedure TCalendarClassList.SetItems(Index : NativeInt; Value : TCalendarClass);
+  Begin
+   Put(Index, Value);
+  End;
 
-function TCalendarClassList.First: TCalendarClass;
-begin
-  Result := TCalendarClass(inherited First);
-end;
+ Function TCalendarClassList.First : TCalendarClass;
+  Begin
+   Result := TCalendarClass(Inherited First);
+  End;
 
-function TCalendarClassList.Last: TCalendarClass;
-begin
-  Result := TCalendarClass(inherited Last);
-end;
+ Function TCalendarClassList.Last : TCalendarClass;
+  Begin
+   Result := TCalendarClass(Inherited Last);
+  End;
 
-function TCalendarClassList.Add(Item: TCalendarClass): Integer;
-begin
-  Result := inherited Add(Item);
-end;
+ Function TCalendarClassList.Add(Item : TCalendarClass) : Integer;
+  Begin
+   Result := Inherited Add(Item);
+  End;
 
-procedure TCalendarClassList.Insert(Index: Integer; Item: TCalendarClass);
-begin
-  inherited Insert(Index, Item);
-end;
+ Procedure TCalendarClassList.Insert(Index : Integer; Item : TCalendarClass);
+  Begin
+   Inherited Insert(Index, Item);
+  End;
 
-function TCalendarClassList.Remove(Item: TCalendarClass): Integer;
-begin
-  Result := inherited Remove(Item);
-end;
+ Function TCalendarClassList.Remove(Item : TCalendarClass) : Integer;
+  Begin
+   Result := Inherited Remove(Item);
+  End;
 
 {$IFDEF COMPILER2010_UP}
-function TCalendarClassList.RemoveItem(Item: TCalendarClass;
-  Direction: TList.TDirection): Integer;
-begin
-  Result := inherited RemoveItem(Item, Direction);
-end;
+
+ Function TCalendarClassList.RemoveItem(Item : TCalendarClass; Direction : TList.TDirection) : Integer;
+  Begin
+   Result := Inherited RemoveItem(Item, Direction);
+  End;
 {$ENDIF}
 
-function TCalendarClassList.Extract(Item: TCalendarClass): TCalendarClass;
-begin
-  Result := TCalendarClass(inherited Extract(Item));
-end;
+ Function TCalendarClassList.Extract(Item : TCalendarClass) : TCalendarClass;
+  Begin
+   Result := TCalendarClass(Inherited Extract(Item));
+  End;
 
 {$IFDEF COMPILER2010_UP}
-function TCalendarClassList.ExtractItem(Item: TCalendarClass;
-  Direction: TList.TDirection): TCalendarClass;
-begin
-  Result := TCalendarClass(inherited ExtractItem(Item, Direction));
-end;
+
+ Function TCalendarClassList.ExtractItem(Item : TCalendarClass; Direction : TList.TDirection) : TCalendarClass;
+  Begin
+   Result := TCalendarClass(Inherited ExtractItem(Item, Direction));
+  End;
 {$ENDIF}
 
-function TCalendarClassList.IndexOf(Item: TCalendarClass): Integer;
-begin
-  Result := inherited IndexOf(Item);
-end;
+ Function TCalendarClassList.IndexOf(Item : TCalendarClass) : Integer;
+  Begin
+   Result := Inherited IndexOf(Item);
+  End;
 
 {$IFDEF COMPILER2010_UP}
-function TCalendarClassList.IndexOfItem(Item: TCalendarClass;
-  Direction: TList.TDirection): Integer;
-begin
-  Result := inherited IndexOfItem(Item, Direction);
-end;
+
+ Function TCalendarClassList.IndexOfItem(Item : TCalendarClass; Direction : TList.TDirection) : Integer;
+  Begin
+   Result := Inherited IndexOfItem(Item, Direction);
+  End;
 {$ENDIF}
 
 { CalendarTypes }
 
-class procedure CalendarTypes.Cleanup;
-begin
-  if Assigned(CalendarList) then
-    FreeAndNil(CalendarList);
-end;
+  Class Procedure CalendarTypes.Cleanup;
 
-class procedure CalendarTypes.Register(CalendarClass: TCalendarClass);
-var
-  Index: Integer;
-  RegInfo: TCalendarRegInfo;
-begin
-  if not Assigned(CalendarList) then
-  begin
-    CalendarList := TStringList.Create;
-    CalendarList.Sorted := True;
-    CalendarList.CaseSensitive := False;
-    CalendarList.Duplicates := dupIgnore;
-    CalendarList.OwnsObjects := True;
-  end;
-  Index := CalendarList.Add(CalendarClass.CalendarName);
-  RegInfo := TCalendarRegInfo(CalendarList.Objects[Index]);
-  if not Assigned(RegInfo) then
-  begin
-    RegInfo := TCalendarRegInfo.Create(CalendarClass);
-    CalendarList.Objects[Index] := RegInfo;
-  end;
-end;
+Begin
+ If Assigned(CalendarList) Then
+  FreeAndNil(CalendarList);
 
-class procedure CalendarTypes.Register(CalendarClass: TCalendarClass;
-  const Locales: array of String);
-var
-  Index: Integer;
-begin
-  Register(CalendarClass);
-  Index := CalendarList.IndexOf(CalendarClass.CalendarName);
-  TCalendarRegInfo(CalendarList.Objects[Index]).Associate(Locales);
-end;
+End;
 
-class procedure CalendarTypes.Unregister(CalendarClass: TCalendarClass);
-var
-  Index: Integer;
-begin
-  if Assigned(CalendarList) then
-  begin
-    Index := CalendarList.IndexOf(CalendarClass.CalendarName);
-    if Index >= 0 then
-      CalendarList.Delete(Index);
-  end;
-end;
+  Class Procedure CalendarTypes.Register(CalendarClass : TCalendarClass);
 
-class procedure CalendarTypes.Unregister(CalendarClass: TCalendarClass;
-  const Locales: array of String);
-var
-  Index: Integer;
-  RegInfo: TCalendarRegInfo;
-begin
-  if Assigned(CalendarList) then
-  begin
-    Index := CalendarList.IndexOf(CalendarClass.CalendarName);
-    if Index >= 0 then
-    begin
-      RegInfo := TCalendarRegInfo(CalendarList.Objects[Index]);
-      RegInfo.Dissociate(Locales);
-    end;
-  end;
-end;
+ Var
+  Index   : Integer;
+  RegInfo : TCalendarRegInfo;
 
-class function CalendarTypes.MinSupportedDateTime: TDateTime;
-var
-  I: Integer;
-  CalendarClass: TCalendarClass;
-begin
-  Result := SysUtils.MinDateTime;
-  if Assigned(CalendarList) then
-    for I := CalendarList.Count - 1 downto 0 do
-    begin
-      CalendarClass := TCalendarRegInfo(CalendarList.Objects[I]).CalendarClass;
-      if TCalendar.CompareDate(CalendarClass.MinSupportedDateTime, Result) > 0 then
-        Result := CalendarClass.MinSupportedDateTime;
-    end;
-end;
+Begin
+ If Not Assigned(CalendarList) Then
+  Begin
+   CalendarList               := TStringList.Create;
+   CalendarList.Sorted        := True;
+   CalendarList.CaseSensitive := False;
+   CalendarList.Duplicates    := dupIgnore;
+   CalendarList.OwnsObjects   := True;
+  End;
+ Index   := CalendarList.Add(CalendarClass.CalendarName);
+ RegInfo := TCalendarRegInfo(CalendarList.Objects[Index]);
+ If Not Assigned(RegInfo) Then
+  Begin
+   RegInfo                     := TCalendarRegInfo.Create(CalendarClass);
+   CalendarList.Objects[Index] := RegInfo;
+  End;
 
-class function CalendarTypes.MaxSupportedDateTime: TDateTime;
-var
-  I: Integer;
-  CalendarClass: TCalendarClass;
-begin
-  Result := SysUtils.MaxDateTime;
-  if Assigned(CalendarList) then
-    for I := CalendarList.Count - 1 downto 0 do
-    begin
-      CalendarClass := TCalendarRegInfo(CalendarList.Objects[I]).CalendarClass;
-      if TCalendar.CompareDate(CalendarClass.MaxSupportedDateTime, Result) < 0 then
-        Result := CalendarClass.MaxSupportedDateTime;
-    end;
-end;
+End;
 
-class function CalendarTypes.Count: Integer;
-begin
-  if Assigned(CalendarList) then
-    Result := CalendarList.Count
-  else
-    Result := 0;
-end;
+  Class Procedure CalendarTypes.Register(CalendarClass : TCalendarClass; Const Locales : Array Of String);
 
-class function CalendarTypes.ByIndex(Index: Integer): TCalendarClass;
-begin
-  if Assigned(CalendarList) and (Index >= 0) and (Index < CalendarList.Count) then
-    Result := TCalendarRegInfo(CalendarList.Objects[Index]).CalendarClass
-  else
-    Result := nil;
-end;
+ Var
+  Index : Integer;
 
-class function CalendarTypes.ByID(ID: Cardinal): TCalendarClass;
-var
-  I: Integer;
-begin
-  if Assigned(CalendarList) then
-    for I := CalendarList.Count - 1 downto 0 do
-    begin
-      Result := TCalendarRegInfo(CalendarList.Objects[I]).CalendarClass;
-      if Result.CalendarID = ID then
-        Exit;
-    end;
-  Result := nil;
-end;
+Begin
+ Register(CalendarClass);
+ Index := CalendarList.IndexOf(CalendarClass.CalendarName);
+ TCalendarRegInfo(CalendarList.Objects[Index]).Associate(Locales);
 
-class function CalendarTypes.ByName(const Name: String): TCalendarClass;
-var
-  I: Integer;
-begin
-  if Assigned(CalendarList) and CalendarList.Find(Name, I) then
-    Result := TCalendarRegInfo(CalendarList.Objects[I]).CalendarClass
-  else
-    Result := nil;
-end;
+End;
 
-class function CalendarTypes.ByLocale(const Locale: String): TCalendarClass;
-var
-  CalendarID: Cardinal;
-  Index, I: Integer;
-  RegInfo: TCalendarRegInfo;
-begin
-  CalendarID := GetLocaleInt(Locale, LOCALE_ICALENDARTYPE, CAL_GREGORIAN);
-  Result := ByID(CalendarID);
-  for Index := 0 to Count - 1 do
-  begin
-    RegInfo := TCalendarRegInfo(CalendarList.Objects[Index]);
-    if Assigned(RegInfo.AssociatedLocales) then
-    begin
-      for I := 0 to RegInfo.AssociatedLocales.Count - 1 do
-        if SameLanguage(Locale, RegInfo.AssociatedLocales[I]) then
-        begin
-          Result := RegInfo.CalendarClass;
-          if SameText(Locale, RegInfo.AssociatedLocales[I]) then
-            Exit;
-        end;
-    end;
-  end;
-end;
+  Class Procedure CalendarTypes.Unregister(CalendarClass : TCalendarClass);
 
-class procedure CalendarTypes.GetCalendersOfLocale(const Locale: String;
-  CalendarClasses: TCalendarClassList);
-var
-  Index, I: Integer;
-  RegInfo: TCalendarRegInfo;
-begin
-  for Index := 0 to Count - 1 do
-  begin
-    RegInfo := TCalendarRegInfo(CalendarList.Objects[Index]);
-    if not Assigned(RegInfo.AssociatedLocales) then
-      CalendarClasses.Add(RegInfo.CalendarClass)
-    else
-    begin
-      for I := 0 to RegInfo.AssociatedLocales.Count - 1 do
-        if SameLanguage(Locale, RegInfo.AssociatedLocales[I]) then
-        begin
-          CalendarClasses.Add(RegInfo.CalendarClass);
-          Break;
-        end;
-    end;
-  end;
-end;
+ Var
+  Index : Integer;
+
+Begin
+ If Assigned(CalendarList) Then
+  Begin
+   Index := CalendarList.IndexOf(CalendarClass.CalendarName);
+   If Index >= 0 Then
+    CalendarList.Delete(Index);
+  End;
+
+End;
+
+  Class Procedure CalendarTypes.Unregister(CalendarClass : TCalendarClass; Const Locales : Array Of String);
+
+ Var
+  Index   : Integer;
+  RegInfo : TCalendarRegInfo;
+
+Begin
+ If Assigned(CalendarList) Then
+  Begin
+   Index := CalendarList.IndexOf(CalendarClass.CalendarName);
+   If Index >= 0 Then
+    Begin
+     RegInfo := TCalendarRegInfo(CalendarList.Objects[Index]);
+     RegInfo.Dissociate(Locales);
+    End;
+  End;
+
+End;
+
+  Class Function CalendarTypes.MinSupportedDateTime : TDateTime;
+
+ Var
+  i             : Integer;
+  CalendarClass : TCalendarClass;
+
+Begin
+ Result := SysUtils.MinDateTime;
+ If Assigned(CalendarList) Then
+  For i := CalendarList.Count - 1 Downto 0 Do
+   Begin
+    CalendarClass := TCalendarRegInfo(CalendarList.Objects[i]).CalendarClass;
+    If TCalendar.CompareDate(CalendarClass.MinSupportedDateTime, Result) > 0 Then
+     Result := CalendarClass.MinSupportedDateTime;
+   End;
+
+End;
+
+  Class Function CalendarTypes.MaxSupportedDateTime : TDateTime;
+
+ Var
+  i             : Integer;
+  CalendarClass : TCalendarClass;
+
+Begin
+ Result := SysUtils.MaxDateTime;
+ If Assigned(CalendarList) Then
+  For i := CalendarList.Count - 1 Downto 0 Do
+   Begin
+    CalendarClass := TCalendarRegInfo(CalendarList.Objects[i]).CalendarClass;
+    If TCalendar.CompareDate(CalendarClass.MaxSupportedDateTime, Result) < 0 Then
+     Result := CalendarClass.MaxSupportedDateTime;
+   End;
+
+End;
+
+  Class Function CalendarTypes.Count : Integer;
+
+Begin
+ If Assigned(CalendarList) Then
+  Result := CalendarList.Count
+ Else
+  Result := 0;
+
+End;
+
+  Class Function CalendarTypes.ByIndex(Index : Integer) : TCalendarClass;
+
+Begin
+ If Assigned(CalendarList) And (Index >= 0) And (Index < CalendarList.Count) Then
+  Result := TCalendarRegInfo(CalendarList.Objects[Index]).CalendarClass
+ Else
+  Result := Nil;
+
+End;
+
+  Class Function CalendarTypes.ByID(ID : Cardinal) : TCalendarClass;
+
+ Var
+  i : Integer;
+
+Begin
+ If Assigned(CalendarList) Then
+  For i := CalendarList.Count - 1 Downto 0 Do
+   Begin
+    Result := TCalendarRegInfo(CalendarList.Objects[i]).CalendarClass;
+    If Result.CalendarID = ID Then
+     Exit;
+   End;
+ Result := Nil;
+
+End;
+
+  Class Function CalendarTypes.ByName(Const Name : String) : TCalendarClass;
+
+ Var
+  i : Integer;
+
+Begin
+ If Assigned(CalendarList) And CalendarList.Find(Name, i) Then
+  Result := TCalendarRegInfo(CalendarList.Objects[i]).CalendarClass
+ Else
+  Result := Nil;
+
+End;
+
+  Class Function CalendarTypes.ByLocale(Const Locale : String) : TCalendarClass;
+
+ Var
+  CalendarID : Cardinal;
+  Index, i   : Integer;
+  RegInfo    : TCalendarRegInfo;
+
+Begin
+ CalendarID := GetLocaleInt(Locale, LOCALE_ICALENDARTYPE, CAL_GREGORIAN);
+ Result     := ByID(CalendarID);
+ For Index  := 0 To Count - 1 Do
+  Begin
+   RegInfo := TCalendarRegInfo(CalendarList.Objects[Index]);
+   If Assigned(RegInfo.AssociatedLocales) Then
+    Begin
+     For i := 0 To RegInfo.AssociatedLocales.Count - 1 Do
+      If SameLanguage(Locale, RegInfo.AssociatedLocales[i]) Then
+       Begin
+        Result := RegInfo.CalendarClass;
+        If SameText(Locale, RegInfo.AssociatedLocales[i]) Then
+         Exit;
+       End;
+    End;
+  End;
+
+End;
+
+  Class Procedure CalendarTypes.GetCalendersOfLocale(Const Locale : String; CalendarClasses : TCalendarClassList);
+
+ Var
+  Index, i : Integer;
+  RegInfo  : TCalendarRegInfo;
+
+Begin
+ For Index := 0 To Count - 1 Do
+  Begin
+   RegInfo := TCalendarRegInfo(CalendarList.Objects[Index]);
+   If Not Assigned(RegInfo.AssociatedLocales) Then
+    CalendarClasses.Add(RegInfo.CalendarClass)
+   Else
+    Begin
+     For i := 0 To RegInfo.AssociatedLocales.Count - 1 Do
+      If SameLanguage(Locale, RegInfo.AssociatedLocales[i]) Then
+       Begin
+        CalendarClasses.Add(RegInfo.CalendarClass);
+        Break;
+       End;
+    End;
+  End;
+
+End;
 
 { CalendarTypes.TCalendarRegInfo }
 
-constructor CalendarTypes.TCalendarRegInfo.Create(ACalendarClass: TCalendarClass);
-begin
-  fCalendarClass := ACalendarClass;
-end;
+ Constructor CalendarTypes.TCalendarRegInfo.Create(ACalendarClass : TCalendarClass);
+  Begin
+   fCalendarClass := ACalendarClass;
+  End;
 
-destructor CalendarTypes.TCalendarRegInfo.Destroy;
-begin
-  if Assigned(fLocales) then
+ Destructor CalendarTypes.TCalendarRegInfo.Destroy;
+  Begin
+   If Assigned(fLocales) Then
     fLocales.Free;
-  inherited Destroy;
-end;
+   Inherited Destroy;
+  End;
 
-procedure CalendarTypes.TCalendarRegInfo.Associate(const Locales: array of String);
-var
-  I: Integer;
-begin
-  if Length(Locales) = 0 then
+ Procedure CalendarTypes.TCalendarRegInfo.Associate(Const Locales : Array Of String);
+  Var
+   i : Integer;
+  Begin
+   If Length(Locales) = 0 Then
     Exit;
-  if not Assigned(fLocales) then
-  begin
-    fLocales := TStringList.Create;
-    fLocales.Sorted := True;
-    fLocales.CaseSensitive := False;
-    fLocales.Duplicates := dupIgnore;
-  end;
-  for I := Low(Locales) to High(Locales) do
-    fLocales.Add(Locales[I]);
-end;
+   If Not Assigned(fLocales) Then
+    Begin
+     fLocales               := TStringList.Create;
+     fLocales.Sorted        := True;
+     fLocales.CaseSensitive := False;
+     fLocales.Duplicates    := dupIgnore;
+    End;
+   For i := Low(Locales) To High(Locales) Do
+    fLocales.Add(Locales[i]);
+  End;
 
-procedure CalendarTypes.TCalendarRegInfo.Dissociate(const Locales: array of String);
-var
-  I, Index: Integer;
-begin
-  if Assigned(fLocales) then
-    for I := Low(Locales) to High(Locales) do
-      if fLocales.Find(Locales[I], Index) then
-        fLocales.Delete(Index);
-end;
+ Procedure CalendarTypes.TCalendarRegInfo.Dissociate(Const Locales : Array Of String);
+  Var
+   i, Index : Integer;
+  Begin
+   If Assigned(fLocales) Then
+    For i := Low(Locales) To High(Locales) Do
+     If fLocales.Find(Locales[i], Index) Then
+      fLocales.Delete(Index);
+  End;
 
-initialization
+Initialization
 
-finalization
-  CalendarTypes.Cleanup;
-end.
+Finalization
+ CalendarTypes.Cleanup;
 
-
-
+End.

@@ -4,7 +4,7 @@ Unit MetarU;
 Interface
 
  Uses
-  LocalizationU,
+  SimWeatherU, RouteBridgeU, LocalizationU,
   Winapi.Windows, System.SysUtils, System.Classes, System.JSON, System.DateUtils, System.Net.HttpClient,
   Data.DB, FireDAC.Comp.Client, FlightDatabaseU, AppLogU;
 
@@ -21,18 +21,21 @@ Interface
     Error       : String;
     RowID       : Integer;
     TargetUTC   : String;
+    JSON        : String;
     Endpoint    : String;
     Constructor Create(Const ICAO, Table_ : String; ID : Integer);
   End;
 
   TMetarService = Class
    Private
-    fDB     : TFlightDatabase;
-    fWorker : TMetarWorker;
-    fNext   : UInt64;
+    fSimWeather : TSimWeatherService;
+    fDB         : TFlightDatabase;
+    fWorker     : TMetarWorker;
+    fNext       : UInt64;
     Procedure FinishRequest;
    Public
     Endpoint : String;
+    Procedure AttachBridge(Bridge : TRouteBridge);
     Constructor Create(DB : TFlightDatabase);
     Destructor Destroy; Override;
     Procedure RequestHistorical(Trip : Integer);
@@ -56,9 +59,9 @@ Implementation
 
  Procedure DecodeMetarForTime(Const JSON, Station, TargetUTC : String; Out ReportText, ObservedUTC : String);
   Var
-   V      : TJSONValue;
+   v      : TJSONValue;
    Item   : TJSONValue;
-   O      : TJSONObject;
+   o      : TJSONObject;
    Epoch  : Int64;
    Best   : Int64;
    Target : Int64;
@@ -74,19 +77,19 @@ Implementation
       Raise Exception.Create(Tr('Invalid METAR target UTC'));
      Target := DateTimeToUnix(DT, True);
     End;
-   V := TJSONObject.ParseJSONValue(JSON);
+   v := TJSONObject.ParseJSONValue(JSON);
    Try
-    If Not(V Is TJSONArray) Then
+    If Not(v Is TJSONArray) Then
      Raise Exception.Create(Tr('Invalid METAR JSON'));
-    For Item In TJSONArray(V) Do
+    For Item In TJSONArray(v) Do
      If Item Is TJSONObject Then
       Begin
-       O := TJSONObject(Item);
-       If (O.GetValue('icaoId') <> Nil) And SameText(O.GetValue('icaoId').Value, Station) And (O.GetValue('obsTime') <> Nil) And TryStrToInt64(O.GetValue('obsTime').Value, Epoch) And (Epoch <= Target) And ((TargetUTC = '') Or (Target - Epoch <= 10800)) And (Epoch > Best) Then
+       o := TJSONObject(Item);
+       If (o.GetValue('icaoId') <> Nil) And SameText(o.GetValue('icaoId').Value, Station) And (o.GetValue('obsTime') <> Nil) And TryStrToInt64(o.GetValue('obsTime').Value, Epoch) And (Epoch <= Target) And ((TargetUTC = '') Or (Target - Epoch <= 10800)) And (Epoch > Best) Then
         Begin
-         If O.GetValue('rawOb') <> Nil Then
+         If o.GetValue('rawOb') <> Nil Then
           Begin
-           ReportText  := O.GetValue('rawOb').Value;
+           ReportText  := o.GetValue('rawOb').Value;
            ObservedUTC := DateToISO8601(UnixToDateTime(Epoch, True), True);
            Best        := Epoch;
           End;
@@ -95,7 +98,7 @@ Implementation
     If (Trim(ReportText) = '') Or (ObservedUTC = '') Then
      Raise Exception.Create(Tr('No valid METAR for ') + Station + Tr(' at requested time'));
    Finally
-    V.Free;
+    v.Free;
    End;
   End;
 
@@ -112,7 +115,7 @@ Implementation
  Procedure TMetarWorker.Execute;
   Var
    HTTP : THTTPClient;
-   R    : IHTTPResponse;
+   r    : IHTTPResponse;
    URL  : String;
    DT   : TDateTime;
   Begin
@@ -130,11 +133,12 @@ Implementation
         Raise Exception.Create(Tr('Invalid historical date'));
        URL := URL + '&hours=3&date=' + FormatDateTime('yyyy-mm-dd"T"hh:nn:ss"Z"', DT);
       End;
-     R          := HTTP.Get(URL);
+     r          := HTTP.Get(URL);
      FetchedUTC := UTCNow;
-     If R.StatusCode <> 200 Then
-      Raise Exception.CreateFmt('METAR HTTP %d', [R.StatusCode]);
-     DecodeMetarForTime(R.ContentAsString, Station, TargetUTC, ReportText, ObservedUTC);
+     If r.StatusCode <> 200 Then
+      Raise Exception.CreateFmt('METAR HTTP %d', [r.StatusCode]);
+     JSON := r.ContentAsString;
+     DecodeMetarForTime(JSON, Station, TargetUTC, ReportText, ObservedUTC);
     Except
      On E : Exception Do
       Begin
@@ -145,6 +149,13 @@ Implementation
    Finally
     HTTP.Free;
    End;
+  End;
+
+ Procedure TMetarService.AttachBridge(Bridge : TRouteBridge);
+  Begin
+   FreeAndNil(fSimWeather);
+   If Bridge <> Nil Then
+    fSimWeather := TSimWeatherService.Create(fDB, Bridge);
   End;
 
  Constructor TMetarService.Create(DB : TFlightDatabase);
@@ -163,6 +174,7 @@ Implementation
     If fWorker.Error <> '' Then
      Status := 'unavailable';
     fDB.Connection.ExecSQL('update ' + fWorker.TableName + ' set metar_text=:r,metar_station=:s,metar_observed_utc=:o,metar_fetched_utc=:f,metar_source=:src,metar_status=:st,metar_error=:e where id=:id', [fWorker.ReportText, fWorker.Station, fWorker.ObservedUTC, fWorker.FetchedUTC, 'aviationweather.gov', Status, fWorker.Error, fWorker.RowID]);
+    StoreRealWeather(fDB.Connection, fWorker.TableName, fWorker.RowID, fWorker.Station, fWorker.ReportText, fWorker.ObservedUTC, fWorker.FetchedUTC, Status, fWorker.Error, fWorker.JSON);
     If fWorker.Error <> '' Then
      Log(1, 'METAR ' + fWorker.Station + ': ' + fWorker.Error);
    Finally
@@ -172,6 +184,7 @@ Implementation
 
  Destructor TMetarService.Destroy;
   Begin
+   FreeAndNil(fSimWeather);
    If fWorker <> Nil Then
     Begin
      fWorker.Terminate;
@@ -191,12 +204,12 @@ Implementation
 
  Procedure TMetarService.RequestHistorical(Trip : Integer);
   Const
-   Tables : Array [0 .. 1] Of String = ('trip_liftoffs', 'trip_touchdowns');
+   Tables : Array [0..1] Of String = ('trip_liftoffs', 'trip_touchdowns');
   Var
    q      : TFDQuery;
    Table_ : String;
    Time   : String;
-   P      : Integer;
+   p      : Integer;
    Count  : Integer;
    DT     : TDateTime;
   Begin
@@ -211,9 +224,9 @@ Implementation
       While Not q.Eof Do
        Begin
         Time := q.FieldByName('time_zulu').AsString;
-        P    := Pos('_', Time);
-        If P > 0 Then
-         SetLength(Time, P - 1);
+        p    := Pos('_', Time);
+        If p > 0 Then
+         SetLength(Time, p - 1);
         If TryISO8601ToDate(Time, DT, True) Then
          Begin
           fDB.Connection.ExecSQL('update ' + Table_ + ' set metar_status=''historical_pending'',metar_requested_utc=:u,metar_target_utc=:target where id=:id', [UTCNow, DateToISO8601(DT, True), q.FieldByName('id').AsInteger]);
@@ -232,7 +245,7 @@ Implementation
 
  Procedure TMetarService.Tick;
   Const
-   Tables : Array [0 .. 1] Of String = ('trip_liftoffs', 'trip_touchdowns');
+   Tables : Array [0..1] Of String = ('trip_liftoffs', 'trip_touchdowns');
   Var
    q       : TFDQuery;
    Table_  : String;
@@ -242,6 +255,8 @@ Implementation
    i       : Integer;
    Valid   : Boolean;
   Begin
+   If fSimWeather <> Nil Then
+    fSimWeather.Tick;
    If fWorker <> Nil Then
     Begin
      If WaitForSingleObject(fWorker.Handle, 0) <> WAIT_OBJECT_0 Then
@@ -265,7 +280,7 @@ Implementation
       Station := UpperCase(Trim(q.FieldByName('icao').AsString));
       Valid   := Length(Station) = 4;
       For i   := 1 To Length(Station) Do
-       Valid  := Valid And CharInSet(Station[i], ['A' .. 'Z', '0' .. '9']);
+       Valid  := Valid And CharInSet(Station[i], ['A'..'Z', '0'..'9']);
       ID      := q.FieldByName('id').AsInteger;
       Target  := q.FieldByName('metar_target_utc').AsString;
       q.Close;

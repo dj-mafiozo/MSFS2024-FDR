@@ -4,7 +4,7 @@ Unit iFlyReaderU;
 Interface
 
  Uses
-  Winapi.Windows, System.SysUtils, FDRTypesU, IFlySDKCatalogU;
+  Winapi.Windows, System.SysUtils, FDRTypesU, iFlySDKCatalogU;
 
  Type
   TiFlyReader = Class
@@ -51,7 +51,7 @@ Implementation
 
  Function TiFlyReader.Read(Out Values : TReadings; Out Stamp : TCaptureTime) : Boolean;
   Var
-   Buffer : Array [0 .. SDKSize - 1] Of Byte;
+   Buffer : Array [0..SDKSize - 1] Of Byte;
    Wait   : DWORD;
    i      : Integer;
    State  : Integer;

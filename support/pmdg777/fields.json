@@ -1,0 +1,5097 @@
+{
+  "source_file": "PMDG_777X_SDK.h",
+  "sha256": "3d0ecfb39fe7524a5017b63c7cb52f4d850b97f738ed5d4d8f1637afc1a676f7",
+  "struct_size": 684,
+  "struct_alignment": 4,
+  "field_count": 522,
+  "fields": [
+    {
+      "name": "ICE_WindowHeatBackUp_Sw_OFF[0]",
+      "kind": "bool",
+      "offset": 0,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ICE_WindowHeatBackUp_Sw_OFF[1]",
+      "kind": "bool",
+      "offset": 1,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_StandbyPowerSw",
+      "kind": "u8",
+      "offset": 2,
+      "size": 1,
+      "description": "0: OFF  1: AUTO  2: BAT"
+    },
+    {
+      "name": "FCTL_WingHydValve_Sw_SHUT_OFF[0]",
+      "kind": "bool",
+      "offset": 3,
+      "size": 1,
+      "description": "left/right/center"
+    },
+    {
+      "name": "FCTL_WingHydValve_Sw_SHUT_OFF[1]",
+      "kind": "bool",
+      "offset": 4,
+      "size": 1,
+      "description": "left/right/center"
+    },
+    {
+      "name": "FCTL_WingHydValve_Sw_SHUT_OFF[2]",
+      "kind": "bool",
+      "offset": 5,
+      "size": 1,
+      "description": "left/right/center"
+    },
+    {
+      "name": "FCTL_TailHydValve_Sw_SHUT_OFF[0]",
+      "kind": "bool",
+      "offset": 6,
+      "size": 1,
+      "description": "left/right/center"
+    },
+    {
+      "name": "FCTL_TailHydValve_Sw_SHUT_OFF[1]",
+      "kind": "bool",
+      "offset": 7,
+      "size": 1,
+      "description": "left/right/center"
+    },
+    {
+      "name": "FCTL_TailHydValve_Sw_SHUT_OFF[2]",
+      "kind": "bool",
+      "offset": 8,
+      "size": 1,
+      "description": "left/right/center"
+    },
+    {
+      "name": "FCTL_annunTailHydVALVE_CLOSED[0]",
+      "kind": "bool",
+      "offset": 9,
+      "size": 1,
+      "description": "left/right/center"
+    },
+    {
+      "name": "FCTL_annunTailHydVALVE_CLOSED[1]",
+      "kind": "bool",
+      "offset": 10,
+      "size": 1,
+      "description": "left/right/center"
+    },
+    {
+      "name": "FCTL_annunTailHydVALVE_CLOSED[2]",
+      "kind": "bool",
+      "offset": 11,
+      "size": 1,
+      "description": "left/right/center"
+    },
+    {
+      "name": "FCTL_annunWingHydVALVE_CLOSED[0]",
+      "kind": "bool",
+      "offset": 12,
+      "size": 1,
+      "description": "left/right/center"
+    },
+    {
+      "name": "FCTL_annunWingHydVALVE_CLOSED[1]",
+      "kind": "bool",
+      "offset": 13,
+      "size": 1,
+      "description": "left/right/center"
+    },
+    {
+      "name": "FCTL_annunWingHydVALVE_CLOSED[2]",
+      "kind": "bool",
+      "offset": 14,
+      "size": 1,
+      "description": "left/right/center"
+    },
+    {
+      "name": "FCTL_PrimFltComputersSw_AUTO",
+      "kind": "bool",
+      "offset": 15,
+      "size": 1,
+      "description": "true: AUTO  false: DISC"
+    },
+    {
+      "name": "FCTL_annunPrimFltComputersDISC",
+      "kind": "bool",
+      "offset": 16,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "APU_Power_Sw_TEST",
+      "kind": "bool",
+      "offset": 17,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ENG_EECPower_Sw_TEST[0]",
+      "kind": "bool",
+      "offset": 18,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ENG_EECPower_Sw_TEST[1]",
+      "kind": "bool",
+      "offset": 19,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_TowingPower_Sw_BATT",
+      "kind": "bool",
+      "offset": 20,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_annunTowingPowerON_BATT",
+      "kind": "bool",
+      "offset": 21,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "AIR_CargoTemp_Selector[0]",
+      "kind": "u8",
+      "offset": 22,
+      "size": 1,
+      "description": "aft / bulk  0=OFF  1=LOW  2=HIGH   AFT/BULK"
+    },
+    {
+      "name": "AIR_CargoTemp_Selector[1]",
+      "kind": "u8",
+      "offset": 23,
+      "size": 1,
+      "description": "aft / bulk  0=OFF  1=LOW  2=HIGH   AFT/BULK"
+    },
+    {
+      "name": "AIR_CargoTemp_MainDeckFwd_Sel",
+      "kind": "u8",
+      "offset": 24,
+      "size": 1,
+      "description": "0: C ... 60: W"
+    },
+    {
+      "name": "AIR_CargoTemp_MainDeckAft_Sel",
+      "kind": "u8",
+      "offset": 25,
+      "size": 1,
+      "description": "0: C ... 60: W"
+    },
+    {
+      "name": "AIR_CargoTemp_LowerFwd_Sel",
+      "kind": "u8",
+      "offset": 26,
+      "size": 1,
+      "description": "0: C ... 60: W"
+    },
+    {
+      "name": "AIR_CargoTemp_LowerAft_Sel",
+      "kind": "u8",
+      "offset": 27,
+      "size": 1,
+      "description": "0: C ... 60: W  67: HEAT H  70: HEAT OFF  73: HEAT L"
+    },
+    {
+      "name": "ADIRU_Sw_On",
+      "kind": "bool",
+      "offset": 28,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ADIRU_annunOFF",
+      "kind": "bool",
+      "offset": 29,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ADIRU_annunON_BAT",
+      "kind": "bool",
+      "offset": 30,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FCTL_ThrustAsymComp_Sw_AUTO",
+      "kind": "bool",
+      "offset": 31,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FCTL_annunThrustAsymCompOFF",
+      "kind": "bool",
+      "offset": 32,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_CabUtilSw",
+      "kind": "bool",
+      "offset": 33,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_annunCabUtilOFF",
+      "kind": "bool",
+      "offset": 34,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_IFEPassSeatsSw",
+      "kind": "bool",
+      "offset": 35,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_annunIFEPassSeatsOFF",
+      "kind": "bool",
+      "offset": 36,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_Battery_Sw_ON",
+      "kind": "bool",
+      "offset": 37,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_annunBattery_OFF",
+      "kind": "bool",
+      "offset": 38,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_annunAPU_GEN_OFF",
+      "kind": "bool",
+      "offset": 39,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_APUGen_Sw_ON",
+      "kind": "bool",
+      "offset": 40,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_APU_Selector",
+      "kind": "u8",
+      "offset": 41,
+      "size": 1,
+      "description": "0: OFF  1: ON  2: START"
+    },
+    {
+      "name": "ELEC_annunAPU_FAULT",
+      "kind": "bool",
+      "offset": 42,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_BusTie_Sw_AUTO[0]",
+      "kind": "bool",
+      "offset": 43,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_BusTie_Sw_AUTO[1]",
+      "kind": "bool",
+      "offset": 44,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_annunBusTieISLN[0]",
+      "kind": "bool",
+      "offset": 45,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_annunBusTieISLN[1]",
+      "kind": "bool",
+      "offset": 46,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_ExtPwrSw[0]",
+      "kind": "bool",
+      "offset": 47,
+      "size": 1,
+      "description": "primary/secondary - MOMENTARY SWITCHES"
+    },
+    {
+      "name": "ELEC_ExtPwrSw[1]",
+      "kind": "bool",
+      "offset": 48,
+      "size": 1,
+      "description": "primary/secondary - MOMENTARY SWITCHES"
+    },
+    {
+      "name": "ELEC_annunExtPowr_ON[0]",
+      "kind": "bool",
+      "offset": 49,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_annunExtPowr_ON[1]",
+      "kind": "bool",
+      "offset": 50,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_annunExtPowr_AVAIL[0]",
+      "kind": "bool",
+      "offset": 51,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_annunExtPowr_AVAIL[1]",
+      "kind": "bool",
+      "offset": 52,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_Gen_Sw_ON[0]",
+      "kind": "bool",
+      "offset": 53,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_Gen_Sw_ON[1]",
+      "kind": "bool",
+      "offset": 54,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_annunGenOFF[0]",
+      "kind": "bool",
+      "offset": 55,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_annunGenOFF[1]",
+      "kind": "bool",
+      "offset": 56,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_BackupGen_Sw_ON[0]",
+      "kind": "bool",
+      "offset": 57,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_BackupGen_Sw_ON[1]",
+      "kind": "bool",
+      "offset": 58,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_annunBackupGenOFF[0]",
+      "kind": "bool",
+      "offset": 59,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_annunBackupGenOFF[1]",
+      "kind": "bool",
+      "offset": 60,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_IDGDiscSw[0]",
+      "kind": "bool",
+      "offset": 61,
+      "size": 1,
+      "description": "MOMENTARY SWITCHES"
+    },
+    {
+      "name": "ELEC_IDGDiscSw[1]",
+      "kind": "bool",
+      "offset": 62,
+      "size": 1,
+      "description": "MOMENTARY SWITCHES"
+    },
+    {
+      "name": "ELEC_annunIDGDiscDRIVE[0]",
+      "kind": "bool",
+      "offset": 63,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ELEC_annunIDGDiscDRIVE[1]",
+      "kind": "bool",
+      "offset": 64,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "WIPERS_Selector[0]",
+      "kind": "u8",
+      "offset": 65,
+      "size": 1,
+      "description": "left/right   0: OFF  1: INT  2: LOW  3:HIGH"
+    },
+    {
+      "name": "WIPERS_Selector[1]",
+      "kind": "u8",
+      "offset": 66,
+      "size": 1,
+      "description": "left/right   0: OFF  1: INT  2: LOW  3:HIGH"
+    },
+    {
+      "name": "LTS_EmerLightsSelector",
+      "kind": "u8",
+      "offset": 67,
+      "size": 1,
+      "description": "0: OFF  1: ARMED  2: ON"
+    },
+    {
+      "name": "COMM_ServiceInterphoneSw",
+      "kind": "bool",
+      "offset": 68,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "OXY_PassOxygen_Sw_On",
+      "kind": "bool",
+      "offset": 69,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "OXY_annunPassOxygenON",
+      "kind": "bool",
+      "offset": 70,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ICE_WindowHeat_Sw_ON[0]",
+      "kind": "bool",
+      "offset": 71,
+      "size": 1,
+      "description": "L-Side/L-Fwd/R-Fwd/R-Side"
+    },
+    {
+      "name": "ICE_WindowHeat_Sw_ON[1]",
+      "kind": "bool",
+      "offset": 72,
+      "size": 1,
+      "description": "L-Side/L-Fwd/R-Fwd/R-Side"
+    },
+    {
+      "name": "ICE_WindowHeat_Sw_ON[2]",
+      "kind": "bool",
+      "offset": 73,
+      "size": 1,
+      "description": "L-Side/L-Fwd/R-Fwd/R-Side"
+    },
+    {
+      "name": "ICE_WindowHeat_Sw_ON[3]",
+      "kind": "bool",
+      "offset": 74,
+      "size": 1,
+      "description": "L-Side/L-Fwd/R-Fwd/R-Side"
+    },
+    {
+      "name": "ICE_annunWindowHeatINOP[0]",
+      "kind": "bool",
+      "offset": 75,
+      "size": 1,
+      "description": "L-Side/L-Fwd/R-Fwd/R-Side"
+    },
+    {
+      "name": "ICE_annunWindowHeatINOP[1]",
+      "kind": "bool",
+      "offset": 76,
+      "size": 1,
+      "description": "L-Side/L-Fwd/R-Fwd/R-Side"
+    },
+    {
+      "name": "ICE_annunWindowHeatINOP[2]",
+      "kind": "bool",
+      "offset": 77,
+      "size": 1,
+      "description": "L-Side/L-Fwd/R-Fwd/R-Side"
+    },
+    {
+      "name": "ICE_annunWindowHeatINOP[3]",
+      "kind": "bool",
+      "offset": 78,
+      "size": 1,
+      "description": "L-Side/L-Fwd/R-Fwd/R-Side"
+    },
+    {
+      "name": "HYD_RamAirTurbineSw",
+      "kind": "bool",
+      "offset": 79,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "HYD_annunRamAirTurbinePRESS",
+      "kind": "bool",
+      "offset": 80,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "HYD_annunRamAirTurbineUNLKD",
+      "kind": "bool",
+      "offset": 81,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "HYD_PrimaryEngPump_Sw_ON[0]",
+      "kind": "bool",
+      "offset": 82,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "HYD_PrimaryEngPump_Sw_ON[1]",
+      "kind": "bool",
+      "offset": 83,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "HYD_PrimaryElecPump_Sw_ON[0]",
+      "kind": "bool",
+      "offset": 84,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "HYD_PrimaryElecPump_Sw_ON[1]",
+      "kind": "bool",
+      "offset": 85,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "HYD_DemandElecPump_Selector[0]",
+      "kind": "u8",
+      "offset": 86,
+      "size": 1,
+      "description": "0: OFF  1: AUTO  2: ON"
+    },
+    {
+      "name": "HYD_DemandElecPump_Selector[1]",
+      "kind": "u8",
+      "offset": 87,
+      "size": 1,
+      "description": "0: OFF  1: AUTO  2: ON"
+    },
+    {
+      "name": "HYD_DemandAirPump_Selector[0]",
+      "kind": "u8",
+      "offset": 88,
+      "size": 1,
+      "description": "0: OFF  1: AUTO  2: ON"
+    },
+    {
+      "name": "HYD_DemandAirPump_Selector[1]",
+      "kind": "u8",
+      "offset": 89,
+      "size": 1,
+      "description": "0: OFF  1: AUTO  2: ON"
+    },
+    {
+      "name": "HYD_annunPrimaryEngPumpFAULT[0]",
+      "kind": "bool",
+      "offset": 90,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "HYD_annunPrimaryEngPumpFAULT[1]",
+      "kind": "bool",
+      "offset": 91,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "HYD_annunPrimaryElecPumpFAULT[0]",
+      "kind": "bool",
+      "offset": 92,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "HYD_annunPrimaryElecPumpFAULT[1]",
+      "kind": "bool",
+      "offset": 93,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "HYD_annunDemandElecPumpFAULT[0]",
+      "kind": "bool",
+      "offset": 94,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "HYD_annunDemandElecPumpFAULT[1]",
+      "kind": "bool",
+      "offset": 95,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "HYD_annunDemandAirPumpFAULT[0]",
+      "kind": "bool",
+      "offset": 96,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "HYD_annunDemandAirPumpFAULT[1]",
+      "kind": "bool",
+      "offset": 97,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "SIGNS_NoSmokingSelector",
+      "kind": "u8",
+      "offset": 98,
+      "size": 1,
+      "description": "0: OFF  1: AUTO   2: ON"
+    },
+    {
+      "name": "SIGNS_SeatBeltsSelector",
+      "kind": "u8",
+      "offset": 99,
+      "size": 1,
+      "description": "0: OFF  1: AUTO   2: ON"
+    },
+    {
+      "name": "LTS_DomeLightKnob",
+      "kind": "u8",
+      "offset": 100,
+      "size": 1,
+      "description": "Position 0...100"
+    },
+    {
+      "name": "LTS_CircuitBreakerKnob",
+      "kind": "u8",
+      "offset": 101,
+      "size": 1,
+      "description": "Position 0...100"
+    },
+    {
+      "name": "LTS_OvereadPanelKnob",
+      "kind": "u8",
+      "offset": 102,
+      "size": 1,
+      "description": "Position 0...100"
+    },
+    {
+      "name": "LTS_GlareshieldPNLlKnob",
+      "kind": "u8",
+      "offset": 103,
+      "size": 1,
+      "description": "Position 0...100"
+    },
+    {
+      "name": "LTS_GlareshieldFLOODKnob",
+      "kind": "u8",
+      "offset": 104,
+      "size": 1,
+      "description": "Position 0...100"
+    },
+    {
+      "name": "LTS_Storm_Sw_ON",
+      "kind": "bool",
+      "offset": 105,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "LTS_MasterBright_Sw_ON",
+      "kind": "bool",
+      "offset": 106,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "LTS_MasterBrigntKnob",
+      "kind": "u8",
+      "offset": 107,
+      "size": 1,
+      "description": "Position 0...100"
+    },
+    {
+      "name": "LTS_IndLightsTestSw",
+      "kind": "u8",
+      "offset": 108,
+      "size": 1,
+      "description": "0: TEST  1: BRT  2: DIM"
+    },
+    {
+      "name": "LTS_LandingLights_Sw_ON[0]",
+      "kind": "bool",
+      "offset": 109,
+      "size": 1,
+      "description": "Left/Right/Nose"
+    },
+    {
+      "name": "LTS_LandingLights_Sw_ON[1]",
+      "kind": "bool",
+      "offset": 110,
+      "size": 1,
+      "description": "Left/Right/Nose"
+    },
+    {
+      "name": "LTS_LandingLights_Sw_ON[2]",
+      "kind": "bool",
+      "offset": 111,
+      "size": 1,
+      "description": "Left/Right/Nose"
+    },
+    {
+      "name": "LTS_Beacon_Sw_ON",
+      "kind": "bool",
+      "offset": 112,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "LTS_NAV_Sw_ON",
+      "kind": "bool",
+      "offset": 113,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "LTS_Logo_Sw_ON",
+      "kind": "bool",
+      "offset": 114,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "LTS_Wing_Sw_ON",
+      "kind": "bool",
+      "offset": 115,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "LTS_RunwayTurnoff_Sw_ON[0]",
+      "kind": "bool",
+      "offset": 116,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "LTS_RunwayTurnoff_Sw_ON[1]",
+      "kind": "bool",
+      "offset": 117,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "LTS_Taxi_Sw_ON",
+      "kind": "bool",
+      "offset": 118,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "LTS_Strobe_Sw_ON",
+      "kind": "bool",
+      "offset": 119,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FIRE_CargoFire_Sw_Arm[0]",
+      "kind": "bool",
+      "offset": 120,
+      "size": 1,
+      "description": "FWD/AFT"
+    },
+    {
+      "name": "FIRE_CargoFire_Sw_Arm[1]",
+      "kind": "bool",
+      "offset": 121,
+      "size": 1,
+      "description": "FWD/AFT"
+    },
+    {
+      "name": "FIRE_annunCargoFire[0]",
+      "kind": "bool",
+      "offset": 122,
+      "size": 1,
+      "description": "FWD/AFT"
+    },
+    {
+      "name": "FIRE_annunCargoFire[1]",
+      "kind": "bool",
+      "offset": 123,
+      "size": 1,
+      "description": "FWD/AFT"
+    },
+    {
+      "name": "FIRE_CargoFireDisch_Sw",
+      "kind": "bool",
+      "offset": 124,
+      "size": 1,
+      "description": "MOMENTARY SWITCH"
+    },
+    {
+      "name": "FIRE_annunCargoDISCH",
+      "kind": "bool",
+      "offset": 125,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FIRE_FireOvhtTest_Sw",
+      "kind": "bool",
+      "offset": 126,
+      "size": 1,
+      "description": "MOMENTARY SWITCH"
+    },
+    {
+      "name": "FIRE_APUHandle",
+      "kind": "u8",
+      "offset": 127,
+      "size": 1,
+      "description": "0: IN (NORMAL)  1: PULLED OUT  2: TURNED LEFT  3: TURNED RIGHT  (2 & 3 ane momnentary positions)"
+    },
+    {
+      "name": "FIRE_APUHandleUnlock_Sw",
+      "kind": "bool",
+      "offset": 128,
+      "size": 1,
+      "description": "MOMENTARY SWITCH resets when handle pulled"
+    },
+    {
+      "name": "FIRE_annunAPU_BTL_DISCH",
+      "kind": "bool",
+      "offset": 129,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FIRE_EngineHandleIlluminated[0]",
+      "kind": "bool",
+      "offset": 130,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FIRE_EngineHandleIlluminated[1]",
+      "kind": "bool",
+      "offset": 131,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FIRE_APUHandleIlluminated",
+      "kind": "bool",
+      "offset": 132,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FIRE_EngineHandleIsUnlocked[0]",
+      "kind": "bool",
+      "offset": 133,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FIRE_EngineHandleIsUnlocked[1]",
+      "kind": "bool",
+      "offset": 134,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FIRE_APUHandleIsUnlocked",
+      "kind": "bool",
+      "offset": 135,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FIRE_annunMainDeckCargoFire",
+      "kind": "bool",
+      "offset": 136,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FIRE_annunCargoDEPR",
+      "kind": "bool",
+      "offset": 137,
+      "size": 1,
+      "description": "DEPR light in DEPR/DISCH guarded switch"
+    },
+    {
+      "name": "ENG_EECMode_Sw_NORM[0]",
+      "kind": "bool",
+      "offset": 138,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "ENG_EECMode_Sw_NORM[1]",
+      "kind": "bool",
+      "offset": 139,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "ENG_Start_Selector[0]",
+      "kind": "u8",
+      "offset": 140,
+      "size": 1,
+      "description": "left / right  0: START  1: NORM"
+    },
+    {
+      "name": "ENG_Start_Selector[1]",
+      "kind": "u8",
+      "offset": 141,
+      "size": 1,
+      "description": "left / right  0: START  1: NORM"
+    },
+    {
+      "name": "ENG_Autostart_Sw_ON",
+      "kind": "bool",
+      "offset": 142,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ENG_annunALTN[0]",
+      "kind": "bool",
+      "offset": 143,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ENG_annunALTN[1]",
+      "kind": "bool",
+      "offset": 144,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ENG_annunAutostartOFF",
+      "kind": "bool",
+      "offset": 145,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FUEL_CrossFeedFwd_Sw",
+      "kind": "bool",
+      "offset": 146,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FUEL_CrossFeedAft_Sw",
+      "kind": "bool",
+      "offset": 147,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FUEL_PumpFwd_Sw[0]",
+      "kind": "bool",
+      "offset": 148,
+      "size": 1,
+      "description": "left fwd / right fwd"
+    },
+    {
+      "name": "FUEL_PumpFwd_Sw[1]",
+      "kind": "bool",
+      "offset": 149,
+      "size": 1,
+      "description": "left fwd / right fwd"
+    },
+    {
+      "name": "FUEL_PumpAft_Sw[0]",
+      "kind": "bool",
+      "offset": 150,
+      "size": 1,
+      "description": "left aft / right aft"
+    },
+    {
+      "name": "FUEL_PumpAft_Sw[1]",
+      "kind": "bool",
+      "offset": 151,
+      "size": 1,
+      "description": "left aft / right aft"
+    },
+    {
+      "name": "FUEL_PumpCtr_Sw[0]",
+      "kind": "bool",
+      "offset": 152,
+      "size": 1,
+      "description": "ctr left / ctr right"
+    },
+    {
+      "name": "FUEL_PumpCtr_Sw[1]",
+      "kind": "bool",
+      "offset": 153,
+      "size": 1,
+      "description": "ctr left / ctr right"
+    },
+    {
+      "name": "FUEL_JettisonNozle_Sw[0]",
+      "kind": "bool",
+      "offset": 154,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "FUEL_JettisonNozle_Sw[1]",
+      "kind": "bool",
+      "offset": 155,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "FUEL_JettisonArm_Sw",
+      "kind": "bool",
+      "offset": 156,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FUEL_FuelToRemain_Sw_Pulled",
+      "kind": "bool",
+      "offset": 157,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FUEL_FuelToRemain_Selector",
+      "kind": "u8",
+      "offset": 158,
+      "size": 1,
+      "description": "0: DECR  1: Neutral  2: INCR"
+    },
+    {
+      "name": "FUEL_annunFwdXFEED_VALVE",
+      "kind": "bool",
+      "offset": 159,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FUEL_annunAftXFEED_VALVE",
+      "kind": "bool",
+      "offset": 160,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FUEL_annunLOWPRESS_Fwd[0]",
+      "kind": "bool",
+      "offset": 161,
+      "size": 1,
+      "description": "left fwd / right fwd"
+    },
+    {
+      "name": "FUEL_annunLOWPRESS_Fwd[1]",
+      "kind": "bool",
+      "offset": 162,
+      "size": 1,
+      "description": "left fwd / right fwd"
+    },
+    {
+      "name": "FUEL_annunLOWPRESS_Aft[0]",
+      "kind": "bool",
+      "offset": 163,
+      "size": 1,
+      "description": "left aft / right aft"
+    },
+    {
+      "name": "FUEL_annunLOWPRESS_Aft[1]",
+      "kind": "bool",
+      "offset": 164,
+      "size": 1,
+      "description": "left aft / right aft"
+    },
+    {
+      "name": "FUEL_annunLOWPRESS_Ctr[0]",
+      "kind": "bool",
+      "offset": 165,
+      "size": 1,
+      "description": "ctr left / ctr right"
+    },
+    {
+      "name": "FUEL_annunLOWPRESS_Ctr[1]",
+      "kind": "bool",
+      "offset": 166,
+      "size": 1,
+      "description": "ctr left / ctr right"
+    },
+    {
+      "name": "FUEL_annunJettisonNozleVALVE[0]",
+      "kind": "bool",
+      "offset": 167,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "FUEL_annunJettisonNozleVALVE[1]",
+      "kind": "bool",
+      "offset": 168,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "FUEL_annunArmFAULT",
+      "kind": "bool",
+      "offset": 169,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ICE_WingAntiIceSw",
+      "kind": "u8",
+      "offset": 170,
+      "size": 1,
+      "description": "0: OFF  1: AUTO  2: ON"
+    },
+    {
+      "name": "ICE_EngAntiIceSw[0]",
+      "kind": "u8",
+      "offset": 171,
+      "size": 1,
+      "description": "0: OFF  1: AUTO  2: ON"
+    },
+    {
+      "name": "ICE_EngAntiIceSw[1]",
+      "kind": "u8",
+      "offset": 172,
+      "size": 1,
+      "description": "0: OFF  1: AUTO  2: ON"
+    },
+    {
+      "name": "AIR_Pack_Sw_AUTO[0]",
+      "kind": "bool",
+      "offset": 173,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "AIR_Pack_Sw_AUTO[1]",
+      "kind": "bool",
+      "offset": 174,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "AIR_TrimAir_Sw_On[0]",
+      "kind": "bool",
+      "offset": 175,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "AIR_TrimAir_Sw_On[1]",
+      "kind": "bool",
+      "offset": 176,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "AIR_RecircFan_Sw_On[0]",
+      "kind": "bool",
+      "offset": 177,
+      "size": 1,
+      "description": "upper / lower"
+    },
+    {
+      "name": "AIR_RecircFan_Sw_On[1]",
+      "kind": "bool",
+      "offset": 178,
+      "size": 1,
+      "description": "upper / lower"
+    },
+    {
+      "name": "AIR_TempSelector[0]",
+      "kind": "u8",
+      "offset": 179,
+      "size": 1,
+      "description": "flt deck / cabin  0: C ... 60: W ... 70: MAN (flt deck only)"
+    },
+    {
+      "name": "AIR_TempSelector[1]",
+      "kind": "u8",
+      "offset": 180,
+      "size": 1,
+      "description": "flt deck / cabin  0: C ... 60: W ... 70: MAN (flt deck only)"
+    },
+    {
+      "name": "AIR_AirCondReset_Sw_Pushed",
+      "kind": "bool",
+      "offset": 181,
+      "size": 1,
+      "description": "MOMENTARY action"
+    },
+    {
+      "name": "AIR_EquipCooling_Sw_AUTO",
+      "kind": "bool",
+      "offset": 182,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "AIR_Gasper_Sw_On",
+      "kind": "bool",
+      "offset": 183,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "AIR_annunPackOFF[0]",
+      "kind": "bool",
+      "offset": 184,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "AIR_annunPackOFF[1]",
+      "kind": "bool",
+      "offset": 185,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "AIR_annunTrimAirFAULT[0]",
+      "kind": "bool",
+      "offset": 186,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "AIR_annunTrimAirFAULT[1]",
+      "kind": "bool",
+      "offset": 187,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "AIR_annunEquipCoolingOVRD",
+      "kind": "bool",
+      "offset": 188,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "AIR_AltnVentSw_ON",
+      "kind": "bool",
+      "offset": 189,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "AIR_annunAltnVentFAULT",
+      "kind": "bool",
+      "offset": 190,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "AIR_MainDeckFlowSw_NORM",
+      "kind": "bool",
+      "offset": 191,
+      "size": 1,
+      "description": "M/D FLOW  true: NORM  false: HIGH"
+    },
+    {
+      "name": "AIR_EngBleedAir_Sw_AUTO[0]",
+      "kind": "bool",
+      "offset": 192,
+      "size": 1,
+      "description": "left engine / right engine"
+    },
+    {
+      "name": "AIR_EngBleedAir_Sw_AUTO[1]",
+      "kind": "bool",
+      "offset": 193,
+      "size": 1,
+      "description": "left engine / right engine"
+    },
+    {
+      "name": "AIR_APUBleedAir_Sw_AUTO",
+      "kind": "bool",
+      "offset": 194,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "AIR_IsolationValve_Sw[0]",
+      "kind": "bool",
+      "offset": 195,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "AIR_IsolationValve_Sw[1]",
+      "kind": "bool",
+      "offset": 196,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "AIR_CtrIsolationValve_Sw",
+      "kind": "bool",
+      "offset": 197,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "AIR_annunEngBleedAirOFF[0]",
+      "kind": "bool",
+      "offset": 198,
+      "size": 1,
+      "description": "left engine / right engine"
+    },
+    {
+      "name": "AIR_annunEngBleedAirOFF[1]",
+      "kind": "bool",
+      "offset": 199,
+      "size": 1,
+      "description": "left engine / right engine"
+    },
+    {
+      "name": "AIR_annunAPUBleedAirOFF",
+      "kind": "bool",
+      "offset": 200,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "AIR_annunIsolationValveCLOSED[0]",
+      "kind": "bool",
+      "offset": 201,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "AIR_annunIsolationValveCLOSED[1]",
+      "kind": "bool",
+      "offset": 202,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "AIR_annunCtrIsolationValveCLOSED",
+      "kind": "bool",
+      "offset": 203,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "AIR_OutflowValve_Sw_AUTO[0]",
+      "kind": "bool",
+      "offset": 204,
+      "size": 1,
+      "description": "fwd / aft"
+    },
+    {
+      "name": "AIR_OutflowValve_Sw_AUTO[1]",
+      "kind": "bool",
+      "offset": 205,
+      "size": 1,
+      "description": "fwd / aft"
+    },
+    {
+      "name": "AIR_OutflowValveManual_Selector[0]",
+      "kind": "u8",
+      "offset": 206,
+      "size": 1,
+      "description": "fwd / aft   0: OPEN  1: Neutral  2: CLOSE"
+    },
+    {
+      "name": "AIR_OutflowValveManual_Selector[1]",
+      "kind": "u8",
+      "offset": 207,
+      "size": 1,
+      "description": "fwd / aft   0: OPEN  1: Neutral  2: CLOSE"
+    },
+    {
+      "name": "AIR_LdgAlt_Sw_Pulled",
+      "kind": "bool",
+      "offset": 208,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "AIR_LdgAlt_Selector",
+      "kind": "u8",
+      "offset": 209,
+      "size": 1,
+      "description": "0: DECR  1: Neutral  2: INCR"
+    },
+    {
+      "name": "AIR_annunOutflowValve_MAN[0]",
+      "kind": "bool",
+      "offset": 210,
+      "size": 1,
+      "description": "fwd / aft"
+    },
+    {
+      "name": "AIR_annunOutflowValve_MAN[1]",
+      "kind": "bool",
+      "offset": 211,
+      "size": 1,
+      "description": "fwd / aft"
+    },
+    {
+      "name": "GEAR_Lever",
+      "kind": "u8",
+      "offset": 212,
+      "size": 1,
+      "description": "0: UP  1: DOWN"
+    },
+    {
+      "name": "GEAR_LockOvrd_Sw",
+      "kind": "bool",
+      "offset": 213,
+      "size": 1,
+      "description": "MOMENTARY SWITCH (resets when gear lever moved)"
+    },
+    {
+      "name": "GEAR_AltnGear_Sw_DOWN",
+      "kind": "bool",
+      "offset": 214,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "GPWS_FlapInhibitSw_OVRD",
+      "kind": "bool",
+      "offset": 215,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "GPWS_GearInhibitSw_OVRD",
+      "kind": "bool",
+      "offset": 216,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "GPWS_TerrInhibitSw_OVRD",
+      "kind": "bool",
+      "offset": 217,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "GPWS_RunwayOvrdSw_OVRD",
+      "kind": "bool",
+      "offset": 218,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "GPWS_GSInhibit_Sw",
+      "kind": "bool",
+      "offset": 219,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "GPWS_annunGND_PROX_top",
+      "kind": "bool",
+      "offset": 220,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "GPWS_annunGND_PROX_bottom",
+      "kind": "bool",
+      "offset": 221,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "BRAKES_AutobrakeSelector",
+      "kind": "u8",
+      "offset": 222,
+      "size": 1,
+      "description": "0: RTO  1: OFF  2: DISARM   3: \"1\" ... 5: MAX AUTO"
+    },
+    {
+      "name": "ISFD_Baro_Sw_Pushed",
+      "kind": "bool",
+      "offset": 223,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ISFD_RST_Sw_Pushed",
+      "kind": "bool",
+      "offset": 224,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ISFD_Minus_Sw_Pushed",
+      "kind": "bool",
+      "offset": 225,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ISFD_Plus_Sw_Pushed",
+      "kind": "bool",
+      "offset": 226,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ISFD_APP_Sw_Pushed",
+      "kind": "bool",
+      "offset": 227,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ISFD_HP_IN_Sw_Pushed",
+      "kind": "bool",
+      "offset": 228,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ISP_Nav_L_Sw_CDU",
+      "kind": "bool",
+      "offset": 229,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ISP_DsplCtrl_L_Sw_Altn",
+      "kind": "bool",
+      "offset": 230,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ISP_AirDataAtt_L_Sw_Altn",
+      "kind": "bool",
+      "offset": 231,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_InbdDspl_L_Selector",
+      "kind": "u8",
+      "offset": 232,
+      "size": 1,
+      "description": "0: ND  1: NAV  2: MFD  3: EICAS"
+    },
+    {
+      "name": "EFIS_HdgRef_Sw_Norm",
+      "kind": "bool",
+      "offset": 233,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_annunHdgRefTRUE",
+      "kind": "bool",
+      "offset": 234,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "BRAKES_BrakePressNeedle",
+      "kind": "i32",
+      "offset": 236,
+      "size": 4,
+      "description": "Value 0...100 (corresponds to 0...4000 PSI)"
+    },
+    {
+      "name": "BRAKES_annunBRAKE_SOURCE",
+      "kind": "bool",
+      "offset": 240,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ISP_Nav_R_Sw_CDU",
+      "kind": "bool",
+      "offset": 241,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ISP_DsplCtrl_R_Sw_Altn",
+      "kind": "bool",
+      "offset": 242,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ISP_AirDataAtt_R_Sw_Altn",
+      "kind": "bool",
+      "offset": 243,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ISP_FMC_Selector",
+      "kind": "u8",
+      "offset": 244,
+      "size": 1,
+      "description": "0: LEFT   1: AUTO  2: RIGHT"
+    },
+    {
+      "name": "DSP_InbdDspl_R_Selector",
+      "kind": "u8",
+      "offset": 245,
+      "size": 1,
+      "description": "0: EICAS  1: MFD   2: ND  3: PFD"
+    },
+    {
+      "name": "AIR_ShoulderHeaterKnob[0]",
+      "kind": "u8",
+      "offset": 246,
+      "size": 1,
+      "description": "Left / Right  Position 0...100"
+    },
+    {
+      "name": "AIR_ShoulderHeaterKnob[1]",
+      "kind": "u8",
+      "offset": 247,
+      "size": 1,
+      "description": "Left / Right  Position 0...100"
+    },
+    {
+      "name": "AIR_FootHeaterSelector[0]",
+      "kind": "u8",
+      "offset": 248,
+      "size": 1,
+      "description": "Left / Right  0: OFF  1: LOW  2: HIGH"
+    },
+    {
+      "name": "AIR_FootHeaterSelector[1]",
+      "kind": "u8",
+      "offset": 249,
+      "size": 1,
+      "description": "Left / Right  0: OFF  1: LOW  2: HIGH"
+    },
+    {
+      "name": "LTS_LeftFwdPanelPNLKnob",
+      "kind": "u8",
+      "offset": 250,
+      "size": 1,
+      "description": "Position 0...100"
+    },
+    {
+      "name": "LTS_LeftFwdPanelFLOODKnob",
+      "kind": "u8",
+      "offset": 251,
+      "size": 1,
+      "description": "Position 0...100"
+    },
+    {
+      "name": "LTS_LeftOutbdDsplBRIGHTNESSKnob",
+      "kind": "u8",
+      "offset": 252,
+      "size": 1,
+      "description": "Position 0...100"
+    },
+    {
+      "name": "LTS_LeftInbdDsplBRIGHTNESSKnob",
+      "kind": "u8",
+      "offset": 253,
+      "size": 1,
+      "description": "Position 0...100"
+    },
+    {
+      "name": "LTS_RightFwdPanelPNLKnob",
+      "kind": "u8",
+      "offset": 254,
+      "size": 1,
+      "description": "Position 0...100"
+    },
+    {
+      "name": "LTS_RightFwdPanelFLOODKnob",
+      "kind": "u8",
+      "offset": 255,
+      "size": 1,
+      "description": "Position 0...100"
+    },
+    {
+      "name": "LTS_RightInbdDsplBRIGHTNESSKnob",
+      "kind": "u8",
+      "offset": 256,
+      "size": 1,
+      "description": "Position 0...100"
+    },
+    {
+      "name": "LTS_RightOutbdDsplBRIGHTNESSKnob",
+      "kind": "u8",
+      "offset": 257,
+      "size": 1,
+      "description": "Position 0...100"
+    },
+    {
+      "name": "CHR_Chr_Sw_Pushed[0]",
+      "kind": "bool",
+      "offset": 258,
+      "size": 1,
+      "description": "MOMENTARY SWITCH"
+    },
+    {
+      "name": "CHR_Chr_Sw_Pushed[1]",
+      "kind": "bool",
+      "offset": 259,
+      "size": 1,
+      "description": "MOMENTARY SWITCH"
+    },
+    {
+      "name": "CHR_TimeDate_Sw_Pushed[0]",
+      "kind": "bool",
+      "offset": 260,
+      "size": 1,
+      "description": "MOMENTARY SWITCH"
+    },
+    {
+      "name": "CHR_TimeDate_Sw_Pushed[1]",
+      "kind": "bool",
+      "offset": 261,
+      "size": 1,
+      "description": "MOMENTARY SWITCH"
+    },
+    {
+      "name": "CHR_TimeDate_Selector[0]",
+      "kind": "u8",
+      "offset": 262,
+      "size": 1,
+      "description": "0: UTC  1: MAN"
+    },
+    {
+      "name": "CHR_TimeDate_Selector[1]",
+      "kind": "u8",
+      "offset": 263,
+      "size": 1,
+      "description": "0: UTC  1: MAN"
+    },
+    {
+      "name": "CHR_Set_Selector[0]",
+      "kind": "u8",
+      "offset": 264,
+      "size": 1,
+      "description": "0: RUN  1: HLDY  2: MM  3: HD"
+    },
+    {
+      "name": "CHR_Set_Selector[1]",
+      "kind": "u8",
+      "offset": 265,
+      "size": 1,
+      "description": "0: RUN  1: HLDY  2: MM  3: HD"
+    },
+    {
+      "name": "CHR_ET_Selector[0]",
+      "kind": "u8",
+      "offset": 266,
+      "size": 1,
+      "description": "0: RESET (MOMENTARY spring-loaded to HLD)  1: HLD  2: RUN"
+    },
+    {
+      "name": "CHR_ET_Selector[1]",
+      "kind": "u8",
+      "offset": 267,
+      "size": 1,
+      "description": "0: RESET (MOMENTARY spring-loaded to HLD)  1: HLD  2: RUN"
+    },
+    {
+      "name": "EFIS_MinsSelBARO[0]",
+      "kind": "bool",
+      "offset": 268,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_MinsSelBARO[1]",
+      "kind": "bool",
+      "offset": 269,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_BaroSelHPA[0]",
+      "kind": "bool",
+      "offset": 270,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_BaroSelHPA[1]",
+      "kind": "bool",
+      "offset": 271,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_VORADFSel1[0]",
+      "kind": "u8",
+      "offset": 272,
+      "size": 1,
+      "description": "0: VOR  1: OFF  2: ADF"
+    },
+    {
+      "name": "EFIS_VORADFSel1[1]",
+      "kind": "u8",
+      "offset": 273,
+      "size": 1,
+      "description": "0: VOR  1: OFF  2: ADF"
+    },
+    {
+      "name": "EFIS_VORADFSel2[0]",
+      "kind": "u8",
+      "offset": 274,
+      "size": 1,
+      "description": "0: VOR  1: OFF  2: ADF"
+    },
+    {
+      "name": "EFIS_VORADFSel2[1]",
+      "kind": "u8",
+      "offset": 275,
+      "size": 1,
+      "description": "0: VOR  1: OFF  2: ADF"
+    },
+    {
+      "name": "EFIS_ModeSel[0]",
+      "kind": "u8",
+      "offset": 276,
+      "size": 1,
+      "description": "0: APP  1: VOR  2: MAP  3: PLAN"
+    },
+    {
+      "name": "EFIS_ModeSel[1]",
+      "kind": "u8",
+      "offset": 277,
+      "size": 1,
+      "description": "0: APP  1: VOR  2: MAP  3: PLAN"
+    },
+    {
+      "name": "EFIS_RangeSel[0]",
+      "kind": "u8",
+      "offset": 278,
+      "size": 1,
+      "description": "0: 10 ... 6: 640"
+    },
+    {
+      "name": "EFIS_RangeSel[1]",
+      "kind": "u8",
+      "offset": 279,
+      "size": 1,
+      "description": "0: 10 ... 6: 640"
+    },
+    {
+      "name": "EFIS_MinsKnob[0]",
+      "kind": "u8",
+      "offset": 280,
+      "size": 1,
+      "description": "0..99"
+    },
+    {
+      "name": "EFIS_MinsKnob[1]",
+      "kind": "u8",
+      "offset": 281,
+      "size": 1,
+      "description": "0..99"
+    },
+    {
+      "name": "EFIS_BaroKnob[0]",
+      "kind": "u8",
+      "offset": 282,
+      "size": 1,
+      "description": "0..99"
+    },
+    {
+      "name": "EFIS_BaroKnob[1]",
+      "kind": "u8",
+      "offset": 283,
+      "size": 1,
+      "description": "0..99"
+    },
+    {
+      "name": "EFIS_MinsRST_Sw_Pushed[0]",
+      "kind": "bool",
+      "offset": 284,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_MinsRST_Sw_Pushed[1]",
+      "kind": "bool",
+      "offset": 285,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_BaroSTD_Sw_Pushed[0]",
+      "kind": "bool",
+      "offset": 286,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_BaroSTD_Sw_Pushed[1]",
+      "kind": "bool",
+      "offset": 287,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_ModeCTR_Sw_Pushed[0]",
+      "kind": "bool",
+      "offset": 288,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_ModeCTR_Sw_Pushed[1]",
+      "kind": "bool",
+      "offset": 289,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_RangeTFC_Sw_Pushed[0]",
+      "kind": "bool",
+      "offset": 290,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_RangeTFC_Sw_Pushed[1]",
+      "kind": "bool",
+      "offset": 291,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_WXR_Sw_Pushed[0]",
+      "kind": "bool",
+      "offset": 292,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_WXR_Sw_Pushed[1]",
+      "kind": "bool",
+      "offset": 293,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_STA_Sw_Pushed[0]",
+      "kind": "bool",
+      "offset": 294,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_STA_Sw_Pushed[1]",
+      "kind": "bool",
+      "offset": 295,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_WPT_Sw_Pushed[0]",
+      "kind": "bool",
+      "offset": 296,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_WPT_Sw_Pushed[1]",
+      "kind": "bool",
+      "offset": 297,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_ARPT_Sw_Pushed[0]",
+      "kind": "bool",
+      "offset": 298,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_ARPT_Sw_Pushed[1]",
+      "kind": "bool",
+      "offset": 299,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_DATA_Sw_Pushed[0]",
+      "kind": "bool",
+      "offset": 300,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_DATA_Sw_Pushed[1]",
+      "kind": "bool",
+      "offset": 301,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_POS_Sw_Pushed[0]",
+      "kind": "bool",
+      "offset": 302,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_POS_Sw_Pushed[1]",
+      "kind": "bool",
+      "offset": 303,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_TERR_Sw_Pushed[0]",
+      "kind": "bool",
+      "offset": 304,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_TERR_Sw_Pushed[1]",
+      "kind": "bool",
+      "offset": 305,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_IASMach",
+      "kind": "f32",
+      "offset": 308,
+      "size": 4,
+      "description": "Mach if < 10.0"
+    },
+    {
+      "name": "MCP_IASBlank",
+      "kind": "bool",
+      "offset": 312,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_Heading",
+      "kind": "u16",
+      "offset": 314,
+      "size": 2,
+      "description": "Raw SDK unsigned short"
+    },
+    {
+      "name": "MCP_Altitude",
+      "kind": "u16",
+      "offset": 316,
+      "size": 2,
+      "description": "Raw SDK unsigned short"
+    },
+    {
+      "name": "MCP_VertSpeed",
+      "kind": "i16",
+      "offset": 318,
+      "size": 2,
+      "description": "Raw SDK short"
+    },
+    {
+      "name": "MCP_FPA",
+      "kind": "f32",
+      "offset": 320,
+      "size": 4,
+      "description": "Raw SDK float"
+    },
+    {
+      "name": "MCP_VertSpeedBlank",
+      "kind": "bool",
+      "offset": 324,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_FD_Sw_On[0]",
+      "kind": "bool",
+      "offset": 325,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "MCP_FD_Sw_On[1]",
+      "kind": "bool",
+      "offset": 326,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "MCP_ATArm_Sw_On[0]",
+      "kind": "bool",
+      "offset": 327,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "MCP_ATArm_Sw_On[1]",
+      "kind": "bool",
+      "offset": 328,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "MCP_BankLimitSel",
+      "kind": "u8",
+      "offset": 329,
+      "size": 1,
+      "description": "0: AUTO  1: 5  2: 10 ... 5: 25"
+    },
+    {
+      "name": "MCP_AltIncrSel",
+      "kind": "bool",
+      "offset": 330,
+      "size": 1,
+      "description": "false: AUTO  true: 1000"
+    },
+    {
+      "name": "MCP_DisengageBar",
+      "kind": "bool",
+      "offset": 331,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_Speed_Dial",
+      "kind": "u8",
+      "offset": 332,
+      "size": 1,
+      "description": "0 ... 99"
+    },
+    {
+      "name": "MCP_Heading_Dial",
+      "kind": "u8",
+      "offset": 333,
+      "size": 1,
+      "description": "0 ... 99"
+    },
+    {
+      "name": "MCP_Altitude_Dial",
+      "kind": "u8",
+      "offset": 334,
+      "size": 1,
+      "description": "0 ... 99"
+    },
+    {
+      "name": "MCP_VS_Wheel",
+      "kind": "u8",
+      "offset": 335,
+      "size": 1,
+      "description": "0 ... 99"
+    },
+    {
+      "name": "MCP_HDGDial_Mode",
+      "kind": "u8",
+      "offset": 336,
+      "size": 1,
+      "description": "0: Dial shows HDG, 1: Dial shows TRK"
+    },
+    {
+      "name": "MCP_VSDial_Mode",
+      "kind": "u8",
+      "offset": 337,
+      "size": 1,
+      "description": "0: Dial shows VS, 1: Dial shows FPA"
+    },
+    {
+      "name": "MCP_AP_Sw_Pushed[0]",
+      "kind": "bool",
+      "offset": 338,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "MCP_AP_Sw_Pushed[1]",
+      "kind": "bool",
+      "offset": 339,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "MCP_CLB_CON_Sw_Pushed",
+      "kind": "bool",
+      "offset": 340,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_AT_Sw_Pushed",
+      "kind": "bool",
+      "offset": 341,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_LNAV_Sw_Pushed",
+      "kind": "bool",
+      "offset": 342,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_VNAV_Sw_Pushed",
+      "kind": "bool",
+      "offset": 343,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_FLCH_Sw_Pushed",
+      "kind": "bool",
+      "offset": 344,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_HDG_HOLD_Sw_Pushed",
+      "kind": "bool",
+      "offset": 345,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_VS_FPA_Sw_Pushed",
+      "kind": "bool",
+      "offset": 346,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_ALT_HOLD_Sw_Pushed",
+      "kind": "bool",
+      "offset": 347,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_LOC_Sw_Pushed",
+      "kind": "bool",
+      "offset": 348,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_APP_Sw_Pushed",
+      "kind": "bool",
+      "offset": 349,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_Speeed_Sw_Pushed",
+      "kind": "bool",
+      "offset": 350,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_Heading_Sw_Pushed",
+      "kind": "bool",
+      "offset": 351,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_Altitude_Sw_Pushed",
+      "kind": "bool",
+      "offset": 352,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_IAS_MACH_Toggle_Sw_Pushed",
+      "kind": "bool",
+      "offset": 353,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_HDG_TRK_Toggle_Sw_Pushed",
+      "kind": "bool",
+      "offset": 354,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_VS_FPA_Toggle_Sw_Pushed",
+      "kind": "bool",
+      "offset": 355,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_annunAP[0]",
+      "kind": "bool",
+      "offset": 356,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "MCP_annunAP[1]",
+      "kind": "bool",
+      "offset": 357,
+      "size": 1,
+      "description": "left / right"
+    },
+    {
+      "name": "MCP_annunAT",
+      "kind": "bool",
+      "offset": 358,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_annunLNAV",
+      "kind": "bool",
+      "offset": 359,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_annunVNAV",
+      "kind": "bool",
+      "offset": 360,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_annunFLCH",
+      "kind": "bool",
+      "offset": 361,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_annunHDG_HOLD",
+      "kind": "bool",
+      "offset": 362,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_annunVS_FPA",
+      "kind": "bool",
+      "offset": 363,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_annunALT_HOLD",
+      "kind": "bool",
+      "offset": 364,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_annunLOC",
+      "kind": "bool",
+      "offset": 365,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "MCP_annunAPP",
+      "kind": "bool",
+      "offset": 366,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_L_INBD_Sw",
+      "kind": "bool",
+      "offset": 367,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_R_INBD_Sw",
+      "kind": "bool",
+      "offset": 368,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_LWR_CTR_Sw",
+      "kind": "bool",
+      "offset": 369,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_ENG_Sw",
+      "kind": "bool",
+      "offset": 370,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_STAT_Sw",
+      "kind": "bool",
+      "offset": 371,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_ELEC_Sw",
+      "kind": "bool",
+      "offset": 372,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_HYD_Sw",
+      "kind": "bool",
+      "offset": 373,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_FUEL_Sw",
+      "kind": "bool",
+      "offset": 374,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_AIR_Sw",
+      "kind": "bool",
+      "offset": 375,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_DOOR_Sw",
+      "kind": "bool",
+      "offset": 376,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_GEAR_Sw",
+      "kind": "bool",
+      "offset": 377,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_FCTL_Sw",
+      "kind": "bool",
+      "offset": 378,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_CAM_Sw",
+      "kind": "bool",
+      "offset": 379,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_CHKL_Sw",
+      "kind": "bool",
+      "offset": 380,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_COMM_Sw",
+      "kind": "bool",
+      "offset": 381,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_NAV_Sw",
+      "kind": "bool",
+      "offset": 382,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_CANC_RCL_Sw",
+      "kind": "bool",
+      "offset": 383,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_annunL_INBD",
+      "kind": "bool",
+      "offset": 384,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_annunR_INBD",
+      "kind": "bool",
+      "offset": 385,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "DSP_annunLWR_CTR",
+      "kind": "bool",
+      "offset": 386,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "WARN_Reset_Sw_Pushed[0]",
+      "kind": "bool",
+      "offset": 387,
+      "size": 1,
+      "description": "MOMENTARY action"
+    },
+    {
+      "name": "WARN_Reset_Sw_Pushed[1]",
+      "kind": "bool",
+      "offset": 388,
+      "size": 1,
+      "description": "MOMENTARY action"
+    },
+    {
+      "name": "WARN_annunMASTER_WARNING[0]",
+      "kind": "bool",
+      "offset": 389,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "WARN_annunMASTER_WARNING[1]",
+      "kind": "bool",
+      "offset": 390,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "WARN_annunMASTER_CAUTION[0]",
+      "kind": "bool",
+      "offset": 391,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "WARN_annunMASTER_CAUTION[1]",
+      "kind": "bool",
+      "offset": 392,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ISP_DsplCtrl_C_Sw_Altn",
+      "kind": "bool",
+      "offset": 393,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "LTS_UpperDsplBRIGHTNESSKnob",
+      "kind": "u8",
+      "offset": 394,
+      "size": 1,
+      "description": "Position 0...100"
+    },
+    {
+      "name": "LTS_LowerDsplBRIGHTNESSKnob",
+      "kind": "u8",
+      "offset": 395,
+      "size": 1,
+      "description": "Position 0...100"
+    },
+    {
+      "name": "EICAS_EventRcd_Sw_Pushed",
+      "kind": "bool",
+      "offset": 396,
+      "size": 1,
+      "description": "MOMENTARY action"
+    },
+    {
+      "name": "CDU_annunEXEC[0]",
+      "kind": "bool",
+      "offset": 397,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "CDU_annunEXEC[1]",
+      "kind": "bool",
+      "offset": 398,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "CDU_annunEXEC[2]",
+      "kind": "bool",
+      "offset": 399,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "CDU_annunDSPY[0]",
+      "kind": "bool",
+      "offset": 400,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "CDU_annunDSPY[1]",
+      "kind": "bool",
+      "offset": 401,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "CDU_annunDSPY[2]",
+      "kind": "bool",
+      "offset": 402,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "CDU_annunFAIL[0]",
+      "kind": "bool",
+      "offset": 403,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "CDU_annunFAIL[1]",
+      "kind": "bool",
+      "offset": 404,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "CDU_annunFAIL[2]",
+      "kind": "bool",
+      "offset": 405,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "CDU_annunMSG[0]",
+      "kind": "bool",
+      "offset": 406,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "CDU_annunMSG[1]",
+      "kind": "bool",
+      "offset": 407,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "CDU_annunMSG[2]",
+      "kind": "bool",
+      "offset": 408,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "CDU_annunOFST[0]",
+      "kind": "bool",
+      "offset": 409,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "CDU_annunOFST[1]",
+      "kind": "bool",
+      "offset": 410,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "CDU_annunOFST[2]",
+      "kind": "bool",
+      "offset": 411,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "CDU_BrtKnob[0]",
+      "kind": "u8",
+      "offset": 412,
+      "size": 1,
+      "description": "0: DecreasePosition 1: Neutral  2: Increase"
+    },
+    {
+      "name": "CDU_BrtKnob[1]",
+      "kind": "u8",
+      "offset": 413,
+      "size": 1,
+      "description": "0: DecreasePosition 1: Neutral  2: Increase"
+    },
+    {
+      "name": "CDU_BrtKnob[2]",
+      "kind": "u8",
+      "offset": 414,
+      "size": 1,
+      "description": "0: DecreasePosition 1: Neutral  2: Increase"
+    },
+    {
+      "name": "FCTL_AltnFlaps_Sw_ARM",
+      "kind": "bool",
+      "offset": 415,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FCTL_AltnFlaps_Control_Sw",
+      "kind": "u8",
+      "offset": 416,
+      "size": 1,
+      "description": "0: RET  1: OFF  2: EXT"
+    },
+    {
+      "name": "FCTL_StabCutOutSw_C_NORMAL",
+      "kind": "bool",
+      "offset": 417,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FCTL_StabCutOutSw_R_NORMAL",
+      "kind": "bool",
+      "offset": 418,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FCTL_AltnPitch_Lever",
+      "kind": "u8",
+      "offset": 419,
+      "size": 1,
+      "description": "0: NOSE DOWN  1: NEUTRAL  2: NOSE UP"
+    },
+    {
+      "name": "FCTL_Speedbrake_Lever",
+      "kind": "u8",
+      "offset": 420,
+      "size": 1,
+      "description": "Position 0...100  0: DOWN,  25: ARMED, 26...100: DEPLOYED"
+    },
+    {
+      "name": "FCTL_Flaps_Lever",
+      "kind": "u8",
+      "offset": 421,
+      "size": 1,
+      "description": "0: UP  1: 1  2: 5  3: 15  4: 20  5: 25  6: 30"
+    },
+    {
+      "name": "ENG_FuelControl_Sw_RUN[0]",
+      "kind": "bool",
+      "offset": 422,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ENG_FuelControl_Sw_RUN[1]",
+      "kind": "bool",
+      "offset": 423,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "BRAKES_ParkingBrakeLeverOn",
+      "kind": "bool",
+      "offset": 424,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "COMM_SelectedMic[0]",
+      "kind": "u8",
+      "offset": 425,
+      "size": 1,
+      "description": "array: 0=capt, 1=F/O, 2=observer  values: 0..9 (VHF..SAT2) as listed above; -1 if no MIC is selected"
+    },
+    {
+      "name": "COMM_SelectedMic[1]",
+      "kind": "u8",
+      "offset": 426,
+      "size": 1,
+      "description": "array: 0=capt, 1=F/O, 2=observer  values: 0..9 (VHF..SAT2) as listed above; -1 if no MIC is selected"
+    },
+    {
+      "name": "COMM_SelectedMic[2]",
+      "kind": "u8",
+      "offset": 427,
+      "size": 1,
+      "description": "array: 0=capt, 1=F/O, 2=observer  values: 0..9 (VHF..SAT2) as listed above; -1 if no MIC is selected"
+    },
+    {
+      "name": "COMM_ReceiverSwitches[0]",
+      "kind": "u16",
+      "offset": 428,
+      "size": 2,
+      "description": "array: 0=capt, 1=F/O, 2=observer.  Bit mask for selected receivers with bits indicating: 0=VHFL 1=VHFC 2=VHFR 3=FLT 4=CAB 5=PA 6=HFL 7=HFR 8=SAT1 9=SAT2 10=SPKR 11=VOR/ADF 12=APP"
+    },
+    {
+      "name": "COMM_ReceiverSwitches[1]",
+      "kind": "u16",
+      "offset": 430,
+      "size": 2,
+      "description": "array: 0=capt, 1=F/O, 2=observer.  Bit mask for selected receivers with bits indicating: 0=VHFL 1=VHFC 2=VHFR 3=FLT 4=CAB 5=PA 6=HFL 7=HFR 8=SAT1 9=SAT2 10=SPKR 11=VOR/ADF 12=APP"
+    },
+    {
+      "name": "COMM_ReceiverSwitches[2]",
+      "kind": "u16",
+      "offset": 432,
+      "size": 2,
+      "description": "array: 0=capt, 1=F/O, 2=observer.  Bit mask for selected receivers with bits indicating: 0=VHFL 1=VHFC 2=VHFR 3=FLT 4=CAB 5=PA 6=HFL 7=HFR 8=SAT1 9=SAT2 10=SPKR 11=VOR/ADF 12=APP"
+    },
+    {
+      "name": "COMM_OBSAudio_Selector",
+      "kind": "u8",
+      "offset": 434,
+      "size": 1,
+      "description": "0: CAPT  1: NORMAL  2: F/O"
+    },
+    {
+      "name": "COMM_SelectedRadio[0]",
+      "kind": "u8",
+      "offset": 435,
+      "size": 1,
+      "description": "0: VHFL  1: VHFC  2: VHFL  3: HFL  5: HFR (4 not used)"
+    },
+    {
+      "name": "COMM_SelectedRadio[1]",
+      "kind": "u8",
+      "offset": 436,
+      "size": 1,
+      "description": "0: VHFL  1: VHFC  2: VHFL  3: HFL  5: HFR (4 not used)"
+    },
+    {
+      "name": "COMM_SelectedRadio[2]",
+      "kind": "u8",
+      "offset": 437,
+      "size": 1,
+      "description": "0: VHFL  1: VHFC  2: VHFL  3: HFL  5: HFR (4 not used)"
+    },
+    {
+      "name": "COMM_RadioTransfer_Sw_Pushed[0]",
+      "kind": "bool",
+      "offset": 438,
+      "size": 1,
+      "description": "MOMENTARY action"
+    },
+    {
+      "name": "COMM_RadioTransfer_Sw_Pushed[1]",
+      "kind": "bool",
+      "offset": 439,
+      "size": 1,
+      "description": "MOMENTARY action"
+    },
+    {
+      "name": "COMM_RadioTransfer_Sw_Pushed[2]",
+      "kind": "bool",
+      "offset": 440,
+      "size": 1,
+      "description": "MOMENTARY action"
+    },
+    {
+      "name": "COMM_RadioPanelOff[0]",
+      "kind": "bool",
+      "offset": 441,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "COMM_RadioPanelOff[1]",
+      "kind": "bool",
+      "offset": 442,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "COMM_RadioPanelOff[2]",
+      "kind": "bool",
+      "offset": 443,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "COMM_annunAM[0]",
+      "kind": "bool",
+      "offset": 444,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "COMM_annunAM[1]",
+      "kind": "bool",
+      "offset": 445,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "COMM_annunAM[2]",
+      "kind": "bool",
+      "offset": 446,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "XPDR_XpndrSelector_R",
+      "kind": "bool",
+      "offset": 447,
+      "size": 1,
+      "description": "true: R     false: L"
+    },
+    {
+      "name": "XPDR_AltSourceSel_ALTN",
+      "kind": "bool",
+      "offset": 448,
+      "size": 1,
+      "description": "true: ALTN  false: NORM"
+    },
+    {
+      "name": "XPDR_ModeSel",
+      "kind": "u8",
+      "offset": 449,
+      "size": 1,
+      "description": "0: STBY  1: ALT RPTG OFF  2: XPNDR  3: TA ONLY  4: TA/RA"
+    },
+    {
+      "name": "XPDR_Ident_Sw_Pushed",
+      "kind": "bool",
+      "offset": 450,
+      "size": 1,
+      "description": "MOMENTARY action"
+    },
+    {
+      "name": "FIRE_EngineHandle[0]",
+      "kind": "u8",
+      "offset": 451,
+      "size": 1,
+      "description": "ENG 1/ENG2   0: IN (NORMAL)  1: PULLED OUT  2: TURNED LEFT  3: TURNED RIGHT  (2 & 3 are momenentary positions)"
+    },
+    {
+      "name": "FIRE_EngineHandle[1]",
+      "kind": "u8",
+      "offset": 452,
+      "size": 1,
+      "description": "ENG 1/ENG2   0: IN (NORMAL)  1: PULLED OUT  2: TURNED LEFT  3: TURNED RIGHT  (2 & 3 are momenentary positions)"
+    },
+    {
+      "name": "FIRE_EngineHandleUnlock_Sw[0]",
+      "kind": "bool",
+      "offset": 453,
+      "size": 1,
+      "description": "ENG 1/ENG2   MOMENTARY SWITCH resets when handle pulled"
+    },
+    {
+      "name": "FIRE_EngineHandleUnlock_Sw[1]",
+      "kind": "bool",
+      "offset": 454,
+      "size": 1,
+      "description": "ENG 1/ENG2   MOMENTARY SWITCH resets when handle pulled"
+    },
+    {
+      "name": "FIRE_annunENG_BTL_DISCH[0]",
+      "kind": "bool",
+      "offset": 455,
+      "size": 1,
+      "description": "ENG 1/ENG2"
+    },
+    {
+      "name": "FIRE_annunENG_BTL_DISCH[1]",
+      "kind": "bool",
+      "offset": 456,
+      "size": 1,
+      "description": "ENG 1/ENG2"
+    },
+    {
+      "name": "FCTL_AileronTrim_Switches",
+      "kind": "u8",
+      "offset": 457,
+      "size": 1,
+      "description": "0: LEFT WING DOWN  1: NEUTRAL  2: RIGHT WING DOWN (both switches move together)"
+    },
+    {
+      "name": "FCTL_RudderTrim_Knob",
+      "kind": "u8",
+      "offset": 458,
+      "size": 1,
+      "description": "0: NOSE LEFT  1: NEUTRAL  2: NOSE RIGHT"
+    },
+    {
+      "name": "FCTL_RudderTrimCancel_Sw_Pushed",
+      "kind": "bool",
+      "offset": 459,
+      "size": 1,
+      "description": "MOMENTARY action"
+    },
+    {
+      "name": "EVAC_Command_Sw_ON",
+      "kind": "bool",
+      "offset": 460,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EVAC_PressToTest_Sw_Pressed",
+      "kind": "bool",
+      "offset": 461,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EVAC_HornSutOff_Sw_Pulled",
+      "kind": "bool",
+      "offset": 462,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EVAC_LightIlluminated",
+      "kind": "bool",
+      "offset": 463,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "LTS_AisleStandPNLKnob",
+      "kind": "u8",
+      "offset": 464,
+      "size": 1,
+      "description": "Position 0...100"
+    },
+    {
+      "name": "LTS_AisleStandFLOODKnob",
+      "kind": "u8",
+      "offset": 465,
+      "size": 1,
+      "description": "Position 0...100"
+    },
+    {
+      "name": "LTS_FloorLightsSw",
+      "kind": "u8",
+      "offset": 466,
+      "size": 1,
+      "description": "0: BRT  1: OFF  2: DIM"
+    },
+    {
+      "name": "DOOR_state[0]",
+      "kind": "u8",
+      "offset": 467,
+      "size": 1,
+      "description": "Raw SDK unsigned char"
+    },
+    {
+      "name": "DOOR_state[1]",
+      "kind": "u8",
+      "offset": 468,
+      "size": 1,
+      "description": "Raw SDK unsigned char"
+    },
+    {
+      "name": "DOOR_state[2]",
+      "kind": "u8",
+      "offset": 469,
+      "size": 1,
+      "description": "Raw SDK unsigned char"
+    },
+    {
+      "name": "DOOR_state[3]",
+      "kind": "u8",
+      "offset": 470,
+      "size": 1,
+      "description": "Raw SDK unsigned char"
+    },
+    {
+      "name": "DOOR_state[4]",
+      "kind": "u8",
+      "offset": 471,
+      "size": 1,
+      "description": "Raw SDK unsigned char"
+    },
+    {
+      "name": "DOOR_state[5]",
+      "kind": "u8",
+      "offset": 472,
+      "size": 1,
+      "description": "Raw SDK unsigned char"
+    },
+    {
+      "name": "DOOR_state[6]",
+      "kind": "u8",
+      "offset": 473,
+      "size": 1,
+      "description": "Raw SDK unsigned char"
+    },
+    {
+      "name": "DOOR_state[7]",
+      "kind": "u8",
+      "offset": 474,
+      "size": 1,
+      "description": "Raw SDK unsigned char"
+    },
+    {
+      "name": "DOOR_state[8]",
+      "kind": "u8",
+      "offset": 475,
+      "size": 1,
+      "description": "Raw SDK unsigned char"
+    },
+    {
+      "name": "DOOR_state[9]",
+      "kind": "u8",
+      "offset": 476,
+      "size": 1,
+      "description": "Raw SDK unsigned char"
+    },
+    {
+      "name": "DOOR_state[10]",
+      "kind": "u8",
+      "offset": 477,
+      "size": 1,
+      "description": "Raw SDK unsigned char"
+    },
+    {
+      "name": "DOOR_state[11]",
+      "kind": "u8",
+      "offset": 478,
+      "size": 1,
+      "description": "Raw SDK unsigned char"
+    },
+    {
+      "name": "DOOR_state[12]",
+      "kind": "u8",
+      "offset": 479,
+      "size": 1,
+      "description": "Raw SDK unsigned char"
+    },
+    {
+      "name": "DOOR_state[13]",
+      "kind": "u8",
+      "offset": 480,
+      "size": 1,
+      "description": "Raw SDK unsigned char"
+    },
+    {
+      "name": "DOOR_state[14]",
+      "kind": "u8",
+      "offset": 481,
+      "size": 1,
+      "description": "Raw SDK unsigned char"
+    },
+    {
+      "name": "DOOR_state[15]",
+      "kind": "u8",
+      "offset": 482,
+      "size": 1,
+      "description": "Raw SDK unsigned char"
+    },
+    {
+      "name": "DOOR_CockpitDoorOpen",
+      "kind": "bool",
+      "offset": 483,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ENG_StartValve[0]",
+      "kind": "bool",
+      "offset": 484,
+      "size": 1,
+      "description": "true: valve open"
+    },
+    {
+      "name": "ENG_StartValve[1]",
+      "kind": "bool",
+      "offset": 485,
+      "size": 1,
+      "description": "true: valve open"
+    },
+    {
+      "name": "AIR_DuctPress[0]",
+      "kind": "f32",
+      "offset": 488,
+      "size": 4,
+      "description": "PSI"
+    },
+    {
+      "name": "AIR_DuctPress[1]",
+      "kind": "f32",
+      "offset": 492,
+      "size": 4,
+      "description": "PSI"
+    },
+    {
+      "name": "FUEL_QtyCenter",
+      "kind": "f32",
+      "offset": 496,
+      "size": 4,
+      "description": "LBS"
+    },
+    {
+      "name": "FUEL_QtyLeft",
+      "kind": "f32",
+      "offset": 500,
+      "size": 4,
+      "description": "LBS"
+    },
+    {
+      "name": "FUEL_QtyRight",
+      "kind": "f32",
+      "offset": 504,
+      "size": 4,
+      "description": "LBS"
+    },
+    {
+      "name": "FUEL_QtyAux",
+      "kind": "f32",
+      "offset": 508,
+      "size": 4,
+      "description": "LBS"
+    },
+    {
+      "name": "IRS_aligned",
+      "kind": "bool",
+      "offset": 512,
+      "size": 1,
+      "description": "at least one IRU is aligned"
+    },
+    {
+      "name": "EFIS_BaroMinimumsSet[0]",
+      "kind": "bool",
+      "offset": 513,
+      "size": 1,
+      "description": "left/right control panel. Note: check EFIS_MinsSelBARO[2] to determine if the active minimums is BARO or RADIO"
+    },
+    {
+      "name": "EFIS_BaroMinimumsSet[1]",
+      "kind": "bool",
+      "offset": 514,
+      "size": 1,
+      "description": "left/right control panel. Note: check EFIS_MinsSelBARO[2] to determine if the active minimums is BARO or RADIO"
+    },
+    {
+      "name": "EFIS_BaroMinimums[0]",
+      "kind": "i32",
+      "offset": 516,
+      "size": 4,
+      "description": "Raw SDK int"
+    },
+    {
+      "name": "EFIS_BaroMinimums[1]",
+      "kind": "i32",
+      "offset": 520,
+      "size": 4,
+      "description": "Raw SDK int"
+    },
+    {
+      "name": "EFIS_RadioMinimumsSet[0]",
+      "kind": "bool",
+      "offset": 524,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_RadioMinimumsSet[1]",
+      "kind": "bool",
+      "offset": 525,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "EFIS_RadioMinimums[0]",
+      "kind": "i32",
+      "offset": 528,
+      "size": 4,
+      "description": "Raw SDK int"
+    },
+    {
+      "name": "EFIS_RadioMinimums[1]",
+      "kind": "i32",
+      "offset": 532,
+      "size": 4,
+      "description": "Raw SDK int"
+    },
+    {
+      "name": "EFIS_Display[0]",
+      "kind": "u8",
+      "offset": 536,
+      "size": 1,
+      "description": "Display units:  0: Capt outboard, 1: Capt inboard, 2: Upper, 3: Lower, 4: FO Inboard, 5: FO Outboard"
+    },
+    {
+      "name": "EFIS_Display[1]",
+      "kind": "u8",
+      "offset": 537,
+      "size": 1,
+      "description": "Display units:  0: Capt outboard, 1: Capt inboard, 2: Upper, 3: Lower, 4: FO Inboard, 5: FO Outboard"
+    },
+    {
+      "name": "EFIS_Display[2]",
+      "kind": "u8",
+      "offset": 538,
+      "size": 1,
+      "description": "Display units:  0: Capt outboard, 1: Capt inboard, 2: Upper, 3: Lower, 4: FO Inboard, 5: FO Outboard"
+    },
+    {
+      "name": "EFIS_Display[3]",
+      "kind": "u8",
+      "offset": 539,
+      "size": 1,
+      "description": "Display units:  0: Capt outboard, 1: Capt inboard, 2: Upper, 3: Lower, 4: FO Inboard, 5: FO Outboard"
+    },
+    {
+      "name": "EFIS_Display[4]",
+      "kind": "u8",
+      "offset": 540,
+      "size": 1,
+      "description": "Display units:  0: Capt outboard, 1: Capt inboard, 2: Upper, 3: Lower, 4: FO Inboard, 5: FO Outboard"
+    },
+    {
+      "name": "EFIS_Display[5]",
+      "kind": "u8",
+      "offset": 541,
+      "size": 1,
+      "description": "Display units:  0: Capt outboard, 1: Capt inboard, 2: Upper, 3: Lower, 4: FO Inboard, 5: FO Outboard"
+    },
+    {
+      "name": "AircraftModel",
+      "kind": "u8",
+      "offset": 542,
+      "size": 1,
+      "description": "1: -200  2: -200ER  3: -300  4: -200LR  5: 777F  6: -300ER"
+    },
+    {
+      "name": "WeightInKg",
+      "kind": "bool",
+      "offset": 543,
+      "size": 1,
+      "description": "false: LBS  true: KG"
+    },
+    {
+      "name": "GPWS_V1CallEnabled",
+      "kind": "bool",
+      "offset": 544,
+      "size": 1,
+      "description": "GPWS V1 call-out option enabled"
+    },
+    {
+      "name": "GroundConnAvailable",
+      "kind": "bool",
+      "offset": 545,
+      "size": 1,
+      "description": "can connect/disconnect ground air/electrics"
+    },
+    {
+      "name": "FMC_TakeoffFlaps",
+      "kind": "u8",
+      "offset": 546,
+      "size": 1,
+      "description": "degrees, 0 if not set"
+    },
+    {
+      "name": "FMC_V1",
+      "kind": "u8",
+      "offset": 547,
+      "size": 1,
+      "description": "knots, 0 if not set"
+    },
+    {
+      "name": "FMC_VR",
+      "kind": "u8",
+      "offset": 548,
+      "size": 1,
+      "description": "knots, 0 if not set"
+    },
+    {
+      "name": "FMC_V2",
+      "kind": "u8",
+      "offset": 549,
+      "size": 1,
+      "description": "knots, 0 if not set"
+    },
+    {
+      "name": "FMC_ThrustRedAlt",
+      "kind": "u16",
+      "offset": 550,
+      "size": 2,
+      "description": "1: FLAPS 1,  5: FLAPS 5,  otherwise altitude in ft"
+    },
+    {
+      "name": "FMC_AccelerationAlt",
+      "kind": "u16",
+      "offset": 552,
+      "size": 2,
+      "description": "ft"
+    },
+    {
+      "name": "FMC_EOAccelerationAlt",
+      "kind": "u16",
+      "offset": 554,
+      "size": 2,
+      "description": "ft"
+    },
+    {
+      "name": "FMC_LandingFlaps",
+      "kind": "u8",
+      "offset": 556,
+      "size": 1,
+      "description": "degrees, 0 if not set"
+    },
+    {
+      "name": "FMC_LandingVREF",
+      "kind": "u8",
+      "offset": 557,
+      "size": 1,
+      "description": "knots, 0 if not set"
+    },
+    {
+      "name": "FMC_CruiseAlt",
+      "kind": "u16",
+      "offset": 558,
+      "size": 2,
+      "description": "ft, 0 if not set"
+    },
+    {
+      "name": "FMC_LandingAltitude",
+      "kind": "i16",
+      "offset": 560,
+      "size": 2,
+      "description": "ft; -32767 if not available"
+    },
+    {
+      "name": "FMC_TransitionAlt",
+      "kind": "u16",
+      "offset": 562,
+      "size": 2,
+      "description": "ft"
+    },
+    {
+      "name": "FMC_TransitionLevel",
+      "kind": "u16",
+      "offset": 564,
+      "size": 2,
+      "description": "ft"
+    },
+    {
+      "name": "FMC_PerfInputComplete",
+      "kind": "bool",
+      "offset": 566,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FMC_DistanceToTOD",
+      "kind": "f32",
+      "offset": 568,
+      "size": 4,
+      "description": "nm; 0.0 if passed, negative if n/a"
+    },
+    {
+      "name": "FMC_DistanceToDest",
+      "kind": "f32",
+      "offset": 572,
+      "size": 4,
+      "description": "nm; negative if n/a"
+    },
+    {
+      "name": "FMC_flightNumber",
+      "kind": "text",
+      "offset": 576,
+      "size": 9,
+      "description": "Raw SDK char"
+    },
+    {
+      "name": "WheelChocksSet",
+      "kind": "bool",
+      "offset": 585,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "APURunning",
+      "kind": "bool",
+      "offset": 586,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "FMC_ThrustLimitMode",
+      "kind": "u8",
+      "offset": 587,
+      "size": 1,
+      "description": "Raw SDK unsigned char"
+    },
+    {
+      "name": "ECL_ChecklistComplete[0]",
+      "kind": "bool",
+      "offset": 588,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ECL_ChecklistComplete[1]",
+      "kind": "bool",
+      "offset": 589,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ECL_ChecklistComplete[2]",
+      "kind": "bool",
+      "offset": 590,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ECL_ChecklistComplete[3]",
+      "kind": "bool",
+      "offset": 591,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ECL_ChecklistComplete[4]",
+      "kind": "bool",
+      "offset": 592,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ECL_ChecklistComplete[5]",
+      "kind": "bool",
+      "offset": 593,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ECL_ChecklistComplete[6]",
+      "kind": "bool",
+      "offset": 594,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ECL_ChecklistComplete[7]",
+      "kind": "bool",
+      "offset": 595,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ECL_ChecklistComplete[8]",
+      "kind": "bool",
+      "offset": 596,
+      "size": 1,
+      "description": "Raw SDK bool"
+    },
+    {
+      "name": "ECL_ChecklistComplete[9]",
+      "kind": "bool",
+      "offset": 597,
+      "size": 1,
+      "description": "Raw SDK bool"
+    }
+  ],
+  "members": [
+    {
+      "name": "ICE_WindowHeatBackUp_Sw_OFF",
+      "offset": 0
+    },
+    {
+      "name": "ELEC_StandbyPowerSw",
+      "offset": 2
+    },
+    {
+      "name": "FCTL_WingHydValve_Sw_SHUT_OFF",
+      "offset": 3
+    },
+    {
+      "name": "FCTL_TailHydValve_Sw_SHUT_OFF",
+      "offset": 6
+    },
+    {
+      "name": "FCTL_annunTailHydVALVE_CLOSED",
+      "offset": 9
+    },
+    {
+      "name": "FCTL_annunWingHydVALVE_CLOSED",
+      "offset": 12
+    },
+    {
+      "name": "FCTL_PrimFltComputersSw_AUTO",
+      "offset": 15
+    },
+    {
+      "name": "FCTL_annunPrimFltComputersDISC",
+      "offset": 16
+    },
+    {
+      "name": "APU_Power_Sw_TEST",
+      "offset": 17
+    },
+    {
+      "name": "ENG_EECPower_Sw_TEST",
+      "offset": 18
+    },
+    {
+      "name": "ELEC_TowingPower_Sw_BATT",
+      "offset": 20
+    },
+    {
+      "name": "ELEC_annunTowingPowerON_BATT",
+      "offset": 21
+    },
+    {
+      "name": "AIR_CargoTemp_Selector",
+      "offset": 22
+    },
+    {
+      "name": "AIR_CargoTemp_MainDeckFwd_Sel",
+      "offset": 24
+    },
+    {
+      "name": "AIR_CargoTemp_MainDeckAft_Sel",
+      "offset": 25
+    },
+    {
+      "name": "AIR_CargoTemp_LowerFwd_Sel",
+      "offset": 26
+    },
+    {
+      "name": "AIR_CargoTemp_LowerAft_Sel",
+      "offset": 27
+    },
+    {
+      "name": "ADIRU_Sw_On",
+      "offset": 28
+    },
+    {
+      "name": "ADIRU_annunOFF",
+      "offset": 29
+    },
+    {
+      "name": "ADIRU_annunON_BAT",
+      "offset": 30
+    },
+    {
+      "name": "FCTL_ThrustAsymComp_Sw_AUTO",
+      "offset": 31
+    },
+    {
+      "name": "FCTL_annunThrustAsymCompOFF",
+      "offset": 32
+    },
+    {
+      "name": "ELEC_CabUtilSw",
+      "offset": 33
+    },
+    {
+      "name": "ELEC_annunCabUtilOFF",
+      "offset": 34
+    },
+    {
+      "name": "ELEC_IFEPassSeatsSw",
+      "offset": 35
+    },
+    {
+      "name": "ELEC_annunIFEPassSeatsOFF",
+      "offset": 36
+    },
+    {
+      "name": "ELEC_Battery_Sw_ON",
+      "offset": 37
+    },
+    {
+      "name": "ELEC_annunBattery_OFF",
+      "offset": 38
+    },
+    {
+      "name": "ELEC_annunAPU_GEN_OFF",
+      "offset": 39
+    },
+    {
+      "name": "ELEC_APUGen_Sw_ON",
+      "offset": 40
+    },
+    {
+      "name": "ELEC_APU_Selector",
+      "offset": 41
+    },
+    {
+      "name": "ELEC_annunAPU_FAULT",
+      "offset": 42
+    },
+    {
+      "name": "ELEC_BusTie_Sw_AUTO",
+      "offset": 43
+    },
+    {
+      "name": "ELEC_annunBusTieISLN",
+      "offset": 45
+    },
+    {
+      "name": "ELEC_ExtPwrSw",
+      "offset": 47
+    },
+    {
+      "name": "ELEC_annunExtPowr_ON",
+      "offset": 49
+    },
+    {
+      "name": "ELEC_annunExtPowr_AVAIL",
+      "offset": 51
+    },
+    {
+      "name": "ELEC_Gen_Sw_ON",
+      "offset": 53
+    },
+    {
+      "name": "ELEC_annunGenOFF",
+      "offset": 55
+    },
+    {
+      "name": "ELEC_BackupGen_Sw_ON",
+      "offset": 57
+    },
+    {
+      "name": "ELEC_annunBackupGenOFF",
+      "offset": 59
+    },
+    {
+      "name": "ELEC_IDGDiscSw",
+      "offset": 61
+    },
+    {
+      "name": "ELEC_annunIDGDiscDRIVE",
+      "offset": 63
+    },
+    {
+      "name": "WIPERS_Selector",
+      "offset": 65
+    },
+    {
+      "name": "LTS_EmerLightsSelector",
+      "offset": 67
+    },
+    {
+      "name": "COMM_ServiceInterphoneSw",
+      "offset": 68
+    },
+    {
+      "name": "OXY_PassOxygen_Sw_On",
+      "offset": 69
+    },
+    {
+      "name": "OXY_annunPassOxygenON",
+      "offset": 70
+    },
+    {
+      "name": "ICE_WindowHeat_Sw_ON",
+      "offset": 71
+    },
+    {
+      "name": "ICE_annunWindowHeatINOP",
+      "offset": 75
+    },
+    {
+      "name": "HYD_RamAirTurbineSw",
+      "offset": 79
+    },
+    {
+      "name": "HYD_annunRamAirTurbinePRESS",
+      "offset": 80
+    },
+    {
+      "name": "HYD_annunRamAirTurbineUNLKD",
+      "offset": 81
+    },
+    {
+      "name": "HYD_PrimaryEngPump_Sw_ON",
+      "offset": 82
+    },
+    {
+      "name": "HYD_PrimaryElecPump_Sw_ON",
+      "offset": 84
+    },
+    {
+      "name": "HYD_DemandElecPump_Selector",
+      "offset": 86
+    },
+    {
+      "name": "HYD_DemandAirPump_Selector",
+      "offset": 88
+    },
+    {
+      "name": "HYD_annunPrimaryEngPumpFAULT",
+      "offset": 90
+    },
+    {
+      "name": "HYD_annunPrimaryElecPumpFAULT",
+      "offset": 92
+    },
+    {
+      "name": "HYD_annunDemandElecPumpFAULT",
+      "offset": 94
+    },
+    {
+      "name": "HYD_annunDemandAirPumpFAULT",
+      "offset": 96
+    },
+    {
+      "name": "SIGNS_NoSmokingSelector",
+      "offset": 98
+    },
+    {
+      "name": "SIGNS_SeatBeltsSelector",
+      "offset": 99
+    },
+    {
+      "name": "LTS_DomeLightKnob",
+      "offset": 100
+    },
+    {
+      "name": "LTS_CircuitBreakerKnob",
+      "offset": 101
+    },
+    {
+      "name": "LTS_OvereadPanelKnob",
+      "offset": 102
+    },
+    {
+      "name": "LTS_GlareshieldPNLlKnob",
+      "offset": 103
+    },
+    {
+      "name": "LTS_GlareshieldFLOODKnob",
+      "offset": 104
+    },
+    {
+      "name": "LTS_Storm_Sw_ON",
+      "offset": 105
+    },
+    {
+      "name": "LTS_MasterBright_Sw_ON",
+      "offset": 106
+    },
+    {
+      "name": "LTS_MasterBrigntKnob",
+      "offset": 107
+    },
+    {
+      "name": "LTS_IndLightsTestSw",
+      "offset": 108
+    },
+    {
+      "name": "LTS_LandingLights_Sw_ON",
+      "offset": 109
+    },
+    {
+      "name": "LTS_Beacon_Sw_ON",
+      "offset": 112
+    },
+    {
+      "name": "LTS_NAV_Sw_ON",
+      "offset": 113
+    },
+    {
+      "name": "LTS_Logo_Sw_ON",
+      "offset": 114
+    },
+    {
+      "name": "LTS_Wing_Sw_ON",
+      "offset": 115
+    },
+    {
+      "name": "LTS_RunwayTurnoff_Sw_ON",
+      "offset": 116
+    },
+    {
+      "name": "LTS_Taxi_Sw_ON",
+      "offset": 118
+    },
+    {
+      "name": "LTS_Strobe_Sw_ON",
+      "offset": 119
+    },
+    {
+      "name": "FIRE_CargoFire_Sw_Arm",
+      "offset": 120
+    },
+    {
+      "name": "FIRE_annunCargoFire",
+      "offset": 122
+    },
+    {
+      "name": "FIRE_CargoFireDisch_Sw",
+      "offset": 124
+    },
+    {
+      "name": "FIRE_annunCargoDISCH",
+      "offset": 125
+    },
+    {
+      "name": "FIRE_FireOvhtTest_Sw",
+      "offset": 126
+    },
+    {
+      "name": "FIRE_APUHandle",
+      "offset": 127
+    },
+    {
+      "name": "FIRE_APUHandleUnlock_Sw",
+      "offset": 128
+    },
+    {
+      "name": "FIRE_annunAPU_BTL_DISCH",
+      "offset": 129
+    },
+    {
+      "name": "FIRE_EngineHandleIlluminated",
+      "offset": 130
+    },
+    {
+      "name": "FIRE_APUHandleIlluminated",
+      "offset": 132
+    },
+    {
+      "name": "FIRE_EngineHandleIsUnlocked",
+      "offset": 133
+    },
+    {
+      "name": "FIRE_APUHandleIsUnlocked",
+      "offset": 135
+    },
+    {
+      "name": "FIRE_annunMainDeckCargoFire",
+      "offset": 136
+    },
+    {
+      "name": "FIRE_annunCargoDEPR",
+      "offset": 137
+    },
+    {
+      "name": "ENG_EECMode_Sw_NORM",
+      "offset": 138
+    },
+    {
+      "name": "ENG_Start_Selector",
+      "offset": 140
+    },
+    {
+      "name": "ENG_Autostart_Sw_ON",
+      "offset": 142
+    },
+    {
+      "name": "ENG_annunALTN",
+      "offset": 143
+    },
+    {
+      "name": "ENG_annunAutostartOFF",
+      "offset": 145
+    },
+    {
+      "name": "FUEL_CrossFeedFwd_Sw",
+      "offset": 146
+    },
+    {
+      "name": "FUEL_CrossFeedAft_Sw",
+      "offset": 147
+    },
+    {
+      "name": "FUEL_PumpFwd_Sw",
+      "offset": 148
+    },
+    {
+      "name": "FUEL_PumpAft_Sw",
+      "offset": 150
+    },
+    {
+      "name": "FUEL_PumpCtr_Sw",
+      "offset": 152
+    },
+    {
+      "name": "FUEL_JettisonNozle_Sw",
+      "offset": 154
+    },
+    {
+      "name": "FUEL_JettisonArm_Sw",
+      "offset": 156
+    },
+    {
+      "name": "FUEL_FuelToRemain_Sw_Pulled",
+      "offset": 157
+    },
+    {
+      "name": "FUEL_FuelToRemain_Selector",
+      "offset": 158
+    },
+    {
+      "name": "FUEL_annunFwdXFEED_VALVE",
+      "offset": 159
+    },
+    {
+      "name": "FUEL_annunAftXFEED_VALVE",
+      "offset": 160
+    },
+    {
+      "name": "FUEL_annunLOWPRESS_Fwd",
+      "offset": 161
+    },
+    {
+      "name": "FUEL_annunLOWPRESS_Aft",
+      "offset": 163
+    },
+    {
+      "name": "FUEL_annunLOWPRESS_Ctr",
+      "offset": 165
+    },
+    {
+      "name": "FUEL_annunJettisonNozleVALVE",
+      "offset": 167
+    },
+    {
+      "name": "FUEL_annunArmFAULT",
+      "offset": 169
+    },
+    {
+      "name": "ICE_WingAntiIceSw",
+      "offset": 170
+    },
+    {
+      "name": "ICE_EngAntiIceSw",
+      "offset": 171
+    },
+    {
+      "name": "AIR_Pack_Sw_AUTO",
+      "offset": 173
+    },
+    {
+      "name": "AIR_TrimAir_Sw_On",
+      "offset": 175
+    },
+    {
+      "name": "AIR_RecircFan_Sw_On",
+      "offset": 177
+    },
+    {
+      "name": "AIR_TempSelector",
+      "offset": 179
+    },
+    {
+      "name": "AIR_AirCondReset_Sw_Pushed",
+      "offset": 181
+    },
+    {
+      "name": "AIR_EquipCooling_Sw_AUTO",
+      "offset": 182
+    },
+    {
+      "name": "AIR_Gasper_Sw_On",
+      "offset": 183
+    },
+    {
+      "name": "AIR_annunPackOFF",
+      "offset": 184
+    },
+    {
+      "name": "AIR_annunTrimAirFAULT",
+      "offset": 186
+    },
+    {
+      "name": "AIR_annunEquipCoolingOVRD",
+      "offset": 188
+    },
+    {
+      "name": "AIR_AltnVentSw_ON",
+      "offset": 189
+    },
+    {
+      "name": "AIR_annunAltnVentFAULT",
+      "offset": 190
+    },
+    {
+      "name": "AIR_MainDeckFlowSw_NORM",
+      "offset": 191
+    },
+    {
+      "name": "AIR_EngBleedAir_Sw_AUTO",
+      "offset": 192
+    },
+    {
+      "name": "AIR_APUBleedAir_Sw_AUTO",
+      "offset": 194
+    },
+    {
+      "name": "AIR_IsolationValve_Sw",
+      "offset": 195
+    },
+    {
+      "name": "AIR_CtrIsolationValve_Sw",
+      "offset": 197
+    },
+    {
+      "name": "AIR_annunEngBleedAirOFF",
+      "offset": 198
+    },
+    {
+      "name": "AIR_annunAPUBleedAirOFF",
+      "offset": 200
+    },
+    {
+      "name": "AIR_annunIsolationValveCLOSED",
+      "offset": 201
+    },
+    {
+      "name": "AIR_annunCtrIsolationValveCLOSED",
+      "offset": 203
+    },
+    {
+      "name": "AIR_OutflowValve_Sw_AUTO",
+      "offset": 204
+    },
+    {
+      "name": "AIR_OutflowValveManual_Selector",
+      "offset": 206
+    },
+    {
+      "name": "AIR_LdgAlt_Sw_Pulled",
+      "offset": 208
+    },
+    {
+      "name": "AIR_LdgAlt_Selector",
+      "offset": 209
+    },
+    {
+      "name": "AIR_annunOutflowValve_MAN",
+      "offset": 210
+    },
+    {
+      "name": "GEAR_Lever",
+      "offset": 212
+    },
+    {
+      "name": "GEAR_LockOvrd_Sw",
+      "offset": 213
+    },
+    {
+      "name": "GEAR_AltnGear_Sw_DOWN",
+      "offset": 214
+    },
+    {
+      "name": "GPWS_FlapInhibitSw_OVRD",
+      "offset": 215
+    },
+    {
+      "name": "GPWS_GearInhibitSw_OVRD",
+      "offset": 216
+    },
+    {
+      "name": "GPWS_TerrInhibitSw_OVRD",
+      "offset": 217
+    },
+    {
+      "name": "GPWS_RunwayOvrdSw_OVRD",
+      "offset": 218
+    },
+    {
+      "name": "GPWS_GSInhibit_Sw",
+      "offset": 219
+    },
+    {
+      "name": "GPWS_annunGND_PROX_top",
+      "offset": 220
+    },
+    {
+      "name": "GPWS_annunGND_PROX_bottom",
+      "offset": 221
+    },
+    {
+      "name": "BRAKES_AutobrakeSelector",
+      "offset": 222
+    },
+    {
+      "name": "ISFD_Baro_Sw_Pushed",
+      "offset": 223
+    },
+    {
+      "name": "ISFD_RST_Sw_Pushed",
+      "offset": 224
+    },
+    {
+      "name": "ISFD_Minus_Sw_Pushed",
+      "offset": 225
+    },
+    {
+      "name": "ISFD_Plus_Sw_Pushed",
+      "offset": 226
+    },
+    {
+      "name": "ISFD_APP_Sw_Pushed",
+      "offset": 227
+    },
+    {
+      "name": "ISFD_HP_IN_Sw_Pushed",
+      "offset": 228
+    },
+    {
+      "name": "ISP_Nav_L_Sw_CDU",
+      "offset": 229
+    },
+    {
+      "name": "ISP_DsplCtrl_L_Sw_Altn",
+      "offset": 230
+    },
+    {
+      "name": "ISP_AirDataAtt_L_Sw_Altn",
+      "offset": 231
+    },
+    {
+      "name": "DSP_InbdDspl_L_Selector",
+      "offset": 232
+    },
+    {
+      "name": "EFIS_HdgRef_Sw_Norm",
+      "offset": 233
+    },
+    {
+      "name": "EFIS_annunHdgRefTRUE",
+      "offset": 234
+    },
+    {
+      "name": "BRAKES_BrakePressNeedle",
+      "offset": 236
+    },
+    {
+      "name": "BRAKES_annunBRAKE_SOURCE",
+      "offset": 240
+    },
+    {
+      "name": "ISP_Nav_R_Sw_CDU",
+      "offset": 241
+    },
+    {
+      "name": "ISP_DsplCtrl_R_Sw_Altn",
+      "offset": 242
+    },
+    {
+      "name": "ISP_AirDataAtt_R_Sw_Altn",
+      "offset": 243
+    },
+    {
+      "name": "ISP_FMC_Selector",
+      "offset": 244
+    },
+    {
+      "name": "DSP_InbdDspl_R_Selector",
+      "offset": 245
+    },
+    {
+      "name": "AIR_ShoulderHeaterKnob",
+      "offset": 246
+    },
+    {
+      "name": "AIR_FootHeaterSelector",
+      "offset": 248
+    },
+    {
+      "name": "LTS_LeftFwdPanelPNLKnob",
+      "offset": 250
+    },
+    {
+      "name": "LTS_LeftFwdPanelFLOODKnob",
+      "offset": 251
+    },
+    {
+      "name": "LTS_LeftOutbdDsplBRIGHTNESSKnob",
+      "offset": 252
+    },
+    {
+      "name": "LTS_LeftInbdDsplBRIGHTNESSKnob",
+      "offset": 253
+    },
+    {
+      "name": "LTS_RightFwdPanelPNLKnob",
+      "offset": 254
+    },
+    {
+      "name": "LTS_RightFwdPanelFLOODKnob",
+      "offset": 255
+    },
+    {
+      "name": "LTS_RightInbdDsplBRIGHTNESSKnob",
+      "offset": 256
+    },
+    {
+      "name": "LTS_RightOutbdDsplBRIGHTNESSKnob",
+      "offset": 257
+    },
+    {
+      "name": "CHR_Chr_Sw_Pushed",
+      "offset": 258
+    },
+    {
+      "name": "CHR_TimeDate_Sw_Pushed",
+      "offset": 260
+    },
+    {
+      "name": "CHR_TimeDate_Selector",
+      "offset": 262
+    },
+    {
+      "name": "CHR_Set_Selector",
+      "offset": 264
+    },
+    {
+      "name": "CHR_ET_Selector",
+      "offset": 266
+    },
+    {
+      "name": "EFIS_MinsSelBARO",
+      "offset": 268
+    },
+    {
+      "name": "EFIS_BaroSelHPA",
+      "offset": 270
+    },
+    {
+      "name": "EFIS_VORADFSel1",
+      "offset": 272
+    },
+    {
+      "name": "EFIS_VORADFSel2",
+      "offset": 274
+    },
+    {
+      "name": "EFIS_ModeSel",
+      "offset": 276
+    },
+    {
+      "name": "EFIS_RangeSel",
+      "offset": 278
+    },
+    {
+      "name": "EFIS_MinsKnob",
+      "offset": 280
+    },
+    {
+      "name": "EFIS_BaroKnob",
+      "offset": 282
+    },
+    {
+      "name": "EFIS_MinsRST_Sw_Pushed",
+      "offset": 284
+    },
+    {
+      "name": "EFIS_BaroSTD_Sw_Pushed",
+      "offset": 286
+    },
+    {
+      "name": "EFIS_ModeCTR_Sw_Pushed",
+      "offset": 288
+    },
+    {
+      "name": "EFIS_RangeTFC_Sw_Pushed",
+      "offset": 290
+    },
+    {
+      "name": "EFIS_WXR_Sw_Pushed",
+      "offset": 292
+    },
+    {
+      "name": "EFIS_STA_Sw_Pushed",
+      "offset": 294
+    },
+    {
+      "name": "EFIS_WPT_Sw_Pushed",
+      "offset": 296
+    },
+    {
+      "name": "EFIS_ARPT_Sw_Pushed",
+      "offset": 298
+    },
+    {
+      "name": "EFIS_DATA_Sw_Pushed",
+      "offset": 300
+    },
+    {
+      "name": "EFIS_POS_Sw_Pushed",
+      "offset": 302
+    },
+    {
+      "name": "EFIS_TERR_Sw_Pushed",
+      "offset": 304
+    },
+    {
+      "name": "MCP_IASMach",
+      "offset": 308
+    },
+    {
+      "name": "MCP_IASBlank",
+      "offset": 312
+    },
+    {
+      "name": "MCP_Heading",
+      "offset": 314
+    },
+    {
+      "name": "MCP_Altitude",
+      "offset": 316
+    },
+    {
+      "name": "MCP_VertSpeed",
+      "offset": 318
+    },
+    {
+      "name": "MCP_FPA",
+      "offset": 320
+    },
+    {
+      "name": "MCP_VertSpeedBlank",
+      "offset": 324
+    },
+    {
+      "name": "MCP_FD_Sw_On",
+      "offset": 325
+    },
+    {
+      "name": "MCP_ATArm_Sw_On",
+      "offset": 327
+    },
+    {
+      "name": "MCP_BankLimitSel",
+      "offset": 329
+    },
+    {
+      "name": "MCP_AltIncrSel",
+      "offset": 330
+    },
+    {
+      "name": "MCP_DisengageBar",
+      "offset": 331
+    },
+    {
+      "name": "MCP_Speed_Dial",
+      "offset": 332
+    },
+    {
+      "name": "MCP_Heading_Dial",
+      "offset": 333
+    },
+    {
+      "name": "MCP_Altitude_Dial",
+      "offset": 334
+    },
+    {
+      "name": "MCP_VS_Wheel",
+      "offset": 335
+    },
+    {
+      "name": "MCP_HDGDial_Mode",
+      "offset": 336
+    },
+    {
+      "name": "MCP_VSDial_Mode",
+      "offset": 337
+    },
+    {
+      "name": "MCP_AP_Sw_Pushed",
+      "offset": 338
+    },
+    {
+      "name": "MCP_CLB_CON_Sw_Pushed",
+      "offset": 340
+    },
+    {
+      "name": "MCP_AT_Sw_Pushed",
+      "offset": 341
+    },
+    {
+      "name": "MCP_LNAV_Sw_Pushed",
+      "offset": 342
+    },
+    {
+      "name": "MCP_VNAV_Sw_Pushed",
+      "offset": 343
+    },
+    {
+      "name": "MCP_FLCH_Sw_Pushed",
+      "offset": 344
+    },
+    {
+      "name": "MCP_HDG_HOLD_Sw_Pushed",
+      "offset": 345
+    },
+    {
+      "name": "MCP_VS_FPA_Sw_Pushed",
+      "offset": 346
+    },
+    {
+      "name": "MCP_ALT_HOLD_Sw_Pushed",
+      "offset": 347
+    },
+    {
+      "name": "MCP_LOC_Sw_Pushed",
+      "offset": 348
+    },
+    {
+      "name": "MCP_APP_Sw_Pushed",
+      "offset": 349
+    },
+    {
+      "name": "MCP_Speeed_Sw_Pushed",
+      "offset": 350
+    },
+    {
+      "name": "MCP_Heading_Sw_Pushed",
+      "offset": 351
+    },
+    {
+      "name": "MCP_Altitude_Sw_Pushed",
+      "offset": 352
+    },
+    {
+      "name": "MCP_IAS_MACH_Toggle_Sw_Pushed",
+      "offset": 353
+    },
+    {
+      "name": "MCP_HDG_TRK_Toggle_Sw_Pushed",
+      "offset": 354
+    },
+    {
+      "name": "MCP_VS_FPA_Toggle_Sw_Pushed",
+      "offset": 355
+    },
+    {
+      "name": "MCP_annunAP",
+      "offset": 356
+    },
+    {
+      "name": "MCP_annunAT",
+      "offset": 358
+    },
+    {
+      "name": "MCP_annunLNAV",
+      "offset": 359
+    },
+    {
+      "name": "MCP_annunVNAV",
+      "offset": 360
+    },
+    {
+      "name": "MCP_annunFLCH",
+      "offset": 361
+    },
+    {
+      "name": "MCP_annunHDG_HOLD",
+      "offset": 362
+    },
+    {
+      "name": "MCP_annunVS_FPA",
+      "offset": 363
+    },
+    {
+      "name": "MCP_annunALT_HOLD",
+      "offset": 364
+    },
+    {
+      "name": "MCP_annunLOC",
+      "offset": 365
+    },
+    {
+      "name": "MCP_annunAPP",
+      "offset": 366
+    },
+    {
+      "name": "DSP_L_INBD_Sw",
+      "offset": 367
+    },
+    {
+      "name": "DSP_R_INBD_Sw",
+      "offset": 368
+    },
+    {
+      "name": "DSP_LWR_CTR_Sw",
+      "offset": 369
+    },
+    {
+      "name": "DSP_ENG_Sw",
+      "offset": 370
+    },
+    {
+      "name": "DSP_STAT_Sw",
+      "offset": 371
+    },
+    {
+      "name": "DSP_ELEC_Sw",
+      "offset": 372
+    },
+    {
+      "name": "DSP_HYD_Sw",
+      "offset": 373
+    },
+    {
+      "name": "DSP_FUEL_Sw",
+      "offset": 374
+    },
+    {
+      "name": "DSP_AIR_Sw",
+      "offset": 375
+    },
+    {
+      "name": "DSP_DOOR_Sw",
+      "offset": 376
+    },
+    {
+      "name": "DSP_GEAR_Sw",
+      "offset": 377
+    },
+    {
+      "name": "DSP_FCTL_Sw",
+      "offset": 378
+    },
+    {
+      "name": "DSP_CAM_Sw",
+      "offset": 379
+    },
+    {
+      "name": "DSP_CHKL_Sw",
+      "offset": 380
+    },
+    {
+      "name": "DSP_COMM_Sw",
+      "offset": 381
+    },
+    {
+      "name": "DSP_NAV_Sw",
+      "offset": 382
+    },
+    {
+      "name": "DSP_CANC_RCL_Sw",
+      "offset": 383
+    },
+    {
+      "name": "DSP_annunL_INBD",
+      "offset": 384
+    },
+    {
+      "name": "DSP_annunR_INBD",
+      "offset": 385
+    },
+    {
+      "name": "DSP_annunLWR_CTR",
+      "offset": 386
+    },
+    {
+      "name": "WARN_Reset_Sw_Pushed",
+      "offset": 387
+    },
+    {
+      "name": "WARN_annunMASTER_WARNING",
+      "offset": 389
+    },
+    {
+      "name": "WARN_annunMASTER_CAUTION",
+      "offset": 391
+    },
+    {
+      "name": "ISP_DsplCtrl_C_Sw_Altn",
+      "offset": 393
+    },
+    {
+      "name": "LTS_UpperDsplBRIGHTNESSKnob",
+      "offset": 394
+    },
+    {
+      "name": "LTS_LowerDsplBRIGHTNESSKnob",
+      "offset": 395
+    },
+    {
+      "name": "EICAS_EventRcd_Sw_Pushed",
+      "offset": 396
+    },
+    {
+      "name": "CDU_annunEXEC",
+      "offset": 397
+    },
+    {
+      "name": "CDU_annunDSPY",
+      "offset": 400
+    },
+    {
+      "name": "CDU_annunFAIL",
+      "offset": 403
+    },
+    {
+      "name": "CDU_annunMSG",
+      "offset": 406
+    },
+    {
+      "name": "CDU_annunOFST",
+      "offset": 409
+    },
+    {
+      "name": "CDU_BrtKnob",
+      "offset": 412
+    },
+    {
+      "name": "FCTL_AltnFlaps_Sw_ARM",
+      "offset": 415
+    },
+    {
+      "name": "FCTL_AltnFlaps_Control_Sw",
+      "offset": 416
+    },
+    {
+      "name": "FCTL_StabCutOutSw_C_NORMAL",
+      "offset": 417
+    },
+    {
+      "name": "FCTL_StabCutOutSw_R_NORMAL",
+      "offset": 418
+    },
+    {
+      "name": "FCTL_AltnPitch_Lever",
+      "offset": 419
+    },
+    {
+      "name": "FCTL_Speedbrake_Lever",
+      "offset": 420
+    },
+    {
+      "name": "FCTL_Flaps_Lever",
+      "offset": 421
+    },
+    {
+      "name": "ENG_FuelControl_Sw_RUN",
+      "offset": 422
+    },
+    {
+      "name": "BRAKES_ParkingBrakeLeverOn",
+      "offset": 424
+    },
+    {
+      "name": "COMM_SelectedMic",
+      "offset": 425
+    },
+    {
+      "name": "COMM_ReceiverSwitches",
+      "offset": 428
+    },
+    {
+      "name": "COMM_OBSAudio_Selector",
+      "offset": 434
+    },
+    {
+      "name": "COMM_SelectedRadio",
+      "offset": 435
+    },
+    {
+      "name": "COMM_RadioTransfer_Sw_Pushed",
+      "offset": 438
+    },
+    {
+      "name": "COMM_RadioPanelOff",
+      "offset": 441
+    },
+    {
+      "name": "COMM_annunAM",
+      "offset": 444
+    },
+    {
+      "name": "XPDR_XpndrSelector_R",
+      "offset": 447
+    },
+    {
+      "name": "XPDR_AltSourceSel_ALTN",
+      "offset": 448
+    },
+    {
+      "name": "XPDR_ModeSel",
+      "offset": 449
+    },
+    {
+      "name": "XPDR_Ident_Sw_Pushed",
+      "offset": 450
+    },
+    {
+      "name": "FIRE_EngineHandle",
+      "offset": 451
+    },
+    {
+      "name": "FIRE_EngineHandleUnlock_Sw",
+      "offset": 453
+    },
+    {
+      "name": "FIRE_annunENG_BTL_DISCH",
+      "offset": 455
+    },
+    {
+      "name": "FCTL_AileronTrim_Switches",
+      "offset": 457
+    },
+    {
+      "name": "FCTL_RudderTrim_Knob",
+      "offset": 458
+    },
+    {
+      "name": "FCTL_RudderTrimCancel_Sw_Pushed",
+      "offset": 459
+    },
+    {
+      "name": "EVAC_Command_Sw_ON",
+      "offset": 460
+    },
+    {
+      "name": "EVAC_PressToTest_Sw_Pressed",
+      "offset": 461
+    },
+    {
+      "name": "EVAC_HornSutOff_Sw_Pulled",
+      "offset": 462
+    },
+    {
+      "name": "EVAC_LightIlluminated",
+      "offset": 463
+    },
+    {
+      "name": "LTS_AisleStandPNLKnob",
+      "offset": 464
+    },
+    {
+      "name": "LTS_AisleStandFLOODKnob",
+      "offset": 465
+    },
+    {
+      "name": "LTS_FloorLightsSw",
+      "offset": 466
+    },
+    {
+      "name": "DOOR_state",
+      "offset": 467
+    },
+    {
+      "name": "DOOR_CockpitDoorOpen",
+      "offset": 483
+    },
+    {
+      "name": "ENG_StartValve",
+      "offset": 484
+    },
+    {
+      "name": "AIR_DuctPress",
+      "offset": 488
+    },
+    {
+      "name": "FUEL_QtyCenter",
+      "offset": 496
+    },
+    {
+      "name": "FUEL_QtyLeft",
+      "offset": 500
+    },
+    {
+      "name": "FUEL_QtyRight",
+      "offset": 504
+    },
+    {
+      "name": "FUEL_QtyAux",
+      "offset": 508
+    },
+    {
+      "name": "IRS_aligned",
+      "offset": 512
+    },
+    {
+      "name": "EFIS_BaroMinimumsSet",
+      "offset": 513
+    },
+    {
+      "name": "EFIS_BaroMinimums",
+      "offset": 516
+    },
+    {
+      "name": "EFIS_RadioMinimumsSet",
+      "offset": 524
+    },
+    {
+      "name": "EFIS_RadioMinimums",
+      "offset": 528
+    },
+    {
+      "name": "EFIS_Display",
+      "offset": 536
+    },
+    {
+      "name": "AircraftModel",
+      "offset": 542
+    },
+    {
+      "name": "WeightInKg",
+      "offset": 543
+    },
+    {
+      "name": "GPWS_V1CallEnabled",
+      "offset": 544
+    },
+    {
+      "name": "GroundConnAvailable",
+      "offset": 545
+    },
+    {
+      "name": "FMC_TakeoffFlaps",
+      "offset": 546
+    },
+    {
+      "name": "FMC_V1",
+      "offset": 547
+    },
+    {
+      "name": "FMC_VR",
+      "offset": 548
+    },
+    {
+      "name": "FMC_V2",
+      "offset": 549
+    },
+    {
+      "name": "FMC_ThrustRedAlt",
+      "offset": 550
+    },
+    {
+      "name": "FMC_AccelerationAlt",
+      "offset": 552
+    },
+    {
+      "name": "FMC_EOAccelerationAlt",
+      "offset": 554
+    },
+    {
+      "name": "FMC_LandingFlaps",
+      "offset": 556
+    },
+    {
+      "name": "FMC_LandingVREF",
+      "offset": 557
+    },
+    {
+      "name": "FMC_CruiseAlt",
+      "offset": 558
+    },
+    {
+      "name": "FMC_LandingAltitude",
+      "offset": 560
+    },
+    {
+      "name": "FMC_TransitionAlt",
+      "offset": 562
+    },
+    {
+      "name": "FMC_TransitionLevel",
+      "offset": 564
+    },
+    {
+      "name": "FMC_PerfInputComplete",
+      "offset": 566
+    },
+    {
+      "name": "FMC_DistanceToTOD",
+      "offset": 568
+    },
+    {
+      "name": "FMC_DistanceToDest",
+      "offset": 572
+    },
+    {
+      "name": "FMC_flightNumber",
+      "offset": 576
+    },
+    {
+      "name": "WheelChocksSet",
+      "offset": 585
+    },
+    {
+      "name": "APURunning",
+      "offset": 586
+    },
+    {
+      "name": "FMC_ThrustLimitMode",
+      "offset": 587
+    },
+    {
+      "name": "ECL_ChecklistComplete",
+      "offset": 588
+    },
+    {
+      "name": "reserved",
+      "offset": 598
+    }
+  ]
+}

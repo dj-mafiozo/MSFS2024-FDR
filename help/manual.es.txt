@@ -1,0 +1,368 @@
+﻿@overview|Primeros pasos
+Elija grabar o analizar. Grabar requiere MSFS 2024; analizar archivos funciona sin simulador. Mantenga la estructura del paquete, inicie MSFS24-FDR.exe y revise idioma/estado. Cargue el avión y salga de preparación con Ready for flight.
+Para reproducir elija un vuelo finalizado y desacople paneles cuando convenga. Compare el mismo instante en mapa, PFD y datos. Los planes/OFP usan el circuito anonimizado EPLL.25 ADOX2W SOXE2T LL501 ILSZ.25 EPLL.25; la telemetría ilustrativa es sintética.
+MSFS24-FDR graba y reproduce datos de Microsoft Flight Simulator 2024. No admite MSFS 2020, FSX ni Prepar3D. Los instrumentos son vistas de análisis, no controles del simulador.
+Primera grabación :: Extraiga todo el paquete Win64 portable, ejecute el EXE, cargue el vuelo y pulse Ready for flight. Espere la conexión antes de grabar manual o automáticamente.
+Reproducción :: Seleccione un vuelo finalizado. Mapa, gráficos, instrumentos y pestañas comparten el tiempo grabado.
+Datos :: Configuración, índice, vuelos y registros están en %LocalAppData%\MSFS24-FDR. Copie toda la carpeta, incluida Recordings; sustituir el programa no requiere borrarla.
+Sin conexión :: Datos, planes, mensajes y mapas guardados funcionan sin MSFS. Nuevas teselas, tiempo/SimBrief e IA en la nube necesitan sus servicios de red.
+Ayuda :: F1 abre el tema del panel activo. Use el árbol y la búsqueda CHM. Los otros idiomas de interfaz utilizan la ayuda inglesa.
+@recordings|Biblioteca, importación y recuperación
+Haga copia antes de importar una base antigua o MFZR individual. La migración crea un archivo por vuelo; el índice conserva metadatos y ruta relativa. Si falta el archivo, se oculta sin borrar el índice. Revise su ubicación antes de eliminar metadatos. Texto y grupo filtran conjuntamente.
+Árbol por ICAO del avión, ICAO de salida, año y mes traducido; recientes primero. Un archivo ausente conserva sus metadatos del índice.
+Buscar / grupos :: Los filtros actúan juntos; vacíelos para restaurar resultados. Una carpeta no es un vuelo.
+Abrir / actualizar :: Selecciona base/índice o recarga biblioteca y descubre .mfzr colocados en el almacenamiento.
+Importar :: .mfzr individuales, flight_data.db antigua y bases del grabador Qt original. Se separan vuelos, se conserva la fuente y se reconocen entradas importadas.
+Exportación legacy :: Un vuelo con campos del grabador original, sin extensiones SDK/FMC/tiempo. No sustituye una copia completa.
+Grupos / información :: Crear, renombrar, eliminar y asignar con Aceptar. El diálogo de vuelo edita los metadatos ofrecidos; la telemetría permanece separada.
+Eliminar vuelo :: La confirmación borra archivo y entrada. Detenga primero su grabación; no es solo ocultar una fila.
+Recuperar :: Tras un fallo puede ofrecerse al iniciar. El resultado puede ser parcial o dañado; guarde copia antes de reparar datos importantes.
+Vista individual :: EXE con una ruta .mfzr existente: solo ese vuelo, biblioteca oculta, gestión/grabación desactivadas y sin abrir SimConnect.
+@recording|Grabar un vuelo del simulador
+La grabación automática espera inicio real, no solo conexión o preparación. Al terminar se cierra y finaliza; finalizing todavía no es completed. Intervalos menores aumentan datos/carga, pero no obligan al addon a publicar SDK más rápido. Preserve el archivo recuperable tras CTD.
+Requiere MSFS 2024 compatible, conexión y vuelo listo. La pantalla de preparación o cargar el avión no basta.
+Iniciar / detener :: Inicia el vuelo activo; detener finaliza el archivo. Espere antes de cerrar o moverlo. Un archivo activo no es una grabación terminada.
+Automático :: Espera al vuelo después de Ready for flight y considera eventos de sesión/avión. Tras un CTD revise estado y recuperación.
+Intervalo :: Milisegundos en la barra. Menor valor aumenta datos/carga. Se guarda en nuevos vuelos; los antiguos usan separación inferida o 500 ms.
+Datos del avión :: Suscripciones según avión/motor. Cambiar visualización no crea telemetría SDK/L-var ausente.
+Estados :: recording activo, finalizing finalizando, completed terminado; interrupted/error requieren revisión. Recording identifica una entrada activa no disponible.
+Sin conexión :: MSFS cerrado no invalida un vuelo ya cargado para reproducción offline.
+@workspace|Paneles, acoplamiento y ventanas
+Ajuste primero biblioteca y datos, después alturas con separadores. Se mantienen proporciones y geometría de instrumentos; márgenes vacíos son normales.
+Arrastre cabeceras fuera para desacoplar o a un destino para acoplar. La acción de ventana cambia estado e icono. Cerrar restaura el contenido. Un contenedor vacío se contrae; estado y geometría se guardan por vista.
+Centro con mapa/gráficos/instrumentos/tiempo, biblioteca izquierda y datos a la derecha. Los separadores distribuyen espacio.
+Ventana aparte :: Mueve el mismo frame y cambia el icono; conserva datos y sincronización.
+Pestañas :: Arrastre el encabezado para separar y acople a barra/borde disponible. Cerrar devuelve la pestaña a su panel original.
+Instrumentos juntos :: PFD y EICAS/ECAM pueden compartir ventana flotante mediante los destinos de acoplamiento.
+Tamaño :: Conserva proporciones; los márgenes evitan deformar los instrumentos.
+Guardar / restaurar :: Recuerda estado y geometría de cada ventana. Un host vacío se contrae. Restaurar diseño en ajustes no borra vuelos.
+@playback|Reproducción y tiempo grabado
+1x sigue el tiempo grabado, no una muestra por tick. La interpolación suaviza valores continuos y ángulos; los interruptores mantienen saltos. Pause para elegir un instante. Stop vuelve al inicio y 1x. Saltos normales son 30 segundos; ghost tiene acciones separadas de 10 segundos.
+La reproducción normal controla el análisis, no un avión del simulador. Ghost es independiente.
+Reproducir / pausa :: Sincroniza mapa, gráficos, instrumentos, FMC y mensajes con el cursor.
+Detener :: Vuelve al principio y restablece 1x.
+Saltos :: Inicio/final al primer/último punto; atrás/adelante 30 segundos dentro del vuelo.
+Velocidad :: 0.125, 0.25, 0.5, 0.75, 1, 2, 4, 8 o 16x, indicada en la etiqueta. No añade muestras inexistentes.
+Deslizador / ratón :: Selección directa. El hover de gráficos no mueve el tiempo durante reproducción; pause para inspeccionar.
+Interpolación / ATC :: Valores continuos suaves, interruptores discretos. La última línea ATC aparece unos 30 segundos grabados. Un hueco no es cero válido.
+@ghost|Avión ghost en MSFS 2024
+Cargue un vuelo en MSFS 2024 y seleccione grabación. Ghost usa conexión/hilo propios, separado del análisis. Deténgalo antes de cambiar archivo/sesión. AIG/FSLTL requieren modelos instalados; VMR no los instala. Un modelo sustituto puede ofrecer menos animaciones.
+Avión AI visual, distinto del usuario; no ejecuta la aviónica del complemento original.
+Reproducir / pausa / detener :: Necesita vuelo cargado y SimConnect. Detener elimina el objeto; hágalo antes de cambiar vuelo/sesión.
+Atrás / adelante :: Saltos de 10 segundos para ghost, distintos de los 30 segundos normales.
+Frecuencia :: 5–60 Hz, predeterminado 30; más actualizaciones no aumentan muestras originales ni garantizan rendimiento.
+Modelos :: Mejor coincidencia instalada AIG/FSLTL por tipo/librea; alternativa AI predeterminada. El modelo debe estar realmente en Community.
+VMR :: FSLTL_Rules.vmr opcional; vacío usa detección automática. Las reglas no instalan modelos.
+Animación :: Posición, actitud, tren/flaps/spoilers, mandos, motores, luces y reversas dependen de datos e inputs escribibles del modelo.
+@map|Mapa y capas de ruta
+OpenStreetMap sitúa posiciones sobre el terreno. La traza son medidas y magenta es el plan. Tramos coincidentes no necesitan doble línea; quedan puntos y restricciones. Un segmento entre muestras no es medición metro a metro.
+El ejemplo sale EPLL 25 por ADOX2W, ADOXO, SOXER, SOXE2T y LL501 hacia ILS Z 25. Ilustra funciones, no sustituye cartas actuales. Arrastre para mover, rueda para zoom y Ajustar para recuperar extensión. Las teselas nuevas requieren conexión.
+La trayectoria real es posición medida; magenta representa el plan guardado.
+Navegar :: Arrastre, rueda/botones de zoom y ajustar. Vista general muestra rutas de biblioteca.
+Teselas :: Active/desactive fondo online. La caché puede funcionar offline; fondo vacío no significa GPS ausente.
+Plan :: Puntos nombrados y restricciones disponibles; tramos coincidentes sin línea duplicada.
+Procedimientos :: SID/STAR/aproximación resueltos desde EFB y guardados. Aproximación frustrada gris oscuro; esperas con parámetros y símbolos esquemáticos.
+Coordenadas :: SimBrief coincidente puede aportar nombres si difiere AIRAC; no actualiza la base de navegación.
+Exportar :: PNG es ilustración, KML trayectoria externa; ninguno sustituye .mfzr.
+@flight-plan|Plan de vuelo, EFB y procedimientos
+Leer plan y resolver navegación son etapas distintas. EFB aporta aeropuertos/procedimientos; facility añade geometría y restricciones guardadas. ADOX2W no contiene todas las coordenadas. SimBrief puede identificar puntos anónimos, pero no se inventan restricciones ausentes. La ruta resuelta funciona sin conexión.
+Muestra el plan guardado, no edita el FMS.
+Captura :: Tras empezar vuelo lee EFB/SimConnect, resuelve posiciones/procedimientos con facility y guarda el resultado.
+Aeropuertos :: Salida/destino pueden conocerse antes del arranque. UNKNOWN indica datos ausentes o no resueltos entonces.
+Importar PLN :: Adjunte el PLN y compruebe aeropuertos/fuente antes de interpretar la capa.
+Restricciones :: Velocidad, altitud, posición y función cuando existen. El plan no demuestra autorización ATC.
+Offline :: Snapshots guardados sin consultar de nuevo MSFS; textos/puntos antiguos no siempre permiten expandir procedimientos.
+@charts|Gráficos e inspección de parámetros
+Elija magnitudes apropiadas: IAS, V/S y cabeceo para toma, o N1/EGT/FF para potencia. No muestre todo a la vez. El orden se configura en el diálogo. Las unidades de presentación no modifican medidas originales.
+El cursor temporal se sincroniza con el espacio de trabajo.
+Selección :: Configure parámetros y orden; busque nombres disponibles.
+Zoom / desplazar :: Cambia intervalo, mueve dentro de él; vista completa restaura toda la duración.
+Cursor :: Hover busca tiempo en pausa, no durante reproducción.
+Unidades / huecos :: Presentación no modifica muestras. Etiquetas de interruptores verificadas permanecen del cockpit; desconocidos numéricos. Falta de línea no es cero medido.
+@chart-options|Seleccionar y ordenar gráficos
+Izquierda contiene disponibles, derecha selección ordenada. La búsqueda filtra izquierda; vacíela para otras familias. Botones y arrastre entre listas muestran/ocultan.
+Arriba/abajo e inicio/final ordenan la derecha. Ctrl-arrastrar cambia orden según destino. OK aplica y Cancelar descarta. La imagen usa el catálogo estándar completo, no cinco entradas; consulte el capítulo SimVar.
+Separa parámetros disponibles y lista ordenada de visibles.
+Buscar :: Fragmento de nombre; vaciar restaura todos, sin borrar datos.
+Mostrar / ocultar :: Añade/quita solo de la presentación.
+Arrastrar :: Entre listas para mostrar/ocultar; solo destinos aceptados cambian selección.
+Orden :: Arriba/abajo/primero/último o Ctrl-arrastrar en visibles; insertar entre filas.
+Aceptar / cancelar :: Aplica o descarta los cambios del diálogo.
+@data|Valores, eventos, despegues y aterrizajes
+Valores describe el instante, Eventos la historia y Despegues/Aterrizajes el contacto. Son vistas de una grabación. Desacóplelas para comparar. Buscar valores no filtra vuelos; buscar vuelos no borra parámetros. Cada vista tiene capítulo propio.
+Información histórica del vuelo elegido, no de la sesión MSFS actual.
+Buscar :: Filtra nombres legibles e identificadores; vacío muestra todo. Valores según cursor.
+Interruptores :: UP/1/2/5 o RTO/DISARMED verificados permanecen sin traducir. Desconocidos siguen numéricos.
+Eventos :: Consulte tipo y momento guardados.
+Contactos :: Elija liftoff/touchdown para tiempo/IA; no equivale necesariamente al inicio de rotación/flare.
+Metadatos :: Agrupación por avión/aeropuerto separada de mediciones.
+@instruments|Instrumentos grabados
+Reconstrucciones de análisis, no aviónica certificada ni control interactivo.
+Automático :: Tipo/categoría elige GA analógico, glass/classic, genérico o airliner compatible. Override no cambia la identidad.
+Six-pack :: Velocidad, actitud, altitud, giro/resbale, rumbo, VSI; ILS/baro válidos cuando existen.
+Escalas :: VSI analógico conserva rango fijo de perfil/vuelo. Texto convertido es distinto del mecanismo altimétrico en pies.
+Faltantes :: Guiones distinguen ausencia de cero real; no se inventan estados SDK históricos.
+Renderizado :: Proporciones/antialiasing por encima y debajo del 100%; ventanas conservan fuente/tiempo.
+@engines|Indicadores de motor y configuración
+Panel genérico según tipo/cantidad; B38M EICAS o A320 ECAM lo sustituye para esos instrumentos.
+Pistón :: RPM, EGT/CHT, aceite, combustible izquierda/derecha, electricidad/vacío y condition/reverse disponibles.
+Turbohélice :: Par, RPM de hélice, ITT, Ng/N1, aceite, flujo y condition/beta/reverse.
+Jet :: N1, N2, EGT, flujo, aceite/vibración; modo de empuje/A/T complementario.
+Unidades :: Aceite en psi, no psf. Temperatura, cantidad y flujo son magnitudes diferentes; ausentes siguen ausentes.
+Ventana :: Separar, escalar proporcionalmente y acoplar sin instrumentos recortados en scrollbox.
+@boeing|B38M PFD, EICAS e información de vuelo
+Frames MAX para B38M, no emulación completa B736–B739.
+PFD :: Cintas IAS/Mach/altitud, actitud, rumbo, VSI, objetivos, baro/STD, ILS, radioaltitud y mínimas disponibles.
+Información :: Número de vuelo, squawk con ceros, SELCAL, matrícula, UTC/fecha grabados y tiempo transcurrido. CPT izquierda, FO derecha; ocultable en Debug.
+Flight Director :: Comandos estándar pitch/bank válidos. Sin datos útiles del addon no hay reconstrucción fiable; se puede desactivar.
+FMA :: Reconstruido de iFly SDK/MCP y datos estándar, identificado como tal. Ausencia histórica no confirma OFF; VNAV/flare/empuje pueden aproximarse.
+Viento / VOR / ADF :: Flecha relativa al rumbo; bloques 1/2 con sintonía y DME disponible. Estación ausente no es distancia cero.
+AoA / mínimas :: Incidencia grabada e inhibición en tierra. Las mínimas requieren selección del piloto, no constantes de diseño.
+EICAS :: Motores, combustible, flaps y avisos disponibles; campos históricos pueden estar vacíos.
+@airbus|A320 PFD y ECAM superior/inferior
+Fenix/FBW dependen de versión y datos capturados.
+PFD :: Actitud, cintas, rumbo, FMA, FD, ILS, modos baro/velocidad; respeta validez ARINC FBW compatible.
+Mínimas :: BARO/RADIO/NO DH cuando existen. RADIO relativa a radioaltitud, no marcador MSL arbitrario; no inventa selecciones.
+E/WD :: N1, EGT, N2, flujo/cantidad, configuración y advertencias/memos. Ausencia no demuestra cockpit sin fallos.
+Recorded :: Sigue la página grabada en ese instante; sin su estado no puede conocerse con certeza.
+Páginas manuales :: ENG, BLEED, PRESS, ELEC, HYD, FUEL, APU, COND, DOOR, WHEEL, F/CTL, STS, CRUISE al tiempo actual. No envían órdenes al avión.
+Avisos / STS :: Flags/catálogos compatibles, no captura de píxeles ni garantía de todos los avisos propietarios.
+@fmc|Reproducción FMC/MCDU
+Pantallas e indicadores grabados sincronizados; no controla el cockpit en vivo.
+Dispositivo :: Formato A320/B737/B777 disponible inferido del vuelo; sin selector manual.
+Izquierda / derecha :: Seleccione unidad; páginas/tiempos pueden diferir. No sustituye faltantes con la otra unidad sin evidencia.
+Formato :: Colores, tamaños/estilos y controles disponibles con fondo del dispositivo. Posición sola no recupera pantallas.
+Buscar :: Al retroceder usa la última observada hasta entonces. Una página sin cambios puede ser correcta; puede grabarse solo al cambiar.
+Ventana :: Separar/acoplar conserva sincronización.
+@simbrief|SimBrief, OFP y mapas
+El manual usa un plan EPLL–EPLL anonimizado. Vuelo/matrícula son de ejemplo; se excluyen cuenta, tripulación y enlaces personales. OFP contiene planificación, no medidas de telemetría.
+Abra secciones por separado. La rueda desplaza también sobre texto OFP. Los mapas se guardan como imágenes con el vuelo. No se presentan planes históricos a VATSIM u otras redes. Compare aeropuertos, avión y hora antes de asociar.
+Fuente de plan/briefing, no medición. Importación necesita identificador de cuenta y red.
+Importar :: Descargue OFP y verifique avión, ruta y hora prevista antes de asociarlo.
+OFP :: Texto nativo monoespaciado de solo lectura; rueda desplaza el contenedor también sobre el texto.
+Mapas :: Descargados y guardados con el vuelo, no simples enlaces GIF; utilizables sin URL remota posterior.
+Comparar :: Masa/combustible/viento previstos no son valores reales. Plan coincidente puede nombrar puntos EFB con distinto AIRAC.
+Sin presentación :: OFP históricos no se presentan en VATSIM/otras redes; no existe esa acción.
+@atc|Comunicaciones ATC y FSHud
+La pestaña conserva conversaciones; la línea temporal muestra el mensaje aplicable unos 30 segundos grabados. Retroceder no transmite. FSHud y MSFS ATC son fuentes distintas. Variables de autorización/altitud son estado, no conversación. Frecuencia sola no recupera texto ausente.
+Mensajes históricos; FSHud y ATC nativo son fuentes distintas.
+Historial :: Tiempo, frecuencia/indicativo y texto disponibles; reproducir no transmite radio.
+MSFS :: Bridge opcional captura listener si está expuesto. Variables de autorización/pista/agente/COM no equivalen a transcripción.
+FSHud :: Requiere interfaz compatible durante captura; frecuencia sola no reconstruye voz.
+Subtítulo :: Última línea pertinente unos 30 segundos grabados junto al deslizador; historial completo en pestaña.
+Ausencia :: Puede faltar interfaz/datos; no prueba silencio ni falta de autorización.
+@gsx|GSX Pro: servicios y progreso
+Los servicios siguen solicitud, actividad y final según GSX grabado. Barras aparecen desde Requested; sin objetivo la animación no es porcentaje medido. Boarding puede mostrar pasajeros y equipaje/carga; repostaje cantidad/objetivo. Cambiar cisterna puede reiniciar contador. Retroceder usa valores históricos, no totales finales.
+GSX debe suministrar variables compatibles durante la grabación.
+Requested :: Barra visible al solicitar, no prueba llegada del vehículo ni inicio medido.
+Boarding / deboarding :: Pasajeros/equipaje/carga y objetivos conocidos; no deduce objetivos antiguos de muestras futuras.
+Repostaje :: Cantidad transferida/objetivo y estado de cisterna. Varios camiones/resets posibles; contador no siempre es total del vuelo.
+Otros :: Catering, salida/pushback y deshielo disponibles. Finalización sin medición no necesita contadores intermedios inventados.
+Replay :: Retroceder restaura estado anterior. Descripciones traducidas; SDK crudo en Valores.
+@weather|METAR, TAF y comparación
+Elija despegue o aterrizaje. Los snapshots corresponden a separación del suelo o toma. Simulador y aviationweather.gov se guardan separados con fuente/hora. La ventana muestra texto, decodificación y diferencias. Compare estación y observación primero. TAF ausente no es pronóstico de buen tiempo.
+Tiempo del despegue/aterrizaje elegido; simulador y aviationweather.gov guardados separadamente con fuente/hora.
+Simulador :: MSFS24-FDR-Bridge opcional consulta servicios de aviónica. Depende de estación/MSFS; no crea TAF no publicado.
+Momento :: Salida al pasar tierra–aire, llegada al contacto, según aeropuerto/plan disponibles. Snapshot de evento, no observación oficial continua.
+Real :: Compruebe hora de observación/consulta. Consulta posterior no recupera necesariamente tiempo histórico exacto.
+Decodificar :: Estación/hora, viento/rachas, visibilidad, fenómenos, nubes, temperatura/rocío y presión cuando publicados; grupos ausentes vacíos.
+Diferencias :: Estación/hora/configuración pueden explicarlas. Presión a altitud del avión no es QNH del aeropuerto.
+Offline :: Informes guardados permanecen; consultas nuevas requieren red y acción habilitada.
+@analysis|Análisis IA de despegues y aterrizajes
+Elija primero el contacto correcto, especialmente tras touch-and-go. Revise cobertura, meteorología y plan. La instrucción pide idioma de aplicación y separar plan/medida. Los informes se guardan; abrir no genera respuesta nueva. Shift con análisis solicita otro informe. Verifique conclusiones en gráficos.
+Seleccione evento, configure proveedor y solicite análisis. Asistencia formativa de simulador, puede equivocarse.
+Ventanas :: Despegue 60/30 s y aterrizaje 180/30 antes/después por defecto; cada campo 1–300 s dentro de los datos.
+Entrada :: Telemetría y plan/FMC/tiempo disponibles; plan separado de medición, no inventa parámetros.
+Idioma :: Prompt solicita idioma de aplicación con identificadores aeronáuticos intactos; modelo puede incumplir.
+Proveedor :: Codex CLI/Gemini/Ollama autenticados/configurados aparte; contexto y timeout limitan solicitud.
+Informe :: Markdown nativo guardado con evento por el flujo de análisis; abrirlo no exige nueva respuesta.
+Interpretación :: Revise la serie: muestreo puede perder pico de impacto; liftoff no es inicio de rotación, IAS estable no es automáticamente VREF.
+@settings|Guía de ajustes
+Ajustes contiene General, Unidades, Análisis, IA, Debug y Ghost. Guardar aplica; Cancelar conserva valores anteriores. Presentación no reescribe telemetría. Tras cambiar monitores restaure acoplamiento predeterminado, no borre grabaciones ni carpeta de datos.
+Guardar aplica; Cancelar descarta. Presentación no reescribe telemetría.
+General :: Idioma, historial, restaurar diseño y actualizaciones portable desactivadas.
+Unidades :: Presentación compatible; almacenamiento en unidades fuente.
+Análisis :: Ventanas independientes para ambos eventos.
+IA :: Conexión/modelo, contexto y timeout.
+Debug :: Tipo de instrumentos y opciones B38M de información/lado/AoA/FD.
+Ghost :: Frecuencia y reglas VMR opcionales.
+@settings-general|Ajustes generales e idioma
+Automático detecta idioma UI Windows y variante regional. La selección manual permanece hasta volver a automático. Idiomas sin manual usan inglés. Las actualizaciones portable están bloqueadas incluso con INI antiguo. Setup solo muestra aviso; reemplace archivos con la aplicación cerrada.
+Automático :: Idioma UI Windows y variantes regionales, fallback inglés. Selección manual recordada.
+RTL :: Árabe/hebreo afectan interfaz normal, no geometría del cockpit; volver a LTR restaura dirección.
+Autoactualización :: Desactivada en portable; INI no activa updater. Setup solo muestra aviso.
+Comprobar :: También desactivado. Descargue nueva versión manualmente conservando datos.
+Historial :: Polaco con UI polaca, inglés en otro caso; ShowChangeLog abre al iniciar.
+Diseño predeterminado :: Restablece acoplamiento/tamaños, no borra vuelos.
+@settings-units|Unidades de presentación
+Elija unidades por magnitud y compruebe etiquetas. La geometría clásica puede seguir en pies aunque el texto use metros. Presión barométrica, de aceite e hidráulica son distintas. Aceite usa psi. Las posiciones son enums: FLAPS 5 es una etiqueta de detente, no necesariamente grados.
+Selección :: Unidad compatible por magnitud; inspector/gráficos convierten valor y título, no la fuente.
+Altitud / velocidad :: Texto convertido separado de geometría tradicional del instrumento.
+Presión / combustible :: Diferencie aceite/baro y cantidad/flujo; aceite en psi.
+Enums :: Etiquetas de interruptores son mapas, no conversiones; desconocidos numéricos.
+@settings-analysis|Ventanas del análisis
+Cuatro campos definen segundos antes/después de despegue y toma independientemente. Ventanas mayores aportan contexto pero aumentan entrada y pueden superar límites. No crean muestras fuera del archivo. Nuevos informes usan el rango nuevo; informes guardados no se reescriben solos.
+Antes del despegue :: 60 s por defecto, 1–300 antes de liftoff; más contexto de carrera aumenta entrada.
+Después del despegue :: 30 s, 1–300; ascenso inicial, no rendimiento de todo el vuelo.
+Antes de aterrizar :: 180 s, 1–300; ampliar no recupera aproximación no grabada.
+Después de aterrizar :: 30 s, 1–300; carrera y contactos posteriores.
+Límites :: Duración grabada, contexto del modelo y timeout.
+@settings-ai|Proveedores IA, modelos y conexión
+Elija proveedor y pestaña. Codex necesita CLI nativo y autenticación; EXE no es wrapper. Gemini requiere clave/modelo. Ollama requiere servidor accesible con modelo instalado; refrescar no descarga pesos. Timeout limita espera, no necesariamente proceso remoto. No comparta INI personal con claves.
+Proveedor :: Codex/Gemini/Ollama; editar campos no crea cuentas.
+Timeout :: 1–1800 s, predeterminado 180; deja de esperar, no prueba que la nube no recibió datos.
+Codex EXE :: Vacío detecta codex.exe nativo; no wrappers .cmd/.ps1. Autentique CLI aparte.
+Modelo Codex :: Vacío usa predeterminado CLI; override debe estar disponible.
+Gemini :: Identificador de modelo y clave API; nunca comparta settings.ini personal con clave.
+Ollama :: http://localhost:11434 por defecto; URL de servidor alcanzable, no página de descarga.
+Modelo / actualizar :: Lista modelos instalados; no descarga pesos.
+Contexto :: 2048–262144 tokens, predeterminado 32768; capacidad depende del modelo/configuración/memoria.
+Idioma :: Cada proveedor recibe locale actual en prompt, manteniendo identificadores.
+@settings-instruments|Override y opciones B38M
+Automático elige por ICAO y datos. Override compara renderizadores sin cambiar identidad. Cambiar entre six-pack, PFD, B38M y A320 no crea SDK ausente. Las opciones B38M controlan información, lado CPT/FO, AoA y FD. Desactive FD si el addon no publica órdenes estándar.
+Automático :: Selecciona desde grabación; override no genera SDK de otro avión.
+Familia :: GA analógico, GA glass, airliner clásico, PFD genérico, B38M PFD/EICAS o A320 PFD/ECAM; metadatos intactos.
+Información :: Número/squawk/matrícula/SELCAL/tiempo, activada por defecto.
+Lado :: Marcado = izquierda/CPT, sin marcar = derecha/FO; independiente de visibilidad.
+AoA :: Desactivado por defecto; incidencia válida e inhibición terrestre.
+FD :: Activado por defecto; comandos estándar SimConnect grabados. Desactive con valores inútiles del addon.
+@about|Acerca de, versión y ayuda
+Informe de la versión completa del EXE, no solo 0.1.1. Añada simulador/addon, ICAO, idioma, escala y pasos. El número proviene de VersionInfo. F1 usa contexto del control o padre, también en paneles desacoplados.
+Versión :: Datos de versión/autoría del EXE; indique número completo al informar.
+F1 :: HelpContext DFM del control/padres; frame flotante conserva tema.
+Idiomas :: CHM polaco, inglés, alemán, español; otros UI usan inglés.
+Alcance :: Software independiente de simulador; aviones comerciales, GSX, FSHud y modelos AI se instalan aparte.
+@release|Versiones portable e historial
+Extraiga todo el ZIP con gráficos, fuentes y ayuda. Cierre antes de reemplazar archivos. LocalAppData permanece; haga copias. No sobrescriba INI personal con ejemplo. Setup solo avisa; actualizaciones automáticas están deshabilitadas. Changelog agrupa releases; Build identifica diagnóstico.
+Paquete :: ZIP Win64 completo sin contraseña; mantenga rutas relativas DLL/fuentes/gráficos/CHM.
+Actualizar :: Cierre programa, sustituya archivos y conserve %LocalAppData%\MSFS24-FDR; no sobrescriba INI personal con ejemplo.
+Stub Setup :: Solo aviso de desarrollo; no instala/repara/desinstala/actualiza.
+Historial :: Preview, 0.1.0, 0.1.1 y siguientes releases, no sección por build.
+@troubleshooting|Solución de problemas e informes
+Separe conexión y reproducción. Simulador ausente no invalida replay offline. Para vuelos ausentes revise filtros, índice y MFZR; para parámetros tipo y soporte al grabar. Informe esperado/real y logs relevantes, revisados para retirar datos personales y claves.
+Grabación bloqueada :: MSFS 2024, conexión y Ready for flight; vista individual desactiva captura intencionadamente.
+Vuelo ausente :: Filtros, índice y archivo; actualizar/importar, copia antes de modificar índice.
+Instrumentos :: ICAO, override y disponibilidad al capturar; vacío no confirma cero.
+Diseño :: Restaurar predeterminado; informar escalado de monitores y disposición.
+IA :: Login/clave/servidor/modelo, contexto/timeout; no comparta credenciales.
+Informe útil :: Versión completa EXE/addons, pasos, capturas y registros pertinentes; revise datos personales antes de compartir vuelos.
+
+@sixpack|Six-pack clásico
+El conjunto incluye IAS, horizonte artificial, altímetro, viraje/resbale, rumbo y variómetro. Interprételos juntos: el ascenso debe coincidir con el signo de V/S y el alabeo con el cambio de rumbo. El horizonte utiliza cabeceo y alabeo grabados. El ajuste barométrico corresponde al instante seleccionado.
+La escala del variómetro permanece fija para la grabación/perfil. La geometría clásica del altímetro sigue en pies aunque cambien las unidades de texto. LOC y GS aparecen cuando se grabaron datos ILS válidos. Desacople y amplíe el panel para revisar los instrumentos sin reducirlos a miniaturas.
+
+@ga-glass|GA glass: vista integrada
+Esta vista reúne los datos básicos alrededor del horizonte para aviones ligeros con cabina glass. No reproduce una instalación concreta de G1000 o SF50. Permite comparar IAS, altitud, rumbo y velocidad vertical. Los objetivos y estados del piloto automático son históricos, no controles.
+Abra al lado el panel de motores apropiado al tipo real de motor. Forzar esta vista en Debug no añade datos ausentes en la grabación.
+
+@airliner-classic|Avión de línea clásico
+El diseño clásico presenta los instrumentos principales sin reproducir un fabricante concreto. Úselo en grabaciones sin PFD específico. IAS, altitud, actitud, rumbo y V/S comparten el mismo instante.
+Los motores ocupan un panel independiente que puede acoplarse en la misma ventana. La selección no modifica el tipo ICAO ni el número de motores grabados.
+
+@generic-pfd|PFD genérico
+Las cintas IAS y ALT se desplazan alrededor del valor actual; a la derecha aparece V/S con aguja. El rumbo está junto al horizonte. Es una visualización común de telemetría estándar, no una reproducción certificada.
+Compare medidas, objetivos AP y estado FD/AP/A/T. Las órdenes FD deben estar disponibles y ser válidas; una barra ausente no equivale a orden cero. Los datos ILS grabados permiten revisar localizador y senda.
+
+@engine-piston|Motores de pistón
+Empiece por RPM y compare EGT/CHT, presión y temperatura de aceite. Un régimen bajo en frío no equivale a una caída en vuelo; examine instantes anteriores y posteriores. El conjunto se repite por motor grabado. La presión de aceite se muestra en psi.
+El combustible izquierdo/derecho es cantidad en depósitos, no caudal instantáneo. Electricidad, vacío y condition/beta/reverse dependen del equipo y los datos. Una EGT/CHT ausente no significa temperatura cero.
+
+@engine-turboprop|Motores turbohélice
+Torque es carga del eje, prop RPM régimen de hélice y Ng/N1 régimen del generador de gas. Son magnitudes distintas. ITT permite examinar arranques y cambios de potencia; se añaden aceite y caudal de combustible.
+Compare torque con condition lever y beta/reverse si fueron grabados. Una IAS baja no demuestra reversa. El cambio de diseño en Debug no crea telemetría turbohélice ausente.
+
+@engine-jet|Motores a reacción
+N1/N2 muestran regímenes de los ejes, EGT temperatura de gases y fuel flow caudal instantáneo. Sígalos juntos durante arranque, cambios de empuje y parada. Caudal no equivale a combustible acumulado consumido. El aceite permite comparar motores.
+Vibración y modos de empuje/A/T dependen de datos adicionales. Grabaciones antiguas pueden tener N1/N2 sin modos SDK fiables. B38M y A320 usan EICAS/ECAM específicos.
+
+@b38m-pfd|PFD B38M: FMA, guiado e información de vuelo
+Los tres campos FMA separan empuje y guiado lateral/vertical. En iFly se reconstruyen con indicadores AFDS, objetivos MCP y datos estándar. Armado no significa activo. Sin SDK histórico, AUTOPILOT MASTER=0 no demuestra CMD desconectado.
+Las barras FD usan órdenes grabadas de cabeceo/alabeo. IAS/Mach, BARO/STD y mínimos BARO/RADIO dependen de selecciones disponibles. AoA es opcional y requiere datos válidos.
+El panel lateral muestra vuelo, XPDR con ceros iniciales, SELCAL, matrícula, UTC/fecha grabadas y tiempo transcurrido. Debug permite ocultarlo o elegir CPT izquierda/FO derecha. Flecha de viento y bloques VOR/ADF añaden fuentes, identificadores, sintonía y DME disponible.
+
+@b38m-eicas|EICAS B38M: motores, combustible y configuración
+Este EICAS está dedicado a B38M. N1, EGT y N2 combinan arcos y números; debajo aparecen caudal, aceite y vibración. Al lado están flaps y combustible por depósito/total. Miles de kg no son kg/h.
+Las alertas y válvulas usan datos grabados; una advertencia ausente en un archivo antiguo no prueba su ausencia real. No es el EICAS definitivo para B736–B739. Puede desacoplarse o acoplarse junto al PFD con el mismo cursor temporal.
+
+@a320-pfd|PFD A320: FMA, FD, ILS y mínimos
+El FMA separa empuje, modos vertical/lateral, capacidad de aproximación y AP/FD/A/THR. Capturar LOC o G/S no implica autoland completo. En FBW se respeta la validez ARINC; datos inválidos no son cero normal. Fenix depende de versión y variables grabadas.
+IAS/ALT muestran medidas y objetivos disponibles. FD son órdenes de guiado; ILS muestra desviaciones válidas. BARO usa altitud barométrica y RADIO altura radioeléctrica; NO DH no es cero. El marcador BARO aparece dentro del rango de la cinta. QNH/STD e IAS/Mach siguen las selecciones grabadas.
+Los valores de ejemplo muestran la geometría. Debug no crea datos FBW/Fenix ausentes.
+
+@a320-ewd|ECAM superior A320: E/WD
+La pantalla superior reúne N1, EGT, N2 y caudal de ambos motores, FOB, flaps y mensajes. FOB es combustible restante, no consumo acumulado.
+Alertas y memos se reconstruyen desde indicadores y catálogos compatibles, no son una captura del ECAM original. La ausencia de indicadores antiguos no demuestra ausencia de fallos. E/WD sigue el tiempo independientemente de la página inferior seleccionada.
+
+@ecam-recorded|ECAM inferior: Recorded y páginas
+Los botones eligen ENG, BLEED, PRESS, ELEC, HYD, FUEL, APU, COND, DOOR, WHEEL, F/CTL, STS y CRUISE. Solo cambian la vista local, no controlan MSFS. Los valores siguen el mismo tiempo.
+Recorded recupera la página mostrada entonces si se grabó su identificador. Al desplazar el tiempo puede cambiar automáticamente. Sin esa variable la página histórica es desconocida. Los capítulos hijos muestran cada página por separado.
+El pie contiene TAT, SAT, hora y peso disponibles. Los datos de addon ausentes quedan como guiones. Desacople ECAM para verlo al lado del PFD.
+
+@ecam-engine|ENG: parámetros secundarios
+Compare combustible consumido, cantidad/presión/temperatura de aceite y vibraciones N1/N2. El consumo es cantidad, no el FF instantáneo de E/WD. Se añaden datos de arranque disponibles. Compare el mismo instante; los campos antiguos vacíos siguen desconocidos.
+
+@ecam-bleed|BLEED: neumática
+El esquema muestra temperaturas/presiones bleed, válvulas de motor/APU, crossbleed y packs disponibles. Interprete conexiones y fuentes juntas. Elegir la página no mueve válvulas. La temperatura sola no demuestra una posición ausente.
+
+@ecam-press|PRESS: presurización
+Altitud de cabina, V/S de cabina y presión diferencial describen la cabina, no el movimiento del avión. Compare LDG ELEV y estados outflow/sistema disponibles. Altitud de cabina no es radioaltura; un número no demuestra modo automático.
+
+@ecam-elec|ELEC: electricidad
+BAT, generadores, TR y barras AC/DC forman el esquema eléctrico. Respete unidades de tensión, intensidad, frecuencia y carga. Tensión del generador no demuestra alimentación de una barra sin datos de contactores. EXT PWR disponible no significa conectado.
+
+@ecam-hyd|HYD: hidráulica
+GREEN, BLUE y YELLOW son sistemas separados. Compare presiones, cantidades y bombas con PTU/RAT disponibles. PTU transmite potencia, no convierte los circuitos en un depósito común. Un dato ausente no es presión cero.
+
+@ecam-fuel|FUEL: depósitos y caudal
+La página separa cantidades, bombas/válvulas, consumo y caudal total. Compare FOB con ECAM superior. Cantidad, consumo y caudal tienen significados y unidades distintos. La reducción de cantidad no demuestra posición crossfeed sin dato de válvula.
+
+@ecam-apu|APU: arranque y carga
+N y EGT permiten seguir el arranque APU; generador y bleed completan el estado. AVAIL, compuerta y válvula son elementos distintos. N cerca del 100% no demuestra carga conectada. Compare la secuencia temporal del arranque.
+
+@ecam-cond|COND: temperaturas por zona
+CKPT, FWD y AFT separan zonas y temperaturas de conducto disponibles. Compare medida, selección y aire caliente. Una respuesta térmica lenta no equivale a movimiento instantáneo de interruptor. No replique una medida en zonas sin datos.
+
+@ecam-door|DOOR/OXY: puertas y oxígeno
+El fuselaje muestra puertas de pasaje/servicio/carga y oxígeno disponibles. Posición y armado de slide son estados separados. Sin campos del addon la vista no confirma una lista de cierre. La reproducción no acciona puertas.
+
+@ecam-wheel|WHEEL: tren y frenos
+La página reúne posiciones de tren, bloqueos y temperaturas disponibles. Distinga mando de palanca de posición real. Compare con contacto, velocidad y frenado. Temperatura de freno no determina la selección autobrake.
+
+@ecam-fctl|F/CTL: mandos de vuelo
+Observe alerones, elevador, timón, spoilers y trim. ELAC/SEC e hidráulica añaden contexto. Deflexión no es posición de joystick ni orden FD. Compare parámetros apropiados en gráficos. La posición sola no demuestra salud del computador.
+
+@ecam-sts|STS: estado y sistemas no disponibles
+STS resume limitaciones, recomendaciones e INOP SYS compatibles. Los textos se reconstruyen desde indicadores, no mediante lectura de imágenes. Otra versión del addon puede superar el catálogo. No se inventan procedimientos por fallos supuestos.
+Compare E/WD, página de sistema y SDK antes/después. Una página vacía no garantiza ausencia de limitaciones.
+
+@ecam-cruise|CRUISE: resumen en vuelo
+CRUISE combina consumo, aceite, vibración, temperaturas de zona, presión diferencial y altitud/V/S de cabina. Es un resumen, no otra fuente de medida. Debe coincidir con ENG, COND y PRESS en el mismo instante. Recorded puede seleccionarla según la historia del cockpit.
+
+@fmc-b737|B737 CDU
+La vista muestra texto grabado de B737 CDU con colores, tamaños y avisos disponibles. Las pestañas eligen izquierda/derecha, con páginas independientes. Las teclas de fondo no programan FMS.
+El tiempo selecciona la última pantalla conocida. Texto sin cambios puede ser correcto si solo se grabaron cambios. INIT/PERF/LEGS son historia, no una ruta de mapa calculada. Una unidad ausente no se sustituye por la otra. B777 y formato dependen del SDK. Las imágenes muestran ambas unidades por separado.
+
+@fmc-a320|A320 MCDU
+La vista muestra texto grabado de A320 MCDU con colores, tamaños y avisos disponibles. Las pestañas eligen izquierda/derecha, con páginas independientes. Las teclas de fondo no programan FMS.
+El tiempo selecciona la última pantalla conocida. Texto sin cambios puede ser correcto si solo se grabaron cambios. INIT/PERF/LEGS son historia, no una ruta de mapa calculada. Una unidad ausente no se sustituye por la otra. B777 y formato dependen del SDK. Las imágenes muestran ambas unidades por separado.
+
+@fmc-b777|B777 CDU
+La vista muestra texto grabado de B777 CDU con colores, tamaños y avisos disponibles. Las pestañas eligen izquierda/derecha, con páginas independientes. Las teclas de fondo no programan FMS.
+El tiempo selecciona la última pantalla conocida. Texto sin cambios puede ser correcto si solo se grabaron cambios. INIT/PERF/LEGS son historia, no una ruta de mapa calculada. Una unidad ausente no se sustituye por la otra. B777 y formato dependen del SDK. Las imágenes muestran ambas unidades por separado.
+
+@values|Valores: lectura y búsqueda
+Valores inspecciona un instante. La búsqueda filtra descripciones e identificadores como aceite o eng_oil_pressure. Vaciar restaura la lista sin modificar datos ni suscripciones.
+Las unidades siguen los ajustes. Enums conocidos usan etiquetas de cockpit sin traducir como UP/1/2/5 o RTO/DISARMED/MAX según avión y fuente. Códigos desconocidos siguen numéricos; ausencia no es cero. El cursor temporal actualiza esta vista.
+
+@events|Eventos de grabación
+La lista ordena cambios y eventos de sesión grabados. Compare marcas de tiempo, cursor y gráficos. Un evento no sustituye muestras anteriores.
+En vuelos interrumpidos revise final y estado del archivo. Un CTD puede dejar datos incompletos; el último evento no identifica necesariamente la causa. El texto histórico no siempre se retraduce al cambiar idioma.
+
+@contacts|Despegues y aterrizajes: selección
+Las filas distinguen despegue y toma con valores disponibles al contacto. Touch-and-go puede generar varios pares. Elija el contacto correcto para meteorología o IA. Aeropuertos planificados no prueban cada lugar de contacto.
+Despegue no es inicio de rotación y 500 ms pueden perder un pico. Examine antes/después y configure las ventanas por separado.
+
+@simvars|Catálogo estándar de SimVars
+El catálogo se genera de las declaraciones numéricas, lógicas y de motores de la aplicación. El diálogo de ejemplo incluye todas, con motores 1–4. Documenta FDR, no cada variable del SDK Microsoft. Addons y GSX tienen catálogos separados.
+Los IDs son nombres internos; etiquetas/unidades siguen idioma y ajustes. Un vuelo real puede contener menos según avión y suscripciones. No se fuerzan variables de pistón en jets. Añadir gráficos no recupera medidas nunca grabadas.
+Busque en CHM o diálogo, añada parámetros, ordénelos y confirme OK. Los IDs permiten comparar con Valores y diagnóstico.

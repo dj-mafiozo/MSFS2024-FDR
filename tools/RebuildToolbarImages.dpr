@@ -1,82 +1,173 @@
-program RebuildToolbarImages;
+﻿Program RebuildToolbarImages;
 {$APPTYPE CONSOLE}
-uses Vcl.XPMan,System.SysUtils,System.Classes,Winapi.Windows,Vcl.Controls,Vcl.Graphics,Vcl.ImgList,Vcl.Imaging.pngimage;
-type PPixel=^TPixel;TPixel=packed record B,G,R,A:Byte;end;
-function PaletteIndex(Image:TPngImage;X,Y:Integer):Byte;
-var Row:PByteArray;
-begin
- Row:=Image.Scanline[Y];
- case Image.Header.BitDepth of
-  1:Result:=(Row^[X div 8] shr (7-X mod 8)) and 1;
-  2,4:Result:=(Row^[X div 2] shr ((1-X mod 2)*4)) and 15;
-  else Result:=Row^[X];
- end;
-end;
-function PixelColor(Image:TPngImage;X,Y:Integer):TColor;
-var Color:TRGBQuad;
-begin
- if Image.Header.ColorType=COLOR_PALETTE then begin
-  Color:=TChunkPLTE(Image.Chunks.ItemFromClass(TChunkPLTE)).Item[PaletteIndex(Image,X,Y)];
-  Result:=RGB(Color.rgbRed,Color.rgbGreen,Color.rgbBlue);
- end else Result:=ColorToRGB(Image.Canvas.Pixels[X,Y]);
-end;
-function PixelAlpha(Image:TPngImage;X,Y:Integer):Byte;
-var Trns:TChunkTRNS;Row:PByteArray;Index:Byte;
-begin
- if Image.AlphaScanline[Y]<>nil then Exit(Image.AlphaScanline[Y]^[X]);
- if Image.Header.ColorType=COLOR_PALETTE then begin
-  Trns:=TChunkTRNS(Image.Chunks.ItemFromClass(TChunkTRNS));
-  if Trns=nil then Exit(255);
-  Row:=Image.Scanline[Y];
-  case Image.Header.BitDepth of
-   1:Index:=(Row^[X div 8] shr (7-X mod 8)) and 1;
-   2,4:Index:=(Row^[X div 2] shr ((1-X mod 2)*4)) and 15;
-   else Index:=Row^[X];
-  end;
-  Exit(Trns.PaletteValues[Index]);
- end;
- if (Image.TransparencyMode=ptmBit) and
-    (ColorToRGB(Image.Canvas.Pixels[X,Y])=ColorToRGB(Image.TransparentColor)) then Exit(0);
- Result:=255;
-end;
-var Images:TImageList;B,Flag:TBitmap;P:TPngImage;Pixel:PPixel;Color:TColor;
- I,X,Y,A,SX,SY,Size:Integer;Root,FileName:string;Bin,Text:TMemoryStream;Names:TStringList;
-begin
- Root:=IncludeTrailingPathDelimiter(ParamStr(1));
- Size:=StrToIntDef(ParamStr(3),22);
- if (Size<>16) and (Size<>22) then raise Exception.Create('Unsupported icon size');
- Names:=TStringList.Create;Names.LoadFromFile(Root+'tools\'+ParamStr(2)+'-icons.txt');
- Images:=TImageList.Create(nil);B:=TBitmap.Create;P:=TPngImage.Create;Flag:=TBitmap.Create;
- Bin:=TMemoryStream.Create;Text:=TMemoryStream.Create;
- try
-  Images.Name:='ImageList';Images.ColorDepth:=cd32Bit;Images.Masked:=False;
-  Images.DrawingStyle:=dsTransparent;Images.Width:=Size;Images.Height:=Size;
+
+Uses
+ Vcl.XPMan, System.SysUtils, System.Classes, Winapi.Windows, Vcl.Controls, Vcl.Graphics, Vcl.ImgList, Vcl.Imaging.pngimage;
+
+Type
+ PPixel = ^TPixel;
+
+ TPixel = Packed Record
+  b : Byte;
+  g : Byte;
+  r : Byte;
+  a : Byte;
+ End;
+
+Function PaletteIndex(Image : TPngImage; x, y : Integer) : Byte;
+ Var
+  Row : PByteArray;
+ Begin
+  Row := Image.Scanline[y];
+  Case Image.Header.BitDepth Of
+   1    : Result := (Row^[x Div 8] Shr (7 - x Mod 8)) And 1;
+   2, 4 : Result := (Row^[x Div 2] Shr ((1 - x Mod 2) * 4)) And 15;
+  Else Result := Row^[x];
+  End;
+ End;
+
+Function PixelColor(Image : TPngImage; x, y : Integer) : TColor;
+ Var
+  Color : TRGBQuad;
+ Begin
+  If Image.Header.ColorType = COLOR_PALETTE Then
+   Begin
+    Color  := TChunkPLTE(Image.Chunks.ItemFromClass(TChunkPLTE)).Item[PaletteIndex(Image, x, y)];
+    Result := RGB(Color.rgbRed, Color.rgbGreen, Color.rgbBlue);
+   End
+  Else
+   Result := ColorToRGB(Image.Canvas.Pixels[x, y]);
+ End;
+
+Function PixelAlpha(Image : TPngImage; x, y : Integer) : Byte;
+ Var
+  Trns  : TChunktRNS;
+  Row   : PByteArray;
+  Index : Byte;
+ Begin
+  If Image.AlphaScanline[y] <> Nil Then
+   Exit(Image.AlphaScanline[y]^[x]);
+  If Image.Header.ColorType = COLOR_PALETTE Then
+   Begin
+    Trns := TChunktRNS(Image.Chunks.ItemFromClass(TChunktRNS));
+    If Trns = Nil Then
+     Exit(255);
+    Row := Image.Scanline[y];
+    Case Image.Header.BitDepth Of
+     1    : Index := (Row^[x Div 8] Shr (7 - x Mod 8)) And 1;
+     2, 4 : Index := (Row^[x Div 2] Shr ((1 - x Mod 2) * 4)) And 15;
+    Else Index := Row^[x];
+    End;
+    Exit(Trns.PaletteValues[Index]);
+   End;
+  If (Image.TransparencyMode = ptmBit) And
+  (ColorToRGB(Image.Canvas.Pixels[x, y]) = ColorToRGB(Image.TransparentColor)) Then
+   Exit(0);
+  Result := 255;
+ End;
+
+Var
+ Images   : TImageList;
+ b        : TBitmap;
+ Flag     : TBitmap;
+ p        : TPngImage;
+ Pixel    : PPixel;
+ Color    : TColor;
+ i        : Integer;
+ x        : Integer;
+ y        : Integer;
+ a        : Integer;
+ SX       : Integer;
+ SY       : Integer;
+ Size     : Integer;
+ Root     : String;
+ FileName : String;
+ Bin      : TMemoryStream;
+ Text     : TMemoryStream;
+ Names    : TStringList;
+
+Begin
+ Root := IncludeTrailingPathDelimiter(ParamStr(1));
+ Size := StrToIntDef(ParamStr(3), 22);
+ If (Size <> 16) And (Size <> 22) Then
+  Raise Exception.Create('Unsupported icon size');
+ Names := TStringList.Create;
+ Names.LoadFromFile(Root + 'tools\' + ParamStr(2) + '-icons.txt');
+ Images := TImageList.Create(Nil);
+ b      := TBitmap.Create;
+ p      := TPngImage.Create;
+ Flag   := TBitmap.Create;
+ Bin    := TMemoryStream.Create;
+ Text   := TMemoryStream.Create;
+ Try
+  Images.Name         := 'ImageList';
+  Images.ColorDepth   := cd32Bit;
+  Images.Masked       := False;
+  Images.DrawingStyle := dsTransparent;
+  Images.Width        := Size;
+  Images.Height       := Size;
   // ImageList_Add premultiplies straight RGBA; do not premultiply a second time.
-  B.PixelFormat:=pf32bit;B.SetSize(Size,Size);B.AlphaFormat:=afDefined;
-  for I:=0 to Names.Count-1 do begin
-   for Y:=0 to Size-1 do FillChar(B.ScanLine[Y]^,Size*4,0);
-   FileName:=Root+'Icons\'+IntToStr(Size)+'x'+IntToStr(Size)+'\'+Names[I];
-   if not FileExists(FileName) then FileName:=Root+'Icons\'+Names[I];
-   if not FileExists(FileName) then FileName:=Root+'Icons\22x22\'+Names[I];
-   if SameText(ExtractFileExt(FileName),'.png') then begin
-    P.LoadFromFile(FileName);
-    for Y:=0 to Size-1 do for X:=0 to Size-1 do begin
-     Color:=PixelColor(P,X*P.Width div Size,Y*P.Height div Size);A:=PixelAlpha(P,X*P.Width div Size,Y*P.Height div Size);
-     Pixel:=PPixel(NativeUInt(B.ScanLine[Y])+NativeUInt(X*4));
-     Pixel.B:=GetBValue(Color);Pixel.G:=GetGValue(Color);
-     Pixel.R:=GetRValue(Color);Pixel.A:=A;
-    end;
-   end else begin
-    Flag.LoadFromFile(FileName);SX:=(Size-Flag.Width) div 2;SY:=(Size-Flag.Height) div 2;
-    for Y:=0 to Flag.Height-1 do for X:=0 to Flag.Width-1 do begin
-     Color:=ColorToRGB(Flag.Canvas.Pixels[X,Y]);Pixel:=PPixel(NativeUInt(B.ScanLine[Y+SY])+NativeUInt((X+SX)*4));
-     Pixel.B:=GetBValue(Color);Pixel.G:=GetGValue(Color);Pixel.R:=GetRValue(Color);Pixel.A:=255;
-    end;
-   end;
-   if Images.Add(B,nil)<>I then raise Exception.Create('Unexpected image index');
-  end;
-  Bin.WriteComponent(Images);Bin.Position:=0;ObjectBinaryToText(Bin,Text);
-  Text.SaveToFile(Root+'.build\'+ParamStr(2)+'-images.dfm');
-  Writeln('PASS: ',Names.Count,' ',ParamStr(2),' icons rebuilt with alpha transparency.');
- finally Text.Free;Bin.Free;Flag.Free;P.Free;B.Free;Images.Free;Names.Free;end;
-end.
+  b.PixelFormat := pf32bit;
+  b.SetSize(Size, Size);
+  b.AlphaFormat := afDefined;
+  For i         := 0 To Names.Count - 1 Do
+   Begin
+    For y := 0 To Size - 1 Do
+     FillChar(b.Scanline[y]^, Size * 4, 0);
+    FileName := Root + 'Icons\' + IntToStr(Size) + 'x' + IntToStr(Size) + '\' + Names[i];
+    If Not FileExists(FileName) Then
+     FileName := Root + 'Icons\Flags\' + Names[i];
+    If Not FileExists(FileName) Then
+     FileName := Root + 'Icons\' + Names[i];
+    If Not FileExists(FileName) Then
+     FileName := Root + 'Icons\22x22\' + Names[i];
+    If SameText(ExtractFileExt(FileName), '.png') Then
+     Begin
+      p.LoadFromFile(FileName);
+      For y  := 0 To Size - 1 Do
+       For x := 0 To Size - 1 Do
+        Begin
+         Color   := PixelColor(p, x * p.Width Div Size, y * p.Height Div Size);
+         a       := PixelAlpha(p, x * p.Width Div Size, y * p.Height Div Size);
+         Pixel   := PPixel(NativeUInt(b.Scanline[y]) + NativeUInt(x * 4));
+         Pixel.b := GetBValue(Color);
+         Pixel.g := GetGValue(Color);
+         Pixel.r := GetRValue(Color);
+         Pixel.a := a;
+        End;
+     End
+    Else
+     Begin
+      Flag.LoadFromFile(FileName);
+      SX     := (Size - Flag.Width) Div 2;
+      SY     := (Size - Flag.Height) Div 2;
+      For y  := 0 To Flag.Height - 1 Do
+       For x := 0 To Flag.Width - 1 Do
+        Begin
+         Color   := ColorToRGB(Flag.Canvas.Pixels[x, y]);
+         Pixel   := PPixel(NativeUInt(b.Scanline[y + SY]) + NativeUInt((x + SX) * 4));
+         Pixel.b := GetBValue(Color);
+         Pixel.g := GetGValue(Color);
+         Pixel.r := GetRValue(Color);
+         Pixel.a := 255;
+        End;
+     End;
+    If Images.Add(b, Nil) <> i Then
+     Raise Exception.Create('Unexpected image index');
+   End;
+  Bin.WriteComponent(Images);
+  Bin.Position := 0;
+  ObjectBinaryToText(Bin, Text);
+  Text.SaveToFile(Root + '.build\' + ParamStr(2) + '-images.dfm');
+  Writeln('PASS: ', Names.Count, ' ', ParamStr(2), ' icons rebuilt with alpha transparency.');
+ Finally
+  Text.Free;
+  Bin.Free;
+  Flag.Free;
+  p.Free;
+  b.Free;
+  Images.Free;
+  Names.Free;
+ End;
+
+End.

@@ -7,7 +7,7 @@ Unit DbgHelp;
   https://docs.microsoft.com/en-us/windows/win32/debug/updated-platform-support
 }
 
-{$include LibOptions.inc}
+{$Include LibOptions.inc}
 {$MinEnumSize 4}
 
 Interface
@@ -15,41 +15,47 @@ Interface
  Uses
   Winapi.Windows;
 
- {$If not defined(Win32) and not defined(Win64)}
- {$Message error 'wrong!'}
- {$Ifend}
+{$If not defined(Win32) and not defined(Win64)}
+{$Message error 'wrong!'}
+{$Ifend}
 
  Type
   {$If declared(DWORD64)}
   DWORD64 = Winapi.Windows.DWORD64;
-  {$Else}
-  DWORD64 = uint64;
-  {$Ifend}
-  {$If declared(ULONG64)}
+{$Else}
+
+  DWORD64 = UInt64;
+{$Ifend}
+{$If declared(ULONG64)}
+
   ULONG64 = Winapi.Windows.ULONG64;
-  {$Else}
-  ULONG64 = uint64;
-  {$Ifend}
-  {$If declared(LONG)}
+{$Else}
+
+  ULONG64 = UInt64;
+{$Ifend}
+{$If declared(LONG)}
+
   LONG = Winapi.Windows.LONG;
-  {$Else}
-  LONG = Longint;
-  {$Ifend}
+{$Else}
+
+  LONG = LongInt;
+{$Ifend}
 
  Const
   IMAGE_FILE_MACHINE_I386 = Winapi.Windows.IMAGE_FILE_MACHINE_I386;
-  {$If declared(IMAGE_FILE_MACHINE_AMD64)}
+{$If declared(IMAGE_FILE_MACHINE_AMD64)}
   IMAGE_FILE_MACHINE_AMD64 = Winapi.Windows.IMAGE_FILE_MACHINE_AMD64;
-  {$Ifend}
-  {$If declared(IMAGE_FILE_MACHINE_ARM)}
+{$Ifend}
+{$If declared(IMAGE_FILE_MACHINE_ARM)}
   IMAGE_FILE_MACHINE_ARM = Winapi.Windows.IMAGE_FILE_MACHINE_ARM;
-  {$Ifend}
+{$Ifend}
 
-  // WinNT.h:
+// WinNT.h:
+
  Const
   MAXIMUM_SUPPORTED_EXTENSION = 512;
 
-  {$Ifdef Win64}
+{$Ifdef Win64}
   CONTEXT_AMD64 = $100000;
 
   CONTEXT_CONTROL         = (CONTEXT_AMD64 Or $01);
@@ -62,7 +68,7 @@ Interface
 
   CONTEXT_ALL = (CONTEXT_CONTROL Or CONTEXT_INTEGER Or CONTEXT_SEGMENTS Or CONTEXT_FLOATING_POINT Or CONTEXT_DEBUG_REGISTERS);
 
-  {$Else}
+{$Else}
   CONTEXT_i386 = $00010000; // this assumes that i386 and
 
   CONTEXT_CONTROL            = (CONTEXT_i386 Or $00000001); // SS:SP, CS:IP, FLAGS, BP
@@ -75,63 +81,70 @@ Interface
   CONTEXT_FULL = (CONTEXT_CONTROL Or CONTEXT_INTEGER Or CONTEXT_SEGMENTS);
 
   CONTEXT_ALL = (CONTEXT_CONTROL Or CONTEXT_INTEGER Or CONTEXT_SEGMENTS Or CONTEXT_FLOATING_POINT Or CONTEXT_DEBUG_REGISTERS Or CONTEXT_EXTENDED_REGISTERS);
-  {$Endif}
+{$Endif}
 
-  // WinNT.h:
+// WinNT.h:
+
  Type
   // *** DECLSPEC_ALIGN(16)
   M128A = Record
-   Low : ULONGLONG;
+   Low  : ULONGLONG;
    High : LONGLONG;
   End;
-  {$If sizeof(M128A) <> 16} {$Message error 'wrong size'} {$Ifend}
+{$If sizeof(M128A) <> 16}
+{$Message error 'wrong size'}
+{$Ifend}
 
-  // *** DECLSPEC_ALIGN(16)
+// *** DECLSPEC_ALIGN(16)
+
   XMM_SAVE_AREA32 = Record
-   Case byte Of
-    0 :
-     (ControlWord : WORD;
-      StatusWord : WORD;
-      TagWord : byte;
-      Reserved1 : byte;
-      ErrorOpcode : WORD;
-      ErrorOffset : DWORD;
-      ErrorSelector : WORD;
-      Reserved2 : WORD;
-      DataOffset : DWORD;
-      DataSelector : WORD;
-      Reserved3 : WORD;
-      MxCsr : DWORD;
-      MxCsr_Mask : DWORD;
-      FloatRegisters : Array [0 .. 7] Of M128A;
+   Case Byte Of
+   0 :
+   (ControlWord : Word;
+   StatusWord     : Word;
+   TagWord        : Byte;
+   Reserved1      : Byte;
+   ErrorOpcode    : Word;
+   ErrorOffset    : DWORD;
+   ErrorSelector  : Word;
+   Reserved2      : Word;
+   DataOffset     : DWORD;
+   DataSelector   : Word;
+   Reserved3      : Word;
+   MxCsr          : DWORD;
+   MxCsr_Mask     : DWORD;
+   FloatRegisters : Array [0..7] Of M128A;
 
-      XmmRegisters : Array [0 .. 15] Of M128A;
-      Reserved4 : Array [0 .. 95] Of byte;
-     );
-    1 :
-     (Header : Array [0 .. 1] Of M128A;
-      Legacy : Array [0 .. 7] Of M128A;
-      Xmm0 : M128A;
-      Xmm1 : M128A;
-      Xmm2 : M128A;
-      Xmm3 : M128A;
-      Xmm4 : M128A;
-      Xmm5 : M128A;
-      Xmm6 : M128A;
-      Xmm7 : M128A;
-      Xmm8 : M128A;
-      Xmm9 : M128A;
-      Xmm10 : M128A;
-      Xmm11 : M128A;
-      Xmm12 : M128A;
-      Xmm13 : M128A;
-      Xmm14 : M128A;
-      Xmm15 : M128A;
-     );
+   XmmRegisters : Array [0..15] Of M128A;
+   Reserved4    : Array [0..95] Of Byte;
+   );
+   1 :
+   (Header : Array [0..1] Of M128A;
+   Legacy : Array [0..7] Of M128A;
+   Xmm0   : M128A;
+   Xmm1   : M128A;
+   Xmm2   : M128A;
+   Xmm3   : M128A;
+   Xmm4   : M128A;
+   Xmm5   : M128A;
+   Xmm6   : M128A;
+   Xmm7   : M128A;
+   Xmm8   : M128A;
+   Xmm9   : M128A;
+   Xmm10  : M128A;
+   Xmm11  : M128A;
+   Xmm12  : M128A;
+   Xmm13  : M128A;
+   Xmm14  : M128A;
+   Xmm15  : M128A;
+   );
   End;
-  {$If sizeof(XMM_SAVE_AREA32) <> 512} {$Message error 'wrong size'} {$Ifend}
+{$If sizeof(XMM_SAVE_AREA32) <> 512}
+{$Message error 'wrong size'}
+{$Ifend}
 
-  // *** DECLSPEC_ALIGN(16)
+// *** DECLSPEC_ALIGN(16)
+
   CONTEXT_x64 = Record
 
    //
@@ -153,18 +166,18 @@ Interface
    //
 
    ContextFlags : DWORD;
-   MxCsr : DWORD;
+   MxCsr        : DWORD;
 
    //
    // Segment Registers and processor flags.
    //
 
-   SegCs : WORD;
-   SegDs : WORD;
-   SegEs : WORD;
-   SegFs : WORD;
-   SegGs : WORD;
-   SegSs : WORD;
+   SegCs  : Word;
+   SegDs  : Word;
+   SegEs  : Word;
+   SegFs  : Word;
+   SegGs  : Word;
+   SegSs  : Word;
    EFlags : DWORD;
 
    //
@@ -190,8 +203,8 @@ Interface
    Rbp : DWORD64;
    Rsi : DWORD64;
    Rdi : DWORD64;
-   R8 : DWORD64;
-   R9 : DWORD64;
+   R8  : DWORD64;
+   R9  : DWORD64;
    R10 : DWORD64;
    R11 : DWORD64;
    R12 : DWORD64;
@@ -215,20 +228,22 @@ Interface
    // Vector registers.
    //
 
-   VectorRegister : Array [0 .. 25] Of M128A;
-   VectorControl : DWORD64;
+   VectorRegister : Array [0..25] Of M128A;
+   VectorControl  : DWORD64;
 
    //
    // Special debug control registers.
    //
 
-   DebugControl : DWORD64;
-   LastBranchToRip : DWORD64;
-   LastBranchFromRip : DWORD64;
-   LastExceptionToRip : DWORD64;
+   DebugControl         : DWORD64;
+   LastBranchToRip      : DWORD64;
+   LastBranchFromRip    : DWORD64;
+   LastExceptionToRip   : DWORD64;
    LastExceptionFromRip : DWORD64;
   End;
-  {$If sizeof(CONTEXT_x64) <> 1232} {$Message error 'wrong size'} {$Ifend}
+{$If sizeof(CONTEXT_x64) <> 1232}
+{$Message error 'wrong size'}
+{$Ifend}
 
   CONTEXT_x32 = Record
 
@@ -299,12 +314,12 @@ Interface
    // ContextFlags word contians the flag CONTEXT_CONTROL.
    //
 
-   Ebp : DWORD;
-   Eip : DWORD;
-   SegCs : DWORD;  // MUST BE SANITIZED
+   Ebp    : DWORD;
+   Eip    : DWORD;
+   SegCs  : DWORD;  // MUST BE SANITIZED
    EFlags : DWORD; // MUST BE SANITIZED
-   Esp : DWORD;
-   SegSs : DWORD;
+   Esp    : DWORD;
+   SegSs  : DWORD;
 
    //
    // This section is specified/returned if the ContextFlags word
@@ -312,20 +327,23 @@ Interface
    // The format and contexts are processor specific
    //
 
-   ExtendedRegisters : Array [0 .. MAXIMUM_SUPPORTED_EXTENSION - 1] Of byte;
+   ExtendedRegisters : Array [0..MAXIMUM_SUPPORTED_EXTENSION - 1] Of Byte;
   End;
-  {$If sizeof(CONTEXT_x32) <> 716} {$Message error 'wrong size'} {$Ifend}
+{$If sizeof(CONTEXT_x32) <> 716}
+{$Message error 'wrong size'}
+{$Ifend}
 
   CONTEXT = {$Ifdef Win64}CONTEXT_x64{$Else}CONTEXT_x32{$Endif};
 
-  // DbgHelp.h:
+// DbgHelp.h:
+
  Const
   DbgHelpDLL = 'DbgHelp.dll';
 
-  //
-  // options that are set/returned by SymSetOptions() & SymGetOptions()
-  // these are used as a mask
-  //
+//
+// options that are set/returned by SymSetOptions() & SymGetOptions()
+// these are used as a mask
+//
   SYMOPT_CASE_INSENSITIVE          = $00000001;
   SYMOPT_UNDNAME                   = $00000002;
   SYMOPT_DEFERRED_LOADS            = $00000004;
@@ -355,7 +373,8 @@ Interface
 
   SYMOPT_DEBUG = $80000000;
 
-  // DbgHelp.h:
+// DbgHelp.h:
+
  Type
   KDHELP64 = Record
    //
@@ -409,115 +428,116 @@ Interface
    //
    // Stack bounds, added in API version 11.
    //
-   StackBase : DWORD64;
+   StackBase  : DWORD64;
    StackLimit : DWORD64;
 
-   Reserved : Array [0 .. 4] Of DWORD64;
+   Reserved : Array [0..4] Of DWORD64;
   End;
 
   ADDRESS_MODE = (AddrMode1616, AddrMode1632, AddrModeReal, AddrModeFlat);
 
   ADDRESS64 = Record
-   Offset : DWORD64;
-   Segment : WORD;
-   Mode : ADDRESS_MODE;
+   Offset  : DWORD64;
+   Segment : Word;
+   Mode    : ADDRESS_MODE;
   End;
 
   STACKFRAME64 = Record
-   AddrPC : ADDRESS64;                 // program counter
-   AddrReturn : ADDRESS64;             // return address
-   AddrFrame : ADDRESS64;              // frame pointer
-   AddrStack : ADDRESS64;              // stack pointer
-   AddrBStore : ADDRESS64;             // backing store pointer
-   FuncTableEntry : pointer;           // pointer to pdata/fpo or NULL
-   Params : Array [0 .. 3] Of DWORD64; // possible arguments to the function
-   &Far : BOOL;                        // WOW far call
-   &Virtual : BOOL;                    // is this a virtual frame?
-   Reserved : Array [0 .. 2] Of DWORD64;
-   KdHelp : KDHELP64;
+   AddrPC         : ADDRESS64;                 // program counter
+   AddrReturn     : ADDRESS64;             // return address
+   AddrFrame      : ADDRESS64;              // frame pointer
+   AddrStack      : ADDRESS64;              // stack pointer
+   AddrBStore     : ADDRESS64;             // backing store pointer
+   FuncTableEntry : Pointer;           // pointer to pdata/fpo or NULL
+   Params         : Array [0..3] Of DWORD64; // possible arguments to the function
+   &Far           : BOOL;                        // WOW far call
+   &Virtual       : BOOL;                    // is this a virtual frame?
+   Reserved       : Array [0..2] Of DWORD64;
+   KdHelp         : KDHELP64;
   End;
 
   SYM_TYPE = (SymNone = 0, SymCoff, SymCv, SymPdb, SymExport, SymDeferred, SymSym, // .sym file
-   SymDia, SymVirtual, NumSymTypes);
+  SymDia, SymVirtual, NumSymTypes);
 
   IMAGEHLP_MODULE64 = Record
-   SizeOfStruct : DWORD;                       // set to sizeof(IMAGEHLP_MODULE64)
-   BaseOfImage : DWORD64;                      // base load address of module
-   ImageSize : DWORD;                          // virtual size of the loaded module
-   TimeDateStamp : DWORD;                      // date/time stamp from pe header
-   CheckSum : DWORD;                           // checksum from the pe header
-   NumSyms : DWORD;                            // number of symbols in the symbol table
-   SymType : SYM_TYPE;                         // type of symbols loaded
-   ModuleName : Array [0 .. 31] Of Char;       // module name
-   ImageName : Array [0 .. 255] Of Char;       // image name
-   LoadedImageName : Array [0 .. 255] Of Char; // symbol file name
+   SizeOfStruct    : DWORD;                       // set to sizeof(IMAGEHLP_MODULE64)
+   BaseOfImage     : DWORD64;                      // base load address of module
+   ImageSize       : DWORD;                          // virtual size of the loaded module
+   TimeDateStamp   : DWORD;                      // date/time stamp from pe header
+   CheckSum        : DWORD;                           // checksum from the pe header
+   NumSyms         : DWORD;                            // number of symbols in the symbol table
+   SymType         : SYM_TYPE;                         // type of symbols loaded
+   ModuleName      : Array [0..31] Of Char;       // module name
+   ImageName       : Array [0..255] Of Char;       // image name
+   LoadedImageName : Array [0..255] Of Char; // symbol file name
    // new elements: 07-Jun-2002
-   LoadedPdbName : Array [0 .. 255] Of Char;       // pdb file name
-   CVSig : DWORD;                                  // Signature of the CV record in the debug directories
-   CVData : Array [0 .. MAX_PATH * 3 - 1] Of Char; // Contents of the CV record
-   PdbSig : DWORD;                                 // Signature of PDB
-   PdbSig70 : TGUID;                               // Signature of PDB (VC 7 and up)
-   PdbAge : DWORD;                                 // DBI age of pdb
-   PdbUnmatched : BOOL;                            // loaded an unmatched pdb
-   DbgUnmatched : BOOL;                            // loaded an unmatched dbg
-   LineNumbers : BOOL;                             // we have line number information
+   LoadedPdbName : Array [0..255] Of Char;       // pdb file name
+   CVSig         : DWORD;                                  // Signature of the CV record in the debug directories
+   CVData        : Array [0..MAX_PATH * 3 - 1] Of Char; // Contents of the CV record
+   PdbSig        : DWORD;                                 // Signature of PDB
+   PdbSig70      : TGUID;                               // Signature of PDB (VC 7 and up)
+   PdbAge        : DWORD;                                 // DBI age of pdb
+   PdbUnmatched  : BOOL;                            // loaded an unmatched pdb
+   DbgUnmatched  : BOOL;                            // loaded an unmatched dbg
+   LineNumbers   : BOOL;                             // we have line number information
    GlobalSymbols : BOOL;                           // we have internal symbol information
-   TypeInfo : BOOL;                                // we have type information
+   TypeInfo      : BOOL;                                // we have type information
    // new elements: 17-Dec-2003
    SourceIndexed : BOOL; // pdb supports source server
-   Publics : BOOL;       // contains public symbols
+   Publics       : BOOL;       // contains public symbols
   End;
 
   SYMBOL_INFO = Record
    SizeOfStruct : ULONG;
-   TypeIndex : ULONG; // Type Index of symbol
-   Reserved : Array [0 .. 1] Of ULONG64;
-   Index : ULONG;
-   Size : ULONG;
-   ModBase : ULONG64; // Base Address of module comtaining this symbol
-   Flags : ULONG;
-   Value : ULONG64;   // Value of symbol, ValuePresent should be 1
-   Address : ULONG64; // Address of symbol including base address of module
-   &Register : ULONG; // register holding value or pointer to value
-   Scope : ULONG;     // scope of the symbol
-   Tag : ULONG;       // pdb classification
-   NameLen : ULONG;   // Actual length of name
-   MaxNameLen : ULONG;
-   Name : Array [0 .. 0] Of Char; // Name of symbol
+   TypeIndex    : ULONG; // Type Index of symbol
+   Reserved     : Array [0..1] Of ULONG64;
+   Index        : ULONG;
+   Size         : ULONG;
+   ModBase      : ULONG64; // Base Address of module comtaining this symbol
+   Flags        : ULONG;
+   Value        : ULONG64;   // Value of symbol, ValuePresent should be 1
+   Address      : ULONG64; // Address of symbol including base address of module
+   &Register    : ULONG; // register holding value or pointer to value
+   Scope        : ULONG;     // scope of the symbol
+   Tag          : ULONG;       // pdb classification
+   NameLen      : ULONG;   // Actual length of name
+   MaxNameLen   : ULONG;
+   Name         : Array [0..0] Of Char; // Name of symbol
   End;
 
   IMAGEHLP_LINE64 = Record
    SizeOfStruct : DWORD; // set to sizeof(IMAGEHLP_LINE64)
-   Key : pointer;        // internal
-   LineNumber : DWORD;   // line number in file
-   FileName : PChar;     // full filename
-   Address : DWORD64;    // first instruction of line
+   Key          : Pointer;        // internal
+   LineNumber   : DWORD;   // line number in file
+   FileName     : PChar;     // full filename
+   Address      : DWORD64;    // first instruction of line
   End;
 
-  // DbgHelp.h:
+// DbgHelp.h:
+
  Function SymInitialize(hProcess : THandle; UserSearchPath : PChar; fInvadeProcess : BOOL) : BOOL; Stdcall; External DbgHelpDLL Name {$Ifdef UNICODE}'SymInitializeW'{$Else}'SymInitialize'{$Endif};
 
- // DbgHelp.h:
+// DbgHelp.h:
  Function SymCleanup(hProcess : THandle) : BOOL; Stdcall; External DbgHelpDLL Name 'SymCleanup';
 
- // DbgHelp.h:
+// DbgHelp.h:
  Function SymSetOptions(SymOptions : DWORD) : DWORD; Stdcall; External DbgHelpDLL Name 'SymSetOptions';
 
- // DbgHelp.h:
+// DbgHelp.h:
  Function SymRefreshModuleList(hProcess : THandle) : BOOL; Stdcall; External DbgHelpDLL Name 'SymRefreshModuleList';
 
- // DbgHelp.h:
- Function SymFunctionTableAccess64(hProcess : THandle; AddrBase : DWORD64) : pointer; Stdcall; External DbgHelpDLL Name 'SymFunctionTableAccess64';
+// DbgHelp.h:
+ Function SymFunctionTableAccess64(hProcess : THandle; AddrBase : DWORD64) : Pointer; Stdcall; External DbgHelpDLL Name 'SymFunctionTableAccess64';
 
- // DbgHelp.h:
+// DbgHelp.h:
  Function SymGetModuleBase64(hProcess : THandle; dwAddr : DWORD64) : DWORD64; Stdcall; External DbgHelpDLL Name 'SymGetModuleBase64';
 
- // DbgHelp.h:
+// DbgHelp.h:
  Function SymGetModuleInfo64(hProcess : THandle; dwAddr : DWORD64; Out ModuleInfo : IMAGEHLP_MODULE64) : BOOL; Stdcall; External DbgHelpDLL Name {$Ifdef UNICODE}'SymGetModuleInfoW64'{$Else}'SymGetModuleInfo64'{$Endif};
 
- // DbgHelp.h:
+// DbgHelp.h:
  Function SymFromAddr(hProcess : THandle; dwAddr : DWORD64; Out Displacement : DWORD64; Var Symbol : SYMBOL_INFO) : BOOL; Stdcall; External DbgHelpDLL Name {$Ifdef UNICODE}'SymFromAddrW'{$Else}'SymFromAddr'{$Endif};
- (*
+(*
    // DbgHelp.h:
    function SymGetSymFromAddr64(
    hProcess: THandle;
@@ -526,26 +546,38 @@ Interface
    out Symbol: IMAGEHLP_SYMBOL64
    ): Bool; stdcall; external DbgHelpDLL name 'SymGetSymFromAddr64';
  *)
- // DbgHelp.h:
+// DbgHelp.h:
  Function SymGetLineFromAddr64(hProcess : THandle; dwAddr : DWORD64; Out pdwDisplacement : DWORD; Out Line : IMAGEHLP_LINE64) : BOOL; Stdcall; External DbgHelpDLL Name {$Ifdef UNICODE}'SymGetLineFromAddrW64'{$Else}'SymGetLineFromAddr64'{$Endif};
 
  Type
   // DbgHelp.h:
-  PREAD_PROCESS_MEMORY_ROUTINE = Function(hProcess : THandle; lpBaseAddress : DWORD64; lpBuffer : pointer; nSize : DWORD; Out lpNumberOfBytesRead : DWORD) : BOOL; Stdcall;
+  PREAD_PROCESS_MEMORY_ROUTINE = Function(hProcess : THandle; lpBaseAddress : DWORD64; lpBuffer : Pointer; nSize : DWORD; Out lpNumberOfBytesRead : DWORD) : BOOL;
 
-  // DbgHelp.h:
-  PFUNCTION_TABLE_ACCESS_ROUTINE = Function(hProcess : THandle; AddrBase : DWORD64) : pointer; Stdcall;
+  Stdcall;
 
-  // DbgHelp.h:
-  PGET_MODULE_BASE_ROUTINE = Function(hProcess : THandle; Address : DWORD64) : DWORD64; Stdcall;
+// DbgHelp.h:
 
-  // DbgHelp.h:
-  PTRANSLATE_ADDRESS_ROUTINE = Function(hProcess : THandle; hThread : THandle; Out lpaddr : ADDRESS64) : DWORD64; Stdcall;
+  PFUNCTION_TABLE_ACCESS_ROUTINE = Function(hProcess : THandle; AddrBase : DWORD64) : Pointer;
 
-  // DbgHelp.h:
+  Stdcall;
+
+// DbgHelp.h:
+
+  PGET_MODULE_BASE_ROUTINE = Function(hProcess : THandle; Address : DWORD64) : DWORD64;
+
+  Stdcall;
+
+// DbgHelp.h:
+
+  PTRANSLATE_ADDRESS_ROUTINE = Function(hProcess : THandle; hThread : THandle; Out lpaddr : ADDRESS64) : DWORD64;
+
+  Stdcall;
+
+// DbgHelp.h:
+
  Function StackWalk64(MachineType : DWORD; hProcess : THandle; hThread : THandle; Var StackFrame : STACKFRAME64; Var ContextRecord : CONTEXT; ReadMemoryRoutine : PREAD_PROCESS_MEMORY_ROUTINE; FunctionTableAccessRoutine : PFUNCTION_TABLE_ACCESS_ROUTINE; GetModuleBaseRoutine : PGET_MODULE_BASE_ROUTINE; TranslateAddress : PTRANSLATE_ADDRESS_ROUTINE) : BOOL; Stdcall; External DbgHelpDLL Name 'StackWalk64';
 
- (*
+(*
    // WinNT.h:
    function RtlCaptureStackBackTrace(
    FramesToSkip: ULONG;
@@ -561,17 +593,21 @@ Interface
 
   EXCEPTION_POINTERS = Record
    ExceptionRecord : ^Winapi.Windows.EXCEPTION_RECORD;
-   ContextRecord : ^DbgHelp.CONTEXT;
+   ContextRecord   : ^DbgHelp.CONTEXT;
   End;
 
-  // WinNT.h:
-  PVECTORED_EXCEPTION_HANDLER = Function(ExceptionInfo : PEXCEPTION_POINTERS) : LONG; Stdcall;
+// WinNT.h:
 
-  // WinBase.h:
- Function AddVectoredExceptionHandler(First : ULONG; Handler : PVECTORED_EXCEPTION_HANDLER) : pointer; Stdcall; External Winapi.Windows.Kernel32 Name 'AddVectoredExceptionHandler';
+  PVECTORED_EXCEPTION_HANDLER = Function(ExceptionInfo : PEXCEPTION_POINTERS) : LONG;
 
- // WinBase.h:
- Function RemoveVectoredExceptionHandler(Handle : pointer) : ULONG; Stdcall; External Winapi.Windows.Kernel32 Name 'RemoveVectoredExceptionHandler';
+  Stdcall;
+
+// WinBase.h:
+
+ Function AddVectoredExceptionHandler(First : ULONG; Handler : PVECTORED_EXCEPTION_HANDLER) : Pointer; Stdcall; External Winapi.Windows.Kernel32 Name 'AddVectoredExceptionHandler';
+
+// WinBase.h:
+ Function RemoveVectoredExceptionHandler(Handle : Pointer) : ULONG; Stdcall; External Winapi.Windows.Kernel32 Name 'RemoveVectoredExceptionHandler';
 
  Type
   // winternl.h:
@@ -581,20 +617,28 @@ Interface
   // ntstatus.h:
   STATUS_SUCCESS = NTSTATUS(0);
 
-  // https://docs.microsoft.com/en-us/windows/win32/devnotes/ldrdllnotification
+// https://docs.microsoft.com/en-us/windows/win32/devnotes/ldrdllnotification
   LDR_DLL_NOTIFICATION_REASON_LOADED   = 1;
   LDR_DLL_NOTIFICATION_REASON_UNLOADED = 2;
 
  Type
   // no Windows header file [This function may be changed or removed from Windows without further notice.]
-  PLDR_DLL_NOTIFICATION_FUNCTION = Procedure(NotificationReason : ULONG; NotificationData : pointer; // PCLDR_DLL_NOTIFICATION_DATA;
-   CONTEXT : pointer); Stdcall;
+  PLDR_DLL_NOTIFICATION_FUNCTION = Procedure(NotificationReason : ULONG; NotificationData : Pointer; // PCLDR_DLL_NOTIFICATION_DATA;
+  CONTEXT : Pointer);
 
-  // no Windows header file [This function may be changed or removed from Windows without further notice.]
-  TLdrRegisterDllNotification = Function(Flags : ULONG; NotificationFunction : PLDR_DLL_NOTIFICATION_FUNCTION; CONTEXT : pointer; Out Cookie : pointer) : NTSTATUS; Stdcall;
+  Stdcall;
 
-  // no Windows header file [This function may be changed or removed from Windows without further notice.]
-  TLdrUnregisterDllNotification = Function(Cookie : pointer) : NTSTATUS; Stdcall;
+// no Windows header file [This function may be changed or removed from Windows without further notice.]
+
+  TLdrRegisterDllNotification = Function(Flags : ULONG; NotificationFunction : PLDR_DLL_NOTIFICATION_FUNCTION; CONTEXT : Pointer; Out Cookie : Pointer) : NTSTATUS;
+
+  Stdcall;
+
+// no Windows header file [This function may be changed or removed from Windows without further notice.]
+
+  TLdrUnregisterDllNotification = Function(Cookie : Pointer) : NTSTATUS;
+
+  Stdcall;
 
 Implementation
 

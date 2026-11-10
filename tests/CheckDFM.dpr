@@ -1,6 +1,22 @@
-﻿program CheckDFM;
+﻿Program CheckDFM;
 {$APPTYPE CONSOLE}
-uses System.SysUtils,System.Classes;
-var S:TFileStream;D:TMemoryStream;
-begin S:=TFileStream.Create(ParamStr(1),fmOpenRead or fmShareDenyNone);D:=TMemoryStream.Create;
-try ObjectTextToBinary(S,D);Writeln('DFM OK');finally D.Free;S.Free;end;end.
+
+Uses
+ System.SysUtils, System.Classes;
+
+Var
+ s : TFileStream;
+ d : TMemoryStream;
+
+Begin
+ s := TFileStream.Create(ParamStr(1), fmOpenRead Or fmShareDenyNone);
+ d := TMemoryStream.Create;
+ Try
+  ObjectTextToBinary(s, d);
+  Writeln('DFM OK');
+ Finally
+  d.Free;
+  s.Free;
+ End;
+
+End.

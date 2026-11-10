@@ -1,7 +1,7 @@
-object frmAbout: TfrmAbout
+﻿object frmAbout: TfrmAbout
+  HelpContext = 600
   Left = 0
   Top = 0
-  HelpContext = 600
   BorderStyle = bsDialog
   Caption = 'O programie'
   ClientHeight = 380

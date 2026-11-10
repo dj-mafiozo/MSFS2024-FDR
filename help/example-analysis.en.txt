@@ -1,0 +1,32 @@
+﻿# Example landing analysis
+> Synthetic manual data. This report was written for documentation; it is not an AI response or an assessment of a real flight.
+
+## Flight and analysis window
+**FDR101 · B38M · EPLL–EPLL · RWY 25**
+Plan: `EPLL.25 ADOX2W SOXE2T LL501 ILSZ.25 EPLL.25`.
+Touchdown selected at 00:33:20 UTC; window: 180 s before contact and 30 s after. The recording covers preparation, takeoff, climb, the route segment, descent and rollout.
+
+## Selected sample
+- IAS: **145 kt**; ground speed: **138 kt**.
+- Contact-sample V/S: **−120 ft/min**; load factor: **1.18 g**.
+- Altitude: **607 ft MSL**; radio height: **0 ft**.
+- Pitch: **2.6° nose up**; bank: **0.7°**.
+- Magnetic heading: **245°**; QNH: **1013 hPa**.
+- Flaps: **40**; gear: **DOWN**; spoilers **ARMED** before contact.
+- AP after disconnect: **OFF**; inspect FD/A/T using their recorded states.
+
+## Before and after contact
+Altitude decreases during descent as the aircraft transitions to landing configuration. In this example airspeed approaches 145 kt. After touchdown speed decreases, braking appears and the spoilers deploy. Compare those changes with the contact event on the shared timeline.
+Reaching an expected IAS alone does not establish a stabilized approach. Inspect vertical path, configuration, thrust and recorded valid LOC/GS deviations as well. The FD switch state is not a substitute for guidance commands.
+
+## Weather and plan
+Example simulator METAR: `EPLL 120000Z 27008KT 9999 SCT025 12/08 Q1013`.
+At heading 245° this gives approximately 7 kt headwind and 3 kt crosswind. The real-weather example has 28012G18KT and Q1012; compare source and observation time before interpreting differences. OFP quantities are plans, not in-flight measurements.
+
+## Limitations and follow-up
+The demonstration recording uses a coarse **20 s** interval. The −120 ft/min and 1.18 g values describe a prepared sample, not peak touchdown loads. They cannot reliably identify flare timing, maximum acceleration or an exact touchdown point.
+- Zoom IAS/V/S/pitch charts around contact.
+- Check source and validity of AP/A/T, LOC and GS states.
+- Compare the contact position on the map with plan and actual track.
+- Use denser recording and before/after context for a real assessment.
+**Demonstration conclusion:** the recording illustrates event order and configuration, but does not support a complete landing-quality assessment.

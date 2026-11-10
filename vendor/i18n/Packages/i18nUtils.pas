@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -11,16 +11,16 @@
 /// <summary>
 /// This unit implements some utility functions.
 /// </summary>
-unit i18nUtils;
+Unit i18nUtils;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-uses
+ Uses
   Windows, SysUtils, Classes, Variants, SyncObjs, i18nCore, i18nUnicode;
 
-{$region 'xmldoc'}
+{$Region 'xmldoc'}
 /// <summary>
 /// Extracts the component name from a specified property path.
 /// </summary>
@@ -30,1332 +30,1350 @@ uses
 /// <returns>
 /// The name of component that owns the property.
 /// </returns>
-{$endregion}
-function ExtractComponentName(const PropertyPath: String): String;
+{$Endregion}
 
-{$region 'xmldoc'}
-/// <summary>
-/// Expands environment-variable strings and replaces them with their defined
-/// values.
-/// </summary>
-/// <param name="Str">
-/// The string that might contain references to environment-variable strings of
-/// the form: <c>%variableName%</c>.</param>
-/// <returns>
-/// The string with its environment variables replaced with the current
-/// values of those environment variables.
-/// </returns>
-{$endregion}
-function ExpandEnvStr(const Str: String): String;
+ Function ExtractComponentName(Const PropertyPath : String) : String;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Escapes all whitespace characters, except blank, in a specified string
-/// using backslash escapes.
-/// </summary>
-/// <param name="Str">
-/// The string to be escaped.
-/// </param>
-/// <returns>
-/// The escaped string.
-/// </returns>
-/// <seealso cref="UnescapeString"/>
-{$endregion}
-function EscapeString(const Str: String): String;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Expands environment-variable strings and replaces them with their defined
+ /// values.
+ /// </summary>
+ /// <param name="Str">
+ /// The string that might contain references to environment-variable strings of
+ /// the form: <c>%variableName%</c>.</param>
+ /// <returns>
+ /// The string with its environment variables replaced with the current
+ /// values of those environment variables.
+ /// </returns>
+ {$Endregion}
+ Function ExpandEnvStr(Const Str : String) : String;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Unescapes a specified string that was previously escaped using
-/// <see cref="EscapeString"/> function.
-/// </summary>
-/// <param name="Str">
-/// The source string.
-/// </param>
-/// <returns>
-/// The string as normal.
-/// </returns>
-/// <exception cref="EConvertError">
-/// Occurs if the source string contains invalid escaped characters.
-/// </exception>
-/// <seealso cref="EscapeString"/>
-{$endregion}
-function UnescapeString(const Str: String): String;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Escapes all whitespace characters, except blank, in a specified string
+ /// using backslash escapes.
+ /// </summary>
+ /// <param name="Str">
+ /// The string to be escaped.
+ /// </param>
+ /// <returns>
+ /// The escaped string.
+ /// </returns>
+ /// <seealso cref="UnescapeString"/>
+ {$Endregion}
+ Function EscapeString(Const Str : String) : String;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Calculates Damerau-Levenshtein distance between two specified strings.
-/// </summary>
-/// <remarks>
-/// <para>
-/// The Damerau-Levenshtein distance (named after Frederick J. Damerau and Vladimir I.
-/// Levenshtein) is a "distance" (string metric) between two strings, i.e., finite
-/// sequence of symbols, given by counting the minimum number of operations needed
-/// to transform one string into the other, where an operation is defined as an
-/// insertion, deletion, or substitution of a single character, or a transposition
-/// of two adjacent characters.
-/// </para>
-/// </remarks>
-/// <param name="Str1">
-/// The first string.
-/// </param>
-/// <param name="Str2">
-/// The second string.
-/// </param>
-/// <returns>
-/// The Damerau-Levenshtein distance.
-/// </returns>
-/// <seealso cref="StringSimilarityRatio"/>
-/// <seealso cref="TextSimilarityRatio"/>
-{$endregion}
-function DamerauLevenshteinDistance(const Str1, Str2: String): Integer;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Unescapes a specified string that was previously escaped using
+ /// <see cref="EscapeString"/> function.
+ /// </summary>
+ /// <param name="Str">
+ /// The source string.
+ /// </param>
+ /// <returns>
+ /// The string as normal.
+ /// </returns>
+ /// <exception cref="EConvertError">
+ /// Occurs if the source string contains invalid escaped characters.
+ /// </exception>
+ /// <seealso cref="EscapeString"/>
+ {$Endregion}
+ Function UnescapeString(Const Str : String) : String;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Calculates the ratio that determines how much two specified strings are
-/// similar. The comparison is case sensitive.
-/// </summary>
-/// <param name="Str1">
-/// The first string.
-/// </param>
-/// <param name="Str2">
-/// The second string.
-/// </param>
-/// <returns>
-/// The similarity ratio in range 0 to 1, where 0 means not similar at all and
-/// 1 means identical.
-/// </returns>
-/// <seealso cref="DamerauLevenshteinDistance"/>
-/// <seealso cref="TextSimilarityRatio"/>
-{$endregion}
-function StringSimilarityRatio(const Str1, Str2: String): Double;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Calculates Damerau-Levenshtein distance between two specified strings.
+ /// </summary>
+ /// <remarks>
+ /// <para>
+ /// The Damerau-Levenshtein distance (named after Frederick J. Damerau and Vladimir I.
+ /// Levenshtein) is a "distance" (string metric) between two strings, i.e., finite
+ /// sequence of symbols, given by counting the minimum number of operations needed
+ /// to transform one string into the other, where an operation is defined as an
+ /// insertion, deletion, or substitution of a single character, or a transposition
+ /// of two adjacent characters.
+ /// </para>
+ /// </remarks>
+ /// <param name="Str1">
+ /// The first string.
+ /// </param>
+ /// <param name="Str2">
+ /// The second string.
+ /// </param>
+ /// <returns>
+ /// The Damerau-Levenshtein distance.
+ /// </returns>
+ /// <seealso cref="StringSimilarityRatio"/>
+ /// <seealso cref="TextSimilarityRatio"/>
+ {$Endregion}
+ Function DamerauLevenshteinDistance(Const Str1, Str2 : String) : Integer;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Calculates the ratio that determines how much two specified strings are
-/// similar. The comparison is case insensitive.
-/// </summary>
-/// <param name="Str1">
-/// The first string.
-/// </param>
-/// <param name="Str2">
-/// The second string.
-/// </param>
-/// <returns>
-/// The similarity ratio in range 0 to 1, where 0 means not similar at all and
-/// 1 means identical (ignoring case of letters).
-/// </returns>
-/// <seealso cref="DamerauLevenshteinDistance"/>
-/// <seealso cref="StringSimilarityRatio"/>
-{$endregion}
-function TextSimilarityRatio(const Str1, Str2: String): Double; inline;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Calculates the ratio that determines how much two specified strings are
+ /// similar. The comparison is case sensitive.
+ /// </summary>
+ /// <param name="Str1">
+ /// The first string.
+ /// </param>
+ /// <param name="Str2">
+ /// The second string.
+ /// </param>
+ /// <returns>
+ /// The similarity ratio in range 0 to 1, where 0 means not similar at all and
+ /// 1 means identical.
+ /// </returns>
+ /// <seealso cref="DamerauLevenshteinDistance"/>
+ /// <seealso cref="TextSimilarityRatio"/>
+ {$Endregion}
+ Function StringSimilarityRatio(Const Str1, Str2 : String) : Double;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Substitutes the native digits of a source language with native digits of
-/// another language, in a specified string.
-/// </summary>
-/// <param name="Str">
-/// The string to substitute its digits.
-/// </param>
-/// <param name="FromCulture">
-/// The <see cref="TCultureInfo"/> object that specifies the source language.
-/// </param>
-/// <param name="ToCulture">
-/// The <see cref="TCultureInfo"/> object that specifies the target language.
-/// </param>
-/// <returns>
-/// The string that its digits are substituted.
-/// </returns>
-{$endregion}
-function TranslateDigits(const Str: String; FromCulture, ToCulture: TCultureInfo): String;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Calculates the ratio that determines how much two specified strings are
+ /// similar. The comparison is case insensitive.
+ /// </summary>
+ /// <param name="Str1">
+ /// The first string.
+ /// </param>
+ /// <param name="Str2">
+ /// The second string.
+ /// </param>
+ /// <returns>
+ /// The similarity ratio in range 0 to 1, where 0 means not similar at all and
+ /// 1 means identical (ignoring case of letters).
+ /// </returns>
+ /// <seealso cref="DamerauLevenshteinDistance"/>
+ /// <seealso cref="StringSimilarityRatio"/>
+ {$Endregion}
+ Function TextSimilarityRatio(Const Str1, Str2 : String) : Double; Inline;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Converts a specified value using a format string.
-/// </summary>
-/// <remarks>
-/// <para>
-/// FormatValue formats the value given by <paramref name="Value"/> using the format
-/// specifier given by <paramref name="Fmt"/>.
-/// </para>
-/// <para>
-/// The format specifiers for datetime values and numeric values respectively correspond
-/// to the Fmt parameters of <see cref="TCalendar.Format"/> and <see cref="TCultureInfo.FormatNumber"/>
-/// methods. In addition, there are some extra format specifiers for numeric values:
-/// </para>
-///
-/// <list type="table">
-///   <listheader>
-///     <term>Format Specifier</term>
-///     <description>Name</description>
-///     <description>Description</description>
-///   </listheader>
-///   <item>
-///     <term>C or c</term>
-///     <description>Currency</description>
-///     <description>
-///     <para>
-///     The number is converted to a string that represents a currency amount. The conversion is
-///     controlled by the currency format information of the <paramref name="Culture"/> parameter
-///     or the current locale's settings.
-///     </para>
-///     <para>
-///     The precision specifier indicates the desired number of decimal places. If the precision
-///     specifier is omitted, the default currency precision given by the <paramref name="Culture"/>
-///     parameter or the current locale's settings is used.
-///     </para>
-///     <example>
-///     The following example formats a floating point value with the currency format specifier.
-///     <code>
-///     value := 12345.6789;
-///     a := FormatValue('C', value);  // $12345.68
-///     b := FormatValue('C3', value); // $12345.679
-///     </code>
-///     </example>
-///     </description>
-///   </item>
-///   <item>
-///     <term>D or d</term>
-///     <description>Decimal</description>
-///     <description>
-///     <para>
-///     This format is supported only for integral types. The number is converted to a string of
-///     decimal digits (0-9), prefixed by a minus sign if the number is negative.
-///     </para>
-///     <para>
-///     The precision specifier indicates the minimum number of digits desired in the resulting
-///     string. If required, the number is padded with zeros to its left to produce the number
-///     of digits given by the precision specifier.
-///     </para>
-///     <example>
-///     The following example formats an integer value with the decimal format specifier.
-///     <code>
-///     value := 12345;
-///     a := FormatValue('D', value);  // 12345
-///     b := FormatValue('D8', value); // 00012345
-///
-///     value := -12345;
-///     c := FormatValue('D', value);  // -12345
-///     d := FormatValue('D8', value); // -00012345
-///     </code>
-///     </example>
-///     </description>
-///   </item>
-///   <item>
-///     <term>E or e</term>
-///     <description>Scientific (Exponential)</description>
-///     <description>
-///     <para>
-///     The number is converted to a string of the form "-d.ddd...E+ddd" or "-d.ddd...e+ddd",
-///     where each 'd' indicates a digit (0-9). The string starts with a minus sign if the number
-///     is negative. One digit always precedes the decimal point.
-///     </para>
-///     <para>
-///     The precision specifier indicates the desired number of digits after the decimal point. If
-///     the precision specifier is omitted, a default of six digits after the decimal point is used.
-///     </para>
-///     <para>
-///     The case of the format specifier indicates whether to prefix the exponent with an 'E' or an
-///     'e'. The exponent always consists of a plus or minus sign and a minimum of three digits. The
-///     exponent is padded with zeros to meet this minimum, if required.
-///     </para>
-///     <example>
-///     The following example formats a floating point value with the scientific format specifier.
-///     <code>
-///     value := 12345.6789;
-///     a := FormatValue('E', value);   // 1.234568E+004
-///     b := FormatValue('E10', value); // 1.2345678900E+004
-///     c := FormatValue('e4', value);  // 1.2346e+004
-///     </code>
-///     </example>
-///     </description>
-///   </item>
-///   <item>
-///     <term>F or f</term>
-///     <description>Fixed-point</description>
-///     <description>
-///     <para>
-///     The number is converted to a string of the form "-ddd.ddd..." where each 'd' indicates a
-///     digit (0-9). The string starts with a minus sign if the number is negative.
-///     </para>
-///     <para>
-///     The precision specifier indicates the desired number of decimal places. If the precision
-///     specifier is omitted, the default numeric precision is given by the <paramref name="Culture"/>
-///     parameter or the current locale's settings.
-///     </para>
-///     <example>
-///     The following example formats a floating point value with the fixed-point format specifier.
-///     <code>
-///     value := 12345.6789;
-///     a := FormatValue('F', value);   // 12345.68
-///     b := FormatValue('F3', value);  // 12345.679
-///     c := FormatValue('F0', value);  // 12346
-///     </code>
-///     </example>
-///     </description>
-///   </item>
-///   <item>
-///     <term>G or g</term>
-///     <description>General</description>
-///     <description>
-///     <para>
-///     The number is converted to the most compact of either fixed-point or scientific notation,
-///     depending on the type of the number and whether a precision specifier is present. If the
-///     precision specifier is omitted or zero, the type of the number determines the default
-///     precision.
-///     </para>
-///     <para>
-///     Fixed-point notation is used if the exponent that would result from expressing the number
-///     in scientific notation is greater than -5 and less than the precision specifier; otherwise,
-///     scientific notation is used. The result contains a decimal point if required and trailing
-///     zeroes are omitted. If the precision specifier is present and the number of significant
-///     digits in the result exceeds the specified precision, then the excess trailing digits are
-///     removed by rounding.
-///     </para>
-///     <para>
-///     The exception to the preceding rule is if the number is a decimal and the precision specifier
-///     is omitted. In that case, fixed-point notation is always used and trailing zeroes are preserved.
-///     </para>
-///     <para>
-///     If scientific notation is used, the exponent in the result is prefixed with 'E' if the format
-///     specifier is 'G', or 'e' if the format specifier is 'g'.
-///     </para>
-///     <example>
-///     The following example formats assorted integer and floating point values with the general
-///     format specifier.
-///     <code>
-///     value := 12345.6789;
-///     a := FormatValue('G', value);   // 12345.6789
-///     b := FormatValue('G7', value);  // 12345.68
-///
-///     value := 0.0000023;
-///     c := FormatValue('G', value);   // 2.3E-006
-///
-///     value := 0.0023;
-///     d := FormatValue('G', value);   // 0.0023
-///
-///     value := 1234;
-///     e := FormatValue('G2', value);  // 1.2E003
-///
-///     value := PI;
-///     f := FormatValue('G5', value);  // 3.1416
-///     </code>
-///     </example>
-///     </description>
-///   </item>
-///   <item>
-///     <term>N or n</term>
-///     <description>Number</description>
-///     <description>
-///     <para>
-///     The number is converted to a string of the form "-d,ddd,ddd.ddd...", where '-' indicates a negative
-///     number symbol if required, 'd' indicates a digit (0-9), ',' indicates a thousand separator between
-///     number groups, and '.' indicates a decimal point symbol. The actual negative number pattern, number
-///     group size, thousand separator, and decimal separator are specified by the <paramref name="Culture"/>
-///     parameter or the current locale's settings.
-///     </para>
-///     <para>
-///     The precision specifier indicates the desired number of decimal places. If the precision specifier
-///     is omitted, the default numeric precision is given by the <paramref name="Culture"/> parameter
-///     or the current locale's settings.
-///     </para>
-///     <example>
-///     The following example formats a floating point and an integer value with the number format specifier.
-///     <code>
-///     value := -12345.6789;
-///     a := FormatValue('N', value);   // -12,345.68
-///     b := FormatValue('N1', value);  // -12,345.7
-///
-///     value := 123456789;
-///     c := FormatValue('N', value);   // 123,456,789.00
-///     d := FormatValue('N0', value);  // 123,456,789
-///     </code>
-///     </example>
-///     </description>
-///   </item>
-///   <item>
-///     <term>P or p</term>
-///     <description>Percent</description>
-///     <description>
-///     <para>
-///     The number is converted to a string that represents a percent. The converted number is multiplied
-///     by 100 in order to be presented as a percentage. The percent sign and its location is determined
-///     by the <paramref name="Culture"/> parameter or the current locale's settings.
-///     </para>
-///     <para>
-///     The precision specifier indicates the desired number of decimal places. If the precision specifier
-///     is omitted, the default numeric precision given by the <paramref name="Culture"/> parameter or the
-///     current locale's settings is used.
-///     </para>
-///     <example>
-///     The following example formats a floating point value with the percent format specifier.
-///     <code>
-///     value := 0.2468013;
-///     a := FormatValue('P', value);   // 24.68%
-///     b := FormatValue('P1', value);  // 24.7%
-///     </code>
-///     </example>
-///     </description>
-///   </item>
-///   <item>
-///     <term>X or x</term>
-///     <description>Hexadecimal</description>
-///     <description>
-///     <para>
-///     This format is supported only for integer values. The number is converted to a string of hexadecimal
-///     digits. The case of the format specifier indicates whether to use uppercase or lowercase characters
-///     for the hexadecimal digits greater than 9. For example, use 'X' to produce "ABCDEF", and 'x' to produce
-///     "abcdef".
-///     </para>
-///     <para>
-///     The precision specifier indicates the minimum number of digits desired in the resulting string. If
-///     required, the number is padded with zeros to its left to produce the number of digits given by the
-///     precision specifier.
-///     </para>
-///     <example>
-///     The following example formats various integer values with the hexadecimal format specifier.
-///     <code>
-///     value := $2045e;
-///     a := FormatValue('X', value);    // 2045E
-///     b := FormatValue('X8', value);   // 0002045E
-///
-///     value := 123456789;
-///     c := FormatValue('X', value);    // 75BCD15
-///     d := FormatValue('X2', value);   // 75BCD15
-///     e := FormatValue('x10', value);  // 00075bcd15
-///     </code>
-///     </example>
-///     </description>
-///   </item>
-///   <item>
-///     <term>B or b</term>
-///     <description>Binary</description>
-///     <description>
-///     <para>
-///     This format is supported only for integer values. The number is converted to a string of binary
-///     digits.
-///     </para>
-///     <para>
-///     The precision specifier indicates the minimum number of digits desired in the resulting string.
-///     If required, the number is padded with zeros to its left to produce the number of digits given
-///     by the precision specifier.
-///     </para>
-///     <example>
-///     The following example formats various integer values with the binary format specifier.
-///     <code>
-///     value := $A6;
-///     a := FormatValue('B', value);    // 10100110
-///     b := FormatValue('B12', value);  // 000010100110
-///
-///     value := 123;
-///     c := FormatValue('B', value);    // 1111011
-///     d := FormatValue('B4', value);   // 1111011
-///     e := FormatValue('B10', value);  // 0001111011
-///     </code>
-///     </example>
-///     </description>
-///   </item>
-/// </list>
-/// <para>
-/// NOTE: FormatValue always uses the native calendar system of the specified
-/// culture to format a date value.
-/// </para>
-/// </remarks>
-/// <param name="Fmt">
-/// The format string. See <see cref="FormatCS"/> for details.
-/// </param>
-/// <param name="Value">
-/// The value to be formatted.
-/// </param>
-/// <param name="Culture">
-/// The optional <see cref="TCultureInfo"/> object that provides the locale specific
-/// format settings.
-/// </param>
-/// <param name="UseNativeDigits">
-/// Indicates whether the numbers should be represented in the native digits of the
-/// specified <paramref name="Culture"/>.
-/// </param>
-/// <returns>
-/// The formatted value as a string.
-/// </returns>
-/// <seealso cref="FormatCS"/>
-{$endregion}
-function FormatValue(const Fmt: String; const Value: Variant; Culture: TCultureInfo = nil;
-  UseNativeDigits: Boolean = True): String;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Substitutes the native digits of a source language with native digits of
+ /// another language, in a specified string.
+ /// </summary>
+ /// <param name="Str">
+ /// The string to substitute its digits.
+ /// </param>
+ /// <param name="FromCulture">
+ /// The <see cref="TCultureInfo"/> object that specifies the source language.
+ /// </param>
+ /// <param name="ToCulture">
+ /// The <see cref="TCultureInfo"/> object that specifies the target language.
+ /// </param>
+ /// <returns>
+ /// The string that its digits are substituted.
+ /// </returns>
+ {$Endregion}
+ Function TranslateDigits(Const Str : String; FromCulture, ToCulture : TCultureInfo) : String;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Returns a formatted string assembled from a format string in C# language style
-/// and an array of arguments.
-/// </summary>
-/// <remarks>
-/// <para>
-/// FormatCS returns a string produced according to the formatting string <paramref name="Fmt"/>.
-/// </para>
-/// <para>
-/// The <paramref name="Fmt"/> parameter consists of zero or more runs of text intermixed
-/// with zero or more indexed placeholders, called format items, that correspond to a value
-/// in the parameter list of this function. The formatting process replaces each format item
-/// with the text representation of the value of the corresponding value.
-/// </para>
-/// <para>
-/// The syntax of a format item is <c>{index[,alignment][:specifier]}</c>, which specifies
-/// a mandatory index, the optional length and alignment of the formatted text, and an optional
-/// string of format specifier characters that govern how the value of the corresponding argument
-/// is formatted. The components of a format item are:
-/// </para>
-///
-/// <list type="table">
-///   <listheader>
-///     <term>Format Component</term>
-///     <description>Description</description>
-///   </listheader>
-///   <item>
-///     <term>index</term>
-///     <description>
-///     A zero-based integer that indicates which element in a list of objects to format.
-///     </description>
-///   </item>
-///   <item>
-///     <term>alignment</term>
-///     <description>
-///     An optional integer indicating the minimum width of the region to contain the formatted
-///     value. If the length of the formatted value is less than alignment, then the region is
-///     padded with spaces. If alignment is negative, the formatted value is left justified in
-///     the region; if alignment is positive, the formatted value is right justified. If alignment
-///     is not specified, the length of the region is the length of the formatted value. The comma
-///     is required if alignment is specified.
-///     </description>
-///   </item>
-///   <item>
-///     <term>specifier</term>
-///     <description>
-///     An optional string of format specifiers. The format specifier for datetime values and numeric
-///     values respectively correspond to the Fmt parameters of <see cref="TCalendar.Format"/>
-///     and <see cref="TCultureInfo.FormatNumber"/> methods. In addition, there are some extra format
-///     specifiers for numeric values. See <see cref="FormatValue"/> for details.
-///     </description>
-///   </item>
-/// </list>
-/// <para>
-/// The leading and trailing brace characters, '{' and '}', are required. To specify a single
-/// literal brace character in format, specify two leading or trailing brace characters; that
-/// is, "{{" or "}}".
-/// </para>
-/// <para>
-/// If FormatCS cannot expand a format item, it will include the format item in the string
-/// as untouched.
-/// </para>
-/// <para>
-/// NOTE: FormatCS always uses the native digits and calendar system of the specified
-/// culture to format values.
-/// </para>
-/// </remarks>
-/// <param name="Fmt">
-/// The format string.
-/// </param>
-/// <param name="Args">
-/// The array of arguments to apply to the format items in the format string.
-/// </param>
-/// <param name="Culture">
-/// The optional <see cref="TCultureInfo"/> object that provides the locale specific
-/// formatting information.
-/// </param>
-/// <returns>
-/// The formatted string.
-/// </returns>
-/// <seealso cref="FormatValue"/>
-{$endregion}
-function FormatCS(const Fmt: String; const Args: array of Variant; Culture: TCultureInfo = nil): String;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Converts a specified value using a format string.
+ /// </summary>
+ /// <remarks>
+ /// <para>
+ /// FormatValue formats the value given by <paramref name="Value"/> using the format
+ /// specifier given by <paramref name="Fmt"/>.
+ /// </para>
+ /// <para>
+ /// The format specifiers for datetime values and numeric values respectively correspond
+ /// to the Fmt parameters of <see cref="TCalendar.Format"/> and <see cref="TCultureInfo.FormatNumber"/>
+ /// methods. In addition, there are some extra format specifiers for numeric values:
+ /// </para>
+ ///
+ /// <list type="table">
+ ///   <listheader>
+ ///     <term>Format Specifier</term>
+ ///     <description>Name</description>
+ ///     <description>Description</description>
+ ///   </listheader>
+ ///   <item>
+ ///     <term>C or c</term>
+ ///     <description>Currency</description>
+ ///     <description>
+ ///     <para>
+ ///     The number is converted to a string that represents a currency amount. The conversion is
+ ///     controlled by the currency format information of the <paramref name="Culture"/> parameter
+ ///     or the current locale's settings.
+ ///     </para>
+ ///     <para>
+ ///     The precision specifier indicates the desired number of decimal places. If the precision
+ ///     specifier is omitted, the default currency precision given by the <paramref name="Culture"/>
+ ///     parameter or the current locale's settings is used.
+ ///     </para>
+ ///     <example>
+ ///     The following example formats a floating point value with the currency format specifier.
+ ///     <code>
+ ///     value := 12345.6789;
+ ///     a := FormatValue('C', value);  // $12345.68
+ ///     b := FormatValue('C3', value); // $12345.679
+ ///     </code>
+ ///     </example>
+ ///     </description>
+ ///   </item>
+ ///   <item>
+ ///     <term>D or d</term>
+ ///     <description>Decimal</description>
+ ///     <description>
+ ///     <para>
+ ///     This format is supported only for integral types. The number is converted to a string of
+ ///     decimal digits (0-9), prefixed by a minus sign if the number is negative.
+ ///     </para>
+ ///     <para>
+ ///     The precision specifier indicates the minimum number of digits desired in the resulting
+ ///     string. If required, the number is padded with zeros to its left to produce the number
+ ///     of digits given by the precision specifier.
+ ///     </para>
+ ///     <example>
+ ///     The following example formats an integer value with the decimal format specifier.
+ ///     <code>
+ ///     value := 12345;
+ ///     a := FormatValue('D', value);  // 12345
+ ///     b := FormatValue('D8', value); // 00012345
+ ///
+ ///     value := -12345;
+ ///     c := FormatValue('D', value);  // -12345
+ ///     d := FormatValue('D8', value); // -00012345
+ ///     </code>
+ ///     </example>
+ ///     </description>
+ ///   </item>
+ ///   <item>
+ ///     <term>E or e</term>
+ ///     <description>Scientific (Exponential)</description>
+ ///     <description>
+ ///     <para>
+ ///     The number is converted to a string of the form "-d.ddd...E+ddd" or "-d.ddd...e+ddd",
+ ///     where each 'd' indicates a digit (0-9). The string starts with a minus sign if the number
+ ///     is negative. One digit always precedes the decimal point.
+ ///     </para>
+ ///     <para>
+ ///     The precision specifier indicates the desired number of digits after the decimal point. If
+ ///     the precision specifier is omitted, a default of six digits after the decimal point is used.
+ ///     </para>
+ ///     <para>
+ ///     The case of the format specifier indicates whether to prefix the exponent with an 'E' or an
+ ///     'e'. The exponent always consists of a plus or minus sign and a minimum of three digits. The
+ ///     exponent is padded with zeros to meet this minimum, if required.
+ ///     </para>
+ ///     <example>
+ ///     The following example formats a floating point value with the scientific format specifier.
+ ///     <code>
+ ///     value := 12345.6789;
+ ///     a := FormatValue('E', value);   // 1.234568E+004
+ ///     b := FormatValue('E10', value); // 1.2345678900E+004
+ ///     c := FormatValue('e4', value);  // 1.2346e+004
+ ///     </code>
+ ///     </example>
+ ///     </description>
+ ///   </item>
+ ///   <item>
+ ///     <term>F or f</term>
+ ///     <description>Fixed-point</description>
+ ///     <description>
+ ///     <para>
+ ///     The number is converted to a string of the form "-ddd.ddd..." where each 'd' indicates a
+ ///     digit (0-9). The string starts with a minus sign if the number is negative.
+ ///     </para>
+ ///     <para>
+ ///     The precision specifier indicates the desired number of decimal places. If the precision
+ ///     specifier is omitted, the default numeric precision is given by the <paramref name="Culture"/>
+ ///     parameter or the current locale's settings.
+ ///     </para>
+ ///     <example>
+ ///     The following example formats a floating point value with the fixed-point format specifier.
+ ///     <code>
+ ///     value := 12345.6789;
+ ///     a := FormatValue('F', value);   // 12345.68
+ ///     b := FormatValue('F3', value);  // 12345.679
+ ///     c := FormatValue('F0', value);  // 12346
+ ///     </code>
+ ///     </example>
+ ///     </description>
+ ///   </item>
+ ///   <item>
+ ///     <term>G or g</term>
+ ///     <description>General</description>
+ ///     <description>
+ ///     <para>
+ ///     The number is converted to the most compact of either fixed-point or scientific notation,
+ ///     depending on the type of the number and whether a precision specifier is present. If the
+ ///     precision specifier is omitted or zero, the type of the number determines the default
+ ///     precision.
+ ///     </para>
+ ///     <para>
+ ///     Fixed-point notation is used if the exponent that would result from expressing the number
+ ///     in scientific notation is greater than -5 and less than the precision specifier; otherwise,
+ ///     scientific notation is used. The result contains a decimal point if required and trailing
+ ///     zeroes are omitted. If the precision specifier is present and the number of significant
+ ///     digits in the result exceeds the specified precision, then the excess trailing digits are
+ ///     removed by rounding.
+ ///     </para>
+ ///     <para>
+ ///     The exception to the preceding rule is if the number is a decimal and the precision specifier
+ ///     is omitted. In that case, fixed-point notation is always used and trailing zeroes are preserved.
+ ///     </para>
+ ///     <para>
+ ///     If scientific notation is used, the exponent in the result is prefixed with 'E' if the format
+ ///     specifier is 'G', or 'e' if the format specifier is 'g'.
+ ///     </para>
+ ///     <example>
+ ///     The following example formats assorted integer and floating point values with the general
+ ///     format specifier.
+ ///     <code>
+ ///     value := 12345.6789;
+ ///     a := FormatValue('G', value);   // 12345.6789
+ ///     b := FormatValue('G7', value);  // 12345.68
+ ///
+ ///     value := 0.0000023;
+ ///     c := FormatValue('G', value);   // 2.3E-006
+ ///
+ ///     value := 0.0023;
+ ///     d := FormatValue('G', value);   // 0.0023
+ ///
+ ///     value := 1234;
+ ///     e := FormatValue('G2', value);  // 1.2E003
+ ///
+ ///     value := PI;
+ ///     f := FormatValue('G5', value);  // 3.1416
+ ///     </code>
+ ///     </example>
+ ///     </description>
+ ///   </item>
+ ///   <item>
+ ///     <term>N or n</term>
+ ///     <description>Number</description>
+ ///     <description>
+ ///     <para>
+ ///     The number is converted to a string of the form "-d,ddd,ddd.ddd...", where '-' indicates a negative
+ ///     number symbol if required, 'd' indicates a digit (0-9), ',' indicates a thousand separator between
+ ///     number groups, and '.' indicates a decimal point symbol. The actual negative number pattern, number
+ ///     group size, thousand separator, and decimal separator are specified by the <paramref name="Culture"/>
+ ///     parameter or the current locale's settings.
+ ///     </para>
+ ///     <para>
+ ///     The precision specifier indicates the desired number of decimal places. If the precision specifier
+ ///     is omitted, the default numeric precision is given by the <paramref name="Culture"/> parameter
+ ///     or the current locale's settings.
+ ///     </para>
+ ///     <example>
+ ///     The following example formats a floating point and an integer value with the number format specifier.
+ ///     <code>
+ ///     value := -12345.6789;
+ ///     a := FormatValue('N', value);   // -12,345.68
+ ///     b := FormatValue('N1', value);  // -12,345.7
+ ///
+ ///     value := 123456789;
+ ///     c := FormatValue('N', value);   // 123,456,789.00
+ ///     d := FormatValue('N0', value);  // 123,456,789
+ ///     </code>
+ ///     </example>
+ ///     </description>
+ ///   </item>
+ ///   <item>
+ ///     <term>P or p</term>
+ ///     <description>Percent</description>
+ ///     <description>
+ ///     <para>
+ ///     The number is converted to a string that represents a percent. The converted number is multiplied
+ ///     by 100 in order to be presented as a percentage. The percent sign and its location is determined
+ ///     by the <paramref name="Culture"/> parameter or the current locale's settings.
+ ///     </para>
+ ///     <para>
+ ///     The precision specifier indicates the desired number of decimal places. If the precision specifier
+ ///     is omitted, the default numeric precision given by the <paramref name="Culture"/> parameter or the
+ ///     current locale's settings is used.
+ ///     </para>
+ ///     <example>
+ ///     The following example formats a floating point value with the percent format specifier.
+ ///     <code>
+ ///     value := 0.2468013;
+ ///     a := FormatValue('P', value);   // 24.68%
+ ///     b := FormatValue('P1', value);  // 24.7%
+ ///     </code>
+ ///     </example>
+ ///     </description>
+ ///   </item>
+ ///   <item>
+ ///     <term>X or x</term>
+ ///     <description>Hexadecimal</description>
+ ///     <description>
+ ///     <para>
+ ///     This format is supported only for integer values. The number is converted to a string of hexadecimal
+ ///     digits. The case of the format specifier indicates whether to use uppercase or lowercase characters
+ ///     for the hexadecimal digits greater than 9. For example, use 'X' to produce "ABCDEF", and 'x' to produce
+ ///     "abcdef".
+ ///     </para>
+ ///     <para>
+ ///     The precision specifier indicates the minimum number of digits desired in the resulting string. If
+ ///     required, the number is padded with zeros to its left to produce the number of digits given by the
+ ///     precision specifier.
+ ///     </para>
+ ///     <example>
+ ///     The following example formats various integer values with the hexadecimal format specifier.
+ ///     <code>
+ ///     value := $2045e;
+ ///     a := FormatValue('X', value);    // 2045E
+ ///     b := FormatValue('X8', value);   // 0002045E
+ ///
+ ///     value := 123456789;
+ ///     c := FormatValue('X', value);    // 75BCD15
+ ///     d := FormatValue('X2', value);   // 75BCD15
+ ///     e := FormatValue('x10', value);  // 00075bcd15
+ ///     </code>
+ ///     </example>
+ ///     </description>
+ ///   </item>
+ ///   <item>
+ ///     <term>B or b</term>
+ ///     <description>Binary</description>
+ ///     <description>
+ ///     <para>
+ ///     This format is supported only for integer values. The number is converted to a string of binary
+ ///     digits.
+ ///     </para>
+ ///     <para>
+ ///     The precision specifier indicates the minimum number of digits desired in the resulting string.
+ ///     If required, the number is padded with zeros to its left to produce the number of digits given
+ ///     by the precision specifier.
+ ///     </para>
+ ///     <example>
+ ///     The following example formats various integer values with the binary format specifier.
+ ///     <code>
+ ///     value := $A6;
+ ///     a := FormatValue('B', value);    // 10100110
+ ///     b := FormatValue('B12', value);  // 000010100110
+ ///
+ ///     value := 123;
+ ///     c := FormatValue('B', value);    // 1111011
+ ///     d := FormatValue('B4', value);   // 1111011
+ ///     e := FormatValue('B10', value);  // 0001111011
+ ///     </code>
+ ///     </example>
+ ///     </description>
+ ///   </item>
+ /// </list>
+ /// <para>
+ /// NOTE: FormatValue always uses the native calendar system of the specified
+ /// culture to format a date value.
+ /// </para>
+ /// </remarks>
+ /// <param name="Fmt">
+ /// The format string. See <see cref="FormatCS"/> for details.
+ /// </param>
+ /// <param name="Value">
+ /// The value to be formatted.
+ /// </param>
+ /// <param name="Culture">
+ /// The optional <see cref="TCultureInfo"/> object that provides the locale specific
+ /// format settings.
+ /// </param>
+ /// <param name="UseNativeDigits">
+ /// Indicates whether the numbers should be represented in the native digits of the
+ /// specified <paramref name="Culture"/>.
+ /// </param>
+ /// <returns>
+ /// The formatted value as a string.
+ /// </returns>
+ /// <seealso cref="FormatCS"/>
+ {$Endregion}
+ Function FormatValue(Const Fmt : String; Const Value : Variant; Culture : TCultureInfo = Nil; UseNativeDigits : Boolean = True) : String;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Maps a specified string in a specified code page to a Unicode string.
-/// </summary>
-/// <param name="CodePage">
-/// The code page of the source string.
-/// </param>
-/// <param name="Str">
-/// The source string.
-/// </param>
-/// <returns>
-/// The Unicode string.
-/// </returns>
-/// <seealso cref="UnicodeToCodePage"/>
-{$endregion}
-function CodePageToUnicode(CodePage: Integer; const Str: RawByteString): UnicodeString;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Returns a formatted string assembled from a format string in C# language style
+ /// and an array of arguments.
+ /// </summary>
+ /// <remarks>
+ /// <para>
+ /// FormatCS returns a string produced according to the formatting string <paramref name="Fmt"/>.
+ /// </para>
+ /// <para>
+ /// The <paramref name="Fmt"/> parameter consists of zero or more runs of text intermixed
+ /// with zero or more indexed placeholders, called format items, that correspond to a value
+ /// in the parameter list of this function. The formatting process replaces each format item
+ /// with the text representation of the value of the corresponding value.
+ /// </para>
+ /// <para>
+ /// The syntax of a format item is <c>{index[,alignment][:specifier]}</c>, which specifies
+ /// a mandatory index, the optional length and alignment of the formatted text, and an optional
+ /// string of format specifier characters that govern how the value of the corresponding argument
+ /// is formatted. The components of a format item are:
+ /// </para>
+ ///
+ /// <list type="table">
+ ///   <listheader>
+ ///     <term>Format Component</term>
+ ///     <description>Description</description>
+ ///   </listheader>
+ ///   <item>
+ ///     <term>index</term>
+ ///     <description>
+ ///     A zero-based integer that indicates which element in a list of objects to format.
+ ///     </description>
+ ///   </item>
+ ///   <item>
+ ///     <term>alignment</term>
+ ///     <description>
+ ///     An optional integer indicating the minimum width of the region to contain the formatted
+ ///     value. If the length of the formatted value is less than alignment, then the region is
+ ///     padded with spaces. If alignment is negative, the formatted value is left justified in
+ ///     the region; if alignment is positive, the formatted value is right justified. If alignment
+ ///     is not specified, the length of the region is the length of the formatted value. The comma
+ ///     is required if alignment is specified.
+ ///     </description>
+ ///   </item>
+ ///   <item>
+ ///     <term>specifier</term>
+ ///     <description>
+ ///     An optional string of format specifiers. The format specifier for datetime values and numeric
+ ///     values respectively correspond to the Fmt parameters of <see cref="TCalendar.Format"/>
+ ///     and <see cref="TCultureInfo.FormatNumber"/> methods. In addition, there are some extra format
+ ///     specifiers for numeric values. See <see cref="FormatValue"/> for details.
+ ///     </description>
+ ///   </item>
+ /// </list>
+ /// <para>
+ /// The leading and trailing brace characters, '{' and '}', are required. To specify a single
+ /// literal brace character in format, specify two leading or trailing brace characters; that
+ /// is, "{{" or "}}".
+ /// </para>
+ /// <para>
+ /// If FormatCS cannot expand a format item, it will include the format item in the string
+ /// as untouched.
+ /// </para>
+ /// <para>
+ /// NOTE: FormatCS always uses the native digits and calendar system of the specified
+ /// culture to format values.
+ /// </para>
+ /// </remarks>
+ /// <param name="Fmt">
+ /// The format string.
+ /// </param>
+ /// <param name="Args">
+ /// The array of arguments to apply to the format items in the format string.
+ /// </param>
+ /// <param name="Culture">
+ /// The optional <see cref="TCultureInfo"/> object that provides the locale specific
+ /// formatting information.
+ /// </param>
+ /// <returns>
+ /// The formatted string.
+ /// </returns>
+ /// <seealso cref="FormatValue"/>
+ {$Endregion}
+ Function FormatCS(Const Fmt : String; Const Args : Array Of Variant; Culture : TCultureInfo = Nil) : String;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Maps a specified Unicode string to a string in a specified code page.
-/// </summary>
-/// <param name="CodePage">
-/// The code page of the result string.
-/// </param>
-/// <param name="Str">
-/// The source Unicode string.
-/// </param>
-/// <returns>
-/// The string in the code page.
-/// </returns>
-/// <seealso cref="CodePageToUnicode"/>
-{$endregion}
-function UnicodeToCodePage(CodePage: Integer; const Str: UnicodeString): RawByteString;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Maps a specified string in a specified code page to a Unicode string.
+ /// </summary>
+ /// <param name="CodePage">
+ /// The code page of the source string.
+ /// </param>
+ /// <param name="Str">
+ /// The source string.
+ /// </param>
+ /// <returns>
+ /// The Unicode string.
+ /// </returns>
+ /// <seealso cref="UnicodeToCodePage"/>
+ {$Endregion}
+ Function CodePageToUnicode(CodePage : Integer; Const Str : RawByteString) : UnicodeString;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Provides a list of scripts used in a specified Unicode string.
-/// </summary>
-/// <param name="Str">
-/// The Unicode string.
-/// </param>
-/// <param name="AllowInheritedCommon">
-/// Indicates whether to retrieve "Qaii" (INHERITED) and "Zyyy" (COMMON) script
-/// information.
-/// </param>
-/// <returns>
-/// The set of scripts used in the Unicode string.
-/// </returns>
-{$endregion}
-function StringScripts(const Str: String; AllowInheritedCommon: Boolean = False): TUnicodeScripts;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Maps a specified Unicode string to a string in a specified code page.
+ /// </summary>
+ /// <param name="CodePage">
+ /// The code page of the result string.
+ /// </param>
+ /// <param name="Str">
+ /// The source Unicode string.
+ /// </param>
+ /// <returns>
+ /// The string in the code page.
+ /// </returns>
+ /// <seealso cref="CodePageToUnicode"/>
+ {$Endregion}
+ Function UnicodeToCodePage(CodePage : Integer; Const Str : UnicodeString) : RawByteString;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Indicates whether a specified string represents a GUID.
-/// </summary>
-/// <param name="Str">
-/// The string to examine.
-/// </param>
-/// <returns>
-/// Returns <see langword="true"/> if the string represents a GUID, otherwise
-/// returns <see langword="false"/>.
-/// </returns>
-{$endregion}
-function IsStringGUID(const Str: String): Boolean;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Provides a list of scripts used in a specified Unicode string.
+ /// </summary>
+ /// <param name="Str">
+ /// The Unicode string.
+ /// </param>
+ /// <param name="AllowInheritedCommon">
+ /// Indicates whether to retrieve "Qaii" (INHERITED) and "Zyyy" (COMMON) script
+ /// information.
+ /// </param>
+ /// <returns>
+ /// The set of scripts used in the Unicode string.
+ /// </returns>
+ {$Endregion}
+ Function StringScripts(Const Str : String; AllowInheritedCommon : Boolean = False) : TUnicodeScripts;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Indicates whether a specified string contains translatable phrases.
-/// </summary>
-/// <remarks>
-/// <para>
-/// A string is considered translatable if it contains non-whitespace characters
-/// and does not represent a GUID.
-/// </para>
-/// </remarks>
-/// <param name="Str">
-/// The string to examine.
-/// </param>
-/// <returns>
-/// Returns <see langword="true"/> if the string is translatable, otherwise returns
-/// <see langword="false"/>.
-/// </returns>
-{$endregion}
-function IsStringTranslatable(const Str: String): Boolean;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Indicates whether a specified string represents a GUID.
+ /// </summary>
+ /// <param name="Str">
+ /// The string to examine.
+ /// </param>
+ /// <returns>
+ /// Returns <see langword="true"/> if the string represents a GUID, otherwise
+ /// returns <see langword="false"/>.
+ /// </returns>
+ {$Endregion}
+ Function IsStringGUID(Const Str : String) : Boolean;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Converts binary data to its hexadecimal string representation.
-/// </summary>
-/// <param name="Data">
-/// The binary data to convert.
-/// </param>
-/// <param name="Size">
-/// The size of the binary data in bytes.
-/// </param>
-/// <returns>
-/// The hexadecimal string representation of the binary data, or empty string if
-/// <paramref name="Size"/> is less than or equal to zero.
-/// </returns>
-{$endregion}
-function HexString(const Data; Size: Integer): String;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Indicates whether a specified string contains translatable phrases.
+ /// </summary>
+ /// <remarks>
+ /// <para>
+ /// A string is considered translatable if it contains non-whitespace characters
+ /// and does not represent a GUID.
+ /// </para>
+ /// </remarks>
+ /// <param name="Str">
+ /// The string to examine.
+ /// </param>
+ /// <returns>
+ /// Returns <see langword="true"/> if the string is translatable, otherwise returns
+ /// <see langword="false"/>.
+ /// </returns>
+ {$Endregion}
+ Function IsStringTranslatable(Const Str : String) : Boolean;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Generates a string identifier from a specified string.
-/// </summary>
-/// <param name="Str">
-/// The source string.
-/// </param>
-/// <returns>
-/// The string identifier.
-/// </returns>
-/// <remarks>
-/// This function generates an identifier from a specified string, so that it
-/// can be used to identify the literal strings for translation purposes.
-{$endregion}
-function GetStringIdentifier(const Str: String): String;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Converts binary data to its hexadecimal string representation.
+ /// </summary>
+ /// <param name="Data">
+ /// The binary data to convert.
+ /// </param>
+ /// <param name="Size">
+ /// The size of the binary data in bytes.
+ /// </param>
+ /// <returns>
+ /// The hexadecimal string representation of the binary data, or empty string if
+ /// <paramref name="Size"/> is less than or equal to zero.
+ /// </returns>
+ {$Endregion}
+ Function HexString(Const Data; Size : Integer) : String;
 
-implementation
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Generates a string identifier from a specified string.
+ /// </summary>
+ /// <param name="Str">
+ /// The source string.
+ /// </param>
+ /// <returns>
+ /// The string identifier.
+ /// </returns>
+ /// <remarks>
+ /// This function generates an identifier from a specified string, so that it
+ /// can be used to identify the literal strings for translation purposes.
+ {$Endregion}
+ Function GetStringIdentifier(Const Str : String) : String;
 
-uses
+Implementation
+
+ Uses
   Types, Math, i18nWinNLS, i18nMD5;
 
-resourcestring
+ Resourcestring
   SInvalidString = 'Invalid escaped character in the string';
 
-function ExtractComponentName(const PropertyPath: String): String;
-var
-  I: Integer;
-begin
-  I := Pos('.', PropertyPath);
-  if I = 0 then
-    I := Pos('[', PropertyPath);
-  if I <> 0 then
-    Result := Copy(PropertyPath, 1, I - 1)
-  else
+ Function ExtractComponentName(Const PropertyPath : String) : String;
+  Var
+   i : Integer;
+  Begin
+   i := Pos('.', PropertyPath);
+   If i = 0 Then
+    i := Pos('[', PropertyPath);
+   If i <> 0 Then
+    Result := Copy(PropertyPath, 1, i - 1)
+   Else
     Result := '';
-end;
+  End;
 
-function ExpandEnvStr(const Str: String): String;
-var
-  Size: Cardinal;
-begin
-  Size := 2048;
-  SetString(Result, nil, Size);
-  Size := ExpandEnvironmentStrings(PChar(Str), PChar(Result), Size);
-  if Size > Cardinal(Length(Result)) then
-  begin
-    SetString(Result, nil, Size);
-    Size := ExpandEnvironmentStrings(PChar(Str), PChar(Result), Size);
-  end;
-  if Size > 0 then
+ Function ExpandEnvStr(Const Str : String) : String;
+  Var
+   Size : Cardinal;
+  Begin
+   Size := 2048;
+   SetString(Result, Nil, Size);
+   Size := ExpandEnvironmentStrings(PChar(Str), PChar(Result), Size);
+   If Size > Cardinal(Length(Result)) Then
+    Begin
+     SetString(Result, Nil, Size);
+     Size := ExpandEnvironmentStrings(PChar(Str), PChar(Result), Size);
+    End;
+   If Size > 0 Then
     SetLength(Result, Size - 1)
-  else
+   Else
     Result := '';
-end;
+  End;
 
-function EscapeString(const Str: String): String;
-const
-  HexDigits: array[0..15] of Char = '0123456789ABCDEF';
-  Chars8to13: array[#$8..#$D] of Char = 'btnvfr';
-var
-  I: Integer;
-  R: PChar;
-  C, Esc: Char;
-begin
-  {$IFNDEF COMPILER_XE5_UP}
-  Esc := #0; // to prevent compiler warning
-  {$ENDIF}
-  SetString(Result, nil, 2 * Length(Str));
-  R := PChar(Result) - 1;
-  for I := 1 to Length(Str) do
-  begin
-    Inc(R);
-    C := Str[I];
-    case C of
-      #$8..#$D: Esc := Chars8to13[C];    // -> \b \t \n \v \f \r
-           #$0: Esc := '0';              // -> \0
-           '\': Esc := '\';              // -> \\
-    else
-      if C < #$20 then                   // -> \xHH
+ Function EscapeString(Const Str : String) : String;
+  Const
+   HexDigits : Array[0..15] Of Char = '0123456789ABCDEF';
+   Chars8to13 : Array[#$8..#$D] Of Char = 'btnvfr';
+  Var
+   i   : Integer;
+   r   : PChar;
+   c   : Char;
+   Esc : Char;
+  Begin
+   {$IFNDEF COMPILER_XE5_UP}
+   Esc := #0; // to prevent compiler warning
+   {$ENDIF}
+   SetString(Result, Nil, 2 * Length(Str));
+   r     := PChar(Result) - 1;
+   For i := 1 To Length(Str) Do
+    Begin
+     Inc(r);
+     c := Str[i];
+     Case c Of
+      #$8..#$D :
+       Esc := Chars8to13[c];    // -> \b \t \n \v \f \r
+      #$0 :
+       Esc := '0';              // -> \0
+      '\' :
+       Esc := '\';              // -> \\
+     Else
+       If c < #$20 Then                   // -> \xHH
         Esc := 'x'
-      else
-      begin
-        R^ := C;
-        Continue;
-      end;
-    end;
-    R^ := '\';
-    Inc(R);
-    R^ := Esc;
-    if Esc = 'x' then
-    begin
-      Inc(R);
-      R^ := HexDigits[Ord(C) shr 4];
-      Inc(R);
-      R^ := HexDigits[Ord(C) and $000F];
-    end;
-  end;
-  SetLength(Result, R - PChar(Result) + 1);
-end;
+       Else
+        Begin
+         r^ := c;
+         Continue;
+        End;
+     End;
+     r^ := '\';
+     Inc(r);
+     r^ := Esc;
+     If Esc = 'x' Then
+      Begin
+       Inc(r);
+       r^ := HexDigits[Ord(c) Shr 4];
+       Inc(r);
+       r^ := HexDigits[Ord(c) And $000F];
+      End;
+    End;
+   SetLength(Result, r - PChar(Result) + 1);
+  End;
 
-function UnescapeString(const Str: String): String;
+ Function UnescapeString(Const Str : String) : String;
 
-  function GetEscapedChar(var Index: Integer; MaxLen: Integer): Char;
-  var
-    Count: Integer;
-    Value: Word;
-  begin
-    Value := 0;
-    Count := 0;
-    while (Count < MaxLen) and (Index < Length(Str)) do
-    begin
-      Inc(Index);
-      case Str[Index] of
-        '0'..'9': Value := Value * 16 + Ord(Str[Index]) - Ord('0');
-        'A'..'F': Value := Value * 16 + 10 + Ord(Str[Index]) - Ord('A');
-        'a'..'f': Value := Value * 16 + 10 + Ord(Str[Index]) - Ord('a');
-      else
-        Break;
-      end;
-      Inc(Count);
-    end;
-    if Count = 0 then
+   Function GetEscapedChar(Var Index : Integer; MaxLen : Integer) : Char;
+    Var
+     Count : Integer;
+     Value : Word;
+    Begin
+     Value := 0;
+     Count := 0;
+     While (Count < MaxLen) And (Index < Length(Str)) Do
+      Begin
+       Inc(Index);
+       Case Str[Index] Of
+        '0'..'9' : Value := Value * 16 + Ord(Str[Index]) - Ord('0');
+        'A'..'F' : Value := Value * 16 + 10 + Ord(Str[Index]) - Ord('A');
+        'a'..'f' : Value := Value * 16 + 10 + Ord(Str[Index]) - Ord('a');
+       Else Break;
+       End;
+       Inc(Count);
+      End;
+     If Count = 0 Then
       EConvertError.Create(SInvalidString);
-    Result := Char(Value);
-  end;
+     Result := Char(Value);
+    End;
+  Var
+   i   : Integer;
+   Len : Integer;
+   r   : PChar;
 
-var
-  I, Len: Integer;
-  R: PChar;
-begin
-  Len := Length(Str);
-  SetString(Result, nil, Len);
-  R := PChar(Result);
-  I := 1;
-  while I <= Len do
-  begin
-    R^ := Str[I];
-    if Str[I] = '\' then
-    begin
-      Inc(I);
-      if I > Len then
+  Begin
+   Len := Length(Str);
+   SetString(Result, Nil, Len);
+   r := PChar(Result);
+   i := 1;
+   While i <= Len Do
+    Begin
+     r^ := Str[i];
+     If Str[i] = '\' Then
+      Begin
+       Inc(i);
+       If i > Len Then
         Break;
-      case Str[I] of
-        'r': R^ := #$D;  // carriage return
-        'f': R^ := #$C;  // form feed
-        'v': R^ := #$B;  // vertical tab
-        'n': R^ := #$A;  // line feed
-        't': R^ := #$9;  // horizontal tab
-        'b': R^ := #$8;  // backspace
-        '0': R^ := #$0;  // null character
-        'x': R^ := GetEscapedChar(I, 2);
-        'u': R^ := GetEscapedChar(I, 4);
-      end;
-    end;
-    Inc(R);
-    Inc(I);
-  end;
-  SetLength(Result, R - PChar(Result));
-end;
+       Case Str[i] Of
+        'r' :
+         r^ := #$D;  // carriage return
+        'f' :
+         r^ := #$C;  // form feed
+        'v' :
+         r^ := #$B;  // vertical tab
+        'n' :
+         r^ := #$A;  // line feed
+        't' :
+         r^ := #$9;  // horizontal tab
+        'b' :
+         r^ := #$8;  // backspace
+        '0' :
+         r^ := #$0;  // null character
+        'x' :
+         r^ := GetEscapedChar(i, 2);
+        'u' :
+         r^ := GetEscapedChar(i, 4);
+       End;
+      End;
+     Inc(r);
+     Inc(i);
+    End;
+   SetLength(Result, r - PChar(Result));
+  End;
 
-function DamerauLevenshteinDistance(const Str1, Str2: String): Integer;
+ Function DamerauLevenshteinDistance(Const Str1, Str2 : String) : Integer;
 
-  function Min(const A, B, C: Integer): Integer; inline;
-  begin
-    Result := A;
-    if B < Result then
-      Result := B;
-    if C < Result then
-      Result := C;
-  end;
+   Function Min(Const a, b, c : Integer) : Integer; Inline;
+    Begin
+     Result := a;
+     If b < Result Then
+      Result := b;
+     If c < Result Then
+      Result := c;
+    End;
+  Var
+   LenStr1  : Integer;
+   LenStr2  : Integer;
+   i        : Integer;
+   j        : Integer;
+   Cost     : Integer;
+   PrevCost : Integer;
+   pStr1    : PChar;
+   pStr2    : PChar;
+   S1       : PChar;
+   S2       : PChar;
+   d        : PIntegerArray;
 
-var
-  LenStr1, LenStr2: Integer;
-  I, J, Cost, PrevCost: Integer;
-  pStr1, pStr2, S1, S2: PChar;
-  D: PIntegerArray;
-begin
-  LenStr1 := Length(Str1);
-  LenStr2 := Length(Str2);
-  // to save some space, make sure the second index points to the shorter string
-  if LenStr1 < LenStr2 then
-  begin
-    I := LenStr1;
-    LenStr1 := LenStr2;
-    LenStr2 := I;
-    pStr1 := PChar(Str2);
-    pStr2 := PChar(Str1);
-  end
-  else
-  begin
-    pStr1 := PChar(Str1);
-    pStr2 := PChar(Str2);
-  end;
-  // skip leading matches
-  while (LenStr2 <> 0) and (pStr1^ = pStr2^) do
-  begin
-    Inc(pStr1);
-    Inc(pStr2);
-    Dec(LenStr1);
-    Dec(LenStr2);
-  end;
-  // skip trailing matches
-  while (LenStr2 <> 0) and ((pStr1+LenStr1-1)^ = (pStr2+LenStr2-1)^) do
-  begin
-    Dec(LenStr1);
-    Dec(LenStr2);
-  end;
-  // when one string is empty, length of the other is the distance
-  if LenStr2 = 0 then
-  begin
-    Result := LenStr1;
-    Exit;
-  end;
-  // calculate the edit distance
-  D := AllocMem((LenStr2+1) * SizeOf(Integer));
-  S1 := pStr1;
-  for I := 1 to LenStr1 do
-  begin
-    PrevCost := I-1;
-    Cost := I;
-    S2 := pStr2;
-    for J := 1 to LenStr2 do
-    begin
-      if (S1^ = S2^) or ((I > 1) and (J > 1) and (S1^ = (S2-1)^) and (S2^ = (S1-1)^)) then
+  Begin
+   LenStr1 := Length(Str1);
+   LenStr2 := Length(Str2);
+   // to save some space, make sure the second index points to the shorter string
+   If LenStr1 < LenStr2 Then
+    Begin
+     i       := LenStr1;
+     LenStr1 := LenStr2;
+     LenStr2 := i;
+     pStr1   := PChar(Str2);
+     pStr2   := PChar(Str1);
+    End
+   Else
+    Begin
+     pStr1 := PChar(Str1);
+     pStr2 := PChar(Str2);
+    End;
+   // skip leading matches
+   While (LenStr2 <> 0) And (pStr1^ = pStr2^) Do
+    Begin
+     Inc(pStr1);
+     Inc(pStr2);
+     Dec(LenStr1);
+     Dec(LenStr2);
+    End;
+   // skip trailing matches
+   While (LenStr2 <> 0) And ((pStr1 + LenStr1 - 1)^ = (pStr2 + LenStr2 - 1)^) Do
+    Begin
+     Dec(LenStr1);
+     Dec(LenStr2);
+    End;
+   // when one string is empty, length of the other is the distance
+   If LenStr2 = 0 Then
+    Begin
+     Result := LenStr1;
+     Exit;
+    End;
+   // calculate the edit distance
+   d     := AllocMem((LenStr2 + 1) * SizeOf(Integer));
+   S1    := pStr1;
+   For i := 1 To LenStr1 Do
+    Begin
+     PrevCost := i - 1;
+     Cost     := i;
+     S2       := pStr2;
+     For j    := 1 To LenStr2 Do
+      Begin
+       If (S1^ = S2^) Or ((i > 1) And (j > 1) And (S1^ = (S2 - 1)^) And (S2^ = (S1 - 1)^)) Then
         Cost := PrevCost
-      else
-        Cost := 1 + Min(Cost, PrevCost, D[J]);
-      PrevCost := D[J];
-      D[J] := Cost;
-      Inc(S2);
-    end;
-    Inc(S1);
-  end;
-  Result := D[LenStr2];
-  FreeMem(D);
-end;
+       Else
+        Cost    := 1 + Min(Cost, PrevCost, d[j]);
+       PrevCost := d[j];
+       d[j]     := Cost;
+       Inc(S2);
+      End;
+     Inc(S1);
+    End;
+   Result := d[LenStr2];
+   FreeMem(d);
+  End;
 
-function StringSimilarityRatio(const Str1, Str2: String): Double;
-var
-  MaxLen: Integer;
-  Distance: Integer;
-begin
-  Result := 1.0;
-  if Length(Str1) > Length(Str2) then
+ Function StringSimilarityRatio(Const Str1, Str2 : String) : Double;
+  Var
+   MaxLen   : Integer;
+   Distance : Integer;
+  Begin
+   Result := 1.0;
+   If Length(Str1) > Length(Str2) Then
     MaxLen := Length(Str1)
-  else
+   Else
     MaxLen := Length(Str2);
-  if MaxLen <> 0 then
-  begin
-    Distance := DamerauLevenshteinDistance(Str1, Str2);
-    Result := Result - (Distance / MaxLen);
-  end;
-end;
+   If MaxLen <> 0 Then
+    Begin
+     Distance := DamerauLevenshteinDistance(Str1, Str2);
+     Result   := Result - (Distance / MaxLen);
+    End;
+  End;
 
-function TextSimilarityRatio(const Str1, Str2: String): Double;
-begin
-  Result := StringSimilarityRatio(LowerCase(Str1), LowerCase(Str2));
-end;
+ Function TextSimilarityRatio(Const Str1, Str2 : String) : Double;
+  Begin
+   Result := StringSimilarityRatio(LowerCase(Str1), LowerCase(Str2));
+  End;
 
-function TranslateDigits(const Str: String;
-  FromCulture, ToCulture: TCultureInfo): String;
-var
-  S: PChar;
-  FromZero, ToZero: Char;
-begin
-  Result := Str;
-  FromZero := FromCulture.NativeDigits[1];
-  ToZero := ToCulture.NativeDigits[1];
-  if FromZero = ToZero then Exit;
-  S := PChar(Result);
-  while S^ <> #0 do
-  begin
-    if Cardinal(Ord(S^) - Ord(FromZero)) <= 9 then
-      S^ := Chr(Ord(ToZero) + Ord(S^) - Ord(FromZero));
-    Inc(S);
-  end;
-end;
-
-function IntToBin(Value: Cardinal; Len: Integer): String;
-begin
-  Result := '';
-  while Value <> 0 do
-  begin
-    if LongBool(Value and 1) then
-      Result := '1' + Result
-    else
-      Result := '0' + Result;
-    Value := Value shr 1;
-  end;
-  if Len > Length(Result) then
-    Result := StringOfChar('0', Len - Length(Result)) + Result;
-end;
-
-function FormatValue(const Fmt: String; const Value: Variant;
-  Culture: TCultureInfo; UseNativeDigits: Boolean): String; overload;
-var
-  M: Char;
-  FmtStr: String;
-  FloatValue: Extended;
-  IntegerValue: Integer;
-  Precision: Integer;
-  IsFloat, NeedsPrec, NeedsLen: Boolean;
-begin
-  if VarIsStr(Value) and ((Fmt = '') or not TryStrToFloat(Value, FloatValue)) then
-  begin
-    Result := VarToStr(Value);
+ Function TranslateDigits(Const Str : String; FromCulture, ToCulture : TCultureInfo) : String;
+  Var
+   s        : PChar;
+   FromZero : Char;
+   ToZero   : Char;
+  Begin
+   Result   := Str;
+   FromZero := FromCulture.NativeDigits[1];
+   ToZero   := ToCulture.NativeDigits[1];
+   If FromZero = ToZero Then
     Exit;
-  end;
-  if Length(Fmt) <> 0 then
-    M := Fmt[1]
-  else if VarType(Value) <> varDate then
-    M := 'G'
-  else
-    M := '*';
-  FmtStr := '';
-  FloatValue := 0.0;
-  IntegerValue := 0;
-  Precision := 0;
-  NeedsPrec := False;
-  NeedsLen := False;
-  IsFloat := False;
-  if Length(Fmt) > 1 then
+   s := PChar(Result);
+   While s^ <> #0 Do
+    Begin
+     If Cardinal(Ord(s^) - Ord(FromZero)) <= 9 Then
+      s^ := Chr(Ord(ToZero) + Ord(s^) - Ord(FromZero));
+     Inc(s);
+    End;
+  End;
+
+ Function IntToBin(Value : Cardinal; Len : Integer) : String;
+  Begin
+   Result := '';
+   While Value <> 0 Do
+    Begin
+     If LongBool(Value And 1) Then
+      Result := '1' + Result
+     Else
+      Result := '0' + Result;
+     Value   := Value Shr 1;
+    End;
+   If Len > Length(Result) Then
+    Result := StringOfChar('0', Len - Length(Result)) + Result;
+  End;
+
+ Function FormatValue(Const Fmt : String; Const Value : Variant; Culture : TCultureInfo; UseNativeDigits : Boolean) : String; Overload;
+  Var
+   m            : Char;
+   FmtStr       : String;
+   FloatValue   : Extended;
+   IntegerValue : Integer;
+   Precision    : Integer;
+   IsFloat      : Boolean;
+   NeedsPrec    : Boolean;
+   NeedsLen     : Boolean;
+  Begin
+   If VarIsStr(Value) And ((Fmt = '') Or Not TryStrToFloat(Value, FloatValue)) Then
+    Begin
+     Result := VarToStr(Value);
+     Exit;
+    End;
+   If Length(Fmt) <> 0 Then
+    m := Fmt[1]
+   Else If VarType(Value) <> varDate Then
+    m := 'G'
+   Else
+    m           := '*';
+   FmtStr       := '';
+   FloatValue   := 0.0;
+   IntegerValue := 0;
+   Precision    := 0;
+   NeedsPrec    := False;
+   NeedsLen     := False;
+   IsFloat      := False;
+   If Length(Fmt) > 1 Then
     NeedsPrec := TryStrToInt(Copy(Fmt, 2, Length(Fmt) - 1), Precision);
-  case M of
-    'C', 'c':
-    begin
-      IsFloat := True;
+   Case m Of
+    'C', 'c' :
+     Begin
+      IsFloat    := True;
       FloatValue := Value;
-      FmtStr := 'm';
-    end;
-    'G', 'g':
-    begin
-      IsFloat := True;
+      FmtStr     := 'm';
+     End;
+    'G', 'g' :
+     Begin
+      IsFloat    := True;
       FloatValue := Value;
-      FmtStr := 'g';
-    end;
-    'E', 'e':
-    begin
-      IsFloat := True;
+      FmtStr     := 'g';
+     End;
+    'E', 'e' :
+     Begin
+      IsFloat    := True;
       FloatValue := Value;
-      FmtStr := 'e';
-      if not NeedsPrec then
-      begin
+      FmtStr     := 'e';
+      If Not NeedsPrec Then
+       Begin
         NeedsPrec := True;
         Precision := 7;
-      end
-      else
-        Inc(Precision);
-    end;
-    'F', 'f':
-    begin
-      IsFloat := True;
+       End
+      Else
+       Inc(Precision);
+     End;
+    'F', 'f' :
+     Begin
+      IsFloat    := True;
       FloatValue := Value;
-      FmtStr := 'f';
-    end;
-    'N', 'n':
-    begin
-      IsFloat := True;
+      FmtStr     := 'f';
+     End;
+    'N', 'n' :
+     Begin
+      IsFloat    := True;
       FloatValue := Value;
-      FmtStr := 'n';
-    end;
-    'P', 'p':
-    begin
-      if not NeedsPrec then
-      begin
+      FmtStr     := 'n';
+     End;
+    'P', 'p' :
+     Begin
+      If Not NeedsPrec Then
+       Begin
         NeedsPrec := True;
         Precision := 2;
-      end;
-      if Assigned(Culture) then
-      begin
+       End;
+      If Assigned(Culture) Then
+       Begin
         Result := Culture.FormatPercent(Value, Precision, UseNativeDigits);
         Exit;
-      end;
-      IsFloat := True;
+       End;
+      IsFloat    := True;
       FloatValue := Value * 100.0;
-      FmtStr := 'f%%';
-    end;
-    'D', 'd':
-    begin
+      FmtStr     := 'f%%';
+     End;
+    'D', 'd' :
+     Begin
       IntegerValue := Value;
-      FmtStr := 'd';
-      NeedsLen := NeedsPrec;
-    end;
-    'X', 'x':
-    begin
+      FmtStr       := 'd';
+      NeedsLen     := NeedsPrec;
+     End;
+    'X', 'x' :
+     Begin
       Result := IntToHex(Value, Precision);
-      if M = 'x' then
-        Result := LowerCase(Result);
+      If m = 'x' Then
+       Result := LowerCase(Result);
       Exit;
-    end;
-    'B', 'b':
-    begin
+     End;
+    'B', 'b' :
+     Begin
       Result := IntToBin(Value, Precision);
       Exit;
-    end;
-  else
-    if Assigned(Culture) then
-      if VarType(Value) = varDate then
-        Result := Culture.FormatDateTime(Fmt, VarToDateTime(Value), UseNativeDigits)
-      else
-        Result := Culture.FormatNumber(Fmt, Value, UseNativeDigits)
-    else
-      if VarType(Value) = varDate then
-        Result := DefaultCalendar.Format(Fmt, VarToDateTime(Value))
-      else
-        Result := SysUtils.FormatFloat(Fmt, Value);
-    Exit;
-  end;
-  if NeedsPrec then
+     End;
+   Else
+     If Assigned(Culture) Then
+      If VarType(Value) = varDate Then
+       Result := Culture.FormatDateTime(Fmt, VarToDateTime(Value), UseNativeDigits)
+      Else
+       Result := Culture.FormatNumber(Fmt, Value, UseNativeDigits)
+     Else If VarType(Value) = varDate Then
+      Result := DefaultCalendar.Format(Fmt, VarToDateTime(Value))
+     Else
+      Result := SysUtils.FormatFloat(Fmt, Value);
+     Exit;
+   End;
+   If NeedsPrec Then
     FmtStr := '.' + IntToStr(Precision) + FmtStr;
-  if NeedsLen then
+   If NeedsLen Then
     FmtStr := IntToStr(Precision) + FmtStr;
-  FmtStr := '%' + FmtStr;
-  if Assigned(Culture) then
-    if IsFloat then
-      Result := Culture.Format(FmtStr, [FloatValue], UseNativeDigits)
-    else
-      Result := Culture.Format(FmtStr, [IntegerValue], UseNativeDigits)
-  else
-    if IsFloat then
-      Result := SysUtils.Format(FmtStr, [FloatValue])
-    else
-      Result := SysUtils.Format(FmtStr, [IntegerValue]);
-  if (M = 'g') or (M = 'e') then
+   FmtStr  := '%' + FmtStr;
+   If Assigned(Culture) Then
+    If IsFloat Then
+     Result := Culture.Format(FmtStr, [FloatValue], UseNativeDigits)
+    Else
+     Result := Culture.Format(FmtStr, [IntegerValue], UseNativeDigits)
+   Else If IsFloat Then
+    Result := SysUtils.Format(FmtStr, [FloatValue])
+   Else
+    Result := SysUtils.Format(FmtStr, [IntegerValue]);
+   If (m = 'g') Or (m = 'e') Then
     Result := LowerCase(Result);
-end;
+  End;
 
-function FormatCS(const Fmt: String; const Args: array of Variant;
-  Culture: TCultureInfo): String;
-var
-  Buffer: String;
-  BufferPos: Integer;
+ Function FormatCS(Const Fmt : String; Const Args : Array Of Variant; Culture : TCultureInfo) : String;
+  Var
+   Buffer    : String;
+   BufferPos : Integer;
 
-  procedure Append(P: PChar; Count: Integer); overload;
-  begin
-    if Count <> 0 then
-    begin
-      if BufferPos + Count > Length(Buffer) then
+   Procedure Append(p : PChar; Count : Integer); Overload;
+    Begin
+     If Count <> 0 Then
+      Begin
+       If BufferPos + Count > Length(Buffer) Then
         SetLength(Buffer, BufferPos + Max(512, Count));
-      Move(P^, Buffer[BufferPos + 1], Count * SizeOf(Char));
-      Inc(BufferPos, Count);
-    end;
-  end;
+       Move(p^, Buffer[BufferPos + 1], Count * SizeOf(Char));
+       Inc(BufferPos, Count);
+      End;
+    End;
 
-  procedure Append(C: Char; Count: Integer); overload;
-  begin
-    if Count <> 0 then
-    begin
-      if BufferPos + Count > Length(Buffer) then
+   Procedure Append(c : Char; Count : Integer); Overload;
+    Begin
+     If Count <> 0 Then
+      Begin
+       If BufferPos + Count > Length(Buffer) Then
         SetLength(Buffer, BufferPos + Max(512, Count));
-      repeat
+       Repeat
         Inc(BufferPos);
-        Buffer[BufferPos] := C;
+        Buffer[BufferPos] := c;
         Dec(Count);
-      until Count = 0;
-    end;
-  end;
+       Until Count = 0;
+      End;
+    End;
 
-  procedure Append(const Str: String); overload;
-  begin
-    Append(PChar(Str), Length(Str));
-  end;
+   Procedure Append(Const Str : String); Overload;
+    Begin
+     Append(PChar(Str), Length(Str));
+    End;
 
-  function AppendItem(const Item: String; UseNativeDigits: Boolean): Boolean;
-  var
-    IndexStr: String;
-    AlignStr: String;
-    Specifier: String;
-    Index, Align: Integer;
-    FormattedItem: String;
-    P: Integer;
-  begin
-    Result := False;
-    P := Pos(':', Item);
-    if P > 0 then
-    begin
-      IndexStr := Copy(Item, 1, P - 1);
-      Specifier := Copy(Item, P + 1, Length(Item) - P);
-    end
-    else
-    begin
-      IndexStr := Item;
-      Specifier := '';
-    end;
-    P := Pos(',', IndexStr);
-    if P > 0 then
-    begin
-      AlignStr := Copy(IndexStr, P + 1, Length(IndexStr) - P);
-      Delete(IndexStr, P, Length(IndexStr) - P + 1);
-    end
-    else
+   Function AppendItem(Const Item : String; UseNativeDigits : Boolean) : Boolean;
+    Var
+     IndexStr      : String;
+     AlignStr      : String;
+     Specifier     : String;
+     Index         : Integer;
+     Align         : Integer;
+     FormattedItem : String;
+     p             : Integer;
+    Begin
+     Result := False;
+     p      := Pos(':', Item);
+     If p > 0 Then
+      Begin
+       IndexStr  := Copy(Item, 1, p - 1);
+       Specifier := Copy(Item, p + 1, Length(Item) - p);
+      End
+     Else
+      Begin
+       IndexStr  := Item;
+       Specifier := '';
+      End;
+     p := Pos(',', IndexStr);
+     If p > 0 Then
+      Begin
+       AlignStr := Copy(IndexStr, p + 1, Length(IndexStr) - p);
+       Delete(IndexStr, p, Length(IndexStr) - p + 1);
+      End
+     Else
       AlignStr := '';
-    Align := 0;
-    if TryStrToInt(IndexStr, Index) and
-       (Index >= 0) and (Index < Length(Args)) and
-       ((AlignStr = '') or TryStrToInt(AlignStr, Align)) then
-    begin
-      FormattedItem := FormatValue(Specifier, Args[Index], Culture, UseNativeDigits);
-      if (AlignStr <> '') and (Abs(Align) > Length(FormattedItem)) then
-      begin
-        if Align < 0 then
+     Align     := 0;
+     If TryStrToInt(IndexStr, Index) And
+     (Index >= 0) And (Index < Length(Args)) And
+     ((AlignStr = '') Or TryStrToInt(AlignStr, Align)) Then
+      Begin
+       FormattedItem := FormatValue(Specifier, Args[Index], Culture, UseNativeDigits);
+       If (AlignStr <> '') And (Abs(Align) > Length(FormattedItem)) Then
+        Begin
+         If Align < 0 Then
           Append(' ', -Align - Length(FormattedItem));
-        Append(FormattedItem);
-        if Align > 0 then
+         Append(FormattedItem);
+         If Align > 0 Then
           Append(' ', Align - Length(FormattedItem));
-      end
-      else
+        End
+       Else
         Append(FormattedItem);
-      Result := True;
-    end;
-  end;
+       Result := True;
+      End;
+    End;
+  Var
+   FmtItem         : String;
+   P1              : PChar;
+   P2              : PChar;
+   UseNativeDigits : Boolean;
 
-var
-  FmtItem: String;
-  P1, P2: PChar;
-  UseNativeDigits: Boolean;
-begin
-  Buffer := '';
-  BufferPos := 0;
-  UseNativeDigits := True;
-  P2 := PChar(Fmt);
-  while P2^ <> #0 do
-  begin
-    P1 := P2;
-    while (P2^ <> #0) and (P2^ <> '{') and (P2^ <> '}') do
-    begin
-      case P2^ of
-        UCC_NODS: UseNativeDigits := False;
-        UCC_NADS: UseNativeDigits := True;
-      end;
-      Inc(P2);
-    end;
-    Append(P1, P2 - P1);
-    if P2^ <> #0 then
-    begin
-      if P2^ = (P2 + 1)^ then
-      begin
-        Append(P2, 1);
-        Inc(P2, 2);
-      end
-      else if P2^ = '{' then
-      begin
-        Inc(P2);
-        P1 := P2;
-        while P2^ <> #0 do
-        begin
-          if P2^ = '}' then
-          begin
-            if P2^ = (P2 + 1)^ then
+  Begin
+   Buffer          := '';
+   BufferPos       := 0;
+   UseNativeDigits := True;
+   P2              := PChar(Fmt);
+   While P2^ <> #0 Do
+    Begin
+     P1 := P2;
+     While (P2^ <> #0) And (P2^ <> '{') And (P2^ <> '}') Do
+      Begin
+       Case P2^Of
+        UCC_NODS : UseNativeDigits := False;
+        UCC_NADS : UseNativeDigits := True;
+       End;
+       Inc(P2);
+      End;
+     Append(P1, P2 - P1);
+     If P2^ <> #0 Then
+      Begin
+       If P2^ = (P2 + 1)^Then
+        Begin
+         Append(P2, 1);
+         Inc(P2, 2);
+        End
+       Else If P2^ = '{' Then
+        Begin
+         Inc(P2);
+         P1 := P2;
+         While P2^ <> #0 Do
+          Begin
+           If P2^ = '}' Then
+            Begin
+             If P2^ = (P2 + 1)^Then
               Inc(P2)
-            else
+             Else
               Break;
-          end;
-          Inc(P2);
-        end;
-        if P2^ = '}' then
-        begin
-          SetString(FmtItem, P1, P2 - P1);
-          Inc(P2);
-          FmtItem := StringReplace(FmtItem, '{{', '{', [rfReplaceAll]);
-          FmtItem := StringReplace(FmtItem, '}}', '}', [rfReplaceAll]);
-          if not AppendItem(FmtItem, UseNativeDigits) then
+            End;
+           Inc(P2);
+          End;
+         If P2^ = '}' Then
+          Begin
+           SetString(FmtItem, P1, P2 - P1);
+           Inc(P2);
+           FmtItem := StringReplace(FmtItem, '{{', '{', [rfReplaceAll]);
+           FmtItem := StringReplace(FmtItem, '}}', '}', [rfReplaceAll]);
+           If Not AppendItem(FmtItem, UseNativeDigits) Then
             Append(FmtItem);
-        end
-        else
+          End
+         Else
           Append(P1 - 1, P2 - P1 + 1);
-      end
-      else // if P2^ = '}' then
-      begin
-        Append(P2, 1);
-        Inc(P2);
-      end;
-    end;
-  end;
-  SetLength(Buffer, BufferPos);
-  Result := Buffer;
-end;
+        End
+       Else // if P2^ = '}' then
+        Begin
+         Append(P2, 1);
+         Inc(P2);
+        End;
+      End;
+    End;
+   SetLength(Buffer, BufferPos);
+   Result := Buffer;
+  End;
 
-function CodePageToUnicode(CodePage: Integer;
-  const Str: RawByteString): UnicodeString;
-var
-  NumOfChars: Integer;
-begin
-  Result := '';
-  NumOfChars := MultiByteToWideChar(CodePage, 0, PAnsiChar(Str), Length(Str), nil, 0);
-  if NumOfChars <> 0 then
-  begin
-    SetString(Result, nil, NumOfChars);
-    MultiByteToWideChar(CodePage, 0, PAnsiChar(Str), Length(Str), PWideChar(Result), NumOfChars);
-  end;
-end;
+ Function CodePageToUnicode(CodePage : Integer; Const Str : RawByteString) : UnicodeString;
+  Var
+   NumOfChars : Integer;
+  Begin
+   Result     := '';
+   NumOfChars := MultiByteToWideChar(CodePage, 0, PAnsiChar(Str), Length(Str), Nil, 0);
+   If NumOfChars <> 0 Then
+    Begin
+     SetString(Result, Nil, NumOfChars);
+     MultiByteToWideChar(CodePage, 0, PAnsiChar(Str), Length(Str), PWideChar(Result), NumOfChars);
+    End;
+  End;
 
-function UnicodeToCodePage(CodePage: Integer;
-  const Str: UnicodeString): RawByteString;
-var
-  NumOfChars: Integer;
-begin
-  Result := '';
-  NumOfChars := WideCharToMultiByte(CodePage, 0, PWideChar(Str), Length(Str), nil, 0, nil, nil);
-  if NumOfChars <> 0 then
-  begin
-    SetString(Result, nil, NumOfChars);
-    WideCharToMultiByte(CodePage, 0, PWideChar(Str), Length(Str), PAnsiChar(Result), NumOfChars, nil, nil);
-  end;
-end;
+ Function UnicodeToCodePage(CodePage : Integer; Const Str : UnicodeString) : RawByteString;
+  Var
+   NumOfChars : Integer;
+  Begin
+   Result     := '';
+   NumOfChars := WideCharToMultiByte(CodePage, 0, PWideChar(Str), Length(Str), Nil, 0, Nil, Nil);
+   If NumOfChars <> 0 Then
+    Begin
+     SetString(Result, Nil, NumOfChars);
+     WideCharToMultiByte(CodePage, 0, PWideChar(Str), Length(Str), PAnsiChar(Result), NumOfChars, Nil, Nil);
+    End;
+  End;
 
-function StringScripts(const Str: String;
-  AllowInheritedCommon: Boolean): TUnicodeScripts;
-var
-  ScriptCodes: String;
-begin
-  ScriptCodes := GetStringScripts(Str, AllowInheritedCommon);
-  Result := ScriptCodesToScripts(ScriptCodes);
-end;
+ Function StringScripts(Const Str : String; AllowInheritedCommon : Boolean) : TUnicodeScripts;
+  Var
+   ScriptCodes : String;
+  Begin
+   ScriptCodes := GetStringScripts(Str, AllowInheritedCommon);
+   Result      := ScriptCodesToScripts(ScriptCodes);
+  End;
 
-function IsStringGUID(const Str: String): Boolean;
+ Function IsStringGUID(Const Str : String) : Boolean;
 
-  function IsHexNumber(S: PChar; Count: Integer): Boolean;
-  begin
-    while (Count > 0) and CharInSet(S^, ['0'..'9', 'a'..'f', 'A'..'F']) do
-    begin
-      Inc(S);
-      Dec(Count);
-    end;
-    Result := (Count = 0);
-  end;
+   Function IsHexNumber(s : PChar; Count : Integer) : Boolean;
+    Begin
+     While (Count > 0) And CharInSet(s^, ['0'..'9', 'a'..'f', 'A'..'F']) Do
+      Begin
+       Inc(s);
+       Dec(Count);
+      End;
+     Result := (Count = 0);
+    End;
 
-begin
-  Result := (Length(Str) = 38)
-        and (Str[1] = '{') and (Str[38] = '}')
-        and (Str[10] = '-') and (Str[15] = '-')
-        and (Str[20] = '-') and (Str[25] = '-')
-        and IsHexNumber(@Str[2], 8) and IsHexNumber(@Str[11], 4)
-        and IsHexNumber(@Str[16], 4) and IsHexNumber(@Str[21], 4)
-        and IsHexNumber(@Str[26], 12);
-end;
+  Begin
+   Result := (Length(Str) = 38)
+   And (Str[1] = '{') And (Str[38] = '}')
+   And (Str[10] = '-') And (Str[15] = '-')
+   And (Str[20] = '-') And (Str[25] = '-')
+   And IsHexNumber(@Str[2], 8) And IsHexNumber(@Str[11], 4)
+   And IsHexNumber(@Str[16], 4) And IsHexNumber(@Str[21], 4)
+   And IsHexNumber(@Str[26], 12);
+  End;
 
-function IsStringTranslatable(const Str: String): Boolean;
-var
-  I: Integer;
-begin
-  Result := False;
-  for I := 1 to Length(Str) do
-    if Ord(Str[I]) > 32 then
-    begin
-      Result := not IsStringGUID(Str);
+ Function IsStringTranslatable(Const Str : String) : Boolean;
+  Var
+   i : Integer;
+  Begin
+   Result := False;
+   For i  := 1 To Length(Str) Do
+    If Ord(Str[i]) > 32 Then
+     Begin
+      Result := Not IsStringGUID(Str);
       Exit;
-    end;
-end;
+     End;
+  End;
 
-function HexString(const Data; Size: Integer): String;
-const
-  HexDigits: array[0..15] of Char = '0123456789ABCDEF';
-var
-  S: PChar;
-  B: PByte;
-  I: Integer;
-begin
-  if not Assigned(@Data) or (Size <= 0) then
-  begin
-    Result := '';
-    Exit;
-  end;
+ Function HexString(Const Data; Size : Integer) : String;
+  Const
+   HexDigits : Array[0..15] Of Char = '0123456789ABCDEF';
+  Var
+   s : PChar;
+   b : PByte;
+   i : Integer;
+  Begin
+   If Not Assigned(@Data) Or (Size <= 0) Then
+    Begin
+     Result := '';
+     Exit;
+    End;
 
-  SetString(Result, nil, Size * 2);
-  S := PChar(Result);
-  B := PByte(@Data);
-  for I := 0 to Size - 1 do
-  begin
-    S^ := HexDigits[(B^ shr 4) and $0F];
-    Inc(S);
-    S^ := HexDigits[B^ and $0F];
-    Inc(S);
-    Inc(B);
-  end;
-end;
+   SetString(Result, Nil, Size * 2);
+   s     := PChar(Result);
+   b     := PByte(@Data);
+   For i := 0 To Size - 1 Do
+    Begin
+     s^ := HexDigits[(b^ Shr 4) And $0F];
+     Inc(s);
+     s^ := HexDigits[b^ And $0F];
+     Inc(s);
+     Inc(b);
+    End;
+  End;
 
-function GetStringIdentifier(const Str: String): String;
-begin
-  with TMD5.Create(True) do
-    try
-      AppendString(Str);
-      Result := Value;
-    finally
-      Free;
-    end;
-end;
+ Function GetStringIdentifier(Const Str : String) : String;
+  Begin
+   With TMD5.Create(True) Do
+    Try
+     AppendString(Str);
+     Result := Value;
+    Finally
+     Free;
+    End;
+  End;
 
-end.
+End.

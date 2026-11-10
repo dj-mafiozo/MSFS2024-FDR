@@ -8,6 +8,8 @@ required={'NotoSans-Regular.ttf','NotoSansArabic-Regular.ttf','NotoSansHebrew-Re
 assert set(manifest)==required
 for name,info in manifest.items():
  data=(fonts/name).read_bytes()
+ # Git may check out OFL text with Windows CRLF; validate unchanged license content.
+ if name.endswith('.txt'):data=data.replace(b'\r\n',b'\n')
  assert len(data)==info['bytes'] and hashlib.sha256(data).hexdigest()==info['sha256'],name
  assert info['url'].startswith('https://raw.githubusercontent.com/notofonts/'),name
  if name.endswith(('.ttf','.ttc')):assert data[:4] in (b'\0\1\0\0',b'OTTO',b'ttcf'),name

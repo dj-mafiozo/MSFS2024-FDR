@@ -1,4 +1,4 @@
-﻿Fenix A320 integration
+Fenix A320 integration
 
 [Interface translations](../../Translation.en.md)
 =====================
@@ -10,15 +10,17 @@ Fenix or the FNX_32/FNX A32 family identifiers. Generic aircraft retain standard
 SimConnect telemetry; iFly continues to use its shared-memory SDK provider.
 
 The native TFenixReader opens a separate, read-only SimConnect connection only
-for Fenix. It reads 1203 catalog L-vars as FLOAT64/number in batches of 128,
+for Fenix. It reads 1748 catalog L-vars as FLOAT64/number in batches of 128,
 below the SDK limit of 1000 entries per definition. SIM_FRAME updates supply
 current values; database snapshots use the configured recording interval in ms.
 No external application, WASM bridge, cockpit event transmission, or variable
 writes are required. Only the existing SimConnect.dll is used.
 
-Catalog source: 2096 non-empty VAR_NAME* parameters in Cockpit_Behavior.xml,
-reduced to 1203 unique names. The JSON preserves templates, parameter names,
-animation context and source XML SHA-256. The source XML is not distributed.
+Catalog source: Fenix common and aircraft-320 packages 3.0.0.7454, 3826 literal VAR_NAME* references across 55 model XML files (176 airplane model XML files audited), reduced to 1748 unique candidates. The main cockpit alone contains 772 names; panels and variants are modular attachments, including the separate CEO cockpit and CFM/IAE engines. JSON preserves source paths, template/animation contexts, per-file hashes and a catalog hash. Proprietary XML is not distributed.
+
+300 names absent from current model declarations are retained as historical-only definitions, not subscribed. Playback discovers the keys actually recorded, preserving old circuit-breaker/renamed fields without adding new-catalog fields to old recordings. New snapshots identify both the cockpit hash and the complete model-inventory hash/package version. A missing declaration is not proof that the runtime L-var no longer exists.
+
+New candidates include B_CONFIG_BARO_UNIT, N_CONFIG_ENGINETYPE, N_FC_BRAKE_LEFT/RIGHT and split autoland lamps. No automatic alias converts old boolean/annunciator values into new semantics. Existing gear/flap/FD-selection mappings remain declared in the new cockpit. No verified Fenix full-FMA, FD-command or automatically selected ECAM-page output is provided by these XML declarations.
 
 Data flow:
 - First state is a full baseline, later snapshots contain recursive changes.
@@ -48,7 +50,7 @@ version. The local cockpit catalog identifies names for the supplied version.
 No direct numeric FMC V1/VR/V2/VREF/VAPP fields were found in this catalog.
 
 Regenerate the catalog after a Fenix update, then rebuild:
-python tools/import_fenix_catalog.py "path/to/Cockpit_Behavior.xml" support/fenix/variables.json
+python tools/import_fenix_catalog.py "path/to/Cockpit_Behavior.xml" support/fenix/variables.json --previous support/fenix/variables.json
 python tools/generate_fenix_catalog.py
 
 Official SimConnect L-var documentation:

@@ -1,9 +1,16 @@
-"""Check four-language navigation for project-owned README and test documentation."""
+﻿"""Check four-language navigation for project-owned README and test documentation."""
 from pathlib import Path
-import re
+import re,configparser
 root=Path(__file__).resolve().parents[1]
 excluded={'.git','.build','vendor','node_modules','__history','__recovery'}
-bases=[p for p in root.rglob('README.md') if not excluded.intersection(p.relative_to(root).parts)]
+# Submodules retain their own documentation policy/licenses; never rewrite their READMEs.
+submodules=[]
+module_file=root/'.gitmodules'
+if module_file.exists():
+    config=configparser.ConfigParser();config.read(module_file,encoding='utf-8-sig')
+    submodules=[(root/config[s]['path']).resolve() for s in config.sections() if 'path' in config[s]]
+bases=[p for p in root.rglob('README.md') if not excluded.intersection(p.relative_to(root).parts)
+       and not any(p.resolve().is_relative_to(module) for module in submodules)]
 bases += [p for p in root.glob('*.md') if p.stem.lower() in {'testy','tests'}]
 assert bases,'No documentation found'
 count=0

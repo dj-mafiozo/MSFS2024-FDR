@@ -1,14 +1,17 @@
-﻿# Integracja Fenix A32X
+# Integracja Fenix A32X
 
 [Tłumaczenia interfejsu](../../Translation.pl.md)
 
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
 
-Tytuł samolotu zawierający Fenix lub identyfikatory FNX_32/FNX A32 wybiera FenixA32X. Dedykowane połączenie SimConnect tylko do odczytu pobiera 1203 L-vary FLOAT64/number w grupach po 128; odświeżanie SIM_FRAME, zapis z interwałem rejestratora. Nie wysyła poleceń, nie wymaga WASM. Katalog pochodzi z 2096 parametrów VAR_NAME* dostarczonego Cockpit_Behavior.xml; manifest zachowuje kontekst i SHA-256, pełny XML nie jest dystrybuowany.
+Tytuł samolotu zawierający Fenix lub identyfikatory FNX_32/FNX A32 wybiera FenixA32X. Dedykowane połączenie SimConnect tylko do odczytu pobiera 1748 L-vary FLOAT64/number w grupach po 128; odświeżanie SIM_FRAME, zapis z interwałem rejestratora. Nie wysyła poleceń, nie wymaga WASM. Katalog pakietów common i aircraft-320 3.0.0.7454 pochodzi z 3826 deklaracji VAR_NAME* w 55 plikach modeli; audyt obejmuje 176 XML samolotów. Główny kokpit zawiera 772 nazwy, reszta pochodzi z modułowych paneli i wariantów. Manifest zachowuje kontekst, ścieżki względne i hashe plików; pełny XML nie jest dystrybuowany.
 
 Stan początkowy jest pełny, dalsze rekordy zawierają zmiany. Wykresy: FenixLVar.<nazwa>. S_MIP_GEAR mapuje dźwignię UP/DOWN, S_FC_FLAPS detenty 0–4. Animacja przepustnic 0–5 nie jest procentem ciągu. Przyciski AP/A-THR i ich lampki nie są bezpośrednim dowodem aktywnego trybu. Pozycje podwozia, kontakt kół, pogoda i dynamika bez zweryfikowanych odpowiedników pozostają z SimConnect.
 
 Brak/błąd/NaN/przeterminowanie daje null, nie zero. Ważność: max(1000, interwał_ms)*3; po 30 s bez danych następuje pomocniczy reconnect z backoff. Pauza, zmiana samolotu i rozłączenie kasują cache. Odebrane zero nie dowodzi istnienia L-vara. Nie znaleziono bezpośrednich numerycznych V1/VR/V2/VREF/VAPP w tym katalogu; pełny ekran daje zaktualizowany FlightPadFMC. VerifyFenix używa atrapy DLL; dane rzeczywistego Fenixa wymagają próby na żywo.
 
 Regeneracja: tools/import_fenix_catalog.py <Cockpit_Behavior.xml> support/fenix/variables.json, następnie tools/generate_fenix_catalog.py i kompilacja. Szczegóły transportu i ograniczeń w README.en.md; ekran MCDU w ../flightpad/README.md.
+
+
+Aktualizacja modułowego Fenixa: 1748 bieżących kandydatów, 300 definicji wyłącznie historycznych (bez subskrypcji). Odtwarzanie odczytuje faktycznie zapisane klucze, także stare circuit breakery. Nowe nazwy obejmują B_CONFIG_BARO_UNIT, N_CONFIG_ENGINETYPE, N_FC_BRAKE_LEFT/RIGHT i rozdzielone lampki autoland. Brak deklaracji nie dowodzi usunięcia L-vara z runtime. Nie potwierdzono pełnych wyjść FMA, komend FD ani automatycznej strony ECAM; nie są odtwarzane z samych przycisków/lampek.

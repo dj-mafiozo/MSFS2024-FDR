@@ -10,7 +10,7 @@ Context defaults to 32768 tokens, bounded to 2048–262144. Choose a size suppor
 
 Settings: [ai] provider=ollama, ollama_url=http://localhost:11434, ollama_model=<installed-name>, ollama_context_tokens=32768, timeout_seconds=180. The URL may include a reverse-proxy prefix or /api/chat, but no query or credentials.
 
-Native WinHTTP sends POST /api/chat with model, an explicit Polish analysis task/context, stream=false and options.num_ctx. Only message.content becomes the Markdown report; separate thinking is omitted. Requests run in the background. Timeout/cancellation closes the active HTTP request, including first-byte waits. There is no retry or fallback provider. HTTP/API errors, invalid/incomplete JSON, missing done=true/message and empty reports fail explicitly. Authentication/system proxy are unsupported; maximum response is 16 MB.
+Native WinHTTP sends POST /api/chat with model, analysis context and an explicit application-language response instruction, stream=false and options.num_ctx. Only message.content becomes the Markdown report; separate thinking is omitted. Requests run in the background. Timeout/cancellation closes the active HTTP request, including first-byte waits. There is no retry or fallback provider. HTTP/API errors, invalid/incomplete JSON, missing done=true/message and empty reports fail explicitly. Authentication/system proxy are unsupported; maximum response is 16 MB.
 
 Existing reports open from the database. Shift+click analysis regenerates after changing provider/model. GET /api/tags uses a five-second limit and cancellation during settings closure. Empty lists are distinct from connection failures; a response from the previous URL cannot replace the new server's models.
 

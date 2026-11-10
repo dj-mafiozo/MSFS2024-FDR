@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -11,220 +11,223 @@
 /// <summary>
 /// This unit implements base classes and components for sending HTTP requests.
 /// </summary>
-unit i18nHTTP;
+Unit i18nHTTP;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-uses
-  Windows, Classes, SysUtils, WinINet;
+ Uses
+  Windows, Classes, SysUtils, WinInet;
 
-type
+ Type
 
-  {$region 'xmldoc'}
+  {$Region 'xmldoc'}
   /// <summary>
   /// TURLParts represents the component parts that build a URL.
   /// </summary>
-  {$endregion}
-  TURLParts = record
-    {$region 'xmldoc'}
-    /// The value that indicates the Internet protocol scheme.
-    {$endregion}
-    Scheme: Word;
-    {$region 'xmldoc'}
-    /// The scheme name
-    {$endregion}
-    SchemeName: String;
-    {$region 'xmldoc'}
-    /// The host name
-    {$endregion}
-    HostName: String;
-    {$region 'xmldoc'}
-    /// The port number
-    {$endregion}
-    Port: Integer;
-    {$region 'xmldoc'}
-    /// The user name
-    {$endregion}
-    UserName: String;
-    {$region 'xmldoc'}
-    /// The password
-    {$endregion}
-    Password: String;
-    {$region 'xmldoc'}
-    /// The path
-    {$endregion}
-    Path: String;
-    {$region 'xmldoc'}
-    /// The extra information (for example, <c>?something</c> or <c>#something</c>).
-    {$endregion}
-    ExtraInfo: String;
-  end;
+  {$Endregion}
+  TURLParts = Record
+   {$Region 'xmldoc'}
+   /// The value that indicates the Internet protocol scheme.
+   {$Endregion}
+   Scheme : Word;
+   {$Region 'xmldoc'}
+   /// The scheme name
+   {$Endregion}
+   SchemeName : String;
+   {$Region 'xmldoc'}
+   /// The host name
+   {$Endregion}
+   HostName : String;
+   {$Region 'xmldoc'}
+   /// The port number
+   {$Endregion}
+   Port : Integer;
+   {$Region 'xmldoc'}
+   /// The user name
+   {$Endregion}
+   UserName : String;
+   {$Region 'xmldoc'}
+   /// The password
+   {$Endregion}
+   Password : String;
+   {$Region 'xmldoc'}
+   /// The path
+   {$Endregion}
+   Path : String;
+   {$Region 'xmldoc'}
+   /// The extra information (for example, <c>?something</c> or <c>#something</c>).
+   {$Endregion}
+   ExtraInfo : String;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the access types for a TCP/IP network
-  /// connection.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the access types for a TCP/IP network
+/// connection.
+/// </summary>
+{$Endregion}
+
   TProxyType = (
-    {$region 'xmldoc'}
-    /// <summary>
-    /// Resolves all host names locally.
-    /// </summary>
-    {$endregion}
-    ptDirect,
-    {$region 'xmldoc'}
-    /// <summary>
-    /// Retrieves the proxy or direct configuration from the registry.
-    /// </summary>
-    {$endregion}
-    ptAuto,
-    {$region 'xmldoc'}
-    /// <summary>
-    /// Passes requests to the specified proxy server unless a proxy bypass
-    /// list is supplied and the name to be resolved bypasses the proxy. In
-    /// this case, resolves the name locally.
-    /// </summary>
-    {$endregion}
-    ptManual
+  {$Region 'xmldoc'}
+  /// <summary>
+  /// Resolves all host names locally.
+  /// </summary>
+  {$Endregion}
+  ptDirect,
+  {$Region 'xmldoc'}
+  /// <summary>
+  /// Retrieves the proxy or direct configuration from the registry.
+  /// </summary>
+  {$Endregion}
+  ptAuto,
+  {$Region 'xmldoc'}
+  /// <summary>
+  /// Passes requests to the specified proxy server unless a proxy bypass
+  /// list is supplied and the name to be resolved bypasses the proxy. In
+  /// this case, resolves the name locally.
+  /// </summary>
+  {$Endregion}
+  ptManual
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TProxyConfig provides proxy configuration for a TCP/IP network connection.
-  /// </summary>
-  {$endregion}
-  TProxyConfig = class(TPersistent)
-  private
-    fType: TProxyType;
-    fHost: String;
-    fPort: Word;
-    fBypass: TStrings;
-    fOnChange: TNotifyEvent;
-    procedure SetType(Value: TProxyType);
-    procedure SetHost(const Value: String);
-    procedure SetPort(Value: Word);
-    procedure SetBypass(Value: TStrings);
-    function IsStoredBypass: Boolean;
-    procedure BypassChanged(Sender: TObject);
-    function GetIOType: Cardinal;
-    function GetIOName: PChar;
-    function GetIOBypass: PChar;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TProxyConfig provides proxy configuration for a TCP/IP network connection.
+/// </summary>
+{$Endregion}
+
+  TProxyConfig = Class(TPersistent)
+   Private
+    fType     : TProxyType;
+    fHost     : String;
+    fPort     : Word;
+    fBypass   : TStrings;
+    fOnChange : TNotifyEvent;
+    Procedure SetType(Value : TProxyType);
+    Procedure SetHost(Const Value : String);
+    Procedure SetPort(Value : Word);
+    Procedure SetBypass(Value : TStrings);
+    Function IsStoredBypass : Boolean;
+    Procedure BypassChanged(Sender : TObject);
+    Function GetIOType : Cardinal;
+    Function GetIOName : PChar;
+    Function GetIOBypass : PChar;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnChange"/> event.
     /// </summary>
-    {$endregion}
-    procedure DoChange; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoChange; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Provides the value for the <c>dwAccessType</c> parameter of the InternetOpen
     /// Windows API function.
     /// </summary>
-    {$endregion}
-    property IOType: Cardinal read GetIOType;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property IOType : Cardinal Read GetIOType;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Provides the value for the <c>lpszProxyName</c> parameter of the InternetOpen
     /// Windows API function.
     /// </summary>
-    {$endregion}
-    property IOName: PChar read GetIOName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property IOName : PChar Read GetIOName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Provides the value for the <c>lpszProxyBypass</c> parameter of the InternetOpen
     /// Windows API function.
     /// </summary>
-    {$endregion}
-    property IOBypass: PChar read GetIOBypass;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property IOBypass : PChar Read GetIOBypass;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when proxy configuration changes.
     /// </summary>
-    {$endregion}
-    property OnChange: TNotifyEvent read fOnChange write fOnChange;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnChange : TNotifyEvent Read fOnChange Write fOnChange;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the class.
     /// </summary>
-    {$endregion}
-    constructor Create; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the instance and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies the proxy configuration from another object.
     /// </summary>
     /// <param name="Source">
     /// The source object.
     /// </param>
-    {$endregion}
-    procedure Assign(Source: TPersistent); override;
-  published
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Assign(Source : TPersistent); Override;
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the type of access required.
     /// </summary>
-    {$endregion}
-    property AccessType: TProxyType read fType write SetType default ptAuto;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AccessType : TProxyType Read fType Write SetType Default ptAuto;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the host name of the proxy server when <see cref="AccessType"/>
     /// is ptManual.
     /// </summary>
-    {$endregion}
-    property Host: String read fHost write SetHost;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Host : String Read fHost Write SetHost;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the port number of the proxy server when <see cref="AccessType"/>
     /// is ptManual.
     /// </summary>
-    {$endregion}
-    property Port: Word read fPort write SetPort default 0;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Port : Word Read fPort Write SetPort Default 0;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the optional list of host names or IP addresses, or both, that
     /// should not be routed through the proxy when <see cref="AccessType"/> is
     /// ptManual. The list can contain wildcards.
     /// </summary>
-    {$endregion}
-    property Bypass: TStrings read fBypass write SetBypass stored IsStoredByPass;
-  end;
+    {$Endregion}
+    Property Bypass : TStrings Read fBypass Write SetBypass Stored IsStoredBypass;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomHTTP is the base class for components that are based on HTTP get or post
-  /// requests.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomHTTP as a base class when defining components that need to connect
-  /// to a network service via HTTP get or post requests.
-  /// </remarks>
-  {$endregion}
-  TCustomHTTP = class abstract(TComponent)
-  private
-    fProxy: TProxyConfig;
-    fUserAgent: String;
-    fReferer: String;
-    hInternet: HINTERNET;
-    hConnection: HINTERNET;
-    SessionDetails: TURLParts;
-    procedure SetProxy(Value: TProxyConfig);
-    procedure SetUserAgent(const Value: String);
-    function IsStoredUserAgent: Boolean;
-    procedure ConfigChanged(Sender: TObject);
-    function PrepareSession(const Details: TURLParts): Boolean;
-    procedure UnprepareSession;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomHTTP is the base class for components that are based on HTTP get or post
+/// requests.
+/// </summary>
+/// <remarks>
+/// Use TCustomHTTP as a base class when defining components that need to connect
+/// to a network service via HTTP get or post requests.
+/// </remarks>
+{$Endregion}
+
+    TCustomHTTP = Class Abstract(TComponent)
+   Private
+    fProxy         : TProxyConfig;
+    fUserAgent     : String;
+    fReferer       : String;
+    hInternet      : hInternet;
+    hConnection    : hInternet;
+    SessionDetails : TURLParts;
+    Procedure SetProxy(Value : TProxyConfig);
+    Procedure SetUserAgent(Const Value : String);
+    Function IsStoredUserAgent : Boolean;
+    Procedure ConfigChanged(Sender : TObject);
+    Function PrepareSession(Const Details : TURLParts) : Boolean;
+    Procedure UnprepareSession;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sends a GET or POST request to a server.
     /// </summary>
@@ -247,48 +250,47 @@ type
     /// Returns the HTTP status code or zero if the connection is not established
     /// at all.
     /// </returns>
-    {$endregion}
-    function HttpRequest(const URL: String; Response: TStream;
-      const PostData: String = ''; const ContentType: String = ''): Cardinal; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function HttpRequest(Const URL : String; Response : TStream; Const PostData : String = ''; Const ContentType : String = '') : Cardinal; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the proxy configuration.
     /// </summary>
-    {$endregion}
-    property Proxy: TProxyConfig read fProxy write SetProxy;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Proxy : TProxyConfig Read fProxy Write SetProxy;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the value of the <c>User-Agent</c> header of the HTTP request
     /// message.
     /// </summary>
-    {$endregion}
-    property UserAgent: String read fUserAgent write SetUserAgent stored IsStoredUserAgent;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property UserAgent : String Read fUserAgent Write SetUserAgent Stored IsStoredUserAgent;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the value of the <c>Referer</c> header of the HTTP request
     /// message.
     /// </summary>
-    {$endregion}
-    property Referer: String read fReferer write fReferer;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Referer : String Read fReferer Write fReferer;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the component.
     /// </summary>
     /// <param name="AOwner">
     /// The component that owns this instance.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the component's instance and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-  end;
+    {$Endregion}
+    Destructor Destroy; Override;
+  End;
 
-{$region 'xmldoc'}
+{$Region 'xmldoc'}
 /// <summary>
 /// Converts the special HTML characters to HTML entities.
 /// </summary>
@@ -299,489 +301,494 @@ type
 /// The string that is safe to render as HTML text.
 /// </returns>
 /// <seealso cref="DecodeHtmlEntities"/>
-{$endregion}
-function EncodeHtmlEntities(const Str: String): String;
+{$Endregion}
 
-{$region 'xmldoc'}
-/// <summary>
-/// Converts the HTML entities to normal characters.
-/// </summary>
-/// <param name="Str">
-/// The string containing the HTML entities.
-/// </param>
-/// <returns>
-/// The string that is safe to render as plain text.
-/// </returns>
-/// <seealso cref="EncodeHtmlEntities"/>
-{$endregion}
-function DecodeHtmlEntities(const Str: String): String;
+ Function EncodeHtmlEntities(Const Str : String) : String;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Escapes a string value, so that it can be used safely in a URL as an argument
-/// value.
-/// </summary>
-/// <param name="Str">
-/// The string to escape.
-/// </param>
-/// <returns>
-/// The escaped string.
-/// </returns>
-{$endregion}
-function EscapeURLArg(const Str: String): String;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Converts the HTML entities to normal characters.
+ /// </summary>
+ /// <param name="Str">
+ /// The string containing the HTML entities.
+ /// </param>
+ /// <returns>
+ /// The string that is safe to render as plain text.
+ /// </returns>
+ /// <seealso cref="EncodeHtmlEntities"/>
+ {$Endregion}
+ Function DecodeHtmlEntities(Const Str : String) : String;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Disassembles a URL into its component parts.
-/// </summary>
-/// <param name="URL">
-/// The URL to be cracked.
-/// </param>
-/// <param name="Components">
-/// The component parts of the cracked URL.
-/// </param>
-{$endregion}
-procedure CrackURL(const URL: String; out Components: TURLParts);
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Escapes a string value, so that it can be used safely in a URL as an argument
+ /// value.
+ /// </summary>
+ /// <param name="Str">
+ /// The string to escape.
+ /// </param>
+ /// <returns>
+ /// The escaped string.
+ /// </returns>
+ {$Endregion}
+ Function EscapeURLArg(Const Str : String) : String;
 
-implementation
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Disassembles a URL into its component parts.
+ /// </summary>
+ /// <param name="URL">
+ /// The URL to be cracked.
+ /// </param>
+ /// <param name="Components">
+ /// The component parts of the cracked URL.
+ /// </param>
+ {$Endregion}
+ Procedure CrackURL(Const URL : String; Out Components : TURLParts);
 
-const
+Implementation
+
+ Const
   DefaultProxyBypass = '<local>';
   DefaultUserAgent   = 'Mozila/5.0';
 
-const
-  CodedChars: array[1..60] of WideString = (
-    'nbsp', 'copy', 'reg', 'trade', 'sup1', 'sup2', 'sup3', 'quot', 'amp',
-    'lt', 'gt', 'ndash', 'mdash', 'lsquo', 'rsquo', 'ldquo', 'rdquo',
-    'bull', 'dagger', 'Dagger', 'prime', 'Prime', 'lsaquo', 'rsaquo',
-    'tilde', 'circ', 'spades', 'clubs', 'hearts', 'diams', 'loz', 'larr',
-    'rarr', 'uarr', 'darr', 'harr', 'not', 'frac14', 'frac12', 'frac34',
-    'plusmn', 'laquo', 'raquo', 'deg', 'ordf', 'ordm', 'iexcl', 'iquest',
-    'euro', 'cent', 'pound', 'yen', 'curren', 'sect', 'para', 'macr',
-    'middot', 'micro', 'times', 'divide');
-  SpecialChars: array[1..60] of WideChar = (
-    #$00A0, #$00A9, #$00AE, #$2122, #$00B9, #$00B2, #$00B3, #$0022, #$0026, #$003C,
-    #$003E, #$2013, #$2014, #$2018, #$2019, #$201C, #$201D, #$2022, #$2020, #$2021,
-    #$2030, #$2031, #$2039, #$203A, #$02DC, #$02C6, #$2660, #$2663, #$2665, #$2666,
-    #$25CA, #$2190, #$2192, #$2191, #$2193, #$2194, #$00AC, #$00BC, #$00BD, #$00BE,
-    #$00B1, #$00AB, #$00BB, #$00B0, #$00AB, #$00C6, #$00A1, #$00BF, #$20AC, #$00A2,
-    #$00A3, #$00A5, #$00A4, #$00A7, #$00B6, #$00AF, #$00B7, #$00B5, #$00D7, #$00F7);
+ Const
+  CodedChars : Array[1..60] Of WideString = (
+  'nbsp', 'copy', 'reg', 'trade', 'sup1', 'sup2', 'sup3', 'quot', 'amp',
+  'lt', 'gt', 'ndash', 'mdash', 'lsquo', 'rsquo', 'ldquo', 'rdquo',
+  'bull', 'dagger', 'Dagger', 'prime', 'Prime', 'lsaquo', 'rsaquo',
+  'tilde', 'circ', 'spades', 'clubs', 'hearts', 'diams', 'loz', 'larr',
+  'rarr', 'uarr', 'darr', 'harr', 'not', 'frac14', 'frac12', 'frac34',
+  'plusmn', 'laquo', 'raquo', 'deg', 'ordf', 'ordm', 'iexcl', 'iquest',
+  'euro', 'cent', 'pound', 'yen', 'curren', 'sect', 'para', 'macr',
+  'middot', 'micro', 'times', 'divide');
+  SpecialChars : Array[1..60] Of WideChar = (
+  #$00A0, #$00A9, #$00AE, #$2122, #$00B9, #$00B2, #$00B3, #$0022, #$0026, #$003C,
+  #$003E, #$2013, #$2014, #$2018, #$2019, #$201C, #$201D, #$2022, #$2020, #$2021,
+  #$2030, #$2031, #$2039, #$203A, #$02DC, #$02C6, #$2660, #$2663, #$2665, #$2666,
+  #$25CA, #$2190, #$2192, #$2191, #$2193, #$2194, #$00AC, #$00BC, #$00BD, #$00BE,
+  #$00B1, #$00AB, #$00BB, #$00B0, #$00AB, #$00C6, #$00A1, #$00BF, #$20AC, #$00A2,
+  #$00A3, #$00A5, #$00A4, #$00A7, #$00B6, #$00AF, #$00B7, #$00B5, #$00D7, #$00F7);
 
 { Helper Functions }
 
-function EncodeWebChar(C: Char; out Code: String): Boolean;
-var
-  I: Integer;
-begin
-  Result := False;
-  for I := Low(SpecialChars) to High(SpecialChars) do
-    if SpecialChars[I] = C then
-    begin
-      Code := CodedChars[I];
+ Function EncodeWebChar(c : Char; Out Code : String) : Boolean;
+  Var
+   i : Integer;
+  Begin
+   Result := False;
+   For i  := Low(SpecialChars) To High(SpecialChars) Do
+    If SpecialChars[i] = c Then
+     Begin
+      Code   := CodedChars[i];
       Result := True;
       Exit;
-    end;
-end;
+     End;
+  End;
 
-function DecodeWebChar(const Code: String; out C: Char): Boolean;
-var
-  I: Integer;
-begin
-  Result := False;
-  if Code <> '' then
-  begin
-    if Code[1] = '#' then
-    begin
-      C := #0;
-      for I := 2 to Length(Code) do
-        if (Code[I] >= '0') and (Code[I] <= '9') then
-          C := Char(Ord(C) * 10 + Ord(Code[I]) - Ord('0'))
-        else
-          Exit;
-      Result := (C <> #0);
-    end
-    else
-      for I := Low(CodedChars) to High(CodedChars) do
-        if CodedChars[I] = Code then
-        begin
-          C := SpecialChars[I];
-          Result := True;
-          Exit;
-        end;
-  end;
-end;
+ Function DecodeWebChar(Const Code : String; Out c : Char) : Boolean;
+  Var
+   i : Integer;
+  Begin
+   Result := False;
+   If Code <> '' Then
+    Begin
+     If Code[1] = '#' Then
+      Begin
+       c     := #0;
+       For i := 2 To Length(Code) Do
+        If (Code[i] >= '0') And (Code[i] <= '9') Then
+         c := Char(Ord(c) * 10 + Ord(Code[i]) - Ord('0'))
+        Else
+         Exit;
+       Result := (c <> #0);
+      End
+     Else
+      For i := Low(CodedChars) To High(CodedChars) Do
+       If CodedChars[i] = Code Then
+        Begin
+         c      := SpecialChars[i];
+         Result := True;
+         Exit;
+        End;
+    End;
+  End;
 
-function DecodeHtmlEntities(const Str: String): String;
-var
-  P, S, E: PChar;
-  Code: String;
-begin
-  SetString(Result, nil, Length(Str));
-  S := PChar(Str);
-  P := PChar(Result);
-  while S^ <> #0 do
-  begin
-    P^ := S^;
-    if S^ = '&' then
-    begin
-      E := S + 1;
-      while (E^ <> #0) and (E^ <> ';') do
-        Inc(E);
-      if E^ = ';' then
-      begin
-        SetString(Code, S + 1, E - S - 1);
-        if DecodeWebChar(Code, P^) then
-          S := E;
-      end;
-    end;
-    Inc(P);
-    Inc(S);
-  end;
-  SetLength(Result, P - PChar(Result));
-end;
+ Function DecodeHtmlEntities(Const Str : String) : String;
+  Var
+   p    : PChar;
+   s    : PChar;
+   e    : PChar;
+   Code : String;
+  Begin
+   SetString(Result, Nil, Length(Str));
+   s := PChar(Str);
+   p := PChar(Result);
+   While s^ <> #0 Do
+    Begin
+     p^ := s^;
+     If s^ = '&' Then
+      Begin
+       e := s + 1;
+       While (e^ <> #0) And (e^ <> ';') Do
+        Inc(e);
+       If e^ = ';' Then
+        Begin
+         SetString(Code, s + 1, e - s - 1);
+         If DecodeWebChar(Code, p^) Then
+          s := e;
+        End;
+      End;
+     Inc(p);
+     Inc(s);
+    End;
+   SetLength(Result, p - PChar(Result));
+  End;
 
-function EncodeHtmlEntities(const Str: String): String;
-var
-  Code: String;
-  P, S: PChar;
-  I: Integer;
-begin
-  SetString(Result, nil, 8 * Length(Str));
-  S := PChar(Str);
-  P := PChar(Result);
-  while S^ <> #0 do
-  begin
-    P^ := S^;
-    if EncodeWebChar(S^, Code) then
-    begin
-      P^ := '&';
-      Inc(P);
-      for I := 1 to Length(Code) do
-      begin
-        P^ := Code[I];
-        Inc(P);
-      end;
-      P^ := ';';
-    end;
-    Inc(P);
-    Inc(S);
-  end;
-  SetLength(Result, P - PChar(Result));
-end;
+ Function EncodeHtmlEntities(Const Str : String) : String;
+  Var
+   Code : String;
+   p    : PChar;
+   s    : PChar;
+   i    : Integer;
+  Begin
+   SetString(Result, Nil, 8 * Length(Str));
+   s := PChar(Str);
+   p := PChar(Result);
+   While s^ <> #0 Do
+    Begin
+     p^ := s^;
+     If EncodeWebChar(s^, Code) Then
+      Begin
+       p^ := '&';
+       Inc(p);
+       For i := 1 To Length(Code) Do
+        Begin
+         p^ := Code[i];
+         Inc(p);
+        End;
+       p^ := ';';
+      End;
+     Inc(p);
+     Inc(s);
+    End;
+   SetLength(Result, p - PChar(Result));
+  End;
 
-function EscapeURLArg(const Str: String): String;
-var
-  P: PAnsiChar;
-begin
-  Result := '';
-  P := PAnsiChar(UTF8Encode(Str));
-  while P^ <> #0 do
-  begin
-    if not CharInSet(P^, ['A'..'Z', 'a'..'z', '0'..'9', '.', '-', '_']) then
-      Result := Result + '%' + IntToHex(Ord(P^), 2)
-    else
-      Result := Result + WideChar(P^);
-    Inc(P);
-  end;
-end;
+ Function EscapeURLArg(Const Str : String) : String;
+  Var
+   p : PAnsiChar;
+  Begin
+   Result := '';
+   p      := PAnsiChar(UTF8Encode(Str));
+   While p^ <> #0 Do
+    Begin
+     If Not CharInSet(p^, ['A'..'Z', 'a'..'z', '0'..'9', '.', '-', '_']) Then
+      Result := Result + '%' + IntToHex(Ord(p^), 2)
+     Else
+      Result := Result + WideChar(p^);
+     Inc(p);
+    End;
+  End;
 
-procedure CrackURL(const URL: String; out Components: TURLParts);
-var
-  Parts: TURLComponents;
-  CanonicalURL: String;
-  Size: Cardinal;
-begin
-  FillChar(Parts, SizeOf(TURLComponents), 0);
-  Parts.dwStructSize := SizeOf(TURLComponents);
-  if URL <> '' then
-  begin
-    Size := 3 * Length(URL);
-    SetString(CanonicalURL, nil, Size);
-    if not InternetCanonicalizeUrl(PChar(URL), PChar(CanonicalURL), Size, ICU_NO_META) then
+ Procedure CrackURL(Const URL : String; Out Components : TURLParts);
+  Var
+   Parts        : TURLComponents;
+   CanonicalURL : String;
+   Size         : Cardinal;
+  Begin
+   FillChar(Parts, SizeOf(TURLComponents), 0);
+   Parts.dwStructSize := SizeOf(TURLComponents);
+   If URL <> '' Then
+    Begin
+     Size := 3 * Length(URL);
+     SetString(CanonicalURL, Nil, Size);
+     If Not InternetCanonicalizeUrl(PChar(URL), PChar(CanonicalURL), Size, ICU_NO_META) Then
       Size := 0;
-    SetLength(CanonicalURL, Size);
-    Parts.dwSchemeLength := 1;
-    Parts.dwUserNameLength := 1;
-    Parts.dwPasswordLength := 1;
-    Parts.dwHostNameLength := 1;
-    Parts.dwURLPathLength := 1;
-    Parts.dwExtraInfoLength := 1;
-    InternetCrackUrl(PChar(CanonicalURL), Size, 0, Parts);
-  end;
-  with Components do
-  begin
-    Scheme := Parts.nScheme;
-    SetString(SchemeName, Parts.lpszScheme, Parts.dwSchemeLength);
-    SetString(UserName, Parts.lpszUserName, Parts.dwUserNameLength);
-    SetString(Password, Parts.lpszPassword, Parts.dwPasswordLength);
-    SetString(HostName, Parts.lpszHostName, Parts.dwHostNameLength);
-    Port := Parts.nPort;
-    SetString(Path, Parts.lpszUrlPath, Parts.dwUrlPathLength);
-    SetString(ExtraInfo, Parts.lpszExtraInfo, Parts.dwExtraInfoLength);
-  end;
-end;
+     SetLength(CanonicalURL, Size);
+     Parts.dwSchemeLength    := 1;
+     Parts.dwUserNameLength  := 1;
+     Parts.dwPasswordLength  := 1;
+     Parts.dwHostNameLength  := 1;
+     Parts.dwURLPathLength   := 1;
+     Parts.dwExtraInfoLength := 1;
+     InternetCrackUrl(PChar(CanonicalURL), Size, 0, Parts);
+    End;
+   With Components Do
+    Begin
+     Scheme := Parts.nScheme;
+     SetString(SchemeName, Parts.lpszScheme, Parts.dwSchemeLength);
+     SetString(UserName, Parts.lpszUserName, Parts.dwUserNameLength);
+     SetString(Password, Parts.lpszPassword, Parts.dwPasswordLength);
+     SetString(HostName, Parts.lpszHostName, Parts.dwHostNameLength);
+     Port := Parts.nPort;
+     SetString(Path, Parts.lpszUrlPath, Parts.dwURLPathLength);
+     SetString(ExtraInfo, Parts.lpszExtraInfo, Parts.dwExtraInfoLength);
+    End;
+  End;
 
 { TProxyConfig }
 
-constructor TProxyConfig.Create;
-begin
-  fType := ptAuto;
-  fBypass := TStringList.Create;
-  fBypass.Text := DefaultProxyBypass;
-  TStringList(fBypass).OnChange := BypassChanged;
-end;
+ Constructor TProxyConfig.Create;
+  Begin
+   fType                         := ptAuto;
+   fBypass                       := TStringList.Create;
+   fBypass.Text                  := DefaultProxyBypass;
+   TStringList(fBypass).OnChange := BypassChanged;
+  End;
 
-destructor TProxyConfig.Destroy;
-begin
-  fBypass.Free;
-  inherited Destroy;
-end;
+ Destructor TProxyConfig.Destroy;
+  Begin
+   fBypass.Free;
+   Inherited Destroy;
+  End;
 
-procedure TProxyConfig.Assign(Source: TPersistent);
-begin
-  if Source is TProxyConfig then
-  begin
-    AccessType := TProxyConfig(Source).AccessType;
-    Host := TProxyConfig(Source).Host;
-    Port := TProxyConfig(Source).Port;
-  end
-  else
-    inherited Assign(Source);
-end;
+ Procedure TProxyConfig.Assign(Source : TPersistent);
+  Begin
+   If Source Is TProxyConfig Then
+    Begin
+     AccessType := TProxyConfig(Source).AccessType;
+     Host       := TProxyConfig(Source).Host;
+     Port       := TProxyConfig(Source).Port;
+    End
+   Else
+    Inherited Assign(Source);
+  End;
 
-function TProxyConfig.GetIOType: Cardinal;
-begin
-  case AccessType of
-    ptDirect: Result := INTERNET_OPEN_TYPE_DIRECT;
-    ptAuto: Result := INTERNET_OPEN_TYPE_PRECONFIG;
-  else
-    Result := INTERNET_OPEN_TYPE_PROXY;
-  end;
-end;
+ Function TProxyConfig.GetIOType : Cardinal;
+  Begin
+   Case AccessType Of
+    ptDirect : Result := INTERNET_OPEN_TYPE_DIRECT;
+    ptAuto   : Result := INTERNET_OPEN_TYPE_PRECONFIG;
+   Else Result := INTERNET_OPEN_TYPE_PROXY;
+   End;
+  End;
 
-function TProxyConfig.GetIOName: PChar;
-var
-  ProxyName: String;
-begin
-  Result := nil;
-  if AccessType = ptManual then
-  begin
-    ProxyName := Trim(Host);
-    if ProxyName <> '' then
-    begin
-      if Port <> 0 then
+ Function TProxyConfig.GetIOName : PChar;
+  Var
+   ProxyName : String;
+  Begin
+   Result := Nil;
+   If AccessType = ptManual Then
+    Begin
+     ProxyName := Trim(Host);
+     If ProxyName <> '' Then
+      Begin
+       If Port <> 0 Then
         ProxyName := ProxyName + ':' + IntToStr(Port);
-      Result := PChar(ProxyName);
-    end;
-  end;
-end;
+       Result     := PChar(ProxyName);
+      End;
+    End;
+  End;
 
-function TProxyConfig.GetIOBypass: PChar;
-var
-  ProxyBypass: String;
-begin
-  Result := nil;
-  if AccessType = ptManual then
-  begin
-    ProxyBypass := Trim(Bypass.Text);
-    if ProxyBypass <> '' then
+ Function TProxyConfig.GetIOBypass : PChar;
+  Var
+   ProxyBypass : String;
+  Begin
+   Result := Nil;
+   If AccessType = ptManual Then
+    Begin
+     ProxyBypass := Trim(Bypass.Text);
+     If ProxyBypass <> '' Then
       Result := PChar(ProxyBypass);
-  end;
-end;
+    End;
+  End;
 
-procedure TProxyConfig.SetType(Value: TProxyType);
-begin
-  if AccessType <> Value then
-  begin
-    fType := Value;
-    DoChange;
-  end;
-end;
+ Procedure TProxyConfig.SetType(Value : TProxyType);
+  Begin
+   If AccessType <> Value Then
+    Begin
+     fType := Value;
+     DoChange;
+    End;
+  End;
 
-procedure TProxyConfig.SetHost(const Value: String);
-begin
-  if Host <> Value then
-  begin
-    fHost := Value;
-    if AccessType = ptManual then
+ Procedure TProxyConfig.SetHost(Const Value : String);
+  Begin
+   If Host <> Value Then
+    Begin
+     fHost := Value;
+     If AccessType = ptManual Then
       DoChange;
-  end;
-end;
+    End;
+  End;
 
-procedure TProxyConfig.SetPort(Value: Word);
-begin
-  if Port <> Value then
-  begin
-    fPort := Value;
-    if AccessType = ptManual then
+ Procedure TProxyConfig.SetPort(Value : Word);
+  Begin
+   If Port <> Value Then
+    Begin
+     fPort := Value;
+     If AccessType = ptManual Then
       DoChange;
-  end;
-end;
+    End;
+  End;
 
-procedure TProxyConfig.SetBypass(Value: TStrings);
-begin
-  Bypass.Assign(Value);
-end;
+ Procedure TProxyConfig.SetBypass(Value : TStrings);
+  Begin
+   Bypass.Assign(Value);
+  End;
 
-function TProxyConfig.IsStoredBypass: Boolean;
-begin
-  Result := (Trim(Bypass.Text) <> DefaultProxyBypass);
-end;
+ Function TProxyConfig.IsStoredBypass : Boolean;
+  Begin
+   Result := (Trim(Bypass.Text) <> DefaultProxyBypass);
+  End;
 
-procedure TProxyConfig.BypassChanged(Sender: TObject);
-begin
-  if AccessType = ptManual then
+ Procedure TProxyConfig.BypassChanged(Sender : TObject);
+  Begin
+   If AccessType = ptManual Then
     DoChange;
-end;
+  End;
 
-procedure TProxyConfig.DoChange;
-begin
-  if Assigned(OnChange) then
+ Procedure TProxyConfig.DoChange;
+  Begin
+   If Assigned(OnChange) Then
     OnChange(Self);
-end;
+  End;
 
 { TCustomHTTP }
 
-constructor TCustomHTTP.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  fUserAgent := DefaultUserAgent;
-  fProxy := TProxyConfig.Create;
-  fProxy.OnChange := ConfigChanged;
-end;
+ Constructor TCustomHTTP.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   fUserAgent      := DefaultUserAgent;
+   fProxy          := TProxyConfig.Create;
+   fProxy.OnChange := ConfigChanged;
+  End;
 
-destructor TCustomHTTP.Destroy;
-begin
-  UnprepareSession;
-  fProxy.Free;
-  inherited Destroy;
-end;
+ Destructor TCustomHTTP.Destroy;
+  Begin
+   UnprepareSession;
+   fProxy.Free;
+   Inherited Destroy;
+  End;
 
-procedure TCustomHTTP.ConfigChanged(Sender: TObject);
-begin
-  UnprepareSession;
-end;
+ Procedure TCustomHTTP.ConfigChanged(Sender : TObject);
+  Begin
+   UnprepareSession;
+  End;
 
-procedure TCustomHTTP.SetProxy(Value: TProxyConfig);
-begin
-  Proxy.Assign(Value);
-end;
+ Procedure TCustomHTTP.SetProxy(Value : TProxyConfig);
+  Begin
+   Proxy.Assign(Value);
+  End;
 
-procedure TCustomHTTP.SetUserAgent(const Value: String);
-begin
-  if UserAgent <> Value then
-  begin
-    fUserAgent := Value;
-    ConfigChanged(Self);
-  end;
-end;
+ Procedure TCustomHTTP.SetUserAgent(Const Value : String);
+  Begin
+   If UserAgent <> Value Then
+    Begin
+     fUserAgent := Value;
+     ConfigChanged(Self);
+    End;
+  End;
 
-function TCustomHTTP.IsStoredUserAgent: Boolean;
-begin
-  Result := (UserAgent <> DefaultUserAgent);
-end;
+ Function TCustomHTTP.IsStoredUserAgent : Boolean;
+  Begin
+   Result := (UserAgent <> DefaultUserAgent);
+  End;
 
-function TCustomHTTP.PrepareSession(const Details: TURLParts): Boolean;
-var
-  pUserName, pPassword: PChar;
-begin
-  Result := False;
-  if hInternet = nil then
-  begin
-    hInternet := InternetOpen(PChar(UserAgent), Proxy.IOType, Proxy.IOName, Proxy.IOBypass, 0);
-    if hInternet = nil then
+ Function TCustomHTTP.PrepareSession(Const Details : TURLParts) : Boolean;
+  Var
+   pUserName : PChar;
+   pPassword : PChar;
+  Begin
+   Result := False;
+   If hInternet = Nil Then
+    Begin
+     hInternet := InternetOpen(PChar(UserAgent), Proxy.IOType, Proxy.IOName, Proxy.IOBypass, 0);
+     If hInternet = Nil Then
       Exit;
-  end;
-  if (hConnection = nil) or
-     (SessionDetails.Scheme <> Details.Scheme) or
-     (SessionDetails.Port <> Details.Port) or
-     (SessionDetails.HostName <> Details.HostName) or
-     (SessionDetails.UserName <> Details.UserName) or
-     (SessionDetails.Password <> Details.Password) then
-  begin
-    pUserName := nil;
-    pPassword := nil;
-    if Details.UserName <> '' then
-    begin
-      pUserName := PChar(Details.UserName);
-      pPassword := PChar(Details.Password);
-    end;
-    hConnection := InternetConnect(hInternet, PChar(Details.HostName), Details.Port,
-      pUserName, pPassword, INTERNET_SERVICE_HTTP, 0, 0);
-    if hConnection = nil then
+    End;
+   If (hConnection = Nil) Or
+   (SessionDetails.Scheme <> Details.Scheme) Or
+   (SessionDetails.Port <> Details.Port) Or
+   (SessionDetails.HostName <> Details.HostName) Or
+   (SessionDetails.UserName <> Details.UserName) Or
+   (SessionDetails.Password <> Details.Password) Then
+    Begin
+     pUserName := Nil;
+     pPassword := Nil;
+     If Details.UserName <> '' Then
+      Begin
+       pUserName := PChar(Details.UserName);
+       pPassword := PChar(Details.Password);
+      End;
+     hConnection := InternetConnect(hInternet, PChar(Details.HostName), Details.Port,
+     pUserName, pPassword, INTERNET_SERVICE_HTTP, 0, 0);
+     If hConnection = Nil Then
       Exit;
-    SessionDetails.Scheme := Details.Scheme;
-    SessionDetails.HostName := Details.HostName;
-    SessionDetails.Port := Details.Port;
-    SessionDetails.UserName := Details.UserName;
-    SessionDetails.Password := Details.Password;
-  end;
-  Result := True;
-end;
+     SessionDetails.Scheme   := Details.Scheme;
+     SessionDetails.HostName := Details.HostName;
+     SessionDetails.Port     := Details.Port;
+     SessionDetails.UserName := Details.UserName;
+     SessionDetails.Password := Details.Password;
+    End;
+   Result := True;
+  End;
 
-procedure TCustomHTTP.UnprepareSession;
-begin
-  if hConnection <> nil then
-  begin
-    InternetCloseHandle(hConnection);
-    hConnection := nil;
-  end;
-  if hInternet <> nil then
-  begin
-    InternetCloseHandle(hInternet);
-    hInternet := nil;
-  end;
-end;
+ Procedure TCustomHTTP.UnprepareSession;
+  Begin
+   If hConnection <> Nil Then
+    Begin
+     InternetCloseHandle(hConnection);
+     hConnection := Nil;
+    End;
+   If hInternet <> Nil Then
+    Begin
+     InternetCloseHandle(hInternet);
+     hInternet := Nil;
+    End;
+  End;
 
-function TCustomHTTP.HttpRequest(const URL: String;
-  Response: TStream; const PostData: String; const ContentType: String): Cardinal;
-const
-  HttpMethod: array[Boolean] of PChar = ('GET', 'POST');
-  AcceptContentTypes: array[0..1] of PChar = ('*/*', nil);
-var
-  PostHeaders: String;
-  URLParts: TURLParts;
-  hResource: WinINet.HINTERNET;
-  Buffer: array[0..1023] of Byte;
-  Flags, Size, Reserved: Cardinal;
-  Data: UTF8String;
-  ReqOK: Boolean;
-begin
-  Result := 0;
-  CrackURL(URL, URLParts);
-  if PrepareSession(URLParts) then
-  begin
-    Flags := INTERNET_FLAG_RELOAD or INTERNET_FLAG_PRAGMA_NOCACHE
-          or INTERNET_FLAG_NO_CACHE_WRITE or INTERNET_FLAG_NO_COOKIES
-          or INTERNET_FLAG_NO_UI or INTERNET_FLAG_KEEP_CONNECTION;
-    if URLParts.Scheme = INTERNET_SCHEME_HTTPS then
-      Flags := Flags or INTERNET_FLAG_SECURE;
-    hResource := HttpOpenRequest(hConnection, HttpMethod[PostData <> ''],
-      PChar(URLParts.Path + URLParts.ExtraInfo), nil, PChar(Referer),
-      @AcceptContentTypes[0], Flags, 0);
-    if hResource <> nil then
-      try
-        if PostData = '' then
-          ReqOK := HttpSendRequest(hResource, nil, 0, nil, 0)
-        else
-        begin
-          PostHeaders := 'Content-Type: ' + ContentType + #13#10;
-          Data := UTF8Encode(PostData);
-          ReqOK := HttpSendRequest(hResource, PChar(PostHeaders), Length(PostHeaders),
-            PAnsiChar(Data), Length(Data));
-        end;
-        if ReqOK then
-        begin
-          Reserved := 0;
-          Size := SizeOf(Result);
-          HttpQueryInfo(hResource, HTTP_QUERY_FLAG_NUMBER or HTTP_QUERY_STATUS_CODE, @Result, Size, Reserved);
-          while InternetReadFile(hResource, @Buffer[0], SizeOf(Buffer), Size) and (Size <> 0) do
-            Response.Write(Buffer[0], Size);
-        end;
-      finally
-        InternetCloseHandle(hResource);
-      end;
-  end;
-end;
+ Function TCustomHTTP.HttpRequest(Const URL : String; Response : TStream; Const PostData : String; Const ContentType : String) : Cardinal;
+  Const
+   HttpMethod : Array[Boolean] Of PChar = ('GET', 'POST');
+   AcceptContentTypes : Array[0..1] Of PChar = ('*/*', Nil);
+  Var
+   PostHeaders : String;
+   URLParts    : TURLParts;
+   hResource   : WinInet.hInternet;
+   Buffer      : Array[0..1023] Of Byte;
+   Flags       : Cardinal;
+   Size        : Cardinal;
+   Reserved    : Cardinal;
+   Data        : UTF8String;
+   ReqOK       : Boolean;
+  Begin
+   Result := 0;
+   CrackURL(URL, URLParts);
+   If PrepareSession(URLParts) Then
+    Begin
+     Flags := INTERNET_FLAG_RELOAD Or INTERNET_FLAG_PRAGMA_NOCACHE
+     Or INTERNET_FLAG_NO_CACHE_WRITE Or INTERNET_FLAG_NO_COOKIES
+     Or INTERNET_FLAG_NO_UI Or INTERNET_FLAG_KEEP_CONNECTION;
+     If URLParts.Scheme = INTERNET_SCHEME_HTTPS Then
+      Flags    := Flags Or INTERNET_FLAG_SECURE;
+     hResource := HttpOpenRequest(hConnection, HttpMethod[PostData <> ''],
+     PChar(URLParts.Path + URLParts.ExtraInfo), Nil, PChar(Referer),
+     @AcceptContentTypes[0], Flags, 0);
+     If hResource <> Nil Then
+      Try
+       If PostData = '' Then
+        ReqOK := HttpSendRequest(hResource, Nil, 0, Nil, 0)
+       Else
+        Begin
+         PostHeaders := 'Content-Type: ' + ContentType + #13#10;
+         Data        := UTF8Encode(PostData);
+         ReqOK       := HttpSendRequest(hResource, PChar(PostHeaders), Length(PostHeaders),
+         PAnsiChar(Data), Length(Data));
+        End;
+       If ReqOK Then
+        Begin
+         Reserved := 0;
+         Size     := SizeOf(Result);
+         HttpQueryInfo(hResource, HTTP_QUERY_FLAG_NUMBER Or HTTP_QUERY_STATUS_CODE, @Result, Size, Reserved);
+         While InternetReadFile(hResource, @Buffer[0], SizeOf(Buffer), Size) And (Size <> 0) Do
+          Response.Write(Buffer[0], Size);
+        End;
+      Finally
+       InternetCloseHandle(hResource);
+      End;
+    End;
+  End;
 
-end.
+End.

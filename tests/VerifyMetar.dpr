@@ -1,108 +1,191 @@
-﻿program VerifyMetar;
+﻿Program VerifyMetar;
 
 {$APPTYPE CONSOLE}
+{$STRONGLINKTYPES ON}
+{$RTTI EXPLICIT METHODS([vcPublic])}
 
-uses LocalizationU, Winapi.Windows,System.SysUtils,System.DateUtils,System.JSON,FlightDatabaseU,FlightTelemetryU,MetarU,AnalysisContextU,
+Uses
+ TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ LocalizationU, Winapi.Windows, System.SysUtils, System.DateUtils, System.JSON, FlightDatabaseU, FlightTelemetryU, MetarU, AnalysisContextU,
 
- FireDAC.Comp.Client,IdHTTPServer,IdCustomHTTPServer,IdContext;
+ FireDAC.Comp.Client, IdHTTPServer, IdCustomHTTPServer, IdContext;
 
-type TResponder=class
+Type
+ TResponder = Class
 
- Calls:Integer;
+  Calls : Integer;
 
- procedure Reply(Context:TIdContext;Request:TIdHTTPRequestInfo;Response:TIdHTTPResponseInfo);
+  Procedure Reply(Context : TIdContext; Request : TIdHTTPRequestInfo; Response : TIdHTTPResponseInfo);
 
-end;
+ End;
 
-procedure TResponder.Reply(Context:TIdContext;Request:TIdHTTPRequestInfo;Response:TIdHTTPResponseInfo);
+Procedure TResponder.Reply(Context : TIdContext; Request : TIdHTTPRequestInfo; Response : TIdHTTPResponseInfo);
+ Begin
 
-begin
+  Inc(Calls);
+  Response.ContentType := 'application/json';
 
- Inc(Calls);Response.ContentType:='application/json';
+  If Request.Document = '/empty' Then
+   Begin
+    Response.ResponseNo := 204;
+    Exit;
+   End;
 
- if Request.Document='/empty' then begin Response.ResponseNo:=204;Exit;end;
+  Response.ContentText := '[{"icaoId":"EPLL","rawOb":"EPLL 151200Z 25005KT 9999 SCT020 12/08 Q1013","obsTime":1792065600}]';
 
- Response.ContentText:='[{"icaoId":"EPLL","rawOb":"EPLL 151200Z 25005KT 9999 SCT020 12/08 Q1013","obsTime":1792065600}]';
+ End;
 
-end;
+Procedure Require(b : Boolean; Const m : String);
+ Begin
+  If Not b Then
+   Raise Exception.Create(m);
+ End;
 
-procedure Require(B:Boolean;const M:string);begin if not B then raise Exception.Create(M);end;
+Var
+ DB        : TFlightDatabase;
+ s         : TFlightSample;
+ Service   : TMetarService;
+ Server    : TIdHTTPServer;
+ Responder : TResponder;
+ q         : TFDQuery;
+ j         : TJSONObject;
+ ID        : Integer;
+ Row       : Integer;
+ OldRow    : Integer;
+ Started   : UInt64;
+ Text      : String;
+ Observed  : String;
+ UTC       : String;
 
-var DB:TFlightDatabase;S:TFlightSample;Service:TMetarService;Server:TIdHTTPServer;Responder:TResponder;Q:TFDQuery;J:TJSONObject;
+Type
 
- ID,Row,OldRow:Integer;Started:UInt64;Text,Observed,UTC:string;
+ [TestFixture]
+ TVerifyMetarTests = Class
+  Public
+   [Test]
+   Procedure Regression;
+ End;
 
-begin
+Procedure TVerifyMetarTests.Regression;
+ Begin
 
- DecodeMetar('[{"icaoId":"EPLL","rawOb":"EPLL TEST","obsTime":1792065600}]','EPLL',Text,Observed);
+  DecodeMetar('[{"icaoId":"EPLL","rawOb":"EPLL TEST","obsTime":1792065600}]', 'EPLL', Text, Observed);
 
- DecodeMetarForTime('[{"icaoId":"EPLL","rawOb":"FUTURE","obsTime":1792069200},{"icaoId":"EPLL","rawOb":"VALID","obsTime":1792065600},{"icaoId":"EPLL","rawOb":"OLDER","obsTime":1792062000}]','EPLL',DateToISO8601(UnixToDateTime(1792067400,True),True),Text,Observed);
+  DecodeMetarForTime('[{"icaoId":"EPLL","rawOb":"FUTURE","obsTime":1792069200},{"icaoId":"EPLL","rawOb":"VALID","obsTime":1792065600},{"icaoId":"EPLL","rawOb":"OLDER","obsTime":1792062000}]', 'EPLL', DateToISO8601(UnixToDateTime(1792067400, True), True), Text, Observed);
 
- Require(Text='VALID','Historical METAR must be latest observation at or before event');
+  Require(Text = 'VALID', 'Historical METAR must be latest observation at or before event');
 
- DecodeMetar('[{"icaoId":"EPLL","rawOb":"EPLL TEST","obsTime":1792065600}]','EPLL',Text,Observed);
+  DecodeMetar('[{"icaoId":"EPLL","rawOb":"EPLL TEST","obsTime":1792065600}]', 'EPLL', Text, Observed);
 
- Require((Text='EPLL TEST') and (Observed<>''),'METAR decode');
+  Require((Text = 'EPLL TEST') And (Observed <> ''), 'METAR decode');
 
- try DecodeMetar('[]','EPLL',Text,Observed);raise Exception.Create('Empty should fail');except on E:Exception do Require(Pos(Tr('No valid METAR for '),E.Message)>0,'Empty observation failure');end;
+  Try
+   DecodeMetar('[]', 'EPLL', Text, Observed);
+   Raise Exception.Create('Empty should fail');
+  Except
+   On E : Exception Do
+    Require(Pos(Tr('No valid METAR for '), E.Message) > 0, 'Empty observation failure');
+  End;
 
- DB:=TFlightDatabase.Create(ExtractFilePath(ParamStr(0))+'metar-'+IntToStr(GetTickCount64)+'.db',ExtractFilePath(ParamStr(0))+'sqlite3.dll');
+  DB := TFlightDatabase.Create(TestDatabasePath(ExtractFilePath(ParamStr(0)) + 'metar-' + IntToStr(GetTickCount64) + '.db'), ExtractFilePath(ParamStr(0)) + 'sqlite3.dll');
 
- S:=TFlightSample.Create;Server:=TIdHTTPServer.Create(nil);Responder:=TResponder.Create;Q:=TFDQuery.Create(nil);Service:=nil;
+  s         := TFlightSample.Create;
+  Server    := TIdHTTPServer.Create(Nil);
+  Responder := TResponder.Create;
+  q         := TFDQuery.Create(Nil);
+  Service   := Nil;
 
- try
+  Try
 
-  ID:=DB.StartTrip(S);OldRow:=DB.Contact(ID,S,False);Row:=DB.Contact(ID,S,True);
+   ID     := DB.StartTrip(s);
+   OldRow := DB.Contact(ID, s, False);
+   Row    := DB.Contact(ID, s, True);
 
-  UTC:=DateToISO8601(TTimeZone.Local.ToUniversalTime(Now),True);
+   UTC := DateToISO8601(TTimeZone.Local.ToUniversalTime(Now), True);
 
-  DB.Connection.ExecSQL('update trip_liftoffs set icao=''EPLL'' where id=:id',[OldRow]);
+   DB.Connection.ExecSQL('update trip_liftoffs set icao=''EPLL'' where id=:id', [OldRow]);
 
-  DB.Connection.ExecSQL('update trip_touchdowns set icao=''EPLL'',metar_status=''awaiting_airport'',metar_requested_utc=:u,runway_length_m=2500,runway_width_m=45 where id=:id',[UTC,Row]);
+   DB.Connection.ExecSQL('update trip_touchdowns set icao=''EPLL'',metar_status=''awaiting_airport'',metar_requested_utc=:u,runway_length_m=2500,runway_width_m=45 where id=:id', [UTC, Row]);
 
-  Server.Bindings.Add.IP:='127.0.0.1';Server.Bindings[0].Port:=19789;Server.OnCommandGet:=Responder.Reply;Server.Active:=True;
+   Server.Bindings.Add.IP  := '127.0.0.1';
+   Server.Bindings[0].Port := 19789;
+   Server.OnCommandGet     := Responder.Reply;
+   Server.Active           := True;
 
-  Service:=TMetarService.Create(DB);Service.Endpoint:='http://127.0.0.1:19789/metar';Service.Tick;Started:=GetTickCount64;
+   Service          := TMetarService.Create(DB);
+   Service.Endpoint := 'http://127.0.0.1:19789/metar';
+   Service.Tick;
+   Started := GetTickCount64;
 
-  repeat Sleep(20);Service.Tick;until (string(DB.Connection.ExecSQLScalar('select metar_status from trip_touchdowns where id=:id',[Row]))='ok') or (GetTickCount64-Started>5000);
+   Repeat
+    Sleep(20);
+    Service.Tick;
+   Until(String(DB.Connection.ExecSQLScalar('select metar_status from trip_touchdowns where id=:id', [Row])) = 'ok') Or (GetTickCount64 - Started > 5000);
 
-  Q.Connection:=DB.Connection;Q.Open('select * from trip_touchdowns where id='+IntToStr(Row));
+   q.Connection := DB.Connection;
+   q.Open('select * from trip_touchdowns where id=' + IntToStr(Row));
 
-  Require(Q.FieldByName('metar_status').AsString='ok','Async METAR stored');Require(Q.FieldByName('metar_text').AsString<>'','Raw report');
+   Require(q.FieldByName('metar_status').AsString = 'ok', 'Async METAR stored');
+   Require(q.FieldByName('metar_text').AsString <> '', 'Raw report');
 
-  Require(Q.FieldByName('metar_fetched_utc').AsString<>'','Capture timestamp');Require(Q.FieldByName('metar_observed_utc').AsString<>'','Observation timestamp');
+   Require(q.FieldByName('metar_fetched_utc').AsString <> '', 'Capture timestamp');
+   Require(q.FieldByName('metar_observed_utc').AsString <> '', 'Observation timestamp');
 
-  Require(Responder.Calls=1,'No METAR backfill of historical contacts');
+   Require(Responder.Calls = 1, 'No METAR backfill of historical contacts');
 
-  // Use valid simulator time for analysis of the saved event.
+   // Use valid simulator time for analysis of the saved event.
 
-  DB.Connection.ExecSQL('update trip_touchdowns set time_zulu=''2026-10-15T12:00:00.000+00:00_4'' where id=:id',[Row]);Q.Close;Q.Open;
+   DB.Connection.ExecSQL('update trip_touchdowns set time_zulu=''2026-10-15T12:00:00.000+00:00_4'' where id=:id', [Row]);
+   q.Close;
+   q.Open;
 
-  DB.Connection.ExecSQL('update trip_liftoffs set time_zulu=''2026-10-15T12:00:00.000+00:00_4'' where trip=:id',[ID]);
+   DB.Connection.ExecSQL('update trip_liftoffs set time_zulu=''2026-10-15T12:00:00.000+00:00_4'' where trip=:id', [ID]);
 
-  J:=BuildContactContext(DB,Q,1,1);
+   j := BuildContactContext(DB, q, 1, 1);
 
-  try Require(J.GetValue<TJSONObject>('event').GetValue<Integer>('runway_length_m')=2500,'Runway metres in analysis');Require(Pos('EPLL',J.GetValue<TJSONObject>('event').GetValue<string>('metar_text'))=1,'METAR in analysis');finally J.Free;end;
+   Try
+    Require(j.GetValue<TJSONObject>('event').GetValue<Integer>('runway_length_m') = 2500, 'Runway metres in analysis');
+    Require(Pos('EPLL', j.GetValue<TJSONObject>('event').GetValue<String>('metar_text')) = 1, 'METAR in analysis');
+   Finally
+    j.Free;
+   End;
 
-  Service.RequestHistorical(ID);
+   Service.RequestHistorical(ID);
 
-  Require(string(DB.Connection.ExecSQLScalar('select metar_status from trip_liftoffs where id=:id',[OldRow]))='historical_pending','Historical request for takeoff');
+   Require(String(DB.Connection.ExecSQLScalar('select metar_status from trip_liftoffs where id=:id', [OldRow])) = 'historical_pending', 'Historical request for takeoff');
 
-  Require(string(DB.Connection.ExecSQLScalar('select metar_target_utc from trip_touchdowns where id=:id',[Row]))<>'','Historical target stored');
+   Require(String(DB.Connection.ExecSQLScalar('select metar_target_utc from trip_touchdowns where id=:id', [Row])) <> '', 'Historical target stored');
 
-  FreeAndNil(Service);DB.Connection.ExecSQL('update trip_touchdowns set metar_status=''awaiting_airport'' where id=:id',[Row]);
+   FreeAndNil(Service);
+   DB.Connection.ExecSQL('update trip_touchdowns set metar_status=''awaiting_airport'' where id=:id', [Row]);
 
-  Service:=TMetarService.Create(DB);Service.Endpoint:='http://127.0.0.1:19789/empty';Service.Tick;
+   Service          := TMetarService.Create(DB);
+   Service.Endpoint := 'http://127.0.0.1:19789/empty';
+   Service.Tick;
 
-  Started:=GetTickCount64;
+   Started := GetTickCount64;
 
-  repeat Sleep(20);Service.Tick;until (string(DB.Connection.ExecSQLScalar('select metar_status from trip_touchdowns where id=:id',[Row]))='unavailable') or (GetTickCount64-Started>5000);
+   Repeat
+    Sleep(20);
+    Service.Tick;
+   Until(String(DB.Connection.ExecSQLScalar('select metar_status from trip_touchdowns where id=:id', [Row])) = 'unavailable') Or (GetTickCount64 - Started > 5000);
 
-  Require(string(DB.Connection.ExecSQLScalar('select metar_status from trip_touchdowns where id=:id',[Row]))='unavailable','No METAR stored as explicit unavailable');
+   Require(String(DB.Connection.ExecSQLScalar('select metar_status from trip_touchdowns where id=:id', [Row])) = 'unavailable', 'No METAR stored as explicit unavailable');
 
- finally Service.Free;Q.Free;Server.Free;Responder.Free;S.Free;DB.Free;end;
+  Finally
+   Service.Free;
+   q.Free;
+   Server.Free;
+   Responder.Free;
+   s.Free;
+   DB.Free;
+  End;
 
- Writeln('PASS: async METAR storage, observation/capture time, no historical backfill, unavailable response, runway metres and analysis context. Mock server only.');
+  System.Writeln('PASS: async METAR storage, observation/capture time, no historical backfill, unavailable response, runway metres and analysis context. Mock server only.');
 
-end.
+ End;
 
+Begin
+ RunNativeTests(TVerifyMetarTests);
+
+End.

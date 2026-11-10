@@ -1,0 +1,32 @@
+﻿# Ejemplo de análisis de aterrizaje
+> Datos sintéticos para el manual. Informe redactado a mano: no es respuesta de IA ni evaluación de un vuelo real.
+
+## Vuelo y ventana de análisis
+**FDR101 · B38M · EPLL–EPLL · RWY 25**
+Plan: `EPLL.25 ADOX2W SOXE2T LL501 ILSZ.25 EPLL.25`.
+Toma seleccionada a las 00:33:20 UTC; ventana de 180 s antes y 30 s después. La grabación muestra preparación, despegue, ascenso, tramo en ruta, descenso y carrera de aterrizaje.
+
+## Muestra seleccionada
+- IAS: **145 kt**; velocidad sobre el suelo: **138 kt**.
+- V/S al contacto: **−120 ft/min**; factor de carga: **1,18 g**.
+- Altitud: **607 ft MSL**; radioaltura: **0 ft**.
+- Cabeceo: **2,6° morro arriba**; alabeo: **0,7°**.
+- Rumbo magnético: **245°**; QNH: **1013 hPa**.
+- Flaps: **40**; tren: **DOWN**; spoilers **ARMED** antes del contacto.
+- AP tras desconexión: **OFF**; revise FD/A/T según sus estados grabados.
+
+## Antes y después de la toma
+En descenso disminuye la altitud y se establece configuración de aterrizaje. En el ejemplo IAS se aproxima a 145 kt. Tras la toma baja la velocidad, aparece frenado y se despliegan spoilers. Compare los cambios y el contacto en la misma línea temporal.
+Una IAS esperada por sí sola no demuestra aproximación estabilizada. Revise trayectoria vertical, configuración, empuje y desviaciones LOC/GS válidas. El interruptor FD no sustituye órdenes de guiado.
+
+## Meteorología y plan
+METAR de ejemplo del simulador: `EPLL 120000Z 27008KT 9999 SCT025 12/08 Q1013`.
+Con rumbo 245° supone unos 7 kt de componente frontal y 3 kt lateral. El ejemplo real tiene 28012G18KT y Q1012; compare fuente y hora de observación antes de interpretar diferencias. Los valores OFP son planificación, no medidas de vuelo.
+
+## Límites y comprobaciones
+La grabación de demostración utiliza intervalo grueso de **20 s**. −120 ft/min y 1,18 g describen una muestra preparada, no picos de contacto. No permiten determinar con fiabilidad inicio del flare, aceleración máxima o punto exacto de toma.
+- Amplíe IAS/V/S/cabeceo alrededor del contacto.
+- Compruebe fuente y validez de AP/A/T, LOC y GS.
+- Compare posición, plan y traza real en el mapa.
+- Para evaluar un vuelo real use mayor frecuencia y contexto anterior/posterior.
+**Conclusión de ejemplo:** se muestran secuencia y configuración, pero no basta para una evaluación completa de calidad del aterrizaje.

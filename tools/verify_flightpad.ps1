@@ -1,9 +1,14 @@
-param(
-  [string]$FlightPadRoot='C:\Users\Mateusz\Documents\GIT\FlightPadFMC\Windows',
-  [string]$DelphiRoot='C:\Program Files (x86)\Embarcadero\Studio\19.0'
+﻿param(
+  [string]$FlightPadRoot='',
+  [string]$DelphiRoot=''
 )
 $ErrorActionPreference='Stop'
+. (Join-Path $PSScriptRoot 'Toolchain.ps1')
+$DelphiRoot=Resolve-FDRDelphiRoot $DelphiRoot
 $project=Split-Path $PSScriptRoot
+if(-not $FlightPadRoot){$FlightPadRoot=Join-Path (Split-Path $project) 'FlightPadFMC\Windows'}
+if(-not(Test-Path $FlightPadRoot)){throw 'FlightPadFMC not found beside this repository; pass -FlightPadRoot.'}
+Invoke-FDRFormatter $project
 $shared=Join-Path $FlightPadRoot 'Common\FlightPadScreenIPC.pas'
 $externalIPC=([IO.File]::ReadAllText($shared) -replace '(?i)unit FlightPadScreenIPC;', 'unit FlightPadScreenIPCU;') -replace '\r\n', "`n"
 $recorderIPC=[IO.File]::ReadAllText((Join-Path $project 'src\fmc\FlightPadScreenIPCU.pas')) -replace '\r\n', "`n"

@@ -18,7 +18,7 @@ Interface
 Implementation
 
  Uses
-  System.SysUtils, System.IOUtils, Winapi.ActiveX, Winapi.Windows;
+  System.Classes, System.SysUtils, System.IOUtils, Winapi.ActiveX, Winapi.Windows;
 
  Function ApplicationCatalogFile : String;
   Const
@@ -36,10 +36,21 @@ Implementation
  Procedure LoadApplicationCatalog(Localizer : TApplicationLocalizer);
   Var
    InitResult : HRESULT;
+   Embedded   : TResourceStream;
   Begin
    InitResult := CoInitializeEx(Nil, COINIT_APARTMENTTHREADED);
    Try
-    Localizer.Catalog.LoadFromFile(ApplicationCatalogFile);
+    If FindResource(HInstance, 'SETUP_I18N', RT_RCDATA) <> 0 Then
+     Begin
+      Embedded := TResourceStream.Create(HInstance, 'SETUP_I18N', RT_RCDATA);
+      Try
+       Localizer.Catalog.LoadFromStream(Embedded);
+      Finally
+       Embedded.Free;
+      End;
+     End
+    Else
+     Localizer.Catalog.LoadFromFile(ApplicationCatalogFile);
    Finally
     If (InitResult = S_OK) Or (InitResult = S_FALSE) Then
      CoUninitialize;

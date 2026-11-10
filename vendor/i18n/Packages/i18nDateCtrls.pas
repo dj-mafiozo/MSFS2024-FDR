@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -12,19 +12,19 @@
 /// This unit implements controls that represent fully localizable date and
 /// time values.
 /// </summary>
-unit i18nDateCtrls;
+Unit i18nDateCtrls;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-uses
+ Uses
   SysUtils, Windows, Messages, Classes, Graphics, Controls, Forms, StdCtrls,
   i18nCore, i18nCalendar, i18nLocalizer, i18nCtrls, UxTheme;
 
-type
+ Type
 
-  {$region 'xmldoc'}
+  {$Region 'xmldoc'}
   /// <summary>
   /// TDateTimeList maintains a sorted list of <see cref="TDateTime"/> values.
   /// </summary>
@@ -34,71 +34,71 @@ type
   /// to add, delete, locate, and access the maintained <see cref="TDateTime"/>
   /// values.
   /// </remarks>
-  {$endregion}
-  TDateTimeList = class(TPersistent)
-  private
-    fList: array of TDateTime;
-    fCount: Integer;
-    fUpdateCount: Integer;
-    fOnChanging: TNotifyEvent;
-    fOnChange: TNotifyEvent;
-    function GetCapacity: Integer; inline;
-    procedure SetCapacity(Value: Integer);
-    function GetItems(Index: Integer): TDate;
-  protected
-    {$region 'xmldoc'}
+  {$Endregion}
+  TDateTimeList = Class(TPersistent)
+   Private
+    fList        : Array Of TDateTime;
+    fCount       : Integer;
+    fUpdateCount : Integer;
+    fOnChanging  : TNotifyEvent;
+    fOnChange    : TNotifyEvent;
+    Function GetCapacity : Integer; Inline;
+    Procedure SetCapacity(Value : Integer);
+    Function GetItems(Index : Integer) : TDate;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnChanging"/> event.
     /// </summary>
     /// <seealso cref="Change"/>
-    {$endregion}
-    procedure Changing; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Changing; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnChange"/> event.
     /// </summary>
     /// <seealso cref="Changing"/>
-    {$endregion}
-    procedure Change; virtual;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Change; Virtual;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the TDateTimeList instance and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Copies the list of <see cref="TDateTime"/> values from another object.
     /// </summary>
     /// <param name="Source">
     /// The source list.
     /// </param>
-    {$endregion}
-    procedure Assign(Source: TPersistent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Assign(Source : TPersistent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Prevents generating of the <see cref="OnChanging"/> and <see cref="OnChange"/>
     /// events until the <see cref="EndUpdate"/> method is called.
     /// </summary>
     /// <seealso cref="EndUpdate"/>
-    {$endregion}
-    procedure BeginUpdate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure BeginUpdate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reenables <see cref="OnChanging"/> and <see cref="OnChange"/> events generation
     /// that was turned off with the <see cref="BeginUpdate"/> method.
     /// </summary>
     /// <seealso cref="BeginUpdate"/>
-    {$endregion}
-    procedure EndUpdate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure EndUpdate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes all the <see cref="TDateTime"/> values from the list.
     /// </summary>
-    {$endregion}
-    procedure Clear; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Clear; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Adds a <see cref="TDateTime"/> value to the list.
     /// </summary>
@@ -108,9 +108,9 @@ type
     /// <returns>
     /// The index of newly added <see cref="TDateTime"/> value.
     /// </returns>
-    {$endregion}
-    function Add(const ADateTime: TDateTime): Integer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Add(Const ADateTime : TDateTime) : Integer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Removes a <see cref="TDateTime"/> value from the list.
     /// </summary>
@@ -122,9 +122,9 @@ type
     /// <see cref="TDateTime"/> value is not found.
     /// </returns>
     /// <seealso cref="Delete"/>
-    {$endregion}
-    function Remove(const ADateTime: TDateTime): Integer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Remove(Const ADateTime : TDateTime) : Integer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deletes a <see cref="TDateTime"/> value, which is specified by its index
     /// in the list.
@@ -133,9 +133,9 @@ type
     /// The index of <see cref="TDateTime"/> value to remove.
     /// </param>
     /// <seealso cref="Remove"/>
-    {$endregion}
-    procedure Delete(Index: Integer);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Delete(Index : Integer);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified <see cref="TDateTime"/> value is in the list.
     /// </summary>
@@ -148,9 +148,9 @@ type
     /// </returns>
     /// <seealso cref="IndexOf"/>
     /// <seealso cref="Find"/>
-    {$endregion}
-    function Exists(const ADateTime: TDateTime): Boolean; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Exists(Const ADateTime : TDateTime) : Boolean; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finds the index of a specified <see cref="TDateTime"/> value in the list.
     /// </summary>
@@ -163,9 +163,9 @@ type
     /// </returns>
     /// <seealso cref="Find"/>
     /// <seealso cref="Exists"/>
-    {$endregion}
-    function IndexOf(const ADateTime: TDateTime): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IndexOf(Const ADateTime : TDateTime) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Locates the index of a specified <see cref="TDateTime"/> value in the list.
     /// </summary>
@@ -181,9 +181,9 @@ type
     /// </returns>
     /// <seealso cref="IndexOf"/>
     /// <seealso cref="Exists"/>
-    {$endregion}
-    function Find(const ADateTime: TDateTime; out Index: Integer): Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Find(Const ADateTime : TDateTime; Out Index : Integer) : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the smallest <see cref="TDateTime"/> value in the list.
     /// </summary>
@@ -192,9 +192,9 @@ type
     /// list is empty.
     /// </returns>
     /// <seealso cref="Last"/>
-    {$endregion}
-    function First: TDateTime;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function First : TDateTime;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the largest <see cref="TDateTime"/> value in the list.
     /// </summary>
@@ -203,95 +203,96 @@ type
     /// if the list is empty.
     /// </returns>
     /// <seealso cref="First"/>
-    {$endregion}
-    function Last: TDateTime;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Last : TDateTime;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the number of <see cref="TDateTime"/> values in the list.
     /// </summary>
-    {$endregion}
-    property Count: Integer read fCount;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Count : Integer Read fCount;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of <see cref="TDateTime"/> values the TDateTimeList
     /// object can hold.
     /// </summary>
-    {$endregion}
-    property Capacity: Integer read GetCapacity write SetCapacity;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Capacity : Integer Read GetCapacity Write SetCapacity;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the <see cref="TDateTime"/> values in the list.
     /// </summary>
-    {$endregion}
-    property Items[Index: Integer]: TDate read GetItems; default;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Items[Index : Integer] : TDate Read GetItems; Default;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the list changes.
     /// </summary>
-    {$endregion}
-    property OnChange: TNotifyEvent read fOnChange write fOnChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnChange : TNotifyEvent Read fOnChange Write fOnChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately before the list changes.
     /// </summary>
-    {$endregion}
-    property OnChanging: TNotifyEvent read fOnChanging write fOnChanging;
-  end;
+    {$Endregion}
+    Property OnChanging : TNotifyEvent Read fOnChanging Write fOnChanging;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomIntlDateTimeLabel is the base class for label controls that display a
-  /// localized <see cref="TDateTime"/> value on a form.
-  /// </summary>
-  /// <remarks>
-  /// <para>
-  /// Use TCustomIntlDateTimeLabel as a base class when defining objects that display a
-  /// localized <see cref="TDateTime"/> value.
-  /// </para>
-  /// <para>
-  /// TCustomIntlDateTimeLabel can use different calendar systems for displaying the
-  /// dates. The <see cref="CalendarType"/> property is the main property that specifies
-  /// which calendar system should be used by the control. If the <see cref="CalendarType"/>
-  /// property is not set, the <see cref="Culture"/> property can do this task. In addition,
-  /// the <see cref="Culture"/> property provides the locale specific settings of the control.
-  /// If none of these two properties are set the <see cref="DefaultCalendar"/> global
-  /// variable determines the calendar system used by the control.
-  /// </para>
-  /// <para>
-  /// TCustomIntlDateTimeLabel can be linked to a <see cref="TLocalizer"/> component.
-  /// In this case, the <see cref="TLocalizer"/> component determines the localized strings
-  /// and the calendar system that should be used for displaying the <see cref="TDateTime"/>
-  /// value.
-  /// </para>
-  /// </remarks>
-  {$endregion}
-  TCustomIntlDateTimeLabel = class(TCustomImageLabel, ILocalizerLink)
-  private
-    fDateTime: TDateTime;
-    fDateTimeFormat: String;
-    fCalendarType: TCalendarClass;
-    fCalendar: TCalendar;
-    fCulture: TCultureInfo;
-    fCultureCalendar: TLocalizerSwicth;
-    fCultureDigits: TLocalizerSwicth;
-    fLocalizer: TLocalizer;
-    procedure SetDateTime(const Value: TDateTime);
-    procedure SetDateTimeFormat(const Value: String);
-    procedure SetCalendarType(Value: TCalendarClass);
-    procedure SetCulture(Value: TCultureInfo);
-    procedure SetCultureCalendar(Value: TLocalizerSwicth);
-    procedure SetCultureDigits(Value: TLocalizerSwicth);
-    procedure SetLocalizer(Value: TLocalizer);
-    function GetUsingCultureCalendar: Boolean;
-    function GetUsingCultureDigits: Boolean;
-    function IsDateTimeStored: Boolean;
-    procedure ReadCulture(Reader: TReader);
-    procedure WriteCulture(Writer: TWriter);
-    procedure ReadCalendarType(Reader: TReader);
-    procedure WriteCalendarType(Writer: TWriter);
-    procedure CalendarChanged(Sender: TObject);
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomIntlDateTimeLabel is the base class for label controls that display a
+/// localized <see cref="TDateTime"/> value on a form.
+/// </summary>
+/// <remarks>
+/// <para>
+/// Use TCustomIntlDateTimeLabel as a base class when defining objects that display a
+/// localized <see cref="TDateTime"/> value.
+/// </para>
+/// <para>
+/// TCustomIntlDateTimeLabel can use different calendar systems for displaying the
+/// dates. The <see cref="CalendarType"/> property is the main property that specifies
+/// which calendar system should be used by the control. If the <see cref="CalendarType"/>
+/// property is not set, the <see cref="Culture"/> property can do this task. In addition,
+/// the <see cref="Culture"/> property provides the locale specific settings of the control.
+/// If none of these two properties are set the <see cref="DefaultCalendar"/> global
+/// variable determines the calendar system used by the control.
+/// </para>
+/// <para>
+/// TCustomIntlDateTimeLabel can be linked to a <see cref="TLocalizer"/> component.
+/// In this case, the <see cref="TLocalizer"/> component determines the localized strings
+/// and the calendar system that should be used for displaying the <see cref="TDateTime"/>
+/// value.
+/// </para>
+/// </remarks>
+{$Endregion}
+
+  TCustomIntlDateTimeLabel = Class(TCustomImageLabel, ILocalizerLink)
+   Private
+    fDateTime        : TDateTime;
+    fDateTimeFormat  : String;
+    fCalendarType    : TCalendarClass;
+    fCalendar        : TCalendar;
+    fCulture         : TCultureInfo;
+    fCultureCalendar : TLocalizerSwicth;
+    fCultureDigits   : TLocalizerSwicth;
+    fLocalizer       : TLocalizer;
+    Procedure SetDateTime(Const Value : TDateTime);
+    Procedure SetDateTimeFormat(Const Value : String);
+    Procedure SetCalendarType(Value : TCalendarClass);
+    Procedure SetCulture(Value : TCultureInfo);
+    Procedure SetCultureCalendar(Value : TLocalizerSwicth);
+    Procedure SetCultureDigits(Value : TLocalizerSwicth);
+    Procedure SetLocalizer(Value : TLocalizer);
+    Function GetUsingCultureCalendar : Boolean;
+    Function GetUsingCultureDigits : Boolean;
+    Function IsDateTimeStored : Boolean;
+    Procedure ReadCulture(Reader : TReader);
+    Procedure WriteCulture(Writer : TWriter);
+    Procedure ReadCalendarType(Reader : TReader);
+    Procedure WriteCalendarType(Writer : TWriter);
+    Procedure CalendarChanged(Sender : TObject);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Notifies the control about changes in the linked <see cref="TLocalizer"/>
     /// component.
@@ -302,9 +303,9 @@ type
     /// <param name="Reason">
     /// The reason of the notification.
     /// </param>
-    {$endregion}
-    procedure LocalizerNotify(Sender: TLocalizer; Reason: TLocalizerNotification);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure LocalizerNotify(Sender : TLocalizer; Reason : TLocalizerNotification);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds to notifications that components are about to be created or destroyed.
     /// </summary>
@@ -314,9 +315,9 @@ type
     /// <param name="Operation">
     /// Indicates whether the component is created or destroyed.
     /// </param>
-    {$endregion}
-    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Notification(AComponent : TComponent; Operation : TOperation); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reads and writes the <see cref="Culture"/> and <see cref="CalendarType"/> properties
     /// as if they were published.
@@ -325,46 +326,46 @@ type
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
     /// loading or saving the published properties.
     /// </param>
-    {$endregion}
-    procedure DefineProperties(Filer: TFiler); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DefineProperties(Filer : TFiler); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a text label to display on the control.
     /// </summary>
     /// <returns>
     /// The text label.
     /// </returns>
-    {$endregion}
-    function GetLabelText: String; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetLabelText : String; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Validates the <see cref="Calendar"/> property to ensure it represents a proper
     /// calendar system with an appropriate locale settings.
     /// </summary>
-    {$endregion}
-    procedure ValidateCalendar; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ValidateCalendar; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TDateTime"/> value to be displayed on the control.
     /// </summary>
-    {$endregion}
-    property DateTime: TDateTime read fDateTime write SetDateTime stored IsDateTimeStored;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateTime : TDateTime Read fDateTime Write SetDateTime Stored IsDateTimeStored;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the format string that determines how the <see cref="DateTime"/> property
     /// should be displayed on the control. See <see cref="TCalendar.Format"/> for details.
     /// </summary>
     /// <seealso cref="TCalendar.Format"/>
-    {$endregion}
-    property DateTimeFormat: String read fDateTimeFormat write SetDateTimeFormat;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateTimeFormat : String Read fDateTimeFormat Write SetDateTimeFormat;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.
     /// </summary>
     /// <seealso cref="Culture"/>
-    {$endregion}
-    property CalendarType: TCalendarClass read fCalendarType write SetCalendarType;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CalendarType : TCalendarClass Read fCalendarType Write SetCalendarType;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCultureInfo"/> object that provides the locale specific
     /// settings of the calendar.
@@ -379,9 +380,9 @@ type
     /// <seealso cref="CultureDigits"/>
     /// <seealso cref="CalendarType"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property Culture: TCultureInfo read fCulture write SetCulture;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Culture : TCultureInfo Read fCulture Write SetCulture;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the calendar system used by the control should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.
@@ -391,40 +392,40 @@ type
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property CultureCalendar: TLocalizerSwicth read fCultureCalendar write SetCultureCalendar default lsDefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CultureCalendar : TLocalizerSwicth Read fCultureCalendar Write SetCultureCalendar Default lsDefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the way the control renders digits should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.</summary>
     /// <seealso cref="UsingCultureDigits"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property CultureDigits: TLocalizerSwicth read fCultureDigits write SetCultureDigits default lsDefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CultureDigits : TLocalizerSwicth Read fCultureDigits Write SetCultureDigits Default lsDefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
     /// </summary>
-    {$endregion}
-    property Localizer: TLocalizer read fLocalizer write SetLocalizer;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Localizer : TLocalizer Read fLocalizer Write SetLocalizer;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the component and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the control is managed by a <see cref="TLocalizer"/> component
     /// specifying the localized strings and the calendar system for displaying the
@@ -435,136 +436,137 @@ type
     /// <see langword="nil"/>, otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    function IsManagedByLocalizer: Boolean; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsManagedByLocalizer : Boolean; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TCalendar"/> object that the control is using to
     /// manipulate and display dates.
     /// </summary>
-    {$endregion}
-    property Calendar: TCalendar read fCalendar;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Calendar : TCalendar Read fCalendar;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets whether the calendar system used by the control is determined by the
     /// <see cref="Culture"/> property.
     /// </summary>
     /// <seealso cref="CultureCalendar"/>
     /// <seealso cref="Culture"/>
-    {$endregion}
-    property UsingCultureCalendar: Boolean read GetUsingCultureCalendar;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property UsingCultureCalendar : Boolean Read GetUsingCultureCalendar;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets whether the way that the control renders digits is determined by the
     /// <see cref="Culture"/> property.
     /// </summary>
     /// <seealso cref="CultureDigits"/>
     /// <seealso cref="Culture"/>
-    {$endregion}
-    property UsingCultureDigits: Boolean read GetUsingCultureDigits;
-  end;
+    {$Endregion}
+    Property UsingCultureDigits : Boolean Read GetUsingCultureDigits;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TIntlDateTimeLabel is a label control that displays a localized <see cref="TDateTime"/>
-  /// value on a form.
-  /// </summary>
-  /// <remarks>
-  /// Use TIntlDateTimeLabel to display a localized <see cref="TDateTime"/> value on a form.
-  /// The <see cref="DateTime"/> and <see cref="DateTimeFormat"/> properties determine the
-  /// content that will be displayed.
-  ///
-  /// TIntlDateTimeLabel can use different calendar systems for displaying the dates.
-  /// The <see cref="CalendarType"/> property is the main property that specifies which
-  /// calendar system should be used by the control. If the <see cref="CalendarType"/>
-  /// property is not set, the <see cref="Culture"/> property can do this task. In addition,
-  /// the <see cref="Culture"/> property provides the locale specific settings of the control.
-  /// If none of these two properties are set the <see cref="DefaultCalendar"/> global
-  /// variable determines the calendar system used by the control.
-  ///
-  /// TIntlDateTimeLabel can be linked to a <see cref="TLocalizer"/> component. In this case,
-  /// the <see cref="TLocalizer"/> component determines the localized strings and the calendar
-  /// system that should be used for displaying the <see cref="TDateTime"/> value.
-  ///
-  /// TIntlDateTimeLabel publishes many of the properties, events, and methods of
-  /// <see cref="TCustomIntlDateTimeLabel"/>, but does not introduce any new behavior.
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TIntlDateTimeLabel is a label control that displays a localized <see cref="TDateTime"/>
+/// value on a form.
+/// </summary>
+/// <remarks>
+/// Use TIntlDateTimeLabel to display a localized <see cref="TDateTime"/> value on a form.
+/// The <see cref="DateTime"/> and <see cref="DateTimeFormat"/> properties determine the
+/// content that will be displayed.
+///
+/// TIntlDateTimeLabel can use different calendar systems for displaying the dates.
+/// The <see cref="CalendarType"/> property is the main property that specifies which
+/// calendar system should be used by the control. If the <see cref="CalendarType"/>
+/// property is not set, the <see cref="Culture"/> property can do this task. In addition,
+/// the <see cref="Culture"/> property provides the locale specific settings of the control.
+/// If none of these two properties are set the <see cref="DefaultCalendar"/> global
+/// variable determines the calendar system used by the control.
+///
+/// TIntlDateTimeLabel can be linked to a <see cref="TLocalizer"/> component. In this case,
+/// the <see cref="TLocalizer"/> component determines the localized strings and the calendar
+/// system that should be used for displaying the <see cref="TDateTime"/> value.
+///
+/// TIntlDateTimeLabel publishes many of the properties, events, and methods of
+/// <see cref="TCustomIntlDateTimeLabel"/>, but does not introduce any new behavior.
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TIntlDateTimeLabel = class(TCustomIntlDateTimeLabel)
-  published
-    {$region 'xmldoc'}
+  TIntlDateTimeLabel = Class(TCustomIntlDateTimeLabel)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control aligns within its container (parent control).
     /// </summary>
-    {$endregion}
-    property Align;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Align;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the horizontal placement of the text within the label.
     /// </summary>
-    {$endregion}
-    property Alignment;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Alignment;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
     /// </summary>
-    {$endregion}
-    property AlignWithMargins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AlignWithMargins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control is anchored to its parent.
     /// </summary>
-    {$endregion}
-    property Anchors;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Anchors;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control sizes itself automatically to accommodate
     /// its contents.
     /// </summary>
-    {$endregion}
-    property AutoSize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoSize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the control.
     /// </summary>
-    {$endregion}
-    property BiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the color of the control's border.
     /// </summary>
-    {$endregion}
-    property BorderColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the width of the control's border.
     /// </summary>
-    {$endregion}
-    property BorderWidth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderWidth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.
     /// </summary>
     /// <seealso cref="Culture"/>
-    {$endregion}
-    property CalendarType;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CalendarType;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color nodefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Nodefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size constraints for the control.
     /// </summary>
-    {$endregion}
-    property Constraints;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Constraints;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCultureInfo"/> object that provides the locale specific
     /// settings of the calendar.
@@ -579,9 +581,9 @@ type
     /// <seealso cref="CultureDigits"/>
     /// <seealso cref="CalendarType"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property Culture;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Culture;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the calendar system used by the control should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.
@@ -591,1004 +593,1004 @@ type
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property CultureCalendar;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CultureCalendar;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the way the control renders digits should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.</summary>
     /// <seealso cref="UsingCultureDigits"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property CultureDigits;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CultureDigits;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TDateTime"/> value to be displayed on the control.
     /// </summary>
-    {$endregion}
-    property DateTime;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateTime;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the format string that determines how the <see cref="TDateTime"/> value
     /// should be displayed on the control. See <see cref="TCalendar.Format"/> for details.
     /// </summary>
-    {$endregion}
-    property DateTimeFormat;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateTimeFormat;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
     /// into the region covered by the control.
     /// </summary>
-    {$endregion}
-    property DragCursor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragCursor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control is being dragged normally or for docking.
     /// </summary>
-    {$endregion}
-    property DragKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
     /// </summary>
-    {$endregion}
-    property DragMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets a windowed control associated with the label.
     /// </summary>
-    {$endregion}
-    property FocusControl;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FocusControl;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the radius of the glow around the label.
     /// NOTE: This feature is only available in Windows Vista and later.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property GlowSize;
+    Property GlowSize;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which image is displayed as the icon on the label.
     /// </summary>
-    {$endregion}
-    property ImageIndex;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImageIndex;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the images that can appear on the control.
     /// </summary>
-    {$endregion}
-    property Images;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Images;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
     /// </summary>
-    {$endregion}
-    property Localizer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Localizer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the margins of the control.
     /// </summary>
-    {$endregion}
-    property Margins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Margins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the distance between the image and the text from the control's border.
     /// </summary>
-    {$endregion}
-    property Padding;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Padding;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
     /// </summary>
-    {$endregion}
-    property ParentColor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentColor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the pop-up menu associated with the control.
     /// </summary>
-    {$endregion}
-    property PopupMenu;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PopupMenu;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how an ampersand in the label text is displayed.
     /// </summary>
-    {$endregion}
-    property ShowAccelChar default False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowAccelChar Default False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the number of pixels between the image and the text of the control.
     /// </summary>
-    {$endregion}
-    property Spacing;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Spacing;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the touch manager component associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property Touch;
+    Property Touch;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether controls that sit below the label on a form can be seen
     /// through the label.
     /// </summary>
-    {$endregion}
-    property Transparent;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Transparent;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the vertical placement of the text within the label.
     /// </summary>
-    {$endregion}
-    property Layout;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Layout;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets Specifies whether the label text wraps when it is too long for the
     /// width of the label.
     /// </summary>
-    {$endregion}
-    property WordWrap;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property WordWrap;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user clicks the control.
     /// </summary>
-    {$endregion}
-    property OnClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
     /// menu (such as using the keyboard).
     /// </summary>
-    {$endregion}
-    property OnContextPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnContextPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
     /// is over the control.
     /// </summary>
-    {$endregion}
-    property OnDblClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDblClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drops an object being dragged on the control.
     /// </summary>
-    {$endregion}
-    property OnDragDrop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragDrop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drags an object over the control.
     /// </summary>
-    {$endregion}
-    property OnDragOver;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragOver;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDrag;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDrag;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when user performs a gesture associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnGesture;
+    Property OnGesture;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control and the parent form is not active.
     /// </summary>
-    {$endregion}
-    property OnMouseActivate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseActivate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control.
     /// </summary>
-    {$endregion}
-    property OnMouseDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
     /// the control.
     /// </summary>
-    {$endregion}
-    property OnMouseMove;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseMove;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
     /// pointer over the control.
     /// </summary>
-    {$endregion}
-    property OnMouseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse into the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseEnter;
+    Property OnMouseEnter;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse outside of the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseLeave;
+    Property OnMouseLeave;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated.
     /// </summary>
-    {$endregion}
-    property OnMouseWheel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated downward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated upward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the control is resized.
     /// </summary>
-    {$endregion}
-    property OnResize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnResize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDock"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnStartDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDrag"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDrag;
-  end;
+    {$Endregion}
+    Property OnStartDrag;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the ways that users can select dates in a
-  /// month calendar control.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the ways that users can select dates in a
+/// month calendar control.
+/// </summary>
+{$Endregion}
+
   TIntlCalSelectionStyle = (
-    {$region 'xmldoc'}
-    /// User can select only a single date at a time.
-    {$endregion}
-    ssSingle,
-    {$region 'xmldoc'}
-    /// User can select only a single date range at a time.
-    {$endregion}
-    ssRange,
-    {$region 'xmldoc'}
-    // User can freely select multiple dates or range of dates.
-    {$endregion}
-    ssFree
+  {$Region 'xmldoc'}
+  /// User can select only a single date at a time.
+  {$Endregion}
+  ssSingle,
+  {$Region 'xmldoc'}
+  /// User can select only a single date range at a time.
+  {$Endregion}
+  ssRange,
+  {$Region 'xmldoc'}
+  // User can freely select multiple dates or range of dates.
+  {$Endregion}
+  ssFree
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the date componenets that a user can select
-  /// at a time on a month calendar control.
-  /// calendar's page types.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the date componenets that a user can select
+/// at a time on a month calendar control.
+/// calendar's page types.
+/// </summary>
+{$Endregion}
+
   TIntlCalViewMode = (
-    {$region 'xmldoc'}
-    /// Displays days of a month.
-    {$endregion}
-    vmDay,
-    {$region 'xmldoc'}
-    /// Displays months of a year.
-    {$endregion}
-    vmMonth,
-    {$region 'xmldoc'}
-    /// Displays years of a decade.
-    {$endregion}
-    vmYear
+  {$Region 'xmldoc'}
+  /// Displays days of a month.
+  {$Endregion}
+  vmDay,
+  {$Region 'xmldoc'}
+  /// Displays months of a year.
+  {$Endregion}
+  vmMonth,
+  {$Region 'xmldoc'}
+  /// Displays years of a decade.
+  {$Endregion}
+  vmYear
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the sections of a month calendar control
-  /// that a mouse pointer can be over it.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the sections of a month calendar control
+/// that a mouse pointer can be over it.
+/// </summary>
+{$Endregion}
+
   TIntlCalHitTest = (
-    {$region 'xmldoc'}
-    /// Nowhere
-    {$endregion}
-    chtNowhere,
-    {$region 'xmldoc'}
-    /// Left navigation button
-    {$endregion}
-    chtArrowLeft,
-    {$region 'xmldoc'}
-    /// Right navigation button
-    {$endregion}
-    chtArrowRight,
-    {$region 'xmldoc'}
-    /// Text of the header
-    {$endregion}
-    chtHeaderText,
-    {$region 'xmldoc'}
-    /// Text of the footer
-    {$endregion}
-    chtFooter,
-    {$region 'xmldoc'}
-    /// Week numbers column
-    {$endregion}
-    chtWeekNumber,
-    {$region 'xmldoc'}
-    /// Days of week row
-    {$endregion}
-    chtDayOfWeek,
-    {$region 'xmldoc'}
-    /// A day of month cell
-    {$endregion}
-    chtDay,
-    {$region 'xmldoc'}
-    /// A month cell
-    {$endregion}
-    chtMonth,
-    {$region 'xmldoc'}
-    /// A year cell
-    {$endregion}
-    chtYear
+  {$Region 'xmldoc'}
+  /// Nowhere
+  {$Endregion}
+  chtNowhere,
+  {$Region 'xmldoc'}
+  /// Left navigation button
+  {$Endregion}
+  chtArrowLeft,
+  {$Region 'xmldoc'}
+  /// Right navigation button
+  {$Endregion}
+  chtArrowRight,
+  {$Region 'xmldoc'}
+  /// Text of the header
+  {$Endregion}
+  chtHeaderText,
+  {$Region 'xmldoc'}
+  /// Text of the footer
+  {$Endregion}
+  chtFooter,
+  {$Region 'xmldoc'}
+  /// Week numbers column
+  {$Endregion}
+  chtWeekNumber,
+  {$Region 'xmldoc'}
+  /// Days of week row
+  {$Endregion}
+  chtDayOfWeek,
+  {$Region 'xmldoc'}
+  /// A day of month cell
+  {$Endregion}
+  chtDay,
+  {$Region 'xmldoc'}
+  /// A month cell
+  {$Endregion}
+  chtMonth,
+  {$Region 'xmldoc'}
+  /// A year cell
+  {$Endregion}
+  chtYear
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the ways an item in a month calendar
-  /// control can be rendered.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the ways an item in a month calendar
+/// control can be rendered.
+/// </summary>
+{$Endregion}
+
   TIntlCalDrawState = (
-    {$region 'xmldoc'}
-    /// The drawing item is part of the header.
-    {$endregion}
-    cdsHeader,
-    {$region 'xmldoc'}
-    /// The drawing item is part of the footer.
-    {$endregion}
-    cdsFooter,
-    {$region 'xmldoc'}
-    /// The drawing item is part of the fixed row (day of week cells).
-    {$endregion}
-    cdsFixedRow,
-    {$region 'xmldoc'}
-    /// The drawing item is part of the fixed column (week numbers).
-    {$endregion}
-    cdsFixedCol,
-    {$region 'xmldoc'}
-    /// The drawing item represents today's information.
-    {$endregion}
-    cdsToday,
-    {$region 'xmldoc'}
-    /// The drawing item is in hot state.
-    {$endregion}
-    cdsHotLight,
-    {$region 'xmldoc'}
-    /// The drawing item is selected.
-    {$endregion}
-    cdsSelected,
-    {$region 'xmldoc'}
-    /// The drawing item has focus.
-    {$endregion}
-    cdsFocused,
-    {$region 'xmldoc'}
-    /// The drawing item is part of another page.
-    {$endregion}
-    cdsGrayed,
-    {$region 'xmldoc'}
-    /// Do not draw any content.
-    {$endregion}
-    cdsBlank
+  {$Region 'xmldoc'}
+  /// The drawing item is part of the header.
+  {$Endregion}
+  cdsHeader,
+  {$Region 'xmldoc'}
+  /// The drawing item is part of the footer.
+  {$Endregion}
+  cdsFooter,
+  {$Region 'xmldoc'}
+  /// The drawing item is part of the fixed row (day of week cells).
+  {$Endregion}
+  cdsFixedRow,
+  {$Region 'xmldoc'}
+  /// The drawing item is part of the fixed column (week numbers).
+  {$Endregion}
+  cdsFixedCol,
+  {$Region 'xmldoc'}
+  /// The drawing item represents today's information.
+  {$Endregion}
+  cdsToday,
+  {$Region 'xmldoc'}
+  /// The drawing item is in hot state.
+  {$Endregion}
+  cdsHotLight,
+  {$Region 'xmldoc'}
+  /// The drawing item is selected.
+  {$Endregion}
+  cdsSelected,
+  {$Region 'xmldoc'}
+  /// The drawing item has focus.
+  {$Endregion}
+  cdsFocused,
+  {$Region 'xmldoc'}
+  /// The drawing item is part of another page.
+  {$Endregion}
+  cdsGrayed,
+  {$Region 'xmldoc'}
+  /// Do not draw any content.
+  {$Endregion}
+  cdsBlank
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This data type represents a set of <see cref="TIntlCalDrawState"/> values.
-  /// </summary>
-  {$endregion}
-  TIntlCalDrawStates = set of TIntlCalDrawState;
+{$Region 'xmldoc'}
+/// <summary>
+/// This data type represents a set of <see cref="TIntlCalDrawState"/> values.
+/// </summary>
+{$Endregion}
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TDateHintEvent is the type for event handlers that respond when the hint
-  /// string for a date is requested.
-  /// </summary>
-  /// <param name="Sender">
-  /// The object that generated the event.
-  /// </param>
-  /// <param name="ADate">
-  /// The <see cref="TDate"/> value that its hint string is requested.
-  /// </param>
-  /// <param name="HintStr">
-  /// The hint string of the <see cref="TDate"/> value.
-  /// </param>
-  {$endregion}
-  TDateHintEvent = procedure(Sender: TObject; const ADate: TDate;
-    var HintStr: String) of object;
+  TIntlCalDrawStates = Set Of TIntlCalDrawState;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TDateSelectableEvent is the type for event handlers that decide whether a
-  /// date can be selected.
-  /// </summary>
-  /// <param name="Sender">
-  /// The object that generated the event.
-  /// </param>
-  /// <param name="ADate">
-  /// The <see cref="TDate"/> value to select.
-  /// </param>
-  /// <param name="CanSelect">
-  /// Indicates whether the <see cref="TDate"/> value can be selected.
-  /// </param>
-  {$endregion}
-  TDateSelectableEvent = procedure(Sender: TObject; const ADate: TDate;
-    var CanSelect: Boolean) of object;
+{$Region 'xmldoc'}
+/// <summary>
+/// TDateHintEvent is the type for event handlers that respond when the hint
+/// string for a date is requested.
+/// </summary>
+/// <param name="Sender">
+/// The object that generated the event.
+/// </param>
+/// <param name="ADate">
+/// The <see cref="TDate"/> value that its hint string is requested.
+/// </param>
+/// <param name="HintStr">
+/// The hint string of the <see cref="TDate"/> value.
+/// </param>
+{$Endregion}
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomDrawTextEvent is the type for event handlers that render a text.
-  /// </summary>
-  /// <param name="Sender">
-  /// The object that generated the event.
-  /// </param>
-  /// <param name="Canvas">
-  /// The canvas on which to draw the text.
-  /// </param>
-  /// <param name="ARect">
-  /// The bounding rectangle on the canvas where the text should be drawn.
-  /// </param>
-  /// <param name="State">
-  /// The state information that can affect the way the text is drawn.
-  /// </param>
-  /// <param name="AText">
-  /// The text to draw.
-  /// </param>
-  /// <param name="DefaultDraw">
-  /// Indicates whether the default rendering should proceed after the event handler exits.
-  /// </param>
-  {$endregion}
-  TCustomDrawTextEvent = procedure(Sender: TObject; Canvas: TCanvas;
-    const ARect: TRect; State: TIntlCalDrawStates;
-    const AText: String; var DefaultDraw: Boolean) of object;
+  TDateHintEvent = Procedure(Sender : TObject; Const ADate : TDate; Var HintStr : String) Of Object;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomDrawDayEvent is the type for event handlers that render an integer value
-  /// as a day of the month.
-  /// </summary>
-  /// <param name="Sender">
-  /// The object that generated the event.
-  /// </param>
-  /// <param name="Canvas">
-  /// The canvas on which to draw the day of the month.
-  /// </param>
-  /// <param name="ARect">
-  /// The bounding rectangle on the canvas where the day of the month should be drawn.
-  /// </param>
-  /// <param name="State">
-  /// The state information that can affect the way the day of the month is drawn.
-  /// </param>
-  /// <param name="ADate">
-  /// The <see cref="TDate"/> value that represents the day of the moneh.
-  /// </param>
-  /// <param name="ADay">
-  /// The day of the month to draw.
-  /// </param>
-  /// <param name="DefaultDraw">
-  /// Indicates whether the default rendering should proceed after the event handler exits.
-  /// </param>
-  {$endregion}
-  TCustomDrawDayEvent = procedure(Sender: TObject; Canvas: TCanvas;
-    const ARect: TRect; State: TIntlCalDrawStates;
-    const ADate: TDate; ADay: Integer; var DefaultDraw: Boolean) of object;
+{$Region 'xmldoc'}
+/// <summary>
+/// TDateSelectableEvent is the type for event handlers that decide whether a
+/// date can be selected.
+/// </summary>
+/// <param name="Sender">
+/// The object that generated the event.
+/// </param>
+/// <param name="ADate">
+/// The <see cref="TDate"/> value to select.
+/// </param>
+/// <param name="CanSelect">
+/// Indicates whether the <see cref="TDate"/> value can be selected.
+/// </param>
+{$Endregion}
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomDrawDayOfWeekEvent is the type for event handlers that render name of
-  /// a day of the week.
-  /// </summary>
-  /// <param name="Sender">
-  /// The object that generated the event.
-  /// </param>
-  /// <param name="Canvas">
-  /// The canvas on which to draw the day's name.
-  /// </param>
-  /// <param name="ARect">
-  /// The bounding rectangle on the canvas where the day's name should be drawn.
-  /// </param>
-  /// <param name="State">
-  /// The state information that can affect the way the day's name is drawn.
-  /// </param>
-  /// <param name="ADayOfWeek">
-  /// The day of the week to draw its name.
-  /// </param>
-  /// <param name="DefaultDraw">
-  /// Indicates whether the default rendering should proceed after the event handler exits.
-  /// </param>
-  {$endregion}
-  TCustomDrawDayOfWeekEvent = procedure(Sender: TObject; Canvas: TCanvas;
-    const ARect: TRect; State: TIntlCalDrawStates;
-     ADayOfWeek: TDayOfWeek; var DefaultDraw: Boolean) of object;
+  TDateSelectableEvent = Procedure(Sender : TObject; Const ADate : TDate; Var CanSelect : Boolean) Of Object;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomDrawDayEvent is the type for event handlers that render an integer value
-  /// as a week number of the year.
-  /// </summary>
-  /// <param name="Sender">
-  /// The object that generated the event.
-  /// </param>
-  /// <param name="Canvas">
-  /// The canvas on which to draw the week number.
-  /// </param>
-  /// <param name="ARect">
-  /// The bounding rectangle on the canvas where the week number should be drawn.
-  /// </param>
-  /// <param name="State">
-  /// The state information that can affect the way the week number is drawn.
-  /// </param>
-  /// <param name="AWeek">
-  /// The week of the year to draw.
-  /// </param>
-  /// <param name="DefaultDraw">
-  /// Indicates whether the default rendering should proceed after the event handler exits.
-  /// </param>
-  {$endregion}
-  TCustomDrawWeekNumberEvent = procedure(Sender: TObject; Canvas: TCanvas;
-    const ARect: TRect; State: TIntlCalDrawStates;
-    AWeek: Integer; var DefaultDraw: Boolean) of object;
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomDrawTextEvent is the type for event handlers that render a text.
+/// </summary>
+/// <param name="Sender">
+/// The object that generated the event.
+/// </param>
+/// <param name="Canvas">
+/// The canvas on which to draw the text.
+/// </param>
+/// <param name="ARect">
+/// The bounding rectangle on the canvas where the text should be drawn.
+/// </param>
+/// <param name="State">
+/// The state information that can affect the way the text is drawn.
+/// </param>
+/// <param name="AText">
+/// The text to draw.
+/// </param>
+/// <param name="DefaultDraw">
+/// Indicates whether the default rendering should proceed after the event handler exits.
+/// </param>
+{$Endregion}
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomDrawDayOfWeekEvent is the type for event handlers that render name of
-  /// a month.
-  /// </summary>
-  /// <param name="Sender">
-  /// The object that generated the event.
-  /// </param>
-  /// <param name="Canvas">
-  /// The canvas on which to draw the month's name.
-  /// </param>
-  /// <param name="ARect">
-  /// The bounding rectangle on the canvas where the month's name should be drawn.
-  /// </param>
-  /// <param name="State">
-  /// The state information that can affect the way the month's name is drawn.
-  /// </param>
-  /// <param name="AMonth">
-  /// The month to draw its name.
-  /// </param>
-  /// <param name="DefaultDraw">
-  /// Indicates whether the default rendering should proceed after the event handler exits.
-  /// </param>
-  {$endregion}
-  TCustomDrawMonthEvent = procedure(Sender: TObject; Canvas: TCanvas;
-    const ARect: TRect; State: TIntlCalDrawStates;
-    AMonth: Integer; var DefaultDraw: Boolean) of object;
+  TCustomDrawTextEvent = Procedure(Sender : TObject; Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; Const AText : String; Var DefaultDraw : Boolean) Of Object;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomDrawDayEvent is the type for event handlers that render an integer value
-  /// as a year.
-  /// </summary>
-  /// <param name="Sender">
-  /// The object that generated the event.
-  /// </param>
-  /// <param name="Canvas">
-  /// The canvas on which to draw the year.
-  /// </param>
-  /// <param name="ARect">
-  /// The bounding rectangle on the canvas where the year should be drawn.
-  /// </param>
-  /// <param name="State">
-  /// The state information that can affect the way the year is drawn.
-  /// </param>
-  /// <param name="AYear">
-  /// The year to draw.
-  /// </param>
-  /// <param name="DefaultDraw">
-  /// Indicates whether the default rendering should proceed after the event handler exits.
-  /// </param>
-  {$endregion}
-  TCustomDrawYearEvent = procedure(Sender: TObject; Canvas: TCanvas;
-    const ARect: TRect; State: TIntlCalDrawStates;
-    AYear: Integer; var DefaultDraw: Boolean) of object;
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomDrawDayEvent is the type for event handlers that render an integer value
+/// as a day of the month.
+/// </summary>
+/// <param name="Sender">
+/// The object that generated the event.
+/// </param>
+/// <param name="Canvas">
+/// The canvas on which to draw the day of the month.
+/// </param>
+/// <param name="ARect">
+/// The bounding rectangle on the canvas where the day of the month should be drawn.
+/// </param>
+/// <param name="State">
+/// The state information that can affect the way the day of the month is drawn.
+/// </param>
+/// <param name="ADate">
+/// The <see cref="TDate"/> value that represents the day of the moneh.
+/// </param>
+/// <param name="ADay">
+/// The day of the month to draw.
+/// </param>
+/// <param name="DefaultDraw">
+/// Indicates whether the default rendering should proceed after the event handler exits.
+/// </param>
+{$Endregion}
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomIntlMonthCalendar is the base class for controls that display a
-  /// localized calendar on a form.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomIntlMonthCalendar as a base class when defining objects that display a
-  /// localized calendar.
-  ///
-  /// TCustomIntlMonthCalendar can use different calendar systems for manipulating and
-  /// displaying the dates. The <see cref="CalendarType"/> property is the main property
-  /// that specifies which calendar system should be used by the cotnrol. If the
-  /// <see cref="CalendarType"/> property is not set, the <see cref="Culture"/> property
-  /// can do this task. In addition, the <see cref="Culture"/> property provides the
-  /// locale specific settings of the control. If none of these two properties are set,
-  /// the <see cref="DefaultCalendar"/> global variable determines the calendar system
-  /// used by the control.
-  ///
-  /// TCustomIntlDateTimeLabel can be linked to a <see cref="TLocalizer"/> component.
-  /// In this case, the linked <see cref="TLocalizer"/> component can provide both the
-  /// locale specific settings and the calendar system of the calendar control.
-  /// </remarks>
-  {$endregion}
-  TCustomIntlMonthCalendar = class(TCustomControl, ILocalizerLink)
-  protected
-    type
-      {$region 'xmldoc'}
-      /// <summary>
-      /// This enumeration type identifies the sections of a month calendar control.
-      /// </summary>
-      {$endregion}
-      TIntlCalSection = (
-        {$region 'xmldoc'}
-        /// The section of the header items.
-        {$endregion}
-        csHeader,
-        {$region 'xmldoc'}
-        /// The section filled by the header text.
-        {$endregion}
-        csHeaderText,
-        {$region 'xmldoc'}
-        /// The section filled by the left navigation button.
-        {$endregion}
-        csArrowLeft,
-        {$region 'xmldoc'}
-        /// The section filled by the right navigation button.
-        {$endregion}
-        csArrowRight,
-        {$region 'xmldoc'}
-        /// The section of the footer items.
-        {$endregion}
-        csFooter,
-        {$region 'xmldoc'}
-        /// The empty area shared between row of day names and column of week numbers.
-        {$endregion}
-        csWeekSpace,
-        {$region 'xmldoc'}
-        /// The section of names of days.
-        {$endregion}
-        csDaysOfWeek,
-        {$region 'xmldoc'}
-        /// The section of week numbers.
-        {$endregion}
-        csWeekNumbers,
-        {$region 'xmldoc'}
-        /// The section, which display days of a month, months of a year, or years of a decade.
-        {$endregion}
-        csYMD
-      );
-      {$region 'xmldoc'}
-      /// <summary>
-      /// This data type represents a set of <see cref="TIntlCalSection"/> values.
-      /// </summary>
-      {$endregion}
-      TIntlCalSections = set of TIntlCalSection;
-      {$region 'xmldoc'}
-      /// <summary>
-      /// This enumeration type identifies different kind of names for days of week and
-      /// months.
-      /// </summary>
-      {$endregion}
-      TIntlCalNameKind = (
-        {$region 'xmldoc'}
-        /// Full name
-        {$endregion}
-        nkLong,
-        {$region 'xmldoc'}
-        /// Abbreviation
-        {$endregion}
-        nkShort,
-        {$region 'xmldoc'}
-        /// Shortest possible abbreviation
-        {$endregion}
-        nkShortest
-      );
-      {$region 'xmldoc'}
-      /// <summary>
-      /// This data type represents the internal metrics of a month calendar control.
-      /// </summary>
-      {$endregion}
-      TIntlCalMetrics = record
-        {$region 'xmldoc'}
-        /// Full, abbreviation, or short name?
-        {$endregion}
-        NameKind: TIntlCalNameKind;
-        {$region 'xmldoc'}
-        /// Long or short date format for footer?
-        {$endregion}
-        LongFormat: Boolean;
-        {$region 'xmldoc'}
-        /// The client rectangle of the month calendar
-        {$endregion}
-        Bounds: TRect;
-        {$region 'xmldoc'}
-        /// The height of the header section
-        {$endregion}
-        HeaderHeight: Integer;
-        {$region 'xmldoc'}
-        /// The height of the footer section
-        {$endregion}
-        FooterHeight: Integer;
-        {$region 'xmldoc'}
-        /// The row's height for names of days
-        {$endregion}
-        FixedRowHeight: Integer;
-        {$region 'xmldoc'}
-        /// The column's width for week numbers
-        {$endregion}
-        FixedColWidth: Integer;
-        {$region 'xmldoc'}
-        /// The row's height for day, month, year, or decade
-        {$endregion}
-        RowHeight: Integer;
-        {$region 'xmldoc'}
-        /// The column's width for day, month, year, or decade
-        {$endregion}
-        ColWidth: Integer;
-        {$region 'xmldoc'}
-        /// The number of rows excluding the fixed row
-        {$endregion}
-        RowCount: Integer;
-        {$region 'xmldoc'}
-        /// The number of columns excluding the fixed column
-        {$endregion}
-        ColCount: Integer;
-        {$region 'xmldoc'}
-        /// The number of rows with extra height (1 pixel)
-        {$endregion}
-        StretchedRows: Integer;
-        {$region 'xmldoc'}
-        /// The number of columns with extra width (1 pixel)
-        {$endregion}
-        StretchedCols: Integer;
-        {$region 'xmldoc'}
-        /// The optimal width of the grid
-        {$endregion}
-        PrefferedWidth: Integer;
-        {$region 'xmldoc'}
-        /// The optimal height of the grid
-        {$endregion}
-        PrefferedHeight: Integer;
-        {$region 'xmldoc'}
-        /// The bounding rectangles of the month calendar's sections
-        {$endregion}
-        Sections: array[TIntlCalSection] of TRect;
-      end;
-  private
-    fDate: TDate;
-    fDateMin: TDate;
-    fDateMax: TDate;
-    fCalendarType: TCalendarClass;
-    fCalendar: TCalendar;
-    fCulture: TCultureInfo;
-    fCultureCalendar: TLocalizerSwicth;
-    fCultureDigits: TLocalizerSwicth;
-    fWeekNumbers: Boolean;
-    fCurrentView: TIntlCalViewMode;
-    fSelectionStyle: TIntlCalSelectionStyle;
-    fSelectionAnchor: TDate;
-    fSelection: TDateTimeList;
-    fShowHeader: Boolean;
-    fShowFooter: Boolean;
-    fFontHeader: TFont;
-    fFontFooter: TFont;
-    fFontDayOfWeek: TFont;
-    fFontWeekNumbers: TFont;
-    fEra, fYear, fMonth, fDay: Integer;
-    fMonthsInYear, fDaysInYear, fDaysInMonth: Integer;
-    fMonthFirstDate: TDate;
-    fMonthFirstDayOfWeek: TDayOfWeek;
-    fMonthStartCell: Integer;
-    fFirstCellDayNumber: Integer;
-    fFirstCellYear: Integer;
-    fActualDateMin: TDate;
-    fActualDateMax: TDate;
-    fHotCell: Integer;
-    fHotInfo: TIntlCalHitTest;
-    fDraggingCell: Integer;
-    fDraggingShiftState: TShiftState;
-    fDraggingOffPage: Boolean;
-    fNavigationTimer: Integer;
-    fHintDate: TDate;
-    fMetrics: TIntlCalMetrics;
-    fLocalizer: TLocalizer;
-    fPrefferedSize: TSize;
-    fPrefferedSizeReady: Boolean;
-    fPrefferedSizeSmallest: Boolean;
-    fUpdateMetricsCount: Integer;
-    fColorDivider: TColor;
-    fColorToday: TColor;
-    fTheme: HTHEME;
-    fAnimate: Boolean;
-    fSavedScreen: TBitmap;
-    fSavedView: TIntlCalViewMode;
-    fSavedDate: TDate;
-    fSavedCellRect: TRect;
-    fSaveFontHeader: Boolean;
-    fSaveFontFooter: Boolean;
-    fSaveFontDayOfWeek: Boolean;
-    fSaveFontWeekNumbers: Boolean;
-    fOnDateChange: TNotifyEvent;
-    fOnPageChange: TNotifyEvent;
-    fOnCalendarChange: TNotifyEvent;
-    fOnSelectionChange: TNotifyEvent;
-    fOnDateHint: TDateHintEvent;
-    fOnDateSelectable: TDateSelectableEvent;
-    fOnCustomDrawDayOfWeek: TCustomDrawDayOfWeekEvent;
-    fOnCustomDrawWeekNumber: TCustomDrawWeekNumberEvent;
-    fOnCustomDrawDay: TCustomDrawDayEvent;
-    fOnCustomDrawMonth: TCustomDrawMonthEvent;
-    fOnCustomDrawYear: TCustomDrawYearEvent;
-    fOnCustomDrawHeaderText: TCustomDrawTextEvent;
-    fOnCustomDrawFooterText: TCustomDrawTextEvent;
-    procedure SetDate(const Value: TDate);
-    procedure SetDateMin(const Value: TDate);
-    procedure SetDateMax(const Value: TDate);
-    procedure SetCalendarType(Value: TCalendarClass);
-    procedure SetCulture(Value: TCultureInfo);
-    procedure SetCultureCalendar(Value: TLocalizerSwicth);
-    procedure SetCultureDigits(Value: TLocalizerSwicth);
-    procedure SetWeekNumbers(Value: Boolean);
-    procedure SetSelectionStyle(Value: TIntlCalSelectionStyle);
-    procedure SetShowHeader(Value: Boolean);
-    procedure SetShowFooter(Value: Boolean);
-    procedure SetFontHeader(Value: TFont);
-    procedure SetFontFooter(Value: TFont);
-    procedure SetFontDayOfWeek(Value: TFont);
-    procedure SetFontWeekNumbers(Value: TFont);
-    procedure SetCurrentView(Value: TIntlCalViewMode);
-    procedure SetLocalizer(Value: TLocalizer);
-    procedure SetColorDivider(Value: TColor);
-    procedure SetColorToday(Value: TColor);
-    function GetSelectionStart: TDate;
-    function GetSelectionEnd: TDate;
-    function GetSelectionCount: Integer;
-    function GetSelection(Index: Integer): TDate;
-    function GetUsingCultureCalendar: Boolean;
-    function GetUsingCultureDigits: Boolean;
-    function GetMonthLastDate: TDate; inline;
-    function GetFirstCellDate: TDate; inline;
-    function GetLastCellDate: TDate; inline;
-    function GetLastCellYear: Integer; inline;
-    function GetFirstYearOnPage: Integer;
-    function GetLastYearOnPage: Integer;
-    function GetColCount: Integer; inline;
-    function GetRowCount: Integer; inline;
-    function GetCellCount: Integer; inline;
-    function GetFocusedCell: Integer;
-    function GetTheme: HTHEME;
-    function IsDateStored: Boolean;
-    function IsDateMinStored: Boolean;
-    function IsDateMaxStored: Boolean;
-    procedure ReadCulture(Reader: TReader);
-    procedure WriteCulture(Writer: TWriter);
-    procedure ReadCalendarType(Reader: TReader);
-    procedure WriteCalendarType(Writer: TWriter);
-    procedure FontHeaderChanged(Sender: TObject);
-    procedure FontFooterChanged(Sender: TObject);
-    procedure FontDayOfWeekChanged(Sender: TObject);
-    procedure FontWeekNumbersChanged(Sender: TObject);
-    procedure CalendarChanged(Sender: TObject);
-    procedure WMTimer(var Message: TWMTimer); message WM_TIMER;
-    procedure WMEraseBkgnd(var Message: TWMEraseBkgnd); message WM_ERASEBKGND;
-    procedure WMGetDlgCode(var Message: TWMGetDlgCode); message WM_GETDLGCODE;
-    procedure WMMouseActivate(var Message: TWMMouseActivate); message WM_MOUSEACTIVATE;
-    procedure CMMouseLeave(var Message: TMessage); message CM_MOUSELEAVE;
-    procedure CMHintShow(var Message: TCMHintShow); message CM_HINTSHOW;
-    procedure CMFontChanged(var Message: TMessage); message CM_FONTCHANGED;
-    procedure ExtractDateInfo(const ADate: TDate);
-  protected
-    {$region 'xmldoc'}
+  TCustomDrawDayEvent = Procedure(Sender : TObject; Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; Const ADate : TDate; ADay : Integer; Var DefaultDraw : Boolean) Of Object;
+
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomDrawDayOfWeekEvent is the type for event handlers that render name of
+/// a day of the week.
+/// </summary>
+/// <param name="Sender">
+/// The object that generated the event.
+/// </param>
+/// <param name="Canvas">
+/// The canvas on which to draw the day's name.
+/// </param>
+/// <param name="ARect">
+/// The bounding rectangle on the canvas where the day's name should be drawn.
+/// </param>
+/// <param name="State">
+/// The state information that can affect the way the day's name is drawn.
+/// </param>
+/// <param name="ADayOfWeek">
+/// The day of the week to draw its name.
+/// </param>
+/// <param name="DefaultDraw">
+/// Indicates whether the default rendering should proceed after the event handler exits.
+/// </param>
+{$Endregion}
+
+  TCustomDrawDayOfWeekEvent = Procedure(Sender : TObject; Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; ADayOfWeek : TDayOfWeek; Var DefaultDraw : Boolean) Of Object;
+
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomDrawDayEvent is the type for event handlers that render an integer value
+/// as a week number of the year.
+/// </summary>
+/// <param name="Sender">
+/// The object that generated the event.
+/// </param>
+/// <param name="Canvas">
+/// The canvas on which to draw the week number.
+/// </param>
+/// <param name="ARect">
+/// The bounding rectangle on the canvas where the week number should be drawn.
+/// </param>
+/// <param name="State">
+/// The state information that can affect the way the week number is drawn.
+/// </param>
+/// <param name="AWeek">
+/// The week of the year to draw.
+/// </param>
+/// <param name="DefaultDraw">
+/// Indicates whether the default rendering should proceed after the event handler exits.
+/// </param>
+{$Endregion}
+
+  TCustomDrawWeekNumberEvent = Procedure(Sender : TObject; Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; AWeek : Integer; Var DefaultDraw : Boolean) Of Object;
+
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomDrawDayOfWeekEvent is the type for event handlers that render name of
+/// a month.
+/// </summary>
+/// <param name="Sender">
+/// The object that generated the event.
+/// </param>
+/// <param name="Canvas">
+/// The canvas on which to draw the month's name.
+/// </param>
+/// <param name="ARect">
+/// The bounding rectangle on the canvas where the month's name should be drawn.
+/// </param>
+/// <param name="State">
+/// The state information that can affect the way the month's name is drawn.
+/// </param>
+/// <param name="AMonth">
+/// The month to draw its name.
+/// </param>
+/// <param name="DefaultDraw">
+/// Indicates whether the default rendering should proceed after the event handler exits.
+/// </param>
+{$Endregion}
+
+  TCustomDrawMonthEvent = Procedure(Sender : TObject; Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; AMonth : Integer; Var DefaultDraw : Boolean) Of Object;
+
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomDrawDayEvent is the type for event handlers that render an integer value
+/// as a year.
+/// </summary>
+/// <param name="Sender">
+/// The object that generated the event.
+/// </param>
+/// <param name="Canvas">
+/// The canvas on which to draw the year.
+/// </param>
+/// <param name="ARect">
+/// The bounding rectangle on the canvas where the year should be drawn.
+/// </param>
+/// <param name="State">
+/// The state information that can affect the way the year is drawn.
+/// </param>
+/// <param name="AYear">
+/// The year to draw.
+/// </param>
+/// <param name="DefaultDraw">
+/// Indicates whether the default rendering should proceed after the event handler exits.
+/// </param>
+{$Endregion}
+
+  TCustomDrawYearEvent = Procedure(Sender : TObject; Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; AYear : Integer; Var DefaultDraw : Boolean) Of Object;
+
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomIntlMonthCalendar is the base class for controls that display a
+/// localized calendar on a form.
+/// </summary>
+/// <remarks>
+/// Use TCustomIntlMonthCalendar as a base class when defining objects that display a
+/// localized calendar.
+///
+/// TCustomIntlMonthCalendar can use different calendar systems for manipulating and
+/// displaying the dates. The <see cref="CalendarType"/> property is the main property
+/// that specifies which calendar system should be used by the cotnrol. If the
+/// <see cref="CalendarType"/> property is not set, the <see cref="Culture"/> property
+/// can do this task. In addition, the <see cref="Culture"/> property provides the
+/// locale specific settings of the control. If none of these two properties are set,
+/// the <see cref="DefaultCalendar"/> global variable determines the calendar system
+/// used by the control.
+///
+/// TCustomIntlDateTimeLabel can be linked to a <see cref="TLocalizer"/> component.
+/// In this case, the linked <see cref="TLocalizer"/> component can provide both the
+/// locale specific settings and the calendar system of the calendar control.
+/// </remarks>
+{$Endregion}
+
+  TCustomIntlMonthCalendar = Class(TCustomControl, ILocalizerLink)
+   Protected
+    Type
+    {$Region 'xmldoc'}
+    /// <summary>
+    /// This enumeration type identifies the sections of a month calendar control.
+    /// </summary>
+    {$Endregion}
+    TIntlCalSection = (
+    {$Region 'xmldoc'}
+    /// The section of the header items.
+    {$Endregion}
+    csHeader,
+    {$Region 'xmldoc'}
+    /// The section filled by the header text.
+    {$Endregion}
+    csHeaderText,
+    {$Region 'xmldoc'}
+    /// The section filled by the left navigation button.
+    {$Endregion}
+    csArrowLeft,
+    {$Region 'xmldoc'}
+    /// The section filled by the right navigation button.
+    {$Endregion}
+    csArrowRight,
+    {$Region 'xmldoc'}
+    /// The section of the footer items.
+    {$Endregion}
+    csFooter,
+    {$Region 'xmldoc'}
+    /// The empty area shared between row of day names and column of week numbers.
+    {$Endregion}
+    csWeekSpace,
+    {$Region 'xmldoc'}
+    /// The section of names of days.
+    {$Endregion}
+    csDaysOfWeek,
+    {$Region 'xmldoc'}
+    /// The section of week numbers.
+    {$Endregion}
+    csWeekNumbers,
+    {$Region 'xmldoc'}
+    /// The section, which display days of a month, months of a year, or years of a decade.
+    {$Endregion}
+    csYMD
+    );
+    {$Region 'xmldoc'}
+    /// <summary>
+    /// This data type represents a set of <see cref="TIntlCalSection"/> values.
+    /// </summary>
+    {$Endregion}
+    TIntlCalSections = Set Of TIntlCalSection;
+    {$Region 'xmldoc'}
+    /// <summary>
+    /// This enumeration type identifies different kind of names for days of week and
+    /// months.
+    /// </summary>
+    {$Endregion}
+    TIntlCalNameKind = (
+    {$Region 'xmldoc'}
+    /// Full name
+    {$Endregion}
+    nkLong,
+    {$Region 'xmldoc'}
+    /// Abbreviation
+    {$Endregion}
+    nkShort,
+    {$Region 'xmldoc'}
+    /// Shortest possible abbreviation
+    {$Endregion}
+    nkShortest
+    );
+    {$Region 'xmldoc'}
+    /// <summary>
+    /// This data type represents the internal metrics of a month calendar control.
+    /// </summary>
+    {$Endregion}
+    TIntlCalMetrics = Record
+     {$Region 'xmldoc'}
+     /// Full, abbreviation, or short name?
+     {$Endregion}
+     NameKind : TIntlCalNameKind;
+     {$Region 'xmldoc'}
+     /// Long or short date format for footer?
+     {$Endregion}
+     LongFormat : Boolean;
+     {$Region 'xmldoc'}
+     /// The client rectangle of the month calendar
+     {$Endregion}
+     Bounds : TRect;
+     {$Region 'xmldoc'}
+     /// The height of the header section
+     {$Endregion}
+     HeaderHeight : Integer;
+     {$Region 'xmldoc'}
+     /// The height of the footer section
+     {$Endregion}
+     FooterHeight : Integer;
+     {$Region 'xmldoc'}
+     /// The row's height for names of days
+     {$Endregion}
+     FixedRowHeight : Integer;
+     {$Region 'xmldoc'}
+     /// The column's width for week numbers
+     {$Endregion}
+     FixedColWidth : Integer;
+     {$Region 'xmldoc'}
+     /// The row's height for day, month, year, or decade
+     {$Endregion}
+     RowHeight : Integer;
+     {$Region 'xmldoc'}
+     /// The column's width for day, month, year, or decade
+     {$Endregion}
+     ColWidth : Integer;
+     {$Region 'xmldoc'}
+     /// The number of rows excluding the fixed row
+     {$Endregion}
+     RowCount : Integer;
+     {$Region 'xmldoc'}
+     /// The number of columns excluding the fixed column
+     {$Endregion}
+     ColCount : Integer;
+     {$Region 'xmldoc'}
+     /// The number of rows with extra height (1 pixel)
+     {$Endregion}
+     StretchedRows : Integer;
+     {$Region 'xmldoc'}
+     /// The number of columns with extra width (1 pixel)
+     {$Endregion}
+     StretchedCols : Integer;
+     {$Region 'xmldoc'}
+     /// The optimal width of the grid
+     {$Endregion}
+     PrefferedWidth : Integer;
+     {$Region 'xmldoc'}
+     /// The optimal height of the grid
+     {$Endregion}
+     PrefferedHeight : Integer;
+     {$Region 'xmldoc'}
+     /// The bounding rectangles of the month calendar's sections
+     {$Endregion}
+     Sections : Array[TIntlCalSection] Of TRect;
+    End;
+   Private
+    fDate                                    : TDate;
+    fDateMin                                 : TDate;
+    fDateMax                                 : TDate;
+    fCalendarType                            : TCalendarClass;
+    fCalendar                                : TCalendar;
+    fCulture                                 : TCultureInfo;
+    fCultureCalendar                         : TLocalizerSwicth;
+    fCultureDigits                           : TLocalizerSwicth;
+    fWeekNumbers                             : Boolean;
+    fCurrentView                             : TIntlCalViewMode;
+    fSelectionStyle                          : TIntlCalSelectionStyle;
+    fSelectionAnchor                         : TDate;
+    fSelection                               : TDateTimeList;
+    fShowHeader                              : Boolean;
+    fShowFooter                              : Boolean;
+    fFontHeader                              : TFont;
+    fFontFooter                              : TFont;
+    fFontDayOfWeek                           : TFont;
+    fFontWeekNumbers                         : TFont;
+    fEra, fYear, fMonth, fDay                : Integer;
+    fMonthsInYear, fDaysInYear, fDaysInMonth : Integer;
+    fMonthFirstDate                          : TDate;
+    fMonthFirstDayOfWeek                     : TDayOfWeek;
+    fMonthStartCell                          : Integer;
+    fFirstCellDayNumber                      : Integer;
+    fFirstCellYear                           : Integer;
+    fActualDateMin                           : TDate;
+    fActualDateMax                           : TDate;
+    fHotCell                                 : Integer;
+    fHotInfo                                 : TIntlCalHitTest;
+    fDraggingCell                            : Integer;
+    fDraggingShiftState                      : TShiftState;
+    fDraggingOffPage                         : Boolean;
+    fNavigationTimer                         : Integer;
+    fHintDate                                : TDate;
+    fMetrics                                 : TIntlCalMetrics;
+    fLocalizer                               : TLocalizer;
+    fPrefferedSize                           : TSize;
+    fPrefferedSizeReady                      : Boolean;
+    fPrefferedSizeSmallest                   : Boolean;
+    fUpdateMetricsCount                      : Integer;
+    fColorDivider                            : TColor;
+    fColorToday                              : TColor;
+    fTheme                                   : HTHEME;
+    fAnimate                                 : Boolean;
+    fSavedScreen                             : TBitmap;
+    fSavedView                               : TIntlCalViewMode;
+    fSavedDate                               : TDate;
+    fSavedCellRect                           : TRect;
+    fSaveFontHeader                          : Boolean;
+    fSaveFontFooter                          : Boolean;
+    fSaveFontDayOfWeek                       : Boolean;
+    fSaveFontWeekNumbers                     : Boolean;
+    fOnDateChange                            : TNotifyEvent;
+    fOnPageChange                            : TNotifyEvent;
+    fOnCalendarChange                        : TNotifyEvent;
+    fOnSelectionChange                       : TNotifyEvent;
+    fOnDateHint                              : TDateHintEvent;
+    fOnDateSelectable                        : TDateSelectableEvent;
+    fOnCustomDrawDayOfWeek                   : TCustomDrawDayOfWeekEvent;
+    fOnCustomDrawWeekNumber                  : TCustomDrawWeekNumberEvent;
+    fOnCustomDrawDay                         : TCustomDrawDayEvent;
+    fOnCustomDrawMonth                       : TCustomDrawMonthEvent;
+    fOnCustomDrawYear                        : TCustomDrawYearEvent;
+    fOnCustomDrawHeaderText                  : TCustomDrawTextEvent;
+    fOnCustomDrawFooterText                  : TCustomDrawTextEvent;
+    Procedure SetDate(Const Value : TDate);
+    Procedure SetDateMin(Const Value : TDate);
+    Procedure SetDateMax(Const Value : TDate);
+    Procedure SetCalendarType(Value : TCalendarClass);
+    Procedure SetCulture(Value : TCultureInfo);
+    Procedure SetCultureCalendar(Value : TLocalizerSwicth);
+    Procedure SetCultureDigits(Value : TLocalizerSwicth);
+    Procedure SetWeekNumbers(Value : Boolean);
+    Procedure SetSelectionStyle(Value : TIntlCalSelectionStyle);
+    Procedure SetShowHeader(Value : Boolean);
+    Procedure SetShowFooter(Value : Boolean);
+    Procedure SetFontHeader(Value : TFont);
+    Procedure SetFontFooter(Value : TFont);
+    Procedure SetFontDayOfWeek(Value : TFont);
+    Procedure SetFontWeekNumbers(Value : TFont);
+    Procedure SetCurrentView(Value : TIntlCalViewMode);
+    Procedure SetLocalizer(Value : TLocalizer);
+    Procedure SetColorDivider(Value : TColor);
+    Procedure SetColorToday(Value : TColor);
+    Function GetSelectionStart : TDate;
+    Function GetSelectionEnd : TDate;
+    Function GetSelectionCount : Integer;
+    Function GetSelection(Index : Integer) : TDate;
+    Function GetUsingCultureCalendar : Boolean;
+    Function GetUsingCultureDigits : Boolean;
+    Function GetMonthLastDate : TDate; Inline;
+    Function GetFirstCellDate : TDate; Inline;
+    Function GetLastCellDate : TDate; Inline;
+    Function GetLastCellYear : Integer; Inline;
+    Function GetFirstYearOnPage : Integer;
+    Function GetLastYearOnPage : Integer;
+    Function GetColCount : Integer; Inline;
+    Function GetRowCount : Integer; Inline;
+    Function GetCellCount : Integer; Inline;
+    Function GetFocusedCell : Integer;
+    Function GetTheme : HTHEME;
+    Function IsDateStored : Boolean;
+    Function IsDateMinStored : Boolean;
+    Function IsDateMaxStored : Boolean;
+    Procedure ReadCulture(Reader : TReader);
+    Procedure WriteCulture(Writer : TWriter);
+    Procedure ReadCalendarType(Reader : TReader);
+    Procedure WriteCalendarType(Writer : TWriter);
+    Procedure FontHeaderChanged(Sender : TObject);
+    Procedure FontFooterChanged(Sender : TObject);
+    Procedure FontDayOfWeekChanged(Sender : TObject);
+    Procedure FontWeekNumbersChanged(Sender : TObject);
+    Procedure CalendarChanged(Sender : TObject);
+    Procedure WMTimer(Var Message : TWMTimer); Message WM_TIMER;
+    Procedure WMEraseBkgnd(Var Message : TWMEraseBkgnd); Message WM_ERASEBKGND;
+    Procedure WMGetDlgCode(Var Message : TWMGetDlgCode); Message WM_GETDLGCODE;
+    Procedure WMMouseActivate(Var Message : TWMMouseActivate); Message WM_MOUSEACTIVATE;
+    Procedure CMMouseLeave(Var Message : TMessage); Message CM_MOUSELEAVE;
+    Procedure CMHintShow(Var Message : TCMHintShow); Message CM_HINTSHOW;
+    Procedure CMFontChanged(Var Message : TMessage); Message CM_FONTCHANGED;
+    Procedure ExtractDateInfo(Const ADate : TDate);
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Specifies the duration of the control's animations, in milliseconds.
     /// </summary>
-    {$endregion}
-    const AnimateDuration = 400; {ms}
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const AnimateDuration = 400; {ms}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Specifies the interval between automatic navigations, in milliseconds.
     /// </summary>
-    {$endregion}
-    const AutoNavInterval = AnimateDuration + 100; {ms}
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const AutoNavInterval = AnimateDuration + 100; {ms}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Specifies the identifier of forward automatic navigation timer.
     /// </summary>
-    {$endregion}
-    const AutoNavTimerForward = 100;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const AutoNavTimerForward = 100;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Specifies the identifier of backward automatic navigation timer.
     /// </summary>
-    {$endregion}
-    const AutoNavTimerBackward = 200;
-  protected
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const AutoNavTimerBackward = 200;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Notifies the control about changes in the linked <see cref="TLocalizer"/>
     /// component.
@@ -1599,9 +1601,9 @@ type
     /// <param name="Reason">
     /// The reason of the notification.
     /// </param>
-    {$endregion}
-    procedure LocalizerNotify(Sender: TLocalizer; Reason: TLocalizerNotification);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure LocalizerNotify(Sender : TLocalizer; Reason : TLocalizerNotification);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds to notifications that components are about to be created or destroyed.
     /// </summary>
@@ -1611,9 +1613,9 @@ type
     /// <param name="Operation">
     /// Indicates whether the component is created or destroyed.
     /// </param>
-    {$endregion}
-    procedure Notification(AComponent: TComponent; Operation: TOperation); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Notification(AComponent : TComponent; Operation : TOperation); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reads and writes the <see cref="Culture"/> and <see cref="CalendarType"/> properties
     /// as if they were published.
@@ -1622,27 +1624,27 @@ type
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
     /// loading or saving the published properties.
     /// </param>
-    {$endregion}
-    procedure DefineProperties(Filer: TFiler); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DefineProperties(Filer : TFiler); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Makes any required adjustments when the control changes size.
     /// </summary>
-    {$endregion}
-    procedure Resize; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Resize; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Renders the control.
     /// </summary>
-    {$endregion}
-    procedure Paint; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Paint; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Updates the control when it is first loaded into memory.
     /// </summary>
-    {$endregion}
-    procedure Loaded; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Loaded; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the control can resize itself automatically to accommodate
     /// its contents.
@@ -1656,9 +1658,9 @@ type
     /// <returns>
     /// Always returns <see langword="true"/>.
     /// </returns>
-    {$endregion}
-    function CanAutoSize(var NewWidth: Integer; var NewHeight: Integer): Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function CanAutoSize(Var NewWidth : Integer; Var NewHeight : Integer) : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds when the user presses a mouse button down while the cursor's hotspot is
     /// over the control.
@@ -1675,9 +1677,9 @@ type
     /// <param name="Y">
     /// The vertical pixel coordinate of the mouse pointer within the client area of the control.
     /// </param>
-    {$endregion}
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure MouseDown(Button : TMouseButton; Shift : TShiftState; x, y : Integer); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds when the user moves the mouse pointer while the cursor's hotspot is
     /// over the control.
@@ -1691,9 +1693,9 @@ type
     /// <param name="Y">
     /// The vertical pixel coordinate of the mouse pointer within the client area of the control.
     /// </param>
-    {$endregion}
-    procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure MouseMove(Shift : TShiftState; x, y : Integer); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds when the user releases a previously pressed mouse button down while the
     /// cursor's hotspot is over the control.
@@ -1710,9 +1712,9 @@ type
     /// <param name="Y">
     /// The vertical pixel coordinate of the mouse pointer within the client area of the control.
     /// </param>
-    {$endregion}
-    procedure MouseUp(Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure MouseUp(Button : TMouseButton; Shift : TShiftState; x, y : Integer); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds when the user rotates the mouse wheel downward.
     /// </summary>
@@ -1722,9 +1724,9 @@ type
     /// <param name="MousePos">
     /// The pixel coordinates of the mouse pointer within the screen.
     /// </param>
-    {$endregion}
-    function DoMouseWheelDown(Shift: TShiftState; MousePos: TPoint): Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DoMouseWheelDown(Shift : TShiftState; MousePos : TPoint) : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds when the user rotates the mouse wheel upward.
     /// </summary>
@@ -1734,9 +1736,9 @@ type
     /// <param name="MousePos">
     /// The pixel coordinates of the mouse pointer within the screen.
     /// </param>
-    {$endregion}
-    function DoMouseWheelUp(Shift: TShiftState; MousePos: TPoint): Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DoMouseWheelUp(Shift : TShiftState; MousePos : TPoint) : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds when the user presses a key.
     /// </summary>
@@ -1746,45 +1748,45 @@ type
     /// <param name="Shift">
     /// Indicates the concurrent state of the Ctrl, Shift, and Alt keys.
     /// </param>
-    {$endregion}
-    procedure KeyDown(var Key: Word; Shift: TShiftState); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure KeyDown(Var Key : Word; Shift : TShiftState); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Updates the control when it receives input focus.
     /// </summary>
-    {$endregion}
-    procedure DoEnter; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoEnter; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Updates the control when it loses input focus.
     /// </summary>
-    {$endregion}
-    procedure DoExit; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoExit; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnDateChange"/> event.
     /// </summary>
-    {$endregion}
-    procedure DoDateChange; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoDateChange; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnPageChange"/> event.
     /// </summary>
-    {$endregion}
-    procedure DoPageChange; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoPageChange; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnCalendarChange"/> event.
     /// </summary>
-    {$endregion}
-    procedure DoCalendarChange; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoCalendarChange; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnSelectionChange"/> event.
     /// </summary>
-    {$endregion}
-    procedure DoSelectionChange; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoSelectionChange; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnDateHint"/> event.
     /// </summary>
@@ -1794,9 +1796,9 @@ type
     /// <param name="HintStr">
     /// The hint string of the <see cref="TDate"/> value.
     /// </param>
-    {$endregion}
-    procedure DoDateHint(const ADate: TDate; var HintStr: String); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoDateHint(Const ADate : TDate; Var HintStr : String); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnDateSelectable"/> event.
     /// </summary>
@@ -1807,9 +1809,9 @@ type
     /// Returns <see langword="true"/> if the <see cref="TDate"/> value can be selected,
     /// otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function DoDateSelectable(const ADate: TDate): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DoDateSelectable(Const ADate : TDate) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnCustomDrawDayOfWeek"/> event.
     /// </summary>
@@ -1829,9 +1831,9 @@ type
     /// Returns <see langword="true"/> if the default rendering should proceed after
     /// the method exits, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function DoCustomDrawDayOfWeek(Canvas: TCanvas; const ARect: TRect; State: TIntlCalDrawStates; ADayOfWeek: TDayOfWeek): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DoCustomDrawDayOfWeek(Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; ADayOfWeek : TDayOfWeek) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnCustomDrawWeekNumber"/> event.
     /// </summary>
@@ -1851,9 +1853,9 @@ type
     /// Returns <see langword="true"/> if the default rendering should proceed after
     /// the method exits, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function DoCustomDrawWeekNumber(Canvas: TCanvas; const ARect: TRect; State: TIntlCalDrawStates; AWeek: Integer): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DoCustomDrawWeekNumber(Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; AWeek : Integer) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnCustomDrawDay"/> event.
     /// </summary>
@@ -1876,9 +1878,9 @@ type
     /// Returns <see langword="true"/> if the default rendering should proceed after
     /// the method exits, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function DoCustomDrawDay(Canvas: TCanvas; const ARect: TRect; State: TIntlCalDrawStates; const ADate: TDate; ADay: Integer): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DoCustomDrawDay(Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; Const ADate : TDate; ADay : Integer) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnCustomDrawMonth"/> event.
     /// </summary>
@@ -1898,9 +1900,9 @@ type
     /// Returns <see langword="true"/> if the default rendering should proceed after
     /// the method exits, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function DoCustomDrawMonth(Canvas: TCanvas; const ARect: TRect; State: TIntlCalDrawStates; AMonth: Integer): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DoCustomDrawMonth(Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; AMonth : Integer) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnCustomDrawYear"/> event.
     /// </summary>
@@ -1920,9 +1922,9 @@ type
     /// Returns <see langword="true"/> if the default rendering should proceed after
     /// the method exits, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function DoCustomDrawYear(Canvas: TCanvas; const ARect: TRect; State: TIntlCalDrawStates; AYear: Integer): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DoCustomDrawYear(Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; AYear : Integer) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnCustomDrawHeaderText"/> event.
     /// </summary>
@@ -1942,9 +1944,9 @@ type
     /// Returns <see langword="true"/> if the default rendering should proceed after
     /// the method exits, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function DoCustomDrawHeaderText(Canvas: TCanvas; const ARect: TRect; State: TIntlCalDrawStates; const AText: String): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DoCustomDrawHeaderText(Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; Const AText : String) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnCustomDrawFooterText"/> event.
     /// </summary>
@@ -1964,9 +1966,9 @@ type
     /// Returns <see langword="true"/> if the default rendering should proceed after
     /// the method exits, otherwise returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function DoCustomDrawFooterText(Canvas: TCanvas; const ARect: TRect; State: TIntlCalDrawStates; const AText: String): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DoCustomDrawFooterText(Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; Const AText : String) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a string that its embedded nominal digits (0-9) are substituted with
     /// their corresponding digits in the langauge specified by the <see cref="Culture"/>
@@ -1980,9 +1982,9 @@ type
     /// The string that its digits are fixed as native.
     /// </returns>
     /// <seealso cref="Culture"/>
-    {$endregion}
-    procedure NormalizeDigits(var Str: String); inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure NormalizeDigits(Var Str : String); Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the display name for a specified day of the week.
     /// </summary>
@@ -1995,9 +1997,9 @@ type
     /// <returns>
     /// The display name of the specified day of the week.
     /// </returns>
-    {$endregion}
-    function GetDayName(DayOfWeek: TDayOfWeek; NameKind: TIntlCalNameKind): String; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetDayName(DayOfWeek : TDayOfWeek; NameKind : TIntlCalNameKind) : String; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the display name for a specified month.
     /// </summary>
@@ -2010,9 +2012,9 @@ type
     /// <returns>
     /// The display name of the specified month.
     /// </returns>
-    {$endregion}
-    function GetMonthName(Month: Integer; NameKind: TIntlCalNameKind): String; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetMonthName(Month : Integer; NameKind : TIntlCalNameKind) : String; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a specified year to string.
     /// </summary>
@@ -2022,9 +2024,9 @@ type
     /// <returns>
     /// The string representation of the specified year.
     /// </returns>
-    {$endregion}
-    function GetYearText(AYear: Integer): String; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetYearText(AYear : Integer) : String; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a specified day of the month to string.
     /// </summary>
@@ -2034,9 +2036,9 @@ type
     /// <returns>
     /// The string representation of the specified day of the month.
     /// </returns>
-    {$endregion}
-    function GetDayText(ADay: Integer): String; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetDayText(ADay : Integer) : String; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a specified week of the year to string.
     /// </summary>
@@ -2046,9 +2048,9 @@ type
     /// <returns>
     /// The string representation of the specified week of the year.
     /// </returns>
-    {$endregion}
-    function GetWeekText(AWeek: Integer): String; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetWeekText(AWeek : Integer) : String; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the text of the calendar's header based on a specified view mode.
     /// </summary>
@@ -2058,9 +2060,9 @@ type
     /// <returns>
     /// The text that appears on the header.
     /// </returns>
-    {$endregion}
-    function GetHeaderText(ViewMode: TIntlCalViewMode): String; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetHeaderText(ViewMode : TIntlCalViewMode) : String; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the today's date as the footer text.
     /// </summary>
@@ -2070,9 +2072,9 @@ type
     /// <returns>
     /// The text that appears on the footer.
     /// </returns>
-    {$endregion}
-    function GetFooterText(LongFormat: Boolean): String; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetFooterText(LongFormat : Boolean) : String; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines that a point is in which section of the control.
     /// </summary>
@@ -2088,9 +2090,9 @@ type
     /// <returns>
     /// Returns a <see cref="TIntlCalHitTest"/> value.
     /// </returns>
-    {$endregion}
-    function GetHitTestInfoAt(X, Y: Integer; out Cell: Integer): TIntlCalHitTest; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetHitTestInfoAt(x, y : Integer; Out Cell : Integer) : TIntlCalHitTest; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines whether a point is in a cell of the calendar's grid that represents
     /// a day of a month.
@@ -2110,9 +2112,9 @@ type
     /// showing days of a month, otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="GetDateAtCell"/>
-    {$endregion}
-    function GetDateAt(X, Y: Integer; out ADate: TDate): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetDateAt(x, y : Integer; Out ADate : TDate) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines whether a cell of the calendar's grid is representing a day of a month.
     /// </summary>
@@ -2128,9 +2130,9 @@ type
     /// grid is showing days of a month, otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="GetDateAt"/>
-    {$endregion}
-    function GetDateAtCell(Index: Integer; out ADate: TDate): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetDateAtCell(Index : Integer; Out ADate : TDate) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines whether a point is in a cell of the calendar's grid that represents
     /// a month of a year.
@@ -2150,9 +2152,9 @@ type
     /// showing months of a year, otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="GetMonthAtCell"/>
-    {$endregion}
-    function GetMonthAt(X, Y: Integer; out AMonth: Integer): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetMonthAt(x, y : Integer; Out AMonth : Integer) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines whether a cell of the calendar's grid is representing a month of the year.
     /// </summary>
@@ -2168,9 +2170,9 @@ type
     /// grid is showing months of a year, otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="GetMonthAt"/>
-    {$endregion}
-    function GetMonthAtCell(Index: Integer; out AMonth: Integer): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetMonthAtCell(Index : Integer; Out AMonth : Integer) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines whether a point is in a cell of the calendar's grid that represents
     /// a year.
@@ -2190,9 +2192,9 @@ type
     /// showing years of a decade, otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="GetYearAtCell"/>
-    {$endregion}
-    function GetYearAt(X, Y: Integer; out AYear: Integer): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetYearAt(x, y : Integer; Out AYear : Integer) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines whether a cell of the calendar's grid is representing a year.
     /// </summary>
@@ -2208,9 +2210,9 @@ type
     /// calendar's grid is showing years of a decade, otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="GetYearAt"/>
-    {$endregion}
-    function GetYearAtCell(Index: Integer; out AYear: Integer): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetYearAtCell(Index : Integer; Out AYear : Integer) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the bounding rectangle of the calendar's content within the client
     /// area of the control.
@@ -2218,9 +2220,9 @@ type
     /// <returns>
     /// The bounding rectangle of the calendar's content.
     /// </returns>
-    {$endregion}
-    function GetCalendarClientRect: TRect; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetCalendarClientRect : TRect; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the bounding rectangle of a calendar's section within the client
     /// area of the control.
@@ -2234,9 +2236,9 @@ type
     /// <seealso cref="GetSectionWidth"/>
     /// <seealso cref="GetSectionHeight"/>
     /// <seealso cref="CalcMetricsSections"/>
-    {$endregion}
-    function GetSectionRect(Section: TIntlCalSection): TRect; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetSectionRect(Section : TIntlCalSection) : TRect; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the width of a calendar's section, in pixels.
     /// </summary>
@@ -2248,9 +2250,9 @@ type
     /// </returns>
     /// <seealso cref="GetSectionWidth"/>
     /// <seealso cref="GetSectionRect"/>
-    {$endregion}
-    function GetSectionWidth(Section: TIntlCalSection): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetSectionWidth(Section : TIntlCalSection) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the height of a calendar's section, in pixels.
     /// </summary>
@@ -2262,9 +2264,9 @@ type
     /// </returns>
     /// <seealso cref="GetSectionHeight"/>
     /// <seealso cref="GetSectionRect"/>
-    {$endregion}
-    function GetSectionHeight(Section: TIntlCalSection): Integer; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetSectionHeight(Section : TIntlCalSection) : Integer; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the bounding rectangle of a cell of the calendar's grid, which is
     /// specified by its row and column coordinates.
@@ -2278,9 +2280,9 @@ type
     /// <returns>
     /// The bounding rectangle of the cell.
     /// </returns>
-    {$endregion}
-    function GetCellRect(Row, Col: Integer): TRect; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetCellRect(Row, Col : Integer) : TRect; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the bounding rectangle of a cell of the calendar's grid, which is
     /// specified by its index.
@@ -2291,9 +2293,9 @@ type
     /// <returns>
     /// The bounding rectangle of the cell.
     /// </returns>
-    {$endregion}
-    function GetCellRect(Index: Integer): TRect; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetCellRect(Index : Integer) : TRect; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines whether a vertical coordinate is within the calendar's grid.
     /// </summary>
@@ -2305,9 +2307,9 @@ type
     /// if the coordinate is not within the calendar's grid.
     /// </returns>
     /// <seealso cref="GetColAt"/>
-    {$endregion}
-    function GetRowAt(Y: Integer): Integer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetRowAt(y : Integer) : Integer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines whether a horizontal coordinate is within the calendar's grid.
     /// </summary>
@@ -2319,9 +2321,9 @@ type
     /// if the coordinate is not within the calendar's grid.
     /// </returns>
     /// <seealso cref="GetRowAt"/>
-    {$endregion}
-    function GetColAt(X: Integer): Integer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetColAt(x : Integer) : Integer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Regarding to the value of <see cref="CurrentView"/> and <see cref="Date"/> properties,
     /// returns a date that represents next or previous month, year, or decade.
@@ -2332,9 +2334,9 @@ type
     /// <returns>
     /// The <see cref="TDate"/> value of the next or the previous date.
     /// </returns>
-    {$endregion}
-    function GetAdjacentPageDate(Backward: Boolean): TDate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetAdjacentPageDate(Backward : Boolean) : TDate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the preffered dimension of the control's client area to display
     /// the calendar's content.
@@ -2350,9 +2352,9 @@ type
     /// value that can support the entire content, otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="GetPreferredControlSize"/>
-    {$endregion}
-    function GetPreferredClientSize(out AWidth, AHeight: Integer): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetPreferredClientSize(Out AWidth, AHeight : Integer) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the preffered dimension of the control (including border and bevels)
     /// to display the calendar's content.
@@ -2368,9 +2370,9 @@ type
     /// value that can support the entire content, otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="GetPreferredClientSize"/>
-    {$endregion}
-    function GetPreferredControlSize(out AWidth, AHeight: Integer): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetPreferredControlSize(Out AWidth, AHeight : Integer) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the metrics for rendering the calendar.
     /// </summary>
@@ -2382,9 +2384,9 @@ type
     /// </param>
     /// <seealso cref="CalcMetricsSections"/>
     /// <seealso cref="UpdateMetrics"/>
-    {$endregion}
-    procedure CalcMetrics(ViewMode: TIntlCalViewMode; out Metrics: TIntlCalMetrics); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure CalcMetrics(ViewMode : TIntlCalViewMode; Out Metrics : TIntlCalMetrics); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Calculates the bounding rectangle of calnedar's sections based on a specified metrics.
     /// </summary>
@@ -2393,31 +2395,31 @@ type
     /// </param>
     /// <seealso cref="CalcMetrics"/>
     /// <seealso cref="UpdateMetrics"/>
-    {$endregion}
-    procedure CalcMetricsSections(var Metrics: TIntlCalMetrics); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure CalcMetricsSections(Var Metrics : TIntlCalMetrics); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Recalculates the metrics for rendering the calendar, and invalidates the control.
     /// </summary>
     /// <seealso cref="CalcMetrics"/>
     /// <seealso cref="CalcMetricsSections"/>
-    {$endregion}
-    procedure UpdateMetrics; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure UpdateMetrics; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reevaluates value of <see cref="ActualDateMin"/> and <see cref="ActualDateMax"/>
     /// properties.
     /// </summary>
-    {$endregion}
-    procedure UpdateMinMaxRanges; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure UpdateMinMaxRanges; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Validates the <see cref="Calendar"/> property to ensure it represents a proper
     /// calendar system with an appropriate locale settings.
     /// </summary>
-    {$endregion}
-    procedure ValidateCalendar; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ValidateCalendar; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the control is using the Windows theming system.
     /// </summary>
@@ -2426,9 +2428,9 @@ type
     /// to draw itself, otherwise returns <see langword="false"/>.
     /// </returns>
     /// <seealso cref="Theme"/>
-    {$endregion}
-    function IsThemed: Boolean;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsThemed : Boolean;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified year is somehow visible on the current page of the
     /// control.
@@ -2440,42 +2442,42 @@ type
     /// Returns <see langword="true"/> if the year is visible on the current page, otherwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function IsYearOnPage(AYear: Integer): Boolean; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsYearOnPage(AYear : Integer) : Boolean; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Initializes the animation that changes the current page.
     /// </summary>
     /// <seealso cref="AnimatePlay"/>
     /// <seealso cref="AnimateEnd"/>
-    {$endregion}
-    procedure AnimateBegin; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure AnimateBegin; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Plays a previously initialized animation using the <seealso cref="AnimateBegin"/> method.
     /// </summary>
     /// <seealso cref="AnimateBegin"/>
     /// <seealso cref="AnimateEnd"/>
-    {$endregion}
-    procedure AnimatePlay; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure AnimatePlay; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Finalizes a previously initialized animation using the <seealso cref="AnimateBegin"/> method.
     /// </summary>
     /// <seealso cref="AnimateBegin"/>
     /// <seealso cref="AnimatePlay"/>
-    {$endregion}
-    procedure AnimateEnd; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure AnimateEnd; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates a bitmap that contains the current calendar's screen.
     /// </summary>
     /// <returns>
     /// The bitmap of the current calendar's screen.
     /// </returns>
-    {$endregion}
-    function TakeSnapshot: TBitmap;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function TakeSnapshot : TBitmap;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Renders background of a calendar's section.
     /// </summary>
@@ -2489,9 +2491,9 @@ type
     /// The state information that can affect the way the background is drawn.
     /// </param>
     /// <seealso cref="RenderText"/>
-    {$endregion}
-    procedure RenderBackground(Canvas: TCanvas; var Rect: TRect; State: TIntlCalDrawStates); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RenderBackground(Canvas : TCanvas; Var Rect : TRect; State : TIntlCalDrawStates); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Renders a specified text.
     /// </summary>
@@ -2511,9 +2513,9 @@ type
     /// The horizontal alignment of the text in regard of its bounding rectangle.
     /// </param>
     /// <seealso cref="RenderBackground"/>
-    {$endregion}
-    procedure RenderText(Canvas: TCanvas; var Rect: TRect; State: TIntlCalDrawStates; const Text: String; Alignment: TAlignment); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RenderText(Canvas : TCanvas; Var Rect : TRect; State : TIntlCalDrawStates; Const Text : String; Alignment : TAlignment); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Renders a left or right arrow.
     /// </summary>
@@ -2531,9 +2533,9 @@ type
     /// </param>
     /// <seealso cref="RenderBackground"/>
     /// <seealso cref="RenderText"/>
-    {$endregion}
-    procedure RenderArrow(Canvas: TCanvas; var Rect: TRect; State: TIntlCalDrawStates; Backward: Boolean); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RenderArrow(Canvas : TCanvas; Var Rect : TRect; State : TIntlCalDrawStates; Backward : Boolean); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Renders a marker in a specified bounding rectangle to specify the today's date.
     /// </summary>
@@ -2543,36 +2545,36 @@ type
     /// <param name="Rect">
     /// The bounding rectangle on the canvas where the marker should be drawn.
     /// </param>
-    {$endregion}
-    procedure RenderTodayMarker(Canvas: TCanvas; var Rect: TRect); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure RenderTodayMarker(Canvas : TCanvas; Var Rect : TRect); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Draws the entire calendar on a specified canvas.
     /// </summary>
     /// <param name="Canvas">
     /// The canvas to draw.
     /// </param>
-    {$endregion}
-    procedure DrawCalendar(Canvas: TCanvas); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DrawCalendar(Canvas : TCanvas); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Draws the header section of the calendar on a specified canvas.
     /// </summary>
     /// <param name="Canvas">
     /// The canvas to draw.
     /// </param>
-    {$endregion}
-    procedure DrawHeader(Canvas: TCanvas); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DrawHeader(Canvas : TCanvas); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Draws the footer section of the calendar on a specified canvas.
     /// </summary>
     /// <param name="Canvas">
     /// The canvas to draw.
     /// </param>
-    {$endregion}
-    procedure DrawFooter(Canvas: TCanvas); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DrawFooter(Canvas : TCanvas); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Draws the empty area shared between row of day names and column of week
     /// numbers.
@@ -2580,54 +2582,54 @@ type
     /// <param name="Canvas">
     /// The canvas to draw.
     /// </param>
-    {$endregion}
-    procedure DrawWeekSpace(Canvas: TCanvas); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DrawWeekSpace(Canvas : TCanvas); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Draws the section of the calendar that displays days of the week.
     /// </summary>
     /// <param name="Canvas">
     /// The canvas to draw.
     /// </param>
-    {$endregion}
-    procedure DrawDaysOfWeek(Canvas: TCanvas); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DrawDaysOfWeek(Canvas : TCanvas); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Draws the section of the calendar that displays week numbers.
     /// </summary>
     /// <param name="Canvas">
     /// The canvas to draw.
     /// </param>
-    {$endregion}
-    procedure DrawWeekNumbers(Canvas: TCanvas); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DrawWeekNumbers(Canvas : TCanvas); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Draws the calendar's grid with days of a month.
     /// </summary>
     /// <param name="Canvas">
     /// The canvas to draw.
     /// </param>
-    {$endregion}
-    procedure DrawDays(Canvas: TCanvas); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DrawDays(Canvas : TCanvas); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Draws the calendar's grid with months of a year.
     /// </summary>
     /// <param name="Canvas">
     /// The canvas to draw.
     /// </param>
-    {$endregion}
-    procedure DrawMonths(Canvas: TCanvas); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DrawMonths(Canvas : TCanvas); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Draws the calendar's grid with years of a decade.
     /// </summary>
     /// <param name="Canvas">
     /// The canvas to draw.
     /// </param>
-    {$endregion}
-    procedure DrawYears(Canvas: TCanvas); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DrawYears(Canvas : TCanvas); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Schedules a repaint for a specified set of calendar's sections.
     /// </summary>
@@ -2637,18 +2639,18 @@ type
     /// <seealso cref="InvalidateDateDependentSections"/>
     /// <seealso cref="FocusDate"/>
     /// <seealso cref="Date"/>
-    {$endregion}
-    procedure InvalidateSections(Sections: TIntlCalSections); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure InvalidateSections(Sections : TIntlCalSections); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Schedules a repaint for those calendar's sections that need to be
     /// updated when the <see cref="Date"/> property changes.
     /// </summary>
     /// <seealso cref="InvalidateSections"/>
     /// <seealso cref="Date"/>
-    {$endregion}
-    procedure InvalidateDateDependentSections; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure InvalidateDateDependentSections; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Schedules a repaint for a cell of calendar's grid that is specified by
     /// its index.
@@ -2656,9 +2658,9 @@ type
     /// <param name="Index">
     /// The index of the cell in the grid.
     /// </param>
-    {$endregion}
-    procedure InvalidateCell(Index: Integer); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure InvalidateCell(Index : Integer); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Schedules a repaint for any part of the calendar that represents a
     /// cpmponent of a specified date.
@@ -2668,9 +2670,9 @@ type
     /// </param>
     /// <seealso cref="InvalidateDates"/>
     /// <seealso cref="InvalidateDateRange"/>
-    {$endregion}
-    procedure InvalidateDate(const ADate: TDate); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure InvalidateDate(Const ADate : TDate); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Schedules a repaint for those days in the calendar's grid that are
     /// in a specified dates.
@@ -2680,9 +2682,9 @@ type
     /// </param>
     /// <seealso cref="InvalidateDate"/>
     /// <seealso cref="InvalidateDateRange"/>
-    {$endregion}
-    procedure InvalidateDates(ADates: TDateTimeList); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure InvalidateDates(ADates : TDateTimeList); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Schedules a repaint for those days in the calendar's grid that are
     /// in a specified range.
@@ -2695,23 +2697,23 @@ type
     /// </param>
     /// <seealso cref="InvalidateDate"/>
     /// <seealso cref="InvalidateDates"/>
-    {$endregion}
-    procedure InvalidateDateRange(const ADate1, ADate2: TDate); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure InvalidateDateRange(Const ADate1, ADate2 : TDate); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Schedules a repaint for those part of the calendar that are in hot state.
     /// </summary>
     /// <seealso cref="InvalidateSelection"/>
-    {$endregion}
-    procedure InvalidateHotLight; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure InvalidateHotLight; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Schedules a repaint for selected cells of the calendar's grid.
     /// </summary>
     /// <seealso cref="InvalidateHotLight"/>
-    {$endregion}
-    procedure InvalidateSelection; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure InvalidateSelection; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Selects a specified date as if clicked with the mouse. Conditional upon
     /// the value of <see cref="SelectionStyle"/> property, one date or multiple
@@ -2733,9 +2735,9 @@ type
     /// <seealso cref="SelectionCount"/>
     /// <seealso cref="Selection"/>
     /// <seealso cref="SelectionStyle"/>
-    {$endregion}
-    procedure SelectDate(const ADate: TDate; ShiftState: TShiftState = []);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure SelectDate(Const ADate : TDate; ShiftState : TShiftState = []);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Marks a specified date as focused. Only one date can be focused at a time.
     /// </summary>
@@ -2744,124 +2746,124 @@ type
     /// </param>
     /// <seealso cref="SelectDate"/>
     /// <seealso cref="Date"/>
-    {$endregion}
-    procedure FocusDate(const ADate: TDate);
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure FocusDate(Const ADate : TDate);
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the handle to the Windows theme that is used for rendering the control.
     /// </summary>
-    {$endregion}
-    property Theme: HTHEME read GetTheme;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Theme : HTHEME Read GetTheme;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the number of columns in the calendar's grid.
     /// </summary>
-    {$endregion}
-    property ColCount: Integer read GetColCount;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ColCount : Integer Read GetColCount;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the number of rows in the calendar's grid.
     /// </summary>
-    {$endregion}
-    property RowCount: Integer read GetRowCount;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property RowCount : Integer Read GetRowCount;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the number of cells in the calendar's grid.
     /// </summary>
-    {$endregion}
-    property CellCount: Integer read GetCellCount;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CellCount : Integer Read GetCellCount;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the day of the month in the first cell of the calendar's grid.
     /// NOTE: The value of this property is valid only with a <see cref="CurrentView"/> of vmDay.
     /// </summary>
-    {$endregion}
-    property FirstCellDayNumber: Integer read fFirstCellDayNumber;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FirstCellDayNumber : Integer Read fFirstCellDayNumber;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TDate"/> value represented by the first cell of the calendar's grid.
     /// </summary>
-    {$endregion}
-    property FirstCellDate: TDate read GetFirstCellDate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FirstCellDate : TDate Read GetFirstCellDate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TDate"/> value represented by the last cell of the calendar's grid.
     /// </summary>
-    {$endregion}
-    property LastCellDate: TDate read GetLastCellDate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property LastCellDate : TDate Read GetLastCellDate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the year in the first cell of the calendar's grid.
     /// NOTE: The value of this property is valid only with a <see cref="CurrentView"/> of vmYear.
     /// </summary>
-    {$endregion}
-    property FirstCellYear: Integer read fFirstCellYear;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FirstCellYear : Integer Read fFirstCellYear;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the year in the last cell of the calendar's grid.
     /// NOTE: The value of this property is valid only with a <see cref="CurrentView"/> of vmYear.
     /// </summary>
-    {$endregion}
-    property LastCellYear: Integer read GetLastCellYear;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property LastCellYear : Integer Read GetLastCellYear;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the smallest year in the calendar's grid that belongs to the current page.
     /// NOTE: The value of this property is valid only with a <see cref="CurrentView"/> of vmYear.
     /// </summary>
-    {$endregion}
-    property FirstYearOnPage: Integer read GetFirstYearOnPage;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FirstYearOnPage : Integer Read GetFirstYearOnPage;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the largest year in the calendar's grid that belongs to the current page.
     /// NOTE: The value of this property is valid only with a <see cref="CurrentView"/> of vmYear.
     /// </summary>
-    {$endregion}
-    property LastYearOnPage: Integer read GetlastYearOnPage;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property LastYearOnPage : Integer Read GetLastYearOnPage;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets index of the cell in the calendar's grid, which represents the start of the month.
     /// NOTE: The value of this property is valid only with a <see cref="CurrentView"/> of vmDay.
     /// </summary>
-    {$endregion}
-    property MonthStartCell: Integer read fMonthStartCell;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property MonthStartCell : Integer Read fMonthStartCell;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets index of the cell in the calendar's grid that has the focus.
     /// </summary>
-    {$endregion}
-    property FocusedCell: Integer read GetFocusedCell;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FocusedCell : Integer Read GetFocusedCell;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets index of the cell in the calendar's grid that has the hot state.
     /// </summary>
-    {$endregion}
-    property HotCell: Integer read fHotCell;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property HotCell : Integer Read fHotCell;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the last mouse hit test information.
     /// </summary>
-    {$endregion}
-    property HotInfo: TIntlCalHitTest read fHotInfo;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property HotInfo : TIntlCalHitTest Read fHotInfo;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets index of the cell in the calendar's grid that is being dragged.
     /// </summary>
-    {$endregion}
-    property DraggingCell: Integer read fDraggingCell;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DraggingCell : Integer Read fDraggingCell;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets whether the current cell dragging changes the current page.
     /// </summary>
-    {$endregion}
-    property DraggingOffPage: Boolean read fDraggingOffPage;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DraggingOffPage : Boolean Read fDraggingOffPage;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the identifier of the current automatic navigation timer.
     /// </summary>
-    {$endregion}
-    property NavigationTimer: Integer read fNavigationTimer;
-  protected
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property NavigationTimer : Integer Read fNavigationTimer;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the current focused date.
     /// </summary>
@@ -2869,32 +2871,32 @@ type
     /// Occurs when the assigned date is not in the supported range of the calendar.
     /// </exception>
     /// <seealso cref="IsDateInRange"/>
-    {$endregion}
-    property Date: TDate read fDate write SetDate stored IsDateStored;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Date : TDate Read fDate Write SetDate Stored IsDateStored;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the smallest date that is allowed for the calendar.
     /// </summary>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="DateMax"/>
-    {$endregion}
-    property DateMin: TDate read fDateMin write SetDateMin stored IsDateMinStored;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateMin : TDate Read fDateMin Write SetDateMin Stored IsDateMinStored;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the largest date that is allowed for the calendar.
     /// </summary>
     /// <seealso cref="ActualDateMax"/>
     /// <seealso cref="DateMin"/>
-    {$endregion}
-    property DateMax: TDate read fDateMax write SetDateMax stored IsDateMaxStored;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateMax : TDate Read fDateMax Write SetDateMax Stored IsDateMaxStored;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.
     /// </summary>
     /// <seealso cref="Culture"/>
-    {$endregion}
-    property CalendarType: TCalendarClass read fCalendarType write SetCalendarType;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CalendarType : TCalendarClass Read fCalendarType Write SetCalendarType;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCultureInfo"/> object that provides the locale specific
     /// settings of the calendar.
@@ -2909,9 +2911,9 @@ type
     /// <seealso cref="CultureDigits"/>
     /// <seealso cref="CalendarType"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property Culture: TCultureInfo read fCulture write SetCulture;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Culture : TCultureInfo Read fCulture Write SetCulture;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the calendar system used by the control should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.
@@ -2921,198 +2923,198 @@ type
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property CultureCalendar: TLocalizerSwicth read fCultureCalendar write SetCultureCalendar default lsDefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CultureCalendar : TLocalizerSwicth Read fCultureCalendar Write SetCultureCalendar Default lsDefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the way the control renders digits should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.</summary>
     /// <seealso cref="UsingCultureDigits"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property CultureDigits: TLocalizerSwicth read fCultureDigits write SetCultureDigits default lsDefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CultureDigits : TLocalizerSwicth Read fCultureDigits Write SetCultureDigits Default lsDefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the ways thet a user can select dates of the calendar.
     /// </summary>
-    {$endregion}
-    property SelectionStyle: TIntlCalSelectionStyle read fSelectionStyle write SetSelectionStyle default ssSingle;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property SelectionStyle : TIntlCalSelectionStyle Read fSelectionStyle Write SetSelectionStyle Default ssSingle;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether week numbers are shown on the calendar.
     /// </summary>
-    {$endregion}
-    property WeekNumbers: Boolean read fWeekNumbers write SetWeekNumbers default False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property WeekNumbers : Boolean Read fWeekNumbers Write SetWeekNumbers Default False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the calendar's header is shown.
     /// </summary>
-    {$endregion}
-    property ShowHeader: Boolean read fShowHeader write SetShowHeader default True;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHeader : Boolean Read fShowHeader Write SetShowHeader Default True;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the calendar's footer is shown.
     /// </summary>
-    {$endregion}
-    property ShowFooter: Boolean read fShowFooter write SetShowFooter default True;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowFooter : Boolean Read fShowFooter Write SetShowFooter Default True;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the font to use when writing text on the calendar's header.
     /// </summary>
-    {$endregion}
-    property FontHeader: TFont read fFontHeader write SetFontHeader stored fSaveFontHeader;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FontHeader : TFont Read fFontHeader Write SetFontHeader Stored fSaveFontHeader;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the font to use when writing text on the calendar's footer.
     /// </summary>
-    {$endregion}
-    property FontFooter: TFont read fFontFooter write SetFontFooter stored fSaveFontFooter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FontFooter : TFont Read fFontFooter Write SetFontFooter Stored fSaveFontFooter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the font to use when writing name of days on the calendar.
     /// </summary>
-    {$endregion}
-    property FontDayOfWeek: TFont read fFontDayOfWeek write SetFontDayOfWeek stored fSaveFontDayOfWeek;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FontDayOfWeek : TFont Read fFontDayOfWeek Write SetFontDayOfWeek Stored fSaveFontDayOfWeek;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the font to use when writing week numbers on the calendar.
     /// </summary>
-    {$endregion}
-    property FontWeekNumbers: TFont read fFontWeekNumbers write SetFontWeekNumbers stored fSaveFontWeekNumbers;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FontWeekNumbers : TFont Read fFontWeekNumbers Write SetFontWeekNumbers Stored fSaveFontWeekNumbers;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which date's component can be selected by the user right now.
     /// </summary>
-    {$endregion}
-    property CurrentView: TIntlCalViewMode read fCurrentView write SetCurrentView;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CurrentView : TIntlCalViewMode Read fCurrentView Write SetCurrentView;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
     /// </summary>
     /// <seealso cref="Culture"/>
-    {$endregion}
-    property Localizer: TLocalizer read fLocalizer write SetLocalizer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Localizer : TLocalizer Read fLocalizer Write SetLocalizer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the color of divider line between calendar's grid and the other parts.
     /// </summary>
-    {$endregion}
-    property ColorDivider: TColor read fColorDivider write SetColorDivider default clBtnFace;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ColorDivider : TColor Read fColorDivider Write SetColorDivider Default clBtnFace;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the color of marker that distinguishes the today's date.
     /// </summary>
-    {$endregion}
-    property ColorToday: TColor read fColorToday write SetColorToday default clRed;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ColorToday : TColor Read fColorToday Write SetColorToday Default clRed;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control changes the pages with an animation.
     /// </summary>
-    {$endregion}
-    property Animate: Boolean read fAnimate write fAnimate default True;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Animate : Boolean Read fAnimate Write fAnimate Default True;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the <see cref="Date"/> property changes.
     /// </summary>
-    {$endregion}
-    property OnDateChange: TNotifyEvent read fOnDateChange write fOnDateChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDateChange : TNotifyEvent Read fOnDateChange Write fOnDateChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the control's page changes.
     /// </summary>
-    {$endregion}
-    property OnPageChange: TNotifyEvent read fOnPageChange write fOnPageChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnPageChange : TNotifyEvent Read fOnPageChange Write fOnPageChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the <see cref="Calendar"/> property changes.
     /// </summary>
-    {$endregion}
-    property OnCalendarChange: TNotifyEvent read fOnCalendarChange write fOnCalendarChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCalendarChange : TNotifyEvent Read fOnCalendarChange Write fOnCalendarChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the <see cref="Selection"/> property changes.
     /// </summary>
-    {$endregion}
-    property OnSelectionChange: TNotifyEvent read fOnSelectionChange write fOnSelectionChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnSelectionChange : TNotifyEvent Read fOnSelectionChange Write fOnSelectionChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse pauses over a day of a month.
     /// </summary>
-    {$endregion}
-    property OnDateHint: TDateHintEvent read fOnDateHint write fOnDateHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDateHint : TDateHintEvent Read fOnDateHint Write fOnDateHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a day of a month is about to be selected.
     /// NOTE: This event occurs only with a <see cref="SelectionStyle"/> of ssFree.
     /// </summary>
-    {$endregion}
-    property OnDateSelectable: TDateSelectableEvent read fOnDateSelectable write fOnDateSelectable;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDateSelectable : TDateSelectableEvent Read fOnDateSelectable Write fOnDateSelectable;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when name of a day of the week needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawDayOfWeek: TCustomDrawDayOfWeekEvent read fOnCustomDrawDayOfWeek write fOnCustomDrawDayOfWeek;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawDayOfWeek : TCustomDrawDayOfWeekEvent Read fOnCustomDrawDayOfWeek Write fOnCustomDrawDayOfWeek;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a week number needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawWeekNumber: TCustomDrawWeekNumberEvent read fOnCustomDrawWeekNumber write fOnCustomDrawWeekNumber;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawWeekNumber : TCustomDrawWeekNumberEvent Read fOnCustomDrawWeekNumber Write fOnCustomDrawWeekNumber;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a day of a month needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawDay: TCustomDrawDayEvent read fOnCustomDrawDay write fOnCustomDrawDay;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawDay : TCustomDrawDayEvent Read fOnCustomDrawDay Write fOnCustomDrawDay;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when name of a month needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawMonth: TCustomDrawMonthEvent read fOnCustomDrawMonth write fOnCustomDrawMonth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawMonth : TCustomDrawMonthEvent Read fOnCustomDrawMonth Write fOnCustomDrawMonth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a year needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawYear: TCustomDrawYearEvent read fOnCustomDrawYear write fOnCustomDrawYear;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawYear : TCustomDrawYearEvent Read fOnCustomDrawYear Write fOnCustomDrawYear;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when text of calendar's header needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawHeaderText: TCustomDrawTextEvent read fOnCustomDrawHeaderText write fOnCustomDrawHeaderText;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawHeaderText : TCustomDrawTextEvent Read fOnCustomDrawHeaderText Write fOnCustomDrawHeaderText;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when text of calendar's footer needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawFooterText: TCustomDrawTextEvent read fOnCustomDrawFooterText write fOnCustomDrawFooterText;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawFooterText : TCustomDrawTextEvent Read fOnCustomDrawFooterText Write fOnCustomDrawFooterText;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the control and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reevaluates the calendar and repaints it.
     /// </summary>
-    {$endregion}
-    procedure UpdateCalendar; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure UpdateCalendar; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Deselects all selected dates in the control, if possible.
     /// </summary>
@@ -3123,9 +3125,9 @@ type
     /// <seealso cref="SelectionCount"/>
     /// <seealso cref="Selection"/>
     /// <seealso cref="SelectionStyle"/>
-    {$endregion}
-    procedure ClearSelection; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure ClearSelection; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Selects a specified date as if clicked with the mouse. Conditional upon
     /// the value of <see cref="SelectionStyle"/> property, one date or multiple
@@ -3145,9 +3147,9 @@ type
     /// <seealso cref="SelectionCount"/>
     /// <seealso cref="Selection"/>
     /// <seealso cref="SelectionStyle"/>
-    {$endregion}
-    procedure Select(const ADate: TDate; ShiftState: TShiftState = []); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Select(Const ADate : TDate; ShiftState : TShiftState = []); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a soecified date is selected.
     /// </summary>
@@ -3165,9 +3167,9 @@ type
     /// <seealso cref="SelectionCount"/>
     /// <seealso cref="Selection"/>
     /// <seealso cref="SelectionStyle"/>
-    {$endregion}
-    function IsSelected(const ADate: TDate): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsSelected(Const ADate : TDate) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of <see cref="Culture"/> property is controlled
     /// by a <see cref="TLocalizer"/> component.
@@ -3176,9 +3178,9 @@ type
     /// Rteurns <see langword="true"/> if <see cref="Localizer"/> property is not
     /// <see langword="nil"/>, otherwise returns <see langword="false"/>.</returns>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    function IsManagedByLocalizer: Boolean; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsManagedByLocalizer : Boolean; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified year of a specified era is in the supported
     /// and allowed range of the control.
@@ -3199,9 +3201,9 @@ type
     /// <seealso cref="DateMax"/>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="ActualDateMax"/>
-    {$endregion}
-    function IsYearInRange(AEra, AYear: Integer): Boolean; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsYearInRange(AEra, AYear : Integer) : Boolean; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified year is in the supported and allowed range of
     /// the control.
@@ -3219,9 +3221,9 @@ type
     /// <seealso cref="DateMax"/>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="ActualDateMax"/>
-    {$endregion}
-    function IsYearInRange(AYear: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsYearInRange(AYear : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified month of a specified year in a specified era
     /// is in the supported and allowed range of the control.
@@ -3245,9 +3247,9 @@ type
     /// <seealso cref="DateMax"/>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="ActualDateMax"/>
-    {$endregion}
-    function IsMonthInRange(AEra, AYear, AMonth: Integer): Boolean; overload;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsMonthInRange(AEra, AYear, AMonth : Integer) : Boolean; Overload;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified month of a specified year is in the supported
     /// and allowed range of the control.
@@ -3268,9 +3270,9 @@ type
     /// <seealso cref="DateMax"/>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="ActualDateMax"/>
-    {$endregion}
-    function IsMonthInRange(AYear, AMonth: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsMonthInRange(AYear, AMonth : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified date is in the supported and allowed range
     /// of the control.
@@ -3288,9 +3290,9 @@ type
     /// <seealso cref="DateMax"/>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="ActualDateMax"/>
-    {$endregion}
-    function IsDateInRange(const ADate: TDate): Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsDateInRange(Const ADate : TDate) : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Confines a specified date to be in the supported and allowed range
     /// of the control.
@@ -3306,9 +3308,9 @@ type
     /// </returns>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="ActualDateMax"/>
-    {$endregion}
-    function EnsureDateInRange(const ADate: TDate): TDate; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function EnsureDateInRange(Const ADate : TDate) : TDate; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Formats a <see cref="TDateTime"/> value.
     /// </summary>
@@ -3330,82 +3332,82 @@ type
     /// The formatted <see cref="TDateTime"/> value as a string.
     /// </returns>
     /// <seealso cref="TCalendar.Format"/>
-    {$endregion}
-    function Format(const FmtStr: String; const ADate: TDateTime): String;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Format(Const FmtStr : String; Const ADate : TDateTime) : String;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TCalendar"/> object that the control is using to
     /// manipulate and display dates.
     /// </summary>
-    {$endregion}
-    property Calendar: TCalendar read fCalendar;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Calendar : TCalendar Read fCalendar;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the era represented by the <see cref="Date"/> property.
     /// </summary>
-    {$endregion}
-    property Era: Integer read fEra;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Era : Integer Read fEra;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the year represented by the <see cref="Date"/> property.
     /// </summary>
-    {$endregion}
-    property Year: Integer read fYear;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Year : Integer Read fYear;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the month represented by the <see cref="Date"/> property.
     /// </summary>
-    {$endregion}
-    property Month: Integer read fMonth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Month : Integer Read fMonth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the day of the month represented by the <see cref="Date"/> property.
     /// </summary>
-    {$endregion}
-    property Day: Integer read fDay;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Day : Integer Read fDay;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the number of days in the month represented by the <see cref="Date"/>
     /// property.
     /// </summary>
-    {$endregion}
-    property DaysInMonth: Integer read fDaysInMonth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DaysInMonth : Integer Read fDaysInMonth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TDate"/> value for the first day of the the month
     /// represented by the <see cref="Date"/> property.
     /// </summary>
-    {$endregion}
-    property MonthFirstDate: TDate read fMonthFirstDate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property MonthFirstDate : TDate Read fMonthFirstDate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TDate"/> value for the last day of the the month
     /// represented by the <see cref="Date"/> property.
     /// </summary>
-    {$endregion}
-    property MonthLastDate: TDate read GetMonthLastDate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property MonthLastDate : TDate Read GetMonthLastDate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the first day of the week for the the month represented by the
     /// <see cref="Date"/> property.
     /// </summary>
-    {$endregion}
-    property MonthFirstDayOfWeek: TDayOfWeek read fMonthFirstDayOfWeek;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property MonthFirstDayOfWeek : TDayOfWeek Read fMonthFirstDayOfWeek;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the number of months in the year represented by the <see cref="Date"/>
     /// property.
     /// </summary>
-    {$endregion}
-    property MonthsInYear: Integer read fMonthsInYear;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property MonthsInYear : Integer Read fMonthsInYear;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the number of years in the year represented by the <see cref="Date"/>
     /// property.
     /// </summary>
-    {$endregion}
-    property DaysInYear: Integer read fDaysInYear;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DaysInYear : Integer Read fDaysInYear;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the smallest date that is supported by the <see cref="Calendar"/> and
     /// is allowed by the control.
@@ -3413,9 +3415,9 @@ type
     /// <seealso cref="DateMin"/>
     /// <seealso cref="TCalendar.MinSupportedDateTime"/>
     /// <seealso cref="ActualDateMax"/>
-    {$endregion}
-    property ActualDateMin: TDate read fActualDateMin;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ActualDateMin : TDate Read fActualDateMin;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the largest date that is supported by the <see cref="Calendar"/> and
     /// is allowed by the control.
@@ -3423,9 +3425,9 @@ type
     /// <seealso cref="DateMax"/>
     /// <seealso cref="TCalendar.MaxSupportedDateTime"/>
     /// <seealso cref="ActualDateMin"/>
-    {$endregion}
-    property ActualDateMax: TDate read fActualDateMax;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ActualDateMax : TDate Read fActualDateMax;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the smallest selected date.
     /// </summary>
@@ -3433,9 +3435,9 @@ type
     /// <seealso cref="SelectionCount"/>
     /// <seealso cref="Selection"/>
     /// <seealso cref="SelectionStyle"/>
-    {$endregion}
-    property SelectionStart: TDate read GetSelectionStart;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property SelectionStart : TDate Read GetSelectionStart;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the largest selected date.
     /// </summary>
@@ -3443,9 +3445,9 @@ type
     /// <seealso cref="SelectionCount"/>
     /// <seealso cref="Selection"/>
     /// <seealso cref="SelectionStyle"/>
-    {$endregion}
-    property SelectionEnd: TDate read GetSelectionEnd;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property SelectionEnd : TDate Read GetSelectionEnd;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the number of selected dates.
     /// </summary>
@@ -3453,9 +3455,9 @@ type
     /// <seealso cref="SelectionEnd"/>
     /// <seealso cref="Selection"/>
     /// <seealso cref="SelectionStyle"/>
-    {$endregion}
-    property SelectionCount: Integer read GetSelectionCount;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property SelectionCount : Integer Read GetSelectionCount;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Lists the selected dates.
     /// </summary>
@@ -3463,164 +3465,165 @@ type
     /// <seealso cref="SelectionStart"/>
     /// <seealso cref="SelectionEnd"/>
     /// <seealso cref="SelectionStyle"/>
-    {$endregion}
-    property Selection[Index: Integer]: TDate read GetSelection;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Selection[Index : Integer] : TDate Read GetSelection;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets whether the calendar system used by the control is determined by the
     /// <see cref="Culture"/> property.
     /// </summary>
     /// <seealso cref="CultureCalendar"/>
     /// <seealso cref="Culture"/>
-    {$endregion}
-    property UsingCultureCalendar: Boolean read GetUsingCultureCalendar;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property UsingCultureCalendar : Boolean Read GetUsingCultureCalendar;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets whether the way that the control renders digits is determined by the
     /// <see cref="Culture"/> property.
     /// </summary>
     /// <seealso cref="CultureDigits"/>
     /// <seealso cref="Culture"/>
-    {$endregion}
-    property UsingCultureDigits: Boolean read GetUsingCultureDigits;
-  end;
+    {$Endregion}
+    Property UsingCultureDigits : Boolean Read GetUsingCultureDigits;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TIntlMonthCalendar is a month calendar control that displays a fully localizable
-  /// calendar on a form.
-  /// </summary>
-  /// <remarks>
-  /// Use TIntlMonthCalendar to enable users to select dates from a localized calendar.
-  ///
-  /// TIntlMonthCalendar can use different calendar systems for manipulating and displaying
-  /// the dates. The <see cref="CalendarType"/> property is the main property that specifies
-  /// which calendar system should be used by the cotnrol. If the <see cref="CalendarType"/>
-  /// property is not set, the <see cref="Culture"/> property can do this task. In addition,
-  /// the <see cref="Culture"/> property provides the locale specific settings of the control.
-  /// If none of these two properties are set, the <see cref="DefaultCalendar"/> global
-  /// variable determines the calendar system used by the control.
-  ///
-  /// TIntlMonthCalendar can be linked to a <see cref="TLocalizer"/> component. In this case,
-  /// the linked <see cref="TLocalizer"/> component can provide both the locale specific
-  /// settings and the calendar system of the calendar control.
-  ///
-  /// TIntlMonthCalendar publishes many of the properties, events, and methods of
-  /// <see cref="TCustomIntlMonthCalendar"/>, but does not introduce any new behavior.
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TIntlMonthCalendar is a month calendar control that displays a fully localizable
+/// calendar on a form.
+/// </summary>
+/// <remarks>
+/// Use TIntlMonthCalendar to enable users to select dates from a localized calendar.
+///
+/// TIntlMonthCalendar can use different calendar systems for manipulating and displaying
+/// the dates. The <see cref="CalendarType"/> property is the main property that specifies
+/// which calendar system should be used by the cotnrol. If the <see cref="CalendarType"/>
+/// property is not set, the <see cref="Culture"/> property can do this task. In addition,
+/// the <see cref="Culture"/> property provides the locale specific settings of the control.
+/// If none of these two properties are set, the <see cref="DefaultCalendar"/> global
+/// variable determines the calendar system used by the control.
+///
+/// TIntlMonthCalendar can be linked to a <see cref="TLocalizer"/> component. In this case,
+/// the linked <see cref="TLocalizer"/> component can provide both the locale specific
+/// settings and the calendar system of the calendar control.
+///
+/// TIntlMonthCalendar publishes many of the properties, events, and methods of
+/// <see cref="TCustomIntlMonthCalendar"/>, but does not introduce any new behavior.
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TIntlMonthCalendar = class(TCustomIntlMonthCalendar)
-  public
-    {$region 'xmldoc'}
+  TIntlMonthCalendar = Class(TCustomIntlMonthCalendar)
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which date's component can be selected by the user right now.
     /// </summary>
-    {$endregion}
-    property CurrentView;
-  published
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CurrentView;
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control aligns within its container (parent control).
     /// </summary>
-    {$endregion}
-    property Align;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Align;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
     /// </summary>
-    {$endregion}
-    property AlignWithMargins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AlignWithMargins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control is anchored to its parent.
     /// </summary>
-    {$endregion}
-    property Anchors;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Anchors;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control changes the pages with an animation.
     /// </summary>
-    {$endregion}
-    property Animate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Animate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control sizes itself automatically to accommodate
     /// its contents.
     /// </summary>
-    {$endregion}
-    property AutoSize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoSize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which edges of the control are beveled.
     /// </summary>
-    {$endregion}
-    property BevelEdges;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelEdges;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the inner bevel.
     /// </summary>
-    {$endregion}
-    property BevelInner;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelInner;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the control's bevel style.
     /// </summary>
-    {$endregion}
-    property BevelKind default bkTile;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelKind Default bkTile;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the outer bevel.
     /// </summary>
-    {$endregion}
-    property BevelOuter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelOuter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the width of the control's border.
     /// </summary>
-    {$endregion}
-    property BorderWidth default 2;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderWidth Default 2;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.
     /// </summary>
     /// <seealso cref="Culture"/>
-    {$endregion}
-    property CalendarType;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CalendarType;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color default clWindow;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Default clWindow;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the color of divider line between calendar's grid and the other parts.
     /// </summary>
-    {$endregion}
-    property ColorDivider;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ColorDivider;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the color of marker that distinguishes the today's date.
     /// </summary>
-    {$endregion}
-    property ColorToday;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ColorToday;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size constraints for the control.
     /// </summary>
-    {$endregion}
-    property Constraints;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Constraints;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control has a three-dimensional look.
     /// </summary>
-    {$endregion}
-    property Ctl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Ctl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCultureInfo"/> object that provides the locale specific
     /// settings of the calendar.
@@ -3635,9 +3638,9 @@ type
     /// <seealso cref="CultureDigits"/>
     /// <seealso cref="CalendarType"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property Culture;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Culture;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the calendar system used by the control should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.
@@ -3647,18 +3650,18 @@ type
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property CultureCalendar;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CultureCalendar;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the way the control renders digits should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.</summary>
     /// <seealso cref="UsingCultureDigits"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property CultureDigits;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CultureDigits;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the current focused date.
     /// </summary>
@@ -3666,507 +3669,509 @@ type
     /// Occurs when the assigned date is not in the supported range of the calendar.
     /// </exception>
     /// <seealso cref="IsDateInRange"/>
-    {$endregion}
-    property Date;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Date;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the smallest date that is allowed for the calendar.
     /// </summary>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="DateMax"/>
-    {$endregion}
-    property DateMin;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateMin;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the largest date that is allowed for the calendar.
     /// </summary>
     /// <seealso cref="ActualDateMax"/>
     /// <seealso cref="DateMin"/>
-    {$endregion}
-    property DateMax;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateMax;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
     /// painted to an in-memory bitmap first.
     /// </summary>
-    {$endregion}
-    property DoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
     /// into the region covered by the control.
     /// </summary>
-    {$endregion}
-    property DragCursor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragCursor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control is being dragged normally or for docking.
     /// </summary>
-    {$endregion}
-    property DragKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
     /// </summary>
-    {$endregion}
-    property DragMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the font to use when writing text on the calendar's header.
     /// </summary>
-    {$endregion}
-    property FontHeader;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FontHeader;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the font to use when writing text on the calendar's footer.
     /// </summary>
-    {$endregion}
-    property FontFooter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FontFooter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the font to use when writing name of days on the calendar.
     /// </summary>
-    {$endregion}
-    property FontDayOfWeek;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FontDayOfWeek;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the font to use when writing week numbers on the calendar.
     /// </summary>
-    {$endregion}
-    property FontWeekNumbers;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FontWeekNumbers;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the behavior of the input method editor (IME).
     /// </summary>
-    {$endregion}
-    property ImeMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the input method editor (IME) to use for converting keyboard input.
     /// </summary>
-    {$endregion}
-    property ImeName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the
     /// control.
     /// </summary>
-    {$endregion}
-    property Localizer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Localizer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the margins of the control.
     /// </summary>
-    {$endregion}
-    property Margins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Margins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
     /// </summary>
-    {$endregion}
-    property ParentColor default False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentColor Default False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
     /// </summary>
-    {$endregion}
-    property ParentCtl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentCtl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
     /// </summary>
-    {$endregion}
-    property ParentDoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentDoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the pop-up menu associated with the control.
     /// </summary>
-    {$endregion}
-    property PopupMenu;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PopupMenu;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the ways thet a user can select dates of the calendar.
     /// </summary>
-    {$endregion}
-    property SelectionStyle;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property SelectionStyle;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the calendar's header is shown.
     /// </summary>
-    {$endregion}
-    property ShowHeader;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHeader;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the calendar's footer is shown.
     /// </summary>
-    {$endregion}
-    property ShowFooter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowFooter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the position of the control in its parent's tab order.
     /// </summary>
-    {$endregion}
-    property TabOrder;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabOrder;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can tab to a control.
     /// </summary>
-    {$endregion}
-    property TabStop default True;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabStop Default True;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the touch manager component associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property Touch;
+    Property Touch;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether week numbers are shown on the calendar.
     /// </summary>
-    {$endregion}
-    property WeekNumbers;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property WeekNumbers;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the <see cref="Calendar"/> property changes.
     /// </summary>
-    {$endregion}
-    property OnCalendarChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCalendarChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user clicks the control.
     /// </summary>
-    {$endregion}
-    property OnClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
     /// menu (such as using the keyboard).
     /// </summary>
-    {$endregion}
-    property OnContextPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnContextPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when text of calendar's header needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawHeaderText;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawHeaderText;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a day of a month needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawDay;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawDay;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when name of a month needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawMonth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawMonth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a year needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawYear;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawYear;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when name of a day of the week needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawDayOfWeek;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawDayOfWeek;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a week number needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawWeekNumber;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawWeekNumber;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when text of calendar's footer needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawFooterText;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawFooterText;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the <see cref="Date"/> property changes.
     /// </summary>
-    {$endregion}
-    property OnDateChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDateChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a day of a month is about to be selected.
     /// NOTE: This event occurs only with a <see cref="SelectionStyle"/> of ssFree.
     /// </summary>
-    {$endregion}
-    property OnDateSelectable;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDateSelectable;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse pauses over a day of a month.
     /// </summary>
-    {$endregion}
-    property OnDateHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDateHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
     /// is over the control.
     /// </summary>
-    {$endregion}
-    property OnDblClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDblClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drops an object being dragged on the control.
     /// </summary>
-    {$endregion}
-    property OnDragDrop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragDrop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drags an object over the control.
     /// </summary>
-    {$endregion}
-    property OnDragOver;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragOver;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDrag;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDrag;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a control receives the input focus.
     /// </summary>
-    {$endregion}
-    property OnEnter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEnter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the input focus shifts away from one control to another.
     /// </summary>
-    {$endregion}
-    property OnExit;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnExit;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when user performs a gesture associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnGesture;
+    Property OnGesture;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a user presses any key while the control has focus.
     /// </summary>
-    {$endregion}
-    property OnKeyDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when key pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyPress;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyPress;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a key that has been pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control and the parent form is not active.
     /// </summary>
-    {$endregion}
-    property OnMouseActivate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseActivate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control.
     /// </summary>
-    {$endregion}
-    property OnMouseDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
     /// the control.
     /// </summary>
-    {$endregion}
-    property OnMouseMove;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseMove;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
     /// pointer over the control.
     /// </summary>
-    {$endregion}
-    property OnMouseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse into the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseEnter;
+    Property OnMouseEnter;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse outside of the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseLeave;
+    Property OnMouseLeave;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated.
     /// </summary>
-    {$endregion}
-    property OnMouseWheel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated downward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated upward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the control's page changes.
     /// </summary>
-    {$endregion}
-    property OnPageChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnPageChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the control is resized.
     /// </summary>
-    {$endregion}
-    property OnResize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnResize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the <see cref="Selection"/> property changes.
     /// </summary>
-    {$endregion}
-    property OnSelectionChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnSelectionChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDock"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnStartDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDrag"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDrag;
-  end;
+    {$Endregion}
+    Property OnStartDrag;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TPopupCloseUpEvent is the type for event handlers that respond when a popup
-  /// window closes.
-  /// </summary>
-  /// <param name="Sender">
-  /// The pop-up window that generated the event.
-  /// </param>
-  /// <param name="Accept">
-  /// Indicates whether the user accepted the pop-up window or canceled it.
-  /// </param>
-  {$endregion}
-  TPopupCloseUpEvent = procedure(Sender: TObject; Accept: Boolean) of object;
+{$Region 'xmldoc'}
+/// <summary>
+/// TPopupCloseUpEvent is the type for event handlers that respond when a popup
+/// window closes.
+/// </summary>
+/// <param name="Sender">
+/// The pop-up window that generated the event.
+/// </param>
+/// <param name="Accept">
+/// Indicates whether the user accepted the pop-up window or canceled it.
+/// </param>
+{$Endregion}
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TIntlMonthCalendarPopup is a pop-up window for controls that needs the user
-  /// select a localized date.
-  /// </summary>
-  /// <remarks>
-  /// Use TIntlMonthCalendarPopup in your own control to enable users to select a
-  /// localized date from a pop-up window.
-  ///
-  /// TIntlMonthCalendarPopup can use different calendar systems for manipulating and
-  /// displaying the dates. The <see cref="CalendarType"/> property is the main property
-  /// that specifies which calendar system should be used by the cotnrol. If the
-  /// <see cref="CalendarType"/> property is not set, the <see cref="Culture"/> property
-  /// can do this task. In addition, the <see cref="Culture"/> property provides the
-  /// locale specific settings of the control. If none of these two properties are set,
-  /// the <see cref="DefaultCalendar"/> global variable determines the calendar system
-  /// used by the control.
-  /// </remarks>
-  {$endregion}
-  TIntlMonthCalendarPopup = class(TCustomIntlMonthCalendar)
-  private
-    fOnCloseUp: TPopupCloseUpEvent;
-    procedure WMMouseActivate(var Message: TMessage); message WM_MOUSEACTIVATE;
-    procedure CMVisibleChanged(var Message: TMessage); message CM_VISIBLECHANGED;
-  protected
-    {$region 'xmldoc'}
+  TPopupCloseUpEvent = Procedure(Sender : TObject; Accept : Boolean) Of Object;
+
+{$Region 'xmldoc'}
+/// <summary>
+/// TIntlMonthCalendarPopup is a pop-up window for controls that needs the user
+/// select a localized date.
+/// </summary>
+/// <remarks>
+/// Use TIntlMonthCalendarPopup in your own control to enable users to select a
+/// localized date from a pop-up window.
+///
+/// TIntlMonthCalendarPopup can use different calendar systems for manipulating and
+/// displaying the dates. The <see cref="CalendarType"/> property is the main property
+/// that specifies which calendar system should be used by the cotnrol. If the
+/// <see cref="CalendarType"/> property is not set, the <see cref="Culture"/> property
+/// can do this task. In addition, the <see cref="Culture"/> property provides the
+/// locale specific settings of the control. If none of these two properties are set,
+/// the <see cref="DefaultCalendar"/> global variable determines the calendar system
+/// used by the control.
+/// </remarks>
+{$Endregion}
+
+  TIntlMonthCalendarPopup = Class(TCustomIntlMonthCalendar)
+   Private
+    fOnCloseUp : TPopupCloseUpEvent;
+    Procedure WMMouseActivate(Var Message : TMessage); Message WM_MOUSEACTIVATE;
+    Procedure CMVisibleChanged(Var Message : TMessage); Message CM_VISIBLECHANGED;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Initializes the window-creation parameter record.
     /// </summary>
     /// <param name="Params">
     /// The window-creation parameter record.
     /// </param>
-    {$endregion}
-    procedure CreateParams(var Params: TCreateParams); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure CreateParams(Var Params : TCreateParams); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds when the user releases a previously pressed mouse button down while the
     /// cursor's hotspot is over the popup.
@@ -4183,9 +4188,9 @@ type
     /// <param name="Y">
     /// The vertical pixel coordinate of the mouse pointer within the client area of the popup.
     /// </param>
-    {$endregion}
-    procedure MouseUp(Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure MouseUp(Button : TMouseButton; Shift : TShiftState; x, y : Integer); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds when the user presses a key.
     /// </summary>
@@ -4195,34 +4200,34 @@ type
     /// <param name="Shift">
     /// Indicates the concurrent state of the Ctrl, Shift, and Alt keys.
     /// </param>
-    {$endregion}
-    procedure KeyDown(var Key: Word; Shift: TShiftState); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure KeyDown(Var Key : Word; Shift : TShiftState); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnCloseUp"/> event.
     /// </summary>
     /// <param name="Accept">
     /// Indicates whether the currently selected date is acceptable.
     /// </param>
-    {$endregion}
-    procedure DoCloseUp(Accept: Boolean); virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DoCloseUp(Accept : Boolean); Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the pop-up hides.
     /// </summary>
-    {$endregion}
-    property OnCloseUp: TPopupCloseUpEvent read fOnCloseUp write fOnCloseUp;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCloseUp : TPopupCloseUpEvent Read fOnCloseUp Write fOnCloseUp;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the popup.
     /// </summary>
     /// <param name="AParent">
     /// The windowed control that owns the popup.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TWinControl); reintroduce;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TWinControl); Reintroduce;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the pop-up has input focus.
     /// </summary>
@@ -4230,9 +4235,9 @@ type
     /// Returns <see langword="true"/> if the popup's owner has input focus, otherwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function Focused: Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function Focused : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Displays the pop-up at a specified coordinates.
     /// </summary>
@@ -4242,288 +4247,290 @@ type
     /// <param name="Y">
     /// The vertical screen coordinate, in pixels.
     /// </param>
-    {$endregion}
-    procedure Show(X, Y: Integer);
-  published
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Show(x, y : Integer);
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the horizontal coordinate of the left edge of the pop-up relative to screen.
     /// </summary>
-    {$endregion}
-    property Left stored False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Left Stored False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the vertical coordinate of the top edge of the pop-up relative to screen.
     /// </summary>
-    {$endregion}
-    property Top stored False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Top Stored False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the horizontal size of the pop-up in pixels.
     /// </summary>
-    {$endregion}
-    property Width stored False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Width Stored False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the vertical size of the pop-up in pixels.
     /// </summary>
-    {$endregion}
-    property Height stored False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Height Stored False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control changes the pages with an animation.
     /// </summary>
-    {$endregion}
-    property Animate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Animate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color default clWindow;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Default clWindow;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the color of divider line between calendar's grid and the other parts.
     /// </summary>
-    {$endregion}
-    property ColorDivider;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ColorDivider;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the color of marker that distinguishes the today's date.
     /// </summary>
-    {$endregion}
-    property ColorToday;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ColorToday;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the font to use when writing text on the calendar's header.
     /// </summary>
-    {$endregion}
-    property FontHeader;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FontHeader;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the font to use when writing text on the calendar's footer.
     /// </summary>
-    {$endregion}
-    property FontFooter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FontFooter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the font to use when writing name of days on the calendar.
     /// </summary>
-    {$endregion}
-    property FontDayOfWeek;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FontDayOfWeek;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the font to use when writing week numbers on the calendar.
     /// </summary>
-    {$endregion}
-    property FontWeekNumbers;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property FontWeekNumbers;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the calendar's header is shown.
     /// </summary>
-    {$endregion}
-    property ShowHeader;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHeader;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the calendar's footer is shown.
     /// </summary>
-    {$endregion}
-    property ShowFooter default True;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowFooter Default True;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether week numbers are shown on the calendar.
     /// </summary>
-    {$endregion}
-    property WeekNumbers;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property WeekNumbers;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when text of calendar's header needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawHeaderText;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawHeaderText;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a day of a month needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawDay;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawDay;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when name of a month needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawMonth;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawMonth;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a year needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawYear;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawYear;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when name of a day of the week needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawDayOfWeek;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawDayOfWeek;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a week number needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawWeekNumber;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawWeekNumber;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when text of calendar's footer needs to be displayed.
     /// </summary>
-    {$endregion}
-    property OnCustomDrawFooterText;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnCustomDrawFooterText;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse pauses over a day of a month.
     /// </summary>
-    {$endregion}
-    property OnDateHint;
-  end;
+    {$Endregion}
+    Property OnDateHint;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This enumeration type identifies the sections of a date picker control
-  /// that a mouse pointer can be over it.
-  /// </summary>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// This enumeration type identifies the sections of a date picker control
+/// that a mouse pointer can be over it.
+/// </summary>
+{$Endregion}
+
   TIntlPickerHitTest = (
-    {$region 'xmldoc'}
-    /// Nowhere
-    {$endregion}
-    phtNowhere,
-    {$region 'xmldoc'}
-    /// Drop-down button
-    {$endregion}
-    phtDropDown,
-    {$region 'xmldoc'}
-    /// Check box
-    {$endregion}
-    phtCheckBox,
-    {$region 'xmldoc'}
-    /// Displayed date
-    {$endregion}
-    phtDate,
-    {$region 'xmldoc'}
-    /// A non-specific part of the control
-    {$endregion}
-    phtControl
+  {$Region 'xmldoc'}
+  /// Nowhere
+  {$Endregion}
+  phtNowhere,
+  {$Region 'xmldoc'}
+  /// Drop-down button
+  {$Endregion}
+  phtDropDown,
+  {$Region 'xmldoc'}
+  /// Check box
+  {$Endregion}
+  phtCheckBox,
+  {$Region 'xmldoc'}
+  /// Displayed date
+  {$Endregion}
+  phtDate,
+  {$Region 'xmldoc'}
+  /// A non-specific part of the control
+  {$Endregion}
+  phtControl
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TCustomIntlDatePicker is the base class for controls that request a localized
-  /// date from the user.
-  /// </summary>
-  /// <remarks>
-  /// Use TCustomIntlDatePicker as a base class when defining objects that enable
-  /// users to input a localized date.
-  ///
-  /// TCustomIntlDatePicker can use different calendar systems for getting the input
-  /// date. The <see cref="CalendarType"/> property is the main property that specifies
-  /// which calendar system should be used by the cotnrol. If the <see cref="CalendarType"/>
-  /// property is not set, the <see cref="Culture"/> property can do this task. In addition,
-  /// the <see cref="Culture"/> property provides the locale specific settings of the control.
-  /// If none of these two properties are set, the <see cref="DefaultCalendar"/> global
-  /// variable determines the calendar system used by the control.
-  ///
-  /// TCustomIntlDatePicker can be linked to a <see cref="TLocalizer"/> component.
-  /// In this case, the linked <see cref="TLocalizer"/> component can provide both the
-  /// locale specific settings and the calendar system of the control.
-  /// </remarks>
-  {$endregion}
-  TCustomIntlDatePicker = class(TCustomControl)
-  private
-    fDate: TDate;
-    fDateFormat: String;
-    fChecked: Boolean;
-    fShowCheckBox: Boolean;
-    fBorderStyle: TBorderStyle;
-    fCalendarPopup: TIntlMonthCalendarPopup;
-    fCheckBoxRect: TRect;
-    fDropDownRect: TRect;
-    fDateRect: TRect;
-    fHotInfo: TIntlPickerHitTest;
-    fTheme: HTHEME;
-    fCheckPressed: Boolean;
-    fOnChange: TNotifyEvent;
-    procedure SetDate(const Value: TDate);
-    procedure SetDateFormat(const Value: String);
-    procedure SetChecked(Value: Boolean);
-    procedure SetShowCheckBox(Value: Boolean);
-    procedure SetBorderStyle(Value: TBorderStyle);
-    function GetDateMin: TDate; inline;
-    procedure SetDateMin(const Value: TDate); inline;
-    function GetDateMax: TDate; inline;
-    procedure SetDateMax(const Value: TDate); inline;
-    function GetCalendarType: TCalendarClass; inline;
-    procedure SetCalendarType(Value: TCalendarClass); inline;
-    function GetCulture: TCultureInfo; inline;
-    procedure SetCulture(Value: TCultureInfo); inline;
-    function GetCultureCalendar: TLocalizerSwicth; inline;
-    procedure SetCultureCalendar(Value: TLocalizerSwicth); inline;
-    function GetCultureDigits: TLocalizerSwicth; inline;
-    procedure SetCultureDigits(Value: TLocalizerSwicth); inline;
-    function GetLocalizer: TLocalizer; inline;
-    procedure SetLocalizer(Value: TLocalizer); inline;
-    function GetCalendar: TCalendar; inline;
-    function GetActualDateMin: TDate; inline;
-    function GetActualDateMax: TDate; inline;
-    function GetUsingCultureCalendar: Boolean; inline;
-    function GetUsingCultureDigits: Boolean; inline;
-    function GetTheme: HTHEME;
-    function IsDateStored: Boolean;
-    function IsDateMinStored: Boolean;
-    function IsDateMaxStored: Boolean;
-    procedure ReadCulture(Reader: TReader);
-    procedure WriteCulture(Writer: TWriter);
-    procedure ReadCalendarType(Reader: TReader);
-    procedure WriteCalendarType(Writer: TWriter);
-    procedure CalendarChanged(Sender: TObject);
-    procedure PopupCloseUp(Sender: TObject; Accept: Boolean);
-    procedure WMNCPaint(var Message: TWMNCPaint); message WM_NCPAINT;
-    procedure WMMouseActivate(var Message: TWMMouseActivate); message WM_MOUSEACTIVATE;
-    procedure WMSetFocus(var Message: TWMSetFocus); message WM_SETFOCUS;
-    procedure WMKillFocus(var Message: TWMKillFocus); message WM_KILLFOCUS;
-    procedure WMGetDlgCode(var Message: TWMGetDlgCode); message WM_GETDLGCODE;
-    procedure CMEnableChanged(var Message: TMessage); message CM_ENABLEDCHANGED;
-    procedure CMBiDiModeChanged(var Message: TMessage); message CM_BIDIMODECHANGED;
-    procedure CMBorderChanged(var Message: TMessage); message CM_BORDERCHANGED;
-    procedure CMCtl3DChanged(var Message: TMessage); message CM_CTL3DCHANGED;
-    procedure CMCancelMode(var Message: TCMCancelMode); message CM_CANCELMODE;
-    procedure CMMouseEnter(var Message: TMessage); message CM_MOUSEENTER;
-    procedure CMMouseLeave(var Message: TMessage); message CM_MOUSELEAVE;
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// TCustomIntlDatePicker is the base class for controls that request a localized
+/// date from the user.
+/// </summary>
+/// <remarks>
+/// Use TCustomIntlDatePicker as a base class when defining objects that enable
+/// users to input a localized date.
+///
+/// TCustomIntlDatePicker can use different calendar systems for getting the input
+/// date. The <see cref="CalendarType"/> property is the main property that specifies
+/// which calendar system should be used by the cotnrol. If the <see cref="CalendarType"/>
+/// property is not set, the <see cref="Culture"/> property can do this task. In addition,
+/// the <see cref="Culture"/> property provides the locale specific settings of the control.
+/// If none of these two properties are set, the <see cref="DefaultCalendar"/> global
+/// variable determines the calendar system used by the control.
+///
+/// TCustomIntlDatePicker can be linked to a <see cref="TLocalizer"/> component.
+/// In this case, the linked <see cref="TLocalizer"/> component can provide both the
+/// locale specific settings and the calendar system of the control.
+/// </remarks>
+{$Endregion}
+
+  TCustomIntlDatePicker = Class(TCustomControl)
+   Private
+    fDate          : TDate;
+    fDateFormat    : String;
+    fChecked       : Boolean;
+    fShowCheckBox  : Boolean;
+    fBorderStyle   : TBorderStyle;
+    fCalendarPopup : TIntlMonthCalendarPopup;
+    fCheckBoxRect  : TRect;
+    fDropDownRect  : TRect;
+    fDateRect      : TRect;
+    fHotInfo       : TIntlPickerHitTest;
+    fTheme         : HTHEME;
+    fCheckPressed  : Boolean;
+    fOnChange      : TNotifyEvent;
+    Procedure SetDate(Const Value : TDate);
+    Procedure SetDateFormat(Const Value : String);
+    Procedure SetChecked(Value : Boolean);
+    Procedure SetShowCheckBox(Value : Boolean);
+    Procedure SetBorderStyle(Value : TBorderStyle);
+    Function GetDateMin : TDate; Inline;
+    Procedure SetDateMin(Const Value : TDate); Inline;
+    Function GetDateMax : TDate; Inline;
+    Procedure SetDateMax(Const Value : TDate); Inline;
+    Function GetCalendarType : TCalendarClass; Inline;
+    Procedure SetCalendarType(Value : TCalendarClass); Inline;
+    Function GetCulture : TCultureInfo; Inline;
+    Procedure SetCulture(Value : TCultureInfo); Inline;
+    Function GetCultureCalendar : TLocalizerSwicth; Inline;
+    Procedure SetCultureCalendar(Value : TLocalizerSwicth); Inline;
+    Function GetCultureDigits : TLocalizerSwicth; Inline;
+    Procedure SetCultureDigits(Value : TLocalizerSwicth); Inline;
+    Function GetLocalizer : TLocalizer; Inline;
+    Procedure SetLocalizer(Value : TLocalizer); Inline;
+    Function GetCalendar : TCalendar; Inline;
+    Function GetActualDateMin : TDate; Inline;
+    Function GetActualDateMax : TDate; Inline;
+    Function GetUsingCultureCalendar : Boolean; Inline;
+    Function GetUsingCultureDigits : Boolean; Inline;
+    Function GetTheme : HTHEME;
+    Function IsDateStored : Boolean;
+    Function IsDateMinStored : Boolean;
+    Function IsDateMaxStored : Boolean;
+    Procedure ReadCulture(Reader : TReader);
+    Procedure WriteCulture(Writer : TWriter);
+    Procedure ReadCalendarType(Reader : TReader);
+    Procedure WriteCalendarType(Writer : TWriter);
+    Procedure CalendarChanged(Sender : TObject);
+    Procedure PopupCloseUp(Sender : TObject; Accept : Boolean);
+    Procedure WMNCPaint(Var Message : TWMNCPaint); Message WM_NCPAINT;
+    Procedure WMMouseActivate(Var Message : TWMMouseActivate); Message WM_MOUSEACTIVATE;
+    Procedure WMSetFocus(Var Message : TWMSetFocus); Message WM_SETFOCUS;
+    Procedure WMKillFocus(Var Message : TWMKillFocus); Message WM_KILLFOCUS;
+    Procedure WMGetDlgCode(Var Message : TWMGetDlgCode); Message WM_GETDLGCODE;
+    Procedure CMEnableChanged(Var Message : TMessage); Message CM_ENABLEDCHANGED;
+    Procedure CMBiDiModeChanged(Var Message : TMessage); Message CM_BIDIMODECHANGED;
+    Procedure CMBorderChanged(Var Message : TMessage); Message CM_BORDERCHANGED;
+    Procedure CMCtl3DChanged(Var Message : TMessage); Message CM_CTL3DCHANGED;
+    Procedure CMCancelMode(Var Message : TCMCancelMode); Message CM_CANCELMODE;
+    Procedure CMMouseEnter(Var Message : TMessage); Message CM_MOUSEENTER;
+    Procedure CMMouseLeave(Var Message : TMessage); Message CM_MOUSELEAVE;
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Reads and writes the <see cref="Culture"/> and <see cref="CalendarType"/> properties
     /// as if they were published.
@@ -4532,30 +4539,30 @@ type
     /// The current <see cref="TReader"/> or <see cref="TWriter"/> object that is
     /// loading or saving the published properties.
     /// </param>
-    {$endregion}
-    procedure DefineProperties(Filer: TFiler); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure DefineProperties(Filer : TFiler); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Initializes the window-creation parameter record.
     /// </summary>
     /// <param name="Params">
     /// The window-creation parameter record.
     /// </param>
-    {$endregion}
-    procedure CreateParams(var Params: TCreateParams); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure CreateParams(Var Params : TCreateParams); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Makes any required adjustments when the control changes size.
     /// </summary>
-    {$endregion}
-    procedure Resize; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Resize; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Renders the control.
     /// </summary>
-    {$endregion}
-    procedure Paint; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Paint; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the control can resize itself automatically to accommodate
     /// its contents.
@@ -4569,9 +4576,9 @@ type
     /// <returns>
     /// Always returns <see langword="true"/>.
     /// </returns>
-    {$endregion}
-    function CanAutoSize(var NewWidth: Integer; var NewHeight: Integer): Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function CanAutoSize(Var NewWidth : Integer; Var NewHeight : Integer) : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds when the user presses a mouse button down while the cursor's hotspot is
     /// over the control.
@@ -4588,9 +4595,9 @@ type
     /// <param name="Y">
     /// The vertical pixel coordinate of the mouse pointer within the client area of the control.
     /// </param>
-    {$endregion}
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure MouseDown(Button : TMouseButton; Shift : TShiftState; x, y : Integer); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds when the user moves the mouse pointer while the cursor's hotspot is
     /// over the control.
@@ -4604,9 +4611,9 @@ type
     /// <param name="Y">
     /// The vertical pixel coordinate of the mouse pointer within the client area of the control.
     /// </param>
-    {$endregion}
-    procedure MouseMove(Shift: TShiftState; X, Y: Integer); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure MouseMove(Shift : TShiftState; x, y : Integer); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds when the user releases a previously pressed mouse button down while the
     /// cursor's hotspot is over the control.
@@ -4623,9 +4630,9 @@ type
     /// <param name="Y">
     /// The vertical pixel coordinate of the mouse pointer within the client area of the control.
     /// </param>
-    {$endregion}
-    procedure MouseUp(Button: TMouseButton; Shift: TShiftState; X, Y: Integer); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure MouseUp(Button : TMouseButton; Shift : TShiftState; x, y : Integer); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds when the user rotates the mouse wheel downward.
     /// </summary>
@@ -4635,9 +4642,9 @@ type
     /// <param name="MousePos">
     /// The pixel coordinates of the mouse pointer within the screen.
     /// </param>
-    {$endregion}
-    function DoMouseWheelDown(Shift: TShiftState; MousePos: TPoint): Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DoMouseWheelDown(Shift : TShiftState; MousePos : TPoint) : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds when the user rotates the mouse wheel upward.
     /// </summary>
@@ -4647,9 +4654,9 @@ type
     /// <param name="MousePos">
     /// The pixel coordinates of the mouse pointer within the screen.
     /// </param>
-    {$endregion}
-    function DoMouseWheelUp(Shift: TShiftState; MousePos: TPoint): Boolean; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function DoMouseWheelUp(Shift : TShiftState; MousePos : TPoint) : Boolean; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Responds when the user presses a key.
     /// </summary>
@@ -4659,9 +4666,9 @@ type
     /// <param name="Shift">
     /// Indicates the concurrent state of the Ctrl, Shift, and Alt keys.
     /// </param>
-    {$endregion}
-    procedure KeyDown(var Key: Word; Shift: TShiftState); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure KeyDown(Var Key : Word; Shift : TShiftState); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines whether the user can enter a different date in the control.
     /// </summary>
@@ -4669,30 +4676,30 @@ type
     /// Returns <see langword="true"/> if the user can enter a date, oterwise
     /// returns <see langword="false"/>.
     /// </returns>
-    {$endregion}
-    function CanModify: Boolean; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function CanModify : Boolean; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Updates the displayed date on the control.
     /// </summary>
-    {$endregion}
-    procedure UpdateText; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure UpdateText; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Recalculates the bounding rectangle of the control's different sections.
     /// </summary>
-    {$endregion}
-    procedure UpdateRects; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure UpdateRects; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the minimum vertical size of the control, in pixels.
     /// </summary>
     /// <returns>
     /// The minimum vertical size of the control, in pixels.
     /// </returns>
-    {$endregion}
-    function GetMinHeight: Integer; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetMinHeight : Integer; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines that a point is in which section of the control.
     /// </summary>
@@ -4705,70 +4712,70 @@ type
     /// <returns>
     /// Returns a <see cref="TIntlPickerHitTest"/> value.
     /// </returns>
-    {$endregion}
-    function GetHitTestInfoAt(X, Y: Integer): TIntlPickerHitTest; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function GetHitTestInfoAt(x, y : Integer) : TIntlPickerHitTest; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Schedules a repaint for the check box of the control.
     /// </summary>
-    {$endregion}
-    procedure InvalidateCheckBox; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure InvalidateCheckBox; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Schedules a repaint for the drop-down button of the control.
     /// </summary>
-    {$endregion}
-    procedure InvalidateDropDown; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure InvalidateDropDown; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Schedules a repaint for the displayed date of the control.
     /// </summary>
-    {$endregion}
-    procedure InvalidateDate; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure InvalidateDate; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Schedules a repaint for the frame of the control.
     /// </summary>
-    {$endregion}
-    procedure InvalidateFrame; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure InvalidateFrame; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Displays the pop-up calendar.
     /// </summary>
     /// <seealso cref="CalendarPopup"/>
-    {$endregion}
-    procedure PopupDropDown; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure PopupDropDown; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Generates an <see cref="OnChange"/> event.
     /// </summary>
-    {$endregion}
-    procedure Change; virtual;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure Change; Virtual;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the handle to the Windows theme that is used for rendering the control.
     /// </summary>
-    {$endregion}
-    property Theme: HTHEME read GetTheme;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Theme : HTHEME Read GetTheme;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the last mouse hit test information.
     /// </summary>
-    {$endregion}
-    property HotInfo: TIntlPickerHitTest read fHotInfo;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property HotInfo : TIntlPickerHitTest Read fHotInfo;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets whether the user holding the check box pressed.
     /// </summary>
-    {$endregion}
-    property CheckPressed: Boolean read fCheckPressed;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CheckPressed : Boolean Read fCheckPressed;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Provides access to the pop-up calendar's settings.
     /// </summary>
-    {$endregion}
-    property CalendarPopup: TIntlMonthCalendarPopup read fCalendarPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CalendarPopup : TIntlMonthCalendarPopup Read fCalendarPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the current focused date.
     /// </summary>
@@ -4776,40 +4783,40 @@ type
     /// Occurs when the assigned date is not in the supported range of the calendar.
     /// </exception>
     /// <seealso cref="IsDateInRange"/>
-    {$endregion}
-    property Date: TDate read fDate write SetDate stored IsDateStored;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Date : TDate Read fDate Write SetDate Stored IsDateStored;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the format string that determines how the <see cref="Date"/> property
     /// should be displayed on the control. See <see cref="TCalendar.Format"/> for details.
     /// </summary>
     /// <seealso cref="TCalendar.Format"/>
-    {$endregion}
-    property DateFormat: String read fDateFormat write SetDateFormat;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateFormat : String Read fDateFormat Write SetDateFormat;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the smallest date that is allowed for the calendar.
     /// </summary>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="DateMax"/>
-    {$endregion}
-    property DateMin: TDate read GetDateMin write SetDateMin stored IsDateMinStored;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateMin : TDate Read GetDateMin Write SetDateMin Stored IsDateMinStored;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the largest date that is allowed for the calendar.
     /// </summary>
     /// <seealso cref="ActualDateMax"/>
     /// <seealso cref="DateMin"/>
-    {$endregion}
-    property DateMax: TDate read GetDateMax write SetDateMax stored IsDateMaxStored;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateMax : TDate Read GetDateMax Write SetDateMax Stored IsDateMaxStored;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.
     /// </summary>
     /// <seealso cref="Culture"/>
-    {$endregion}
-    property CalendarType: TCalendarClass read GetCalendarType write SetCalendarType;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CalendarType : TCalendarClass Read GetCalendarType Write SetCalendarType;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCultureInfo"/> object that provides the locale specific
     /// settings of the calendar.
@@ -4824,9 +4831,9 @@ type
     /// <seealso cref="CultureDigits"/>
     /// <seealso cref="CalendarType"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property Culture: TCultureInfo read GetCulture write SetCulture;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Culture : TCultureInfo Read GetCulture Write SetCulture;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the calendar system used by the control should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.
@@ -4836,64 +4843,64 @@ type
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property CultureCalendar: TLocalizerSwicth read GetCultureCalendar write SetCultureCalendar default lsDefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CultureCalendar : TLocalizerSwicth Read GetCultureCalendar Write SetCultureCalendar Default lsDefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the way the control renders digits should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.</summary>
     /// <seealso cref="UsingCultureDigits"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property CultureDigits: TLocalizerSwicth read GetCultureDigits write SetCultureDigits default lsDefault;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CultureDigits : TLocalizerSwicth Read GetCultureDigits Write SetCultureDigits Default lsDefault;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the control.
     /// </summary>
-    {$endregion}
-    property Localizer: TLocalizer read GetLocalizer write SetLocalizer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Localizer : TLocalizer Read GetLocalizer Write SetLocalizer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check box next to the date is selected. When the
     /// check box is not checked, user cannot enter a date.
     /// </summary>
-    {$endregion}
-    property Checked: Boolean read fChecked write SetChecked default True;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Checked : Boolean Read fChecked Write SetChecked Default True;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a check box next to the date should be displayed.
     /// </summary>
-    {$endregion}
-    property ShowCheckBox: Boolean read fShowCheckBox write SetShowCheckBox default False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowCheckBox : Boolean Read fShowCheckBox Write SetShowCheckBox Default False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the border style for the control.
     /// </summary>
-    {$endregion}
-    property BorderStyle: TBorderStyle read fBorderStyle write SetBorderStyle default bsSingle;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderStyle : TBorderStyle Read fBorderStyle Write SetBorderStyle Default bsSingle;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when either of <see cref="Date"/> or <see cref="Checked"/> properties change.</summary>
-    {$endregion}
-    property OnChange: TNotifyEvent read fOnChange write fOnChange;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnChange : TNotifyEvent Read fOnChange Write fOnChange;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Creates an instance of the control.
     /// </summary>
     /// <param name="AOwner">
     /// The owner component.
     /// </param>
-    {$endregion}
-    constructor Create(AOwner: TComponent); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Constructor Create(AOwner : TComponent); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Destroys the control and releases its allocated memory.
     /// </summary>
-    {$endregion}
-    destructor Destroy; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Destructor Destroy; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether the value of <see cref="Culture"/> property is controlled
     /// by a <see cref="TLocalizer"/> component.
@@ -4902,9 +4909,9 @@ type
     /// Rteurns <see langword="true"/> if <see cref="Localizer"/> property is not
     /// <see langword="nil"/>, otherwise returns <see langword="false"/>.</returns>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    function IsManagedByLocalizer: Boolean; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsManagedByLocalizer : Boolean; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified year of a specified era is in the supported
     /// and allowed range of the control.
@@ -4925,9 +4932,9 @@ type
     /// <seealso cref="DateMax"/>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="ActualDateMax"/>
-    {$endregion}
-    function IsYearInRange(AEra, AYear: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsYearInRange(AEra, AYear : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified year is in the supported and allowed range of
     /// the control.
@@ -4945,9 +4952,9 @@ type
     /// <seealso cref="DateMax"/>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="ActualDateMax"/>
-    {$endregion}
-    function IsYearInRange(AYear: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsYearInRange(AYear : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified month of a specified year in a specified era
     /// is in the supported and allowed range of the control.
@@ -4971,9 +4978,9 @@ type
     /// <seealso cref="DateMax"/>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="ActualDateMax"/>
-    {$endregion}
-    function IsMonthInRange(AEra, AYear, AMonth: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsMonthInRange(AEra, AYear, AMonth : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified month of a specified year is in the supported
     /// and allowed range of the control.
@@ -4994,9 +5001,9 @@ type
     /// <seealso cref="DateMax"/>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="ActualDateMax"/>
-    {$endregion}
-    function IsMonthInRange(AYear, AMonth: Integer): Boolean; overload; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsMonthInRange(AYear, AMonth : Integer) : Boolean; Overload; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Indicates whether a specified date is in the supported and allowed range
     /// of the control.
@@ -5014,9 +5021,9 @@ type
     /// <seealso cref="DateMax"/>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="ActualDateMax"/>
-    {$endregion}
-    function IsDateInRange(const ADate: TDate): Boolean; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function IsDateInRange(Const ADate : TDate) : Boolean; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Confines a specified date to be in the supported and allowed range
     /// of the control.
@@ -5032,16 +5039,16 @@ type
     /// </returns>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="ActualDateMax"/>
-    {$endregion}
-    function EnsureDateInRange(const ADate: TDate): TDate; inline;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function EnsureDateInRange(Const ADate : TDate) : TDate; Inline;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the <see cref="TCalendar"/> object that the control is using to
     /// get and display the input date.
     /// </summary>
-    {$endregion}
-    property Calendar: TCalendar read GetCalendar;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Calendar : TCalendar Read GetCalendar;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the smallest date that is supported by the <see cref="Calendar"/> and
     /// is allowed by the control.
@@ -5049,9 +5056,9 @@ type
     /// <seealso cref="DateMin"/>
     /// <seealso cref="TCalendar.MinSupportedDateTime"/>
     /// <seealso cref="ActualDateMax"/>
-    {$endregion}
-    property ActualDateMin: TDate read GetActualDateMin;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ActualDateMin : TDate Read GetActualDateMin;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets the largest date that is supported by the <see cref="Calendar"/> and
     /// is allowed by the control.
@@ -5059,158 +5066,159 @@ type
     /// <seealso cref="DateMax"/>
     /// <seealso cref="TCalendar.MaxSupportedDateTime"/>
     /// <seealso cref="ActualDateMin"/>
-    {$endregion}
-    property ActualDateMax: TDate read GetActualDateMax;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ActualDateMax : TDate Read GetActualDateMax;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets whether the calendar system used by the control is determined by the
     /// <see cref="Culture"/> property.
     /// </summary>
     /// <seealso cref="CultureCalendar"/>
     /// <seealso cref="Culture"/>
-    {$endregion}
-    property UsingCultureCalendar: Boolean read GetUsingCultureCalendar;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property UsingCultureCalendar : Boolean Read GetUsingCultureCalendar;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets whether the way that the control renders digits is determined by the
     /// <see cref="Culture"/> property.
     /// </summary>
     /// <seealso cref="CultureDigits"/>
     /// <seealso cref="Culture"/>
-    {$endregion}
-    property UsingCultureDigits: Boolean read GetUsingCultureDigits;
-  end;
+    {$Endregion}
+    Property UsingCultureDigits : Boolean Read GetUsingCultureDigits;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// TIntlDatePicker is a control designed specifically for entering localized dates.
-  /// </summary>
-  /// <remarks>
-  /// Use TIntlDatePicker to enables users to eneter a date in a custom calendar system
-  /// and in a locale specific format.
-  ///
-  /// TIntlDatePicker can use different calendar systems for getting the input  date.
-  /// The <see cref="CalendarType"/> property is the main property that specifies which
-  /// calendar system should be used by the cotnrol. If the <see cref="CalendarType"/>
-  /// property is not set, the <see cref="Culture"/> property can do this task. In addition,
-  /// the <see cref="Culture"/> property provides the locale specific settings of the control.
-  /// If none of these two properties are set, the <see cref="DefaultCalendar"/> global
-  /// variable determines the calendar system used by the control.
-  ///
-  /// TIntlDatePicker can be linked to a <see cref="TLocalizer"/> component. In this case,
-  /// the linked <see cref="TLocalizer"/> component can provide both the locale specific
-  /// settings and the calendar system of the control.
-  ///
-  /// TIntlDatePicker publishes many of the properties, events, and methods of
-  /// <see cref="TCustomIntlDatePicker"/>, but does not introduce any new behavior.
-  /// </remarks>
-  /// <group name="Components"/>
-  {$endregion}
-  {$IFDEF COMPILER_XE2_UP}
-    [ComponentPlatformsAttribute(pidWin32 or pidWin64)]
+{$Region 'xmldoc'}
+/// <summary>
+/// TIntlDatePicker is a control designed specifically for entering localized dates.
+/// </summary>
+/// <remarks>
+/// Use TIntlDatePicker to enables users to eneter a date in a custom calendar system
+/// and in a locale specific format.
+///
+/// TIntlDatePicker can use different calendar systems for getting the input  date.
+/// The <see cref="CalendarType"/> property is the main property that specifies which
+/// calendar system should be used by the cotnrol. If the <see cref="CalendarType"/>
+/// property is not set, the <see cref="Culture"/> property can do this task. In addition,
+/// the <see cref="Culture"/> property provides the locale specific settings of the control.
+/// If none of these two properties are set, the <see cref="DefaultCalendar"/> global
+/// variable determines the calendar system used by the control.
+///
+/// TIntlDatePicker can be linked to a <see cref="TLocalizer"/> component. In this case,
+/// the linked <see cref="TLocalizer"/> component can provide both the locale specific
+/// settings and the calendar system of the control.
+///
+/// TIntlDatePicker publishes many of the properties, events, and methods of
+/// <see cref="TCustomIntlDatePicker"/>, but does not introduce any new behavior.
+/// </remarks>
+/// <group name="Components"/>
+{$Endregion}
+{$IFDEF COMPILER_XE2_UP}
+
+  [ComponentPlatformsAttribute(pidWin32 Or pidWin64)]
   {$ENDIF}
-  TIntlDatePicker = class(TCustomIntlDatePicker)
-  published
-    {$region 'xmldoc'}
+  TIntlDatePicker = Class(TCustomIntlDatePicker)
+   Published
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control aligns within its container (parent control).
     /// </summary>
-    {$endregion}
-    property Align;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Align;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a control should be constrained by <see cref="Margins"/>.
     /// </summary>
-    {$endregion}
-    property AlignWithMargins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AlignWithMargins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control is anchored to its parent.
     /// </summary>
-    {$endregion}
-    property Anchors;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Anchors;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control sizes itself automatically to accommodate
     /// its contents.
     /// </summary>
-    {$endregion}
-    property AutoSize default True;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property AutoSize Default True;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets which edges of the control are beveled.
     /// </summary>
-    {$endregion}
-    property BevelEdges;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelEdges;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the inner bevel.
     /// </summary>
-    {$endregion}
-    property BevelInner;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelInner;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the control's bevel style.
     /// </summary>
-    {$endregion}
-    property BevelKind default bkNone;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelKind Default bkNone;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the cut of the outer bevel.
     /// </summary>
-    {$endregion}
-    property BevelOuter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BevelOuter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the bidirectional mode for the control.
     /// </summary>
-    {$endregion}
-    property BiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the border style for the control.
     /// </summary>
-    {$endregion}
-    property BorderStyle;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property BorderStyle;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Provides access to the pop-up calendar's settings.
     /// </summary>
-    {$endregion}
-    property CalendarPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CalendarPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCalendar"/> class that is used for manipulating dates.
     /// </summary>
     /// <seealso cref="Culture"/>
-    {$endregion}
-    property CalendarType;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CalendarType;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the check box next to the date is selected. When the
     /// check box is not checked, user cannot enter a date.
     /// </summary>
-    {$endregion}
-    property Checked;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Checked;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the background color of the control.
     /// </summary>
-    {$endregion}
-    property Color default clWindow;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Color Default clWindow;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the size constraints for the control.
     /// </summary>
-    {$endregion}
-    property Constraints;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Constraints;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control has a three-dimensional look.
     /// </summary>
-    {$endregion}
-    property Ctl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Ctl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TCultureInfo"/> object that provides the locale specific
     /// settings of the calendar.
@@ -5225,9 +5233,9 @@ type
     /// <seealso cref="CultureDigits"/>
     /// <seealso cref="CalendarType"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property Culture;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Culture;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the calendar system used by the control should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.
@@ -5237,18 +5245,18 @@ type
     /// <seealso cref="UsingCultureCalendar"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property CultureCalendar;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CultureCalendar;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the way the control renders digits should be determined
     /// by the <see cref="Culture"/> or <see cref="Localizer"/> properties.</summary>
     /// <seealso cref="UsingCultureDigits"/>
     /// <seealso cref="Culture"/>
     /// <seealso cref="Localizer"/>
-    {$endregion}
-    property CultureDigits;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property CultureDigits;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the current focused date.
     /// </summary>
@@ -5256,4551 +5264,4460 @@ type
     /// Occurs when the assigned date is not in the supported range of the calendar.
     /// </exception>
     /// <seealso cref="IsDateInRange"/>
-    {$endregion}
-    property Date;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Date;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the format string that determines how the <see cref="Date"/> property
     /// should be displayed on the control. See <see cref="TCalendar.Format"/> for details.
     /// </summary>
     /// <seealso cref="TCalendar.Format"/>
-    {$endregion}
-    property DateFormat;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateFormat;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the smallest date that is allowed for the calendar.
     /// </summary>
     /// <seealso cref="ActualDateMin"/>
     /// <seealso cref="DateMax"/>
-    {$endregion}
-    property DateMin;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateMin;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the largest date that is allowed for the calendar.
     /// </summary>
     /// <seealso cref="ActualDateMax"/>
     /// <seealso cref="DateMin"/>
-    {$endregion}
-    property DateMax;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DateMax;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control's image is rendered directly to the window or
     /// painted to an in-memory bitmap first.
     /// </summary>
-    {$endregion}
-    property DoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the image used to represent the mouse pointer when it passes
     /// into the region covered by the control.
     /// </summary>
-    {$endregion}
-    property DragCursor;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragCursor;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control is being dragged normally or for docking.
     /// </summary>
-    {$endregion}
-    property DragKind;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragKind;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets how the control initiates drag-and-drop or drag-and-dock operations.
     /// </summary>
-    {$endregion}
-    property DragMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property DragMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control responds to keyboard, mouse, and timer events.
     /// </summary>
-    {$endregion}
-    property Enabled;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Enabled;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the attributes of text written on the control.
     /// </summary>
-    {$endregion}
-    property Font;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Font;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the text string that can appear when the user moves the mouse over
     /// the control.
     /// </summary>
-    {$endregion}
-    property Hint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Hint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the behavior of the input method editor (IME).
     /// </summary>
-    {$endregion}
-    property ImeMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the input method editor (IME) to use for converting keyboard input.
     /// </summary>
-    {$endregion}
-    property ImeName;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ImeName;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the <see cref="TLocalizer"/> component that is linked to the
     /// control.
     /// </summary>
-    {$endregion}
-    property Localizer;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Localizer;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the margins of the control.
     /// </summary>
-    {$endregion}
-    property Margins;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Margins;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="BiDiMode"/>.
     /// </summary>
-    {$endregion}
-    property ParentBiDiMode;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentBiDiMode;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Color"/>.
     /// </summary>
-    {$endregion}
-    property ParentColor default False;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentColor Default False;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Ctl3D"/>.
     /// </summary>
-    {$endregion}
-    property ParentCtl3D;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentCtl3D;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="DoubleBuffered"/>.
     /// </summary>
-    {$endregion}
-    property ParentDoubleBuffered;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentDoubleBuffered;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="Font"/>.
     /// </summary>
-    {$endregion}
-    property ParentFont;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentFont;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control uses its parent's <see cref="ShowHint"/>.
     /// </summary>
-    {$endregion}
-    property ParentShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ParentShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the pop-up menu associated with the control.
     /// </summary>
-    {$endregion}
-    property PopupMenu;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property PopupMenu;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether a check box next to the date should be displayed.
     /// </summary>
-    {$endregion}
-    property ShowCheckBox;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowCheckBox;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control displays a Help <see cref="Hint"/> when the mouse
     /// pointer rests momentarily on the control.
     /// </summary>
-    {$endregion}
-    property ShowHint;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property ShowHint;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the position of the control in its parent's tab order.
     /// </summary>
-    {$endregion}
-    property TabOrder;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabOrder;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the user can tab to a control.
     /// </summary>
-    {$endregion}
-    property TabStop default True;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property TabStop Default True;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets the touch manager component associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property Touch;
+    Property Touch;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Gets or sets whether the control appears onscreen.
     /// </summary>
-    {$endregion}
-    property Visible;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property Visible;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when either of <see cref="Date"/> or <see cref="Checked"/> properties change.</summary>
-    {$endregion}
-    property OnChange;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnChange;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user clicks the control.
     /// </summary>
-    {$endregion}
-    property OnClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user right-clicks the control or otherwise invokes the pop-up
     /// menu (such as using the keyboard).
     /// </summary>
-    {$endregion}
-    property OnContextPopup;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnContextPopup;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user double-clicks the left mouse button when the mouse pointer
     /// is over the control.
     /// </summary>
-    {$endregion}
-    property OnDblClick;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDblClick;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drops an object being dragged on the control.
     /// </summary>
-    {$endregion}
-    property OnDragDrop;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragDrop;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user drags an object over the control.
     /// </summary>
-    {$endregion}
-    property OnDragOver;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnDragOver;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by docking the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the dragging of an object ends, either by dropping the object or
     /// by canceling the dragging.
     /// </summary>
-    {$endregion}
-    property OnEndDrag;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEndDrag;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a control receives the input focus.
     /// </summary>
-    {$endregion}
-    property OnEnter;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnEnter;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the input focus shifts away from one control to another.
     /// </summary>
-    {$endregion}
-    property OnExit;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnExit;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when user performs a gesture associated with the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnGesture;
+    Property OnGesture;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when a user presses any key while the control has focus.
     /// </summary>
-    {$endregion}
-    property OnKeyDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when key pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyPress;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyPress;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a key that has been pressed.
     /// </summary>
-    {$endregion}
-    property OnKeyUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnKeyUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control and the parent form is not active.
     /// </summary>
-    {$endregion}
-    property OnMouseActivate;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseActivate;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user presses a mouse button with the mouse pointer over the
     /// control.
     /// </summary>
-    {$endregion}
-    property OnMouseDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse pointer while the mouse pointer is over
     /// the control.
     /// </summary>
-    {$endregion}
-    property OnMouseMove;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseMove;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user releases a mouse button that was pressed with the mouse
     /// pointer over the control.
     /// </summary>
-    {$endregion}
-    property OnMouseUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse into the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseEnter;
+    Property OnMouseEnter;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user moves the mouse outside of the control.
     /// </summary>
-    {$endregion}
+    {$Endregion}
     {$IFDEF COMPILER2010_UP}
-    property OnMouseLeave;
+    Property OnMouseLeave;
     {$ENDIF}
-    {$region 'xmldoc'}
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated.
     /// </summary>
-    {$endregion}
-    property OnMouseWheel;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheel;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated downward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelDown;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelDown;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the mouse wheel is rotated upward.
     /// </summary>
-    {$endregion}
-    property OnMouseWheelUp;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnMouseWheelUp;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs immediately after the control is resized.
     /// </summary>
-    {$endregion}
-    property OnResize;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnResize;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDock"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDock;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Property OnStartDock;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Occurs when the user begins to drag the control with a <see cref="DragKind"/>
     /// of <see cref="DragKind.dkDrag"/>.
     /// </summary>
-    {$endregion}
-    property OnStartDrag;
-  end;
+    {$Endregion}
+    Property OnStartDrag;
+  End;
 
-implementation
+Implementation
 
-uses
+ Uses
   RTLConsts, Math, Types, Variants, Themes, ComCtrls, i18nUnicode;
 
-resourcestring
+ Resourcestring
   SDateOutOfRangeError = 'The date must be between %s and %s';
 
-type
-  TControlHack = class(TControl);
+ Type
+   TControlHack = Class(TControl);
 
-{ Helper Functions }
+ { Helper Functions }
 
-procedure SwapScreenByScroll(DC: HDC; const Rect: TRect; OfsX, OfsY: Integer;
-  OldBmp, NewBmp: TBitmap; RightToLeft: Boolean; Duration: Cardinal);
-var
-  Step, LastStep, Distance, X: Integer;
-  StartTime: Cardinal;
-begin
-  StartTime := GetTickCount;
-  Distance := Rect.Right - Rect.Left;
-  Step := 0;
-  repeat
-    LastStep := Step;
-    repeat
+  Procedure SwapScreenByScroll(DC : HDC; Const Rect : TRect; OfsX, OfsY : Integer; OldBmp, NewBmp : TBitmap; RightToLeft : Boolean; Duration : Cardinal);
+   Var
+    Step, LastStep, Distance, x : Integer;
+    StartTime                   : Cardinal;
+   Begin
+    StartTime := GetTickCount;
+    Distance  := Rect.Right - Rect.Left;
+    Step      := 0;
+    Repeat
+     LastStep := Step;
+     Repeat
       Sleep(1);
       Step := MulDiv(Distance, GetTickCount - StartTime, Duration);
-    until Step <> LastStep;
-    X := Min(Rect.Left + Step, Rect.Right);
-    if RightToLeft then
-    begin
-      BitBlt(DC, Rect.Left, Rect.Top, X - Rect.Left, Rect.Bottom - Rect.Top,
-        NewBmp.Canvas.Handle, Rect.Right - X - OfsX, Rect.Top - OfsY, SRCCOPY);
-      BitBlt(DC, X, Rect.Top, Rect.Right - X, Rect.Bottom - Rect.Top,
-        OldBmp.Canvas.Handle, Rect.Left - OfsX, Rect.Top - OfsY, SRCCOPY);
-    end
-    else
-    begin
-      BitBlt(DC, Rect.Left, Rect.Top, Rect.Right - X, Rect.Bottom - Rect.Top,
-        OldBmp.Canvas.Handle, X - OfsX, Rect.Top - OfsY, SRCCOPY);
-      BitBlt(DC, Rect.Right - X, Rect.Top, X - Rect.Left, Rect.Bottom - Rect.Top,
-        NewBmp.Canvas.Handle, Rect.Left - OfsX, Rect.Top - OfsY, SRCCOPY);
-    end;
-  until X = Rect.Right;
-end;
+     Until Step <> LastStep;
+     x := Min(Rect.Left + Step, Rect.Right);
+     If RightToLeft Then
+      Begin
+       BitBlt(DC, Rect.Left, Rect.Top, x - Rect.Left, Rect.Bottom - Rect.Top,
+       NewBmp.Canvas.Handle, Rect.Right - x - OfsX, Rect.Top - OfsY, SRCCOPY);
+       BitBlt(DC, x, Rect.Top, Rect.Right - x, Rect.Bottom - Rect.Top,
+       OldBmp.Canvas.Handle, Rect.Left - OfsX, Rect.Top - OfsY, SRCCOPY);
+      End
+     Else
+      Begin
+       BitBlt(DC, Rect.Left, Rect.Top, Rect.Right - x, Rect.Bottom - Rect.Top,
+       OldBmp.Canvas.Handle, x - OfsX, Rect.Top - OfsY, SRCCOPY);
+       BitBlt(DC, Rect.Right - x, Rect.Top, x - Rect.Left, Rect.Bottom - Rect.Top,
+       NewBmp.Canvas.Handle, Rect.Left - OfsX, Rect.Top - OfsY, SRCCOPY);
+      End;
+    Until x = Rect.Right;
+   End;
 
-procedure SwapScreenByZoom(DC: HDC; const Rect: TRect; OfsX, OfsY: Integer;
-  OldBmp, NewBmp: TBitmap; const OldRect, NewRect: TRect; Duration: Cardinal);
-var
-  Progress, LastProgress: Integer;
-  StartTime: Cardinal;
-  R: TRect;
-begin
-  StartTime := GetTickCount;
-  Progress := 0;
-  repeat
-    LastProgress := Progress;
-    repeat
+  Procedure SwapScreenByZoom(DC : HDC; Const Rect : TRect; OfsX, OfsY : Integer; OldBmp, NewBmp : TBitmap; Const OldRect, NewRect : TRect; Duration : Cardinal);
+   Var
+    Progress, LastProgress : Integer;
+    StartTime              : Cardinal;
+    r                      : TRect;
+   Begin
+    StartTime := GetTickCount;
+    Progress  := 0;
+    Repeat
+     LastProgress := Progress;
+     Repeat
       Sleep(1);
       Progress := MulDiv(200, GetTickCount - StartTime, Duration);
-    until Progress <> LastProgress;
-    if Progress > 100 then
+     Until Progress <> LastProgress;
+     If Progress > 100 Then
       Progress := 100;
-    R.Left := OldRect.Left + MulDiv(Rect.Left - OldRect.Left, 100 - Progress, 100);
-    R.Top := OldRect.Top + MulDiv(Rect.Top - OldRect.Top, 100 - Progress, 100);
-    R.Right := OldRect.Right + MulDiv(Rect.Right - OldRect.Right, 100 - Progress, 100);
-    R.Bottom := OldRect.Bottom + MulDiv(Rect.Bottom - OldRect.Bottom, 100 - Progress, 100);
-    StretchBlt(DC, Rect.Left, Rect.Top, Rect.Right - Rect.Left, Rect.Bottom - Rect.Top,
-      OldBmp.Canvas.Handle, R.Left - OfsX, R.Top - OfsY, R.Right - R.Left, R.Bottom - R.Top, SRCCOPY);
-  until Progress = 100;
-  StartTime := GetTickCount;
-  Progress := 0;
-  repeat
-    LastProgress := Progress;
-    repeat
+     r.Left    := OldRect.Left + MulDiv(Rect.Left - OldRect.Left, 100 - Progress, 100);
+     r.Top     := OldRect.Top + MulDiv(Rect.Top - OldRect.Top, 100 - Progress, 100);
+     r.Right   := OldRect.Right + MulDiv(Rect.Right - OldRect.Right, 100 - Progress, 100);
+     r.Bottom  := OldRect.Bottom + MulDiv(Rect.Bottom - OldRect.Bottom, 100 - Progress, 100);
+     StretchBlt(DC, Rect.Left, Rect.Top, Rect.Right - Rect.Left, Rect.Bottom - Rect.Top,
+     OldBmp.Canvas.Handle, r.Left - OfsX, r.Top - OfsY, r.Right - r.Left, r.Bottom - r.Top, SRCCOPY);
+    Until Progress = 100;
+    StartTime := GetTickCount;
+    Progress  := 0;
+    Repeat
+     LastProgress := Progress;
+     Repeat
       Sleep(1);
       Progress := MulDiv(200, GetTickCount - StartTime, Duration);
-    until Progress <> LastProgress;
-    if Progress > 100 then
+     Until Progress <> LastProgress;
+     If Progress > 100 Then
       Progress := 100;
-    R.Left := NewRect.Left + MulDiv(Rect.Left - NewRect.Left, Progress, 100);
-    R.Top := NewRect.Top + MulDiv(Rect.Top - NewRect.Top, Progress, 100);
-    R.Right := NewRect.Right + MulDiv(Rect.Right - NewRect.Right, Progress, 100);
-    R.Bottom := NewRect.Bottom + MulDiv(Rect.Bottom - NewRect.Bottom, Progress, 100);
-    StretchBlt(DC, Rect.Left, Rect.Top, Rect.Right - Rect.Left, Rect.Bottom - Rect.Top,
-      NewBmp.Canvas.Handle, R.Left - OfsX, R.Top - OfsY, R.Right - R.Left, R.Bottom - R.Top, SRCCOPY);
-  until Progress = 100;
-end;
+     r.Left    := NewRect.Left + MulDiv(Rect.Left - NewRect.Left, Progress, 100);
+     r.Top     := NewRect.Top + MulDiv(Rect.Top - NewRect.Top, Progress, 100);
+     r.Right   := NewRect.Right + MulDiv(Rect.Right - NewRect.Right, Progress, 100);
+     r.Bottom  := NewRect.Bottom + MulDiv(Rect.Bottom - NewRect.Bottom, Progress, 100);
+     StretchBlt(DC, Rect.Left, Rect.Top, Rect.Right - Rect.Left, Rect.Bottom - Rect.Top,
+     NewBmp.Canvas.Handle, r.Left - OfsX, r.Top - OfsY, r.Right - r.Left, r.Bottom - r.Top, SRCCOPY);
+    Until Progress = 100;
+   End;
 
-{ TDateTimeList }
+ { TDateTimeList }
 
-destructor TDateTimeList.Destroy;
-begin
-  Capacity := 0;
-  inherited Destroy;
-end;
+  Destructor TDateTimeList.Destroy;
+   Begin
+    Capacity := 0;
+    Inherited Destroy;
+   End;
 
-function TDateTimeList.GetCapacity: Integer;
-begin
-  Result := Length(fList);
-end;
+  Function TDateTimeList.GetCapacity : Integer;
+   Begin
+    Result := Length(fList);
+   End;
 
-procedure TDateTimeList.SetCapacity(Value: Integer);
-begin
-  if Capacity <> Value then
-  begin
-    SetLength(fList, Value);
-    if Capacity < Count then
-    begin
+  Procedure TDateTimeList.SetCapacity(Value : Integer);
+   Begin
+    If Capacity <> Value Then
+     Begin
+      SetLength(fList, Value);
+      If Capacity < Count Then
+       Begin
+        Changing;
+        fCount := Capacity;
+        Change;
+       End;
+     End;
+   End;
+
+  Function TDateTimeList.GetItems(Index : Integer) : TDate;
+   Begin
+    If (Index < 0) Or (Index >= Count) Then
+     Raise EListError.CreateFmt(SListIndexError, [Index]);
+    Result := fList[Index];
+   End;
+
+  Procedure TDateTimeList.Changing;
+   Begin
+    If (fUpdateCount = 0) And Assigned(OnChanging) Then
+     OnChanging(Self);
+   End;
+
+  Procedure TDateTimeList.Change;
+   Begin
+    If (fUpdateCount = 0) And Assigned(OnChange) Then
+     OnChange(Self);
+   End;
+
+  Procedure TDateTimeList.Assign(Source : TPersistent);
+   Begin
+    If Source Is TDateTimeList Then
+     Begin
       Changing;
-      fCount := Capacity;
+      fList  := Copy(TDateTimeList(Source).fList, 0, TDateTimeList(Source).fCount);
+      fCount := TDateTimeList(Source).fCount;
       Change;
-    end;
-  end;
-end;
+     End
+    Else
+     Inherited Assign(Source);
+   End;
 
-function TDateTimeList.GetItems(Index: Integer): TDate;
-begin
-  if (Index < 0) or (Index >= Count) then
-    raise EListError.CreateFmt(SListIndexError, [Index]);
-  Result := fList[Index];
-end;
+  Procedure TDateTimeList.BeginUpdate;
+   Begin
+    If fUpdateCount = 0 Then
+     Changing;
+    Inc(fUpdateCount);
+   End;
 
-procedure TDateTimeList.Changing;
-begin
-  if (fUpdateCount = 0) and Assigned(OnChanging) then
-    OnChanging(Self);
-end;
+  Procedure TDateTimeList.EndUpdate;
+   Begin
+    Dec(fUpdateCount);
+    If fUpdateCount = 0 Then
+     Change;
+   End;
 
-procedure TDateTimeList.Change;
-begin
-  if (fUpdateCount = 0) and Assigned(OnChange) then
-    OnChange(Self);
-end;
+  Procedure TDateTimeList.Clear;
+   Begin
+    If Count <> 0 Then
+     Begin
+      Changing;
+      fCount := 0;
+      Change;
+     End;
+   End;
 
-procedure TDateTimeList.Assign(Source: TPersistent);
-begin
-  if Source is TDateTimeList then
-  begin
-    Changing;
-    fList := Copy(TDateTimeList(Source).fList, 0, TDateTimeList(Source).fCount);
-    fCount := TDateTimeList(Source).fCount;
-    Change;
-  end
-  else
-    inherited Assign(Source);
-end;
+  Function TDateTimeList.Add(Const ADateTime : TDateTime) : Integer;
+   Var
+    Index : Integer;
+   Begin
+    If Not Find(ADateTime, Index) Then
+     Begin
+      Changing;
+      If Capacity = Count Then
+       Capacity := Count + 4;
+      If Index <> Count Then
+       Move(fList[Index], fList[Index + 1], (Count - Index) * SizeOf(TDateTime));
+      fList[Index] := ADateTime;
+      Inc(fCount);
+      Change;
+     End;
+    Result := Index;
+   End;
 
-procedure TDateTimeList.BeginUpdate;
-begin
-  if fUpdateCount = 0 then
-    Changing;
-  Inc(fUpdateCount);
-end;
-
-procedure TDateTimeList.EndUpdate;
-begin
-  Dec(fUpdateCount);
-  if fUpdateCount = 0 then
-    Change;
-end;
-
-procedure TDateTimeList.Clear;
-begin
-  if Count <> 0 then
-  begin
-    Changing;
-    fCount := 0;
-    Change;
-  end;
-end;
-
-function TDateTimeList.Add(const ADateTime: TDateTime): Integer;
-var
-  Index: Integer;
-begin
-  if not Find(ADateTime, Index) then
-  begin
-    Changing;
-    if Capacity = Count then
-      Capacity := Count + 4;
-    if Index <> Count then
-      Move(fList[Index], fList[Index + 1], (Count - Index) * SizeOf(TDateTime));
-    fList[Index] := ADateTime;
-    Inc(fCount);
-    Change;
-  end;
-  Result := Index;
-end;
-
-function TDateTimeList.Remove(const ADateTime: TDateTime): Integer;
-var
-  Index: Integer;
-begin
-  Result := -1;
-  if Find(ADateTime, Index) then
-    Delete(Index);
-end;
-
-procedure TDateTimeList.Delete(Index: Integer);
-begin
-  if (Index < 0) or (Index >= Count) then
-    raise EListError.CreateFmt(SListIndexError, [Index]);
-  Changing;
-  Dec(fCount);
-  if Index <> Count then
-    Move(fList[Index + 1], fList[Index], (Count - Index) * SizeOf(TDateTime));
-  Change;
-end;
-
-function TDateTimeList.Exists(const ADateTime: TDateTime): Boolean;
-var
-  Index: Integer;
-begin
-  Result := Find(ADateTime, Index);
-end;
-
-function TDateTimeList.IndexOf(const ADateTime: TDateTime): Integer;
-begin
-  if not Find(ADateTime, Result) then
+  Function TDateTimeList.Remove(Const ADateTime : TDateTime) : Integer;
+   Var
+    Index : Integer;
+   Begin
     Result := -1;
-end;
+    If Find(ADateTime, Index) Then
+     Delete(Index);
+   End;
 
-function TDateTimeList.Find(const ADateTime: TDateTime; out Index: Integer): Boolean;
-var
-  L, H, M: Integer;
-  C: Integer;
-begin
-  L := 0;
-  H := Count - 1;
-  while L <= H do
-  begin
-    M := (L + H) shr 1;
-    C := TCalendar.Compare(fList[M], ADateTime);
-    if  C < 0 then
-      L := M + 1
-    else
-    begin
-      H := M - 1;
-      if C = 0 then
-      begin
-        Result := True;
-        Index := M;
-        Exit;
-      end;
-    end;
-  end;
-  Index := L;
-  Result := False;
-end;
+  Procedure TDateTimeList.Delete(Index : Integer);
+   Begin
+    If (Index < 0) Or (Index >= Count) Then
+     Raise EListError.CreateFmt(SListIndexError, [Index]);
+    Changing;
+    Dec(fCount);
+    If Index <> Count Then
+     Move(fList[Index + 1], fList[Index], (Count - Index) * SizeOf(TDateTime));
+    Change;
+   End;
 
-function TDateTimeList.First: TDateTime;
-begin
-  if Count <> 0 then
-    Result := Items[0]
-  else
-    Result := TCalendar.NoDate;
-end;
+  Function TDateTimeList.Exists(Const ADateTime : TDateTime) : Boolean;
+   Var
+    Index : Integer;
+   Begin
+    Result := Find(ADateTime, Index);
+   End;
 
-function TDateTimeList.Last: TDateTime;
-begin
-  if Count <> 0 then
-    Result := Items[Count - 1]
-  else
-    Result := TCalendar.NoDate;
-end;
+  Function TDateTimeList.IndexOf(Const ADateTime : TDateTime) : Integer;
+   Begin
+    If Not Find(ADateTime, Result) Then
+     Result := -1;
+   End;
 
-{ TCustomIntlDateTimeLabel }
+  Function TDateTimeList.Find(Const ADateTime : TDateTime; Out Index : Integer) : Boolean;
+   Var
+    l, h, m : Integer;
+    c       : Integer;
+   Begin
+    l := 0;
+    h := Count - 1;
+    While l <= h Do
+     Begin
+      m := (l + h) Shr 1;
+      c := TCalendar.Compare(fList[m], ADateTime);
+      If  c < 0 Then
+       l := m + 1
+      Else
+       Begin
+        h := m - 1;
+        If c = 0 Then
+         Begin
+          Result := True;
+          Index  := m;
+          Exit;
+         End;
+       End;
+     End;
+    Index  := l;
+    Result := False;
+   End;
 
-constructor TCustomIntlDateTimeLabel.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  ControlStyle := ControlStyle - [csSetCaption];
-  fCalendar := DefaultCalendar.Clone;
-  fCalendar.OnChange := CalendarChanged;
-  fDateTime := TCalendar.Today;
-  ShowAccelChar := False;
-end;
+  Function TDateTimeList.First : TDateTime;
+   Begin
+    If Count <> 0 Then
+     Result := Items[0]
+    Else
+     Result := TCalendar.NoDate;
+   End;
 
-destructor TCustomIntlDateTimeLabel.Destroy;
-begin
-  Localizer := nil;
-  fCalendar.Free;
-  inherited Destroy;
-end;
+  Function TDateTimeList.Last : TDateTime;
+   Begin
+    If Count <> 0 Then
+     Result := Items[Count - 1]
+    Else
+     Result := TCalendar.NoDate;
+   End;
 
-procedure TCustomIntlDateTimeLabel.SetDateTime(const Value: TDateTime);
-begin
-  if not TCalendar.IsSame(DateTime, Value) then
-  begin
-    fDateTime := Value;
-    AdjustBounds;
-    Invalidate;
-  end;
-end;
+ { TCustomIntlDateTimeLabel }
 
-procedure TCustomIntlDateTimeLabel.SetDateTimeFormat(const Value: String);
-begin
-  if DateTimeFormat <> Value then
-  begin
-    fDateTimeFormat := Value;
-    AdjustBounds;
-    Invalidate;
-  end;
-end;
+  Constructor TCustomIntlDateTimeLabel.Create(AOwner : TComponent);
+   Begin
+    Inherited Create(AOwner);
+    ControlStyle       := ControlStyle - [csSetCaption];
+    fCalendar          := DefaultCalendar.Clone;
+    fCalendar.OnChange := CalendarChanged;
+    fDateTime          := TCalendar.Today;
+    ShowAccelChar      := False;
+   End;
 
-procedure TCustomIntlDateTimeLabel.SetCalendarType(Value: TCalendarClass);
-begin
-  if CalendarType <> Value then
-  begin
-    fCalendarType := Value;
-    ValidateCalendar;
-  end;
-end;
+  Destructor TCustomIntlDateTimeLabel.Destroy;
+   Begin
+    Localizer := Nil;
+    fCalendar.Free;
+    Inherited Destroy;
+   End;
 
-procedure TCustomIntlDateTimeLabel.SetCulture(Value: TCultureInfo);
-begin
-  if Culture <> Value then
-  begin
-    fCulture := Value;
-    ValidateCalendar;
-  end;
-end;
-
-procedure TCustomIntlDateTimeLabel.SetCultureCalendar(Value: TLocalizerSwicth);
-begin
-  if CultureCalendar <> Value then
-  begin
-    fCultureCalendar := Value;
-    if Assigned(Culture) then
-      ValidateCalendar;
-  end;
-end;
-
-procedure TCustomIntlDateTimeLabel.SetCultureDigits(Value: TLocalizerSwicth);
-begin
-  if CultureDigits <> Value then
-  begin
-    fCultureDigits := Value;
-    if Assigned(Culture) then
-    begin
+  Procedure TCustomIntlDateTimeLabel.SetDateTime(Const Value : TDateTime);
+   Begin
+    If Not TCalendar.IsSame(DateTime, Value) Then
+     Begin
+      fDateTime := Value;
       AdjustBounds;
       Invalidate;
-    end;
-  end;
-end;
+     End;
+   End;
 
-procedure TCustomIntlDateTimeLabel.SetLocalizer(Value: TLocalizer);
-begin
-  if Localizer <> Value then
-  begin
-    if Assigned(Localizer) then
-    begin
-      Localizer.RemoveFreeNotification(Self);
-      Localizer.UnregisterListener(Self);
-    end;
-    fLocalizer := Value;
-    if Assigned(Localizer) then
-    begin
-      Localizer.FreeNotification(Self);
-      Localizer.RegisterListener(Self);
-    end;
-    if not (csDestroying in ComponentState) then
-      LocalizerNotify(Localizer, lnCultureChanged);
-  end;
-end;
+  Procedure TCustomIntlDateTimeLabel.SetDateTimeFormat(Const Value : String);
+   Begin
+    If DateTimeFormat <> Value Then
+     Begin
+      fDateTimeFormat := Value;
+      AdjustBounds;
+      Invalidate;
+     End;
+   End;
 
-function TCustomIntlDateTimeLabel.GetUsingCultureCalendar: Boolean;
-begin
-  Result := (CultureCalendar <> lsNever) and Assigned(Culture) and not Assigned(CalendarType);
-  if Result and Assigned(Localizer) and (CultureCalendar = lsDefault) then
-    Result := (loUseNativeCalendar in Localizer.Options)
-end;
-
-function TCustomIntlDateTimeLabel.GetUsingCultureDigits: Boolean;
-begin
-  Result := (CultureDigits <> lsNever) and Assigned(Culture) and not Culture.IsUsingNominalDigits;
-  if Result and Assigned(Localizer) and (CultureDigits = lsDefault) then
-    Result := (loUseNativeDigits in Localizer.Options)
-end;
-
-function TCustomIntlDateTimeLabel.IsDateTimeStored: Boolean;
-begin
-  Result := not TCalendar.IsToday(DateTime);
-end;
-
-procedure TCustomIntlDateTimeLabel.CalendarChanged(Sender: TObject);
-begin
-  AdjustBounds;
-  Invalidate;
-end;
-
-procedure TCustomIntlDateTimeLabel.ReadCulture(Reader: TReader);
-begin
-  Culture := CultureOf(Reader.ReadString);
-end;
-
-procedure TCustomIntlDateTimeLabel.WriteCulture(Writer: TWriter);
-begin
-  Writer.WriteString(Culture.Locale);
-end;
-
-procedure TCustomIntlDateTimeLabel.ReadCalendarType(Reader: TReader);
-begin
-  CalendarType := CalendarTypes.ByName(Reader.ReadString);
-end;
-
-procedure TCustomIntlDateTimeLabel.WriteCalendarType(Writer: TWriter);
-begin
-  Writer.WriteString(CalendarType.CalendarName);
-end;
-
-procedure TCustomIntlDateTimeLabel.DefineProperties(Filer: TFiler);
-begin
-  inherited DefineProperties(Filer);
-  Filer.DefineProperty('CultureInfo', ReadCulture, WriteCulture,
-    not Assigned(Localizer) and Assigned(Culture));
-  Filer.DefineProperty('CalendarClass', ReadCalendarType, WriteCalendarType,
-    Assigned(CalendarType));
-end;
-
-procedure TCustomIntlDateTimeLabel.Notification(AComponent: TComponent;
-  Operation: TOperation);
-begin
-  inherited Notification(AComponent, Operation);
-  if (Operation = opRemove) and (AComponent = Localizer) then
-    Localizer := nil;
-end;
-
-procedure TCustomIntlDateTimeLabel.LocalizerNotify(Sender: TLocalizer;
-  Reason: TLocalizerNotification);
-begin
-  case Reason of
-    lnCultureChanged:
-      if Assigned(Localizer) then
-        Culture := Localizer.Culture
-      else
-        Culture := nil;
-    lnOptionsChanged:
+  Procedure TCustomIntlDateTimeLabel.SetCalendarType(Value : TCalendarClass);
+   Begin
+    If CalendarType <> Value Then
+     Begin
+      fCalendarType := Value;
       ValidateCalendar;
-  end;
-end;
+     End;
+   End;
 
-function TCustomIntlDateTimeLabel.GetLabelText: string;
-begin
-  Result := Calendar.Format(DateTimeFormat, DateTime);
-  if Assigned(Culture) then
+  Procedure TCustomIntlDateTimeLabel.SetCulture(Value : TCultureInfo);
+   Begin
+    If Culture <> Value Then
+     Begin
+      fCulture := Value;
+      ValidateCalendar;
+     End;
+   End;
+
+  Procedure TCustomIntlDateTimeLabel.SetCultureCalendar(Value : TLocalizerSwicth);
+   Begin
+    If CultureCalendar <> Value Then
+     Begin
+      fCultureCalendar := Value;
+      If Assigned(Culture) Then
+       ValidateCalendar;
+     End;
+   End;
+
+  Procedure TCustomIntlDateTimeLabel.SetCultureDigits(Value : TLocalizerSwicth);
+   Begin
+    If CultureDigits <> Value Then
+     Begin
+      fCultureDigits := Value;
+      If Assigned(Culture) Then
+       Begin
+        AdjustBounds;
+        Invalidate;
+       End;
+     End;
+   End;
+
+  Procedure TCustomIntlDateTimeLabel.SetLocalizer(Value : TLocalizer);
+   Begin
+    If Localizer <> Value Then
+     Begin
+      If Assigned(Localizer) Then
+       Begin
+        Localizer.RemoveFreeNotification(Self);
+        Localizer.UnregisterListener(Self);
+       End;
+      fLocalizer := Value;
+      If Assigned(Localizer) Then
+       Begin
+        Localizer.FreeNotification(Self);
+        Localizer.RegisterListener(Self);
+       End;
+      If Not(csDestroying In ComponentState) Then
+       LocalizerNotify(Localizer, lnCultureChanged);
+     End;
+   End;
+
+  Function TCustomIntlDateTimeLabel.GetUsingCultureCalendar : Boolean;
+   Begin
+    Result := (CultureCalendar <> lsNever) And Assigned(Culture) And Not Assigned(CalendarType);
+    If Result And Assigned(Localizer) And (CultureCalendar = lsDefault) Then
+     Result := (loUseNativeCalendar In Localizer.Options)
+   End;
+
+  Function TCustomIntlDateTimeLabel.GetUsingCultureDigits : Boolean;
+   Begin
+    Result := (CultureDigits <> lsNever) And Assigned(Culture) And Not Culture.IsUsingNominalDigits;
+    If Result And Assigned(Localizer) And (CultureDigits = lsDefault) Then
+     Result := (loUseNativeDigits In Localizer.Options)
+   End;
+
+  Function TCustomIntlDateTimeLabel.IsDateTimeStored : Boolean;
+   Begin
+    Result := Not TCalendar.IsToday(DateTime);
+   End;
+
+  Procedure TCustomIntlDateTimeLabel.CalendarChanged(Sender : TObject);
+   Begin
+    AdjustBounds;
+    Invalidate;
+   End;
+
+  Procedure TCustomIntlDateTimeLabel.ReadCulture(Reader : TReader);
+   Begin
+    Culture := CultureOf(Reader.ReadString);
+   End;
+
+  Procedure TCustomIntlDateTimeLabel.WriteCulture(Writer : TWriter);
+   Begin
+    Writer.WriteString(Culture.Locale);
+   End;
+
+  Procedure TCustomIntlDateTimeLabel.ReadCalendarType(Reader : TReader);
+   Begin
+    CalendarType := CalendarTypes.ByName(Reader.ReadString);
+   End;
+
+  Procedure TCustomIntlDateTimeLabel.WriteCalendarType(Writer : TWriter);
+   Begin
+    Writer.WriteString(CalendarType.CalendarName);
+   End;
+
+  Procedure TCustomIntlDateTimeLabel.DefineProperties(Filer : TFiler);
+   Begin
+    Inherited DefineProperties(Filer);
+    Filer.DefineProperty('CultureInfo', ReadCulture, WriteCulture,
+    Not Assigned(Localizer) And Assigned(Culture));
+    Filer.DefineProperty('CalendarClass', ReadCalendarType, WriteCalendarType,
+    Assigned(CalendarType));
+   End;
+
+  Procedure TCustomIntlDateTimeLabel.Notification(AComponent : TComponent; Operation : TOperation);
+   Begin
+    Inherited Notification(AComponent, Operation);
+    If (Operation = opRemove) And (AComponent = Localizer) Then
+     Localizer := Nil;
+   End;
+
+  Procedure TCustomIntlDateTimeLabel.LocalizerNotify(Sender : TLocalizer; Reason : TLocalizerNotification);
+   Begin
+    Case Reason Of
+     lnCultureChanged :
+      If Assigned(Localizer) Then
+       Culture := Localizer.Culture
+      Else
+       Culture := Nil;
+     lnOptionsChanged :
+      ValidateCalendar;
+    End;
+  End;
+
+ Function TCustomIntlDateTimeLabel.GetLabelText : String;
+  Begin
+   Result := Calendar.Format(DateTimeFormat, DateTime);
+   If Assigned(Culture) Then
     Result := Culture.FreezeDigits(Result, UsingCultureDigits);
-end;
+  End;
 
-function TCustomIntlDateTimeLabel.IsManagedByLocalizer: Boolean;
-begin
-  Result := Assigned(Localizer);
-end;
+ Function TCustomIntlDateTimeLabel.IsManagedByLocalizer : Boolean;
+  Begin
+   Result := Assigned(Localizer);
+  End;
 
-procedure TCustomIntlDateTimeLabel.ValidateCalendar;
+ Procedure TCustomIntlDateTimeLabel.ValidateCalendar;
 
-  procedure InitNewCalendar;
-  begin
-    fCalendar.OnChange := CalendarChanged;
-    CalendarChanged(nil);
-  end;
+   Procedure InitNewCalendar;
+    Begin
+     fCalendar.OnChange := CalendarChanged;
+     CalendarChanged(Nil);
+    End;
+  Var
+   Reference : TCalendar;
 
-var
-  Reference: TCalendar;
-begin
-  if not Assigned(CalendarType) then
-  begin
-    if UsingCultureCalendar then
+  Begin
+   If Not Assigned(CalendarType) Then
+    Begin
+     If UsingCultureCalendar Then
       Reference := Culture.NativeCalendar
-    else
+     Else
       Reference := DefaultCalendar;
-    if Reference.ClassType <> Calendar.ClassType then
-    begin
-      FreeAndNil(fCalendar);
-      fCalendar := Reference.Clone;
-      InitNewCalendar;
-    end
-    else
+     If Reference.ClassType <> Calendar.ClassType Then
+      Begin
+       FreeAndNil(fCalendar);
+       fCalendar := Reference.Clone;
+       InitNewCalendar;
+      End
+     Else
       fCalendar.Assign(Reference);
-  end
-  else if CalendarType <> Calendar.ClassType then
-  begin
-    FreeAndNil(fCalendar);
-    if Assigned(Culture) then
+    End
+   Else If CalendarType <> Calendar.ClassType Then
+    Begin
+     FreeAndNil(fCalendar);
+     If Assigned(Culture) Then
       fCalendar := CalendarType.Create(Culture.Locale)
-    else
+     Else
       fCalendar := CalendarType.Create(LOCALE_USER_DEFAULT);
-    InitNewCalendar;
-  end
-  else if Assigned(Culture) then
+     InitNewCalendar;
+    End
+   Else If Assigned(Culture) Then
     fCalendar.Settings.Prepare(Culture.Locale)
-  else
+   Else
     fCalendar.Settings.Prepare(LOCALE_USER_DEFAULT);
-end;
+  End;
 
 { TCustomIntlMonthCalendar }
 
-constructor TCustomIntlMonthCalendar.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  ControlStyle := ControlStyle + [csOpaque] - [csSetCaption];
-  fCalendar := DefaultCalendar.Clone;
-  fCalendar.OnChange := CalendarChanged;
-  fSelection := TDateTimeList.Create;
-  fFontHeader := TFont.Create;
-  fFontHeader.OnChange := FontHeaderChanged;
-  fFontFooter := TFont.Create;
-  fFontFooter.OnChange := FontFooterChanged;
-  fFontDayOfWeek := TFont.Create;
-  fFontDayOfWeek.OnChange := FontDayOfWeekChanged;
-  fFontWeekNumbers := TFont.Create;
-  fFontWeekNumbers.OnChange := FontWeekNumbersChanged;
-  fDate := TCalendar.Today;
-  fDateMin := TCalendar.NoDate;
-  fDateMax := TCalendar.NoDate;
-  fColorDivider := clBtnFace;
-  fColorToday := clRed;
-  fShowHeader := True;
-  fShowFooter := True;
-  fAnimate := True;
-  fHintDate := Calendar.NoDate;
-  fDraggingCell := -1;
-  fHotCell := -1;
-  ParentColor := False;
-  Color := clWindow;
-  BevelKind := bkTile;
-  BorderWidth := 2;
-  TabStop := True;
-  UpdateCalendar;
-  Width := 148;
-  Height := 133;
-end;
+ Constructor TCustomIntlMonthCalendar.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   ControlStyle              := ControlStyle + [csOpaque] - [csSetCaption];
+   fCalendar                 := DefaultCalendar.Clone;
+   fCalendar.OnChange        := CalendarChanged;
+   fSelection                := TDateTimeList.Create;
+   fFontHeader               := TFont.Create;
+   fFontHeader.OnChange      := FontHeaderChanged;
+   fFontFooter               := TFont.Create;
+   fFontFooter.OnChange      := FontFooterChanged;
+   fFontDayOfWeek            := TFont.Create;
+   fFontDayOfWeek.OnChange   := FontDayOfWeekChanged;
+   fFontWeekNumbers          := TFont.Create;
+   fFontWeekNumbers.OnChange := FontWeekNumbersChanged;
+   fDate                     := TCalendar.Today;
+   fDateMin                  := TCalendar.NoDate;
+   fDateMax                  := TCalendar.NoDate;
+   fColorDivider             := clBtnFace;
+   fColorToday               := clRed;
+   fShowHeader               := True;
+   fShowFooter               := True;
+   fAnimate                  := True;
+   fHintDate                 := Calendar.NoDate;
+   fDraggingCell             := -1;
+   fHotCell                  := -1;
+   ParentColor               := False;
+   Color                     := clWindow;
+   BevelKind                 := bkTile;
+   BorderWidth               := 2;
+   TabStop                   := True;
+   UpdateCalendar;
+   Width  := 148;
+   Height := 133;
+  End;
 
-destructor TCustomIntlMonthCalendar.Destroy;
-begin
-  Localizer := nil;
-  fSelection.Free;
-  fFontHeader.Free;
-  fFontFooter.Free;
-  fFontDayOfWeek.Free;
-  fFontWeekNumbers.Free;
-  fCalendar.Free;
-  if Assigned(fSavedScreen) then
+ Destructor TCustomIntlMonthCalendar.Destroy;
+  Begin
+   Localizer := Nil;
+   fSelection.Free;
+   fFontHeader.Free;
+   fFontFooter.Free;
+   fFontDayOfWeek.Free;
+   fFontWeekNumbers.Free;
+   fCalendar.Free;
+   If Assigned(fSavedScreen) Then
     fSavedScreen.Free;
-  if fTheme <> 0 then
+   If fTheme <> 0 Then
     CloseThemeData(fTheme);
-  inherited Destroy;
-end;
+   Inherited Destroy;
+  End;
 
-procedure TCustomIntlMonthCalendar.SetDate(const Value: TDate);
-begin
-  if (csDesigning in ComponentState) and Calendar.IsNoDate(Value) then
-  begin
-    Select(Calendar.Today);
-    Exit;
-  end;
-  if not IsDateInRange(Value) then
-  begin
-    raise EDateTimeError.CreateResFmt(@SDateOutOfRangeError,
-      [Calendar.Format('ddddd', ActualDateMin),
-       Calendar.Format('ddddd', ActualDateMax)]);
-  end;
-  if csLoading in ComponentState then
-  begin
-    fDate := Trunc(Value);
-    fSelectionAnchor := fDate;
-  end
-  else
+ Procedure TCustomIntlMonthCalendar.SetDate(Const Value : TDate);
+  Begin
+   If (csDesigning In ComponentState) And Calendar.IsNoDate(Value) Then
+    Begin
+     Select(Calendar.Today);
+     Exit;
+    End;
+   If Not IsDateInRange(Value) Then
+    Begin
+     Raise EDateTimeError.CreateResFmt(@SDateOutOfRangeError,
+     [Calendar.Format('ddddd', ActualDateMin),
+     Calendar.Format('ddddd', ActualDateMax)]);
+    End;
+   If csLoading In ComponentState Then
+    Begin
+     fDate            := Trunc(Value);
+     fSelectionAnchor := fDate;
+    End
+   Else
     Select(Value);
-end;
+  End;
 
-procedure TCustomIntlMonthCalendar.SetDateMin(const Value: TDate);
-begin
-  if Calendar.IsNoDate(Value) then
+ Procedure TCustomIntlMonthCalendar.SetDateMin(Const Value : TDate);
+  Begin
+   If Calendar.IsNoDate(Value) Then
     fDateMin := Calendar.NoDate
-  else
-  begin
-    fDateMin := Trunc(Value);
-    if not Calendar.IsNoDate(DateMax) and
-      (Calendar.CompareDate(DateMin, DateMax) > 0)
-    then
+   Else
+    Begin
+     fDateMin := Trunc(Value);
+     If Not Calendar.IsNoDate(DateMax) And
+     (Calendar.CompareDate(DateMin, DateMax) > 0)
+     Then
       fDateMin := fDateMax;
-  end;
-  UpdateMinMaxRanges;
-end;
+    End;
+   UpdateMinMaxRanges;
+  End;
 
-procedure TCustomIntlMonthCalendar.SetDateMax(const Value: TDate);
-begin
-  if Calendar.IsNoDate(Value) then
+ Procedure TCustomIntlMonthCalendar.SetDateMax(Const Value : TDate);
+  Begin
+   If Calendar.IsNoDate(Value) Then
     fDateMax := Calendar.NoDate
-  else
-  begin
-    fDateMax := Trunc(Value);
-    if not Calendar.IsNoDate(DateMin) and
-      (Calendar.CompareDate(DateMin, DateMax) > 0)
-    then
+   Else
+    Begin
+     fDateMax := Trunc(Value);
+     If Not Calendar.IsNoDate(DateMin) And
+     (Calendar.CompareDate(DateMin, DateMax) > 0)
+     Then
       fDateMax := fDateMin;
-  end;
-  UpdateMinMaxRanges;
-end;
+    End;
+   UpdateMinMaxRanges;
+  End;
 
-procedure TCustomIntlMonthCalendar.SetCalendarType(Value: TCalendarClass);
-begin
-  if CalendarType <> Value then
-  begin
-    fCalendarType := Value;
-    ValidateCalendar;
-  end;
-end;
+ Procedure TCustomIntlMonthCalendar.SetCalendarType(Value : TCalendarClass);
+  Begin
+   If CalendarType <> Value Then
+    Begin
+     fCalendarType := Value;
+     ValidateCalendar;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.SetCulture(Value: TCultureInfo);
-begin
-  if Culture <> Value then
-  begin
-    fCulture := Value;
-    ValidateCalendar;
-  end;
-end;
+ Procedure TCustomIntlMonthCalendar.SetCulture(Value : TCultureInfo);
+  Begin
+   If Culture <> Value Then
+    Begin
+     fCulture := Value;
+     ValidateCalendar;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.SetCultureCalendar(Value: TLocalizerSwicth);
-begin
-  if CultureCalendar <> Value then
-  begin
-    fCultureCalendar := Value;
-    if Assigned(Culture) then
+ Procedure TCustomIntlMonthCalendar.SetCultureCalendar(Value : TLocalizerSwicth);
+  Begin
+   If CultureCalendar <> Value Then
+    Begin
+     fCultureCalendar := Value;
+     If Assigned(Culture) Then
       ValidateCalendar;
-  end;
-end;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.SetCultureDigits(Value: TLocalizerSwicth);
-begin
-  if CultureDigits <> Value then
-  begin
-    fCultureDigits := Value;
-    if Assigned(Culture) then
+ Procedure TCustomIntlMonthCalendar.SetCultureDigits(Value : TLocalizerSwicth);
+  Begin
+   If CultureDigits <> Value Then
+    Begin
+     fCultureDigits := Value;
+     If Assigned(Culture) Then
       UpdateMetrics;
-  end;
-end;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.SetWeekNumbers(Value: Boolean);
-begin
-  if WeekNumbers <> Value then
-  begin
-    fWeekNumbers := Value;
-    UpdateMetrics;
-  end;
-end;
+ Procedure TCustomIntlMonthCalendar.SetWeekNumbers(Value : Boolean);
+  Begin
+   If WeekNumbers <> Value Then
+    Begin
+     fWeekNumbers := Value;
+     UpdateMetrics;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.SetSelectionStyle(Value: TIntlCalSelectionStyle);
-var
-  OldStyle: TIntlCalSelectionStyle;
-  TheDate: TDate;
-  I: Integer;
-begin
-  if SelectionStyle <> Value then
-  begin
-    OldStyle := SelectionStyle;
-    fSelectionStyle := Value;
-    if not (csLoading in ComponentState) then
-    begin
-      case OldStyle of
-        ssSingle:
-        begin
-          if SelectionStyle = ssFree then
-            fSelection.Add(Date);
+ Procedure TCustomIntlMonthCalendar.SetSelectionStyle(Value : TIntlCalSelectionStyle);
+  Var
+   OldStyle : TIntlCalSelectionStyle;
+   TheDate  : TDate;
+   i        : Integer;
+  Begin
+   If SelectionStyle <> Value Then
+    Begin
+     OldStyle        := SelectionStyle;
+     fSelectionStyle := Value;
+     If Not(csLoading In ComponentState) Then
+      Begin
+       Case OldStyle Of
+        ssSingle :
+         Begin
+          If SelectionStyle = ssFree Then
+           fSelection.Add(Date);
           fSelectionAnchor := Date;
-        end;
-        ssRange:
-        begin
-          if SelectionStyle = ssFree then
-          begin
+         End;
+        ssRange :
+         Begin
+          If SelectionStyle = ssFree Then
+           Begin
             TheDate := Min(Date, fSelectionAnchor);
-            for I := 0 to Calendar.DaysBetween(Date, fSelectionAnchor) do
-              fSelection.Add(Calendar.NextDay(TheDate, I));
-          end
-          else
-            InvalidateDateRange(fSelectionAnchor, Date);
+            For i   := 0 To Calendar.DaysBetween(Date, fSelectionAnchor) Do
+             fSelection.Add(Calendar.NextDay(TheDate, i));
+           End
+          Else
+           InvalidateDateRange(fSelectionAnchor, Date);
           fSelectionAnchor := Date;
-        end;
-        ssFree:
-        begin
-          if (SelectionStyle <> ssRange) or (fSelection.Count = 0) then
-            fSelectionAnchor := Date
-          else if fSelection.First = Date then
-            fSelectionAnchor := fSelection.Last
-          else if fSelection.Last = Date then
-            fSelectionAnchor := fSelection.First
-          else
-          begin
+         End;
+        ssFree :
+         Begin
+          If (SelectionStyle <> ssRange) Or (fSelection.Count = 0) Then
+           fSelectionAnchor := Date
+          Else If fSelection.First = Date Then
+           fSelectionAnchor := fSelection.Last
+          Else If fSelection.Last = Date Then
+           fSelectionAnchor := fSelection.First
+          Else
+           Begin
             fSelectionAnchor := fSelection.First;
             FocusDate(fSelection.Last);
-          end;
+           End;
           fSelection.Clear;
           InvalidateDateRange(fSelectionAnchor, Date);
-        end;
-      end;
-    end
-  end;
-end;
+         End;
+       End;
+      End
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.SetShowHeader(Value: Boolean);
-begin
-  if ShowHeader <> Value then
-  begin
-    fShowHeader := Value;
-    UpdateMetrics;
-  end;
-end;
+ Procedure TCustomIntlMonthCalendar.SetShowHeader(Value : Boolean);
+  Begin
+   If ShowHeader <> Value Then
+    Begin
+     fShowHeader := Value;
+     UpdateMetrics;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.SetShowFooter(Value: Boolean);
-begin
-  if ShowFooter <> Value then
-  begin
-    fShowFooter := Value;
-    UpdateMetrics;
-  end;
-end;
+ Procedure TCustomIntlMonthCalendar.SetShowFooter(Value : Boolean);
+  Begin
+   If ShowFooter <> Value Then
+    Begin
+     fShowFooter := Value;
+     UpdateMetrics;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.SetColorDivider(Value: TColor);
-begin
-  if ColorDivider <> Value then
-  begin
-    fColorDivider := Value;
-    InvalidateSections([csDaysOfWeek, csWeekNumbers]);
-  end;
-end;
+ Procedure TCustomIntlMonthCalendar.SetColorDivider(Value : TColor);
+  Begin
+   If ColorDivider <> Value Then
+    Begin
+     fColorDivider := Value;
+     InvalidateSections([csDaysOfWeek, csWeekNumbers]);
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.SetColorToday(Value: TColor);
-begin
-  if ColorToday <> Value then
-  begin
-    fColorToday := Value;
-    InvalidateDate(Calendar.Today);
-    InvalidateSections([csFooter]);
-  end;
-end;
+ Procedure TCustomIntlMonthCalendar.SetColorToday(Value : TColor);
+  Begin
+   If ColorToday <> Value Then
+    Begin
+     fColorToday := Value;
+     InvalidateDate(Calendar.Today);
+     InvalidateSections([csFooter]);
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.SetFontHeader(Value: TFont);
-begin
-  fFontHeader.Assign(Value);
-end;
+ Procedure TCustomIntlMonthCalendar.SetFontHeader(Value : TFont);
+  Begin
+   fFontHeader.Assign(Value);
+  End;
 
-procedure TCustomIntlMonthCalendar.SetFontFooter(Value: TFont);
-begin
-  fFontFooter.Assign(Value);
-end;
+ Procedure TCustomIntlMonthCalendar.SetFontFooter(Value : TFont);
+  Begin
+   fFontFooter.Assign(Value);
+  End;
 
-procedure TCustomIntlMonthCalendar.SetFontDayOfWeek(Value: TFont);
-begin
-  fFontDayOfWeek.Assign(Value);
-end;
+ Procedure TCustomIntlMonthCalendar.SetFontDayOfWeek(Value : TFont);
+  Begin
+   fFontDayOfWeek.Assign(Value);
+  End;
 
-procedure TCustomIntlMonthCalendar.SetFontWeekNumbers(Value: TFont);
-begin
-  fFontWeekNumbers.Assign(Value);
-end;
+ Procedure TCustomIntlMonthCalendar.SetFontWeekNumbers(Value : TFont);
+  Begin
+   fFontWeekNumbers.Assign(Value);
+  End;
 
-procedure TCustomIntlMonthCalendar.SetCurrentView(Value: TIntlCalViewMode);
-begin
-  if CurrentView <> Value then
-  begin
-    if not (csLoading in ComponentState) then
-    begin
-      fHintDate := Calendar.NoDate;
-      fDraggingCell := -1;
-      fHotCell := -1;
-      fHotInfo := chtNowhere;
-      AnimateBegin;
-      try
+ Procedure TCustomIntlMonthCalendar.SetCurrentView(Value : TIntlCalViewMode);
+  Begin
+   If CurrentView <> Value Then
+    Begin
+     If Not(csLoading In ComponentState) Then
+      Begin
+       fHintDate     := Calendar.NoDate;
+       fDraggingCell := -1;
+       fHotCell      := -1;
+       fHotInfo      := chtNowhere;
+       AnimateBegin;
+       Try
         fCurrentView := Value;
         CalcMetrics(CurrentView, fMetrics);
         CalcMetricsSections(fMetrics);
         AnimatePlay;
-      finally
+       Finally
         AnimateEnd;
-      end;
-      DoPageChange;
-      Invalidate;
-    end
-    else
+       End;
+       DoPageChange;
+       Invalidate;
+      End
+     Else
       fCurrentView := Value;
-  end;
-end;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.SetLocalizer(Value: TLocalizer);
-begin
-  if Localizer <> Value then
-  begin
-    if Assigned(Localizer) then
-    begin
-      Localizer.RemoveFreeNotification(Self);
-      Localizer.UnregisterListener(Self);
-    end;
-    fLocalizer := Value;
-    if Assigned(Localizer) then
-    begin
-      Localizer.FreeNotification(Self);
-      Localizer.RegisterListener(Self);
-    end;
-    if not (csDestroying in ComponentState) then
+ Procedure TCustomIntlMonthCalendar.SetLocalizer(Value : TLocalizer);
+  Begin
+   If Localizer <> Value Then
+    Begin
+     If Assigned(Localizer) Then
+      Begin
+       Localizer.RemoveFreeNotification(Self);
+       Localizer.UnregisterListener(Self);
+      End;
+     fLocalizer := Value;
+     If Assigned(Localizer) Then
+      Begin
+       Localizer.FreeNotification(Self);
+       Localizer.RegisterListener(Self);
+      End;
+     If Not(csDestroying In ComponentState) Then
       LocalizerNotify(Localizer, lnCultureChanged);
-  end;
-end;
+    End;
+  End;
 
-function TCustomIntlMonthCalendar.GetUsingCultureCalendar: Boolean;
-begin
-  Result := (CultureCalendar <> lsNever) and Assigned(Culture) and not Assigned(CalendarType);
-  if Result and Assigned(Localizer) and (CultureCalendar = lsDefault) then
-    Result := (loUseNativeCalendar in Localizer.Options)
-end;
+ Function TCustomIntlMonthCalendar.GetUsingCultureCalendar : Boolean;
+  Begin
+   Result := (CultureCalendar <> lsNever) And Assigned(Culture) And Not Assigned(CalendarType);
+   If Result And Assigned(Localizer) And (CultureCalendar = lsDefault) Then
+    Result := (loUseNativeCalendar In Localizer.Options)
+  End;
 
-function TCustomIntlMonthCalendar.GetUsingCultureDigits: Boolean;
-begin
-  Result := (CultureDigits <> lsNever) and Assigned(Culture) and not Culture.IsUsingNominalDigits;
-  if Result and Assigned(Localizer) and (CultureDigits = lsDefault) then
-    Result := (loUseNativeDigits in Localizer.Options)
-end;
+ Function TCustomIntlMonthCalendar.GetUsingCultureDigits : Boolean;
+  Begin
+   Result := (CultureDigits <> lsNever) And Assigned(Culture) And Not Culture.IsUsingNominalDigits;
+   If Result And Assigned(Localizer) And (CultureDigits = lsDefault) Then
+    Result := (loUseNativeDigits In Localizer.Options)
+  End;
 
-procedure TCustomIntlMonthCalendar.NormalizeDigits(var Str: String);
-begin
-  if Assigned(Culture) then
+ Procedure TCustomIntlMonthCalendar.NormalizeDigits(Var Str : String);
+  Begin
+   If Assigned(Culture) Then
     Str := Culture.FreezeDigits(Str, UsingCultureDigits);
-end;
+  End;
 
-function TCustomIntlMonthCalendar.GetDayName(DayOfWeek: TDayOfWeek;
-  NameKind: TIntlCalNameKind): String;
-begin
-  case NameKind of
-    nkLong:
-      Result := Calendar.Settings.DayNames[DayOfWeek];
-    nkShort:
-      Result := Calendar.Settings.ShortDayNames[DayOfWeek];
-    nkShortest:
-      Result := Calendar.Settings.ShortestDayNames[DayOfWeek];
-  else
-    Result := '';
-  end;
-  NormalizeDigits(Result);
-end;
+ Function TCustomIntlMonthCalendar.GetDayName(DayOfWeek : TDayOfWeek; NameKind : TIntlCalNameKind) : String;
+  Begin
+   Case NameKind Of
+    nkLong     : Result := Calendar.Settings.DayNames[DayOfWeek];
+    nkShort    : Result := Calendar.Settings.ShortDayNames[DayOfWeek];
+    nkShortest : Result := Calendar.Settings.ShortestDayNames[DayOfWeek];
+   Else Result := '';
+   End;
+   NormalizeDigits(Result);
+  End;
 
-function TCustomIntlMonthCalendar.GetMonthName(Month: Integer;
-  NameKind: TIntlCalNameKind): String;
-begin
-  if NameKind = nkLong then
+ Function TCustomIntlMonthCalendar.GetMonthName(Month : Integer; NameKind : TIntlCalNameKind) : String;
+  Begin
+   If NameKind = nkLong Then
     Result := Calendar.Settings.MonthNames[Month]
-  else
+   Else
     Result := Calendar.Settings.ShortMonthNames[Month];
-  NormalizeDigits(Result);
-end;
+   NormalizeDigits(Result);
+  End;
 
-function TCustomIntlMonthCalendar.GetYearText(AYear: Integer): String;
-var
-  YearStartDate: TDate;
-begin
-  YearStartDate := Calendar.StartOfYear(Era, AYear);
-  Result := Format(Calendar.Settings.YearFormat, YearStartDate);
-end;
+ Function TCustomIntlMonthCalendar.GetYearText(AYear : Integer) : String;
+  Var
+   YearStartDate : TDate;
+  Begin
+   YearStartDate := Calendar.StartOfYear(Era, AYear);
+   Result        := Format(Calendar.Settings.YearFormat, YearStartDate);
+  End;
 
-function TCustomIntlMonthCalendar.GetDayText(ADay: Integer): String;
-begin
-  Result := IntToStr(ADay);
-  NormalizeDigits(Result);
-end;
+ Function TCustomIntlMonthCalendar.GetDayText(ADay : Integer) : String;
+  Begin
+   Result := IntToStr(ADay);
+   NormalizeDigits(Result);
+  End;
 
-function TCustomIntlMonthCalendar.GetWeekText(AWeek: Integer): String;
-begin
-  Result := IntToStr(AWeek);
-  NormalizeDigits(Result);
-end;
+ Function TCustomIntlMonthCalendar.GetWeekText(AWeek : Integer) : String;
+  Begin
+   Result := IntToStr(AWeek);
+   NormalizeDigits(Result);
+  End;
 
-function TCustomIntlMonthCalendar.GetHeaderText(ViewMode: TIntlCalViewMode): String;
-begin
-  if ViewMode = vmYear then
-  begin
-    if IsRightToLeft then
+ Function TCustomIntlMonthCalendar.GetHeaderText(ViewMode : TIntlCalViewMode) : String;
+  Begin
+   If ViewMode = vmYear Then
+    Begin
+     If IsRightToLeft Then
       Result := GetYearText(LastYearOnPage) + ' - ' + GetYearText(FirstYearOnPage)
-    else
+     Else
       Result := GetYearText(FirstYearOnPage) + ' - ' + GetYearText(LastYearOnPage);
-  end
-  else
-  begin
-    if ViewMode = vmMonth then
+    End
+   Else
+    Begin
+     If ViewMode = vmMonth Then
       Result := Format(Calendar.Settings.YearFormat, Date)
-    else
+     Else
       Result := Format(Calendar.Settings.YearMonthFormat, Date);
-  end;
-end;
+    End;
+  End;
 
-function TCustomIntlMonthCalendar.GetFooterText(LongFormat: Boolean): String;
-begin
-  if LongFormat then
+ Function TCustomIntlMonthCalendar.GetFooterText(LongFormat : Boolean) : String;
+  Begin
+   If LongFormat Then
     Result := Format(Calendar.Settings.LongDateFormat, Calendar.Today)
-  else
+   Else
     Result := Format(Calendar.Settings.ShortDateFormat, Calendar.Today);
-end;
+  End;
 
-function TCustomIntlMonthCalendar.GetMonthLastDate: TDate;
-begin
-  Result := MonthFirstDate + DaysInMonth - 1;
-end;
+ Function TCustomIntlMonthCalendar.GetMonthLastDate : TDate;
+  Begin
+   Result := MonthFirstDate + DaysInMonth - 1;
+  End;
 
-function TCustomIntlMonthCalendar.GetFirstCellDate: TDate;
-begin
-  Result := MonthFirstDate - MonthStartCell;
-end;
+ Function TCustomIntlMonthCalendar.GetFirstCellDate : TDate;
+  Begin
+   Result := MonthFirstDate - MonthStartCell;
+  End;
 
-function TCustomIntlMonthCalendar.GetLastCellDate: TDate;
-begin
-  Result := FirstCellDate + CellCount - 1;
-end;
+ Function TCustomIntlMonthCalendar.GetLastCellDate : TDate;
+  Begin
+   Result := FirstCellDate + CellCount - 1;
+  End;
 
-function TCustomIntlMonthCalendar.GetLastCellYear: Integer;
-begin
-  Result := FirstCellYear + CellCount - 1;
-end;
+ Function TCustomIntlMonthCalendar.GetLastCellYear : Integer;
+  Begin
+   Result := FirstCellYear + CellCount - 1;
+  End;
 
-function TCustomIntlMonthCalendar.GetFirstYearOnPage: Integer;
-begin
-  Result := FirstCellYear;
-  while (Result < Year) and not (IsYearOnPage(Result) and IsYearInRange(Era, Result)) do
+ Function TCustomIntlMonthCalendar.GetFirstYearOnPage : Integer;
+  Begin
+   Result := FirstCellYear;
+   While (Result < Year) And Not(IsYearOnPage(Result) And IsYearInRange(Era, Result)) Do
     Result := Calendar.OffsetYear(Era, Result, +1);
-end;
+  End;
 
-function TCustomIntlMonthCalendar.GetLastYearOnPage: Integer;
-begin
-  Result := LastCellYear;
-  while (Result > Year) and not (IsYearOnPage(Result) and IsYearInRange(Era, Result)) do
+ Function TCustomIntlMonthCalendar.GetLastYearOnPage : Integer;
+  Begin
+   Result := LastCellYear;
+   While (Result > Year) And Not(IsYearOnPage(Result) And IsYearInRange(Era, Result)) Do
     Result := Calendar.OffsetYear(Era, Result, -1);
-end;
+  End;
 
-function TCustomIntlMonthCalendar.GetColCount: Integer;
-begin
-  Result := fMetrics.ColCount;
-end;
+ Function TCustomIntlMonthCalendar.GetColCount : Integer;
+  Begin
+   Result := fMetrics.ColCount;
+  End;
 
-function TCustomIntlMonthCalendar.GetRowCount: Integer;
-begin
-  Result := fMetrics.RowCount;
-end;
+ Function TCustomIntlMonthCalendar.GetRowCount : Integer;
+  Begin
+   Result := fMetrics.RowCount;
+  End;
 
-function TCustomIntlMonthCalendar.GetCellCount: Integer;
-begin
-  Result := RowCount * ColCount;
-end;
+ Function TCustomIntlMonthCalendar.GetCellCount : Integer;
+  Begin
+   Result := RowCount * ColCount;
+  End;
 
-function TCustomIntlMonthCalendar.GetFocusedCell: Integer;
-begin
-  case CurrentView of
-    vmDay: Result := MonthStartCell + Day - 1;
-    vmMonth: Result := Month - 1;
-    vmYear: Result := Year - FirstCellYear;
-  else
-    Result := -1;
-  end;
-end;
+ Function TCustomIntlMonthCalendar.GetFocusedCell : Integer;
+  Begin
+   Case CurrentView Of
+    vmDay   : Result := MonthStartCell + Day - 1;
+    vmMonth : Result := Month - 1;
+    vmYear  : Result := Year - FirstCellYear;
+   Else Result := -1;
+   End;
+  End;
 
-function TCustomIntlMonthCalendar.GetSelectionStart: TDate;
-begin
-  case SelectionStyle of
-    ssSingle:
+ Function TCustomIntlMonthCalendar.GetSelectionStart : TDate;
+  Begin
+   Case SelectionStyle Of
+    ssSingle : Result := Date;
+    ssRange  : Result := Min(Date, fSelectionAnchor);
+   Else Result := fSelection.First;
+   End;
+  End;
+
+ Function TCustomIntlMonthCalendar.GetSelectionEnd : TDate;
+  Begin
+   Case SelectionStyle Of
+    ssSingle : Result := Date;
+    ssRange  : Result := Max(Date, fSelectionAnchor);
+   Else Result := fSelection.Last;
+   End;
+  End;
+
+ Function TCustomIntlMonthCalendar.GetSelectionCount : Integer;
+  Begin
+   Case SelectionStyle Of
+    ssSingle : Result := 1;
+    ssRange  : Result := Calendar.DaysBetween(fSelectionAnchor, Date) + 1;
+   Else Result := fSelection.Count;
+   End;
+  End;
+
+ Function TCustomIntlMonthCalendar.GetSelection(Index : Integer) : TDate;
+  Begin
+   Case SelectionStyle Of
+    ssSingle :
+     Begin
+      If Index <> 0 Then
+       Raise EListError.CreateFmt(SListIndexError, [Index]);
       Result := Date;
-    ssRange:
-      Result := Min(Date, fSelectionAnchor);
-  else
-    Result := fSelection.First;
-  end;
-end;
-
-function TCustomIntlMonthCalendar.GetSelectionEnd: TDate;
-begin
-  case SelectionStyle of
-    ssSingle:
-      Result := Date;
-    ssRange:
-      Result := Max(Date, fSelectionAnchor);
-  else
-    Result := fSelection.Last;
-  end;
-end;
-
-function TCustomIntlMonthCalendar.GetSelectionCount: Integer;
-begin
-  case SelectionStyle of
-    ssSingle:
-      Result := 1;
-    ssRange:
-      Result := Calendar.DaysBetween(fSelectionAnchor, Date) + 1;
-  else
-    Result := fSelection.Count;
-  end;
-end;
-
-function TCustomIntlMonthCalendar.GetSelection(Index: Integer): TDate;
-begin
-  case SelectionStyle of
-    ssSingle:
-    begin
-      if Index <> 0 then
-        raise EListError.CreateFmt(SListIndexError, [Index]);
-      Result := Date;
-    end;
-    ssRange:
-    begin
-      if (Index < 0) or (Index > Calendar.DaysBetween(fSelectionAnchor, Date)) then
-        raise EListError.CreateFmt(SListIndexError, [Index]);
+     End;
+    ssRange :
+     Begin
+      If (Index < 0) Or (Index > Calendar.DaysBetween(fSelectionAnchor, Date)) Then
+       Raise EListError.CreateFmt(SListIndexError, [Index]);
       Result := Min(Date, fSelectionAnchor) + Index;
-    end
-  else
-    Result := fSelection[Index];
-  end;
-end;
+     End
+   Else
+     Result := fSelection[Index];
+   End;
+  End;
 
-function TCustomIntlMonthCalendar.GetAdjacentPageDate(Backward: Boolean): TDate;
-var
-  Dir: Integer;
-begin
-  if Backward then
+ Function TCustomIntlMonthCalendar.GetAdjacentPageDate(Backward : Boolean) : TDate;
+  Var
+   Dir : Integer;
+  Begin
+   If Backward Then
     Dir := -1
-  else
-    Dir := +1;
-  Result := Date;
-  case CurrentView of
-    vmDay:
-      Calendar.IncMonth(Result, Dir);
-    vmMonth:
-      Calendar.IncYear(Result, Dir);
-    vmYear:
-      Calendar.IncYear(Result, Dir * 10);
-  end;
-end;
+   Else
+    Dir   := +1;
+   Result := Date;
+   Case CurrentView Of
+    vmDay   : Calendar.IncMonth(Result, Dir);
+    vmMonth : Calendar.IncYear(Result, Dir);
+    vmYear  : Calendar.IncYear(Result, Dir * 10);
+   End;
+  End;
 
-function TCustomIntlMonthCalendar.GetCalendarClientRect: TRect;
-var
-  TL, BR: Integer;
-begin
-  if fUpdateMetricsCount = 0 then
-  begin
-    Result := fMetrics.Bounds;
-    Exit;
-  end;
-  Result := ClientRect;
-  if BevelKind in [bkTile, bkSoft] then
-  begin
-    TL := 0; BR := 0;
-    if (BevelInner = bvLowered) or ((BevelInner = bvRaised) and (BevelKind = bkSoft)) then
+ Function TCustomIntlMonthCalendar.GetCalendarClientRect : TRect;
+  Var
+   TL, BR : Integer;
+  Begin
+   If fUpdateMetricsCount = 0 Then
+    Begin
+     Result := fMetrics.Bounds;
+     Exit;
+    End;
+   Result := ClientRect;
+   If BevelKind In [bkTile, bkSoft] Then
+    Begin
+     TL := 0;
+     BR := 0;
+     If (BevelInner = bvLowered) Or ((BevelInner = bvRaised) And (BevelKind = bkSoft)) Then
       Inc(TL);
-    if BevelOuter in [bvLowered, bvRaised] then
+     If BevelOuter In [bvLowered, bvRaised] Then
       Inc(BR);
-    if beLeft in BevelEdges then
+     If beLeft In BevelEdges Then
       Inc(Result.Left, TL);
-    if beTop in BevelEdges then
+     If beTop In BevelEdges Then
       Inc(Result.Top, TL);
-    if beRight in BevelEdges then
+     If beRight In BevelEdges Then
       Dec(Result.Right, BR);
-    if beBottom in BevelEdges then
+     If beBottom In BevelEdges Then
       Dec(Result.Bottom, BR);
-  end;
-end;
+    End;
+  End;
 
-function TCustomIntlMonthCalendar.GetSectionRect(Section: TIntlCalSection): TRect;
-begin
-  Result := fMetrics.Sections[Section];
-end;
+ Function TCustomIntlMonthCalendar.GetSectionRect(Section : TIntlCalSection) : TRect;
+  Begin
+   Result := fMetrics.Sections[Section];
+  End;
 
-function TCustomIntlMonthCalendar.GetSectionWidth(Section: TIntlCalSection): Integer;
-begin
-  with fMetrics.Sections[Section] do Result := Right - Left;
-end;
+ Function TCustomIntlMonthCalendar.GetSectionWidth(Section : TIntlCalSection) : Integer;
+  Begin
+   With fMetrics.Sections[Section] Do
+    Result := Right - Left;
+  End;
 
-function TCustomIntlMonthCalendar.GetSectionHeight(Section: TIntlCalSection): Integer;
-begin
-  with fMetrics.Sections[Section] do Result := Bottom - Top;
-end;
+ Function TCustomIntlMonthCalendar.GetSectionHeight(Section : TIntlCalSection) : Integer;
+  Begin
+   With fMetrics.Sections[Section] Do
+    Result := Bottom - Top;
+  End;
 
-function TCustomIntlMonthCalendar.GetCellRect(Row, Col: Integer): TRect;
-begin
-  if (Row < 0) and (Col < 0) then
+ Function TCustomIntlMonthCalendar.GetCellRect(Row, Col : Integer) : TRect;
+  Begin
+   If (Row < 0) And (Col < 0) Then
     Result := fMetrics.Sections[csWeekSpace]
-  else if Row < 0 then
-  begin
-    Result := fMetrics.Sections[csDaysOfWeek];
-    Dec(Result.Bottom, 2);
-  end
-  else if Col < 0 then
-  begin
-    Result := fMetrics.Sections[csWeekNumbers];
-    if IsRightToLeft then
+   Else If Row < 0 Then
+    Begin
+     Result := fMetrics.Sections[csDaysOfWeek];
+     Dec(Result.Bottom, 2);
+    End
+   Else If Col < 0 Then
+    Begin
+     Result := fMetrics.Sections[csWeekNumbers];
+     If IsRightToLeft Then
       Inc(Result.Left, 2)
-    else
+     Else
       Dec(Result.Right, 2);
-  end
-  else
+    End
+   Else
     Result := fMetrics.Sections[csYMD];
-  if Row >= 0 then
-  begin
-    Inc(Result.Top, Row * fMetrics.RowHeight + Min(Row, fMetrics.StretchedRows));
-    Result.Bottom := Result.Top + fMetrics.RowHeight;
-    if Row < fMetrics.StretchedRows then
+   If Row >= 0 Then
+    Begin
+     Inc(Result.Top, Row * fMetrics.RowHeight + Min(Row, fMetrics.StretchedRows));
+     Result.Bottom := Result.Top + fMetrics.RowHeight;
+     If Row < fMetrics.StretchedRows Then
       Inc(Result.Bottom);
-  end;
-  if Col >= 0 then
-  begin
-    if IsRightToLeft and (CurrentView in [vmDay, vmMonth]) then
-    begin
-      Dec(Result.Right, Col * fMetrics.ColWidth + Min(Col, fMetrics.StretchedCols));
-      Result.Left := Result.Right - fMetrics.ColWidth;
-      if Col < fMetrics.StretchedCols then
+    End;
+   If Col >= 0 Then
+    Begin
+     If IsRightToLeft And (CurrentView In [vmDay, vmMonth]) Then
+      Begin
+       Dec(Result.Right, Col * fMetrics.ColWidth + Min(Col, fMetrics.StretchedCols));
+       Result.Left := Result.Right - fMetrics.ColWidth;
+       If Col < fMetrics.StretchedCols Then
         Dec(Result.Left);
-    end
-    else
-    begin
-      Inc(Result.Left, Col * fMetrics.ColWidth + Min(Col, fMetrics.StretchedCols));
-      Result.Right := Result.Left + fMetrics.ColWidth;
-      if Col < fMetrics.StretchedCols then
+      End
+     Else
+      Begin
+       Inc(Result.Left, Col * fMetrics.ColWidth + Min(Col, fMetrics.StretchedCols));
+       Result.Right := Result.Left + fMetrics.ColWidth;
+       If Col < fMetrics.StretchedCols Then
         Inc(Result.Right);
-    end;
-  end;
-end;
+      End;
+    End;
+  End;
 
-function TCustomIntlMonthCalendar.GetCellRect(Index: Integer): TRect;
-begin
-  Result := GetCellRect(Index div ColCount, Index mod ColCount);
-end;
+ Function TCustomIntlMonthCalendar.GetCellRect(Index : Integer) : TRect;
+  Begin
+   Result := GetCellRect(Index Div ColCount, Index Mod ColCount);
+  End;
 
-function TCustomIntlMonthCalendar.GetRowAt(Y: Integer): Integer;
-var
-  D: Integer;
-begin
-  Dec(Y, fMetrics.Sections[csYMD].Top);
-  D := (fMetrics.RowHeight + 1) * fMetrics.StretchedRows;
-  if Y < D then
-    Result := Y div (fMetrics.RowHeight + 1)
-  else
-    Result := fMetrics.StretchedRows + (Y - D) div fMetrics.RowHeight;
-end;
+ Function TCustomIntlMonthCalendar.GetRowAt(y : Integer) : Integer;
+  Var
+   d : Integer;
+  Begin
+   Dec(y, fMetrics.Sections[csYMD].Top);
+   d := (fMetrics.RowHeight + 1) * fMetrics.StretchedRows;
+   If y < d Then
+    Result := y Div (fMetrics.RowHeight + 1)
+   Else
+    Result := fMetrics.StretchedRows + (y - d) Div fMetrics.RowHeight;
+  End;
 
-function TCustomIntlMonthCalendar.GetColAt(X: Integer): Integer;
-var
-  D: Integer;
-begin
-  Dec(X, fMetrics.Sections[csYMD].Left);
-  if IsRightToLeft and (CurrentView in [vmDay, vmMonth]) then
-    X := (fMetrics.Sections[csYMD].Right - fMetrics.Sections[csYMD].Left) - X - 1;
-  D := (fMetrics.ColWidth + 1) * fMetrics.StretchedCols;
-  if X < D then
-    Result := X div (fMetrics.ColWidth + 1)
-  else
-    Result := fMetrics.StretchedCols + (X - D) div fMetrics.ColWidth;
-end;
+ Function TCustomIntlMonthCalendar.GetColAt(x : Integer) : Integer;
+  Var
+   d : Integer;
+  Begin
+   Dec(x, fMetrics.Sections[csYMD].Left);
+   If IsRightToLeft And (CurrentView In [vmDay, vmMonth]) Then
+    x := (fMetrics.Sections[csYMD].Right - fMetrics.Sections[csYMD].Left) - x - 1;
+   d  := (fMetrics.ColWidth + 1) * fMetrics.StretchedCols;
+   If x < d Then
+    Result := x Div (fMetrics.ColWidth + 1)
+   Else
+    Result := fMetrics.StretchedCols + (x - d) Div fMetrics.ColWidth;
+  End;
 
-function TCustomIntlMonthCalendar.GetPreferredClientSize(out AWidth,
-  AHeight: Integer): Boolean;
-var
-  Metrics: TIntlCalMetrics;
-  Mode: TIntlCalViewMode;
-begin
-  if not fPrefferedSizeReady then
-  begin
-    fPrefferedSizeReady := True;
-    fPrefferedSize.cx := fMetrics.PrefferedWidth;
-    fPrefferedSize.cy := fMetrics.PrefferedHeight;
-    fPrefferedSizeSmallest := (fMetrics.NameKind = nkShortest);
-    for Mode := Low(TIntlCalViewMode) to High(TIntlCalViewMode) do
-    begin
-      CalcMetrics(Mode, Metrics);
-      if fPrefferedSize.cx < Metrics.PrefferedWidth then
+ Function TCustomIntlMonthCalendar.GetPreferredClientSize(Out AWidth, AHeight : Integer) : Boolean;
+  Var
+   Metrics : TIntlCalMetrics;
+   Mode    : TIntlCalViewMode;
+  Begin
+   If Not fPrefferedSizeReady Then
+    Begin
+     fPrefferedSizeReady    := True;
+     fPrefferedSize.cx      := fMetrics.PrefferedWidth;
+     fPrefferedSize.cy      := fMetrics.PrefferedHeight;
+     fPrefferedSizeSmallest := (fMetrics.NameKind = nkShortest);
+     For Mode               := Low(TIntlCalViewMode) To High(TIntlCalViewMode) Do
+      Begin
+       CalcMetrics(Mode, Metrics);
+       If fPrefferedSize.cx < Metrics.PrefferedWidth Then
         fPrefferedSize.cx := Metrics.PrefferedWidth;
-      if fPrefferedSize.cy < Metrics.PrefferedHeight then
+       If fPrefferedSize.cy < Metrics.PrefferedHeight Then
         fPrefferedSize.cy := Metrics.PrefferedHeight;
-      if Mode = vmDay then
+       If Mode = vmDay Then
         fPrefferedSizeSmallest := (Metrics.NameKind = nkShortest);
-    end;
-  end;
-  AWidth := fPrefferedSize.cx;
-  AHeight := fPrefferedSize.cy;
-  Result := fPrefferedSizeSmallest;
-end;
+      End;
+    End;
+   AWidth  := fPrefferedSize.cx;
+   AHeight := fPrefferedSize.cy;
+   Result  := fPrefferedSizeSmallest;
+  End;
 
-function TCustomIntlMonthCalendar.GetPreferredControlSize(out AWidth,
-  AHeight: Integer): Boolean;
-var
-  EdgeSize: Integer;
-begin
-  Result := GetPreferredClientSize(AWidth, AHeight);
-  Inc(AWidth, 2 * BorderWidth);
-  Inc(AHeight, 2 * BorderWidth);
-  if BevelKind <> bkNone then
-  begin
-    EdgeSize := 0;
-    if BevelInner <> bvNone then
+ Function TCustomIntlMonthCalendar.GetPreferredControlSize(Out AWidth, AHeight : Integer) : Boolean;
+  Var
+   EdgeSize : Integer;
+  Begin
+   Result := GetPreferredClientSize(AWidth, AHeight);
+   Inc(AWidth, 2 * BorderWidth);
+   Inc(AHeight, 2 * BorderWidth);
+   If BevelKind <> bkNone Then
+    Begin
+     EdgeSize := 0;
+     If BevelInner <> bvNone Then
       Inc(EdgeSize, BevelWidth);
-    if BevelOuter <> bvNone then
+     If BevelOuter <> bvNone Then
       Inc(EdgeSize, BevelWidth);
-    if beLeft in BevelEdges then
+     If beLeft In BevelEdges Then
       Inc(AWidth, EdgeSize);
-    if beRight in BevelEdges then
+     If beRight In BevelEdges Then
       Inc(AWidth, EdgeSize);
-    if beTop in BevelEdges then
+     If beTop In BevelEdges Then
       Inc(AHeight, EdgeSize);
-    if beBottom in BevelEdges then
+     If beBottom In BevelEdges Then
       Inc(AHeight, EdgeSize);
-  end;
-end;
+    End;
+  End;
 
-function TCustomIntlMonthCalendar.GetHitTestInfoAt(X, Y: Integer;
-  out Cell: Integer): TIntlCalHitTest;
-var
-  Pt: TPoint;
-begin
-  Pt.X := X;
-  Pt.Y := Y;
-  Cell := -1;
-  Result := chtNowhere;
-  if PtInRect(fMetrics.Bounds, Pt) then
-  begin
-    if PtInRect(fMetrics.Sections[csHeader], Pt) then
-    begin
-      if PtInRect(fMetrics.Sections[csHeaderText], Pt) then
+ Function TCustomIntlMonthCalendar.GetHitTestInfoAt(x, y : Integer; Out Cell : Integer) : TIntlCalHitTest;
+  Var
+   Pt : TPoint;
+  Begin
+   Pt.x   := x;
+   Pt.y   := y;
+   Cell   := -1;
+   Result := chtNowhere;
+   If PtInRect(fMetrics.Bounds, Pt) Then
+    Begin
+     If PtInRect(fMetrics.Sections[csHeader], Pt) Then
+      Begin
+       If PtInRect(fMetrics.Sections[csHeaderText], Pt) Then
         Result := chtHeaderText
-      else if PtInRect(fMetrics.Sections[csArrowLeft], Pt) then
+       Else If PtInRect(fMetrics.Sections[csArrowLeft], Pt) Then
         Result := chtArrowLeft
-      else if PtInRect(fMetrics.Sections[csArrowRight], Pt) then
+       Else If PtInRect(fMetrics.Sections[csArrowRight], Pt) Then
         Result := chtArrowRight;
-    end
-    else if PtInRect(fMetrics.Sections[csFooter], Pt) then
+      End
+     Else If PtInRect(fMetrics.Sections[csFooter], Pt) Then
       Result := chtFooter
-    else if (CurrentView = vmDay) and PtInRect(fMetrics.Sections[csDaysOfWeek], Pt) then
+     Else If (CurrentView = vmDay) And PtInRect(fMetrics.Sections[csDaysOfWeek], Pt) Then
       Result := chtDayOfWeek
-    else if (CurrentView = vmDay) and WeekNumbers and PtInRect(fMetrics.Sections[csWeekNumbers], Pt) then
+     Else If (CurrentView = vmDay) And WeekNumbers And PtInRect(fMetrics.Sections[csWeekNumbers], Pt) Then
       Result := chtWeekNumber
-    else if PtInRect(fMetrics.Sections[csYMD], Pt) then
-    begin
-      Cell := GetRowAt(Y) * fMetrics.ColCount + GetColAt(X);
-      case CurrentView of
-        vmDay: Result := chtDay;
-        vmMonth: Result := chtMonth;
-        vmYear: Result := chtYear;
-      end;
-    end;
-  end
-  else
-end;
+     Else If PtInRect(fMetrics.Sections[csYMD], Pt) Then
+      Begin
+       Cell := GetRowAt(y) * fMetrics.ColCount + GetColAt(x);
+       Case CurrentView Of
+        vmDay   : Result := chtDay;
+        vmMonth : Result := chtMonth;
+        vmYear  : Result := chtYear;
+       End;
+      End;
+    End
+   Else
+  End;
 
-function TCustomIntlMonthCalendar.GetTheme: HTHEME;
-var
-  ListView: TListView;
-begin
-  if fTheme = 0 then
-  begin
-    ListView := TListView.Create(nil);
-    try
-      ListView.Visible := False;
+ Function TCustomIntlMonthCalendar.GetTheme : HTHEME;
+  Var
+   ListView : TListView;
+  Begin
+   If fTheme = 0 Then
+    Begin
+     ListView := TListView.Create(Nil);
+     Try
+      ListView.Visible      := False;
       ListView.ParentWindow := Handle;
-      fTheme := OpenThemeData(ListView.Handle, 'listview');
-    finally
+      fTheme                := OpenThemeData(ListView.Handle, 'listview');
+     Finally
       ListView.Free;
-    end;
-  end;
-  Result := fTheme;
-end;
+     End;
+    End;
+   Result := fTheme;
+  End;
 
-function TCustomIntlMonthCalendar.IsDateStored: Boolean;
-begin
-  Result := not Calendar.IsToday(Date);
-end;
+ Function TCustomIntlMonthCalendar.IsDateStored : Boolean;
+  Begin
+   Result := Not Calendar.IsToday(Date);
+  End;
 
-function TCustomIntlMonthCalendar.IsDateMinStored: Boolean;
-begin
-  Result := not Calendar.IsNoDate(DateMin);
-end;
+ Function TCustomIntlMonthCalendar.IsDateMinStored : Boolean;
+  Begin
+   Result := Not Calendar.IsNoDate(DateMin);
+  End;
 
-function TCustomIntlMonthCalendar.IsDateMaxStored: Boolean;
-begin
-  Result := not Calendar.IsNoDate(DateMax);
-end;
+ Function TCustomIntlMonthCalendar.IsDateMaxStored : Boolean;
+  Begin
+   Result := Not Calendar.IsNoDate(DateMax);
+  End;
 
-function TCustomIntlMonthCalendar.IsManagedByLocalizer: Boolean;
-begin
-  Result := Assigned(Localizer);
-end;
+ Function TCustomIntlMonthCalendar.IsManagedByLocalizer : Boolean;
+  Begin
+   Result := Assigned(Localizer);
+  End;
 
-procedure TCustomIntlMonthCalendar.WMEraseBkgnd(var Message: TWMEraseBkgnd);
-begin
-  Message.Result := 1;
-end;
+ Procedure TCustomIntlMonthCalendar.WMEraseBkgnd(Var Message : TWMEraseBkgnd);
+  Begin
+   Message.Result := 1;
+  End;
 
-procedure TCustomIntlMonthCalendar.WMGetDlgCode(var Message: TWMGetDlgCode);
-begin
-  Message.Result := DLGC_WANTARROWS;
-end;
+ Procedure TCustomIntlMonthCalendar.WMGetDlgCode(Var Message : TWMGetDlgCode);
+  Begin
+   Message.Result := DLGC_WANTARROWS;
+  End;
 
-procedure TCustomIntlMonthCalendar.WMMouseActivate(var Message: TWMMouseActivate);
-begin
-  inherited;
-  if CanFocus then
+ Procedure TCustomIntlMonthCalendar.WMMouseActivate(Var Message : TWMMouseActivate);
+  Begin
+   Inherited;
+   If CanFocus Then
     SetFocus;
-end;
+  End;
 
-procedure TCustomIntlMonthCalendar.WMTimer(var Message: TWMTimer);
-var
-  TheDate: TDate;
-begin
-  if NavigationTimer = AutoNavTimerForward then
+ Procedure TCustomIntlMonthCalendar.WMTimer(Var Message : TWMTimer);
+  Var
+   TheDate : TDate;
+  Begin
+   If NavigationTimer = AutoNavTimerForward Then
     TheDate := GetAdjacentPageDate(False)
-  else if NavigationTimer = AutoNavTimerBackward then
+   Else If NavigationTimer = AutoNavTimerBackward Then
     TheDate := GetAdjacentPageDate(True)
-  else
-  begin
-    inherited;
-    Exit;
-  end;
-  if IsDateInRange(TheDate) then
+   Else
+    Begin
+     Inherited;
+     Exit;
+    End;
+   If IsDateInRange(TheDate) Then
     SelectDate(TheDate);
-end;
+  End;
 
-procedure TCustomIntlMonthCalendar.CMMouseLeave(var Message: TMessage);
-begin
-  inherited;
-  InvalidateHotLight;
-  fHotCell := -1;
-  fHotInfo := chtNowhere;
-end;
+ Procedure TCustomIntlMonthCalendar.CMMouseLeave(Var Message : TMessage);
+  Begin
+   Inherited;
+   InvalidateHotLight;
+   fHotCell := -1;
+   fHotInfo := chtNowhere;
+  End;
 
-procedure TCustomIntlMonthCalendar.CMHintShow(var Message: TCMHintShow);
-var
-  TheDate: TDate;
-  TheCell: Integer;
-begin
-  TheCell := -1;
-  with Message.HintInfo^ do
-  begin
-    if (GetHitTestInfoAt(CursorPos.X, CursorPos.Y, TheCell) = chtDay) and GetDateAtCell(TheCell, TheDate) then
-    begin
-      if TheDate <> fHintDate then
-      begin
-        fHintDate := TheDate;
-        DoDateHint(TheDate, HintStr);
-      end;
-    end
-    else
-    begin
-      fHintDate := Calendar.NoDate;
-      inherited;
-    end;
-    CursorRect := GetCellRect(TheCell);
-  end;
-end;
+ Procedure TCustomIntlMonthCalendar.CMHintShow(Var Message : TCMHintShow);
+  Var
+   TheDate : TDate;
+   TheCell : Integer;
+  Begin
+   TheCell := -1;
+   With Message.HintInfo^Do
+    Begin
+     If (GetHitTestInfoAt(CursorPos.x, CursorPos.y, TheCell) = chtDay) And GetDateAtCell(TheCell, TheDate) Then
+      Begin
+       If TheDate <> fHintDate Then
+        Begin
+         fHintDate := TheDate;
+         DoDateHint(TheDate, HintStr);
+        End;
+      End
+     Else
+      Begin
+       fHintDate := Calendar.NoDate;
+       Inherited;
+      End;
+     CursorRect := GetCellRect(TheCell);
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.CMFontChanged(var Message: TMessage);
-begin
-  inherited;
-  Inc(fUpdateMetricsCount);
-  try
-    if not fSaveFontHeader then
-      FontHeader.Assign(Font);
-    if not fSaveFontFooter then
-      FontFooter.Assign(Font);
-    if not fSaveFontDayOfWeek then
-      FontDayOfWeek.Assign(Font);
-    if not fSaveFontWeekNumbers then
-      FontWeekNumbers.Assign(Font);
-  finally
+ Procedure TCustomIntlMonthCalendar.CMFontChanged(Var Message : TMessage);
+  Begin
+   Inherited;
+   Inc(fUpdateMetricsCount);
+   Try
+    If Not fSaveFontHeader Then
+     FontHeader.Assign(Font);
+    If Not fSaveFontFooter Then
+     FontFooter.Assign(Font);
+    If Not fSaveFontDayOfWeek Then
+     FontDayOfWeek.Assign(Font);
+    If Not fSaveFontWeekNumbers Then
+     FontWeekNumbers.Assign(Font);
+   Finally
     Dec(fUpdateMetricsCount);
-  end;
-  UpdateMetrics;
-end;
+   End;
+   UpdateMetrics;
+  End;
 
-procedure TCustomIntlMonthCalendar.DoDateChange;
-begin
-  if Assigned(OnDateChange) then
+ Procedure TCustomIntlMonthCalendar.DoDateChange;
+  Begin
+   If Assigned(OnDateChange) Then
     OnDateChange(Self);
-end;
+  End;
 
-procedure TCustomIntlMonthCalendar.DoPageChange;
-begin
-  if Assigned(OnPageChange) then
+ Procedure TCustomIntlMonthCalendar.DoPageChange;
+  Begin
+   If Assigned(OnPageChange) Then
     OnPageChange(Self);
-end;
+  End;
 
-procedure TCustomIntlMonthCalendar.DoCalendarChange;
-begin
-  if Assigned(OnCalendarChange) then
+ Procedure TCustomIntlMonthCalendar.DoCalendarChange;
+  Begin
+   If Assigned(OnCalendarChange) Then
     OnCalendarChange(Self);
-end;
+  End;
 
-procedure TCustomIntlMonthCalendar.DoSelectionChange;
-begin
-  if Assigned(OnSelectionChange) then
+ Procedure TCustomIntlMonthCalendar.DoSelectionChange;
+  Begin
+   If Assigned(OnSelectionChange) Then
     OnSelectionChange(Self);
-end;
+  End;
 
-procedure TCustomIntlMonthCalendar.DoDateHint(const ADate: TDate;
-  var HintStr: String);
-begin
-  HintStr := Hint;
-  if Assigned(OnDateHint) then
+ Procedure TCustomIntlMonthCalendar.DoDateHint(Const ADate : TDate; Var HintStr : String);
+  Begin
+   HintStr := Hint;
+   If Assigned(OnDateHint) Then
     OnDateHint(Self, ADate, HintStr);
-end;
+  End;
 
-function TCustomIntlMonthCalendar.DoDateSelectable(const ADate: TDate): Boolean;
-begin
-  Result := True;
-  if Assigned(OnDateSelectable) then
+ Function TCustomIntlMonthCalendar.DoDateSelectable(Const ADate : TDate) : Boolean;
+  Begin
+   Result := True;
+   If Assigned(OnDateSelectable) Then
     OnDateSelectable(Self, ADate, Result);
-end;
+  End;
 
-function TCustomIntlMonthCalendar.DoCustomDrawDayOfWeek(Canvas: TCanvas;
-  const ARect: TRect; State: TIntlCalDrawStates; ADayOfWeek: TDayOfWeek): Boolean;
-begin
-  Result := True;
-  if Assigned(OnCustomDrawDayOfWeek) then
+ Function TCustomIntlMonthCalendar.DoCustomDrawDayOfWeek(Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; ADayOfWeek : TDayOfWeek) : Boolean;
+  Begin
+   Result := True;
+   If Assigned(OnCustomDrawDayOfWeek) Then
     OnCustomDrawDayOfWeek(Self, Canvas, ARect, State, ADayOfWeek, Result);
-end;
+  End;
 
-function TCustomIntlMonthCalendar.DoCustomDrawWeekNumber(Canvas: TCanvas;
-  const ARect: TRect; State: TIntlCalDrawStates; AWeek: Integer): Boolean;
-begin
-  Result := True;
-  if Assigned(OnCustomDrawWeekNumber) then
+ Function TCustomIntlMonthCalendar.DoCustomDrawWeekNumber(Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; AWeek : Integer) : Boolean;
+  Begin
+   Result := True;
+   If Assigned(OnCustomDrawWeekNumber) Then
     OnCustomDrawWeekNumber(Self, Canvas, ARect, State, AWeek, Result);
-end;
+  End;
 
-function TCustomIntlMonthCalendar.DoCustomDrawDay(Canvas: TCanvas;
-  const ARect: TRect; State: TIntlCalDrawStates; const ADate: TDate;
-  ADay: Integer): Boolean;
-begin
-  Result := True;
-  if Assigned(OnCustomDrawDay) then
+ Function TCustomIntlMonthCalendar.DoCustomDrawDay(Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; Const ADate : TDate; ADay : Integer) : Boolean;
+  Begin
+   Result := True;
+   If Assigned(OnCustomDrawDay) Then
     OnCustomDrawDay(Self, Canvas, ARect, State, ADate, ADay, Result);
-end;
+  End;
 
-function TCustomIntlMonthCalendar.DoCustomDrawMonth(Canvas: TCanvas;
-  const ARect: TRect; State: TIntlCalDrawStates; AMonth: Integer): Boolean;
-begin
-  Result := True;
-  if Assigned(OnCustomDrawMonth) then
+ Function TCustomIntlMonthCalendar.DoCustomDrawMonth(Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; AMonth : Integer) : Boolean;
+  Begin
+   Result := True;
+   If Assigned(OnCustomDrawMonth) Then
     OnCustomDrawMonth(Self, Canvas, ARect, State, AMonth, Result);
-end;
+  End;
 
-function TCustomIntlMonthCalendar.DoCustomDrawYear(Canvas: TCanvas;
-  const ARect: TRect; State: TIntlCalDrawStates; AYear: Integer): Boolean;
-begin
-  Result := True;
-  if Assigned(OnCustomDrawYear) then
+ Function TCustomIntlMonthCalendar.DoCustomDrawYear(Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; AYear : Integer) : Boolean;
+  Begin
+   Result := True;
+   If Assigned(OnCustomDrawYear) Then
     OnCustomDrawYear(Self, Canvas, ARect, State, AYear, Result);
-end;
+  End;
 
-function TCustomIntlMonthCalendar.DoCustomDrawHeaderText(Canvas: TCanvas;
-  const ARect: TRect; State: TIntlCalDrawStates; const AText: String): Boolean;
-begin
-  Result := True;
-  if Assigned(OnCustomDrawHeaderText) then
+ Function TCustomIntlMonthCalendar.DoCustomDrawHeaderText(Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; Const AText : String) : Boolean;
+  Begin
+   Result := True;
+   If Assigned(OnCustomDrawHeaderText) Then
     OnCustomDrawHeaderText(Self, Canvas, ARect, State, AText, Result);
-end;
+  End;
 
-function TCustomIntlMonthCalendar.DoCustomDrawFooterText(Canvas: TCanvas;
-  const ARect: TRect; State: TIntlCalDrawStates; const AText: String): Boolean;
-begin
-  Result := True;
-  if Assigned(OnCustomDrawFooterText) then
+ Function TCustomIntlMonthCalendar.DoCustomDrawFooterText(Canvas : TCanvas; Const ARect : TRect; State : TIntlCalDrawStates; Const AText : String) : Boolean;
+  Begin
+   Result := True;
+   If Assigned(OnCustomDrawFooterText) Then
     OnCustomDrawFooterText(Self, Canvas, ARect, State, AText, Result);
-end;
+  End;
 
-procedure TCustomIntlMonthCalendar.LocalizerNotify(Sender: TLocalizer;
-  Reason: TLocalizerNotification);
-begin
-  case Reason of
-    lnCultureChanged:
-      if Assigned(Localizer) then
-        Culture := Localizer.Culture
-      else
-        Culture := nil;
-    lnOptionsChanged:
-      ValidateCalendar;
-  end;
-end;
+ Procedure TCustomIntlMonthCalendar.LocalizerNotify(Sender : TLocalizer; Reason : TLocalizerNotification);
+  Begin
+   Case Reason Of
+    lnCultureChanged :
+     If Assigned(Localizer) Then
+      Culture := Localizer.Culture
+     Else
+      Culture := Nil;
+    lnOptionsChanged :
+     ValidateCalendar;
+   End;
+  End;
 
-procedure TCustomIntlMonthCalendar.FontHeaderChanged(Sender: TObject);
-begin
-  fSaveFontHeader := (FontHeader.Handle <> Font.Handle);
-  UpdateMetrics;
-end;
+ Procedure TCustomIntlMonthCalendar.FontHeaderChanged(Sender : TObject);
+  Begin
+   fSaveFontHeader := (FontHeader.Handle <> Font.Handle);
+   UpdateMetrics;
+  End;
 
-procedure TCustomIntlMonthCalendar.FontFooterChanged(Sender: TObject);
-begin
-  fSaveFontFooter := (FontFooter.Handle <> Font.Handle);
-  UpdateMetrics;
-end;
+ Procedure TCustomIntlMonthCalendar.FontFooterChanged(Sender : TObject);
+  Begin
+   fSaveFontFooter := (FontFooter.Handle <> Font.Handle);
+   UpdateMetrics;
+  End;
 
-procedure TCustomIntlMonthCalendar.FontDayOfWeekChanged(Sender: TObject);
-begin
-  fSaveFontDayOfWeek := (FontDayOfWeek.Handle <> Font.Handle);
-  UpdateMetrics;
-end;
+ Procedure TCustomIntlMonthCalendar.FontDayOfWeekChanged(Sender : TObject);
+  Begin
+   fSaveFontDayOfWeek := (FontDayOfWeek.Handle <> Font.Handle);
+   UpdateMetrics;
+  End;
 
-procedure TCustomIntlMonthCalendar.FontWeekNumbersChanged(Sender: TObject);
-begin
-  fSaveFontWeekNumbers := (FontWeekNumbers.Handle <> Font.Handle);
-  if WeekNumbers then
+ Procedure TCustomIntlMonthCalendar.FontWeekNumbersChanged(Sender : TObject);
+  Begin
+   fSaveFontWeekNumbers := (FontWeekNumbers.Handle <> Font.Handle);
+   If WeekNumbers Then
     UpdateMetrics;
-end;
+  End;
 
-procedure TCustomIntlMonthCalendar.CalendarChanged(Sender: TObject);
-begin
-  UpdateCalendar;
-  DoCalendarChange;
-end;
+ Procedure TCustomIntlMonthCalendar.CalendarChanged(Sender : TObject);
+  Begin
+   UpdateCalendar;
+   DoCalendarChange;
+  End;
 
-procedure TCustomIntlMonthCalendar.ReadCulture(Reader: TReader);
-begin
-  Culture := CultureOf(Reader.ReadString);
-end;
+ Procedure TCustomIntlMonthCalendar.ReadCulture(Reader : TReader);
+  Begin
+   Culture := CultureOf(Reader.ReadString);
+  End;
 
-procedure TCustomIntlMonthCalendar.WriteCulture(Writer: TWriter);
-begin
-  Writer.WriteString(Culture.Locale);
-end;
+ Procedure TCustomIntlMonthCalendar.WriteCulture(Writer : TWriter);
+  Begin
+   Writer.WriteString(Culture.Locale);
+  End;
 
-procedure TCustomIntlMonthCalendar.ReadCalendarType(Reader: TReader);
-begin
-  CalendarType := CalendarTypes.ByName(Reader.ReadString);
-end;
+ Procedure TCustomIntlMonthCalendar.ReadCalendarType(Reader : TReader);
+  Begin
+   CalendarType := CalendarTypes.ByName(Reader.ReadString);
+  End;
 
-procedure TCustomIntlMonthCalendar.WriteCalendarType(Writer: TWriter);
-begin
-  Writer.WriteString(CalendarType.CalendarName);
-end;
+ Procedure TCustomIntlMonthCalendar.WriteCalendarType(Writer : TWriter);
+  Begin
+   Writer.WriteString(CalendarType.CalendarName);
+  End;
 
-procedure TCustomIntlMonthCalendar.DefineProperties(Filer: TFiler);
-begin
-  inherited DefineProperties(Filer);
-  Filer.DefineProperty('CultureInfo', ReadCulture, WriteCulture,
-    not Assigned(Localizer) and Assigned(Culture));
-  Filer.DefineProperty('CalendarClass', ReadCalendarType, WriteCalendarType,
-    Assigned(CalendarType));
-end;
+ Procedure TCustomIntlMonthCalendar.DefineProperties(Filer : TFiler);
+  Begin
+   Inherited DefineProperties(Filer);
+   Filer.DefineProperty('CultureInfo', ReadCulture, WriteCulture,
+   Not Assigned(Localizer) And Assigned(Culture));
+   Filer.DefineProperty('CalendarClass', ReadCalendarType, WriteCalendarType,
+   Assigned(CalendarType));
+  End;
 
-procedure TCustomIntlMonthCalendar.Notification(AComponent: TComponent;
-  Operation: TOperation);
-begin
-  inherited Notification(AComponent, Operation);
-  if (Operation = opRemove) and (AComponent = Localizer) then
-    Localizer := nil;
-end;
+ Procedure TCustomIntlMonthCalendar.Notification(AComponent : TComponent; Operation : TOperation);
+  Begin
+   Inherited Notification(AComponent, Operation);
+   If (Operation = opRemove) And (AComponent = Localizer) Then
+    Localizer := Nil;
+  End;
 
-procedure TCustomIntlMonthCalendar.Resize;
-begin
-  inherited Resize;
-  UpdateMetrics;
-end;
+ Procedure TCustomIntlMonthCalendar.Resize;
+  Begin
+   Inherited Resize;
+   UpdateMetrics;
+  End;
 
-procedure TCustomIntlMonthCalendar.Paint;
-var
-  Rect: TRect;
-begin
-  DrawCalendar(Canvas);
-  Rect := ClientRect;
-  if not EqualRect(fMetrics.Bounds, Rect) then
-  begin
-    with fMetrics.Bounds do
+ Procedure TCustomIntlMonthCalendar.Paint;
+  Var
+   Rect : TRect;
+  Begin
+   DrawCalendar(Canvas);
+   Rect := ClientRect;
+   If Not EqualRect(fMetrics.Bounds, Rect) Then
+    Begin
+     With fMetrics.Bounds Do
       ExcludeClipRect(Canvas.Handle, Left, Top, Right, Bottom);
-    Canvas.Brush.Color := Color;
-    Canvas.FillRect(Rect);
-  end;
-end;
+     Canvas.Brush.Color := Color;
+     Canvas.FillRect(Rect);
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.Loaded;
-begin
-  inherited Loaded;
-  if (Assigned(CalendarType) or Assigned(Culture)) or
-     (Assigned(Localizer) and Assigned(Localizer.Culture))
-  then
+ Procedure TCustomIntlMonthCalendar.Loaded;
+  Begin
+   Inherited Loaded;
+   If (Assigned(CalendarType) Or Assigned(Culture)) Or
+   (Assigned(Localizer) And Assigned(Localizer.Culture))
+   Then
     ValidateCalendar
-  else
-  begin
-    UpdateCalendar;
-    DoCalendarChange;
-  end;
-  DoPageChange;
-  DoDateChange;
-  DoSelectionChange;
-end;
+   Else
+    Begin
+     UpdateCalendar;
+     DoCalendarChange;
+    End;
+   DoPageChange;
+   DoDateChange;
+   DoSelectionChange;
+  End;
 
-function TCustomIntlMonthCalendar.CanAutoSize(var NewWidth, NewHeight: Integer): Boolean;
-begin
-  Result := True;
-  if AutoSize and not (csLoading in ComponentState) then
+ Function TCustomIntlMonthCalendar.CanAutoSize(Var NewWidth, NewHeight : Integer) : Boolean;
+  Begin
+   Result := True;
+   If AutoSize And Not(csLoading In ComponentState) Then
     GetPreferredControlSize(NewWidth, NewHeight);
-end;
+  End;
 
-procedure TCustomIntlMonthCalendar.MouseDown(Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-var
-  TheDate: TDate;
-  TheYear, TheMonth, TheDay: Integer;
-  TheCell: Integer;
-begin
-  fDraggingCell := -1;
-  if (Button = mbLeft) and not (ssDouble in Shift) then
-  begin
-    case GetHitTestInfoAt(X, Y, TheCell) of
-      chtArrowLeft:
-      begin
+ Procedure TCustomIntlMonthCalendar.MouseDown(Button : TMouseButton; Shift : TShiftState; x, y : Integer);
+  Var
+   TheDate                   : TDate;
+   TheYear, TheMonth, TheDay : Integer;
+   TheCell                   : Integer;
+  Begin
+   fDraggingCell := -1;
+   If (Button = mbLeft) And Not(ssDouble In Shift) Then
+    Begin
+     Case GetHitTestInfoAt(x, y, TheCell) Of
+      chtArrowLeft :
+       Begin
         TheDate := GetAdjacentPageDate(True);
-        if IsDateInRange(TheDate) then
-        begin
-          fNavigationTimer := SetTimer(Handle, AutoNavTimerBackward, AutoNavInterval, nil);
+        If IsDateInRange(TheDate) Then
+         Begin
+          fNavigationTimer := SetTimer(Handle, AutoNavTimerBackward, AutoNavInterval, Nil);
           SelectDate(TheDate);
-        end;
-      end;
-      chtArrowRight:
-      begin
+         End;
+       End;
+      chtArrowRight :
+       Begin
         TheDate := GetAdjacentPageDate(False);
-        if IsDateInRange(TheDate) then
-        begin
-          fNavigationTimer := SetTimer(Handle, AutoNavTimerForward, AutoNavInterval, nil);
+        If IsDateInRange(TheDate) Then
+         Begin
+          fNavigationTimer := SetTimer(Handle, AutoNavTimerForward, AutoNavInterval, Nil);
           SelectDate(TheDate);
-        end;
-      end;
-      chtHeaderText:
-        case CurrentView of
-          vmDay:
-            CurrentView := vmMonth;
-          vmMonth:
-            CurrentView := vmYear;
-        end;
-      chtFooter:
-      begin
+         End;
+       End;
+      chtHeaderText :
+       Case CurrentView Of
+        vmDay   : CurrentView := vmMonth;
+        vmMonth : CurrentView := vmYear;
+       End;
+      chtFooter :
+       Begin
         CurrentView := vmDay;
         Select(Calendar.Today);
         InvalidateSections([csFooter]);
-      end;
-      chtDay:
-        if GetDateAtCell(TheCell, TheDate) then
-        begin
-          SelectDate(TheDate, Shift);
-          fDraggingCell := TheCell;
-        end;
-      chtMonth:
-        if GetMonthAtCell(TheCell, TheMonth) then
-        begin
-          TheDay := Min(Day, Calendar.DaysInMonth(Era, Year, TheMonth));
-          Select(Calendar.EncodeDate(Era, Year, TheMonth, TheDay));
-          fDraggingCell := TheCell;
-        end;
-      chtYear:
-        if GetYearAtCell(TheCell, TheYear) then
-        begin
-          fDraggingOffPage := not IsYearOnPage(TheYear);
-          TheMonth := Min(Month, Calendar.MonthsInYear(Era, TheYear));
-          TheDay := Min(Day, Calendar.DaysInMonth(Era, TheYear, TheMonth));
-          Select(Calendar.EncodeDate(Era, TheYear, TheMonth, TheDay));
-          fDraggingCell := TheCell;
-        end;
-    end;
-    fDraggingShiftState := Shift + [ssShift];
-  end;
-  inherited MouseDown(Button, Shift, X, Y);
-end;
+       End;
+      chtDay :
+       If GetDateAtCell(TheCell, TheDate) Then
+        Begin
+         SelectDate(TheDate, Shift);
+         fDraggingCell := TheCell;
+        End;
+      chtMonth :
+       If GetMonthAtCell(TheCell, TheMonth) Then
+        Begin
+         TheDay := Min(Day, Calendar.DaysInMonth(Era, Year, TheMonth));
+         Select(Calendar.EncodeDate(Era, Year, TheMonth, TheDay));
+         fDraggingCell := TheCell;
+        End;
+      chtYear :
+       If GetYearAtCell(TheCell, TheYear) Then
+        Begin
+         fDraggingOffPage := Not IsYearOnPage(TheYear);
+         TheMonth         := Min(Month, Calendar.MonthsInYear(Era, TheYear));
+         TheDay           := Min(Day, Calendar.DaysInMonth(Era, TheYear, TheMonth));
+         Select(Calendar.EncodeDate(Era, TheYear, TheMonth, TheDay));
+         fDraggingCell := TheCell;
+        End;
+     End;
+     fDraggingShiftState := Shift + [ssShift];
+    End;
+   Inherited MouseDown(Button, Shift, x, y);
+  End;
 
-procedure TCustomIntlMonthCalendar.MouseMove(Shift: TShiftState; X, Y: Integer);
-var
-  TheDate: TDate;
-  TheYear, TheMonth, TheDay: Integer;
-  TheCell: Integer;
-  TheHitTest: TIntlCalHitTest;
-begin
-  if NavigationTimer <> 0 then
+ Procedure TCustomIntlMonthCalendar.MouseMove(Shift : TShiftState; x, y : Integer);
+  Var
+   TheDate                   : TDate;
+   TheYear, TheMonth, TheDay : Integer;
+   TheCell                   : Integer;
+   TheHitTest                : TIntlCalHitTest;
+  Begin
+   If NavigationTimer <> 0 Then
     Exit;
-  TheHitTest := GetHitTestInfoAt(X, Y, TheCell);
-  if (TheHitTest <> HotInfo) or (TheCell <> HotCell) then
-  begin
-    InvalidateHotLight;
-    fHotInfo := TheHitTest;
-    fHotCell := TheCell;
-    InvalidateHotLight;
-  end;
-  if (DraggingCell >= 0) and (DraggingCell <> TheCell) and (TheCell >= 0) then
-  begin
-    case HotInfo of
-      chtDay:
-        if GetDateAtCell(TheCell, TheDate) then
-        begin
-          fDraggingCell := TheCell;
-          SelectDate(TheDate, fDraggingShiftState);
-        end;
-      chtMonth:
-        if GetMonthAtCell(TheCell, TheMonth) then
-        begin
-          fDraggingCell := TheCell;
-          TheDay := Min(Day, Calendar.DaysInMonth(Era, Year, TheMonth));
-          Select(Calendar.EncodeDate(Era, Year, TheMonth, TheDay));
-        end;
-      chtYear:
-        if GetYearAtCell(TheCell, TheYear) then
-        begin
-          fDraggingCell := TheCell;
-          fDraggingOffPage := not IsYearOnPage(TheYear);
-          TheMonth := Min(Month, Calendar.MonthsInYear(Era, TheYear));
-          TheDay := Min(Day, Calendar.DaysInMonth(Era, TheYear, TheMonth));
-          Select(Calendar.EncodeDate(Era, TheYear, TheMonth, TheDay));
-        end;
-    end;
-  end;
-  inherited MouseMove(Shift, X, Y);
-end;
+   TheHitTest := GetHitTestInfoAt(x, y, TheCell);
+   If (TheHitTest <> HotInfo) Or (TheCell <> HotCell) Then
+    Begin
+     InvalidateHotLight;
+     fHotInfo := TheHitTest;
+     fHotCell := TheCell;
+     InvalidateHotLight;
+    End;
+   If (DraggingCell >= 0) And (DraggingCell <> TheCell) And (TheCell >= 0) Then
+    Begin
+     Case HotInfo Of
+      chtDay :
+       If GetDateAtCell(TheCell, TheDate) Then
+        Begin
+         fDraggingCell := TheCell;
+         SelectDate(TheDate, fDraggingShiftState);
+        End;
+      chtMonth :
+       If GetMonthAtCell(TheCell, TheMonth) Then
+        Begin
+         fDraggingCell := TheCell;
+         TheDay        := Min(Day, Calendar.DaysInMonth(Era, Year, TheMonth));
+         Select(Calendar.EncodeDate(Era, Year, TheMonth, TheDay));
+        End;
+      chtYear :
+       If GetYearAtCell(TheCell, TheYear) Then
+        Begin
+         fDraggingCell    := TheCell;
+         fDraggingOffPage := Not IsYearOnPage(TheYear);
+         TheMonth         := Min(Month, Calendar.MonthsInYear(Era, TheYear));
+         TheDay           := Min(Day, Calendar.DaysInMonth(Era, TheYear, TheMonth));
+         Select(Calendar.EncodeDate(Era, TheYear, TheMonth, TheDay));
+        End;
+     End;
+    End;
+   Inherited MouseMove(Shift, x, y);
+  End;
 
-procedure TCustomIntlMonthCalendar.MouseUp(Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-var
-  TheMonth, TheYear: Integer;
-begin
-  if NavigationTimer <> 0 then
-  begin
-    KillTimer(Handle, NavigationTimer);
-    fNavigationTimer := 0;
-    InvalidateHotLight;
-  end;
-  if DraggingCell >= 0 then
-  begin
-    fDraggingCell := -1;
-    if (Button = mbLeft) and (HotCell >= 0) then
-      case HotInfo of
-        chtMonth:
-          if GetMonthAtCell(HotCell, TheMonth) then
-            CurrentView := vmDay;
-        chtYear:
-          if not DraggingOffPage and GetYearAtCell(HotCell, TheYear) then
-            CurrentView := vmMonth;
-      end;
-  end;
-  inherited MouseUp(Button, Shift, X, Y);
-end;
+ Procedure TCustomIntlMonthCalendar.MouseUp(Button : TMouseButton; Shift : TShiftState; x, y : Integer);
+  Var
+   TheMonth, TheYear : Integer;
+  Begin
+   If NavigationTimer <> 0 Then
+    Begin
+     KillTimer(Handle, NavigationTimer);
+     fNavigationTimer := 0;
+     InvalidateHotLight;
+    End;
+   If DraggingCell >= 0 Then
+    Begin
+     fDraggingCell := -1;
+     If (Button = mbLeft) And (HotCell >= 0) Then
+      Case HotInfo Of
+       chtMonth :
+        If GetMonthAtCell(HotCell, TheMonth) Then
+         CurrentView := vmDay;
+       chtYear :
+        If Not DraggingOffPage And GetYearAtCell(HotCell, TheYear) Then
+         CurrentView := vmMonth;
+      End;
+    End;
+   Inherited MouseUp(Button, Shift, x, y);
+  End;
 
-function TCustomIntlMonthCalendar.DoMouseWheelDown(Shift: TShiftState;
-  MousePos: TPoint): Boolean;
-begin
-  Result := inherited DoMouseWheelDown(Shift, MousePos);
-  if not Result then
-  begin
-    case CurrentView of
-      vmDay:
-        Select(Calendar.NextDay(Date), Shift);
-      vmMonth:
-        Select(Calendar.NextMonth(Date));
-      vmYear:
-        Select(Calendar.NextYear(Date));
-    end;
-    Result := True;
-  end;
-end;
+ Function TCustomIntlMonthCalendar.DoMouseWheelDown(Shift : TShiftState; MousePos : TPoint) : Boolean;
+  Begin
+   Result := Inherited DoMouseWheelDown(Shift, MousePos);
+   If Not Result Then
+    Begin
+     Case CurrentView Of
+      vmDay   : Select(Calendar.NextDay(Date), Shift);
+      vmMonth : Select(Calendar.NextMonth(Date));
+      vmYear  : Select(Calendar.NextYear(Date));
+     End;
+     Result := True;
+    End;
+  End;
 
-function TCustomIntlMonthCalendar.DoMouseWheelUp(Shift: TShiftState;
-  MousePos: TPoint): Boolean;
-begin
-  Result := inherited DoMouseWheelUp(Shift, MousePos);
-  if not Result then
-  begin
-    case CurrentView of
-      vmDay:
-        Select(Calendar.PrevDay(Date), Shift);
-      vmMonth:
-        Select(Calendar.PrevMonth(Date));
-      vmYear:
-        Select(Calendar.prevYear(Date));
-    end;
-    Result := True;
-  end;
-end;
+ Function TCustomIntlMonthCalendar.DoMouseWheelUp(Shift : TShiftState; MousePos : TPoint) : Boolean;
+  Begin
+   Result := Inherited DoMouseWheelUp(Shift, MousePos);
+   If Not Result Then
+    Begin
+     Case CurrentView Of
+      vmDay   : Select(Calendar.PrevDay(Date), Shift);
+      vmMonth : Select(Calendar.PrevMonth(Date));
+      vmYear  : Select(Calendar.prevYear(Date));
+     End;
+     Result := True;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.KeyDown(var Key: Word; Shift: TShiftState);
-begin
-  inherited KeyDown(Key, Shift);
-  if (SelectionStyle <> ssFree) or (ssShift in Shift) or not (ssCtrl in Shift) then
+ Procedure TCustomIntlMonthCalendar.KeyDown(Var Key : Word; Shift : TShiftState);
+  Begin
+   Inherited KeyDown(Key, Shift);
+   If (SelectionStyle <> ssFree) Or (ssShift In Shift) Or Not(ssCtrl In Shift) Then
     Include(Shift, ssLeft);
-  case Key of
-    VK_RIGHT:
-    begin
-      case CurrentView of
-        vmDay:
-          if IsRightToLeft then
-            SelectDate(Calendar.PrevDay(Date), Shift)
-          else
-            SelectDate(Calendar.NextDay(Date), Shift);
-        vmMonth:
-          if IsRightToLeft then
-            Select(Calendar.PrevMonth(Date))
-          else
-            Select(Calendar.NextMonth(Date));
-        vmYear:
-          Select(Calendar.NextYear(Date));
-      end;
+   Case Key Of
+    VK_RIGHT :
+     Begin
+      Case CurrentView Of
+       vmDay :
+        If IsRightToLeft Then
+         SelectDate(Calendar.PrevDay(Date), Shift)
+        Else
+         SelectDate(Calendar.NextDay(Date), Shift);
+       vmMonth :
+        If IsRightToLeft Then
+         Select(Calendar.PrevMonth(Date))
+        Else
+         Select(Calendar.NextMonth(Date));
+       vmYear :
+        Select(Calendar.NextYear(Date));
+      End;
       Key := 0;
-    end;
-    VK_LEFT:
-    begin
-      case CurrentView of
-        vmDay:
-          if IsRightToLeft then
-            SelectDate(Calendar.NextDay(Date), Shift)
-          else
-            SelectDate(Calendar.PrevDay(Date), Shift);
-        vmMonth:
-          if IsRightToLeft then
-            Select(Calendar.NextMonth(Date))
-          else
-            Select(Calendar.PrevMonth(Date));
-        vmYear:
-          Select(Calendar.PrevYear(Date));
-      end;
+     End;
+    VK_LEFT :
+     Begin
+      Case CurrentView Of
+       vmDay :
+        If IsRightToLeft Then
+         SelectDate(Calendar.NextDay(Date), Shift)
+        Else
+         SelectDate(Calendar.PrevDay(Date), Shift);
+       vmMonth :
+        If IsRightToLeft Then
+         Select(Calendar.NextMonth(Date))
+        Else
+         Select(Calendar.PrevMonth(Date));
+       vmYear :
+        Select(Calendar.prevYear(Date));
+      End;
       Key := 0;
-    end;
-    VK_DOWN:
-    begin
-      case CurrentView of
-        vmDay:
-          SelectDate(Calendar.NextDay(Date, ColCount), Shift);
-        vmMonth:
-          Select(Calendar.NextMonth(Date, ColCount));
-        vmYear:
-          Select(Calendar.NextYear(Date, ColCount));
-      end;
+     End;
+    VK_DOWN :
+     Begin
+      Case CurrentView Of
+       vmDay   : SelectDate(Calendar.NextDay(Date, ColCount), Shift);
+       vmMonth : Select(Calendar.NextMonth(Date, ColCount));
+       vmYear  : Select(Calendar.NextYear(Date, ColCount));
+      End;
       Key := 0;
-    end;
-    VK_UP:
-    begin
-      case CurrentView of
-        vmDay:
-          SelectDate(Calendar.PrevDay(Date, ColCount), Shift);
-        vmMonth:
-          Select(Calendar.PrevMonth(Date, ColCount));
-        vmYear:
-          Select(Calendar.PrevYear(Date, ColCount));
-      end;
+     End;
+    VK_UP :
+     Begin
+      Case CurrentView Of
+       vmDay   : SelectDate(Calendar.PrevDay(Date, ColCount), Shift);
+       vmMonth : Select(Calendar.PrevMonth(Date, ColCount));
+       vmYear  : Select(Calendar.prevYear(Date, ColCount));
+      End;
       Key := 0;
-    end;
-    VK_NEXT:
-    begin
-      case CurrentView of
-        vmDay:
-          SelectDate(Calendar.NextMonth(Date), Shift);
-        vmMonth:
-          Select(Calendar.NextYear(Date));
-        vmYear:
-          Select(Calendar.NextYear(Date, 10));
-      end;
+     End;
+    VK_NEXT :
+     Begin
+      Case CurrentView Of
+       vmDay   : SelectDate(Calendar.NextMonth(Date), Shift);
+       vmMonth : Select(Calendar.NextYear(Date));
+       vmYear  : Select(Calendar.NextYear(Date, 10));
+      End;
       Key := 0;
-    end;
-    VK_PRIOR:
-    begin
-      case CurrentView of
-        vmDay:
-          SelectDate(Calendar.PrevMonth(Date), Shift);
-        vmMonth:
-          Select(Calendar.PrevYear(Date));
-        vmYear:
-          Select(Calendar.PrevYear(Date, 10));
-      end;
+     End;
+    VK_PRIOR :
+     Begin
+      Case CurrentView Of
+       vmDay   : SelectDate(Calendar.PrevMonth(Date), Shift);
+       vmMonth : Select(Calendar.prevYear(Date));
+       vmYear  : Select(Calendar.prevYear(Date, 10));
+      End;
       Key := 0;
-    end;
-    VK_HOME:
-    begin
-      case CurrentView of
-        vmDay:
-          SelectDate(MonthFirstDate, Shift);
-        vmMonth:
-          Select(Calendar.StartOfYear(Date));
-        vmYear:
-          Select(Calendar.StartOfYear(Era, FirstYearOnPage));
-      end;
+     End;
+    VK_HOME :
+     Begin
+      Case CurrentView Of
+       vmDay   : SelectDate(MonthFirstDate, Shift);
+       vmMonth : Select(Calendar.StartOfYear(Date));
+       vmYear  : Select(Calendar.StartOfYear(Era, FirstYearOnPage));
+      End;
       Key := 0;
-    end;
-    VK_END:
-    begin
-      case CurrentView of
-        vmDay:
-          SelectDate(MonthLastDate, Shift);
-        vmMonth:
-          Select(Calendar.EndOfYear(Date));
-        vmYear:
-          Select(Calendar.EndOfYear(Era, LastYearOnPage));
-      end;
+     End;
+    VK_END :
+     Begin
+      Case CurrentView Of
+       vmDay   : SelectDate(MonthLastDate, Shift);
+       vmMonth : Select(Calendar.EndOfYear(Date));
+       vmYear  : Select(Calendar.EndOfYear(Era, LastYearOnPage));
+      End;
       Key := 0;
-    end;
-    VK_SPACE:
-    begin
-      if CurrentView = vmDay then
-        SelectDate(Date, [ssLeft, ssCtrl])
-      else if CurrentView = vmYear then
-        CurrentView := vmMonth
-      else
-        CurrentView := vmDay;
-      Key := 0;
-    end;
-    VK_BACK:
-    begin
-      if CurrentView = vmDay then
-        CurrentView := vmMonth
-      else if CurrentView = vmMonth then
-        CurrentView := vmYear;
-      Key := 0;
-    end;
-  end;
-end;
+     End;
+    VK_SPACE :
+     Begin
+      If CurrentView = vmDay Then
+       SelectDate(Date, [ssLeft, ssCtrl])
+      Else If CurrentView = vmYear Then
+       CurrentView := vmMonth
+      Else
+       CurrentView := vmDay;
+      Key          := 0;
+     End;
+    VK_BACK :
+     Begin
+      If CurrentView = vmDay Then
+       CurrentView := vmMonth
+      Else If CurrentView = vmMonth Then
+       CurrentView := vmYear;
+      Key          := 0;
+     End;
+   End;
+  End;
 
-procedure TCustomIntlMonthCalendar.DoEnter;
-begin
-  inherited DoEnter;
-  InvalidateSelection;
-end;
+ Procedure TCustomIntlMonthCalendar.DoEnter;
+  Begin
+   Inherited DoEnter;
+   InvalidateSelection;
+  End;
 
-procedure TCustomIntlMonthCalendar.DoExit;
-begin
-  inherited DoExit;
-  InvalidateSelection;
-end;
+ Procedure TCustomIntlMonthCalendar.DoExit;
+  Begin
+   Inherited DoExit;
+   InvalidateSelection;
+  End;
 
-function TCustomIntlMonthCalendar.IsThemed: Boolean;
-begin
-  Result := (Win32MajorVersion > 5) and ThemeControl(Self) and (Theme <> 0);
-end;
+ Function TCustomIntlMonthCalendar.IsThemed : Boolean;
+  Begin
+   Result := (Win32MajorVersion > 5) And ThemeControl(Self) And (Theme <> 0);
+  End;
 
-function TCustomIntlMonthCalendar.IsYearOnPage(AYear: Integer): Boolean;
-begin
-  Result := (AYear = Year)
-         or ((Calendar.EraOf(Calendar.StartOfYear(Era, AYear)) = Era)
-        and (AYear div 10 = Year div 10));
-end;
+ Function TCustomIntlMonthCalendar.IsYearOnPage(AYear : Integer) : Boolean;
+  Begin
+   Result := (AYear = Year)
+   Or ((Calendar.EraOf(Calendar.StartOfYear(Era, AYear)) = Era)
+   And (AYear Div 10 = Year Div 10));
+  End;
 
-procedure TCustomIntlMonthCalendar.AnimateBegin;
-begin
-  if Assigned(fSavedScreen) then
+ Procedure TCustomIntlMonthCalendar.AnimateBegin;
+  Begin
+   If Assigned(fSavedScreen) Then
     FreeAndNil(fSavedScreen);
-  if Animate and Showing then
-  begin
-    fSavedScreen := TakeSnapshot;
-    fSavedView := CurrentView;
-    fSavedDate := Date;
-    fSavedCellRect := GetCellRect(FocusedCell);
-  end;
-end;
+   If Animate And Showing Then
+    Begin
+     fSavedScreen   := TakeSnapshot;
+     fSavedView     := CurrentView;
+     fSavedDate     := Date;
+     fSavedCellRect := GetCellRect(FocusedCell);
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.AnimateEnd;
-begin
-  if Assigned(fSavedScreen) then
+ Procedure TCustomIntlMonthCalendar.AnimateEnd;
+  Begin
+   If Assigned(fSavedScreen) Then
     FreeAndNil(fSavedScreen);
-end;
+  End;
 
-procedure TCustomIntlMonthCalendar.AnimatePlay;
-var
-  NewScreen: TBitmap;
-  Rect: TRect;
-  DC: HDC;
-begin
-  if Animate and Showing and Assigned(fSavedScreen) then
-  begin
-    NewScreen := TakeSnapshot;
-    try
+ Procedure TCustomIntlMonthCalendar.AnimatePlay;
+  Var
+   NewScreen : TBitmap;
+   Rect      : TRect;
+   DC        : HDC;
+  Begin
+   If Animate And Showing And Assigned(fSavedScreen) Then
+    Begin
+     NewScreen := TakeSnapshot;
+     Try
       DC := GetDC(Handle);
-      try
-        Rect := fMetrics.Bounds;
-        if ShowHeader then
-        begin
-          BitBlt(DC, Rect.Left, Rect.Top, Rect.Right - Rect.Left,
-            fMetrics.HeaderHeight, NewScreen.Canvas.Handle, 0, 0, SRCCOPY);
-          Inc(Rect.Top, fMetrics.HeaderHeight);
-        end;
-        if ShowFooter then
-          Dec(Rect.Bottom, fMetrics.FooterHeight);
-        if CurrentView = fSavedView then
-        begin
-          SwapScreenByScroll(DC, Rect, fMetrics.Bounds.Left, fMetrics.Bounds.Top,
-            fSavedScreen, NewScreen, Date < fSavedDate, AnimateDuration);
-        end
-        else
-        begin
+      Try
+       Rect := fMetrics.Bounds;
+       If ShowHeader Then
+        Begin
+         BitBlt(DC, Rect.Left, Rect.Top, Rect.Right - Rect.Left,
+         fMetrics.HeaderHeight, NewScreen.Canvas.Handle, 0, 0, SRCCOPY);
+         Inc(Rect.Top, fMetrics.HeaderHeight);
+        End;
+       If ShowFooter Then
+        Dec(Rect.Bottom, fMetrics.FooterHeight);
+       If CurrentView = fSavedView Then
+        Begin
+         SwapScreenByScroll(DC, Rect, fMetrics.Bounds.Left, fMetrics.Bounds.Top,
+         fSavedScreen, NewScreen, Date < fSavedDate, AnimateDuration);
+        End
+       Else
+        Begin
          SwapScreenByZoom(DC, Rect, fMetrics.Bounds.Left, fMetrics.Bounds.Top,
-           fSavedScreen, NewScreen, fSavedCellRect, GetCellRect(FocusedCell),
-           AnimateDuration);
-        end;
-      finally
-        ReleaseDC(Handle, DC);
-      end;
-    finally
+         fSavedScreen, NewScreen, fSavedCellRect, GetCellRect(FocusedCell),
+         AnimateDuration);
+        End;
+      Finally
+       ReleaseDC(Handle, DC);
+      End;
+     Finally
       NewScreen.Free;
-    end;
-  end;
-end;
+     End;
+    End;
+  End;
 
-function TCustomIntlMonthCalendar.TakeSnapshot: TBitmap;
-begin
-  Result := TBitmap.Create;
-  with fMetrics.Bounds do
-  begin
-    Result.Width := Right - Left;
-    Result.Height := Bottom - Top;
-    SetWindowOrgEx(Result.Canvas.Handle, -Left, -Top, nil);
-  end;
-  DrawCalendar(Result.Canvas);
-  SetWindowOrgEx(Result.Canvas.Handle, 0, 0, nil);
-end;
+ Function TCustomIntlMonthCalendar.TakeSnapshot : TBitmap;
+  Begin
+   Result := TBitmap.Create;
+   With fMetrics.Bounds Do
+    Begin
+     Result.Width  := Right - Left;
+     Result.Height := Bottom - Top;
+     SetWindowOrgEx(Result.Canvas.Handle, -Left, -Top, Nil);
+    End;
+   DrawCalendar(Result.Canvas);
+   SetWindowOrgEx(Result.Canvas.Handle, 0, 0, Nil);
+  End;
 
-procedure TCustomIntlMonthCalendar.RenderBackground(Canvas: TCanvas;
-  var Rect: TRect; State: TIntlCalDrawStates);
-const
-  CP_CALITEM = LVP_LISTITEM;
-var
-  StateId: Integer;
-  ForeColor: Cardinal;
-begin
-  if ((cdsSelected in State) or (cdsHotLight in State)) and IsThemed then
-  begin
-    if cdsGrayed in State then
+ Procedure TCustomIntlMonthCalendar.RenderBackground(Canvas : TCanvas; Var Rect : TRect; State : TIntlCalDrawStates);
+  Const
+   CP_CALITEM = LVP_LISTITEM;
+  Var
+   StateId   : Integer;
+   ForeColor : Cardinal;
+  Begin
+   If ((cdsSelected In State) Or (cdsHotLight In State)) And IsThemed Then
+    Begin
+     If cdsGrayed In State Then
       StateId := LIS_DISABLED
-    else if cdsSelected in State then
-    begin
-      if Focused then
-        if cdsHotLight in State then
-          StateId := LISS_HOTSELECTED
-        else
-          StateId := LIS_SELECTED
-      else
+     Else If cdsSelected In State Then
+      Begin
+       If Focused Then
+        If cdsHotLight In State Then
+         StateId := LISS_HOTSELECTED
+        Else
+         StateId := LIS_SELECTED
+       Else
         StateId := LIS_SELECTEDNOTFOCUS
-    end
-    else if cdsHotLight in State then
+      End
+     Else If cdsHotLight In State Then
       StateId := LIS_HOT
-    else
+     Else
       StateId := LIS_NORMAL;
-    if cdsGrayed in State then
+     If cdsGrayed In State Then
       ForeColor := ColorToRGB(clGrayText)
-    else if cdsHeader in State then
+     Else If cdsHeader In State Then
       ForeColor := ColorToRGB(FontHeader.Color)
-    else if cdsFixedRow in State then
+     Else If cdsFixedRow In State Then
       ForeColor := ColorToRGB(FontDayOfWeek.Color)
-    else if cdsFixedCol in State then
+     Else If cdsFixedCol In State Then
       ForeColor := ColorToRGB(FontWeekNumbers.Color)
-    else
-      ForeColor := ColorToRGB(Font.Color);
-    Canvas.Brush.Color := Color;
-    Canvas.FillRect(Rect);
-    DrawThemeBackground(Theme, Canvas.Handle, CP_CALITEM, StateId, Rect, @Rect);
-    GetThemeColor(Theme, CP_CALITEM, StateId, TMT_TEXTCOLOR, ForeColor);
-    Canvas.Font.Color := ForeColor;
-  end
-  else
-  begin
-    if cdsGrayed in State then
+     Else
+      ForeColor         := ColorToRGB(Font.Color);
+     Canvas.Brush.Color := Color;
+     Canvas.FillRect(Rect);
+     DrawThemeBackground(Theme, Canvas.Handle, CP_CALITEM, StateId, Rect, @Rect);
+     GetThemeColor(Theme, CP_CALITEM, StateId, TMT_TEXTCOLOR, ForeColor);
+     Canvas.Font.Color := ForeColor;
+    End
+   Else
+    Begin
+     If cdsGrayed In State Then
       Canvas.Font.Color := clGrayText
-    else if cdsSelected in State then
-      if cdsFocused in State then
-        Canvas.Font.Color := clHighlightText
-      else
-        Canvas.Font.Color := clBtnText
-    else if cdsHotLight in State then
+     Else If cdsSelected In State Then
+      If cdsFocused In State Then
+       Canvas.Font.Color := clHighlightText
+      Else
+       Canvas.Font.Color := clBtnText
+     Else If cdsHotLight In State Then
       Canvas.Font.Color := clHotLight
-    else if cdsHeader in State then
+     Else If cdsHeader In State Then
       Canvas.Font.Color := FontHeader.Color
-    else if cdsFooter in State then
+     Else If cdsFooter In State Then
       Canvas.Font.Color := FontFooter.Color
-    else if cdsFixedRow in State then
+     Else If cdsFixedRow In State Then
       Canvas.Font.Color := FontDayOfWeek.Color
-    else if cdsFixedCol in State then
+     Else If cdsFixedCol In State Then
       Canvas.Font.Color := FontWeekNumbers.Color
-    else
+     Else
       Canvas.Font.Color := Font.Color;
-    if cdsSelected in State then
-      if cdsFocused in State then
-        Canvas.Brush.Color := clHighlight
-      else
-        Canvas.Brush.Color := clBtnFace
-    else
+     If cdsSelected In State Then
+      If cdsFocused In State Then
+       Canvas.Brush.Color := clHighlight
+      Else
+       Canvas.Brush.Color := clBtnFace
+     Else
       Canvas.Brush.Color := Color;
-    Canvas.FillRect(Rect);
-  end;
-  InflateRect(Rect, -1, -1);
-  SetBkMode(Canvas.Handle, TRANSPARENT);
-end;
+     Canvas.FillRect(Rect);
+    End;
+   InflateRect(Rect, -1, -1);
+   SetBkMode(Canvas.Handle, Transparent);
+  End;
 
-procedure TCustomIntlMonthCalendar.RenderText(Canvas: TCanvas;
-  var Rect: TRect; State: TIntlCalDrawStates; const Text: String;
-  Alignment: TAlignment);
-const
-  TextAlignments: array[TAlignment] of Cardinal = (DT_LEFT, DT_RIGHT, DT_CENTER);
-var
-  DrawFlags: Cardinal;
-begin
-  DrawFlags := DrawTextBiDiModeFlags(TextAlignments[Alignment] or DT_VCENTER
-    or DT_NOPREFIX or DT_SINGLELINE);
-  Windows.DrawText(Canvas.Handle, PChar(Text), Length(Text), Rect, DrawFlags);
-end;
+ Procedure TCustomIntlMonthCalendar.RenderText(Canvas : TCanvas; Var Rect : TRect; State : TIntlCalDrawStates; Const Text : String; Alignment : TAlignment);
+  Const
+   TextAlignments : Array[TAlignment] Of Cardinal = (DT_LEFT, DT_RIGHT, DT_CENTER);
+  Var
+   DrawFlags : Cardinal;
+  Begin
+   DrawFlags := DrawTextBiDiModeFlags(TextAlignments[Alignment] Or DT_VCENTER
+   Or DT_NOPREFIX Or DT_SINGLELINE);
+   Windows.DrawText(Canvas.Handle, PChar(Text), Length(Text), Rect, DrawFlags);
+  End;
 
-procedure TCustomIntlMonthCalendar.RenderArrow(Canvas: TCanvas;
-  var Rect: TRect; State: TIntlCalDrawStates; Backward: Boolean);
-var
-  Points: array[0..2] of TPoint;
-  ArrowWidth: Integer;
-  W, H: Integer;
-begin
-  W := Rect.Right - Rect.Left;
-  H := Rect.Bottom - Rect.Top;
-  if W < H then
-    ArrowWidth := W div 6
-  else
-    ArrowWidth := H div 6;
-  if Backward then
-  begin
-    Points[0].X := Rect.Left + (W div 2 - ArrowWidth + 1);
-    Points[1].X := Points[0].X + ArrowWidth;
-  end
-  else
-  begin
-    Points[0].X := Rect.Right - (W div 2 - ArrowWidth + 1);
-    Points[1].X := Points[0].X - ArrowWidth;
-  end;
-  Points[2].X := Points[1].X;
-  Points[0].Y := (Rect.Top + Rect.Bottom) div 2;
-  Points[1].Y := Points[0].Y - ArrowWidth;
-  Points[2].Y := Points[0].Y + ArrowWidth;
-  Canvas.Brush.Color := Canvas.Font.Color;
-  Canvas.Pen.Color := Canvas.Font.Color;
-  Canvas.Polygon(Points);
-end;
+ Procedure TCustomIntlMonthCalendar.RenderArrow(Canvas : TCanvas; Var Rect : TRect; State : TIntlCalDrawStates; Backward : Boolean);
+  Var
+   Points     : Array[0..2] Of TPoint;
+   ArrowWidth : Integer;
+   w, h       : Integer;
+  Begin
+   w := Rect.Right - Rect.Left;
+   h := Rect.Bottom - Rect.Top;
+   If w < h Then
+    ArrowWidth := w Div 6
+   Else
+    ArrowWidth := h Div 6;
+   If Backward Then
+    Begin
+     Points[0].x := Rect.Left + (w Div 2 - ArrowWidth + 1);
+     Points[1].x := Points[0].x + ArrowWidth;
+    End
+   Else
+    Begin
+     Points[0].x := Rect.Right - (w Div 2 - ArrowWidth + 1);
+     Points[1].x := Points[0].x - ArrowWidth;
+    End;
+   Points[2].x        := Points[1].x;
+   Points[0].y        := (Rect.Top + Rect.Bottom) Div 2;
+   Points[1].y        := Points[0].y - ArrowWidth;
+   Points[2].y        := Points[0].y + ArrowWidth;
+   Canvas.Brush.Color := Canvas.Font.Color;
+   Canvas.Pen.Color   := Canvas.Font.Color;
+   Canvas.Polygon(Points);
+  End;
 
-procedure TCustomIntlMonthCalendar.RenderTodayMarker(Canvas: TCanvas;
-  var Rect: TRect);
-begin
-  Canvas.Brush.Style := bsClear;
-  Canvas.Pen.Width := 0;
-  Canvas.Pen.Color := ColorToday;
-  Canvas.RoundRect(Rect.Left + 1, Rect.Top + 1, Rect.Right - 1, Rect.Bottom - 1, 4, 4);
-  Canvas.Brush.Style := bsSolid;
-end;
+ Procedure TCustomIntlMonthCalendar.RenderTodayMarker(Canvas : TCanvas; Var Rect : TRect);
+  Begin
+   Canvas.Brush.Style := bsClear;
+   Canvas.Pen.Width   := 0;
+   Canvas.Pen.Color   := ColorToday;
+   Canvas.RoundRect(Rect.Left + 1, Rect.Top + 1, Rect.Right - 1, Rect.Bottom - 1, 4, 4);
+   Canvas.Brush.Style := bsSolid;
+  End;
 
-procedure TCustomIntlMonthCalendar.DrawCalendar(Canvas: TCanvas);
-begin
-  if RectVisible(Canvas.Handle, fMetrics.Bounds) then
-  begin
-    if ShowHeader then
+ Procedure TCustomIntlMonthCalendar.DrawCalendar(Canvas : TCanvas);
+  Begin
+   If RectVisible(Canvas.Handle, fMetrics.Bounds) Then
+    Begin
+     If ShowHeader Then
       DrawHeader(Canvas);
-    case CurrentView of
-      vmDay:
-      begin
-        if WeekNumbers then
-        begin
+     Case CurrentView Of
+      vmDay :
+       Begin
+        If WeekNumbers Then
+         Begin
           DrawWeekSpace(Canvas);
           DrawWeekNumbers(Canvas);
-        end;
+         End;
         DrawDaysOfWeek(Canvas);
         DrawDays(Canvas);
-      end;
-      vmMonth:
-        DrawMonths(Canvas);
-      vmYear:
-        DrawYears(Canvas);
-    end;
-    if ShowFooter then
+       End;
+      vmMonth :
+       DrawMonths(Canvas);
+      vmYear :
+       DrawYears(Canvas);
+     End;
+     If ShowFooter Then
       DrawFooter(Canvas);
-  end;
-end;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.DrawHeader(Canvas: TCanvas);
-var
-  Rect: TRect;
-  State: TIntlCalDrawStates;
-  HeaderText: String;
-begin
-  Rect := GetSectionRect(csHeader);
-  if RectVisible(Canvas.Handle, Rect) then
-  begin
-    Canvas.Font := FontHeader;
-    // Left Arrow
-    Rect := GetSectionRect(csArrowLeft);
-    if RectVisible(Canvas.Handle, Rect) then
-    begin
-      State := [cdsHeader];
-      if not IsDateInRange(GetAdjacentPageDate(True)) then
+ Procedure TCustomIntlMonthCalendar.DrawHeader(Canvas : TCanvas);
+  Var
+   Rect       : TRect;
+   State      : TIntlCalDrawStates;
+   HeaderText : String;
+  Begin
+   Rect := GetSectionRect(csHeader);
+   If RectVisible(Canvas.Handle, Rect) Then
+    Begin
+     Canvas.Font := FontHeader;
+     // Left Arrow
+     Rect := GetSectionRect(csArrowLeft);
+     If RectVisible(Canvas.Handle, Rect) Then
+      Begin
+       State := [cdsHeader];
+       If Not IsDateInRange(GetAdjacentPageDate(True)) Then
         Include(State, cdsGrayed)
-      else if HotInfo = chtArrowLeft then
-      begin
-        Include(State, cdsHotLight);
-        if NavigationTimer <> 0 then
+       Else If HotInfo = chtArrowLeft Then
+        Begin
+         Include(State, cdsHotLight);
+         If NavigationTimer <> 0 Then
           Include(State, cdsSelected);
-      end;
-      RenderBackground(Canvas, Rect, State);
-      RenderArrow(Canvas, Rect, State, True);
-    end;
-    // Right Arrow
-    Rect := GetSectionRect(csArrowRight);
-    if RectVisible(Canvas.Handle, Rect) then
-    begin
-      State := [cdsHeader];
-      if not IsDateInRange(GetAdjacentPageDate(False)) then
+        End;
+       RenderBackground(Canvas, Rect, State);
+       RenderArrow(Canvas, Rect, State, True);
+      End;
+     // Right Arrow
+     Rect := GetSectionRect(csArrowRight);
+     If RectVisible(Canvas.Handle, Rect) Then
+      Begin
+       State := [cdsHeader];
+       If Not IsDateInRange(GetAdjacentPageDate(False)) Then
         Include(State, cdsGrayed)
-      else if HotInfo = chtArrowRight then
-      begin
-        Include(State, cdsHotLight);
-        if NavigationTimer <> 0 then
+       Else If HotInfo = chtArrowRight Then
+        Begin
+         Include(State, cdsHotLight);
+         If NavigationTimer <> 0 Then
           Include(State, cdsSelected);
-      end;
-      RenderBackground(Canvas, Rect, State);
-      RenderArrow(Canvas, Rect, State, False);
-    end;
-    // Header text
-    Rect := GetSectionRect(csHeaderText);
-    if RectVisible(Canvas.Handle, Rect) then
-    begin
-      State := [cdsHeader];
-      if (HotInfo = chtHeaderText) and (CurrentView <> vmYear) then
+        End;
+       RenderBackground(Canvas, Rect, State);
+       RenderArrow(Canvas, Rect, State, False);
+      End;
+     // Header text
+     Rect := GetSectionRect(csHeaderText);
+     If RectVisible(Canvas.Handle, Rect) Then
+      Begin
+       State := [cdsHeader];
+       If (HotInfo = chtHeaderText) And (CurrentView <> vmYear) Then
         Include(State, cdsHotLight);
-      RenderBackground(Canvas, Rect, State);
-      HeaderText := GetHeaderText(CurrentView);
-      if DoCustomDrawHeaderText(Canvas, Rect, State, HeaderText) then
+       RenderBackground(Canvas, Rect, State);
+       HeaderText := GetHeaderText(CurrentView);
+       If DoCustomDrawHeaderText(Canvas, Rect, State, HeaderText) Then
         RenderText(Canvas, Rect, State, HeaderText, taCenter);
-    end;
-  end;
-end;
+      End;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.DrawFooter(Canvas: TCanvas);
-const
-  Spacing = 2;
-var
-  Rect, R: TRect;
-  State: TIntlCalDrawStates;
-  FooterText: String;
-begin
-  Rect := GetSectionRect(csFooter);
-  if RectVisible(Canvas.Handle, Rect) then
-  begin
-    Canvas.Pen.Width := 0;
-    Canvas.Pen.Color := Color;
-    Canvas.MoveTo(Rect.Left, Rect.Top);
-    Canvas.LineTo(Rect.Right, Rect.Top);
-    Inc(Rect.Top);
-    Canvas.MoveTo(Rect.Left, Rect.Top);
-    Canvas.LineTo(Rect.Right, Rect.Top);
-    Inc(Rect.Top);
-    Canvas.Font := FontFooter;
-    State := [cdsFooter];
-    if (HotInfo = chtFooter) and not Calendar.IsToday(Date) then
+ Procedure TCustomIntlMonthCalendar.DrawFooter(Canvas : TCanvas);
+  Const
+   Spacing = 2;
+  Var
+   Rect, r    : TRect;
+   State      : TIntlCalDrawStates;
+   FooterText : String;
+  Begin
+   Rect := GetSectionRect(csFooter);
+   If RectVisible(Canvas.Handle, Rect) Then
+    Begin
+     Canvas.Pen.Width := 0;
+     Canvas.Pen.Color := Color;
+     Canvas.MoveTo(Rect.Left, Rect.Top);
+     Canvas.LineTo(Rect.Right, Rect.Top);
+     Inc(Rect.Top);
+     Canvas.MoveTo(Rect.Left, Rect.Top);
+     Canvas.LineTo(Rect.Right, Rect.Top);
+     Inc(Rect.Top);
+     Canvas.Font := FontFooter;
+     State       := [cdsFooter];
+     If (HotInfo = chtFooter) And Not Calendar.IsToday(Date) Then
       Include(State, cdsHotLight);
-    RenderBackground(Canvas, Rect, State);
-    FooterText := GetFooterText(fMetrics.LongFormat);
-    if DoCustomDrawFooterText(Canvas, Rect, State, FooterText) then
-    begin
-      InflateRect(Rect, -Spacing, -Spacing);
-      R.Top := Rect.Top;
-      R.Bottom := Rect.Bottom;
-      if IsRightToLeft then
-      begin
-        R.Right := Rect.Right;
-        R.Left := R.Right - fMetrics.FooterHeight;
-        Dec(Rect.Right, fMetrics.FooterHeight + Spacing);
-      end
-      else
-      begin
-        R.Left := Rect.Left;
-        R.Right := R.Left + fMetrics.FooterHeight;
-        Inc(Rect.Left, fMetrics.FooterHeight + Spacing);
-      end;
-      RenderText(Canvas, Rect, State, FooterText, taLeftJustify);
-      RenderTodayMarker(Canvas, R);
-    end;
-  end;
-end;
+     RenderBackground(Canvas, Rect, State);
+     FooterText := GetFooterText(fMetrics.LongFormat);
+     If DoCustomDrawFooterText(Canvas, Rect, State, FooterText) Then
+      Begin
+       InflateRect(Rect, -Spacing, -Spacing);
+       r.Top    := Rect.Top;
+       r.Bottom := Rect.Bottom;
+       If IsRightToLeft Then
+        Begin
+         r.Right := Rect.Right;
+         r.Left  := r.Right - fMetrics.FooterHeight;
+         Dec(Rect.Right, fMetrics.FooterHeight + Spacing);
+        End
+       Else
+        Begin
+         r.Left  := Rect.Left;
+         r.Right := r.Left + fMetrics.FooterHeight;
+         Inc(Rect.Left, fMetrics.FooterHeight + Spacing);
+        End;
+       RenderText(Canvas, Rect, State, FooterText, taLeftJustify);
+       RenderTodayMarker(Canvas, r);
+      End;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.DrawWeekSpace(Canvas: TCanvas);
-var
-  Rect: TRect;
-begin
-  Rect := GetSectionRect(csWeekSpace);
-  if RectVisible(Canvas.Handle, Rect) then
+ Procedure TCustomIntlMonthCalendar.DrawWeekSpace(Canvas : TCanvas);
+  Var
+   Rect : TRect;
+  Begin
+   Rect := GetSectionRect(csWeekSpace);
+   If RectVisible(Canvas.Handle, Rect) Then
     RenderBackground(Canvas, Rect, [cdsFixedRow, cdsFixedCol, cdsBlank]);
-end;
+  End;
 
-procedure TCustomIntlMonthCalendar.DrawDaysOfWeek(Canvas: TCanvas);
-var
-  Rect: TRect;
-  Col: Integer;
-  DayOfWeek: TDayOfWeek;
-  State: TIntlCalDrawStates;
-begin
-  Rect := GetSectionRect(csDaysOfWeek);
-  if RectVisible(Canvas.Handle, Rect) then
-  begin
-    Canvas.Pen.Width := 0;
-    Dec(Rect.Bottom);
-    Canvas.Pen.Color := Color;
-    Canvas.MoveTo(Rect.Left, Rect.Bottom);
-    Canvas.LineTo(Rect.Right, Rect.Bottom);
-    Dec(Rect.Bottom);
-    Canvas.Pen.Color := ColorDivider;
-    Canvas.MoveTo(Rect.Left, Rect.Bottom);
-    Canvas.LineTo(Rect.Right, Rect.Bottom);
-    Canvas.Font := FontDayOfWeek;
-    for Col := 0 to ColCount - 1 do
-    begin
-      DayOfWeek := TDayOfWeek(((Ord(Calendar.Settings.FirstDayOfWeek) + Col - 1) mod Calendar.DaysPerWeek) + 1);
-      Rect := GetCellRect(-1, Col);
-      if RectVisible(Canvas.Handle, Rect) then
-      begin
-        State := [cdsFixedRow];
-        if Calendar.IsToday(DayOfWeek) and Calendar.IsThisMonth(Era, Year, Month) then
+ Procedure TCustomIntlMonthCalendar.DrawDaysOfWeek(Canvas : TCanvas);
+  Var
+   Rect      : TRect;
+   Col       : Integer;
+   DayOfWeek : TDayOfWeek;
+   State     : TIntlCalDrawStates;
+  Begin
+   Rect := GetSectionRect(csDaysOfWeek);
+   If RectVisible(Canvas.Handle, Rect) Then
+    Begin
+     Canvas.Pen.Width := 0;
+     Dec(Rect.Bottom);
+     Canvas.Pen.Color := Color;
+     Canvas.MoveTo(Rect.Left, Rect.Bottom);
+     Canvas.LineTo(Rect.Right, Rect.Bottom);
+     Dec(Rect.Bottom);
+     Canvas.Pen.Color := ColorDivider;
+     Canvas.MoveTo(Rect.Left, Rect.Bottom);
+     Canvas.LineTo(Rect.Right, Rect.Bottom);
+     Canvas.Font := FontDayOfWeek;
+     For Col     := 0 To ColCount - 1 Do
+      Begin
+       DayOfWeek := TDayOfWeek(((Ord(Calendar.Settings.FirstDayOfWeek) + Col - 1) Mod Calendar.DaysPerWeek) + 1);
+       Rect      := GetCellRect( -1, Col);
+       If RectVisible(Canvas.Handle, Rect) Then
+        Begin
+         State := [cdsFixedRow];
+         If Calendar.IsToday(DayOfWeek) And Calendar.IsThisMonth(Era, Year, Month) Then
           Include(State, cdsToday);
-        RenderBackground(Canvas, Rect, State);
-        if DoCustomDrawDayOfWeek(Canvas, Rect, State, DayOfWeek) then
+         RenderBackground(Canvas, Rect, State);
+         If DoCustomDrawDayOfWeek(Canvas, Rect, State, DayOfWeek) Then
           RenderText(Canvas, Rect, State, GetDayName(DayOfWeek, fMetrics.NameKind), taCenter);
-      end;
-    end;
-  end;
-end;
+        End;
+      End;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.DrawWeekNumbers(Canvas: TCanvas);
-var
-  Rect: TRect;
-  Row, TheWeek: Integer;
-  StartRange, EndRange: Integer;
-  WeekStartDate: TDateTime;
-  State: TIntlCalDrawStates;
-begin
-  Rect := GetSectionRect(csWeekNumbers);
-  if RectVisible(Canvas.Handle, Rect) then
-  begin
-    Canvas.Pen.Width := 0;
-    if IsRightToLeft then
-    begin
-      Canvas.Pen.Color := Color;
-      Canvas.MoveTo(Rect.Left, Rect.Top);
-      Canvas.LineTo(Rect.Left, Rect.Bottom);
-      Inc(Rect.Left);
-      Canvas.Pen.Color := ColorDivider;
-      Canvas.MoveTo(Rect.Left, Rect.Top);
-      Canvas.LineTo(Rect.Left, Rect.Bottom);
-      Inc(Rect.Left);
-    end
-    else
-    begin
-      Dec(Rect.Right);
-      Canvas.Pen.Color := Color;
-      Canvas.MoveTo(Rect.Right, Rect.Top);
-      Canvas.LineTo(Rect.Right, Rect.Bottom);
-      Dec(Rect.Right);
-      Canvas.Pen.Color := ColorDivider;
-      Canvas.MoveTo(Rect.Right, Rect.Top);
-      Canvas.LineTo(Rect.Right, Rect.Bottom);
-    end;
-    StartRange := MonthStartCell div ColCount;
-    EndRange := (MonthStartCell + DaysInMonth - 1) div ColCount;
-    Canvas.Font := FontWeekNumbers;
-    for Row := 0 to RowCount - 1 do
-    begin
-      Rect := GetCellRect(Row, -1);
-      if RectVisible(Canvas.Handle, Rect) then
-      begin
-        WeekStartDate := Calendar.NextWeek(FirstCellDate, Row);
-        State := [cdsFixedCol];
-        if (Row = (MonthStartCell + Day - 1) div ColCount) or
-           IsDateInRange(WeekStartDate) or
-           IsDateInRange(Calendar.EndOfWeek(WeekStartDate)) then
-        begin
-          if (Row < StartRange) or (Row > EndRange) then
+ Procedure TCustomIntlMonthCalendar.DrawWeekNumbers(Canvas : TCanvas);
+  Var
+   Rect                 : TRect;
+   Row, TheWeek         : Integer;
+   StartRange, EndRange : Integer;
+   WeekStartDate        : TDateTime;
+   State                : TIntlCalDrawStates;
+  Begin
+   Rect := GetSectionRect(csWeekNumbers);
+   If RectVisible(Canvas.Handle, Rect) Then
+    Begin
+     Canvas.Pen.Width := 0;
+     If IsRightToLeft Then
+      Begin
+       Canvas.Pen.Color := Color;
+       Canvas.MoveTo(Rect.Left, Rect.Top);
+       Canvas.LineTo(Rect.Left, Rect.Bottom);
+       Inc(Rect.Left);
+       Canvas.Pen.Color := ColorDivider;
+       Canvas.MoveTo(Rect.Left, Rect.Top);
+       Canvas.LineTo(Rect.Left, Rect.Bottom);
+       Inc(Rect.Left);
+      End
+     Else
+      Begin
+       Dec(Rect.Right);
+       Canvas.Pen.Color := Color;
+       Canvas.MoveTo(Rect.Right, Rect.Top);
+       Canvas.LineTo(Rect.Right, Rect.Bottom);
+       Dec(Rect.Right);
+       Canvas.Pen.Color := ColorDivider;
+       Canvas.MoveTo(Rect.Right, Rect.Top);
+       Canvas.LineTo(Rect.Right, Rect.Bottom);
+      End;
+     StartRange  := MonthStartCell Div ColCount;
+     EndRange    := (MonthStartCell + DaysInMonth - 1) Div ColCount;
+     Canvas.Font := FontWeekNumbers;
+     For Row     := 0 To RowCount - 1 Do
+      Begin
+       Rect := GetCellRect(Row, -1);
+       If RectVisible(Canvas.Handle, Rect) Then
+        Begin
+         WeekStartDate := Calendar.NextWeek(FirstCellDate, Row);
+         State         := [cdsFixedCol];
+         If (Row = (MonthStartCell + Day - 1) Div ColCount) Or
+         IsDateInRange(WeekStartDate) Or
+         IsDateInRange(Calendar.EndOfWeek(WeekStartDate)) Then
+          Begin
+           If (Row < StartRange) Or (Row > EndRange) Then
             Include(State, cdsGrayed);
-          if Calendar.IsThisWeek(WeekStartDate) then
+           If Calendar.IsThisWeek(WeekStartDate) Then
             Include(State, cdsToday);
-          if Row = StartRange then
+           If Row = StartRange Then
             TheWeek := Calendar.WeekOfYear(MonthFirstDate)
-          else
+           Else
             TheWeek := Calendar.WeekOfYear(WeekStartDate);
-        end
-        else
-        begin
-          Include(State, cdsBlank);
-          TheWeek := 0;
-        end;
-        RenderBackground(Canvas, Rect, State);
-        if not (cdsBlank in State) and DoCustomDrawWeekNumber(Canvas, Rect, State, TheWeek) then
+          End
+         Else
+          Begin
+           Include(State, cdsBlank);
+           TheWeek := 0;
+          End;
+         RenderBackground(Canvas, Rect, State);
+         If Not(cdsBlank In State) And DoCustomDrawWeekNumber(Canvas, Rect, State, TheWeek) Then
           RenderText(Canvas, Rect, State, GetWeekText(TheWeek), taCenter);
-      end;
-    end;
-  end;
-end;
+        End;
+      End;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.DrawDays(Canvas: TCanvas);
-var
-  Rect: TRect;
-  Cell: Integer;
-  TheDate: TDate;
-  TheDay: Integer;
-  State: TIntlCalDrawStates;
-begin
-  Rect := GetSectionRect(csYMD);
-  if RectVisible(Canvas.Handle, Rect) then
-  begin
-    Canvas.Font := Font;
-    for Cell := 0 to CellCount - 1 do
-    begin
-      Rect := GetCellRect(Cell);
-      if RectVisible(Canvas.Handle, Rect) then
-      begin
-        TheDate := FirstCellDate + Cell;
-        State := [];
-        if Cell < MonthStartCell then
-        begin
-          TheDay := FirstCellDayNumber + Cell;
-          Include(State, cdsGrayed);
-        end
-        else if Cell >= MonthStartCell + DaysInMonth then
-        begin
-          TheDay := Cell - MonthStartCell - DaysInMonth + 1;
-          Include(State, cdsGrayed);
-        end
-        else
+ Procedure TCustomIntlMonthCalendar.DrawDays(Canvas : TCanvas);
+  Var
+   Rect    : TRect;
+   Cell    : Integer;
+   TheDate : TDate;
+   TheDay  : Integer;
+   State   : TIntlCalDrawStates;
+  Begin
+   Rect := GetSectionRect(csYMD);
+   If RectVisible(Canvas.Handle, Rect) Then
+    Begin
+     Canvas.Font := Font;
+     For Cell    := 0 To CellCount - 1 Do
+      Begin
+       Rect := GetCellRect(Cell);
+       If RectVisible(Canvas.Handle, Rect) Then
+        Begin
+         TheDate := FirstCellDate + Cell;
+         State   := [];
+         If Cell < MonthStartCell Then
+          Begin
+           TheDay := FirstCellDayNumber + Cell;
+           Include(State, cdsGrayed);
+          End
+         Else If Cell >= MonthStartCell + DaysInMonth Then
+          Begin
+           TheDay := Cell - MonthStartCell - DaysInMonth + 1;
+           Include(State, cdsGrayed);
+          End
+         Else
           TheDay := Cell - MonthStartCell + 1;
-        if IsDateInRange(TheDate) then
-        begin
-          if IsSelected(TheDate) then
+         If IsDateInRange(TheDate) Then
+          Begin
+           If IsSelected(TheDate) Then
             Include(State, cdsSelected);
-          if (Cell = FocusedCell) and Focused then
+           If (Cell = FocusedCell) And Focused Then
             Include(State, cdsFocused);
-          if Cell = HotCell then
+           If Cell = HotCell Then
             Include(State, cdsHotLight);
-          if Calendar.IsToday(TheDate) then
+           If Calendar.IsToday(TheDate) Then
             Include(State, cdsToday);
-        end
-        else
+          End
+         Else
           Include(State, cdsBlank);
-        RenderBackground(Canvas, Rect, State);
-        if not (cdsBlank in State) and DoCustomDrawDay(Canvas, Rect, State, TheDate, TheDay) then
-        begin
-          RenderText(Canvas, Rect, State, GetDayText(TheDay), taCenter);
-          if cdsToday in State then
+         RenderBackground(Canvas, Rect, State);
+         If Not(cdsBlank In State) And DoCustomDrawDay(Canvas, Rect, State, TheDate, TheDay) Then
+          Begin
+           RenderText(Canvas, Rect, State, GetDayText(TheDay), taCenter);
+           If cdsToday In State Then
             RenderTodayMarker(Canvas, Rect);
-          if cdsFocused in State then
+           If cdsFocused In State Then
             Canvas.DrawFocusRect(Rect);
-        end;
-      end;
-    end;
-  end;
-end;
+          End;
+        End;
+      End;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.DrawMonths(Canvas: TCanvas);
-var
-  Rect: TRect;
-  Cell: Integer;
-  TheMonth: Integer;
-  State: TIntlCalDrawStates;
-begin
-  Rect := GetSectionRect(csYMD);
-  if RectVisible(Canvas.Handle, Rect) then
-  begin
-    Canvas.Font := Font;
-    for Cell := 0 to CellCount - 1 do
-    begin
-      Rect := GetCellRect(Cell);
-      if RectVisible(Canvas.Handle, Rect) then
-      begin
-        TheMonth := Cell + 1;
-        State := [];
-        if IsMonthInRange(Era, Year, TheMonth) then
-        begin
-          if Cell = FocusedCell then
-          begin
-            Include(State, cdsSelected);
-            if Focused then
+ Procedure TCustomIntlMonthCalendar.DrawMonths(Canvas : TCanvas);
+  Var
+   Rect     : TRect;
+   Cell     : Integer;
+   TheMonth : Integer;
+   State    : TIntlCalDrawStates;
+  Begin
+   Rect := GetSectionRect(csYMD);
+   If RectVisible(Canvas.Handle, Rect) Then
+    Begin
+     Canvas.Font := Font;
+     For Cell    := 0 To CellCount - 1 Do
+      Begin
+       Rect := GetCellRect(Cell);
+       If RectVisible(Canvas.Handle, Rect) Then
+        Begin
+         TheMonth := Cell + 1;
+         State    := [];
+         If IsMonthInRange(Era, Year, TheMonth) Then
+          Begin
+           If Cell = FocusedCell Then
+            Begin
+             Include(State, cdsSelected);
+             If Focused Then
               Include(State, cdsFocused);
-          end;
-          if Cell = HotCell then
+            End;
+           If Cell = HotCell Then
             Include(State, cdsHotLight);
-          if Calendar.IsThisMonth(Era, Year, TheMonth) then
+           If Calendar.IsThisMonth(Era, Year, TheMonth) Then
             Include(State, cdsToday);
-        end
-        else
+          End
+         Else
           Include(State, cdsBlank);
-        RenderBackground(Canvas, Rect, State);
-        if not (cdsBlank in State) and DoCustomDrawMonth(Canvas, Rect, State, TheMonth) then
-        begin
-          RenderText(Canvas, Rect, State, GetMonthName(TheMonth, fMetrics.NameKind), taCenter);
-          if cdsFocused in State then
+         RenderBackground(Canvas, Rect, State);
+         If Not(cdsBlank In State) And DoCustomDrawMonth(Canvas, Rect, State, TheMonth) Then
+          Begin
+           RenderText(Canvas, Rect, State, GetMonthName(TheMonth, fMetrics.NameKind), taCenter);
+           If cdsFocused In State Then
             Canvas.DrawFocusRect(Rect);
-        end;
-      end;
-    end;
-  end;
-end;
+          End;
+        End;
+      End;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.DrawYears(Canvas: TCanvas);
-var
-  Rect: TRect;
-  Cell: Integer;
-  TheYear: Integer;
-  State: TIntlCalDrawStates;
-begin
-  Rect := GetSectionRect(csYMD);
-  if RectVisible(Canvas.Handle, Rect) then
-  begin
-    Canvas.Font := Font;
-    for Cell := 0 to CellCount - 1 do
-    begin
-      Rect := GetCellRect(Cell);
-      if RectVisible(Canvas.Handle, Rect) then
-      begin
-        TheYear := Calendar.OffsetYear(Era, FirstCellYear, Cell);
-        State := [];
-        if IsYearInRange(Era, TheYear) then
-        begin
-          if Cell = FocusedCell then
-          begin
-            Include(State, cdsSelected);
-            if Focused then
+ Procedure TCustomIntlMonthCalendar.DrawYears(Canvas : TCanvas);
+  Var
+   Rect    : TRect;
+   Cell    : Integer;
+   TheYear : Integer;
+   State   : TIntlCalDrawStates;
+  Begin
+   Rect := GetSectionRect(csYMD);
+   If RectVisible(Canvas.Handle, Rect) Then
+    Begin
+     Canvas.Font := Font;
+     For Cell    := 0 To CellCount - 1 Do
+      Begin
+       Rect := GetCellRect(Cell);
+       If RectVisible(Canvas.Handle, Rect) Then
+        Begin
+         TheYear := Calendar.OffsetYear(Era, FirstCellYear, Cell);
+         State   := [];
+         If IsYearInRange(Era, TheYear) Then
+          Begin
+           If Cell = FocusedCell Then
+            Begin
+             Include(State, cdsSelected);
+             If Focused Then
               Include(State, cdsFocused);
-          end
-          else if not IsYearOnPage(TheYear) then
+            End
+           Else If Not IsYearOnPage(TheYear) Then
             Include(State, cdsGrayed);
-          if Cell = HotCell then
+           If Cell = HotCell Then
             Include(State, cdsHotLight);
-          if Calendar.IsThisYear(Era, TheYear) then
+           If Calendar.IsThisYear(Era, TheYear) Then
             Include(State, cdsToday);
-        end
-        else
+          End
+         Else
           Include(State, cdsBlank);
-        RenderBackground(Canvas, Rect, State);
-        if not (cdsBlank in State) and DoCustomDrawYear(Canvas, Rect, State, TheYear) then
-        begin
-          RenderText(Canvas, Rect, State, GetYearText(TheYear), taCenter);
-          if cdsFocused in State then
+         RenderBackground(Canvas, Rect, State);
+         If Not(cdsBlank In State) And DoCustomDrawYear(Canvas, Rect, State, TheYear) Then
+          Begin
+           RenderText(Canvas, Rect, State, GetYearText(TheYear), taCenter);
+           If cdsFocused In State Then
             Canvas.DrawFocusRect(Rect);
-        end;
-      end;
-    end;
-  end;
-end;
+          End;
+        End;
+      End;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.InvalidateSections(Sections: TIntlCalSections);
-var
-  Section: TIntlCalSection;
-begin
-  if WindowHandle <> 0 then
-  begin
-    if (CurrentView <> vmDay) or not WeekNumbers then
-    begin
-      Exclude(Sections, csWeekSpace);
-      Exclude(Sections, csWeekNumbers);
-      if CurrentView <> vmDay then
+ Procedure TCustomIntlMonthCalendar.InvalidateSections(Sections : TIntlCalSections);
+  Var
+   Section : TIntlCalSection;
+  Begin
+   If WindowHandle <> 0 Then
+    Begin
+     If (CurrentView <> vmDay) Or Not WeekNumbers Then
+      Begin
+       Exclude(Sections, csWeekSpace);
+       Exclude(Sections, csWeekNumbers);
+       If CurrentView <> vmDay Then
         Exclude(Sections, csDaysOfWeek);
-    end;
-    if not ShowHeader then
-    begin
-      Exclude(Sections, csHeader);
-      Exclude(Sections, csHeaderText);
-      Exclude(Sections, csArrowLeft);
-      Exclude(Sections, csArrowRight);
-    end;
-    if not ShowFooter then
+      End;
+     If Not ShowHeader Then
+      Begin
+       Exclude(Sections, csHeader);
+       Exclude(Sections, csHeaderText);
+       Exclude(Sections, csArrowLeft);
+       Exclude(Sections, csArrowRight);
+      End;
+     If Not ShowFooter Then
       Exclude(Sections, csFooter);
-    for Section := Low(TIntlCalSection) to High(TIntlCalSection) do
-      if Section in Sections then
-        InvalidateRect(WindowHandle, GetSectionRect(Section), False);
-  end;
-end;
+     For Section := Low(TIntlCalSection) To High(TIntlCalSection) Do
+      If Section In Sections Then
+       InvalidateRect(WindowHandle, GetSectionRect(Section), False);
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.InvalidateDateDependentSections;
-begin
-  InvalidateSections([csHeader, csWeekNumbers, csYMD, csFooter]);
-end;
+ Procedure TCustomIntlMonthCalendar.InvalidateDateDependentSections;
+  Begin
+   InvalidateSections([csHeader, csWeekNumbers, csYMD, csFooter]);
+  End;
 
-procedure TCustomIntlMonthCalendar.InvalidateCell(Index: Integer);
-begin
-  if (WindowHandle <> 0) and (Index >= 0) and (Index < CellCount) then
+ Procedure TCustomIntlMonthCalendar.InvalidateCell(Index : Integer);
+  Begin
+   If (WindowHandle <> 0) And (Index >= 0) And (Index < CellCount) Then
     InvalidateRect(WindowHandle, GetCellRect(Index), False);
-end;
+  End;
 
-procedure TCustomIntlMonthCalendar.InvalidateDate(const ADate: TDate);
-var
-  TheYear: Integer;
-begin
-  if WindowHandle <> 0 then
-    case CurrentView of
-      vmDay:
-        InvalidateCell(Trunc(ADate) - Trunc(FirstCellDate));
-      vmMonth:
-        InvalidateCell(Calendar.MonthOfYear(ADate) - 1);
-      vmYear:
-      begin
-        TheYear := Calendar.ConvertYear(Calendar.YearOf(ADate), Calendar.DefaultEra, Era);
-        InvalidateCell(TheYear - FirstCellYear);
-      end;
-    end;
-end;
+ Procedure TCustomIntlMonthCalendar.InvalidateDate(Const ADate : TDate);
+  Var
+   TheYear : Integer;
+  Begin
+   If WindowHandle <> 0 Then
+    Case CurrentView Of
+     vmDay :
+      InvalidateCell(Trunc(ADate) - Trunc(FirstCellDate));
+     vmMonth :
+      InvalidateCell(Calendar.MonthOfYear(ADate) - 1);
+     vmYear :
+      Begin
+       TheYear := Calendar.ConvertYear(Calendar.YearOf(ADate), Calendar.DefaultEra, Era);
+       InvalidateCell(TheYear - FirstCellYear);
+      End;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.InvalidateDates(ADates: TDateTimeList);
-var
-  I, Index: Integer;
-begin
-  if (WindowHandle <> 0) and (CurrentView = vmDay) and (ADates.Count <> 0) then
-  begin
-    ADates.Find(FirstCellDate, I);
-    for I := I to fSelection.Count - 1 do
-    begin
-      Index := Trunc(ADates[I]) - Trunc(FirstCellDate);
-      if Index >= CellCount then
+ Procedure TCustomIntlMonthCalendar.InvalidateDates(ADates : TDateTimeList);
+  Var
+   i, Index : Integer;
+  Begin
+   If (WindowHandle <> 0) And (CurrentView = vmDay) And (ADates.Count <> 0) Then
+    Begin
+     ADates.Find(FirstCellDate, i);
+     For i := i To fSelection.Count - 1 Do
+      Begin
+       Index := Trunc(ADates[i]) - Trunc(FirstCellDate);
+       If Index >= CellCount Then
         Exit;
-      InvalidateCell(Index);
-    end;
-  end;
-end;
+       InvalidateCell(Index);
+      End;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.InvalidateDateRange(const ADate1, ADate2: TDate);
-var
-  Index: Integer;
-  iStart, iEnd: Integer;
-begin
-  if (WindowHandle <> 0) and (CurrentView = vmDay) then
-  begin
-    iStart := Trunc(ADate1) - Trunc(FirstCellDate);
-    iEnd := Trunc(ADate2) - Trunc(FirstCellDate);
-    if iStart > iEnd then
-    begin
-      Index := iStart;
-      iStart := iEnd;
-      iEnd := Index;
-    end;
-    if iStart < 0 then
+ Procedure TCustomIntlMonthCalendar.InvalidateDateRange(Const ADate1, ADate2 : TDate);
+  Var
+   Index        : Integer;
+   iStart, iEnd : Integer;
+  Begin
+   If (WindowHandle <> 0) And (CurrentView = vmDay) Then
+    Begin
+     iStart := Trunc(ADate1) - Trunc(FirstCellDate);
+     iEnd   := Trunc(ADate2) - Trunc(FirstCellDate);
+     If iStart > iEnd Then
+      Begin
+       Index  := iStart;
+       iStart := iEnd;
+       iEnd   := Index;
+      End;
+     If iStart < 0 Then
       iStart := 0;
-    if iEnd >= CellCount then
-      iEnd := CellCount - 1;
-    for Index := iStart to iEnd do
+     If iEnd >= CellCount Then
+      iEnd     := CellCount - 1;
+     For Index := iStart To iEnd Do
       InvalidateCell(Index);
-  end;
-end;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.InvalidateSelection;
-begin
-  case CurrentView of
-    vmDay:
-    begin
-      case SelectionStyle of
-        ssSingle:
+ Procedure TCustomIntlMonthCalendar.InvalidateSelection;
+  Begin
+   Case CurrentView Of
+    vmDay :
+     Begin
+      Case SelectionStyle Of
+       ssSingle :
+        InvalidateCell(MonthStartCell + Day - 1);
+       ssRange :
+        InvalidateDateRange(Date, fSelectionAnchor);
+       ssFree :
+        Begin
+         InvalidateDates(fSelection);
+         If Not fSelection.Exists(Date) Then
           InvalidateCell(MonthStartCell + Day - 1);
-        ssRange:
-          InvalidateDateRange(Date, fSelectionAnchor);
-        ssFree:
-        begin
-          InvalidateDates(fSelection);
-          if not fSelection.Exists(Date) then
-            InvalidateCell(MonthStartCell + Day - 1);
-        end;
-      end;
-    end;
-    vmMonth: InvalidateCell(Month - 1);
-    vmYear: InvalidateCell(Year - FirstCellYear);
-  end;
-end;
+        End;
+      End;
+     End;
+    vmMonth :
+     InvalidateCell(Month - 1);
+    vmYear :
+     InvalidateCell(Year - FirstCellYear);
+   End;
+  End;
 
-procedure TCustomIntlMonthCalendar.InvalidateHotLight;
-begin
-  case HotInfo of
-    chtYear, chtMonth, chtDay:
-      InvalidateCell(HotCell);
-    chtHeaderText:
-      InvalidateSections([csHeaderText]);
-    chtArrowLeft:
-      InvalidateSections([csArrowLeft]);
-    chtArrowRight:
-      InvalidateSections([csArrowRight]);
-    chtFooter:
-      InvalidateSections([csFooter]);
-  end;
-end;
+ Procedure TCustomIntlMonthCalendar.InvalidateHotLight;
+  Begin
+   Case HotInfo Of
+    chtYear, chtMonth, chtDay : InvalidateCell(HotCell);
+    chtHeaderText             : InvalidateSections([csHeaderText]);
+    chtArrowLeft              : InvalidateSections([csArrowLeft]);
+    chtArrowRight             : InvalidateSections([csArrowRight]);
+    chtFooter                 : InvalidateSections([csFooter]);
+   End;
+  End;
 
-procedure TCustomIntlMonthCalendar.CalcMetrics(ViewMode: TIntlCalViewMode;
-  out Metrics: TIntlCalMetrics);
-const
-  HSpacing = 4;
-  VSpacing = 2;
-var
-  DC: HDC;
-  OldFont: HFONT;
-  NameKind: TIntlCalNameKind;
-  DoW: TDayOfWeek;
-  Extends: array[TIntlCalNameKind] of TSize;
-  Extend: TSize;
-  W, H, M: Integer;
-  S: String;
-begin
-  if (csLoading in ComponentState) or (WindowHandle = 0) or (fUpdateMetricsCount <> 0) then
+ Procedure TCustomIntlMonthCalendar.CalcMetrics(ViewMode : TIntlCalViewMode; Out Metrics : TIntlCalMetrics);
+  Const
+   HSpacing = 4;
+   VSpacing = 2;
+  Var
+   DC       : HDC;
+   OldFont  : HFONT;
+   NameKind : TIntlCalNameKind;
+   DoW      : TDayOfWeek;
+   Extends  : Array[TIntlCalNameKind] Of TSize;
+   Extend   : TSize;
+   w, h, m  : Integer;
+   s        : String;
+  Begin
+   If (csLoading In ComponentState) Or (WindowHandle = 0) Or (fUpdateMetricsCount <> 0) Then
     Exit;
-  Inc(fUpdateMetricsCount);
-  DC := CreateCompatibleDC(0);
-  try
+   Inc(fUpdateMetricsCount);
+   DC := CreateCompatibleDC(0);
+   Try
     OldFont := SelectObject(DC, Font.Handle);
-    try
-      Metrics.Bounds := GetCalendarClientRect;
-      Metrics.HeaderHeight := 0;
-      Metrics.FooterHeight := 0;
-      Metrics.FixedRowHeight := 0;
-      Metrics.FixedColWidth := 0;
-      W := Metrics.Bounds.Right - Metrics.Bounds.Left;
-      H := Metrics.Bounds.Bottom - Metrics.Bounds.Top;
-      if ShowHeader then
-      begin
-        S := GetHeaderText(ViewMode);
-        SelectObject(DC, FontHeader.Handle);
-        GetTextExtentPoint32(DC, PChar(S), Length(S), Extend);
-        SelectObject(DC, Font.Handle);
-        Metrics.HeaderHeight := Max(3 * Extend.cy div 2, 13) + VSpacing;
-        if not Odd(Metrics.HeaderHeight) then
-          Inc(Metrics.HeaderHeight);
-        Dec(H, Metrics.HeaderHeight);
-      end;
-      if ShowFooter then
-      begin
-        Metrics.LongFormat := True;
-        SelectObject(DC, FontFooter.Handle);
-        S := GetFooterText(Metrics.LongFormat);
-        GetTextExtentPoint32(DC, PChar(S), Length(S), Extend);
-        if Extend.cx > 75 * W div 100 then
-        begin
-          Metrics.LongFormat := False;
-          S := GetFooterText(Metrics.LongFormat);
-          GetTextExtentPoint32(DC, PChar(S), Length(S), Extend);
-        end;
-        SelectObject(DC, Font.Handle);
-        Metrics.FooterHeight := Max(3 * Extend.cy div 2, 13) + VSpacing;
-        if not Odd(Metrics.FooterHeight) then
-          Inc(Metrics.FooterHeight);
-        Dec(H, Metrics.FooterHeight);
-      end;
-      case ViewMode of
-        vmDay:
-        begin
-          Metrics.ColCount := Calendar.DaysPerWeek;
-          Metrics.RowCount := Ceil(Ceil(DaysInYear / MonthsInYear) / Metrics.ColCount) + 1;
-          if WeekNumbers then
-          begin
-            S := GetWeekText(Calendar.WeeksInYear(Year));
-            SelectObject(DC, FontWeekNumbers.Handle);
-            GetTextExtentPoint32(DC, PChar(S), Length(S), Extend);
-            SelectObject(DC, Font.Handle);
-            Metrics.FixedColWidth := Extend.cx + 3 * HSpacing div 2 + 2;
-            Dec(W, Metrics.FixedColWidth);
-          end;
-          S := GetDayText(Ceil(DaysInYear / MonthsInYear));
-          GetTextExtentPoint32(DC, PChar(S), Length(S), Extend);
-          for NameKind := Low(TIntlCalNameKind) to High(TIntlCalNameKind) do
-            Extends[NameKind] := Extend;
-          SelectObject(DC, FontDayOfWeek.Handle);
-          for DoW := Low(TDayOfWeek) to High(TDayOfWeek) do
-          begin
-            for NameKind := nkLong to nkShortest do
-            begin
-              S := GetDayName(DoW, NameKind);
-              GetTextExtentPoint32(DC, PChar(S), Length(S), Extend);
-              if Extend.cx > Extends[NameKind].cx then
-                Extends[NameKind].cx := Extend.cx;
-              if Extend.cy > Extends[NameKind].cy then
-                Extends[NameKind].cy := Extend.cy;
-            end;
-          end;
+    Try
+     Metrics.Bounds         := GetCalendarClientRect;
+     Metrics.HeaderHeight   := 0;
+     Metrics.FooterHeight   := 0;
+     Metrics.FixedRowHeight := 0;
+     Metrics.FixedColWidth  := 0;
+     w                      := Metrics.Bounds.Right - Metrics.Bounds.Left;
+     h                      := Metrics.Bounds.Bottom - Metrics.Bounds.Top;
+     If ShowHeader Then
+      Begin
+       s := GetHeaderText(ViewMode);
+       SelectObject(DC, FontHeader.Handle);
+       GetTextExtentPoint32(DC, PChar(s), Length(s), Extend);
+       SelectObject(DC, Font.Handle);
+       Metrics.HeaderHeight := Max(3 * Extend.cy Div 2, 13) + VSpacing;
+       If Not Odd(Metrics.HeaderHeight) Then
+        Inc(Metrics.HeaderHeight);
+       Dec(h, Metrics.HeaderHeight);
+      End;
+     If ShowFooter Then
+      Begin
+       Metrics.LongFormat := True;
+       SelectObject(DC, FontFooter.Handle);
+       s := GetFooterText(Metrics.LongFormat);
+       GetTextExtentPoint32(DC, PChar(s), Length(s), Extend);
+       If Extend.cx > 75 * w Div 100 Then
+        Begin
+         Metrics.LongFormat := False;
+         s                  := GetFooterText(Metrics.LongFormat);
+         GetTextExtentPoint32(DC, PChar(s), Length(s), Extend);
+        End;
+       SelectObject(DC, Font.Handle);
+       Metrics.FooterHeight := Max(3 * Extend.cy Div 2, 13) + VSpacing;
+       If Not Odd(Metrics.FooterHeight) Then
+        Inc(Metrics.FooterHeight);
+       Dec(h, Metrics.FooterHeight);
+      End;
+     Case ViewMode Of
+      vmDay :
+       Begin
+        Metrics.ColCount := Calendar.DaysPerWeek;
+        Metrics.RowCount := Ceil(Ceil(DaysInYear / MonthsInYear) / Metrics.ColCount) + 1;
+        If WeekNumbers Then
+         Begin
+          s := GetWeekText(Calendar.WeeksInYear(Year));
+          SelectObject(DC, FontWeekNumbers.Handle);
+          GetTextExtentPoint32(DC, PChar(s), Length(s), Extend);
           SelectObject(DC, Font.Handle);
-          Metrics.NameKind := nkShortest;
-          for NameKind := nkLong to nkShortest do
-          begin
-            if (Extends[NameKind].cx + HSpacing) * Metrics.ColCount <= W then
-            begin
-              Metrics.NameKind := NameKind;
-              Break;
-            end;
-          end;
-          Metrics.FixedRowHeight := Extends[Metrics.NameKind].cy + VSpacing + 2;
-          Dec(H, Metrics.FixedRowHeight);
-          Metrics.ColWidth := W div Metrics.ColCount;
-          Metrics.RowHeight := H div Metrics.RowCount;
-          Metrics.StretchedCols := W - Metrics.ColWidth * Metrics.ColCount;
-          Metrics.StretchedRows := H - Metrics.RowHeight * Metrics.RowCount;
-          Metrics.PrefferedWidth := Metrics.FixedColWidth + (Extends[Metrics.NameKind].cx + HSpacing) * Metrics.ColCount;
-          Metrics.PrefferedHeight := Metrics.FixedRowHeight + (Extends[Metrics.NameKind].cy + 2 * VSpacing) * Metrics.RowCount;
-        end;
-        vmMonth:
-        begin
-          Metrics.ColCount := 3;
-          Metrics.RowCount := Ceil(MonthsInYear / Metrics.ColCount);
-          Metrics.ColWidth := W div Metrics.ColCount;
-          Metrics.RowHeight := H div Metrics.RowCount;
-          Metrics.StretchedRows := H - (Metrics.RowHeight * Metrics.RowCount);
-          Metrics.StretchedCols := W - (Metrics.ColWidth * Metrics.ColCount);
-          FillChar(Extends[nkLong], SizeOf(Extend) * 2, 0);
-          for M := 1 to Calendar.MaxMonthsPerYear do
-            for NameKind := nkLong to nkShort do
-            begin
-              S := GetMonthName(M, NameKind);
-              GetTextExtentPoint32(DC, PChar(S), Length(S), Extend);
-              if Extend.cx > Extends[NameKind].cx then
-                Extends[NameKind].cx := Extend.cx;
-              if Extend.cy > Extends[NameKind].cy then
-                Extends[NameKind].cy := Extend.cy;
-            end;
-          Metrics.NameKind := nkShort;
-          for NameKind := nkLong to nkShort do
-          begin
-            if (Extends[NameKind].cx + HSpacing) * Metrics.ColCount <= W then
-            begin
-              Metrics.NameKind := NameKind;
-              Break;
-            end;
-          end;
-          Metrics.PrefferedWidth := (Extends[Metrics.NameKind].cx + HSpacing) * Metrics.ColCount;
-          Metrics.PrefferedHeight := (Extends[Metrics.NameKind].cy + VSpacing) * Metrics.RowCount;
-        end;
-        vmYear:
-        begin
-          Metrics.ColCount := 4;
-          Metrics.RowCount := 3;
-          Metrics.ColWidth := W div Metrics.ColCount;
-          Metrics.RowHeight := H div Metrics.RowCount;
-          Metrics.StretchedRows := H - (Metrics.RowHeight * Metrics.RowCount);
-          Metrics.StretchedCols := W - (Metrics.ColWidth * Metrics.ColCount);
-          S := GetYearText(Calendar.YearOf(Calendar.MaxSupportedDateTime));
-          GetTextExtentPoint32(DC, PChar(S), Length(S), Extend);
-          Metrics.PrefferedWidth := (Extend.cx + HSpacing) * Metrics.ColCount;
-          Metrics.PrefferedHeight := (Extend.cy + VSpacing) * Metrics.RowCount;
-        end;
-      end;
-      Inc(Metrics.PrefferedHeight, Metrics.HeaderHeight);
-      Inc(Metrics.PrefferedHeight, Metrics.FooterHeight);
-    finally
-      SelectObject(DC, OldFont);
-    end;
-  finally
+          Metrics.FixedColWidth := Extend.cx + 3 * HSpacing Div 2 + 2;
+          Dec(w, Metrics.FixedColWidth);
+         End;
+        s := GetDayText(Ceil(DaysInYear / MonthsInYear));
+        GetTextExtentPoint32(DC, PChar(s), Length(s), Extend);
+        For NameKind       := Low(TIntlCalNameKind) To High(TIntlCalNameKind) Do
+         Extends[NameKind] := Extend;
+        SelectObject(DC, FontDayOfWeek.Handle);
+        For DoW := Low(TDayOfWeek) To High(TDayOfWeek) Do
+         Begin
+          For NameKind := nkLong To nkShortest Do
+           Begin
+            s := GetDayName(DoW, NameKind);
+            GetTextExtentPoint32(DC, PChar(s), Length(s), Extend);
+            If Extend.cx > Extends[NameKind].cx Then
+             Extends[NameKind].cx := Extend.cx;
+            If Extend.cy > Extends[NameKind].cy Then
+             Extends[NameKind].cy := Extend.cy;
+           End;
+         End;
+        SelectObject(DC, Font.Handle);
+        Metrics.NameKind := nkShortest;
+        For NameKind     := nkLong To nkShortest Do
+         Begin
+          If (Extends[NameKind].cx + HSpacing) * Metrics.ColCount <= w Then
+           Begin
+            Metrics.NameKind := NameKind;
+            Break;
+           End;
+         End;
+        Metrics.FixedRowHeight := Extends[Metrics.NameKind].cy + VSpacing + 2;
+        Dec(h, Metrics.FixedRowHeight);
+        Metrics.ColWidth        := w Div Metrics.ColCount;
+        Metrics.RowHeight       := h Div Metrics.RowCount;
+        Metrics.StretchedCols   := w - Metrics.ColWidth * Metrics.ColCount;
+        Metrics.StretchedRows   := h - Metrics.RowHeight * Metrics.RowCount;
+        Metrics.PrefferedWidth  := Metrics.FixedColWidth + (Extends[Metrics.NameKind].cx + HSpacing) * Metrics.ColCount;
+        Metrics.PrefferedHeight := Metrics.FixedRowHeight + (Extends[Metrics.NameKind].cy + 2 * VSpacing) * Metrics.RowCount;
+       End;
+      vmMonth :
+       Begin
+        Metrics.ColCount      := 3;
+        Metrics.RowCount      := Ceil(MonthsInYear / Metrics.ColCount);
+        Metrics.ColWidth      := w Div Metrics.ColCount;
+        Metrics.RowHeight     := h Div Metrics.RowCount;
+        Metrics.StretchedRows := h - (Metrics.RowHeight * Metrics.RowCount);
+        Metrics.StretchedCols := w - (Metrics.ColWidth * Metrics.ColCount);
+        FillChar(Extends[nkLong], SizeOf(Extend) * 2, 0);
+        For m         := 1 To Calendar.MaxMonthsPerYear Do
+         For NameKind := nkLong To nkShort Do
+          Begin
+           s := GetMonthName(m, NameKind);
+           GetTextExtentPoint32(DC, PChar(s), Length(s), Extend);
+           If Extend.cx > Extends[NameKind].cx Then
+            Extends[NameKind].cx := Extend.cx;
+           If Extend.cy > Extends[NameKind].cy Then
+            Extends[NameKind].cy := Extend.cy;
+          End;
+        Metrics.NameKind := nkShort;
+        For NameKind     := nkLong To nkShort Do
+         Begin
+          If (Extends[NameKind].cx + HSpacing) * Metrics.ColCount <= w Then
+           Begin
+            Metrics.NameKind := NameKind;
+            Break;
+           End;
+         End;
+        Metrics.PrefferedWidth  := (Extends[Metrics.NameKind].cx + HSpacing) * Metrics.ColCount;
+        Metrics.PrefferedHeight := (Extends[Metrics.NameKind].cy + VSpacing) * Metrics.RowCount;
+       End;
+      vmYear :
+       Begin
+        Metrics.ColCount      := 4;
+        Metrics.RowCount      := 3;
+        Metrics.ColWidth      := w Div Metrics.ColCount;
+        Metrics.RowHeight     := h Div Metrics.RowCount;
+        Metrics.StretchedRows := h - (Metrics.RowHeight * Metrics.RowCount);
+        Metrics.StretchedCols := w - (Metrics.ColWidth * Metrics.ColCount);
+        s                     := GetYearText(Calendar.YearOf(Calendar.MaxSupportedDateTime));
+        GetTextExtentPoint32(DC, PChar(s), Length(s), Extend);
+        Metrics.PrefferedWidth  := (Extend.cx + HSpacing) * Metrics.ColCount;
+        Metrics.PrefferedHeight := (Extend.cy + VSpacing) * Metrics.RowCount;
+       End;
+     End;
+     Inc(Metrics.PrefferedHeight, Metrics.HeaderHeight);
+     Inc(Metrics.PrefferedHeight, Metrics.FooterHeight);
+    Finally
+     SelectObject(DC, OldFont);
+    End;
+   Finally
     DeleteObject(DC);
     Dec(fUpdateMetricsCount);
-  end;
-end;
+   End;
+  End;
 
-procedure TCustomIntlMonthCalendar.CalcMetricsSections(var Metrics: TIntlCalMetrics);
-var
-  Sec: TIntlCalSection;
-begin
-  if (csLoading in ComponentState) or (WindowHandle = 0) or (fUpdateMetricsCount <> 0) then
+ Procedure TCustomIntlMonthCalendar.CalcMetricsSections(Var Metrics : TIntlCalMetrics);
+  Var
+   Sec : TIntlCalSection;
+  Begin
+   If (csLoading In ComponentState) Or (WindowHandle = 0) Or (fUpdateMetricsCount <> 0) Then
     Exit;
-  for Sec := Low(TIntlCalSection) to High(TIntlCalSection) do
-    with fMetrics, Sections[Sec] do
-    begin
+   For Sec := Low(TIntlCalSection) To High(TIntlCalSection) Do
+    With fMetrics, Sections[Sec] Do
+     Begin
       Sections[Sec] := Bounds;
-      case Sec of
-        csHeader:
-        begin
-          Bottom := Top + HeaderHeight;
-        end;
-        csHeaderText:
-        begin
-          Inc(Left, HeaderHeight);
-          Dec(Right, HeaderHeight);
-          Bottom := Top + HeaderHeight;
-        end;
-        csArrowLeft:
-        begin
-          Right := Left + HeaderHeight;
-          Bottom := Top + HeaderHeight;
-        end;
-        csArrowRight:
-        begin
-          Left := Right - HeaderHeight;
-          Bottom := Top + HeaderHeight;
-        end;
-        csFooter:
-        begin
-          Top := Bottom - FooterHeight;
-        end;
-        csWeekSpace:
-        begin
-          Inc(Top, HeaderHeight);
-          if IsRightToLeft then
-            Left := Right - FixedColWidth
-          else
-            Right := Left + FixedColWidth;
-          Bottom := Top + FixedRowHeight;
-        end;
-        csDaysOfWeek:
-        begin
-          Inc(Top, HeaderHeight);
-          if IsRightToLeft then
-            Dec(Right, FixedColWidth)
-          else
-            Inc(Left, FixedColWidth);
-          Bottom := Top + FixedRowHeight;
-        end;
-        csWeekNumbers:
-        begin
-          Inc(Top, HeaderHeight);
-          Inc(Top, FixedRowHeight);
-          if IsRightToLeft then
-            Left := Right - FixedColWidth
-          else
-            Right := Left + FixedColWidth;
-          Dec(Bottom, FooterHeight);
-        end;
-        csYMD:
-        begin
-          Inc(Top, HeaderHeight);
-          Inc(Top, FixedRowHeight);
-          if IsRightToLeft then
-            Dec(Right, FixedColWidth)
-          else
-            Inc(Left, FixedColWidth);
-          Dec(Bottom, FooterHeight);
-        end;
-      end;
-    end;
-end;
+      Case Sec Of
+       csHeader :
+        Begin
+         Bottom := Top + HeaderHeight;
+        End;
+       csHeaderText :
+        Begin
+         Inc(Left, HeaderHeight);
+         Dec(Right, HeaderHeight);
+         Bottom := Top + HeaderHeight;
+        End;
+       csArrowLeft :
+        Begin
+         Right  := Left + HeaderHeight;
+         Bottom := Top + HeaderHeight;
+        End;
+       csArrowRight :
+        Begin
+         Left   := Right - HeaderHeight;
+         Bottom := Top + HeaderHeight;
+        End;
+       csFooter :
+        Begin
+         Top := Bottom - FooterHeight;
+        End;
+       csWeekSpace :
+        Begin
+         Inc(Top, HeaderHeight);
+         If IsRightToLeft Then
+          Left := Right - FixedColWidth
+         Else
+          Right := Left + FixedColWidth;
+         Bottom := Top + FixedRowHeight;
+        End;
+       csDaysOfWeek :
+        Begin
+         Inc(Top, HeaderHeight);
+         If IsRightToLeft Then
+          Dec(Right, FixedColWidth)
+         Else
+          Inc(Left, FixedColWidth);
+         Bottom := Top + FixedRowHeight;
+        End;
+       csWeekNumbers :
+        Begin
+         Inc(Top, HeaderHeight);
+         Inc(Top, FixedRowHeight);
+         If IsRightToLeft Then
+          Left := Right - FixedColWidth
+         Else
+          Right := Left + FixedColWidth;
+         Dec(Bottom, FooterHeight);
+        End;
+       csYMD :
+        Begin
+         Inc(Top, HeaderHeight);
+         Inc(Top, FixedRowHeight);
+         If IsRightToLeft Then
+          Dec(Right, FixedColWidth)
+         Else
+          Inc(Left, FixedColWidth);
+         Dec(Bottom, FooterHeight);
+        End;
+      End;
+     End;
+  End;
 
-procedure TCustomIntlMonthCalendar.UpdateMetrics;
-begin
-  if fUpdateMetricsCount = 0 then
-  begin
-    fPrefferedSizeReady := False;
-    CalcMetrics(CurrentView, fMetrics);
-    CalcMetricsSections(fMetrics);
-    if not (csLoading in ComponentState) then
+ Procedure TCustomIntlMonthCalendar.UpdateMetrics;
+  Begin
+   If fUpdateMetricsCount = 0 Then
+    Begin
+     fPrefferedSizeReady := False;
+     CalcMetrics(CurrentView, fMetrics);
+     CalcMetricsSections(fMetrics);
+     If Not(csLoading In ComponentState) Then
       AdjustSize;
-    Invalidate;
-  end;
-end;
+     Invalidate;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.UpdateMinMaxRanges;
-var
-  I: Integer;
-begin
-  if Calendar.IsNoDate(DateMin) or
-    (Calendar.CompareDate(DateMin, Calendar.MinSupportedDateTime) < 0)
-  then
+ Procedure TCustomIntlMonthCalendar.UpdateMinMaxRanges;
+  Var
+   i : Integer;
+  Begin
+   If Calendar.IsNoDate(DateMin) Or
+   (Calendar.CompareDate(DateMin, Calendar.MinSupportedDateTime) < 0)
+   Then
     fActualDateMin := Trunc(Calendar.MinSupportedDateTime)
-  else
+   Else
     fActualDateMin := DateMin;
-  if Calendar.IsNoDate(DateMax) or
-    (Calendar.CompareDate(DateMax, Calendar.MaxSupportedDateTime) > 0)
-  then
+   If Calendar.IsNoDate(DateMax) Or
+   (Calendar.CompareDate(DateMax, Calendar.MaxSupportedDateTime) > 0)
+   Then
     fActualDateMax := Trunc(Calendar.MaxSupportedDateTime)
-  else
+   Else
     fActualDateMax := DateMax;
-  if not (csLoading in ComponentState) then
-  begin
-    case SelectionStyle of
-      ssRange:
-        fSelectionAnchor := EnsureDateInRange(fSelectionAnchor);
-      ssFree:
-      begin
-        fSelection.Find(ActualDateMin, I);
-        if I = fSelection.Count then
-          fSelection.Clear
-        else
-        begin
-          for I := I - 1 downto 0 do
-            fSelection.Delete(I);
-          if fSelection.Find(ActualDateMax, I) then
-            Inc(I);
-          if I = 0 then
-            fSelection.Clear
-          else
-          begin
-            for I := fSelection.Count - 1 downto I do
-              fSelection.Delete(I);
-          end;
-        end;
-      end;
-    end;
-    FocusDate(EnsureDateInRange(Date));
-    InvalidateDateDependentSections;
-  end;
-end;
+   If Not(csLoading In ComponentState) Then
+    Begin
+     Case SelectionStyle Of
+      ssRange :
+       fSelectionAnchor := EnsureDateInRange(fSelectionAnchor);
+      ssFree :
+       Begin
+        fSelection.Find(ActualDateMin, i);
+        If i = fSelection.Count Then
+         fSelection.Clear
+        Else
+         Begin
+          For i := i - 1 Downto 0 Do
+           fSelection.Delete(i);
+          If fSelection.Find(ActualDateMax, i) Then
+           Inc(i);
+          If i = 0 Then
+           fSelection.Clear
+          Else
+           Begin
+            For i := fSelection.Count - 1 Downto i Do
+             fSelection.Delete(i);
+           End;
+         End;
+       End;
+     End;
+     FocusDate(EnsureDateInRange(Date));
+     InvalidateDateDependentSections;
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.UpdateCalendar;
-begin
-  Inc(fUpdateMetricsCount);
-  try
-    if Assigned(Culture) then
-      BiDiMode := Culture.BiDiMode
-    else
-      ParentBiDiMode := True;
+ Procedure TCustomIntlMonthCalendar.UpdateCalendar;
+  Begin
+   Inc(fUpdateMetricsCount);
+   Try
+    If Assigned(Culture) Then
+     BiDiMode := Culture.BiDiMode
+    Else
+     ParentBiDiMode := True;
     UpdateMinMaxRanges;
     ExtractDateInfo(EnsureDateInRange(Date));
-  finally
+   Finally
     Dec(fUpdateMetricsCount);
-  end;
-  UpdateMetrics;
-end;
+   End;
+   UpdateMetrics;
+  End;
 
-procedure TCustomIntlMonthCalendar.ValidateCalendar;
+ Procedure TCustomIntlMonthCalendar.ValidateCalendar;
 
-  procedure InitNewCalendar;
-  begin
-    fCalendar.OnChange := CalendarChanged;
-    UpdateCalendar;
-    DoCalendarChange;
-  end;
+   Procedure InitNewCalendar;
+    Begin
+     fCalendar.OnChange := CalendarChanged;
+     UpdateCalendar;
+     DoCalendarChange;
+    End;
+  Var
+   Reference : TCalendar;
 
-var
-  Reference: TCalendar;
-begin
-  if csLoading in ComponentState then
+  Begin
+   If csLoading In ComponentState Then
     Exit;
-  if not Assigned(CalendarType) then
-  begin
-    if UsingCultureCalendar then
+   If Not Assigned(CalendarType) Then
+    Begin
+     If UsingCultureCalendar Then
       Reference := Culture.NativeCalendar
-    else
+     Else
       Reference := DefaultCalendar;
-    if Reference.ClassType <> Calendar.ClassType then
-    begin
-      FreeAndNil(fCalendar);
-      fCalendar := Reference.Clone;
-      InitNewCalendar;
-    end
-    else
+     If Reference.ClassType <> Calendar.ClassType Then
+      Begin
+       FreeAndNil(fCalendar);
+       fCalendar := Reference.Clone;
+       InitNewCalendar;
+      End
+     Else
       fCalendar.Assign(Reference);
-  end
-  else if CalendarType <> Calendar.ClassType then
-  begin
-    FreeAndNil(fCalendar);
-    if Assigned(Culture) then
+    End
+   Else If CalendarType <> Calendar.ClassType Then
+    Begin
+     FreeAndNil(fCalendar);
+     If Assigned(Culture) Then
       fCalendar := CalendarType.Create(Culture.Locale)
-    else
+     Else
       fCalendar := CalendarType.Create(LOCALE_USER_DEFAULT);
-    InitNewCalendar;
-  end
-  else if Assigned(Culture) then
+     InitNewCalendar;
+    End
+   Else If Assigned(Culture) Then
     fCalendar.Settings.Prepare(Culture.Locale)
-  else
+   Else
     fCalendar.Settings.Prepare(LOCALE_USER_DEFAULT);
-end;
+  End;
 
-procedure TCustomIntlMonthCalendar.ExtractDateInfo(const ADate: TDate);
-begin
-  if csLoading in ComponentState then
+ Procedure TCustomIntlMonthCalendar.ExtractDateInfo(Const ADate : TDate);
+  Begin
+   If csLoading In ComponentState Then
     Exit;
-  fDate := ADate;
-  Calendar.DecodeDate(Date, fEra, fYear, fMonth, fDay);
-  fMonthsInYear := Calendar.MonthsInYear(Era, Year);
-  fDaysInYear := Calendar.DaysInYear(Era, Year);
-  fDaysInMonth := Calendar.DaysInMonth(Era, Year, Month);
-  fMonthFirstDate := Date - Day + 1;
-  fMonthFirstDayOfWeek := Calendar.DayOfWeek(MonthFirstDate);
-  fMonthStartCell := Calendar.DaysOfWeekBetween(MonthFirstDayOfWeek, Calendar.Settings.FirstDayOfWeek);
-  if fMonthStartCell = 0 then Inc(fMonthStartCell, Calendar.DaysPerWeek);
-  fFirstCellDayNumber := Calendar.DayOfMonth(FirstCellDate);
-  fFirstCellYear := Calendar.OffsetYear(Era, Year, -(Year mod 10) - 1);
-end;
+   fDate := ADate;
+   Calendar.DecodeDate(Date, fEra, fYear, fMonth, fDay);
+   fMonthsInYear        := Calendar.MonthsInYear(Era, Year);
+   fDaysInYear          := Calendar.DaysInYear(Era, Year);
+   fDaysInMonth         := Calendar.DaysInMonth(Era, Year, Month);
+   fMonthFirstDate      := Date - Day + 1;
+   fMonthFirstDayOfWeek := Calendar.DayOfWeek(MonthFirstDate);
+   fMonthStartCell      := Calendar.DaysOfWeekBetween(MonthFirstDayOfWeek, Calendar.Settings.FirstDayOfWeek);
+   If fMonthStartCell = 0 Then
+    Inc(fMonthStartCell, Calendar.DaysPerWeek);
+   fFirstCellDayNumber := Calendar.DayOfMonth(FirstCellDate);
+   fFirstCellYear      := Calendar.OffsetYear(Era, Year, -(Year Mod 10) - 1);
+  End;
 
-procedure TCustomIntlMonthCalendar.FocusDate(const ADate: TDate);
-var
-  OldEra, OldYear, OldMonth, OldDay: Integer;
-  OldMonthsInYear: Integer;
-begin
-  if (csLoading in ComponentState) or (ADate = Date) then
+ Procedure TCustomIntlMonthCalendar.FocusDate(Const ADate : TDate);
+  Var
+   OldEra, OldYear, OldMonth, OldDay : Integer;
+   OldMonthsInYear                   : Integer;
+  Begin
+   If (csLoading In ComponentState) Or (ADate = Date) Then
     Exit;
-  OldDay := Day;
-  fDay := Trunc(ADate) - Trunc(MonthFirstDate) + 1;
-  if (Day >= 1) and (Day <= DaysInMonth) then
-  begin
-    fDate := ADate;
-    if CurrentView = vmDay then
-    begin
-      InvalidateCell(MonthStartCell + OldDay - 1);
-      InvalidateCell(MonthStartCell + Day - 1);
-    end;
-  end
-  else
-  begin
-    OldEra := Era; OldYear := Year; OldMonth := Month; fDay := OldDay;
-    OldMonthsInYear := MonthsInYear;
-    AnimateBegin;
-    try
+   OldDay := Day;
+   fDay   := Trunc(ADate) - Trunc(MonthFirstDate) + 1;
+   If (Day >= 1) And (Day <= DaysInMonth) Then
+    Begin
+     fDate := ADate;
+     If CurrentView = vmDay Then
+      Begin
+       InvalidateCell(MonthStartCell + OldDay - 1);
+       InvalidateCell(MonthStartCell + Day - 1);
+      End;
+    End
+   Else
+    Begin
+     OldEra          := Era;
+     OldYear         := Year;
+     OldMonth        := Month;
+     fDay            := OldDay;
+     OldMonthsInYear := MonthsInYear;
+     AnimateBegin;
+     Try
       ExtractDateInfo(ADate);
-      case CurrentView of
-        vmDay:
-        begin
-          AnimatePlay;
-          DoPageChange;
-          InvalidateDateDependentSections;
-        end;
-        vmMonth:
-        begin
-          if (Era <> OldEra) or (Year <> OldYear) then
-          begin
-            if OldMonthsInYear <> MonthsInYear then
-              CalcMetrics(CurrentView, fMetrics);
-            AnimatePlay;
-            DoPageChange;
-            InvalidateDateDependentSections;
-          end
-          else
-          begin
-            InvalidateCell(OldMonth - 1);
-            InvalidateCell(Month - 1);
-          end;
-        end;
-        vmYear:
-        begin
-          if (Era <> OldEra) or ((OldYear div 10) <> (Year div 10)) then
-          begin
-            AnimatePlay;
-            DoPageChange;
-            InvalidateDateDependentSections;
-          end
-          else
-          begin
-            InvalidateCell(OldYear - FirstCellYear);
-            InvalidateCell(Year - FirstCellYear);
-          end;
-        end;
-      end;
-    finally
+      Case CurrentView Of
+       vmDay :
+        Begin
+         AnimatePlay;
+         DoPageChange;
+         InvalidateDateDependentSections;
+        End;
+       vmMonth :
+        Begin
+         If (Era <> OldEra) Or (Year <> OldYear) Then
+          Begin
+           If OldMonthsInYear <> MonthsInYear Then
+            CalcMetrics(CurrentView, fMetrics);
+           AnimatePlay;
+           DoPageChange;
+           InvalidateDateDependentSections;
+          End
+         Else
+          Begin
+           InvalidateCell(OldMonth - 1);
+           InvalidateCell(Month - 1);
+          End;
+        End;
+       vmYear :
+        Begin
+         If (Era <> OldEra) Or ((OldYear Div 10) <> (Year Div 10)) Then
+          Begin
+           AnimatePlay;
+           DoPageChange;
+           InvalidateDateDependentSections;
+          End
+         Else
+          Begin
+           InvalidateCell(OldYear - FirstCellYear);
+           InvalidateCell(Year - FirstCellYear);
+          End;
+        End;
+      End;
+     Finally
       AnimateEnd;
-    end;
-  end;
-  DoDateChange;
-end;
+     End;
+    End;
+   DoDateChange;
+  End;
 
-function TCustomIntlMonthCalendar.GetDateAt(X, Y: Integer;
-  out ADate: TDate): Boolean;
-var
-  Cell: Integer;
-begin
-  Result := (GetHitTestInfoAt(X, Y, Cell) = chtDay) and GetDateAtCell(Cell, ADate);
-end;
+ Function TCustomIntlMonthCalendar.GetDateAt(x, y : Integer; Out ADate : TDate) : Boolean;
+  Var
+   Cell : Integer;
+  Begin
+   Result := (GetHitTestInfoAt(x, y, Cell) = chtDay) And GetDateAtCell(Cell, ADate);
+  End;
 
-function TCustomIntlMonthCalendar.GetDateAtCell(Index: Integer;
-  out ADate: TDate): Boolean;
-begin
-  Result := False;
-  if (CurrentView = vmDay) and (Index >= 0) and (Index < CellCount) then
-  begin
-    ADate := FirstCellDate + Index;
-    Result := IsDateInRange(ADate);
-  end;
-end;
+ Function TCustomIntlMonthCalendar.GetDateAtCell(Index : Integer; Out ADate : TDate) : Boolean;
+  Begin
+   Result := False;
+   If (CurrentView = vmDay) And (Index >= 0) And (Index < CellCount) Then
+    Begin
+     ADate  := FirstCellDate + Index;
+     Result := IsDateInRange(ADate);
+    End;
+  End;
 
-function TCustomIntlMonthCalendar.GetMonthAt(X, Y: Integer;
-  out AMonth: Integer): Boolean;
-var
-  Cell: Integer;
-begin
-  Result := (GetHitTestInfoAt(X, Y, Cell) = chtMonth) and GetMonthAtCell(Cell, AMonth);
-end;
+ Function TCustomIntlMonthCalendar.GetMonthAt(x, y : Integer; Out AMonth : Integer) : Boolean;
+  Var
+   Cell : Integer;
+  Begin
+   Result := (GetHitTestInfoAt(x, y, Cell) = chtMonth) And GetMonthAtCell(Cell, AMonth);
+  End;
 
-function TCustomIntlMonthCalendar.GetMonthAtCell(Index: Integer;
-  out AMonth: Integer): Boolean;
-begin
-  Result := False;
-  if (CurrentView = vmMonth) and (Index >= 0) and (Index < CellCount) then
-  begin
-    AMonth := Index + 1;
-    Result := IsMonthInRange(Era, Year, AMonth);
-  end;
-end;
+ Function TCustomIntlMonthCalendar.GetMonthAtCell(Index : Integer; Out AMonth : Integer) : Boolean;
+  Begin
+   Result := False;
+   If (CurrentView = vmMonth) And (Index >= 0) And (Index < CellCount) Then
+    Begin
+     AMonth := Index + 1;
+     Result := IsMonthInRange(Era, Year, AMonth);
+    End;
+  End;
 
-function TCustomIntlMonthCalendar.GetYearAt(X, Y: Integer;
-  out AYear: Integer): Boolean;
-var
-  Cell: Integer;
-begin
-  Result := (GetHitTestInfoAt(X, Y, Cell) = chtYear) and GetYearAtCell(Cell, AYear);
-end;
+ Function TCustomIntlMonthCalendar.GetYearAt(x, y : Integer; Out AYear : Integer) : Boolean;
+  Var
+   Cell : Integer;
+  Begin
+   Result := (GetHitTestInfoAt(x, y, Cell) = chtYear) And GetYearAtCell(Cell, AYear);
+  End;
 
-function TCustomIntlMonthCalendar.GetYearAtCell(Index: Integer;
-  out AYear: Integer): Boolean;
-begin
-  Result := False;
-  if (CurrentView = vmYear) and (Index >= 0) and (Index < CellCount) then
-  begin
-    AYear := Calendar.OffsetYear(FirstCellYear, Index);
-    Result := IsYearInRange(Era, AYear);
-  end;
-end;
+ Function TCustomIntlMonthCalendar.GetYearAtCell(Index : Integer; Out AYear : Integer) : Boolean;
+  Begin
+   Result := False;
+   If (CurrentView = vmYear) And (Index >= 0) And (Index < CellCount) Then
+    Begin
+     AYear  := Calendar.OffsetYear(FirstCellYear, Index);
+     Result := IsYearInRange(Era, AYear);
+    End;
+  End;
 
-procedure TCustomIntlMonthCalendar.SelectDate(const ADate: TDate;
-  ShiftState: TShiftState);
-var
-  I, Dir: Integer;
-  AnchorDate, TheDate: TDate;
-  Changed: Boolean;
-begin
-  Changed := False;
-  AnchorDate := EnsureDateInRange(ADate);
-  case SelectionStyle of
-    ssSingle:
-      Changed := (fDate <> AnchorDate);
-    ssRange:
-      if (ssLeft in ShiftState) and (fSelectionAnchor <> AnchorDate) then
-      begin
-        if not (ssShift in ShiftState) then
-          fSelectionAnchor := AnchorDate;
-        InvalidateDateRange(fSelectionAnchor, AnchorDate);
-        Changed := True;
-      end;
-   else // ssFree
-    if not (ssCtrl in ShiftState) and (fSelection.Count <> 0) then
-    begin
-      InvalidateDates(fSelection);
-      fSelection.Clear;
-      Changed := True;
-    end;
-    if ssLeft in ShiftState then
-    begin
-      if ssShift in ShiftState then
-      begin
-        if AnchorDate < fSelectionAnchor then
-          Dir := +1
-        else
-          Dir := -1;
-        TheDate := AnchorDate;
-        for I := 0 to Calendar.DaysBetween(fSelectionAnchor, AnchorDate) do
-        begin
-          if not fSelection.Exists(TheDate) and DoDateSelectable(TheDate) then
-          begin
-            fSelection.Add(TheDate);
-            InvalidateDate(TheDate);
-            Changed := True;
-          end;
-          Calendar.IncDay(TheDate, Dir);
-        end;
-      end
-      else if ssCtrl in ShiftState then
-      begin
-        if fSelection.Remove(AnchorDate) >= 0 then
-        begin
-          InvalidateDate(AnchorDate);
-          Changed := True;
-        end
-        else if DoDateSelectable(AnchorDate) then
-        begin
-          fSelection.Add(AnchorDate);
-          InvalidateDate(AnchorDate);
-          Changed := True;
-        end;
+ Procedure TCustomIntlMonthCalendar.SelectDate(Const ADate : TDate; ShiftState : TShiftState);
+  Var
+   i, Dir              : Integer;
+   AnchorDate, TheDate : TDate;
+   Changed             : Boolean;
+  Begin
+   Changed    := False;
+   AnchorDate := EnsureDateInRange(ADate);
+   Case SelectionStyle Of
+    ssSingle :
+     Changed := (fDate <> AnchorDate);
+    ssRange :
+     If (ssLeft In ShiftState) And (fSelectionAnchor <> AnchorDate) Then
+      Begin
+       If Not(ssShift In ShiftState) Then
         fSelectionAnchor := AnchorDate;
-      end
-      else
-      begin
-        if not fSelection.Exists(AnchorDate) and DoDateSelectable(AnchorDate) then
-        begin
-          InvalidateDate(AnchorDate);
-          fSelection.Add(AnchorDate);
-          Changed := True;
-        end;
-        fSelectionAnchor := AnchorDate;
-      end;
-    end;
-  end; // case
-  FocusDate(AnchorDate);
-  if Changed then
+       InvalidateDateRange(fSelectionAnchor, AnchorDate);
+       Changed := True;
+      End;
+     Else // ssFree
+     If Not(ssCtrl In ShiftState) And (fSelection.Count <> 0) Then
+      Begin
+       InvalidateDates(fSelection);
+       fSelection.Clear;
+       Changed := True;
+      End;
+    If ssLeft In ShiftState Then
+    Begin
+    If ssShift In ShiftState Then
+    Begin
+    If AnchorDate < fSelectionAnchor Then
+    Dir := +1
+    Else
+    Dir     := -1;
+    TheDate := AnchorDate;
+    For i   := 0 To Calendar.DaysBetween(fSelectionAnchor, AnchorDate) Do
+    Begin
+    If Not fSelection.Exists(TheDate) And DoDateSelectable(TheDate) Then
+    Begin
+    fSelection.Add(TheDate);
+    InvalidateDate(TheDate);
+    Changed := True;
+    End;
+    Calendar.IncDay(TheDate, Dir);
+    End;
+    End
+    Else If ssCtrl In ShiftState Then
+    Begin
+    If fSelection.Remove(AnchorDate) >= 0 Then
+    Begin
+    InvalidateDate(AnchorDate);
+    Changed := True;
+    End
+    Else If DoDateSelectable(AnchorDate) Then
+    Begin
+    fSelection.Add(AnchorDate);
+    InvalidateDate(AnchorDate);
+    Changed := True;
+    End;
+    fSelectionAnchor := AnchorDate;
+    End
+    Else
+    Begin
+    If Not fSelection.Exists(AnchorDate) And DoDateSelectable(AnchorDate) Then
+    Begin
+    InvalidateDate(AnchorDate);
+    fSelection.Add(AnchorDate);
+    Changed := True;
+    End;
+    fSelectionAnchor := AnchorDate;
+    End;
+    End;
+    End; // case
+    FocusDate(AnchorDate);
+    If Changed Then
     DoSelectionChange;
-end;
+    End;
 
-procedure TCustomIntlMonthCalendar.Select(const ADate: TDate;
-  ShiftState: TShiftState);
-begin
-  SelectDate(ADate, ShiftState + [ssLeft]);
-end;
+    Procedure TCustomIntlMonthCalendar.Select(Const ADate : TDate; ShiftState : TShiftState);
+    Begin
+    SelectDate(ADate, ShiftState + [ssLeft]);
+    End;
 
-procedure TCustomIntlMonthCalendar.ClearSelection;
-begin
-  case SelectionStyle of
-    ssRange:
-    begin
-      if fSelectionAnchor <> Date then
-      begin
+    Procedure TCustomIntlMonthCalendar.ClearSelection;
+    Begin
+    Case SelectionStyle Of
+    ssRange :
+     Begin
+      If fSelectionAnchor <> Date Then
+       Begin
         InvalidateDateRange(fSelectionAnchor, Date);
         fSelectionAnchor := Date;
         DoSelectionChange;
-      end;
-    end;
-    ssFree:
-    begin
-      if fSelection.Count <> 0 then
-      begin
+       End;
+     End;
+    ssFree :
+     Begin
+      If fSelection.Count <> 0 Then
+       Begin
         InvalidateDates(fSelection);
         fSelection.Clear;
         DoSelectionChange;
-      end;
-    end;
-  end;
-end;
+       End;
+     End;
+   End;
+  End;
 
-function TCustomIntlMonthCalendar.IsSelected(const ADate: TDate): Boolean;
-begin
-  case SelectionStyle of
-    ssSingle:
-      Result := Calendar.IsSameDay(ADate, Date);
-    ssRange:
-    begin
-      case Calendar.CompareDate(ADate, Date) of
-        -1: Result := (Calendar.CompareDate(ADate, fSelectionAnchor) >= 0);
-        +1: Result := (Calendar.CompareDate(ADate, fSelectionAnchor) <= 0);
-      else
-        Result := True;
-      end;
-    end
-  else
-    Result := fSelection.Exists(Trunc(ADate));
-  end;
-end;
+ Function TCustomIntlMonthCalendar.IsSelected(Const ADate : TDate) : Boolean;
+  Begin
+   Case SelectionStyle Of
+    ssSingle :
+     Result := Calendar.IsSameDay(ADate, Date);
+    ssRange :
+     Begin
+      Case Calendar.CompareDate(ADate, Date) Of
+       -1 : Result := (Calendar.CompareDate(ADate, fSelectionAnchor) >= 0);
+       +1 : Result := (Calendar.CompareDate(ADate, fSelectionAnchor) <= 0);
+      Else Result := True;
+      End;
+     End
+   Else
+     Result := fSelection.Exists(Trunc(ADate));
+   End;
+  End;
 
-function TCustomIntlMonthCalendar.IsYearInRange(AEra, AYear: Integer): Boolean;
-begin
-  Result := Calendar.IsValidYear(AEra, AYear) and
-    (IsDateInRange(Calendar.StartOfYear(AEra, AYear)) or
-     IsDateInRange(Calendar.EndOfYear(AEra, AYear)));
-end;
+ Function TCustomIntlMonthCalendar.IsYearInRange(AEra, AYear : Integer) : Boolean;
+  Begin
+   Result := Calendar.IsValidYear(AEra, AYear) And
+   (IsDateInRange(Calendar.StartOfYear(AEra, AYear)) Or
+   IsDateInRange(Calendar.EndOfYear(AEra, AYear)));
+  End;
 
-function TCustomIntlMonthCalendar.IsYearInRange(AYear: Integer): Boolean;
-begin
-  Result := IsYearInRange(Era, AYear);
-end;
+ Function TCustomIntlMonthCalendar.IsYearInRange(AYear : Integer) : Boolean;
+  Begin
+   Result := IsYearInRange(Era, AYear);
+  End;
 
-function TCustomIntlMonthCalendar.IsMonthInRange(AEra, AYear, AMonth: Integer): Boolean;
-begin
-  Result := Calendar.IsValidMonth(AEra, AYear, AMonth) and
-    (IsDateInRange(Calendar.StartOfMonth(AEra, AYear, AMonth)) or
-     IsDateInRange(Calendar.EndOfMonth(AEra, AYear, AMonth)));
-end;
+ Function TCustomIntlMonthCalendar.IsMonthInRange(AEra, AYear, AMonth : Integer) : Boolean;
+  Begin
+   Result := Calendar.IsValidMonth(AEra, AYear, AMonth) And
+   (IsDateInRange(Calendar.StartOfMonth(AEra, AYear, AMonth)) Or
+   IsDateInRange(Calendar.EndOfMonth(AEra, AYear, AMonth)));
+  End;
 
-function TCustomIntlMonthCalendar.IsMonthInRange(AYear, AMonth: Integer): Boolean;
-begin
-  Result := IsMonthInRange(Era, AYear, AMonth);
-end;
+ Function TCustomIntlMonthCalendar.IsMonthInRange(AYear, AMonth : Integer) : Boolean;
+  Begin
+   Result := IsMonthInRange(Era, AYear, AMonth);
+  End;
 
-function TCustomIntlMonthCalendar.IsDateInRange(const ADate: TDate): Boolean;
-begin
-  Result := Calendar.IsInRange(Trunc(ADate), ActualDateMin, ActualDateMax);
-end;
+ Function TCustomIntlMonthCalendar.IsDateInRange(Const ADate : TDate) : Boolean;
+  Begin
+   Result := Calendar.IsInRange(Trunc(ADate), ActualDateMin, ActualDateMax);
+  End;
 
-function TCustomIntlMonthCalendar.EnsureDateInRange(const ADate: TDate): TDate;
-begin
-  if IsDateInRange(ADate) then
+ Function TCustomIntlMonthCalendar.EnsureDateInRange(Const ADate : TDate) : TDate;
+  Begin
+   If IsDateInRange(ADate) Then
     Result := Trunc(ADate)
-  else if Calendar.CompareDate(ADate, ActualDateMax) > 0 then
+   Else If Calendar.CompareDate(ADate, ActualDateMax) > 0 Then
     Result := ActualDateMax
-  else
+   Else
     Result := ActualDateMin;
-end;
+  End;
 
-function TCustomIntlMonthCalendar.Format(const FmtStr: String;
-  const ADate: TDateTime): String;
-begin
-  Result := Calendar.Format(FmtStr, ADate);
-  NormalizeDigits(Result);
-end;
+ Function TCustomIntlMonthCalendar.Format(Const FmtStr : String; Const ADate : TDateTime) : String;
+  Begin
+   Result := Calendar.Format(FmtStr, ADate);
+   NormalizeDigits(Result);
+  End;
 
 { TIntlMonthCalendarPopup }
 
-constructor TIntlMonthCalendarPopup.Create(AOwner: TWinControl);
-begin
-  inherited Create(AOwner);
-  ControlStyle := ControlStyle + [csNoDesignVisible];
-  TabStop := False;
-  ShowFooter := True;
-  ParentColor := True;
-  BevelKind := bkNone;
-  Visible := False;
-  Parent := AOwner;
-end;
+ Constructor TIntlMonthCalendarPopup.Create(AOwner : TWinControl);
+  Begin
+   Inherited Create(AOwner);
+   ControlStyle := ControlStyle + [csNoDesignVisible];
+   TabStop      := False;
+   ShowFooter   := True;
+   ParentColor  := True;
+   BevelKind    := bkNone;
+   Visible      := False;
+   Parent       := AOwner;
+  End;
 
-procedure TIntlMonthCalendarPopup.WMMouseActivate(var Message: TMessage);
-begin
-  Message.Result := MA_NOACTIVATE;
-end;
+ Procedure TIntlMonthCalendarPopup.WMMouseActivate(Var Message : TMessage);
+  Begin
+   Message.Result := MA_NOACTIVATE;
+  End;
 
-procedure TIntlMonthCalendarPopup.CMVisibleChanged(var Message: TMessage);
-begin
-  inherited;
-  CurrentView := vmDay;
-  if not Visible and Assigned(Parent) then
+ Procedure TIntlMonthCalendarPopup.CMVisibleChanged(Var Message : TMessage);
+  Begin
+   Inherited;
+   CurrentView := vmDay;
+   If Not Visible And Assigned(Parent) Then
     Parent.Invalidate;
-end;
+  End;
 
-procedure TIntlMonthCalendarPopup.MouseUp(Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-var
-  Offset: Integer;
-begin
-  if (Button = mbLeft) and (GetHitTestInfoAt(X, Y, Offset) in [chtDay, chtFooter]) then
+ Procedure TIntlMonthCalendarPopup.MouseUp(Button : TMouseButton; Shift : TShiftState; x, y : Integer);
+  Var
+   Offset : Integer;
+  Begin
+   If (Button = mbLeft) And (GetHitTestInfoAt(x, y, Offset) In [chtDay, chtFooter]) Then
     DoCloseUp(True);
-  inherited MouseUp(Button, Shift, X, Y);
-end;
+   Inherited MouseUp(Button, Shift, x, y);
+  End;
 
-procedure TIntlMonthCalendarPopup.KeyDown(var Key: Word;
-  Shift: TShiftState);
-begin
-  if Key in [VK_RETURN, VK_ESCAPE] then
-  begin
-    DoCloseUp(Key = VK_RETURN);
-    Key := 0;
-  end;
-  inherited KeyDown(Key, Shift);
-end;
+ Procedure TIntlMonthCalendarPopup.KeyDown(Var Key : Word; Shift : TShiftState);
+  Begin
+   If Key In [VK_RETURN, VK_ESCAPE] Then
+    Begin
+     DoCloseUp(Key = VK_RETURN);
+     Key := 0;
+    End;
+   Inherited KeyDown(Key, Shift);
+  End;
 
-procedure TIntlMonthCalendarPopup.CreateParams(var Params: TCreateParams);
-begin
-  inherited CreateParams(Params);
-  with Params do
-  begin
-    Style := WS_POPUP or WS_BORDER;
-    WindowClass.Style := WindowClass.Style or CS_SAVEBITS or CS_DROPSHADOW;
-  end;
-end;
+ Procedure TIntlMonthCalendarPopup.CreateParams(Var Params : TCreateParams);
+  Begin
+   Inherited CreateParams(Params);
+   With Params Do
+    Begin
+     Style             := WS_POPUP Or WS_BORDER;
+     WindowClass.Style := WindowClass.Style Or CS_SAVEBITS Or CS_DROPSHADOW;
+    End;
+  End;
 
-function TIntlMonthCalendarPopup.Focused: Boolean;
-begin
-  Result := Parent.Focused;
-end;
+ Function TIntlMonthCalendarPopup.Focused : Boolean;
+  Begin
+   Result := Parent.Focused;
+  End;
 
-procedure TIntlMonthCalendarPopup.Show(X, Y: Integer);
-begin
-  SetWindowPos(Handle, HWND_TOP, X, Y, 0, 0,
-    SWP_NOSIZE or SWP_NOACTIVATE or SWP_SHOWWINDOW);
-  Visible := True;
-end;
+ Procedure TIntlMonthCalendarPopup.Show(x, y : Integer);
+  Begin
+   SetWindowPos(Handle, HWND_TOP, x, y, 0, 0,
+   SWP_NOSIZE Or SWP_NOACTIVATE Or SWP_SHOWWINDOW);
+   Visible := True;
+  End;
 
-procedure TIntlMonthCalendarPopup.DoCloseUp(Accept: Boolean);
-begin
-  if Assigned(OnCloseUp) then
+ Procedure TIntlMonthCalendarPopup.DoCloseUp(Accept : Boolean);
+  Begin
+   If Assigned(OnCloseUp) Then
     OnCloseUp(Self, Accept);
-end;
+  End;
 
 { TCustomIntlDatePicker }
 
-constructor TCustomIntlDatePicker.Create(AOwner: TComponent);
-begin
-  inherited Create(AOwner);
-  ControlStyle := ControlStyle + [csOpaque] - [csSetCaption];
-  fCalendarPopup := TIntlMonthCalendarPopup.Create(Self);
-  fCalendarPopup.SetSubComponent(True);
-  fCalendarPopup.Name := 'CalendarPopup';
-  fCalendarPopup.OnCloseUp := PopupCloseUp;
-  fCalendarPopup.OnCalendarChange := CalendarChanged;
-  fDate := Calendar.Today;
-  fBorderStyle := bsSingle;
-  fShowCheckBox := False;
-  fChecked := True;
-  ParentColor := False;
-  Color := clWindow;
-  TabStop := True;
-  AutoSize := True;
-  UpdateText;
-end;
+ Constructor TCustomIntlDatePicker.Create(AOwner : TComponent);
+  Begin
+   Inherited Create(AOwner);
+   ControlStyle   := ControlStyle + [csOpaque] - [csSetCaption];
+   fCalendarPopup := TIntlMonthCalendarPopup.Create(Self);
+   fCalendarPopup.SetSubComponent(True);
+   fCalendarPopup.Name             := 'CalendarPopup';
+   fCalendarPopup.OnCloseUp        := PopupCloseUp;
+   fCalendarPopup.OnCalendarChange := CalendarChanged;
+   fDate                           := Calendar.Today;
+   fBorderStyle                    := bsSingle;
+   fShowCheckBox                   := False;
+   fChecked                        := True;
+   ParentColor                     := False;
+   Color                           := clWindow;
+   TabStop                         := True;
+   AutoSize                        := True;
+   UpdateText;
+  End;
 
-destructor TCustomIntlDatePicker.Destroy;
-begin
-  if fTheme <> 0 then
+ Destructor TCustomIntlDatePicker.Destroy;
+  Begin
+   If fTheme <> 0 Then
     CloseThemeData(fTheme);
-  inherited Destroy;
-end;
+   Inherited Destroy;
+  End;
 
-procedure TCustomIntlDatePicker.CalendarChanged(Sender: TObject);
-begin
-  UpdateText;
-end;
+ Procedure TCustomIntlDatePicker.CalendarChanged(Sender : TObject);
+  Begin
+   UpdateText;
+  End;
 
-procedure TCustomIntlDatePicker.PopupCloseUp(Sender: TObject; Accept: Boolean);
-begin
-  if Accept then
-    Date := CalendarPopup.Date;
-  CalendarPopup.Visible := False;
-end;
+ Procedure TCustomIntlDatePicker.PopupCloseUp(Sender : TObject; Accept : Boolean);
+  Begin
+   If Accept Then
+    Date                 := CalendarPopup.Date;
+   CalendarPopup.Visible := False;
+  End;
 
-procedure TCustomIntlDatePicker.SetDate(const Value: TDate);
-begin
-  if (csDesigning in ComponentState) and Calendar.IsNoDate(Value) then
-  begin
-    Date := Calendar.Today;
-    Exit;
-  end;
-  if not IsDateInRange(Value) then
-  begin
-    raise EDateTimeError.CreateResFmt(@SDateOutOfRangeError,
-      [Calendar.Format('ddddd', ActualDateMin),
-       Calendar.Format('ddddd', ActualDateMax)]);
-  end;
-  if not Calendar.IsSameDay(Date, Value) and CanModify then
-  begin
-    fDate := Calendar.DateOf(Value);
-    UpdateText;
-    Change;
-  end;
-end;
+ Procedure TCustomIntlDatePicker.SetDate(Const Value : TDate);
+  Begin
+   If (csDesigning In ComponentState) And Calendar.IsNoDate(Value) Then
+    Begin
+     Date := Calendar.Today;
+     Exit;
+    End;
+   If Not IsDateInRange(Value) Then
+    Begin
+     Raise EDateTimeError.CreateResFmt(@SDateOutOfRangeError,
+     [Calendar.Format('ddddd', ActualDateMin),
+     Calendar.Format('ddddd', ActualDateMax)]);
+    End;
+   If Not Calendar.IsSameDay(Date, Value) And CanModify Then
+    Begin
+     fDate := Calendar.DateOf(Value);
+     UpdateText;
+     Change;
+    End;
+  End;
 
-procedure TCustomIntlDatePicker.SetDateFormat(const Value: String);
-begin
-  if DateFormat <> Value then
-  begin
-    fDateFormat := Value;
-    UpdateText;
-  end;
-end;
+ Procedure TCustomIntlDatePicker.SetDateFormat(Const Value : String);
+  Begin
+   If DateFormat <> Value Then
+    Begin
+     fDateFormat := Value;
+     UpdateText;
+    End;
+  End;
 
-procedure TCustomIntlDatePicker.SetChecked(Value: Boolean);
-begin
-  if (Checked <> Value) and CanModify then
-  begin
-    fChecked := Value;
-    if not Checked and CalendarPopup.Visible then
+ Procedure TCustomIntlDatePicker.SetChecked(Value : Boolean);
+  Begin
+   If (Checked <> Value) And CanModify Then
+    Begin
+     fChecked := Value;
+     If Not Checked And CalendarPopup.Visible Then
       PopupCloseUp(CalendarPopup, False);
-    InvalidateCheckBox;
-    InvalidateDate;
-    Change;
-  end;
-end;
+     InvalidateCheckBox;
+     InvalidateDate;
+     Change;
+    End;
+  End;
 
-procedure TCustomIntlDatePicker.SetShowCheckBox(Value: Boolean);
-begin
-  if ShowCheckBox <> Value then
-  begin
-    fShowCheckBox := Value;
-    UpdateRects;
-  end;
-end;
+ Procedure TCustomIntlDatePicker.SetShowCheckBox(Value : Boolean);
+  Begin
+   If ShowCheckBox <> Value Then
+    Begin
+     fShowCheckBox := Value;
+     UpdateRects;
+    End;
+  End;
 
-procedure TCustomIntlDatePicker.SetBorderStyle(Value: TBorderStyle);
-begin
-  if BorderStyle <> Value then
-  begin
-    fBorderStyle := Value;
-    RecreateWnd;
-  end;
-end;
+ Procedure TCustomIntlDatePicker.SetBorderStyle(Value : TBorderStyle);
+  Begin
+   If BorderStyle <> Value Then
+    Begin
+     fBorderStyle := Value;
+     RecreateWnd;
+    End;
+  End;
 
-function TCustomIntlDatePicker.GetDateMin: TDate;
-begin
-  Result := CalendarPopup.DateMin;
-end;
+ Function TCustomIntlDatePicker.GetDateMin : TDate;
+  Begin
+   Result := CalendarPopup.DateMin;
+  End;
 
-procedure TCustomIntlDatePicker.SetDateMin(const Value: TDate);
-begin
-  CalendarPopup.DateMin := Value;
-end;
+ Procedure TCustomIntlDatePicker.SetDateMin(Const Value : TDate);
+  Begin
+   CalendarPopup.DateMin := Value;
+  End;
 
-function TCustomIntlDatePicker.GetDateMax: TDate;
-begin
-  Result := CalendarPopup.DateMax;
-end;
+ Function TCustomIntlDatePicker.GetDateMax : TDate;
+  Begin
+   Result := CalendarPopup.DateMax;
+  End;
 
-procedure TCustomIntlDatePicker.SetDateMax(const Value: TDate);
-begin
-  CalendarPopup.DateMax := Value;
-end;
+ Procedure TCustomIntlDatePicker.SetDateMax(Const Value : TDate);
+  Begin
+   CalendarPopup.DateMax := Value;
+  End;
 
-function TCustomIntlDatePicker.GetCalendarType: TCalendarClass;
-begin
-  Result := CalendarPopup.CalendarType;
-end;
+ Function TCustomIntlDatePicker.GetCalendarType : TCalendarClass;
+  Begin
+   Result := CalendarPopup.CalendarType;
+  End;
 
-procedure TCustomIntlDatePicker.SetCalendarType(Value: TCalendarClass);
-begin
-  CalendarPopup.CalendarType := Value;
-end;
+ Procedure TCustomIntlDatePicker.SetCalendarType(Value : TCalendarClass);
+  Begin
+   CalendarPopup.CalendarType := Value;
+  End;
 
-function TCustomIntlDatePicker.GetCulture: TCultureInfo;
-begin
-  Result := CalendarPopup.Culture;
-end;
+ Function TCustomIntlDatePicker.GetCulture : TCultureInfo;
+  Begin
+   Result := CalendarPopup.Culture;
+  End;
 
-procedure TCustomIntlDatePicker.SetCulture(Value: TCultureInfo);
-begin
-  CalendarPopup.Culture := Value;
-end;
+ Procedure TCustomIntlDatePicker.SetCulture(Value : TCultureInfo);
+  Begin
+   CalendarPopup.Culture := Value;
+  End;
 
-function TCustomIntlDatePicker.GetCultureCalendar: TLocalizerSwicth;
-begin
-  Result := CalendarPopup.CultureCalendar;
-end;
+ Function TCustomIntlDatePicker.GetCultureCalendar : TLocalizerSwicth;
+  Begin
+   Result := CalendarPopup.CultureCalendar;
+  End;
 
-procedure TCustomIntlDatePicker.SetCultureCalendar(Value: TLocalizerSwicth);
-begin
-  CalendarPopup.CultureCalendar := Value;
-end;
+ Procedure TCustomIntlDatePicker.SetCultureCalendar(Value : TLocalizerSwicth);
+  Begin
+   CalendarPopup.CultureCalendar := Value;
+  End;
 
-function TCustomIntlDatePicker.GetCultureDigits: TLocalizerSwicth;
-begin
-  Result := CalendarPopup.CultureDigits;
-end;
+ Function TCustomIntlDatePicker.GetCultureDigits : TLocalizerSwicth;
+  Begin
+   Result := CalendarPopup.CultureDigits;
+  End;
 
-procedure TCustomIntlDatePicker.SetCultureDigits(Value: TLocalizerSwicth);
-begin
-  CalendarPopup.CultureDigits := Value;
-  UpdateText;
-end;
+ Procedure TCustomIntlDatePicker.SetCultureDigits(Value : TLocalizerSwicth);
+  Begin
+   CalendarPopup.CultureDigits := Value;
+   UpdateText;
+  End;
 
-function TCustomIntlDatePicker.GetLocalizer: TLocalizer;
-begin
-  Result := CalendarPopup.Localizer;
-end;
+ Function TCustomIntlDatePicker.GetLocalizer : TLocalizer;
+  Begin
+   Result := CalendarPopup.Localizer;
+  End;
 
-procedure TCustomIntlDatePicker.SetLocalizer(Value: TLocalizer);
-begin
-  CalendarPopup.Localizer := Value;
-end;
+ Procedure TCustomIntlDatePicker.SetLocalizer(Value : TLocalizer);
+  Begin
+   CalendarPopup.Localizer := Value;
+  End;
 
-function TCustomIntlDatePicker.GetCalendar: TCalendar;
-begin
-  Result := CalendarPopup.Calendar;
-end;
+ Function TCustomIntlDatePicker.GetCalendar : TCalendar;
+  Begin
+   Result := CalendarPopup.Calendar;
+  End;
 
-function TCustomIntlDatePicker.GetActualDateMin: TDate;
-begin
-  Result := CalendarPopup.ActualDateMin;
-end;
+ Function TCustomIntlDatePicker.GetActualDateMin : TDate;
+  Begin
+   Result := CalendarPopup.ActualDateMin;
+  End;
 
-function TCustomIntlDatePicker.GetActualDateMax: TDate;
-begin
-  Result := CalendarPopup.ActualDateMax;
-end;
+ Function TCustomIntlDatePicker.GetActualDateMax : TDate;
+  Begin
+   Result := CalendarPopup.ActualDateMax;
+  End;
 
-function TCustomIntlDatePicker.GetUsingCultureCalendar: Boolean;
-begin
-  Result := CalendarPopup.UsingCultureCalendar;
-end;
+ Function TCustomIntlDatePicker.GetUsingCultureCalendar : Boolean;
+  Begin
+   Result := CalendarPopup.UsingCultureCalendar;
+  End;
 
-function TCustomIntlDatePicker.GetUsingCultureDigits: Boolean;
-begin
-  Result := CalendarPopup.UsingCultureDigits;
-end;
+ Function TCustomIntlDatePicker.GetUsingCultureDigits : Boolean;
+  Begin
+   Result := CalendarPopup.UsingCultureDigits;
+  End;
 
-function TCustomIntlDatePicker.GetTheme: HTHEME;
-begin
-  if fTheme = 0 then
+ Function TCustomIntlDatePicker.GetTheme : HTHEME;
+  Begin
+   If fTheme = 0 Then
     fTheme := OpenThemeData(WindowHandle, 'datepicker');
-  Result := fTheme;
-end;
+   Result  := fTheme;
+  End;
 
-function TCustomIntlDatePicker.IsDateStored: Boolean;
-begin
-  Result := not Calendar.IsToday(Date);
-end;
+ Function TCustomIntlDatePicker.IsDateStored : Boolean;
+  Begin
+   Result := Not Calendar.IsToday(Date);
+  End;
 
-function TCustomIntlDatePicker.IsDateMinStored: Boolean;
-begin
-  Result := not Calendar.IsNoDate(DateMin);
-end;
+ Function TCustomIntlDatePicker.IsDateMinStored : Boolean;
+  Begin
+   Result := Not Calendar.IsNoDate(DateMin);
+  End;
 
-function TCustomIntlDatePicker.IsDateMaxStored: Boolean;
-begin
-  Result := not Calendar.IsNoDate(DateMax);
-end;
+ Function TCustomIntlDatePicker.IsDateMaxStored : Boolean;
+  Begin
+   Result := Not Calendar.IsNoDate(DateMax);
+  End;
 
-procedure TCustomIntlDatePicker.ReadCulture(Reader: TReader);
-begin
-  Culture := CultureOf(Reader.ReadString);
-end;
+ Procedure TCustomIntlDatePicker.ReadCulture(Reader : TReader);
+  Begin
+   Culture := CultureOf(Reader.ReadString);
+  End;
 
-procedure TCustomIntlDatePicker.WriteCulture(Writer: TWriter);
-begin
-  Writer.WriteString(Culture.Locale);
-end;
+ Procedure TCustomIntlDatePicker.WriteCulture(Writer : TWriter);
+  Begin
+   Writer.WriteString(Culture.Locale);
+  End;
 
-procedure TCustomIntlDatePicker.ReadCalendarType(Reader: TReader);
-begin
-  CalendarType := CalendarTypes.ByName(Reader.ReadString);
-end;
+ Procedure TCustomIntlDatePicker.ReadCalendarType(Reader : TReader);
+  Begin
+   CalendarType := CalendarTypes.ByName(Reader.ReadString);
+  End;
 
-procedure TCustomIntlDatePicker.WriteCalendarType(Writer: TWriter);
-begin
-  Writer.WriteString(CalendarType.CalendarName);
-end;
+ Procedure TCustomIntlDatePicker.WriteCalendarType(Writer : TWriter);
+  Begin
+   Writer.WriteString(CalendarType.CalendarName);
+  End;
 
-procedure TCustomIntlDatePicker.DefineProperties(Filer: TFiler);
-begin
-  inherited DefineProperties(Filer);
-  Filer.DefineProperty('CultureInfo', ReadCulture, WriteCulture,
-    not Assigned(Localizer) and Assigned(Culture));
-  Filer.DefineProperty('CalendarClass', ReadCalendarType, WriteCalendarType,
-    Assigned(CalendarType));
-end;
+ Procedure TCustomIntlDatePicker.DefineProperties(Filer : TFiler);
+  Begin
+   Inherited DefineProperties(Filer);
+   Filer.DefineProperty('CultureInfo', ReadCulture, WriteCulture,
+   Not Assigned(Localizer) And Assigned(Culture));
+   Filer.DefineProperty('CalendarClass', ReadCalendarType, WriteCalendarType,
+   Assigned(CalendarType));
+  End;
 
-procedure TCustomIntlDatePicker.CreateParams(var Params: TCreateParams);
-begin
-  inherited CreateParams(Params);
-  if BorderStyle = bsSingle then
-  begin
-    if Ctl3D then
-      Params.ExStyle := Params.ExStyle or WS_EX_CLIENTEDGE
-    else
-      Params.Style := Params.Style or WS_BORDER;
-  end;
-end;
+ Procedure TCustomIntlDatePicker.CreateParams(Var Params : TCreateParams);
+  Begin
+   Inherited CreateParams(Params);
+   If BorderStyle = bsSingle Then
+    Begin
+     If Ctl3D Then
+      Params.ExStyle := Params.ExStyle Or WS_EX_CLIENTEDGE
+     Else
+      Params.Style := Params.Style Or WS_BORDER;
+    End;
+  End;
 
-procedure TCustomIntlDatePicker.Resize;
-begin
-  inherited Resize;
-  UpdateRects;
-end;
+ Procedure TCustomIntlDatePicker.Resize;
+  Begin
+   Inherited Resize;
+   UpdateRects;
+  End;
 
-function TCustomIntlDatePicker.CanAutoSize(var NewWidth, NewHeight: Integer): Boolean;
-begin
-  if AutoSize then
+ Function TCustomIntlDatePicker.CanAutoSize(Var NewWidth, NewHeight : Integer) : Boolean;
+  Begin
+   If AutoSize Then
     NewHeight := GetMinHeight;
-  Result := True;
-end;
+   Result     := True;
+  End;
 
-procedure TCustomIntlDatePicker.MouseDown(Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
-  if Button = mbLeft then
-  begin
-    case HotInfo of
-      phtCheckBox:
-      begin
+ Procedure TCustomIntlDatePicker.MouseDown(Button : TMouseButton; Shift : TShiftState; x, y : Integer);
+  Begin
+   If Button = mbLeft Then
+    Begin
+     Case HotInfo Of
+      phtCheckBox :
+       Begin
         fCheckPressed := True;
         InvalidateCheckBox;
-      end;
-      phtDropDown, phtDate:
-      begin
-        if CalendarPopup.Visible then
-          PopupCloseUp(CalendarPopup, False)
-        else
-          PopupDropDown;
-      end;
-    end;
-  end;
-  inherited MouseDown(Button, Shift, X, Y);
-end;
+       End;
+      phtDropDown, phtDate :
+       Begin
+        If CalendarPopup.Visible Then
+         PopupCloseUp(CalendarPopup, False)
+        Else
+         PopupDropDown;
+       End;
+     End;
+    End;
+   Inherited MouseDown(Button, Shift, x, y);
+  End;
 
-procedure TCustomIntlDatePicker.MouseMove(Shift: TShiftState; X, Y: Integer);
-var
-  TheHitTest: TIntlPickerHitTest;
-begin
-  TheHitTest := GetHitTestInfoAt(X, Y);
-  if TheHitTest <> HotInfo then
-  begin
-    case HotInfo of
-      phtCheckBox:
+ Procedure TCustomIntlDatePicker.MouseMove(Shift : TShiftState; x, y : Integer);
+  Var
+   TheHitTest : TIntlPickerHitTest;
+  Begin
+   TheHitTest := GetHitTestInfoAt(x, y);
+   If TheHitTest <> HotInfo Then
+    Begin
+     Case HotInfo Of
+      phtCheckBox : InvalidateCheckBox;
+      phtDropDown : InvalidateDropDown;
+     End;
+     fHotInfo := TheHitTest;
+     Case HotInfo Of
+      phtCheckBox : InvalidateCheckBox;
+      phtDropDown : InvalidateDropDown;
+     End;
+    End;
+   Inherited MouseMove(Shift, x, y);
+  End;
+
+ Procedure TCustomIntlDatePicker.MouseUp(Button : TMouseButton; Shift : TShiftState; x, y : Integer);
+  Begin
+   If Button = mbLeft Then
+    Begin
+     If CheckPressed Then
+      Begin
+       If HotInfo = phtCheckBox Then
+        Checked := Not Checked
+       Else
         InvalidateCheckBox;
-      phtDropDown:
-        InvalidateDropDown;
-    end;
-    fHotInfo := TheHitTest;
-    case HotInfo of
-      phtCheckBox:
-        InvalidateCheckBox;
-      phtDropDown:
-        InvalidateDropDown;
-    end;
-  end;
-  inherited MouseMove(Shift, X, Y);
-end;
+      End;
+     fCheckPressed := False;
+    End;
+   Inherited MouseUp(Button, Shift, x, y);
+  End;
 
-procedure TCustomIntlDatePicker.MouseUp(Button: TMouseButton;
-  Shift: TShiftState; X, Y: Integer);
-begin
-  if Button = mbLeft then
-  begin
-    if CheckPressed then
-    begin
-      if HotInfo = phtCheckBox then
-        Checked := not Checked
-      else
-        InvalidateCheckBox;
-    end;
-    fCheckPressed := False;
-  end;
-  inherited MouseUp(Button, Shift, X, Y);
-end;
+ Function TCustomIntlDatePicker.DoMouseWheelDown(Shift : TShiftState; MousePos : TPoint) : Boolean;
+  Begin
+   Result := Inherited DoMouseWheelDown(Shift, MousePos);
+   If Not Result Then
+    Begin
+     Date   := EnsureDateInRange(Calendar.NextDay(Date));
+     Result := True;
+    End;
+  End;
 
-function TCustomIntlDatePicker.DoMouseWheelDown(Shift: TShiftState;
-  MousePos: TPoint): Boolean;
-begin
-  Result := inherited DoMouseWheelDown(Shift, MousePos);
-  if not Result then
-  begin
-    Date := EnsureDateInRange(Calendar.NextDay(Date));
-    Result := True;
-  end;
-end;
+ Function TCustomIntlDatePicker.DoMouseWheelUp(Shift : TShiftState; MousePos : TPoint) : Boolean;
+  Begin
+   Result := Inherited DoMouseWheelUp(Shift, MousePos);
+   If Not Result Then
+    Begin
+     Date   := EnsureDateInRange(Calendar.PrevDay(Date));
+     Result := True;
+    End;
+  End;
 
-function TCustomIntlDatePicker.DoMouseWheelUp(Shift: TShiftState;
-  MousePos: TPoint): Boolean;
-begin
-  Result := inherited DoMouseWheelUp(Shift, MousePos);
-  if not Result then
-  begin
-    Date := EnsureDateInRange(Calendar.PrevDay(Date));
-    Result := True;
-  end;
-end;
-
-procedure TCustomIntlDatePicker.KeyDown(var Key: Word; Shift: TShiftState);
-begin
-  inherited KeyDown(Key, Shift);
-  if CalendarPopup.Visible then
-  begin
-    CalendarPopup.KeyDown(Key, Shift);
-    Exit;
-  end;
-  case Key of
-    VK_DOWN:
-    begin
-      if ssAlt in Shift then
-        PopupDropDown
-      else
-        Date := EnsureDateInRange(Calendar.NextDay(Date));
-      Key := 0;
-    end;
-    VK_UP:
-    begin
+ Procedure TCustomIntlDatePicker.KeyDown(Var Key : Word; Shift : TShiftState);
+  Begin
+   Inherited KeyDown(Key, Shift);
+   If CalendarPopup.Visible Then
+    Begin
+     CalendarPopup.KeyDown(Key, Shift);
+     Exit;
+    End;
+   Case Key Of
+    VK_DOWN :
+     Begin
+      If ssAlt In Shift Then
+       PopupDropDown
+      Else
+       Date := EnsureDateInRange(Calendar.NextDay(Date));
+      Key   := 0;
+     End;
+    VK_UP :
+     Begin
       Date := EnsureDateInRange(Calendar.PrevDay(Date));
-      Key := 0;
-    end;
-    VK_NEXT:
-    begin
+      Key  := 0;
+     End;
+    VK_NEXT :
+     Begin
       Date := EnsureDateInRange(Calendar.NextMonth(Date));
-      Key := 0;
-    end;
-    VK_PRIOR:
-    begin
+      Key  := 0;
+     End;
+    VK_PRIOR :
+     Begin
       Date := EnsureDateInRange(Calendar.PrevMonth(Date));
-      Key := 0;
-    end;
-    VK_SPACE:
-    begin
-      if ShowCheckBox then
-        Checked := not Checked;
-      Key := 0;
-    end;
-  end;
-end;
+      Key  := 0;
+     End;
+    VK_SPACE :
+     Begin
+      If ShowCheckBox Then
+       Checked := Not Checked;
+      Key      := 0;
+     End;
+   End;
+  End;
 
-function TCustomIntlDatePicker.CanModify: Boolean;
-begin
-  Result := True;
-end;
+ Function TCustomIntlDatePicker.CanModify : Boolean;
+  Begin
+   Result := True;
+  End;
 
-procedure TCustomIntlDatePicker.Paint;
-const
-  CheckStates: array[Boolean] of TCheckBoxState = (cbUnchecked, cbChecked);
-var
-  DrawState: TPartDrawState;
-  DrawFlags: Cardinal;
-  TextRect, FocusRect: TRect;
-  StateID: Integer;
-begin
-  // check box
-  if ShowCheckBox and RectVisible(Canvas.Handle, fCheckBoxRect) then
-  begin
-    if Enabled then
-      if HotInfo = phtCheckBox then
-        if CheckPressed then
-          DrawState := pdsPressed
-        else
-          DrawState := pdsHot
-      else
-        DrawState := pdsNormal
-    else
-      DrawState := pdsDisabled;
-    fCheckBoxRect := DrawCheckBox(Canvas.Handle, fCheckBoxRect,
-      CheckStates[Checked], DrawState, False, ThemeControl(Self));
-  end;
-  // drop down
-  if RectVisible(Canvas.Handle, fDropDownRect) then
-  begin
-    if Enabled then
-      if CalendarPopup.Visible then
+ Procedure TCustomIntlDatePicker.Paint;
+  Const
+   CheckStates : Array[Boolean] Of TCheckBoxState = (cbUnchecked, cbChecked);
+  Var
+   DrawState           : TPartDrawState;
+   DrawFlags           : Cardinal;
+   TextRect, FocusRect : TRect;
+   StateId             : Integer;
+  Begin
+   // check box
+   If ShowCheckBox And RectVisible(Canvas.Handle, fCheckBoxRect) Then
+    Begin
+     If Enabled Then
+      If HotInfo = phtCheckBox Then
+       If CheckPressed Then
         DrawState := pdsPressed
-      else if HotInfo = phtDropDown then
+       Else
         DrawState := pdsHot
-      else
-        DrawState := pdsNormal
-    else
+      Else
+       DrawState := pdsNormal
+     Else
+      DrawState    := pdsDisabled;
+     fCheckBoxRect := DrawCheckBox(Canvas.Handle, fCheckBoxRect,
+     CheckStates[Checked], DrawState, False, ThemeControl(Self));
+    End;
+   // drop down
+   If RectVisible(Canvas.Handle, fDropDownRect) Then
+    Begin
+     If Enabled Then
+      If CalendarPopup.Visible Then
+       DrawState := pdsPressed
+      Else If HotInfo = phtDropDown Then
+       DrawState := pdsHot
+      Else
+       DrawState := pdsNormal
+     Else
       DrawState := pdsDisabled;
-    DrawDropDown(Canvas.Handle, fDropDownRect, DrawState, ThemeControl(Self));
-  end;
-  // content
-  if RectVisible(Canvas.Handle, fDateRect) then
-  begin
-    Canvas.Font := Font;
-    Canvas.Brush.Color := Color;
-    Canvas.FillRect(fDateRect);
-    TextRect := fDateRect;
-    InflateRect(TextRect, -2, 0);
-    DrawFlags := DrawTextBiDiModeFlags(DT_LEFT or DT_VCENTER or DT_NOPREFIX or DT_SINGLELINE);
-    if CalendarPopup.IsThemed then
-    begin
-      if Checked and Enabled then
+     DrawDropDown(Canvas.Handle, fDropDownRect, DrawState, ThemeControl(Self));
+    End;
+   // content
+   If RectVisible(Canvas.Handle, fDateRect) Then
+    Begin
+     Canvas.Font        := Font;
+     Canvas.Brush.Color := Color;
+     Canvas.FillRect(fDateRect);
+     TextRect := fDateRect;
+     InflateRect(TextRect, -2, 0);
+     DrawFlags := DrawTextBiDiModeFlags(DT_LEFT Or DT_VCENTER Or DT_NOPREFIX Or DT_SINGLELINE);
+     If CalendarPopup.IsThemed Then
+      Begin
+       If Checked And Enabled Then
         StateId := DPDT_NORMAL
-      else
-        StateID := DPDT_DISABLED;
-      DrawThemeText(Theme, Canvas.Handle, DP_DATETEXT, StateId, PChar(Caption), Length(Caption), DrawFlags, 0, TextRect);
-    end
-    else
-    begin
-      if not (Checked and Enabled) then
+       Else
+        StateId := DPDT_DISABLED;
+       DrawThemeText(Theme, Canvas.Handle, DP_DATETEXT, StateId, PChar(Caption), Length(Caption), DrawFlags, 0, TextRect);
+      End
+     Else
+      Begin
+       If Not(Checked And Enabled) Then
         Canvas.Font.Color := clGrayText;
-      DrawText(Canvas.Handle, PChar(Caption), Length(Caption), TextRect, DrawFlags);
-    end;
-    if Focused and not CalendarPopup.Visible then
-    begin
-      FillChar(FocusRect, SizeOf(FocusRect), 0);
-      DrawText(Canvas.Handle, PChar(Caption), Length(Caption), FocusRect, DrawFlags or DT_CALCRECT);
-      OffsetRect(FocusRect, 0, (TextRect.Top + TextRect.Bottom - FocusRect.Bottom) div 2);
-      if UseRightToLeftAlignment then
+       DrawText(Canvas.Handle, PChar(Caption), Length(Caption), TextRect, DrawFlags);
+      End;
+     If Focused And Not CalendarPopup.Visible Then
+      Begin
+       FillChar(FocusRect, SizeOf(FocusRect), 0);
+       DrawText(Canvas.Handle, PChar(Caption), Length(Caption), FocusRect, DrawFlags Or DT_CALCRECT);
+       OffsetRect(FocusRect, 0, (TextRect.Top + TextRect.Bottom - FocusRect.Bottom) Div 2);
+       If UseRightToLeftAlignment Then
         OffsetRect(FocusRect, TextRect.Right - FocusRect.Right, 0)
-      else
+       Else
         OffsetRect(FocusRect, TextRect.Left, 0);
-      InflateRect(FocusRect, 2, 4);
-      SetTextColor(Canvas.Handle, ColorToRGB(Font.Color));
-      Canvas.DrawFocusRect(FocusRect);
-    end;
-  end;
-end;
+       InflateRect(FocusRect, 2, 4);
+       SetTextColor(Canvas.Handle, ColorToRGB(Font.Color));
+       Canvas.DrawFocusRect(FocusRect);
+      End;
+    End;
+  End;
 
-procedure TCustomIntlDatePicker.UpdateText;
-begin
-  Caption := CalendarPopup.Format(DateFormat, Date);
-  InvalidateDate;
-end;
+ Procedure TCustomIntlDatePicker.UpdateText;
+  Begin
+   Caption := CalendarPopup.Format(DateFormat, Date);
+   InvalidateDate;
+  End;
 
-procedure TCustomIntlDatePicker.UpdateRects;
-var
-  Rect: TRect;
-begin
-  if not HandleAllocated then
+ Procedure TCustomIntlDatePicker.UpdateRects;
+  Var
+   Rect : TRect;
+  Begin
+   If Not HandleAllocated Then
     Exit;
-  Rect := ClientRect;
-  fDateRect := Rect;
-  fDropDownRect := Rect;
-  fCheckBoxRect := Rect;
-  if UseRightToLeftAlignment then
-  begin
-    fDropDownRect.Right := fDropDownRect.Left + GetDropDownSize.cx;
-    fDateRect.Left := fDropDownRect.Right + 2;
-    if fShowCheckBox then
-    begin
-      fCheckBoxRect.Left := fCheckBoxRect.Right - GetCheckBoxSize.cx - 4;
-      fDateRect.Right := fCheckBoxRect.Left - 2;
-    end;
-  end
-  else
-  begin
-    fDropDownRect.Left := fDropDownRect.Right - GetDropDownSize.cx;
-    fDateRect.Right := fDropDownRect.Left - 2;
-    if fShowCheckBox then
-    begin
-      fCheckBoxRect.Right := fCheckBoxRect.Left + GetCheckBoxSize.cx + 4;
-      fDateRect.Left := fCheckBoxRect.Right + 2;
-    end;
-  end;
-  Invalidate;
-end;
+   Rect          := ClientRect;
+   fDateRect     := Rect;
+   fDropDownRect := Rect;
+   fCheckBoxRect := Rect;
+   If UseRightToLeftAlignment Then
+    Begin
+     fDropDownRect.Right := fDropDownRect.Left + GetDropDownSize.cx;
+     fDateRect.Left      := fDropDownRect.Right + 2;
+     If fShowCheckBox Then
+      Begin
+       fCheckBoxRect.Left := fCheckBoxRect.Right - GetCheckBoxSize.cx - 4;
+       fDateRect.Right    := fCheckBoxRect.Left - 2;
+      End;
+    End
+   Else
+    Begin
+     fDropDownRect.Left := fDropDownRect.Right - GetDropDownSize.cx;
+     fDateRect.Right    := fDropDownRect.Left - 2;
+     If fShowCheckBox Then
+      Begin
+       fCheckBoxRect.Right := fCheckBoxRect.Left + GetCheckBoxSize.cx + 4;
+       fDateRect.Left      := fCheckBoxRect.Right + 2;
+      End;
+    End;
+   Invalidate;
+  End;
 
-function TCustomIntlDatePicker.GetMinHeight: Integer;
-var
-  DC: HDC;
-  OldFont: HFONT;
-  Metrics: TTextMetric;
-begin
-  DC := GetDC(WindowHandle);
-  try
+ Function TCustomIntlDatePicker.GetMinHeight : Integer;
+  Var
+   DC      : HDC;
+   OldFont : HFONT;
+   Metrics : TTextMetric;
+  Begin
+   DC := GetDC(WindowHandle);
+   Try
     OldFont := SelectObject(DC, Font.Handle);
     GetTextMetrics(DC, Metrics);
     SelectObject(DC, OldFont);
-  finally
+   Finally
     ReleaseDC(WindowHandle, DC);
-  end;
-  Result := Metrics.tmHeight + (Height - ClientHeight) + 4;
-  if Result < GetDropDownSize.cy then
+   End;
+   Result := Metrics.tmHeight + (Height - ClientHeight) + 4;
+   If Result < GetDropDownSize.cy Then
     Result := GetDropDownSize.cy;
-  if ShowCheckBox and (Result < GetCheckBoxSize.cy) then
+   If ShowCheckBox And (Result < GetCheckBoxSize.cy) Then
     Result := GetCheckBoxSize.cy;
-end;
+  End;
 
-function TCustomIntlDatePicker.GetHitTestInfoAt(X, Y: Integer): TIntlPickerHitTest;
-var
-  Pt: TPoint;
-begin
-  Pt.X := X;
-  Pt.Y := Y;
-  if ShowCheckBox and PtInRect(fCheckBoxRect, Pt) then
+ Function TCustomIntlDatePicker.GetHitTestInfoAt(x, y : Integer) : TIntlPickerHitTest;
+  Var
+   Pt : TPoint;
+  Begin
+   Pt.x := x;
+   Pt.y := y;
+   If ShowCheckBox And PtInRect(fCheckBoxRect, Pt) Then
     Result := phtCheckBox
-  else if PtInRect(fDropDownRect, Pt) then
+   Else If PtInRect(fDropDownRect, Pt) Then
     Result := phtDropDown
-  else if PtInRect(fDateRect, Pt) then
+   Else If PtInRect(fDateRect, Pt) Then
     Result := phtDate
-  else if PtInRect(ClientRect, Pt) then
+   Else If PtInRect(ClientRect, Pt) Then
     Result := phtControl
-  else
+   Else
     Result := phtNowhere;
-end;
+  End;
 
-procedure TCustomIntlDatePicker.InvalidateCheckBox;
-begin
-  if ShowCheckBox and HandleAllocated then
+ Procedure TCustomIntlDatePicker.InvalidateCheckBox;
+  Begin
+   If ShowCheckBox And HandleAllocated Then
     InvalidateRect(WindowHandle, fCheckBoxRect, False);
-end;
+  End;
 
-procedure TCustomIntlDatePicker.InvalidateDropDown;
-begin
-  if HandleAllocated then
+ Procedure TCustomIntlDatePicker.InvalidateDropDown;
+  Begin
+   If HandleAllocated Then
     InvalidateRect(WindowHandle, fDropDownRect, False);
-end;
+  End;
 
-procedure TCustomIntlDatePicker.InvalidateDate;
-begin
-  if HandleAllocated then
+ Procedure TCustomIntlDatePicker.InvalidateDate;
+  Begin
+   If HandleAllocated Then
     InvalidateRect(WindowHandle, fDateRect, False);
-end;
+  End;
 
-procedure TCustomIntlDatePicker.InvalidateFrame;
-begin
-  if ThemeControl(Self) and HandleAllocated then
-    RedrawWindow(WindowHandle, nil, 0, RDW_FRAME or RDW_INVALIDATE or RDW_UPDATENOW);
-end;
+ Procedure TCustomIntlDatePicker.InvalidateFrame;
+  Begin
+   If ThemeControl(Self) And HandleAllocated Then
+    RedrawWindow(WindowHandle, Nil, 0, RDW_FRAME Or RDW_INVALIDATE Or RDW_UPDATENOW);
+  End;
 
-procedure TCustomIntlDatePicker.PopupDropDown;
-var
-  TopLeft: TPoint;
-  X, Y, W, H: Integer;
-  Monitor: TMonitor;
-begin
-  if Enabled and CanModify and not CalendarPopup.Visible then
-  begin
-    Monitor := Screen.MonitorFromWindow(Handle);
-    CalendarPopup.HandleNeeded;
-    TopLeft := Parent.ClientToScreen(Point(Left, Top));
-    CalendarPopup.GetPreferredControlSize(W, H);
-    if W < Width then
-      W := Width;
-    if UseRightToLeftAlignment then
-      X := TopLeft.X + Width - W
-    else
-      X := TopLeft.X;
-    if X < Monitor.Left then
-      X := Monitor.Left
-    else if X + W > Monitor.Left + Monitor.Width then
-      X := Monitor.Left + Monitor.Width - W;
-    Y := TopLeft.Y + Height;
-    if Y + H > Monitor.Top + Monitor.Height then
-      Y := TopLeft.Y - H;
-    CalendarPopup.Date := Date;
-    Checked := True;
-    CalendarPopup.SetBounds(X, Y, W, H);
-    CalendarPopup.Show(X, Y);
-    InvalidateDropDown;
-    InvalidateDate;
-  end;
-end;
+ Procedure TCustomIntlDatePicker.PopupDropDown;
+  Var
+   TopLeft    : TPoint;
+   x, y, w, h : Integer;
+   Monitor    : TMonitor;
+  Begin
+   If Enabled And CanModify And Not CalendarPopup.Visible Then
+    Begin
+     Monitor := Screen.MonitorFromWindow(Handle);
+     CalendarPopup.HandleNeeded;
+     TopLeft := Parent.ClientToScreen(Point(Left, Top));
+     CalendarPopup.GetPreferredControlSize(w, h);
+     If w < Width Then
+      w := Width;
+     If UseRightToLeftAlignment Then
+      x := TopLeft.x + Width - w
+     Else
+      x := TopLeft.x;
+     If x < Monitor.Left Then
+      x := Monitor.Left
+     Else If x + w > Monitor.Left + Monitor.Width Then
+      x := Monitor.Left + Monitor.Width - w;
+     y  := TopLeft.y + Height;
+     If y + h > Monitor.Top + Monitor.Height Then
+      y                 := TopLeft.y - h;
+     CalendarPopup.Date := Date;
+     Checked            := True;
+     CalendarPopup.SetBounds(x, y, w, h);
+     CalendarPopup.Show(x, y);
+     InvalidateDropDown;
+     InvalidateDate;
+    End;
+  End;
 
-procedure TCustomIntlDatePicker.Change;
-begin
-  if Assigned(OnChange) then
+ Procedure TCustomIntlDatePicker.Change;
+  Begin
+   If Assigned(OnChange) Then
     OnChange(Self);
-end;
+  End;
 
-procedure TCustomIntlDatePicker.WMNCPaint(var Message: TWMNCPaint);
-var
-  DC: HDC;
-  StateId: Integer;
-  Rect: TRect;
-begin
-  inherited;
-  if (BorderStyle = bsSingle) and ThemeControl(Self) then
-  begin
-    Rect := BoundsRect;
-    OffsetRect(Rect, -Rect.Left, -Rect.Top);
-    if Enabled then
-      if Focused then
-        StateId := DPDB_FOCUSED
-      else if HotInfo <> phtNowhere then
-        StateId := DPDB_HOT
-      else
-        StateId := DPDB_NORMAL
-    else
+ Procedure TCustomIntlDatePicker.WMNCPaint(Var Message : TWMNCPaint);
+  Var
+   DC      : HDC;
+   StateId : Integer;
+   Rect    : TRect;
+  Begin
+   Inherited;
+   If (BorderStyle = bsSingle) And ThemeControl(Self) Then
+    Begin
+     Rect := BoundsRect;
+     OffsetRect(Rect, -Rect.Left, -Rect.Top);
+     If Enabled Then
+      If Focused Then
+       StateId := DPDB_FOCUSED
+      Else If HotInfo <> phtNowhere Then
+       StateId := DPDB_HOT
+      Else
+       StateId := DPDB_NORMAL
+     Else
       StateId := DPDB_DISABLED;
-    DC := GetWindowDC(WindowHandle);
-    try
+     DC       := GetWindowDC(WindowHandle);
+     Try
       ExcludeClipRect(DC, Rect.Left + 2, Rect.Top + 2, Rect.Right - 2, Rect.Bottom - 2);
-      DrawThemeBackground(Theme, DC, DP_DATEBORDER, StateId, Rect, nil);
-    finally
+      DrawThemeBackground(Theme, DC, DP_DATEBORDER, StateId, Rect, Nil);
+     Finally
       ReleaseDC(WindowHandle, DC);
-    end;
-  end;
-end;
+     End;
+    End;
+  End;
 
-procedure TCustomIntlDatePicker.WMMouseActivate(var Message: TWMMouseActivate);
-begin
-  inherited;
-  if CanFocus then
+ Procedure TCustomIntlDatePicker.WMMouseActivate(Var Message : TWMMouseActivate);
+  Begin
+   Inherited;
+   If CanFocus Then
     SetFocus;
-end;
+  End;
 
-procedure TCustomIntlDatePicker.WMSetFocus(var Message: TWMSetFocus);
-begin
-  inherited;
-  InvalidateDate;
-  InvalidateFrame;
-end;
+ Procedure TCustomIntlDatePicker.WMSetFocus(Var Message : TWMSetFocus);
+  Begin
+   Inherited;
+   InvalidateDate;
+   InvalidateFrame;
+  End;
 
-procedure TCustomIntlDatePicker.WMKillFocus(var Message: TWMKillFocus);
-begin
-  inherited;
-  if CalendarPopup.Visible then
+ Procedure TCustomIntlDatePicker.WMKillFocus(Var Message : TWMKillFocus);
+  Begin
+   Inherited;
+   If CalendarPopup.Visible Then
     PopupCloseUp(CalendarPopup, False);
-  InvalidateDate;
-  InvalidateFrame;
-end;
+   InvalidateDate;
+   InvalidateFrame;
+  End;
 
-procedure TCustomIntlDatePicker.WMGetDlgCode(var Message: TWMGetDlgCode);
-begin
-  Message.Result := DLGC_WANTARROWS;
-end;
+ Procedure TCustomIntlDatePicker.WMGetDlgCode(Var Message : TWMGetDlgCode);
+  Begin
+   Message.Result := DLGC_WANTARROWS;
+  End;
 
-procedure TCustomIntlDatePicker.CMEnableChanged(var Message: TMessage);
-begin
-  inherited;
-  Invalidate;
-end;
+ Procedure TCustomIntlDatePicker.CMEnableChanged(Var Message : TMessage);
+  Begin
+   Inherited;
+   Invalidate;
+  End;
 
-procedure TCustomIntlDatePicker.CMBiDiModeChanged(var Message: TMessage);
-begin
-  inherited;
-  UpdateRects;
-end;
+ Procedure TCustomIntlDatePicker.CMBiDiModeChanged(Var Message : TMessage);
+  Begin
+   Inherited;
+   UpdateRects;
+  End;
 
-procedure TCustomIntlDatePicker.CMBorderChanged(var Message: TMessage);
-begin
-  inherited;
-  AdjustSize;
-  InvalidateFrame;
-end;
+ Procedure TCustomIntlDatePicker.CMBorderChanged(Var Message : TMessage);
+  Begin
+   Inherited;
+   AdjustSize;
+   InvalidateFrame;
+  End;
 
-procedure TCustomIntlDatePicker.CMCtl3DChanged(var Message: TMessage);
-begin
-  inherited;
-  AdjustSize;
-  InvalidateFrame;
-end;
+ Procedure TCustomIntlDatePicker.CMCtl3DChanged(Var Message : TMessage);
+  Begin
+   Inherited;
+   AdjustSize;
+   InvalidateFrame;
+  End;
 
-procedure TCustomIntlDatePicker.CMCancelMode(var Message: TCMCancelMode);
-begin
-  if (Message.Sender <> Self) and (Message.Sender <> CalendarPopup) and
-     CalendarPopup.Visible and not CalendarPopup.ContainsControl(Message.Sender)
-  then
+ Procedure TCustomIntlDatePicker.CMCancelMode(Var Message : TCMCancelMode);
+  Begin
+   If (Message.Sender <> Self) And (Message.Sender <> CalendarPopup) And
+   CalendarPopup.Visible And Not CalendarPopup.ContainsControl(Message.Sender)
+   Then
     PopupCloseUp(CalendarPopup, False);
-end;
+  End;
 
-procedure TCustomIntlDatePicker.CMMouseEnter(var Message: TMessage);
-begin
-  inherited;
-  fHotInfo := phtControl;
-  InvalidateFrame;
-end;
+ Procedure TCustomIntlDatePicker.CMMouseEnter(Var Message : TMessage);
+  Begin
+   Inherited;
+   fHotInfo := phtControl;
+   InvalidateFrame;
+  End;
 
-procedure TCustomIntlDatePicker.CMMouseLeave(var Message: TMessage);
-begin
-  case HotInfo of
-    phtCheckBox:
-      InvalidateCheckBox;
-    phtDropDown:
-      InvalidateDropDown;
-  end;
-  fHotInfo := phtNowhere;
-  InvalidateFrame;
-  inherited;
-end;
+ Procedure TCustomIntlDatePicker.CMMouseLeave(Var Message : TMessage);
+  Begin
+   Case HotInfo Of
+    phtCheckBox : InvalidateCheckBox;
+    phtDropDown : InvalidateDropDown;
+   End;
+   fHotInfo := phtNowhere;
+   InvalidateFrame;
+   Inherited;
+  End;
 
-function TCustomIntlDatePicker.IsManagedByLocalizer: Boolean;
-begin
-  Result := Assigned(Localizer);
-end;
+ Function TCustomIntlDatePicker.IsManagedByLocalizer : Boolean;
+  Begin
+   Result := Assigned(Localizer);
+  End;
 
-function TCustomIntlDatePicker.IsYearInRange(AEra, AYear: Integer): Boolean;
-begin
-  Result := CalendarPopup.IsYearInRange(AEra, AYear);
-end;
+ Function TCustomIntlDatePicker.IsYearInRange(AEra, AYear : Integer) : Boolean;
+  Begin
+   Result := CalendarPopup.IsYearInRange(AEra, AYear);
+  End;
 
-function TCustomIntlDatePicker.IsYearInRange(AYear: Integer): Boolean;
-begin
-  Result := CalendarPopup.IsYearInRange(AYear);
-end;
+ Function TCustomIntlDatePicker.IsYearInRange(AYear : Integer) : Boolean;
+  Begin
+   Result := CalendarPopup.IsYearInRange(AYear);
+  End;
 
-function TCustomIntlDatePicker.IsMonthInRange(AEra, AYear, AMonth: Integer): Boolean;
-begin
-  Result := CalendarPopup.IsMonthInRange(AEra, AYear, AMonth);
-end;
+ Function TCustomIntlDatePicker.IsMonthInRange(AEra, AYear, AMonth : Integer) : Boolean;
+  Begin
+   Result := CalendarPopup.IsMonthInRange(AEra, AYear, AMonth);
+  End;
 
-function TCustomIntlDatePicker.IsMonthInRange(AYear, AMonth: Integer): Boolean;
-begin
-  Result := CalendarPopup.IsMonthInRange(AYear, AMonth);
-end;
+ Function TCustomIntlDatePicker.IsMonthInRange(AYear, AMonth : Integer) : Boolean;
+  Begin
+   Result := CalendarPopup.IsMonthInRange(AYear, AMonth);
+  End;
 
-function TCustomIntlDatePicker.IsDateInRange(const ADate: TDate): Boolean;
-begin
-  Result := CalendarPopup.IsDateInRange(ADate);
-end;
+ Function TCustomIntlDatePicker.IsDateInRange(Const ADate : TDate) : Boolean;
+  Begin
+   Result := CalendarPopup.IsDateInRange(ADate);
+  End;
 
-function TCustomIntlDatePicker.EnsureDateInRange(const ADate: TDate): TDate;
-begin
-  Result := CalendarPopup.EnsureDateInRange(ADate);
-end;
+ Function TCustomIntlDatePicker.EnsureDateInRange(Const ADate : TDate) : TDate;
+  Begin
+   Result := CalendarPopup.EnsureDateInRange(ADate);
+  End;
 
-end.
+End.

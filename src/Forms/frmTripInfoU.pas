@@ -10,7 +10,6 @@ Interface
 
  Type
   TfrmTripInfo = Class(TLocalizedForm)
-   Published
     AppTranslator    : TTranslator;
     btnClose         : TButton;
     btnImport        : TButton;
@@ -33,17 +32,19 @@ Interface
     fConnection : TFDConnection;
     fFetch      : TSimBriefFetch;
     fTrip       : Integer;
+    fMetadata   : TFDConnection;
+    fMetadataID : Integer;
    Public
     Destructor Destroy; Override;
     Procedure ConfigureSimBrief(Config : TMemIniFile);
-    Procedure LoadTrip(Connection : TFDConnection; Trip : Integer);
+    Procedure LoadTrip(Connection : TFDConnection; Trip : Integer; Metadata : TFDConnection = Nil; MetadataID : Integer = 0);
   End;
 
 Implementation
 
  Uses
-  System.SysUtils, System.DateUtils, System.JSON, System.IOUtils, Vcl.Dialogs, Winapi.Windows, FMCScreensU;
- {$R *.dfm}
+  System.Variants, System.SysUtils, System.DateUtils, System.JSON, System.IOUtils, Vcl.Dialogs, Winapi.Windows, FMCScreensU;
+{$R *.dfm}
 
  Destructor TfrmTripInfo.Destroy;
   Begin
@@ -86,20 +87,20 @@ Implementation
 
  Procedure TfrmTripInfo.FetchTick(Sender : TObject);
   Var
-   V      : TJSONValue;
+   v      : TJSONValue;
    Reason : String;
   Begin
    If (fFetch = Nil) Or (WaitForSingleObject(fFetch.Handle, 0) <> WAIT_OBJECT_0) Then
     Exit;
    FetchTimer.Enabled := False;
-   V                  := Nil;
+   v                  := Nil;
    Try
     If fFetch.Error <> '' Then
      Raise Exception.Create(fFetch.Error);
-    V := TJSONObject.ParseJSONValue(fFetch.Payload);
-    If Not(V Is TJSONObject) Then
+    v := TJSONObject.ParseJSONValue(fFetch.Payload);
+    If Not(v Is TJSONObject) Then
      Raise Exception.Create(Tr('Nieprawidlowy JSON SimBrief.'));
-    If Not MatchSimBrief(fConnection, fTrip, TJSONObject(V), Reason, fAllowOlder) Then
+    If Not MatchSimBrief(fConnection, fTrip, TJSONObject(v), Reason, fAllowOlder) Then
      Raise Exception.Create(Reason);
     SaveSimBrief(fConnection, fTrip, fFetch.Payload, Reason, fAllowOlder);
     RefreshClick(Nil);
@@ -108,7 +109,7 @@ Implementation
     On E : Exception Do
      ShowMessage('SimBrief: ' + E.Message);
    End;
-   V.Free;
+   v.Free;
    FreeAndNil(fFetch);
    btnImport.Enabled     := True;
    btnImport.Caption     := Tr('Import SimBrief');
@@ -119,7 +120,7 @@ Implementation
 
  Procedure TfrmTripInfo.OFPClick(Sender : TObject);
   Var
-   D    : TSaveDialog;
+   d    : TSaveDialog;
    HTML : String;
   Begin
    HTML := SimBriefOFP(fConnection, fTrip);
@@ -128,23 +129,25 @@ Implementation
      ShowMessage(Tr('Brak zapisanego OFP. Najpierw zaimportuj zgodny plan.'));
      Exit;
     End;
-   D := TSaveDialog.Create(Self);
+   d := TSaveDialog.Create(Self);
    Try
-    D.Filter     := 'OFP HTML|*.html';
-    D.DefaultExt := 'html';
-    D.FileName   := 'OFP-trip-' + IntToStr(fTrip) + '.html';
-    D.Options    := D.Options + [ofOverwritePrompt];
-    If D.Execute Then
-     TFile.WriteAllText(D.FileName, HTML, TEncoding.UTF8);
+    d.Filter     := 'OFP HTML|*.html';
+    d.DefaultExt := 'html';
+    d.FileName   := 'OFP-trip-' + IntToStr(fTrip) + '.html';
+    d.Options    := d.Options + [ofOverwritePrompt];
+    If d.Execute Then
+     TFile.WriteAllText(d.FileName, HTML, TEncoding.UTF8);
    Finally
-    D.Free;
+    d.Free;
    End;
   End;
 
- Procedure TfrmTripInfo.LoadTrip(Connection : TFDConnection; Trip : Integer);
+ Procedure TfrmTripInfo.LoadTrip(Connection : TFDConnection; Trip : Integer; Metadata : TFDConnection; MetadataID : Integer);
   Begin
    fConnection := Connection;
    fTrip       := Trip;
+   fMetadata   := Metadata;
+   fMetadataID := MetadataID;
    RefreshClick(Nil);
   End;
 
@@ -189,26 +192,26 @@ Implementation
 
      Procedure Field(Const Key, LabelText, Units : String);
       Var
-       V : TJSONValue;
-       S : String;
+       v : TJSONValue;
+       s : String;
       Begin
-       V := Device.GetValue(Key);
-       If Not(V Is TJSONObject) Then
+       v := Device.GetValue(Key);
+       If Not(v Is TJSONObject) Then
         Exit;
-       Ref := TJSONObject(V);
-       V   := Ref.GetValue('value');
-       If (V = Nil) Or (V Is TJSONNull) Then
-        S := Tr('brak danych')
+       Ref := TJSONObject(v);
+       v   := Ref.GetValue('value');
+       If (v = Nil) Or (v Is TJSONNull) Then
+        s := Tr('brak danych')
        Else
         Begin
-         If V Is TJSONNumber Then
-          S := V.ToJSON
+         If v Is TJSONNumber Then
+          s := v.ToJSON
          Else
-          S := V.Value;
+          s := v.Value;
          If Units <> '' Then
-          S := S + ' ' + Units;
+          s := s + ' ' + Units;
         End;
-       Add(LabelText, S);
+       Add(LabelText, s);
       End;
 
     Begin
@@ -269,11 +272,11 @@ Implementation
 
    Function ParseUTC(Value : String; Out Time : TDateTime) : Boolean;
     Var
-     P : Integer;
+     p : Integer;
     Begin
-     P := Pos('_', Value);
-     If P > 0 Then
-      Value := Copy(Value, 1, P - 1);
+     p := Pos('_', Value);
+     If p > 0 Then
+      Value := Copy(Value, 1, p - 1);
      Result := TryISO8601ToDate(Value, Time, True);
     End;
 
@@ -297,7 +300,10 @@ Implementation
     TripField(Tr('Rejestracja'), 'atc_id');
     TripField(Tr('Linia'), 'atc_airline');
     TripField(Tr('Numer lotu'), 'atc_flight_number');
-    TripField(Tr('Grupa'), 'group_name');
+    If fMetadata <> Nil Then
+     Add(Tr('Grupa'), VarToStr(fMetadata.ExecSQLScalar('select g.name from trips t left join trip_groups g on g.id=t.group_id where t.id=:id', [fMetadataID])))
+    Else
+     TripField(Tr('Grupa'), 'group_name');
     mInfo.Lines.Add('');
     TripField(Tr('Lotnisko poczatkowe'), 'departure_icao');
     TripField(Tr('Pas poczatkowy'), 'departure_rwy');
@@ -310,7 +316,9 @@ Implementation
     Add(Tr('Koniec zapisu UTC'), EndUTC);
     TripField(Tr('Poczatek lokalnie'), 'departure_local_time');
     TripField(Tr('Koniec lokalnie'), 'destination_local_time');
-    If EndUTC = '' Then
+    If (fMetadata <> Nil) And (VarToStr(fMetadata.ExecSQLScalar('select status from trips where id=:id', [fMetadataID])) = 'interupted') Then
+     Add(Tr('Stan'), Tr('[Przerwane]'))
+    Else If EndUTC = '' Then
      Add(Tr('Stan'), Tr('Brak zapisanego zakonczenia'))
     Else
      Add(Tr('Stan'), Tr('Zakonczony'));

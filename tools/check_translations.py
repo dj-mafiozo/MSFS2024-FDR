@@ -1,4 +1,4 @@
-﻿"""Validate the editable i18n package catalog, locale coverage and DFM bindings."""
+"""Validate the editable i18n package catalog, locale coverage and DFM bindings."""
 from pathlib import Path
 import re
 import xml.etree.ElementTree as ET
@@ -59,7 +59,15 @@ parameter_ids={node.findtext('Value') for node in parameter_domain.findall('Lite
 telemetry=(root/'src/Telemetry/TelemetryCatalogU.pas').read_text(encoding='utf-8-sig')
 for family in ('NumericColumns','BooleanColumns','EngineColumns'):
     part=telemetry[telemetry.index('  '+family):]
-    part=part[:part.index('));')+3]
+    part=part[:re.search(r'\)\s*\)\s*;',part).end()]
     required=set(re.findall(r"\(Name:\s*'([^']*)'",part))
     assert required.issubset(parameter_ids),('Missing readable parameter names',family,required-parameter_ids)
 print(f'PASS: {count} catalog definitions in {len(locales)} locales; placeholders, Unicode and DFM bindings valid.')
+
+known_values={v.text for v in catalog.findall('.//Value')}
+for source in (root/'src').rglob('*.pas'):
+ if any(part in ('Common','__history','__recovery') for part in source.parts):continue
+ for match in re.finditer(r"\bTr\(\s*'((?:[^']|'')*)'\s*\)",source.read_text(encoding='utf-8-sig')):
+  value=match[1].replace("''", "'")
+  assert value in known_values,('Missing literal translation',source.relative_to(root),value)
+print('PASS: every complete Tr literal has a catalog entry.')

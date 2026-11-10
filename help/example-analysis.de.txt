@@ -1,0 +1,32 @@
+﻿# Beispiel einer Landungsanalyse
+> Synthetische Daten für das Handbuch. Dieser Bericht wurde manuell erstellt; keine KI-Antwort und keine Bewertung eines realen Flugs.
+
+## Flug und Analysefenster
+**FDR101 · B38M · EPLL–EPLL · RWY 25**
+Plan: `EPLL.25 ADOX2W SOXE2T LL501 ILSZ.25 EPLL.25`.
+Aufsetzen um 00:33:20 UTC; Fenster: 180 s davor und 30 s danach. Die Aufnahme zeigt Vorbereitung, Start, Steigen, Streckenabschnitt, Sinkflug und Ausrollen.
+
+## Ausgewählte Probe
+- IAS: **145 kt**; Geschwindigkeit über Grund: **138 kt**.
+- V/S beim Kontakt: **−120 ft/min**; Lastvielfaches: **1,18 g**.
+- Höhe: **607 ft MSL**; Funkhöhe: **0 ft**.
+- Nicklage: **2,6° Nase oben**; Querneigung: **0,7°**.
+- Magnetischer Kurs: **245°**; QNH: **1013 hPa**.
+- Klappen: **40**; Fahrwerk: **DOWN**; Spoiler vor Kontakt: **ARMED**.
+- AP nach Trennung: **OFF**; FD/A/T anhand aufgezeichneter Zustände prüfen.
+
+## Verlauf vor und nach dem Kontakt
+Im Sinkflug nehmen Höhe und Fahrt ab, während die Landekonfiguration hergestellt wird. Im Beispiel nähert sich die IAS 145 kt. Nach dem Aufsetzen sinkt die Fahrt weiter, Bremsung und Spoilerausschlag erscheinen. Vergleichen Sie diese Änderungen mit dem Kontakt auf derselben Zeitachse.
+Eine passende IAS allein belegt keinen stabilisierten Anflug. Vertikalpfad, Konfiguration, Schub und gültige LOC-/GS-Abweichungen gehören ebenfalls zur Prüfung. Der FD-Schalter ersetzt keine Führungskommandos.
+
+## Wetter und Plan
+Beispiel-METAR des Simulators: `EPLL 120000Z 27008KT 9999 SCT025 12/08 Q1013`.
+Bei Kurs 245° entspricht das etwa 7 kt Gegenwind und 3 kt Seitenwind. Das reale Wetterbeispiel enthält 28012G18KT und Q1012. Prüfen Sie Quelle und Beobachtungszeit. OFP-Werte sind Planung, keine Messungen des Flugs.
+
+## Grenzen und weitere Prüfung
+Die Demonstration hat ein grobes Intervall von **20 s**. −120 ft/min und 1,18 g beschreiben die vorbereitete Probe, keine Kontaktspitze. Flare-Zeitpunkt, maximale Beschleunigung und genauer Aufsetzpunkt lassen sich daraus nicht zuverlässig bestimmen.
+- IAS/V/S/Nickwinkel am Kontakt vergrößern.
+- Quelle und Gültigkeit von AP/A/T, LOC und GS prüfen.
+- Kontaktposition, Plan und tatsächliche Spur vergleichen.
+- Für echte Bewertungen dichtere Aufzeichnung und Vor-/Nachlauf verwenden.
+**Beispielfazit:** Reihenfolge und Konfiguration werden sichtbar; eine vollständige Bewertung der Landungsqualität ist damit nicht möglich.

@@ -8,44 +8,42 @@ Interface
 
  Type
   TOccurrence = Record
-   Public
-    Trip  : Integer;
-    Zulu  : String;
-    Local : String;
+   Trip  : Integer;
+   Zulu  : String;
+   Local : String;
   End;
 
   TRecent = Record
-   Public
-    Seq  : Int64;
-    Tick : UInt64;
+   Seq  : Int64;
+   Tick : UInt64;
   End;
 
   TEventState = Class
-   Public
-    Pending        : TList<TOccurrence>;
-    Recent         : TList<TRecent>;
-    FastLast       : UInt64;
-    SlowLast       : UInt64;
-    FastSuppressed : Boolean;
-    SlowSuppressed : Boolean;
-    Constructor Create;
-    Destructor Destroy; Override;
+   Pending        : TList<TOccurrence>;
+   Recent         : TList<TRecent>;
+   FastLast       : UInt64;
+   SlowLast       : UInt64;
+   FastSuppressed : Boolean;
+   SlowSuppressed : Boolean;
+   Constructor Create;
+   Destructor Destroy; Override;
   End;
 
-  TCommitEvent  = Procedure(Const Name : String; Const Occurrence : TOccurrence; Seq : Int64) Of Object;
+  TCommitEvent = Procedure(Const Name : String; Const Occurrence : TOccurrence; Seq : Int64) Of Object;
+
   TRetractEvent = Procedure(Seq : Int64) Of Object;
 
   TEventFilter = Class
    Private
     fStates : TObjectDictionary<String, TEventState>;
     fSeq    : Int64;
-    Procedure CommitSlow(Const Name : String; S : TEventState; Const O : TOccurrence; Tick : UInt64);
+    Procedure CommitSlow(Const Name : String; s : TEventState; Const o : TOccurrence; Tick : UInt64);
    Public
     OnCommit  : TCommitEvent;
     OnRetract : TRetractEvent;
     Constructor Create(StartSeq : Int64);
     Destructor Destroy; Override;
-    Procedure Add(Const Name : String; Const O : TOccurrence; Tick : UInt64);
+    Procedure Add(Const Name : String; Const o : TOccurrence; Tick : UInt64);
     Procedure Flush(Tick : UInt64; All : Boolean = False);
   End;
 
@@ -78,83 +76,83 @@ Implementation
    Inherited;
   End;
 
- Procedure TEventFilter.CommitSlow(Const Name : String; S : TEventState; Const O : TOccurrence; Tick : UInt64);
+ Procedure TEventFilter.CommitSlow(Const Name : String; s : TEventState; Const o : TOccurrence; Tick : UInt64);
   Var
-   R : TRecent;
+   r : TRecent;
   Begin
-   If S.SlowSuppressed And (Tick - S.SlowLast < 5000) Then
+   If s.SlowSuppressed And (Tick - s.SlowLast < 5000) Then
     Begin
-     S.SlowLast := Tick;
+     s.SlowLast := Tick;
      Exit;
     End;
-   If Tick - S.SlowLast >= 5000 Then
+   If Tick - s.SlowLast >= 5000 Then
     Begin
-     S.Recent.Clear;
-     S.SlowSuppressed := False;
+     s.Recent.Clear;
+     s.SlowSuppressed := False;
     End;
-   While (S.Recent.Count > 0) And (Tick - S.Recent[0].Tick >= 5000) Do
-    S.Recent.Delete(0);
-   S.SlowLast := Tick;
+   While (s.Recent.Count > 0) And (Tick - s.Recent[0].Tick >= 5000) Do
+    s.Recent.Delete(0);
+   s.SlowLast := Tick;
    Inc(fSeq);
-   R.Seq  := fSeq;
-   R.Tick := Tick;
-   S.Recent.Add(R);
+   r.Seq  := fSeq;
+   r.Tick := Tick;
+   s.Recent.Add(r);
    If Assigned(OnCommit) Then
-    OnCommit(Name, O, fSeq);
-   If S.Recent.Count >= 3 Then
+    OnCommit(Name, o, fSeq);
+   If s.Recent.Count >= 3 Then
     Begin
-     For R In S.Recent Do
+     For r In s.Recent Do
       If Assigned(OnRetract) Then
-       OnRetract(R.Seq);
-     S.Recent.Clear;
-     S.SlowSuppressed := True;
+       OnRetract(r.Seq);
+     s.Recent.Clear;
+     s.SlowSuppressed := True;
     End;
   End;
 
- Procedure TEventFilter.Add(Const Name : String; Const O : TOccurrence; Tick : UInt64);
+ Procedure TEventFilter.Add(Const Name : String; Const o : TOccurrence; Tick : UInt64);
   Var
-   S : TEventState;
+   s : TEventState;
   Begin
    If (Name = 'FLAPS_INCR') Or (Name = 'FLAPS_DECR') Then
     Begin
      Inc(fSeq);
      If Assigned(OnCommit) Then
-      OnCommit(Name, O, fSeq);
+      OnCommit(Name, o, fSeq);
      Exit;
     End;
    Flush(Tick);
-   If Not fStates.TryGetValue(Name, S) Then
+   If Not fStates.TryGetValue(Name, s) Then
     Begin
-     S := TEventState.Create;
-     fStates.Add(Name, S);
+     s := TEventState.Create;
+     fStates.Add(Name, s);
     End;
-   If S.FastSuppressed And (Tick - S.FastLast < 500) Then
+   If s.FastSuppressed And (Tick - s.FastLast < 500) Then
     Begin
-     S.FastLast := Tick;
+     s.FastLast := Tick;
      Exit;
     End;
-   If Tick - S.FastLast >= 500 Then
-    S.FastSuppressed := False;
-   S.FastLast        := Tick;
-   S.Pending.Add(O);
-   If S.Pending.Count >= 3 Then
+   If Tick - s.FastLast >= 500 Then
+    s.FastSuppressed := False;
+   s.FastLast        := Tick;
+   s.Pending.Add(o);
+   If s.Pending.Count >= 3 Then
     Begin
-     S.Pending.Clear;
-     S.FastSuppressed := True;
+     s.Pending.Clear;
+     s.FastSuppressed := True;
     End;
   End;
 
  Procedure TEventFilter.Flush(Tick : UInt64; All : Boolean);
   Var
    Pair : TPair<String, TEventState>;
-   O    : TOccurrence;
+   o    : TOccurrence;
   Begin
    For Pair In fStates Do
     If All Or (Tick - Pair.Value.FastLast >= 500) Then
      Begin
       If Not Pair.Value.FastSuppressed Then
-       For O In Pair.Value.Pending Do
-        CommitSlow(Pair.Key, Pair.Value, O, Tick);
+       For o In Pair.Value.Pending Do
+        CommitSlow(Pair.Key, Pair.Value, o, Tick);
       Pair.Value.Pending.Clear;
       Pair.Value.FastSuppressed := False;
      End;

@@ -10,19 +10,18 @@ Interface
 
  Type
   TfraMap = Class(TFrame)
-   Published
     Actions       : TActionList;
-    ImageList     : TImageList;
     aMapWindow    : TAction;
-    ToolBar6      : TToolBar;
-    btnMapWindow  : TToolButton;
-    MapHost       : TPanel;
     AppTranslator : TTranslator;
+    btnMapWindow  : TToolButton;
+    ImageList     : TImageList;
+    MapHost       : TPanel;
+    ToolBar6      : TToolBar;
     Procedure WindowExecute(Sender : TObject);
    Private
     fLocalized : Boolean;
-    fOnWindow : TNotifyEvent;
-    fMap      : TFlightMap;
+    fOnWindow  : TNotifyEvent;
+    fMap       : TFlightMap;
    Protected
     Procedure SetParent(AParent : TWinControl); Override;
    Public
@@ -33,7 +32,7 @@ Interface
 
 Implementation
 
- {$R *.dfm}
+{$R *.dfm}
 
  Procedure TfraMap.SetParent(AParent : TWinControl);
   Begin

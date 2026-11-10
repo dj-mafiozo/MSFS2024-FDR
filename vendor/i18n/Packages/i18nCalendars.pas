@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -13,16 +13,16 @@
 /// the calendar units, so that the calendar systems can be registered and
 /// accessible.
 /// </summary>
-unit i18nCalendars;
+Unit i18nCalendars;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-uses
+ Uses
   i18nCalGregorian, i18nCalJulian, i18nCalJalali, i18nCalHebrew,
   i18nCalHijri, i18nCalThai, i18nCalKorean, i18nCalTaiwan, i18nCalJapanese;
 
-implementation
+Implementation
 
-end.
+End.

@@ -1,0 +1,1846 @@
+{
+  "schema": 1,
+  "parameter": "FLAPS HANDLE INDEX",
+  "sdk_levers_are_separate": true,
+  "default_display_value": "",
+  "coverage_note": "Explicit ICAO cases include known no-flap and unverified types; unknown/ambiguous profiles stay empty. Reference profiles are subject to recorded position-count validation. All local default MSFS24 flight_model.cfg samples inspected were encrypted.",
+  "config_evidence": [
+    {
+      "file": "ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg",
+      "sha256": "bf595175d218d7583ed38f112cb72284e564fa0e92f31e0503707d53a3455d79",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 1.0,
+        "2": 2.0,
+        "3": 5.0,
+        "4": 10.0,
+        "5": 15.0,
+        "6": 25.0,
+        "7": 30.0,
+        "8": 40.0
+      }
+    },
+    {
+      "file": "ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8-166Seats/flight_model.cfg",
+      "sha256": "bf595175d218d7583ed38f112cb72284e564fa0e92f31e0503707d53a3455d79",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 1.0,
+        "2": 2.0,
+        "3": 5.0,
+        "4": 10.0,
+        "5": 15.0,
+        "6": 25.0,
+        "7": 30.0,
+        "8": 40.0
+      }
+    },
+    {
+      "file": "ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8-189Seats/flight_model.cfg",
+      "sha256": "bf595175d218d7583ed38f112cb72284e564fa0e92f31e0503707d53a3455d79",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 1.0,
+        "2": 2.0,
+        "3": 5.0,
+        "4": 10.0,
+        "5": 15.0,
+        "6": 25.0,
+        "7": 30.0,
+        "8": 40.0
+      }
+    },
+    {
+      "file": "ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8200/flight_model.cfg",
+      "sha256": "bf595175d218d7583ed38f112cb72284e564fa0e92f31e0503707d53a3455d79",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 1.0,
+        "2": 2.0,
+        "3": 5.0,
+        "4": 10.0,
+        "5": 15.0,
+        "6": 25.0,
+        "7": 30.0,
+        "8": 40.0
+      }
+    },
+    {
+      "file": "pmdg-aircraft-77w/SimObjects/Airplanes/PMDG 777-300ER/presets/pmdg/PMDG 777-300ER/config/flight_model.cfg",
+      "sha256": "458fa20c41293d1dab5b0fbcda0c5284e0eaa94bc8a01cf61f532a120f58a0cd",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 6.111111,
+        "2": 13.33333,
+        "3": 16.66667,
+        "4": 19.44444,
+        "5": 26.11111,
+        "6": 30.0
+      }
+    },
+    {
+      "file": "pmdg-aircraft-dc6/SimObjects/Airplanes/PMDG DC-6A/flight_model.cfg",
+      "sha256": "deb339f208ab9b8ebc451d8fb51e1ff85ff063b15c592edcfdce4843c1fa5a40",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 10.0,
+        "2": 15.0,
+        "3": 20.0,
+        "4": 30.0,
+        "5": 40.0,
+        "6": 50.0
+      }
+    },
+    {
+      "file": "pmdg-aircraft-dc6/SimObjects/Airplanes/PMDG DC-6B/flight_model.cfg",
+      "sha256": "c6609c2e03e5c69b90ac48c8ed21331e209c884623c0bb7dba416fd583226a70",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 10.0,
+        "2": 15.0,
+        "3": 20.0,
+        "4": 30.0,
+        "5": 40.0,
+        "6": 50.0
+      }
+    },
+    {
+      "file": "css-aircraft-b737-500/SimObjects/Airplanes/CSS_B737_500/flight_model.cfg",
+      "sha256": "d292eb850e3c36d3599801724abd6b3b46cd76e9a6fd6140f70a282a7e6e8f11",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 1.0,
+        "2": 2.0,
+        "3": 5.0,
+        "4": 10.0,
+        "5": 15.0,
+        "6": 25.0,
+        "7": 30.0,
+        "8": 40.0
+      }
+    },
+    {
+      "file": "lsh-maddogx-aircraft/SimObjects/Airplanes/MaddogX20th/flight_model.cfg",
+      "sha256": "3db226edc92bc8bae089b1a0cc87106048e1d715dbaf413ee8fa2bf193b84240",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 11.0,
+        "3": 15.0,
+        "4": 28.0,
+        "5": 40.0
+      }
+    },
+    {
+      "file": "lsh-maddogx-aircraft/SimObjects/Airplanes/MaddogX20th83/flight_model.cfg",
+      "sha256": "0394692ed91005d990df7747e02e7fef4dc5ddefe962c80f86acf80880213b88",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 11.0,
+        "3": 15.0,
+        "4": 28.0,
+        "5": 40.0
+      }
+    },
+    {
+      "file": "lsh-maddogx-aircraft/SimObjects/Airplanes/MaddogX20th88/flight_model.cfg",
+      "sha256": "8afeb4eaf35aab226ba03187192bcc0237d8cbb0801a198e98a16a23c7a68ae1",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 11.0,
+        "3": 15.0,
+        "4": 28.0,
+        "5": 40.0
+      }
+    },
+    {
+      "file": "skysim-aircraft-dc9/SimObjects/Airplanes/SKYSIM_DC91/flight_model.cfg",
+      "sha256": "fd03e1fb36fdbb032ce131164bcd661861a07588823af750dae264d831d876af",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 10.0,
+        "2": 20.0,
+        "3": 30.0,
+        "4": 40.0,
+        "5": 50.0
+      }
+    },
+    {
+      "file": "skysim-aircraft-dc9/SimObjects/Airplanes/SKYSIM_DC91F/flight_model.cfg",
+      "sha256": "98c1263c1b71b743ba3d04bc4b1879b67d2fc15a5d4c38c2ffe7913296f03d59",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 10.0,
+        "2": 20.0,
+        "3": 30.0,
+        "4": 40.0,
+        "5": 50.0
+      }
+    },
+    {
+      "file": "skysim-aircraft-dc9/SimObjects/Airplanes/SKYSIM_DC93/flight_model.cfg",
+      "sha256": "bf1f2c4b123231d2640bc246789739a44639848cb515a95194b1a7de51a001ba",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 5.0,
+        "3": 15.0,
+        "4": 25.0,
+        "5": 40.0,
+        "6": 50.0
+      }
+    },
+    {
+      "file": "skysim-aircraft-dc9/SimObjects/Airplanes/SKYSIM_DC93F/flight_model.cfg",
+      "sha256": "e262444740c7a994d1e02b886a04bdd9064e3b08142925101cd89d95d07de53d",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 5.0,
+        "3": 15.0,
+        "4": 25.0,
+        "5": 40.0,
+        "6": 50.0
+      }
+    },
+    {
+      "file": "skysim-aircraft-md11/SimObjects/Airplanes/SKYSIM_MD11/flight_model.cfg",
+      "sha256": "b1b14313231a4a6433ec374183d7d6d30e90d6622c6f676fabef2ab18544f389",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 0.5,
+        "2": 10.0,
+        "3": 11.0,
+        "4": 28.0,
+        "5": 35.0,
+        "6": 50.0
+      }
+    },
+    {
+      "file": "skysim-aircraft-md11/SimObjects/Airplanes/SKYSIM_MD11GF/flight_model.cfg",
+      "sha256": "99adea5bfd6e209f369ecdd603c4d64480cc50b551e2dd75a2042eafe54c6869",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 0.5,
+        "2": 10.0,
+        "3": 11.0,
+        "4": 28.0,
+        "5": 35.0,
+        "6": 50.0
+      }
+    },
+    {
+      "file": "skysim-aircraft-md11/SimObjects/Airplanes/SKYSIM_MD11P/flight_model.cfg",
+      "sha256": "b1b14313231a4a6433ec374183d7d6d30e90d6622c6f676fabef2ab18544f389",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 0.5,
+        "2": 10.0,
+        "3": 11.0,
+        "4": 28.0,
+        "5": 35.0,
+        "6": 50.0
+      }
+    },
+    {
+      "file": "skysim-aircraft-md11/SimObjects/Airplanes/SKYSIM_MD11PF/flight_model.cfg",
+      "sha256": "99adea5bfd6e209f369ecdd603c4d64480cc50b551e2dd75a2042eafe54c6869",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 0.5,
+        "2": 10.0,
+        "3": 11.0,
+        "4": 28.0,
+        "5": 35.0,
+        "6": 50.0
+      }
+    },
+    {
+      "file": "tfdidesign-aircraft-md11/SimObjects/Airplanes/TFDi_Design_MD-11_GE/flight_model.cfg",
+      "sha256": "d73bc54b49f38f622e73ea55898805e50b50edffbc6e3cb2304e26527c3ed541",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 15.0,
+        "3": 20.0,
+        "4": 24.0,
+        "5": 28.0,
+        "6": 35.0,
+        "7": 50.0
+      }
+    },
+    {
+      "file": "tfdidesign-aircraft-md11/SimObjects/Airplanes/TFDi_Design_MD-11F_GE/flight_model.cfg",
+      "sha256": "61c0dc56f51afe6fa34fab28fea04bb9b3d47acfcb7dbb7646804ffccb2282c7",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 0.0,
+        "2": 15.0,
+        "3": 20.0,
+        "4": 24.0,
+        "5": 28.0,
+        "6": 35.0,
+        "7": 50.0
+      }
+    },
+    {
+      "file": "flybywire-aircraft-a320-neo/SimObjects/AirPlanes/FlyByWire_A320_NEO/flight_model.cfg",
+      "sha256": "3fca7981c398503f0712c6b968dc23a2463b60e9b934d36e5bb7903b49dee456",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 0.01,
+        "2": 10.0,
+        "3": 15.0,
+        "4": 20.0,
+        "5": 40.0
+      }
+    },
+    {
+      "file": "fnx-aircraft-320/SimObjects/Airplanes/FNX_32X/attachments/fnx/Function_Exterior_A320_CFM_SL/config/flight_model.cfg",
+      "sha256": "a55f07df20c8b4377eb43247d3212853dc0e1c32b125667d60dcf695611b1eb0",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 5.0,
+        "2": 10.0,
+        "3": 15.0,
+        "4": 18.0,
+        "5": 22.0
+      }
+    },
+    {
+      "file": "fnx-aircraft-320/SimObjects/Airplanes/FNX_32X/attachments/fnx/Function_Exterior_A320_CFM_WF/config/flight_model.cfg",
+      "sha256": "d4ae3c9db465e784a4f6b702be622e30140c4f1c4bf28645ddc61b7339b5d592",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 5.0,
+        "2": 10.0,
+        "3": 15.0,
+        "4": 18.0,
+        "5": 22.0
+      }
+    },
+    {
+      "file": "fnx-aircraft-320/SimObjects/Airplanes/FNX_32X/attachments/fnx/Function_Exterior_A320_IAE_SL/config/flight_model.cfg",
+      "sha256": "54a8ee88adccac63ea24d11c9ab4bde074c4a3cae6ce1aa6e09a7f43825482d0",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 5.0,
+        "2": 10.0,
+        "3": 15.0,
+        "4": 18.0,
+        "5": 22.0
+      }
+    },
+    {
+      "file": "fnx-aircraft-320/SimObjects/Airplanes/FNX_32X/attachments/fnx/Function_Exterior_A320_IAE_WF/config/flight_model.cfg",
+      "sha256": "a6a79beed9ef82f254f2192b2d5bf0e67b09e606bd27bc0c41fa2ef0a45dad46",
+      "flaps_0_positions": {
+        "0": 0.0,
+        "1": 5.0,
+        "2": 10.0,
+        "3": 15.0,
+        "4": 18.0,
+        "5": 22.0
+      }
+    }
+  ],
+  "aircraft": {
+    "A10": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "A20N": {
+      "status": "config",
+      "labels": [
+        "UP",
+        "1",
+        "1+F",
+        "2",
+        "3",
+        "FULL"
+      ],
+      "sources": [
+        "flybywire-aircraft-a320-neo/SimObjects/AirPlanes/FlyByWire_A320_NEO/flight_model.cfg"
+      ]
+    },
+    "A21N": {
+      "status": "config",
+      "labels": [
+        "UP",
+        "1",
+        "1+F",
+        "2",
+        "3",
+        "FULL"
+      ],
+      "sources": [
+        "flybywire-aircraft-a320-neo/SimObjects/AirPlanes/FlyByWire_A320_NEO/flight_model.cfg"
+      ]
+    },
+    "A225": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "A310": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "15/0",
+        "15/15",
+        "15/20",
+        "30/40"
+      ],
+      "sources": [
+        "https://flightsimulator.azureedge.net/wp-content/uploads/2023/02/A310_MSFS_Manual.pdf"
+      ]
+    },
+    "A318": {
+      "status": "config",
+      "labels": [
+        "UP",
+        "1",
+        "1+F",
+        "2",
+        "3",
+        "FULL"
+      ],
+      "sources": [
+        "flybywire-aircraft-a320-neo/SimObjects/AirPlanes/FlyByWire_A320_NEO/flight_model.cfg"
+      ]
+    },
+    "A319": {
+      "status": "config",
+      "labels": [
+        "UP",
+        "1",
+        "1+F",
+        "2",
+        "3",
+        "FULL"
+      ],
+      "sources": [
+        "flybywire-aircraft-a320-neo/SimObjects/AirPlanes/FlyByWire_A320_NEO/flight_model.cfg"
+      ]
+    },
+    "A320": {
+      "status": "config",
+      "labels": [
+        "UP",
+        "1",
+        "1+F",
+        "2",
+        "3",
+        "FULL"
+      ],
+      "sources": [
+        "flybywire-aircraft-a320-neo/SimObjects/AirPlanes/FlyByWire_A320_NEO/flight_model.cfg"
+      ]
+    },
+    "A321": {
+      "status": "config",
+      "labels": [
+        "UP",
+        "1",
+        "1+F",
+        "2",
+        "3",
+        "FULL"
+      ],
+      "sources": [
+        "flybywire-aircraft-a320-neo/SimObjects/AirPlanes/FlyByWire_A320_NEO/flight_model.cfg"
+      ]
+    },
+    "A332": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "1",
+        "1+F",
+        "2",
+        "3",
+        "FULL"
+      ],
+      "sources": [
+        "https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/Airbus-A330-MSFS-Manual.pdf"
+      ],
+      "note": "Only use when recorded handle-position count agrees; the default package configuration is encrypted."
+    },
+    "A333": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "1",
+        "1+F",
+        "2",
+        "3",
+        "FULL"
+      ],
+      "sources": [
+        "https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/Airbus-A330-MSFS-Manual.pdf"
+      ],
+      "note": "Only use when recorded handle-position count agrees; the default package configuration is encrypted."
+    },
+    "A337": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "1",
+        "1+F",
+        "2",
+        "3",
+        "FULL"
+      ],
+      "sources": [
+        "https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/Airbus-A330-MSFS-Manual.pdf"
+      ],
+      "note": "Only use when recorded handle-position count agrees; the default package configuration is encrypted."
+    },
+    "A400": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "A5": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "15",
+        "30"
+      ],
+      "sources": [
+        "https://www.iconaircraft.com/maintenance-manual-A5/ICON%20A5%20MM/RiggingFlapControls.html"
+      ]
+    },
+    "AE45": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "AN2": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "AS32": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "AS50": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "AT46": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "AT76": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "AT8T": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "B06": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "B307": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "B350": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "APR",
+        "DOWN"
+      ],
+      "sources": [
+        "https://beechcraft.txtav.com/"
+      ]
+    },
+    "B37M": {
+      "status": "config_and_sdk",
+      "labels": [
+        "UP",
+        "1",
+        "2",
+        "5",
+        "10",
+        "15",
+        "25",
+        "30",
+        "40"
+      ],
+      "sources": [
+        "ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg"
+      ]
+    },
+    "B38M": {
+      "status": "config_and_sdk",
+      "labels": [
+        "UP",
+        "1",
+        "2",
+        "5",
+        "10",
+        "15",
+        "25",
+        "30",
+        "40"
+      ],
+      "sources": [
+        "ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg"
+      ]
+    },
+    "B39M": {
+      "status": "config_and_sdk",
+      "labels": [
+        "UP",
+        "1",
+        "2",
+        "5",
+        "10",
+        "15",
+        "25",
+        "30",
+        "40"
+      ],
+      "sources": [
+        "ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg"
+      ]
+    },
+    "B3XM": {
+      "status": "config_and_sdk",
+      "labels": [
+        "UP",
+        "1",
+        "2",
+        "5",
+        "10",
+        "15",
+        "25",
+        "30",
+        "40"
+      ],
+      "sources": [
+        "ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg"
+      ]
+    },
+    "B407": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "B412": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "B47J": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "B703": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "B735": {
+      "status": "config_and_sdk",
+      "labels": [
+        "UP",
+        "1",
+        "2",
+        "5",
+        "10",
+        "15",
+        "25",
+        "30",
+        "40"
+      ],
+      "sources": [
+        "ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg"
+      ]
+    },
+    "B736": {
+      "status": "config_and_sdk",
+      "labels": [
+        "UP",
+        "1",
+        "2",
+        "5",
+        "10",
+        "15",
+        "25",
+        "30",
+        "40"
+      ],
+      "sources": [
+        "ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg"
+      ]
+    },
+    "B737": {
+      "status": "config_and_sdk",
+      "labels": [
+        "UP",
+        "1",
+        "2",
+        "5",
+        "10",
+        "15",
+        "25",
+        "30",
+        "40"
+      ],
+      "sources": [
+        "ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg"
+      ]
+    },
+    "B738": {
+      "status": "config_and_sdk",
+      "labels": [
+        "UP",
+        "1",
+        "2",
+        "5",
+        "10",
+        "15",
+        "25",
+        "30",
+        "40"
+      ],
+      "sources": [
+        "ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg"
+      ]
+    },
+    "B739": {
+      "status": "config_and_sdk",
+      "labels": [
+        "UP",
+        "1",
+        "2",
+        "5",
+        "10",
+        "15",
+        "25",
+        "30",
+        "40"
+      ],
+      "sources": [
+        "ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg"
+      ]
+    },
+    "B744": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "1",
+        "5",
+        "10",
+        "20",
+        "25",
+        "30"
+      ],
+      "sources": [
+        "https://flightsimulator.azureedge.net/wp-content/uploads/2023/06/B747-8i-Tutorial-Flight-v1.pdf"
+      ]
+    },
+    "B748": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "1",
+        "5",
+        "10",
+        "20",
+        "25",
+        "30"
+      ],
+      "sources": [
+        "https://flightsimulator.azureedge.net/wp-content/uploads/2023/06/B747-8i-Tutorial-Flight-v1.pdf"
+      ]
+    },
+    "B772": {
+      "status": "config_and_sdk",
+      "labels": [
+        "UP",
+        "1",
+        "5",
+        "15",
+        "20",
+        "25",
+        "30"
+      ],
+      "sources": [
+        "pmdg-aircraft-77w/SimObjects/Airplanes/PMDG 777-300ER/presets/pmdg/PMDG 777-300ER/config/flight_model.cfg"
+      ]
+    },
+    "B773": {
+      "status": "config_and_sdk",
+      "labels": [
+        "UP",
+        "1",
+        "5",
+        "15",
+        "20",
+        "25",
+        "30"
+      ],
+      "sources": [
+        "pmdg-aircraft-77w/SimObjects/Airplanes/PMDG 777-300ER/presets/pmdg/PMDG 777-300ER/config/flight_model.cfg"
+      ]
+    },
+    "B77F": {
+      "status": "config_and_sdk",
+      "labels": [
+        "UP",
+        "1",
+        "5",
+        "15",
+        "20",
+        "25",
+        "30"
+      ],
+      "sources": [
+        "pmdg-aircraft-77w/SimObjects/Airplanes/PMDG 777-300ER/presets/pmdg/PMDG 777-300ER/config/flight_model.cfg"
+      ]
+    },
+    "B77L": {
+      "status": "config_and_sdk",
+      "labels": [
+        "UP",
+        "1",
+        "5",
+        "15",
+        "20",
+        "25",
+        "30"
+      ],
+      "sources": [
+        "pmdg-aircraft-77w/SimObjects/Airplanes/PMDG 777-300ER/presets/pmdg/PMDG 777-300ER/config/flight_model.cfg"
+      ]
+    },
+    "B77W": {
+      "status": "config_and_sdk",
+      "labels": [
+        "UP",
+        "1",
+        "5",
+        "15",
+        "20",
+        "25",
+        "30"
+      ],
+      "sources": [
+        "pmdg-aircraft-77w/SimObjects/Airplanes/PMDG 777-300ER/presets/pmdg/PMDG 777-300ER/config/flight_model.cfg"
+      ]
+    },
+    "B78X": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "1",
+        "5",
+        "15",
+        "20",
+        "25",
+        "30"
+      ],
+      "sources": [
+        "https://flightsimulator.azureedge.net/wp-content/uploads/2023/06/B787-10-Tutorial-Flight-v1.pdf"
+      ]
+    },
+    "BALL": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "BE17": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "BE18": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "BE35": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "APR",
+        "DOWN"
+      ],
+      "sources": [
+        "https://beechcraft.txtav.com/"
+      ]
+    },
+    "BE36": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "APR",
+        "DOWN"
+      ],
+      "sources": [
+        "https://beechcraft.txtav.com/"
+      ]
+    },
+    "BE58": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "APR",
+        "DOWN"
+      ],
+      "sources": [
+        "https://beechcraft.txtav.com/"
+      ]
+    },
+    "BE9L": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "APR",
+        "DOWN"
+      ],
+      "sources": [
+        "https://beechcraft.txtav.com/"
+      ]
+    },
+    "BLCF": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "1",
+        "5",
+        "10",
+        "20",
+        "25",
+        "30"
+      ],
+      "sources": [
+        "https://flightsimulator.azureedge.net/wp-content/uploads/2023/06/B747-8i-Tutorial-Flight-v1.pdf"
+      ]
+    },
+    "C152": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "10",
+        "20",
+        "30"
+      ],
+      "sources": [
+        "https://cessnaflighttraining.kingschools.com/secure/ccf/ccfppv1/documents/172S_PIM.pdf"
+      ]
+    },
+    "C17": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "C172": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "10",
+        "20",
+        "30"
+      ],
+      "sources": [
+        "https://cessnaflighttraining.kingschools.com/secure/ccf/ccfppv1/documents/172S_PIM.pdf"
+      ]
+    },
+    "C188": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "C195": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "C207": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "C208": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "10",
+        "20",
+        "30"
+      ],
+      "sources": [
+        "https://cessnaflighttraining.kingschools.com/secure/ccf/ccfppv1/documents/172S_PIM.pdf"
+      ]
+    },
+    "C25C": {
+      "status": "sim_manual",
+      "labels": [
+        "UP",
+        "15",
+        "35"
+      ],
+      "sources": [
+        "https://flightsimulator.azureedge.net/wp-content/uploads/2023/02/Cessna-Citation-CJ4-User-Guide-v1.pdf"
+      ]
+    },
+    "C404": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "C408": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "C46": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "C700": {
+      "status": "sim_manual",
+      "labels": [
+        "UP",
+        "1",
+        "2",
+        "FULL"
+      ],
+      "sources": [
+        "https://flightsimulator.azureedge.net/wp-content/uploads/2023/02/Cessna-Model-700-Operators-Guide.pdf"
+      ]
+    },
+    "CC19": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "CG4": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "CL2T": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "COL4": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "CP10": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "D031": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "DA40": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "T/O",
+        "LDG"
+      ],
+      "sources": [
+        "https://www.diamondaircraft.com/fileadmin/diamondaircraft/service-and-support/Pilot_Training_Austria/Checklists/checklists_DA40_D/DA40_D_Conventional_Cockpit/DA40_TDI_Checklist_Edit17_1_A4.pdf"
+      ]
+    },
+    "DC3": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "DC6": {
+      "status": "config",
+      "labels": [
+        "UP",
+        "10",
+        "15",
+        "20",
+        "30",
+        "40",
+        "50"
+      ],
+      "sources": [
+        "pmdg-aircraft-dc6/SimObjects/Airplanes/PMDG DC-6A/flight_model.cfg"
+      ]
+    },
+    "DC91": {
+      "status": "config",
+      "labels": [
+        "UP",
+        "10",
+        "20",
+        "30",
+        "40",
+        "50"
+      ],
+      "sources": [
+        "skysim-aircraft-dc9/SimObjects/Airplanes/SKYSIM_DC91/flight_model.cfg"
+      ]
+    },
+    "DC92": {
+      "status": "config",
+      "labels": [
+        "UP",
+        "10",
+        "20",
+        "30",
+        "40",
+        "50"
+      ],
+      "sources": [
+        "skysim-aircraft-dc9/SimObjects/Airplanes/SKYSIM_DC91/flight_model.cfg"
+      ]
+    },
+    "DC93": {
+      "status": "config",
+      "labels": [
+        "UP",
+        "10",
+        "20",
+        "30",
+        "40",
+        "50"
+      ],
+      "sources": [
+        "skysim-aircraft-dc9/SimObjects/Airplanes/SKYSIM_DC91/flight_model.cfg"
+      ]
+    },
+    "DC94": {
+      "status": "config",
+      "labels": [
+        "UP",
+        "10",
+        "20",
+        "30",
+        "40",
+        "50"
+      ],
+      "sources": [
+        "skysim-aircraft-dc9/SimObjects/Airplanes/SKYSIM_DC91/flight_model.cfg"
+      ]
+    },
+    "DC95": {
+      "status": "config",
+      "labels": [
+        "UP",
+        "10",
+        "20",
+        "30",
+        "40",
+        "50"
+      ],
+      "sources": [
+        "skysim-aircraft-dc9/SimObjects/Airplanes/SKYSIM_DC91/flight_model.cfg"
+      ]
+    },
+    "DG1T": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "DHC2": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "DHC4": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "DHC6": {
+      "status": "sim_manual",
+      "labels": [
+        "UP",
+        "10",
+        "20",
+        "37.5"
+      ],
+      "sources": [
+        "https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/MSFS2024_DHC-6_TWIN_OTTER_AOM.pdf"
+      ]
+    },
+    "DOWA": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "DOX": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "DR40": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "DV20": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "T/O",
+        "LDG"
+      ],
+      "sources": [
+        "https://www.diamondaircraft.com/fileadmin/diamondaircraft/service-and-support/Pilot_Training_Austria/Checklists/checklists_DA40_D/DA40_D_Conventional_Cockpit/DA40_TDI_Checklist_Edit17_1_A4.pdf"
+      ]
+    },
+    "E330": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "E540": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "EC25": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "EC35": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "ES30": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "FA18": {
+      "status": "reference_profile",
+      "labels": [
+        "AUTO",
+        "HALF",
+        "FULL"
+      ],
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "FDCT": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "FORD": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "FVII": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "FW20": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "G21": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "G2CA": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "GEEB": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "GEEZ": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "H269": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "H4": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "H47": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "H500": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "HAWK": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/CGS_HAWK_ARROW_II_USER_MANUAL_MSFS.pdf"
+      ],
+      "note": "HAWK is also used for the BAE trainer; CGS Hawk Arrow is matched by ULAC plus title instead."
+    },
+    "HU16": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "JN4": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "JU52": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "JUN1": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "L39": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "LATE": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "LS8": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "M24": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "MD11": {
+      "status": "provider_dependent",
+      "sources": [
+        "tfdidesign-aircraft-md11/SimObjects/Airplanes/TFDi_Design_MD-11_GE/flight_model.cfg",
+        "skysim-aircraft-md11/SimObjects/Airplanes/SKYSIM_MD11/flight_model.cfg"
+      ],
+      "variants": [
+        {
+          "title_contains": [
+            "TFDI"
+          ],
+          "labels": [
+            "UP",
+            "SLATS",
+            "15",
+            "20",
+            "24",
+            "28",
+            "35",
+            "50"
+          ]
+        },
+        {
+          "title_contains": [
+            "SKYSIM",
+            "SKY SIM"
+          ],
+          "labels": [
+            "UP",
+            "SLATS",
+            "10",
+            "11",
+            "28",
+            "35",
+            "50"
+          ]
+        }
+      ],
+      "note": "Same ICAO has incompatible standard index layouts. Empty without an identified provider. T/O/dial-a-flap values are nominal configurations, not measured surface angles."
+    },
+    "MD81": {
+      "status": "config",
+      "labels": [
+        "UP",
+        "SLATS",
+        "T/O",
+        "15",
+        "28",
+        "40"
+      ],
+      "sources": [
+        "lsh-maddogx-aircraft/SimObjects/Airplanes/MaddogX20th/flight_model.cfg"
+      ]
+    },
+    "MD82": {
+      "status": "config",
+      "labels": [
+        "UP",
+        "SLATS",
+        "T/O",
+        "15",
+        "28",
+        "40"
+      ],
+      "sources": [
+        "lsh-maddogx-aircraft/SimObjects/Airplanes/MaddogX20th/flight_model.cfg"
+      ]
+    },
+    "MD83": {
+      "status": "config",
+      "labels": [
+        "UP",
+        "SLATS",
+        "T/O",
+        "15",
+        "28",
+        "40"
+      ],
+      "sources": [
+        "lsh-maddogx-aircraft/SimObjects/Airplanes/MaddogX20th/flight_model.cfg"
+      ]
+    },
+    "MD87": {
+      "status": "config",
+      "labels": [
+        "UP",
+        "SLATS",
+        "T/O",
+        "15",
+        "28",
+        "40"
+      ],
+      "sources": [
+        "lsh-maddogx-aircraft/SimObjects/Airplanes/MaddogX20th/flight_model.cfg"
+      ]
+    },
+    "MD88": {
+      "status": "config",
+      "labels": [
+        "UP",
+        "SLATS",
+        "T/O",
+        "15",
+        "28",
+        "40"
+      ],
+      "sources": [
+        "lsh-maddogx-aircraft/SimObjects/Airplanes/MaddogX20th/flight_model.cfg"
+      ]
+    },
+    "MU2": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "MX2": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "OPCA": {
+      "status": "sim_manual",
+      "labels": [
+        "UP",
+        "10",
+        "20",
+        "30",
+        "40",
+        "50"
+      ],
+      "sources": [
+        "https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/AeroElvira_Optica_Manual_v3.pdf"
+      ]
+    },
+    "P51": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "PC12": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "15",
+        "30",
+        "40"
+      ],
+      "sources": [
+        "https://oldwww.pilatus-aircraft.com/data/news/5922fd2caa180_Pilatus-Aircraft-Ltd-PC-12NG-Flight-International-magazine-J.pdf"
+      ]
+    },
+    "PC24": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "PC6T": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "PIT1": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "PIT2": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "PIVI": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "R22": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "R44": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "R66": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "S12": {
+      "status": "sim_manual",
+      "labels": [
+        "-10",
+        "-5",
+        "0",
+        "5",
+        "10",
+        "16"
+      ],
+      "sources": [
+        "https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/Stemme_S12G_Manual_v3.pdf"
+      ]
+    },
+    "S17": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "S55": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "S64": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "SC7": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "SEST": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "SF34": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "SF50": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "50%",
+        "100%"
+      ],
+      "sources": [
+        "https://cirrusaircraft.com/"
+      ]
+    },
+    "SHIP": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "SR22": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "50%",
+        "100%"
+      ],
+      "sources": [
+        "https://cirrusaircraft.com/"
+      ]
+    },
+    "T6": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "TAUR": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "TBM9": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "TO",
+        "LDG"
+      ],
+      "sources": [
+        "https://www.tbm.aero/documents/file/130"
+      ]
+    },
+    "UHEL": {
+      "status": "no_wing_flaps",
+      "sources": [
+        "https://www.flightsimulator.com/aircraft-manuals/"
+      ]
+    },
+    "ULAC": {
+      "status": "provider_dependent",
+      "sources": [
+        "https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/CGS_HAWK_ARROW_II_USER_MANUAL_MSFS.pdf"
+      ],
+      "variants": [
+        {
+          "title_contains": [
+            "HAWK ARROW",
+            "CGS HAWK"
+          ],
+          "labels": [
+            "UP",
+            "10"
+          ]
+        }
+      ]
+    },
+    "VL3": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "WILG": {
+      "status": "provider_dependent",
+      "sources": [
+        "https://flightsimulator.azureedge.net/wp-content/uploads/2024/11/Patey_DracoX_Manual_v3.pdf"
+      ],
+      "variants": [
+        {
+          "title_contains": [
+            "DRACO"
+          ],
+          "labels": [
+            "UP",
+            "11",
+            "22",
+            "33",
+            "44"
+          ]
+        }
+      ],
+      "note": "Draco X only; an ordinary Wilga with the same ICAO remains unmapped."
+    },
+    "WSCO": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "ZLIN": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "ZZZZ": {
+      "status": "unverified",
+      "sources": [
+        "https://flightsimulator.zendesk.com/hc/en-us/articles/12702272798364-Microsoft-Flight-Simulator-2024-FAQ"
+      ]
+    },
+    "DA62": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "T/O",
+        "LDG"
+      ],
+      "sources": [
+        "https://www.diamondaircraft.com/fileadmin/diamondaircraft/service-and-support/Pilot_Training_Austria/Checklists/checklists_DA40_D/DA40_D_Conventional_Cockpit/DA40_TDI_Checklist_Edit17_1_A4.pdf"
+      ]
+    },
+    "B733": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "1",
+        "2",
+        "5",
+        "10",
+        "15",
+        "25",
+        "30",
+        "40"
+      ],
+      "sources": [
+        "ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg"
+      ],
+      "note": "CSS 737 Classic 300/400/500 cockpit lever detents; model position count is checked at runtime."
+    },
+    "B734": {
+      "status": "reference_profile",
+      "labels": [
+        "UP",
+        "1",
+        "2",
+        "5",
+        "10",
+        "15",
+        "25",
+        "30",
+        "40"
+      ],
+      "sources": [
+        "ifly-aircraft-737max8/SimObjects/Airplanes/iFly 737-MAX8/flight_model.cfg"
+      ],
+      "note": "CSS 737 Classic 300/400/500 cockpit lever detents; model position count is checked at runtime."
+    }
+  }
+}

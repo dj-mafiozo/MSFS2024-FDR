@@ -1,10 +1,10 @@
-﻿# GSX Pro recorded SDK values
+# GSX Pro recorded SDK values
 
 [Interface translations](../../Translation.en.md)
 
 [Polski](README.md) | [English](README.en.md) | [Deutsch](README.de.md) | [Español](README.es.md)
 
-The independent telemetry/GSXVarsU.pas reader requests 16 numeric L-vars through MSFS24 SimConnect. Each field has its own definition/request, so one unsupported variable does not block the others. No WASM module, control command or write is used.
+The independent telemetry/GSXVarsU.pas reader requests 20 numeric L-vars through MSFS24 SimConnect. Each field has its own definition/request, so one unsupported variable does not block the others. No WASM module, control command or write is used.
 
 The catalog includes boarding/deboarding/catering/refuelling/departure/deice service states; FSDT_VAR_Frozen for GSX pushback freeze (not simulator pause); current and total boarding/deboarding passenger counters; cargo activity and cargo percent for each direction; and raw deicing-fluid type. Current passenger counters may reset for another bus. Cargo percent is averaged between loaders. The current manual uses FSDT_GSX_DEICE_STATE, not the older DEICING_STATE name.
 
@@ -12,4 +12,8 @@ Service states: 1 callable, 2 unavailable, 3 bypassed, 4 requested, 5 active, 6 
 
 A full baseline and later changes are stored under gsx_lvars in trip_aircraft_data, linked to the telemetry sample/time. Identical states are omitted. Playback exposes GSX.* chart/inspector values, preserving gaps; analysis receives definitions and reconstructed data. Recording spans the loaded flight, including boarding before start and deboarding after shutdown. Counters do not replace measured aircraft payload, mass or fuel.
 
-This is an initial service/counter catalog, not every GSX variable or vehicle state. Source: DEVELOPERS — Interfacing with GSX in the official 291-page manual, pages 106–108; all 16 names were found. PDF SHA-256: ee4ae760168e7045d3598905d3e1b4a3ccb56337fdb50586e7456c3dc4feafc1. The proprietary manual is not bundled. VerifyGSX uses a mock SimConnect DLL; live GSX values have not been verified.
+This is an initial service/counter catalog, not every GSX variable or vehicle state. Source: DEVELOPERS — Interfacing with GSX in the official 291-page manual, pages 106–108; all 20 names were found. PDF SHA-256: ee4ae760168e7045d3598905d3e1b4a3ccb56337fdb50586e7456c3dc4feafc1. The proprietary manual is not bundled. VerifyGSX uses a mock SimConnect DLL; live GSX values have not been verified.
+
+Presentation: localized service stages and passenger progress use the cumulative _TOTAL counters across all buses, with FSDT_GSX_NUMPASSENGERS as the separate target count. Cargo progress is a percentage; these SDK variables do not supply a bag count. Older recordings without the target preserve it as unknown.
+
+Bars appear from Requested (4), remain during active service (5) and completion (6), and hide for other/missing states. FUEL_COUNTER / FUEL_COUNTER_MAX describes the current fuel truck, not the total refueling target; it may reset for a new truck. Missing reliable counters produce indeterminate bars. FUELHOSE_CONNECTED is also recorded. Source: the same official GSX manual, page 108.

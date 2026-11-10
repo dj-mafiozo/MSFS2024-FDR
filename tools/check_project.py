@@ -1,4 +1,4 @@
-"""Check that the Delphi IDE project explicitly lists every local source unit."""
+﻿"""Check that the Delphi IDE project explicitly lists every local source unit."""
 from pathlib import Path
 import re
 import xml.etree.ElementTree as ET
@@ -10,7 +10,8 @@ project = ET.parse(src / 'MSFS2024-FDR.dproj')
 ns = {'m': 'http://schemas.microsoft.com/developer/msbuild/2003'}
 refs = [item.attrib['Include'].replace('\\', '/').lower() for item in project.findall('.//m:DCCReference', ns)]
 dpr_refs = [name.replace('\\', '/').lower() for name in re.findall(r"\bin\s*'([^']+\.pas)'", dpr, re.I)]
-source_files=[p for p in src.rglob('*.pas') if not any(part in {'__history','__recovery'} for part in p.relative_to(src).parts)]
+# Installer support files belong to a separate application, not the recorder DPR.
+source_files=[p for p in src.rglob('*.pas') if p.name not in {'frmSetupRunningU.pas','frmSetupU.pas','ZipPasswordU.pas','ZipPassword-ExampleU.pas','SetupLocalizationU.pas','frmSetupLanguageU.pas','frmSetupCleanupU.pas','SetupMaintenanceU.pas','ReleasePackageU.pas','SetupPlatformU.pas','SetupBridgeU.pas','FDRSimulatorInstallU.pas'} and not any(part in {'__history','__recovery','MSFS24-FDR-Setup'} for part in p.relative_to(src).parts)]
 units = {p.relative_to(src).as_posix().lower() for p in source_files}
 errors = []
 for label, listed in [('DPR', dpr_refs), ('DPROJ', refs)]:
@@ -29,7 +30,7 @@ for path in source_files:
     if not dfm.is_file(): continue
     name=path.relative_to(src).as_posix().lower()
     ref=next((r for r in project.findall('.//m:DCCReference',ns) if r.get('Include').replace('\\','/').lower()==name),None)
-    match=re.search(r'^object (\w+): (\w+)',dfm.read_text(encoding='utf-8-sig'))
+    match=re.search(r'^(?:object|inherited) (\w+): (\w+)',dfm.read_text(encoding='utf-8-sig'))
     if ref is None or not match or ref.findtext('m:Form',namespaces=ns)!=match[1]:
         errors.append('Incorrect form resource metadata: '+name)
     if re.search(r'Class\s*\(T(?:Localized)?Frame\)',path.read_text(encoding='utf-8-sig'),re.I):
@@ -40,6 +41,15 @@ for path in source_files:
         if forbidden: errors.append('Form-only properties in frame DFM: '+name+': '+', '.join(forbidden))
         if match and not re.search(r"\{\s*"+re.escape(match[1])+r"\s*:\s*TFrame\s*\}",dpr,re.I):
             errors.append('Missing TFrame designer annotation in DPR: '+name)
+
+# Inline frames must be recognizable by Delphi's source-only designer.
+for path in source_files:
+    dfm=path.with_suffix('.dfm')
+    if not dfm.is_file(): continue
+    for cls in re.findall(r'^\s*inline\s+\w+\s*:\s*(\w+)',dfm.read_text(encoding='utf-8-sig'),re.M):
+        declaration=next((p for p in source_files if re.search(r'\b'+re.escape(cls)+r'\s*=\s*Class\s*\(',p.read_text(encoding='utf-8-sig'),re.I)),None)
+        if declaration is None or not re.search(r'\b'+re.escape(cls)+r'\s*=\s*Class\s*\(TFrame\)',declaration.read_text(encoding='utf-8-sig'),re.I):
+            errors.append('Inline frame requires direct TFrame ancestry: '+cls)
 
 for property_name in ['DCC_DcuOutput','DCC_ObjPath','DCC_HppOutput','DCC_DcpOutput','DCC_BplOutput']:
     paths=project.findall('.//m:'+property_name,ns)

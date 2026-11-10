@@ -1,31 +1,111 @@
-﻿program ProbeFMCScreens;
-{$APPTYPE CONSOLE}
-uses Winapi.Windows,System.JSON,System.SysUtils,System.Generics.Collections,FlightTelemetryU,AircraftTelemetryU,FMCScreensU;
-var S:TFlightSample;P:TIFlyProvider;Screens:TObjectList<TFMCScreen>;Screen:TFMCScreen;I,A,B:Integer;H,M:THandle;View:Pointer;W:DWORD;
-begin
- S:=TFlightSample.Create;P:=TIFlyProvider.Create;
- try
-  for I:=1 to 30 do begin P.Capture(S);if S.AircraftData.GetValue('status').Value='available' then Break;Sleep(30);end;
-  Writeln('SDK status: '+S.AircraftData.GetValue('status').Value);
-  H:=OpenMutex(SYNCHRONIZE or MUTEX_MODIFY_STATE,False,'iFly737MAX_SDK_Mutex');if H=0 then Writeln('OpenMutex error='+IntToStr(GetLastError)) else CloseHandle(H);
-  H:=OpenFileMapping(FILE_MAP_READ,False,'iFly737MAX_SDK_FileMappingObject');if H=0 then Writeln('OpenFileMapping error='+IntToStr(GetLastError)) else CloseHandle(H);
-  M:=OpenMutex(SYNCHRONIZE or MUTEX_MODIFY_STATE,False,'iFly737MAX_SDK_Mutex');H:=OpenFileMapping(FILE_MAP_READ,False,'iFly737MAX_SDK_FileMappingObject');
-  if (M<>0) and (H<>0) then begin
-   View:=MapViewOfFile(H,FILE_MAP_READ,0,0,0);
-   if View<>nil then begin
-    W:=WaitForSingleObject(M,50);Writeln('SDK mutex wait='+IntToStr(W));
-    if (W=WAIT_OBJECT_0) or (W=WAIT_ABANDONED) then begin Move(View^,A,4);Move(PByte(NativeUInt(View)+4)^,B,4);ReleaseMutex(M);Writeln('SDK state='+IntToStr(A)+' model='+IntToStr(B));end;
-    UnmapViewOfFile(View);
-   end else Writeln('MapView error='+IntToStr(GetLastError));
-  end;
-  if H<>0 then CloseHandle(H);if M<>0 then CloseHandle(M);
-  Screens:=ExtractFMCScreens(S.AircraftData);
-  try
-   for Screen in Screens do begin
-    Writeln('CDU '+Screen.Device+' available='+BoolToStr(Screen.Available,True)+' rows='+IntToStr(Screen.Lines.Count)+' title='+Screen.Title);
-    if Screen.Available then Writeln('Fixed-width text length='+IntToStr(Length(Screen.Lines.Text))+' page='+Screen.PageKey);
-   end;
-   if Screens.Count=0 then Writeln('No FMC screen source available.');
-  finally Screens.Free;end;
- finally P.Free;S.Free;end;
-end.
+﻿Program ProbeFMCScreens;
+
+{$APPTYPE CONSOLE}
+
+Uses
+ Winapi.Windows, System.JSON, System.SysUtils, System.Generics.Collections, FlightTelemetryU, AircraftTelemetryU, FMCScreensU;
+
+Var
+ s       : TFlightSample;
+ p       : TIFlyProvider;
+ Screens : TObjectList<TFMCScreen>;
+ Screen  : TFMCScreen;
+ i       : Integer;
+ a       : Integer;
+ b       : Integer;
+ h       : THandle;
+ m       : THandle;
+ View    : Pointer;
+ w       : DWORD;
+
+Begin
+
+ s := TFlightSample.Create;
+ p := TIFlyProvider.Create;
+
+ Try
+
+  For i := 1 To 30 Do
+   Begin
+    p.Capture(s);
+    If s.AircraftData.GetValue('status').Value = 'available' Then
+     Break;
+    Sleep(30);
+   End;
+
+  Writeln('SDK status: ' + s.AircraftData.GetValue('status').Value);
+
+  h := OpenMutex(SYNCHRONIZE Or MUTEX_MODIFY_STATE, False, 'iFly737MAX_SDK_Mutex');
+  If h = 0 Then
+   Writeln('OpenMutex error=' + IntToStr(GetLastError))
+  Else
+   CloseHandle(h);
+
+  h := OpenFileMapping(FILE_MAP_READ, False, 'iFly737MAX_SDK_FileMappingObject');
+  If h = 0 Then
+   Writeln('OpenFileMapping error=' + IntToStr(GetLastError))
+  Else
+   CloseHandle(h);
+
+  m := OpenMutex(SYNCHRONIZE Or MUTEX_MODIFY_STATE, False, 'iFly737MAX_SDK_Mutex');
+  h := OpenFileMapping(FILE_MAP_READ, False, 'iFly737MAX_SDK_FileMappingObject');
+
+  If (m <> 0) And (h <> 0) Then
+   Begin
+
+    View := MapViewOfFile(h, FILE_MAP_READ, 0, 0, 0);
+
+    If View <> Nil Then
+     Begin
+
+      w := WaitForSingleObject(m, 50);
+      Writeln('SDK mutex wait=' + IntToStr(w));
+
+      If (w = WAIT_OBJECT_0) Or (w = WAIT_ABANDONED) Then
+       Begin
+        Move(View^, a, 4);
+        Move(PByte(NativeUInt(View) + 4)^, b, 4);
+        ReleaseMutex(m);
+        Writeln('SDK state=' + IntToStr(a) + ' model=' + IntToStr(b));
+       End;
+
+      UnmapViewOfFile(View);
+
+     End
+    Else
+     Writeln('MapView error=' + IntToStr(GetLastError));
+
+   End;
+
+  If h <> 0 Then
+   CloseHandle(h);
+  If m <> 0 Then
+   CloseHandle(m);
+
+  Screens := ExtractFMCScreens(s.AircraftData);
+
+  Try
+
+   For Screen In Screens Do
+    Begin
+
+     Writeln('CDU ' + Screen.Device + ' available=' + BoolToStr(Screen.Available, True) + ' rows=' + IntToStr(Screen.Lines.Count) + ' title=' + Screen.Title);
+
+     If Screen.Available Then
+      Writeln('Fixed-width text length=' + IntToStr(Length(Screen.Lines.Text)) + ' page=' + Screen.PageKey);
+
+    End;
+
+   If Screens.Count = 0 Then
+    Writeln('No FMC screen source available.');
+
+  Finally
+   Screens.Free;
+  End;
+
+ Finally
+  p.Free;
+  s.Free;
+ End;
+
+End.

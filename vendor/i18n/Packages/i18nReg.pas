@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -15,901 +15,903 @@
 /// <remarks>
 /// This unit cannot be referenced in the runtime packages.
 /// </remarks>
-unit i18nReg;
+Unit i18nReg;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-uses
+ Uses
   Windows, Classes, SysUtils, DesignIntf, DesignEditors, Forms,
   i18nCore, i18nCtrls;
 
-type
+ Type
+  TTranslatorComponentEditor = Class(TComponentEditor)
+   Public
+    Function GetVerbCount : Integer; Override;
+    Function GetVerb(Index : Integer) : String; Override;
+    Procedure ExecuteVerb(Index : Integer); Override;
+    Procedure Edit; Override;
+  End;
 
-  TTranslatorComponentEditor = class(TComponentEditor)
-  public
-    function GetVerbCount: Integer; override;
-    function GetVerb(Index: Integer): String; override;
-    procedure ExecuteVerb(Index: Integer); override;
-    procedure Edit; override;
-  end;
+  TTranslatablePropertyEditor = Class(TClassProperty)
+   Public
+    Function GetAttributes : TPropertyAttributes; Override;
+    Procedure Edit; Override;
+  End;
 
-  TTranslatablePropertyEditor = class(TClassProperty)
-  public
-    function GetAttributes: TPropertyAttributes; override;
-    procedure Edit; override;
-  end;
+  TURIPropertyEditor = Class(TStringProperty)
+   Public
+    Function GetAttributes : TPropertyAttributes; Override;
+    Procedure Edit; Override;
+  End;
 
-  TURIPropertyEditor = class(TStringProperty)
-  public
-    function GetAttributes: TPropertyAttributes; override;
-    procedure Edit; override;
-  end;
+  TCheckListClass = Class Of TCustomFlagCheckListBox;
 
-  TCheckListClass = class of TCustomFlagCheckListBox;
+  TCustomCheckListPropertyEditor = Class(TClassProperty)
+   Private
+    Procedure SelectAllClicked(Sender : TObject);
+    Procedure ClearSelectionClicked(Sender : TObject);
+    Procedure InvertSelectionClicked(Sender : TObject);
+   Protected
+    CheckList : TCustomFlagCheckListBox;
+    Function CreateDialog(CheckListClass : TCheckListClass) : TForm;
+   Public
+    Function GetAttributes : TPropertyAttributes; Override;
+  End;
 
-  TCustomCheckListPropertyEditor = class(TClassProperty)
-  private
-    procedure SelectAllClicked(Sender: TObject);
-    procedure ClearSelectionClicked(Sender: TObject);
-    procedure InvertSelectionClicked(Sender: TObject);
-  protected
-    CheckList: TCustomFlagCheckListBox;
-    function CreateDialog(CheckListClass: TCheckListClass): TForm;
-  public
-    function GetAttributes: TPropertyAttributes; override;
-  end;
+  TCultureListPropertyEditor = Class(TCustomCheckListPropertyEditor)
+   Public
+    Procedure Edit; Override;
+  End;
 
-  TCultureListPropertyEditor = class(TCustomCheckListPropertyEditor)
-  public
-    procedure Edit; override;
-  end;
+  TCulturePropertyEditor = Class(TPropertyEditor)
+   Protected
+    Function GetCultures : TReadonlyCultureList; Virtual;
+   Public
+    Function GetAttributes : TPropertyAttributes; Override;
+    Procedure GetValues(Proc : TGetStrProc); Override;
+    Function GetValue : String; Override;
+    Procedure SetValue(Const Value : String); Override;
+  End;
 
-  TCulturePropertyEditor = class(TPropertyEditor)
-  protected
-    function GetCultures: TReadonlyCultureList; virtual;
-  public
-    function GetAttributes: TPropertyAttributes; override;
-    procedure GetValues(Proc: TGetStrProc); override;
-    function GetValue: String; override;
-    procedure SetValue(const Value: String); override;
-  end;
+  TTerritoryListPropertyEditor = Class(TCustomCheckListPropertyEditor)
+   Public
+    Procedure Edit; Override;
+  End;
 
-  TTerritoryListPropertyEditor = class(TCustomCheckListPropertyEditor)
-  public
-    procedure Edit; override;
-  end;
+  TTerritoryPropertyEditor = Class(TPropertyEditor)
+   Protected
+    Function GetTerritories : TReadonlyTerritoryList; Virtual;
+   Public
+    Function GetAttributes : TPropertyAttributes; Override;
+    Procedure GetValues(Proc : TGetStrProc); Override;
+    Function GetValue : String; Override;
+    Procedure SetValue(Const Value : String); Override;
+  End;
 
-  TTerritoryPropertyEditor = class(TPropertyEditor)
-  protected
-    function GetTerritories: TReadonlyTerritoryList; virtual;
-  public
-    function GetAttributes: TPropertyAttributes; override;
-    procedure GetValues(Proc: TGetStrProc); override;
-    function GetValue: String; override;
-    procedure SetValue(const Value: String); override;
-  end;
+  TCurrencyListPropertyEditor = Class(TCustomCheckListPropertyEditor)
+   Public
+    Procedure Edit; Override;
+  End;
 
-  TCurrencyListPropertyEditor = class(TCustomCheckListPropertyEditor)
-  public
-    procedure Edit; override;
-  end;
+  TCurrencyPropertyEditor = Class(TPropertyEditor)
+   Protected
+    Function GetCurrencies : TReadonlyCurrencyList; Virtual;
+   Public
+    Function GetAttributes : TPropertyAttributes; Override;
+    Procedure GetValues(Proc : TGetStrProc); Override;
+    Function GetValue : String; Override;
+    Procedure SetValue(Const Value : String); Override;
+  End;
 
-  TCurrencyPropertyEditor = class(TPropertyEditor)
-  protected
-    function GetCurrencies: TReadonlyCurrencyList; virtual;
-  public
-    function GetAttributes: TPropertyAttributes; override;
-    procedure GetValues(Proc: TGetStrProc); override;
-    function GetValue: String; override;
-    procedure SetValue(const Value: String); override;
-  end;
+  TGoogleLangPropertyEditor = Class(TStringProperty)
+   Public
+    Function GetAttributes : TPropertyAttributes; Override;
+    Procedure GetValues(Proc : TGetStrProc); Override;
+    Function GetValue : String; Override;
+    Procedure SetValue(Const Value : String); Override;
+  End;
 
-  TGoogleLangPropertyEditor = class(TStringProperty)
-  public
-    function GetAttributes: TPropertyAttributes; override;
-    procedure GetValues(Proc: TGetStrProc); override;
-    function GetValue: String; override;
-    procedure SetValue(const Value: String); override;
-  end;
+  TCalendarSystemPropertyEditor = Class(TPropertyEditor)
+   Public
+    Function GetAttributes : TPropertyAttributes; Override;
+    Procedure GetValues(Proc : TGetStrProc); Override;
+    Function GetValue : String; Override;
+    Procedure SetValue(Const Value : String); Override;
+  End;
 
-  TCalendarSystemPropertyEditor = class(TPropertyEditor)
-  public
-    function GetAttributes: TPropertyAttributes; override;
-    procedure GetValues(Proc: TGetStrProc); override;
-    function GetValue: String; override;
-    procedure SetValue(const Value: String); override;
-  end;
+  TIntlDateTimePropertyEditor = Class(TDateProperty)
+   Public
+    Function GetAttributes : TPropertyAttributes; Override;
+    Function GetValue : String; Override;
+    Procedure SetValue(Const Value : String); Override;
+    Procedure Edit; Override;
+  End;
 
-  TIntlDateTimePropertyEditor = class(TDateProperty)
-  public
-    function GetAttributes: TPropertyAttributes; override;
-    function GetValue: String; override;
-    procedure SetValue(const Value: String); override;
-    procedure Edit; override;
-  end;
+  TIntlDatePropertyEditor = Class(TDateProperty)
+   Public
+    Function GetAttributes : TPropertyAttributes; Override;
+    Function GetValue : String; Override;
+    Procedure SetValue(Const Value : String); Override;
+    Procedure Edit; Override;
+  End;
 
-  TIntlDatePropertyEditor = class(TDateProperty)
-  public
-    function GetAttributes: TPropertyAttributes; override;
-    function GetValue: String; override;
-    procedure SetValue(const Value: String); override;
-    procedure Edit; override;
-  end;
+  TCoreSelectionEditor = Class(TSelectionEditor)
+   Public
+    Procedure RequiresUnits(Proc : TGetStrProc); Override;
+  End;
 
-  TCoreSelectionEditor = class(TSelectionEditor)
-  public
-    procedure RequiresUnits(Proc: TGetStrProc); override;
-  end;
+  TCalendarSelectionEditor = Class(TSelectionEditor)
+   Public
+    Procedure RequiresUnits(Proc : TGetStrProc); Override;
+  End;
 
-  TCalendarSelectionEditor = class(TSelectionEditor)
-  public
-    procedure RequiresUnits(Proc: TGetStrProc); override;
-  end;
+ Procedure Register;
 
-procedure Register;
+Implementation
 
-implementation
-
-uses
+ Uses
   i18nCatalog, i18nPropEditor, i18nLocalizer, i18nDialogs, i18nGoogle,
   i18nCalendar, i18nDateCtrls, Types, TypInfo, Graphics, Dialogs, Controls,
   StdCtrls, ExtCtrls, Menus, SysConst, i18nDBCtrls, i18nDBDateCtrls;
 
-resourcestring
-  SSelectTranslatables       = 'Select translatables...';
-  STranslationFileOpenTitle  = 'Select a translation file';
+ Resourcestring
+  SSelectTranslatables = 'Select translatables...';
+  STranslationFileOpenTitle = 'Select a translation file';
   STranslationFileFileFilter = 'Translation Catalog Files|*' + i18nCatalogFileExt + '|All Files|*.*';
-  SLocalizerManagedList      = 'The languages in this list are managed by the localizer component and cannot be altered manually.';
-  SLocalizerManagedProp      = 'This property is managed by the linked localizer component and cannot be altered manually.';
-  SDialogButtonOK            = 'OK';
-  SDialogButtonCancel        = 'Cancel';
-  SDialogItemSelect          = 'Select All';
-  SDialogItemDeselect        = 'Clear Selection';
-  SDialogItemInvert          = 'Invert Selection';
+  SLocalizerManagedList = 'The languages in this list are managed by the localizer component and cannot be altered manually.';
+  SLocalizerManagedProp = 'This property is managed by the linked localizer component and cannot be altered manually.';
+  SDialogButtonOK = 'OK';
+  SDialogButtonCancel = 'Cancel';
+  SDialogItemSelect = 'Select All';
+  SDialogItemDeselect = 'Clear Selection';
+  SDialogItemInvert = 'Invert Selection';
 
-procedure Register;
-begin
-  RegisterComponents('i18n', [TLocalizer, TTranslator]);
-  RegisterComponents('i18n', [TMessageDialog, TInputQueryDialog]);
-  RegisterComponents('i18n', [TGoogleTranslator, TFlagImageList, TImageLabel]);
-  RegisterComponents('i18n', [TCultureLabel, TCultureBox, TCultureListBox, TCultureCheckListBox]);
-  RegisterComponents('i18n', [TTerritoryLabel, TTerritoryBox, TTerritoryListBox, TTerritoryCheckListBox]);
-  RegisterComponents('i18n', [TCurrencyLabel, TCurrencyBox, TCurrencyListBox, TCurrencyCheckListBox]);
-  RegisterComponents('i18n', [TIntlDateTimeLabel, TIntlMonthCalendar, TIntlDatePicker]);
+ Procedure Register;
+  Begin
+   RegisterComponents('i18n', [TLocalizer, TTranslator]);
+   RegisterComponents('i18n', [TMessageDialog, TInputQueryDialog]);
+   RegisterComponents('i18n', [TGoogleTranslator, TFlagImageList, TImageLabel]);
+   RegisterComponents('i18n', [TCultureLabel, TCultureBox, TCultureListBox, TCultureCheckListBox]);
+   RegisterComponents('i18n', [TTerritoryLabel, TTerritoryBox, TTerritoryListBox, TTerritoryCheckListBox]);
+   RegisterComponents('i18n', [TCurrencyLabel, TCurrencyBox, TCurrencyListBox, TCurrencyCheckListBox]);
+   RegisterComponents('i18n', [TIntlDateTimeLabel, TIntlMonthCalendar, TIntlDatePicker]);
 
-  RegisterComponents('i18n DB', [TDBImageLabel]);
-  RegisterComponents('i18n DB', [TDBCultureLabel, TDBCultureBox, TDBCultureListBox]);
-  RegisterComponents('i18n DB', [TDBTerritoryLabel, TDBTerritoryBox, TDBTerritoryListBox]);
-  RegisterComponents('i18n DB', [TDBCurrencyLabel, TDBCurrencyBox, TDBCurrencyListBox]);
-  RegisterComponents('i18n DB', [TDBIntlDateTimeLabel, TDBIntlDatePicker]);
+   RegisterComponents('i18n DB', [TDBImageLabel]);
+   RegisterComponents('i18n DB', [TDBCultureLabel, TDBCultureBox, TDBCultureListBox]);
+   RegisterComponents('i18n DB', [TDBTerritoryLabel, TDBTerritoryBox, TDBTerritoryListBox]);
+   RegisterComponents('i18n DB', [TDBCurrencyLabel, TDBCurrencyBox, TDBCurrencyListBox]);
+   RegisterComponents('i18n DB', [TDBIntlDateTimeLabel, TDBIntlDatePicker]);
 
-  RegisterComponentEditor(TTranslator, TTranslatorComponentEditor);
+   RegisterComponentEditor(TTranslator, TTranslatorComponentEditor);
 
-  RegisterPropertyEditor(TypeInfo(TCultureInfo), nil, '', TCulturePropertyEditor);
-  RegisterPropertyEditor(TypeInfo(TTerritoryInfo), nil, '', TTerritoryPropertyEditor);
-  RegisterPropertyEditor(TypeInfo(TCurrencyInfo), nil, '', TCurrencyPropertyEditor);
+   RegisterPropertyEditor(TypeInfo(TCultureInfo), Nil, '', TCulturePropertyEditor);
+   RegisterPropertyEditor(TypeInfo(TTerritoryInfo), Nil, '', TTerritoryPropertyEditor);
+   RegisterPropertyEditor(TypeInfo(TCurrencyInfo), Nil, '', TCurrencyPropertyEditor);
 
-  RegisterPropertyEditor(TypeInfo(TCultureList), nil, '', TCultureListPropertyEditor);
-  RegisterPropertyEditor(TypeInfo(TTerritoryList), nil, '', TTerritoryListPropertyEditor);
-  RegisterPropertyEditor(TypeInfo(TCurrencyList), nil, '', TCurrencyListPropertyEditor);
+   RegisterPropertyEditor(TypeInfo(TCultureList), Nil, '', TCultureListPropertyEditor);
+   RegisterPropertyEditor(TypeInfo(TTerritoryList), Nil, '', TTerritoryListPropertyEditor);
+   RegisterPropertyEditor(TypeInfo(TCurrencyList), Nil, '', TCurrencyListPropertyEditor);
 
-  RegisterPropertyEditor(TypeInfo(TTranslatables), TTranslator, 'Translatables', TTranslatablePropertyEditor);
+   RegisterPropertyEditor(TypeInfo(TTranslatables), TTranslator, 'Translatables', TTranslatablePropertyEditor);
 
-  RegisterPropertyEditor(TypeInfo(String), TLocalizer, 'URI', TURIPropertyEditor);
+   RegisterPropertyEditor(TypeInfo(String), TLocalizer, 'URI', TURIPropertyEditor);
 
-  RegisterPropertyEditor(TypeInfo(String), TCustomGoogleService, 'SourceLang', TGoogleLangPropertyEditor);
-  RegisterPropertyEditor(TypeInfo(String), TCustomGoogleService, 'TargetLang', TGoogleLangPropertyEditor);
+   RegisterPropertyEditor(TypeInfo(String), TCustomGoogleService, 'SourceLang', TGoogleLangPropertyEditor);
+   RegisterPropertyEditor(TypeInfo(String), TCustomGoogleService, 'TargetLang', TGoogleLangPropertyEditor);
 
-  {$IFDEF COMPILER2010_UP}
-  RegisterPropertyEditor(TypeInfo(TCalendarClass), nil, '', TCalendarSystemPropertyEditor);
-  {$ENDIF}
+   {$IFDEF COMPILER2010_UP}
+   RegisterPropertyEditor(TypeInfo(TCalendarClass), Nil, '', TCalendarSystemPropertyEditor);
+   {$ENDIF}
 
-  RegisterPropertyEditor(TypeInfo(TDateTime), TCustomIntlDateTimeLabel, '', TIntlDateTimePropertyEditor);
-  RegisterPropertyEditor(TypeInfo(TDate), TCustomIntlMonthCalendar, '', TIntlDatePropertyEditor);
-  RegisterPropertyEditor(TypeInfo(TDate), TCustomIntlDatePicker, '', TIntlDatePropertyEditor);
+   RegisterPropertyEditor(TypeInfo(TDateTime), TCustomIntlDateTimeLabel, '', TIntlDateTimePropertyEditor);
+   RegisterPropertyEditor(TypeInfo(TDate), TCustomIntlMonthCalendar, '', TIntlDatePropertyEditor);
+   RegisterPropertyEditor(TypeInfo(TDate), TCustomIntlDatePicker, '', TIntlDatePropertyEditor);
 
-  RegisterSelectionEditor(TLocalizer, TCoreSelectionEditor);
-  RegisterSelectionEditor(TTranslator, TCoreSelectionEditor);
-  RegisterSelectionEditor(TCustomGoogleTranslator, TCoreSelectionEditor);
-  RegisterSelectionEditor(TCustomFlagImageList, TCoreSelectionEditor);
-  RegisterSelectionEditor(TCustomCultureLabel, TCoreSelectionEditor);
-  RegisterSelectionEditor(TCustomCultureBox, TCoreSelectionEditor);
-  RegisterSelectionEditor(TCustomCultureListBox, TCoreSelectionEditor);
-  RegisterSelectionEditor(TCustomCultureCheckListBox, TCoreSelectionEditor);
-  RegisterSelectionEditor(TCustomTerritoryLabel, TCoreSelectionEditor);
-  RegisterSelectionEditor(TCustomTerritoryBox, TCoreSelectionEditor);
-  RegisterSelectionEditor(TCustomTerritoryListBox, TCoreSelectionEditor);
-  RegisterSelectionEditor(TCustomTerritoryCheckListBox, TCoreSelectionEditor);
+   RegisterSelectionEditor(TLocalizer, TCoreSelectionEditor);
+   RegisterSelectionEditor(TTranslator, TCoreSelectionEditor);
+   RegisterSelectionEditor(TCustomGoogleTranslator, TCoreSelectionEditor);
+   RegisterSelectionEditor(TCustomFlagImageList, TCoreSelectionEditor);
+   RegisterSelectionEditor(TCustomCultureLabel, TCoreSelectionEditor);
+   RegisterSelectionEditor(TCustomCultureBox, TCoreSelectionEditor);
+   RegisterSelectionEditor(TCustomCultureListBox, TCoreSelectionEditor);
+   RegisterSelectionEditor(TCustomCultureCheckListBox, TCoreSelectionEditor);
+   RegisterSelectionEditor(TCustomTerritoryLabel, TCoreSelectionEditor);
+   RegisterSelectionEditor(TCustomTerritoryBox, TCoreSelectionEditor);
+   RegisterSelectionEditor(TCustomTerritoryListBox, TCoreSelectionEditor);
+   RegisterSelectionEditor(TCustomTerritoryCheckListBox, TCoreSelectionEditor);
 
-  RegisterSelectionEditor(TCustomIntlMonthCalendar, TCalendarSelectionEditor);
-  RegisterSelectionEditor(TCustomIntlDatePicker, TCalendarSelectionEditor);
-end;
+   RegisterSelectionEditor(TCustomIntlMonthCalendar, TCalendarSelectionEditor);
+   RegisterSelectionEditor(TCustomIntlDatePicker, TCalendarSelectionEditor);
+  End;
 
 { Helper Functions }
 
-function IsManagedByLocalizer(Obj: TPersistent): Boolean;
-begin
-  if Obj is TCustomCultureLabel then
+ Function IsManagedByLocalizer(Obj : TPersistent) : Boolean;
+  Begin
+   If Obj Is TCustomCultureLabel Then
     Result := TCustomCultureLabel(Obj).IsManagedByLocalizer
-  else if Obj is TCustomCultureBox then
+   Else If Obj Is TCustomCultureBox Then
     Result := TCustomCultureBox(Obj).IsManagedByLocalizer
-  else if Obj is TCustomCultureListBox then
+   Else If Obj Is TCustomCultureListBox Then
     Result := TCustomCultureListBox(Obj).IsManagedByLocalizer
-  else if Obj is TCustomCultureCheckListBox then
+   Else If Obj Is TCustomCultureCheckListBox Then
     Result := TCustomCultureCheckListBox(Obj).IsManagedByLocalizer
-  else if Obj is TCustomIntlDateTimeLabel then
+   Else If Obj Is TCustomIntlDateTimeLabel Then
     Result := TCustomIntlDateTimeLabel(Obj).IsManagedByLocalizer
-  else if Obj is TCustomIntlMonthCalendar then
+   Else If Obj Is TCustomIntlMonthCalendar Then
     Result := TCustomIntlMonthCalendar(Obj).IsManagedByLocalizer
-  else if Obj is TCustomIntlDatePicker then
+   Else If Obj Is TCustomIntlDatePicker Then
     Result := TCustomIntlDatePicker(Obj).IsManagedByLocalizer
-  else
+   Else
     Result := False;
-end;
+  End;
 
-function PromptForDate(const ACaption: String; var DateTime: TDateTime): Boolean;
-var
-  Dialog: TForm;
-  IntlCal: TIntlMonthCalendar;
-begin
-  Result := False;
-  Dialog := TForm.Create(Application);
-  try
-    Dialog.BorderStyle := bsDialog;
-    Dialog.Position := poMainFormCenter;
-    Dialog.ClientWidth := 360;
+ Function PromptForDate(Const ACaption : String; Var DateTime : TDateTime) : Boolean;
+  Var
+   Dialog  : TForm;
+   IntlCal : TIntlMonthCalendar;
+  Begin
+   Result := False;
+   Dialog := TForm.Create(Application);
+   Try
+    Dialog.BorderStyle  := bsDialog;
+    Dialog.Position     := poMainFormCenter;
+    Dialog.ClientWidth  := 360;
     Dialog.ClientHeight := 240;
-    Dialog.BorderWidth := 8;
-    Dialog.Caption := ACaption;
-    IntlCal := TIntlMonthCalendar.Create(Dialog);
-    with IntlCal do
-    begin
+    Dialog.BorderWidth  := 8;
+    Dialog.Caption      := ACaption;
+    IntlCal             := TIntlMonthCalendar.Create(Dialog);
+    With IntlCal Do
+     Begin
       SetBounds(0, 0, Dialog.ClientWidth, Dialog.ClientHeight - 33);
-      FontHeader.Style := [fsBold];
-      FontHeader.Size := FontHeader.Size + 2;
-      FontFooter.Style := [fsBold];
+      FontHeader.Style    := [fsBold];
+      FontHeader.Size     := FontHeader.Size + 2;
+      FontFooter.Style    := [fsBold];
       FontDayOfWeek.Color := clNavy;
-      if not Calendar.IsNoDate(DateTime) then
-        Date := DateTime;
+      If Not Calendar.IsNoDate(DateTime) Then
+       Date  := DateTime;
       Parent := Dialog;
-    end;
-    with TButton.Create(Dialog) do
-    begin
+     End;
+    With TButton.Create(Dialog) Do
+     Begin
       SetBounds(Dialog.ClientWidth - 158, Dialog.ClientHeight - 25, 75, 25);
-      Caption := SDialogButtonOK;
+      Caption     := SDialogButtonOK;
       ModalResult := mrOk;
-      Default := True;
-      Parent := Dialog;
-    end;
-    with TButton.Create(Dialog) do
-    begin
+      Default     := True;
+      Parent      := Dialog;
+     End;
+    With TButton.Create(Dialog) Do
+     Begin
       SetBounds(Dialog.ClientWidth - 75, Dialog.ClientHeight - 25, 75, 25);
-      Caption := SDialogButtonCancel;
+      Caption     := SDialogButtonCancel;
       ModalResult := mrCancel;
-      Cancel := True;
-      Parent := Dialog;
-    end;
-    if Dialog.ShowModal = mrOK then
-    begin
+      Cancel      := True;
+      Parent      := Dialog;
+     End;
+    If Dialog.ShowModal = mrOk Then
+     Begin
       DateTime := IntlCal.Date;
-      Result := True;
-    end;
-  finally
+      Result   := True;
+     End;
+   Finally
     Dialog.Free;
-  end;
-end;
+   End;
+  End;
 
 { TTranslatorComponentEditor }
 
-function TTranslatorComponentEditor.GetVerbCount: Integer;
-begin
-  Result := 1;
-end;
+ Function TTranslatorComponentEditor.GetVerbCount : Integer;
+  Begin
+   Result := 1;
+  End;
 
-function TTranslatorComponentEditor.GetVerb(Index: Integer): String;
-begin
-  if Index = 0 then
+ Function TTranslatorComponentEditor.GetVerb(Index : Integer) : String;
+  Begin
+   If Index = 0 Then
     Result := SSelectTranslatables
-  else
-    Result := inherited GetVerb(Index);
-end;
+   Else
+    Result := Inherited GetVerb(Index);
+  End;
 
-procedure TTranslatorComponentEditor.ExecuteVerb(Index: Integer);
-begin
-  if Index = 0 then
+ Procedure TTranslatorComponentEditor.ExecuteVerb(Index : Integer);
+  Begin
+   If Index = 0 Then
     Edit
-  else
-    inherited ExecuteVerb(Index);
-end;
+   Else
+    Inherited ExecuteVerb(Index);
+  End;
 
-procedure TTranslatorComponentEditor.Edit;
-begin
-  if TTranslatableEditor.Execute(TTranslator(GetComponent).Translatables) then
+ Procedure TTranslatorComponentEditor.Edit;
+  Begin
+   If TTranslatableEditor.Execute(TTranslator(GetComponent).Translatables) Then
     Designer.Modified;
-end;
+  End;
 
 { TTranslatablePropertyEditor }
 
-function TTranslatablePropertyEditor.GetAttributes: TPropertyAttributes;
-begin
-  Result := [paDialog];
-end;
+ Function TTranslatablePropertyEditor.GetAttributes : TPropertyAttributes;
+  Begin
+   Result := [paDialog];
+  End;
 
-procedure TTranslatablePropertyEditor.Edit;
-begin
-  if TTranslatableEditor.Execute(TTranslatables(GetOrdValue)) then
+ Procedure TTranslatablePropertyEditor.Edit;
+  Begin
+   If TTranslatableEditor.Execute(TTranslatables(GetOrdValue)) Then
     Designer.Modified;
-end;
+  End;
 
 { TKnowledgeBasePropertyEditor }
 
-function TURIPropertyEditor.GetAttributes: TPropertyAttributes;
-begin
-  Result := [paDialog, paRevertable];
-end;
+ Function TURIPropertyEditor.GetAttributes : TPropertyAttributes;
+  Begin
+   Result := [paDialog, paRevertable];
+  End;
 
-procedure TURIPropertyEditor.Edit;
-var
-  FileName: String;
-begin
-  FileName := GetValue;
-  if Pos('res:', LowerCase(FileName)) = 1 then
+ Procedure TURIPropertyEditor.Edit;
+  Var
+   FileName : String;
+  Begin
+   FileName := GetValue;
+   If Pos('res:', LowerCase(FileName)) = 1 Then
     FileName := ''
-  else if Pos('dirx:', LowerCase(FileName)) = 1 then
+   Else If Pos('dirx:', LowerCase(FileName)) = 1 Then
     FileName := Copy(FileName, 6, Length(FileName) - 5)
-  else if Pos('dir:', LowerCase(FileName)) = 1 then
+   Else If Pos('dir:', LowerCase(FileName)) = 1 Then
     FileName := Copy(FileName, 5, Length(FileName) - 4)
-  else if Pos('file:', LowerCase(FileName)) = 1 then
+   Else If Pos('file:', LowerCase(FileName)) = 1 Then
     FileName := Copy(FileName, 6, Length(FileName) - 5);
-  if PromptForFileName(FileName, STranslationFileFileFilter, i18nCatalogFileExt, STranslationFileOpenTitle) then
+   If PromptForFileName(FileName, STranslationFileFileFilter, i18nCatalogFileExt, STranslationFileOpenTitle) Then
     SetValue(FileName);
-end;
+  End;
 
 { TCustomCheckListPropertyEditor }
 
-function TCustomCheckListPropertyEditor.GetAttributes: TPropertyAttributes;
-begin
-  Result := [paDialog, paReadOnly];
-end;
+ Function TCustomCheckListPropertyEditor.GetAttributes : TPropertyAttributes;
+  Begin
+   Result := [paDialog, paReadOnly];
+  End;
 
-type TCheckListHack = class(TCustomFlagCheckListBox);
+ Type
+   TCheckListHack = Class(TCustomFlagCheckListBox);
 
-function TCustomCheckListPropertyEditor.CreateDialog(CheckListClass: TCheckListClass): TForm;
-var
-  Dialog: TForm;
-  MenuItem: TMenuItem;
-begin
-  Dialog := TForm.CreateNew(Application);
-  try
-    Dialog.BorderStyle := bsDialog;
-    Dialog.Position := poMainFormCenter;
-    Dialog.ClientWidth := 350;
-    Dialog.ClientHeight := 353;
-    Dialog.BorderWidth := 8;
-    Dialog.Caption := GetComponent(0).GetNamePath + '.' + GetName;
-    CheckList := CheckListClass.Create(Dialog);
-    with TCheckListHack(CheckList) do
-    begin
-      PopupMenu := TPopupMenu.Create(Dialog);
-      Flags := TFlagImageList.Create(Dialog);
-      Align := alClient;
-      Sorted := True;
-      Parent := Dialog;
-      CollectAll;
-    end;
-    with TButton.Create(Dialog) do
-    begin
-      SetBounds(0, Dialog.ClientHeight - 25, 120, 25);
-      Caption := SDialogItemInvert;
-      OnClick := InvertSelectionClicked;
-      Parent := Dialog;
-    end;
-    with TButton.Create(Dialog) do
-    begin
-      SetBounds(Dialog.ClientWidth - 158, Dialog.ClientHeight - 25, 75, 25);
-      Caption := SDialogButtonOK;
-      ModalResult := mrOk;
-      Default := True;
-      Parent := Dialog;
-    end;
-    with TButton.Create(Dialog) do
-    begin
-      SetBounds(Dialog.ClientWidth - 75, Dialog.ClientHeight - 25, 75, 25);
-      Caption := SDialogButtonCancel;
-      ModalResult := mrCancel;
-      Cancel := True;
-      Parent := Dialog;
-    end;
-    with TBevel.Create(Dialog) do
-    begin
-      Shape := bsSpacer;
-      Align := alBottom;
-      Height := 33;
-      Parent := Dialog;
-    end;
-    with TCheckListHack(CheckList).PopupMenu do
-    begin
-      MenuItem := TMenuItem.Create(Dialog);
-      MenuItem.Caption := SDialogItemSelect;
-      MenuItem.OnClick := SelectAllClicked;
-      Items.Add(MenuItem);
-      MenuItem := TMenuItem.Create(Dialog);
-      MenuItem.Caption := SDialogItemDeselect;
-      MenuItem.OnClick := ClearSelectionClicked;
-      Items.Add(MenuItem);
-      MenuItem := TMenuItem.Create(Dialog);
-      MenuItem.Caption := SDialogItemInvert;
-      MenuItem.OnClick := InvertSelectionClicked;
-      Items.Add(MenuItem);
-    end;
-  except
-    Dialog.Free;
-    Dialog := nil;
-  end;
-  Result := Dialog;
-end;
+  Function TCustomCheckListPropertyEditor.CreateDialog(CheckListClass : TCheckListClass) : TForm;
+   Var
+    Dialog   : TForm;
+    MenuItem : TMenuItem;
+   Begin
+    Dialog := TForm.CreateNew(Application);
+    Try
+     Dialog.BorderStyle  := bsDialog;
+     Dialog.Position     := poMainFormCenter;
+     Dialog.ClientWidth  := 350;
+     Dialog.ClientHeight := 353;
+     Dialog.BorderWidth  := 8;
+     Dialog.Caption      := GetComponent(0).GetNamePath + '.' + GetName;
+     CheckList           := CheckListClass.Create(Dialog);
+     With TCheckListHack(CheckList) Do
+      Begin
+       PopupMenu := TPopupMenu.Create(Dialog);
+       Flags     := TFlagImageList.Create(Dialog);
+       Align     := alClient;
+       Sorted    := True;
+       Parent    := Dialog;
+       CollectAll;
+      End;
+     With TButton.Create(Dialog) Do
+      Begin
+       SetBounds(0, Dialog.ClientHeight - 25, 120, 25);
+       Caption := SDialogItemInvert;
+       OnClick := InvertSelectionClicked;
+       Parent  := Dialog;
+      End;
+     With TButton.Create(Dialog) Do
+      Begin
+       SetBounds(Dialog.ClientWidth - 158, Dialog.ClientHeight - 25, 75, 25);
+       Caption     := SDialogButtonOK;
+       ModalResult := mrOk;
+       Default     := True;
+       Parent      := Dialog;
+      End;
+     With TButton.Create(Dialog) Do
+      Begin
+       SetBounds(Dialog.ClientWidth - 75, Dialog.ClientHeight - 25, 75, 25);
+       Caption     := SDialogButtonCancel;
+       ModalResult := mrCancel;
+       Cancel      := True;
+       Parent      := Dialog;
+      End;
+     With TBevel.Create(Dialog) Do
+      Begin
+       Shape  := bsSpacer;
+       Align  := alBottom;
+       Height := 33;
+       Parent := Dialog;
+      End;
+     With TCheckListHack(CheckList).PopupMenu Do
+      Begin
+       MenuItem         := TMenuItem.Create(Dialog);
+       MenuItem.Caption := SDialogItemSelect;
+       MenuItem.OnClick := SelectAllClicked;
+       Items.Add(MenuItem);
+       MenuItem         := TMenuItem.Create(Dialog);
+       MenuItem.Caption := SDialogItemDeselect;
+       MenuItem.OnClick := ClearSelectionClicked;
+       Items.Add(MenuItem);
+       MenuItem         := TMenuItem.Create(Dialog);
+       MenuItem.Caption := SDialogItemInvert;
+       MenuItem.OnClick := InvertSelectionClicked;
+       Items.Add(MenuItem);
+      End;
+    Except
+     Dialog.Free;
+     Dialog := Nil;
+    End;
+    Result := Dialog;
+  End;
 
-procedure TCustomCheckListPropertyEditor.SelectAllClicked(Sender: TObject);
-begin
-  CheckList.RestateAll(cbChecked);
-end;
+ Procedure TCustomCheckListPropertyEditor.SelectAllClicked(Sender : TObject);
+  Begin
+   CheckList.RestateAll(cbChecked);
+  End;
 
-procedure TCustomCheckListPropertyEditor.ClearSelectionClicked(Sender: TObject);
-begin
-  CheckList.RestateAll(cbUnchecked);
-end;
+ Procedure TCustomCheckListPropertyEditor.ClearSelectionClicked(Sender : TObject);
+  Begin
+   CheckList.RestateAll(cbUnchecked);
+  End;
 
-procedure TCustomCheckListPropertyEditor.InvertSelectionClicked(Sender: TObject);
-var
-  I: Integer;
-begin
-  for I := 0 to CheckList.Count - 1 do
-    CheckList.Checked[I] := not CheckList.Checked[I];
-end;
+ Procedure TCustomCheckListPropertyEditor.InvertSelectionClicked(Sender : TObject);
+  Var
+   i : Integer;
+  Begin
+   For i                 := 0 To CheckList.Count - 1 Do
+    CheckList.Checked[i] := Not CheckList.Checked[i];
+  End;
 
 { TCultureListPropertyEditor }
 
-procedure TCultureListPropertyEditor.Edit;
-var
-  Dialog: TForm;
-  Cultures: TCultureList;
-begin
-  if IsManagedByLocalizer(GetComponent(0)) then
-  begin
-    MessageDlg(SLocalizerManagedList, mtWarning, [mbOK], 0);
-    Exit;
-  end;
-  Cultures := TCultureList(GetOrdValue);
-  Dialog := CreateDialog(TCultureCheckListBox);
-  try
+ Procedure TCultureListPropertyEditor.Edit;
+  Var
+   Dialog   : TForm;
+   Cultures : TCultureList;
+  Begin
+   If IsManagedByLocalizer(GetComponent(0)) Then
+    Begin
+     MessageDlg(SLocalizerManagedList, mtWarning, [mbOK], 0);
+     Exit;
+    End;
+   Cultures := TCultureList(GetOrdValue);
+   Dialog   := CreateDialog(TCultureCheckListBox);
+   Try
     TCultureCheckListBox(CheckList).SetSelection(Cultures);
-    if Dialog.ShowModal = mrOK then
-    begin
+    If Dialog.ShowModal = mrOk Then
+     Begin
       TCultureCheckListBox(CheckList).GetSelection(Cultures);
       Modified;
-    end;
-  finally
+     End;
+   Finally
     Dialog.Free;
-  end;
-end;
+   End;
+  End;
 
 { TCulturePropertyEditor }
 
-function TCulturePropertyEditor.GetAttributes: TPropertyAttributes;
-begin
-  Result := [paValueList, paSortList, paRevertable];
-end;
+ Function TCulturePropertyEditor.GetAttributes : TPropertyAttributes;
+  Begin
+   Result := [paValueList, paSortList, paRevertable];
+  End;
 
-procedure TCulturePropertyEditor.GetValues(Proc: TGetStrProc);
-var
-  I: Integer;
-  Cultures: TReadonlyCultureList;
-begin
-  Cultures := GetCultures;
-  for I := 0 to Cultures.Count - 1 do
-    Proc(Cultures[I].EnglishDisplayName);
-end;
+ Procedure TCulturePropertyEditor.GetValues(Proc : TGetStrProc);
+  Var
+   i        : Integer;
+   Cultures : TReadonlyCultureList;
+  Begin
+   Cultures := GetCultures;
+   For i    := 0 To Cultures.Count - 1 Do
+    Proc(Cultures[i].EnglishDisplayName);
+  End;
 
-function TCulturePropertyEditor.GetValue: String;
-var
-  Culture: TCultureInfo;
-begin
-  Culture := TCultureInfo(GetOrdValue);
-  if Assigned(Culture) then
+ Function TCulturePropertyEditor.GetValue : String;
+  Var
+   Culture : TCultureInfo;
+  Begin
+   Culture := TCultureInfo(GetOrdValue);
+   If Assigned(Culture) Then
     Result := Culture.EnglishDisplayName
-  else
+   Else
     Result := '';
-end;
+  End;
 
-procedure TCulturePropertyEditor.SetValue(const Value: String);
-var
-  I: Integer;
-  Cultures: TReadonlyCultureList;
-begin
-  if IsManagedByLocalizer(GetComponent(0)) then
-  begin
-    MessageDlg(SLocalizerManagedProp, mtWarning, [mbOK], 0);
-    Exit;
-  end;
-  Cultures := GetCultures;
-  I := Cultures.IndexOfName(Value, cnEnglishDisplayName);
-  if I < 0 then
-    I := Cultures.NearestIndexOf(Value);
-  if I >= 0 then
-    SetOrdValue(Integer(Cultures[I]))
-  else
+ Procedure TCulturePropertyEditor.SetValue(Const Value : String);
+  Var
+   i        : Integer;
+   Cultures : TReadonlyCultureList;
+  Begin
+   If IsManagedByLocalizer(GetComponent(0)) Then
+    Begin
+     MessageDlg(SLocalizerManagedProp, mtWarning, [mbOK], 0);
+     Exit;
+    End;
+   Cultures := GetCultures;
+   i        := Cultures.IndexOfName(Value, cnEnglishDisplayName);
+   If i < 0 Then
+    i := Cultures.NearestIndexOf(Value);
+   If i >= 0 Then
+    SetOrdValue(Integer(Cultures[i]))
+   Else
     SetOrdValue(0);
-end;
+  End;
 
-function TCulturePropertyEditor.GetCultures: TReadonlyCultureList;
-var
-  Component: TPersistent;
-begin
-  Component := GetComponent(0);
-  if Component is TLocalizer then
+ Function TCulturePropertyEditor.GetCultures : TReadonlyCultureList;
+  Var
+   Component : TPersistent;
+  Begin
+   Component := GetComponent(0);
+   If Component Is TLocalizer Then
     Result := TLocalizer(Component).Cultures
-  else if Component is TCustomCultureBox then
+   Else If Component Is TCustomCultureBox Then
     Result := TCustomCultureBox(Component).Items
-  else if Component is TCustomCultureListBox then
+   Else If Component Is TCustomCultureListBox Then
     Result := TCustomCultureListBox(Component).Items
-  else if Component is TCustomCultureCheckListBox then
+   Else If Component Is TCustomCultureCheckListBox Then
     Result := TCustomCultureCheckListBox(Component).Items
-  else
+   Else
     Result := World.Cultures;
-end;
+  End;
 
 { TTerritoryListPropertyEditor }
 
-procedure TTerritoryListPropertyEditor.Edit;
-var
-  Dialog: TForm;
-  Territories: TTerritoryList;
-begin
-  Territories := TTerritoryList(GetOrdValue);
-  Dialog := CreateDialog(TTerritoryCheckListBox);
-  try
+ Procedure TTerritoryListPropertyEditor.Edit;
+  Var
+   Dialog      : TForm;
+   Territories : TTerritoryList;
+  Begin
+   Territories := TTerritoryList(GetOrdValue);
+   Dialog      := CreateDialog(TTerritoryCheckListBox);
+   Try
     TTerritoryCheckListBox(CheckList).SetSelection(Territories);
-    if Dialog.ShowModal = mrOK then
-    begin
+    If Dialog.ShowModal = mrOk Then
+     Begin
       TTerritoryCheckListBox(CheckList).GetSelection(Territories);
       Modified;
-    end;
-  finally
+     End;
+   Finally
     Dialog.Free;
-  end;
-end;
+   End;
+  End;
 
 { TTerritoryPropertyEditor }
 
-function TTerritoryPropertyEditor.GetAttributes: TPropertyAttributes;
-begin
-  Result := [paValueList, paSortList, paRevertable];
-end;
+ Function TTerritoryPropertyEditor.GetAttributes : TPropertyAttributes;
+  Begin
+   Result := [paValueList, paSortList, paRevertable];
+  End;
 
-procedure TTerritoryPropertyEditor.GetValues(Proc: TGetStrProc);
-var
-  I: Integer;
-  Territories: TReadonlyTerritoryList;
-begin
-  Territories := GetTerritories;
-  for I := 0 to Territories.Count - 1 do
-    Proc(Territories[I].FriendlyName);
-end;
+ Procedure TTerritoryPropertyEditor.GetValues(Proc : TGetStrProc);
+  Var
+   i           : Integer;
+   Territories : TReadonlyTerritoryList;
+  Begin
+   Territories := GetTerritories;
+   For i       := 0 To Territories.Count - 1 Do
+    Proc(Territories[i].FriendlyName);
+  End;
 
-function TTerritoryPropertyEditor.GetValue: String;
-var
-  Territory: TTerritoryInfo;
-begin
-  Territory := TTerritoryInfo(GetOrdValue);
-  if Assigned(Territory) then
+ Function TTerritoryPropertyEditor.GetValue : String;
+  Var
+   Territory : TTerritoryInfo;
+  Begin
+   Territory := TTerritoryInfo(GetOrdValue);
+   If Assigned(Territory) Then
     Result := Territory.FriendlyName
-  else
+   Else
     Result := '';
-end;
+  End;
 
-procedure TTerritoryPropertyEditor.SetValue(const Value: String);
-var
-  I: Integer;
-  Territories: TReadonlyTerritoryList;
-begin
-  Territories := GetTerritories;
-  I := Territories.IndexOfName(Value, tnFriendlyName);
-  if I < 0 then
-    I := Territories.IndexOf(Value);
-  if I >= 0 then
-    SetOrdValue(Integer(Territories[I]))
-  else
+ Procedure TTerritoryPropertyEditor.SetValue(Const Value : String);
+  Var
+   i           : Integer;
+   Territories : TReadonlyTerritoryList;
+  Begin
+   Territories := GetTerritories;
+   i           := Territories.IndexOfName(Value, tnFriendlyName);
+   If i < 0 Then
+    i := Territories.IndexOf(Value);
+   If i >= 0 Then
+    SetOrdValue(Integer(Territories[i]))
+   Else
     SetOrdValue(0);
-end;
+  End;
 
-function TTerritoryPropertyEditor.GetTerritories: TReadonlyTerritoryList;
-var
-  Component: TPersistent;
-begin
-  Component := GetComponent(0);
-  if Component is TCustomTerritoryBox then
+ Function TTerritoryPropertyEditor.GetTerritories : TReadonlyTerritoryList;
+  Var
+   Component : TPersistent;
+  Begin
+   Component := GetComponent(0);
+   If Component Is TCustomTerritoryBox Then
     Result := TCustomTerritoryBox(Component).Items
-  else if Component is TCustomTerritoryListBox then
+   Else If Component Is TCustomTerritoryListBox Then
     Result := TCustomTerritoryListBox(Component).Items
-  else if Component is TCustomTerritoryCheckListBox then
+   Else If Component Is TCustomTerritoryCheckListBox Then
     Result := TCustomTerritoryCheckListBox(Component).Items
-  else
+   Else
     Result := World.Territories;
-end;
+  End;
 
 { TCurrencyListPropertyEditor }
 
-procedure TCurrencyListPropertyEditor.Edit;
-var
-  Dialog: TForm;
-  Currencies: TCurrencyList;
-begin
-  Currencies := TCurrencyList(GetOrdValue);
-  Dialog := CreateDialog(TCurrencyCheckListBox);
-  try
+ Procedure TCurrencyListPropertyEditor.Edit;
+  Var
+   Dialog     : TForm;
+   Currencies : TCurrencyList;
+  Begin
+   Currencies := TCurrencyList(GetOrdValue);
+   Dialog     := CreateDialog(TCurrencyCheckListBox);
+   Try
     TCurrencyCheckListBox(CheckList).SetSelection(Currencies);
-    if Dialog.ShowModal = mrOK then
-    begin
+    If Dialog.ShowModal = mrOk Then
+     Begin
       TCurrencyCheckListBox(CheckList).GetSelection(Currencies);
       Modified;
-    end;
-  finally
+     End;
+   Finally
     Dialog.Free;
-  end;
-end;
+   End;
+  End;
 
 { TCurrencyPropertyEditor }
 
-function TCurrencyPropertyEditor.GetAttributes: TPropertyAttributes;
-begin
-  Result := [paValueList, paSortList, paRevertable];
-end;
+ Function TCurrencyPropertyEditor.GetAttributes : TPropertyAttributes;
+  Begin
+   Result := [paValueList, paSortList, paRevertable];
+  End;
 
-procedure TCurrencyPropertyEditor.GetValues(Proc: TGetStrProc);
-var
-  I: Integer;
-  Currencies: TReadonlyCurrencyList;
-begin
-  Currencies := GetCurrencies;
-  for I := 0 to Currencies.Count - 1 do
-    Proc(Currencies[I].EnglishName);
-end;
+ Procedure TCurrencyPropertyEditor.GetValues(Proc : TGetStrProc);
+  Var
+   i          : Integer;
+   Currencies : TReadonlyCurrencyList;
+  Begin
+   Currencies := GetCurrencies;
+   For i      := 0 To Currencies.Count - 1 Do
+    Proc(Currencies[i].EnglishName);
+  End;
 
-function TCurrencyPropertyEditor.GetValue: String;
-var
-  Currency: TCurrencyInfo;
-begin
-  Currency := TCurrencyInfo(GetOrdValue);
-  if Assigned(Currency) then
+ Function TCurrencyPropertyEditor.GetValue : String;
+  Var
+   Currency : TCurrencyInfo;
+  Begin
+   Currency := TCurrencyInfo(GetOrdValue);
+   If Assigned(Currency) Then
     Result := Currency.EnglishName
-  else
+   Else
     Result := '';
-end;
+  End;
 
-procedure TCurrencyPropertyEditor.SetValue(const Value: String);
-var
-  I: Integer;
-  Currencies: TReadonlyCurrencyList;
-begin
-  Currencies := GetCurrencies;
-  I := Currencies.IndexOfName(Value, crnEnglishName);
-  if I < 0 then
-    I := Currencies.IndexOf(Value);
-  if I >= 0 then
-    SetOrdValue(Integer(Currencies[I]))
-  else
+ Procedure TCurrencyPropertyEditor.SetValue(Const Value : String);
+  Var
+   i          : Integer;
+   Currencies : TReadonlyCurrencyList;
+  Begin
+   Currencies := GetCurrencies;
+   i          := Currencies.IndexOfName(Value, crnEnglishName);
+   If i < 0 Then
+    i := Currencies.IndexOf(Value);
+   If i >= 0 Then
+    SetOrdValue(Integer(Currencies[i]))
+   Else
     SetOrdValue(0);
-end;
+  End;
 
-function TCurrencyPropertyEditor.GetCurrencies: TReadonlyCurrencyList;
-var
-  Component: TPersistent;
-begin
-  Component := GetComponent(0);
-  if Component is TCustomCurrencyBox then
+ Function TCurrencyPropertyEditor.GetCurrencies : TReadonlyCurrencyList;
+  Var
+   Component : TPersistent;
+  Begin
+   Component := GetComponent(0);
+   If Component Is TCustomCurrencyBox Then
     Result := TCustomCurrencyBox(Component).Items
-  else if Component is TCustomCurrencyListBox then
+   Else If Component Is TCustomCurrencyListBox Then
     Result := TCustomCurrencyListBox(Component).Items
-  else if Component is TCustomCurrencyCheckListBox then
+   Else If Component Is TCustomCurrencyCheckListBox Then
     Result := TCustomCurrencyCheckListBox(Component).Items
-  else
+   Else
     Result := World.Currencies;
-end;
+  End;
 
 { TGoogleLangPropertyEditor }
 
-function TGoogleLangPropertyEditor.GetAttributes: TPropertyAttributes;
-begin
-  Result := [paValueList, paSortList, paRevertable];
-end;
+ Function TGoogleLangPropertyEditor.GetAttributes : TPropertyAttributes;
+  Begin
+   Result := [paValueList, paSortList, paRevertable];
+  End;
 
-function TGoogleLangPropertyEditor.GetValue: String;
-var
-  Culture: TCultureInfo;
-  Lang, Name: String;
-begin
-  Lang := inherited GetValue;
-  Culture := GoogleLangToCulture(Lang);
-  if Assigned(Culture) then
-  begin
-    if Lang = Culture.Language2 then
+ Function TGoogleLangPropertyEditor.GetValue : String;
+  Var
+   Culture : TCultureInfo;
+   Lang    : String;
+   Name    : String;
+  Begin
+   Lang    := Inherited GetValue;
+   Culture := GoogleLangToCulture(Lang);
+   If Assigned(Culture) Then
+    Begin
+     If Lang = Culture.Language2 Then
       Name := Culture.EnglishLanguageName
-    else
-      Name := Culture.EnglishDisplayName;
-    Result := Lang + ' -- ' + Name;
-  end
-  else
+     Else
+      Name  := Culture.EnglishDisplayName;
+     Result := Lang + ' -- ' + Name;
+    End
+   Else
     Result := Lang;
-end;
+  End;
 
-procedure TGoogleLangPropertyEditor.GetValues(Proc: TGetStrProc);
-var
-  I: Integer;
-  Lang, Name: String;
-  Culture: TCultureInfo;
-begin
-  for I := Low(GoogleLanguages) to High(GoogleLanguages) do
-  begin
-    Lang := GoogleLanguages[I];
-    Culture := GoogleLangToCulture(Lang);
-    if Assigned(Culture) then
-    begin
-      if Lang = Culture.Language2 then
+ Procedure TGoogleLangPropertyEditor.GetValues(Proc : TGetStrProc);
+  Var
+   i       : Integer;
+   Lang    : String;
+   Name    : String;
+   Culture : TCultureInfo;
+  Begin
+   For i := Low(GoogleLanguages) To High(GoogleLanguages) Do
+    Begin
+     Lang    := GoogleLanguages[i];
+     Culture := GoogleLangToCulture(Lang);
+     If Assigned(Culture) Then
+      Begin
+       If Lang = Culture.Language2 Then
         Name := Culture.EnglishLanguageName
-      else
+       Else
         Name := Culture.EnglishDisplayName;
-      Lang := Lang + ' -- ' + Name;
-    end;
-    Proc(Lang);
-  end;
-end;
+       Lang  := Lang + ' -- ' + Name;
+      End;
+     Proc(Lang);
+    End;
+  End;
 
-procedure TGoogleLangPropertyEditor.SetValue(const Value: String);
-var
-  Lang: String;
-begin
-  if Pos(' ', Value) <> 0 then
+ Procedure TGoogleLangPropertyEditor.SetValue(Const Value : String);
+  Var
+   Lang : String;
+  Begin
+   If Pos(' ', Value) <> 0 Then
     Lang := Copy(Value, 1, Pos(' ', Value) - 1)
-  else
+   Else
     Lang := Value;
-  inherited SetValue(Lang);
-end;
+   Inherited SetValue(Lang);
+  End;
 
 { TCalendarSystemPropertyEditor }
 
-function TCalendarSystemPropertyEditor.GetAttributes: TPropertyAttributes;
-begin
-  Result := [paValueList, paSortList, paRevertable];
-end;
+ Function TCalendarSystemPropertyEditor.GetAttributes : TPropertyAttributes;
+  Begin
+   Result := [paValueList, paSortList, paRevertable];
+  End;
 
-procedure TCalendarSystemPropertyEditor.GetValues(Proc: TGetStrProc);
-var
-  I: Integer;
-begin
-  for I := 0 to CalendarTypes.Count - 1 do
-    Proc(CalendarTypes.ByIndex(I).CalendarName);
-end;
+ Procedure TCalendarSystemPropertyEditor.GetValues(Proc : TGetStrProc);
+  Var
+   i : Integer;
+  Begin
+   For i := 0 To CalendarTypes.Count - 1 Do
+    Proc(CalendarTypes.ByIndex(i).CalendarName);
+  End;
 
-function TCalendarSystemPropertyEditor.GetValue: String;
-var
-  CalendarClass: TCalendarClass;
-begin
-  CalendarClass := TCalendarClass(GetOrdValue);
-  if Assigned(CalendarClass) then
+ Function TCalendarSystemPropertyEditor.GetValue : String;
+  Var
+   CalendarClass : TCalendarClass;
+  Begin
+   CalendarClass := TCalendarClass(GetOrdValue);
+   If Assigned(CalendarClass) Then
     Result := CalendarClass.CalendarName
-  else
+   Else
     Result := '';
-end;
+  End;
 
-procedure TCalendarSystemPropertyEditor.SetValue(const Value: String);
-var
-  CalendarClass: TCalendarClass;
-begin
-  CalendarClass := CalendarTypes.ByName(Trim(Value));
-  if Assigned(CalendarClass) then
+ Procedure TCalendarSystemPropertyEditor.SetValue(Const Value : String);
+  Var
+   CalendarClass : TCalendarClass;
+  Begin
+   CalendarClass := CalendarTypes.ByName(Trim(Value));
+   If Assigned(CalendarClass) Then
     SetOrdValue(Integer(CalendarClass))
-  else
+   Else
     SetOrdValue(0);
-end;
+  End;
 
 { TIntlDateTimePropertyEditor }
 
-function TIntlDateTimePropertyEditor.GetAttributes: TPropertyAttributes;
-begin
-  Result := [paDialog];
-end;
+ Function TIntlDateTimePropertyEditor.GetAttributes : TPropertyAttributes;
+  Begin
+   Result := [paDialog];
+  End;
 
-function TIntlDateTimePropertyEditor.GetValue: String;
-var
-  DT: TDateTime;
-begin
-  DT := GetFloatValue;
-  if TCalendar.IsNoDate(DT) then
+ Function TIntlDateTimePropertyEditor.GetValue : String;
+  Var
+   DT : TDateTime;
+  Begin
+   DT := GetFloatValue;
+   If TCalendar.IsNoDate(DT) Then
     Result := ''
-  else
+   Else
     Result := DefaultCalendar.Format('C', DT);
-end;
+  End;
 
-procedure TIntlDateTimePropertyEditor.SetValue(const Value: String);
-var
-  DT: TDateTime;
-begin
-  if Value = '' then
+ Procedure TIntlDateTimePropertyEditor.SetValue(Const Value : String);
+  Var
+   DT : TDateTime;
+  Begin
+   If Value = '' Then
     SetFloatValue(TCalendar.NoDate)
-  else if DefaultCalendar.TryParse('C', Value, DT) then
+   Else If DefaultCalendar.TryParse('C', Value, DT) Then
     SetFloatValue(DT)
-  else
-    raise EConvertError.CreateResFmt(@SInvalidDateTime, [Value]);
-end;
+   Else
+    Raise EConvertError.CreateResFmt(@SInvalidDateTime, [Value]);
+  End;
 
-procedure TIntlDateTimePropertyEditor.Edit;
-var
-  DT: TDateTime;
-  Caption: String;
-begin
-  DT := GetFloatValue;
-  Caption := GetComponent(0).GetNamePath + '.' + GetName;
-  if PromptForDate(Caption, DT) then
+ Procedure TIntlDateTimePropertyEditor.Edit;
+  Var
+   DT      : TDateTime;
+   Caption : String;
+  Begin
+   DT      := GetFloatValue;
+   Caption := GetComponent(0).GetNamePath + '.' + GetName;
+   If PromptForDate(Caption, DT) Then
     SetFloatValue(DT);
-end;
+  End;
 
 { TIntlDatePropertyEditor }
 
-function TIntlDatePropertyEditor.GetAttributes: TPropertyAttributes;
-begin
-  Result := [paDialog];
-end;
+ Function TIntlDatePropertyEditor.GetAttributes : TPropertyAttributes;
+  Begin
+   Result := [paDialog];
+  End;
 
-function TIntlDatePropertyEditor.GetValue: String;
-var
-  DT: TDateTime;
-begin
-  DT := GetFloatValue;
-  if TCalendar.IsNoDate(DT) then
+ Function TIntlDatePropertyEditor.GetValue : String;
+  Var
+   DT : TDateTime;
+  Begin
+   DT := GetFloatValue;
+   If TCalendar.IsNoDate(DT) Then
     Result := ''
-  else
+   Else
     Result := DefaultCalendar.Format('C', Trunc(DT));
-end;
+  End;
 
-procedure TIntlDatePropertyEditor.SetValue(const Value: String);
-var
-  DT: TDateTime;
-begin
-  if Value = ''then
+ Procedure TIntlDatePropertyEditor.SetValue(Const Value : String);
+  Var
+   DT : TDateTime;
+  Begin
+   If Value = ''Then
     SetFloatValue(TCalendar.NoDate)
-  else if DefaultCalendar.TryParse('C', Value, DT) then
+   Else If DefaultCalendar.TryParse('C', Value, DT) Then
     SetFloatValue(Trunc(DT))
-  else
-    raise EConvertError.CreateResFmt(@SInvalidDate, [Value]);
-end;
+   Else
+    Raise EConvertError.CreateResFmt(@SInvalidDate, [Value]);
+  End;
 
-procedure TIntlDatePropertyEditor.Edit;
-var
-  DT: TDateTime;
-  Caption: String;
-begin
-  DT := GetFloatValue;
-  Caption := GetComponent(0).GetNamePath + '.' + GetName;
-  if PromptForDate(Caption, DT) then
+ Procedure TIntlDatePropertyEditor.Edit;
+  Var
+   DT      : TDateTime;
+   Caption : String;
+  Begin
+   DT      := GetFloatValue;
+   Caption := GetComponent(0).GetNamePath + '.' + GetName;
+   If PromptForDate(Caption, DT) Then
     SetFloatValue(DT);
-end;
+  End;
 
 { TCoreSelectionEditor }
 
-procedure TCoreSelectionEditor.RequiresUnits(Proc: TGetStrProc);
-begin
-  Proc('i18nCore');
-end;
+ Procedure TCoreSelectionEditor.RequiresUnits(Proc : TGetStrProc);
+  Begin
+   Proc('i18nCore');
+  End;
 
 { TCalendarSelectionEditor }
 
-procedure TCalendarSelectionEditor.RequiresUnits(Proc: TGetStrProc);
-begin
-  Proc('i18nCore');
-  Proc('i18nLocalizer');
-  Proc('i18nCalendar');
-end;
+ Procedure TCalendarSelectionEditor.RequiresUnits(Proc : TGetStrProc);
+  Begin
+   Proc('i18nCore');
+   Proc('i18nLocalizer');
+   Proc('i18nCalendar');
+  End;
 
-end.
+End.

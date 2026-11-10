@@ -9,7 +9,6 @@ Interface
 
  Type
   TfrmAbout = Class(TLocalizedForm)
-   Published
     lName         : TLabel;
     lVersion      : TLabel;
     lCopyright    : TLabel;
@@ -33,7 +32,7 @@ Implementation
  Uses
   Winapi.Windows, Winapi.ShellAPI, AppHelpU, VersionU, System.SysUtils;
 
- {$R *.dfm}
+{$R *.dfm}
 
  Constructor TfrmAbout.Create(AOwner : TComponent);
   Begin

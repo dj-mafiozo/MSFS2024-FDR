@@ -1,0 +1,72 @@
+﻿<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <PropertyGroup>
+        <ProjectGuid>{1F802175-871C-435C-BA37-3A21DEE54C11}</ProjectGuid>
+    </PropertyGroup>
+    <ItemGroup>
+        <Projects Include="src\MSFS2024-FDR.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="tools\SetupStub\MSFS24-FDR-Setup.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="tools\RebuildToolbarImages.dproj">
+            <Dependencies/>
+        </Projects>
+        <Projects Include="tools\RepairToolbarIcon.dproj">
+            <Dependencies/>
+        </Projects>
+    </ItemGroup>
+    <ProjectExtensions>
+        <Borland.Personality>Default.Personality.12</Borland.Personality>
+        <Borland.ProjectType/>
+        <BorlandProject>
+            <Default.Personality/>
+        </BorlandProject>
+    </ProjectExtensions>
+    <Target Name="MSFS2024-FDR">
+        <MSBuild Projects="src\MSFS2024-FDR.dproj"/>
+    </Target>
+    <Target Name="MSFS2024-FDR:Clean">
+        <MSBuild Projects="src\MSFS2024-FDR.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MSFS2024-FDR:Make">
+        <MSBuild Projects="src\MSFS2024-FDR.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="MSFS24-FDR-Setup">
+        <MSBuild Projects="tools\SetupStub\MSFS24-FDR-Setup.dproj"/>
+    </Target>
+    <Target Name="MSFS24-FDR-Setup:Clean">
+        <MSBuild Projects="tools\SetupStub\MSFS24-FDR-Setup.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="MSFS24-FDR-Setup:Make">
+        <MSBuild Projects="tools\SetupStub\MSFS24-FDR-Setup.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="RebuildToolbarImages">
+        <MSBuild Projects="tools\RebuildToolbarImages.dproj"/>
+    </Target>
+    <Target Name="RebuildToolbarImages:Clean">
+        <MSBuild Projects="tools\RebuildToolbarImages.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="RebuildToolbarImages:Make">
+        <MSBuild Projects="tools\RebuildToolbarImages.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="RepairToolbarIcon">
+        <MSBuild Projects="tools\RepairToolbarIcon.dproj"/>
+    </Target>
+    <Target Name="RepairToolbarIcon:Clean">
+        <MSBuild Projects="tools\RepairToolbarIcon.dproj" Targets="Clean"/>
+    </Target>
+    <Target Name="RepairToolbarIcon:Make">
+        <MSBuild Projects="tools\RepairToolbarIcon.dproj" Targets="Make"/>
+    </Target>
+    <Target Name="Build">
+        <CallTarget Targets="MSFS2024-FDR;MSFS24-FDR-Setup;RebuildToolbarImages;RepairToolbarIcon"/>
+    </Target>
+    <Target Name="Clean">
+        <CallTarget Targets="MSFS2024-FDR:Clean;MSFS24-FDR-Setup:Clean;RebuildToolbarImages:Clean;RepairToolbarIcon:Clean"/>
+    </Target>
+    <Target Name="Make">
+        <CallTarget Targets="MSFS2024-FDR:Make;MSFS24-FDR-Setup:Make;RebuildToolbarImages:Make;RepairToolbarIcon:Make"/>
+    </Target>
+    <Import Project="$(BDS)\Bin\CodeGear.Group.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Group.Targets')"/>
+</Project>

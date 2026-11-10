@@ -1,7 +1,7 @@
-object frmReport: TfrmReport
+﻿object frmReport: TfrmReport
+  HelpContext = 400
   Left = 0
   Top = 0
-  HelpContext = 400
   Caption = 'Analiza kontaktu z pasem'
   ClientHeight = 600
   ClientWidth = 850
@@ -45,7 +45,7 @@ object frmReport: TfrmReport
     Font.Style = []
     ParentFont = False
     TabOrder = 1
-    object BrowserPanel: TPanel
+    object ReportPanel: TPanel
       AlignWithMargins = True
       Left = 10
       Top = 22
@@ -74,12 +74,6 @@ object frmReport: TfrmReport
       ScrollBars = ssVertical
       TabOrder = 1
     end
-  end
-  object StartTimer: TTimer
-    Interval = 100
-    OnTimer = StartTick
-    Left = 200
-    Top = 24
   end
   object AppTranslator: TTranslator
     AutoBiDiLayout = False

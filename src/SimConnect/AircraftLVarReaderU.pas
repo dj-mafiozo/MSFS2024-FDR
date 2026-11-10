@@ -13,6 +13,10 @@ Interface
  Type
   TAircraftLVarReader = Class
    Private
+    fPollInterval : Integer;
+    fRequestedAt  : TArray<UInt64>;
+    fPolling      : Boolean;
+    fPending      : TArray<Boolean>;
     fBatchSize    : Integer;
     fLib          : HMODULE;
     fHandle       : THandle;
@@ -20,6 +24,7 @@ Interface
     fError        : String;
     fClientName   : String;
     fNames        : TArray<String>;
+    fUnits        : TArray<String>;
     fNextRetry    : UInt64;
     fCheckFreshAt : UInt64;
     fValues       : TArray<Double>;
@@ -27,34 +32,39 @@ Interface
     fSeen         : TArray<Boolean>;
     fFailed       : TArray<Boolean>;
     fPacketBatch  : TDictionary<DWORD, Integer>;
-    fOpen         : Function(Var H : THandle; N : PAnsiChar; W : HWND; E : DWORD; EH : THandle; C : DWORD) : HRESULT; Stdcall;
-    fClose        : Function(H : THandle) : HRESULT; Stdcall;
-    fAdd          : Function(H : THandle; ID : DWORD; N, U : PAnsiChar; T : DWORD; E : Single; D : DWORD) : HRESULT; Stdcall;
-    fRequest      : Function(H : THandle; R, D, O, P, F, A, I, L : DWORD) : HRESULT; Stdcall;
-    fNext         : Function(H : THandle; Var P : Pointer; Var Size : DWORD) : HRESULT; Stdcall;
-    fLast         : Function(H : THandle; Var ID : DWORD) : HRESULT; Stdcall;
+    fOpen         : Function(Var h : THandle; n : PAnsiChar; w : HWND; e : DWORD; EH : THandle; c : DWORD) : HRESULT; Stdcall;
+    fClose        : Function(h : THandle) : HRESULT; Stdcall;
+    fAdd          : Function(h : THandle; ID : DWORD; n, u : PAnsiChar; t : DWORD; e : Single; d : DWORD) : HRESULT; Stdcall;
+    fRequest      : Function(h : THandle; r, d, o, p, f, a, i, l : DWORD) : HRESULT; Stdcall;
+    fNext         : Function(h : THandle; Var p : Pointer; Var Size : DWORD) : HRESULT; Stdcall;
+    fLast         : Function(h : THandle; Var ID : DWORD) : HRESULT; Stdcall;
     Procedure Connect;
     Procedure Track(Batch : Integer);
-    Procedure Receive(P : Pointer; Size : DWORD; NowTick : UInt64);
+    Procedure Receive(p : Pointer; Size : DWORD; NowTick : UInt64);
    Public
-    Constructor Create(Const Names : TArray<String>; Const ClientName : String; Const DLL : String = ''; BatchSize : Integer = LVarBatchSize);
+    Constructor Create(Const Names : TArray<String>; Const ClientName : String; Const DLL : String = ''; BatchSize : Integer = LVarBatchSize; Polling : Boolean = False; Const Units : TArray<String> = Nil);
     Destructor Destroy; Override;
     Procedure Close;
     Procedure Tick;
     Function Snapshot(Out Values : TArray<Double>; Out AgeMS : UInt64; MaxAgeMS : UInt64) : Integer;
-    Property LastError : String Read fError;
-    {$IFDEF PORT_TEST} Procedure Feed(P : Pointer; Size : DWORD; NowTick : UInt64); {$ENDIF}
+    Property PollIntervalMS : Integer Read fPollInterval Write fPollInterval;
+    Property LastError      : String Read fError;
+    {$IFDEF PORT_TEST}
+    Procedure Feed(p : Pointer; Size : DWORD; NowTick : UInt64); {$ENDIF}
   End;
 
 Implementation
 
- Constructor TAircraftLVarReader.Create(Const Names : TArray<String>; Const ClientName, DLL : String; BatchSize : Integer);
+ Constructor TAircraftLVarReader.Create(Const Names : TArray<String>; Const ClientName, DLL : String; BatchSize : Integer; Polling : Boolean; Const Units : TArray<String>);
   Begin
    Inherited Create;
-   fBatchSize  := EnsureRange(BatchSize, 1, LVarBatchSize);
-   fNames      := Copy(Names);
-   fClientName := ClientName;
-   fDLL        := DLL;
+   fPolling      := Polling;
+   fPollInterval := 500;
+   fBatchSize    := EnsureRange(BatchSize, 1, LVarBatchSize);
+   fNames        := Copy(Names);
+   fUnits        := Copy(Units);
+   fClientName   := ClientName;
+   fDLL          := DLL;
    If fDLL = '' Then
     fDLL        := ExtractFilePath(ParamStr(0)) + 'SimConnect.dll';
    fPacketBatch := TDictionary<DWORD, Integer>.Create;
@@ -62,6 +72,8 @@ Implementation
    SetLength(fUpdated, (Length(fNames) + fBatchSize - 1) Div fBatchSize);
    SetLength(fSeen, Length(fUpdated));
    SetLength(fFailed, Length(fUpdated));
+   SetLength(fPending, Length(fUpdated));
+   SetLength(fRequestedAt, Length(fUpdated));
    Close;
   End;
 
@@ -74,7 +86,7 @@ Implementation
 
  Procedure TAircraftLVarReader.Close;
   Var
-   I : Integer;
+   i : Integer;
   Begin
    If (fHandle <> 0) And Assigned(fClose) Then
     fClose(fHandle);
@@ -82,14 +94,16 @@ Implementation
    If fLib <> 0 Then
     FreeLibrary(fLib);
    fLib  := 0;
-   For I := 0 To High(fUpdated) Do
+   For i := 0 To High(fUpdated) Do
     Begin
-     fSeen[I]    := False;
-     fFailed[I]  := False;
-     fUpdated[I] := 0;
+     fSeen[i]        := False;
+     fRequestedAt[i] := 0;
+     fPending[i]     := False;
+     fFailed[i]      := False;
+     fUpdated[i]     := 0;
     End;
-   For I       := 0 To High(fValues) Do
-    fValues[I] := NaN;
+   For i       := 0 To High(fValues) Do
+    fValues[i] := NaN;
    fPacketBatch.Clear;
    fNextRetry    := 0;
    fCheckFreshAt := 0;
@@ -99,79 +113,101 @@ Implementation
   Var
    ID : DWORD;
   Begin
+   If fPolling And (fPacketBatch.Count > 32768) Then
+    fPacketBatch.Clear;
    If Assigned(fLast) And (fLast(fHandle, ID) >= 0) Then
     fPacketBatch.AddOrSetValue(ID, Batch);
   End;
 
  Procedure TAircraftLVarReader.Connect;
   Var
-   I  : Integer;
-   B  : Integer;
-   N  : AnsiString;
-   HR : HRESULT;
+   i      : Integer;
+   b      : Integer;
+   n      : AnsiString;
+   HR     : HRESULT;
+   Period : DWORD;
   Begin
    fLib := LoadLibraryEx(PChar(fDLL), 0, LOAD_WITH_ALTERED_SEARCH_PATH);
    If fLib = 0 Then
     RaiseLastOSError;
-   @fOpen    := GetProcAddress(fLib, 'SimConnect_Open');
-   @fClose   := GetProcAddress(fLib, 'SimConnect_Close');
-   @fAdd     := GetProcAddress(fLib, 'SimConnect_AddToDataDefinition');
+   @fOpen := GetProcAddress(fLib, 'SimConnect_Open');
+   @fClose := GetProcAddress(fLib, 'SimConnect_Close');
+   @fAdd := GetProcAddress(fLib, 'SimConnect_AddToDataDefinition');
    @fRequest := GetProcAddress(fLib, 'SimConnect_RequestDataOnSimObject');
-   @fNext    := GetProcAddress(fLib, 'SimConnect_GetNextDispatch');
-   @fLast    := GetProcAddress(fLib, 'SimConnect_GetLastSentPacketID');
+   @fNext := GetProcAddress(fLib, 'SimConnect_GetNextDispatch');
+   @fLast := GetProcAddress(fLib, 'SimConnect_GetLastSentPacketID');
    If Not(Assigned(fOpen) And Assigned(fClose) And Assigned(fAdd) And Assigned(fRequest) And Assigned(fNext)) Then
     Raise Exception.Create(Tr('Incomplete SimConnect DLL for aircraft L-vars'));
-   N := AnsiString(fClientName);
-   If fOpen(fHandle, PAnsiChar(N), 0, 0, 0, 0) < 0 Then
+   n := AnsiString(fClientName);
+   If fOpen(fHandle, PAnsiChar(n), 0, 0, 0, 0) < 0 Then
     Raise Exception.Create(Tr('aircraft SimConnect open failed'));
    fCheckFreshAt := GetTickCount64 + 30000;
-   For I         := 0 To Length(fNames) - 1 Do
+   For i         := 0 To Length(fNames) - 1 Do
     Begin
-     B  := I Div fBatchSize;
-     N  := AnsiString('L:' + fNames[I]);
-     HR := fAdd(fHandle, 1000 + B, PAnsiChar(N), 'number', 4, 0, $FFFFFFFF);
-     Track(B);
+     b := i Div fBatchSize;
+     If Pos('A:', fNames[i]) = 1 Then
+      n := AnsiString(Copy(fNames[i], 3, MaxInt))
+     Else
+      n := AnsiString('L:' + fNames[i]);
+     If (i < Length(fUnits)) And (Pos('A:', fNames[i]) = 1) Then
+      HR := fAdd(fHandle, 1000 + b, PAnsiChar(n), PAnsiChar(AnsiString(fUnits[i])), 4, 0, $FFFFFFFF)
+     Else
+      HR := fAdd(fHandle, 1000 + b, PAnsiChar(n), 'number', 4, 0, $FFFFFFFF);
+     Track(b);
      If HR < 0 Then
       Begin
-       fFailed[B] := True;
-       fError     := 'aircraft L-var definition rejected: ' + fNames[I];
+       fFailed[b] := True;
+       fError     := 'aircraft L-var definition rejected: ' + fNames[i];
       End;
     End;
-   For B := 0 To Length(fUpdated) - 1 Do
-    If Not fFailed[B] Then
+   Period := 3;
+   If fPolling Then
+    Period := 1;
+   For b   := 0 To Length(fUpdated) - 1 Do
+    If Not fFailed[b] Then
      Begin
       // SIM_FRAME provides the latest data; persistence still follows the configured millisecond interval.
-      HR := fRequest(fHandle, 2000 + B, 1000 + B, 0, 3, 0, 0, 0, 0);
-      Track(B);
+      HR              := fRequest(fHandle, 2000 + b, 1000 + b, 0, Period, 0, 0, 0, 0);
+      fRequestedAt[b] := GetTickCount64;
+      fPending[b]     := HR >= 0;
+      Track(b);
       If HR < 0 Then
        Begin
-        fFailed[B] := True;
+        fFailed[b] := True;
         fError     := 'aircraft L-var request rejected';
        End;
      End;
   End;
 
- Procedure TAircraftLVarReader.Receive(P : Pointer; Size : DWORD; NowTick : UInt64);
+ Procedure TAircraftLVarReader.Receive(p : Pointer; Size : DWORD; NowTick : UInt64);
   Var
-   ID, Req, Def, Flags, Count, SendID, Code : DWORD;
-   B, I, N                                  : Integer;
-   V                                        : Double;
+   ID     : DWORD;
+   Req    : DWORD;
+   Def    : DWORD;
+   Flags  : DWORD;
+   Count  : DWORD;
+   SendID : DWORD;
+   Code   : DWORD;
+   b      : Integer;
+   i      : Integer;
+   n      : Integer;
+   v      : Double;
   Begin
-   If (P = Nil) Or (Size < 12) Then
+   If (p = Nil) Or (Size < 12) Then
     Exit;
-   Move(PByte(NativeUInt(P) + 8)^, ID, 4);
+   Move(PByte(NativeUInt(p) + 8)^, ID, 4);
    Case ID Of
     1 :
      Begin
       If Size < 24 Then
        Exit;
-      Move(PByte(NativeUInt(P) + 12)^, Code, 4);
-      Move(PByte(NativeUInt(P) + 16)^, SendID, 4);
-      If fPacketBatch.TryGetValue(SendID, B) Then
+      Move(PByte(NativeUInt(p) + 12)^, Code, 4);
+      Move(PByte(NativeUInt(p) + 16)^, SendID, 4);
+      If fPacketBatch.TryGetValue(SendID, b) Then
        Begin
-        fFailed[B] := True;
-        fSeen[B]   := False;
-        fError     := Format('aircraft L-vars batch %d: SimConnect exception %d', [B, Code]);
+        fFailed[b] := True;
+        fSeen[b]   := False;
+        fError     := Format('aircraft L-vars batch %d: SimConnect exception %d', [b, Code]);
        End;
      End;
     3 :
@@ -184,33 +220,35 @@ Implementation
      Begin
       If Size < 40 Then
        Exit;
-      Move(PByte(NativeUInt(P) + 12)^, Req, 4);
-      Move(PByte(NativeUInt(P) + 20)^, Def, 4);
-      Move(PByte(NativeUInt(P) + 24)^, Flags, 4);
-      Move(PByte(NativeUInt(P) + 36)^, Count, 4);
+      Move(PByte(NativeUInt(p) + 12)^, Req, 4);
+      Move(PByte(NativeUInt(p) + 20)^, Def, 4);
+      Move(PByte(NativeUInt(p) + 24)^, Flags, 4);
+      Move(PByte(NativeUInt(p) + 36)^, Count, 4);
       If (Def < 1000) Or (Def >= 1000 + Length(fUpdated)) Then
        Exit;
-      B := Def - 1000;
-      N := Min(fBatchSize, Length(fNames) - B * fBatchSize);
-      If (Req <> DWORD(2000 + B)) Or (Flags <> 0) Or (Count <> DWORD(N)) Or (Size < DWORD(40 + N * 8)) Or fFailed[B] Then
+      b := Def - 1000;
+      n := Min(fBatchSize, Length(fNames) - b * fBatchSize);
+      If (Req <> DWORD(2000 + b)) Or (Flags <> 0) Or (Count <> DWORD(n)) Or (Size < DWORD(40 + n * 8)) Or fFailed[b] Then
        Exit;
-      For I := 0 To N - 1 Do
+      For i := 0 To n - 1 Do
        Begin
-        Move(PByte(NativeUInt(P) + 40 + NativeUInt(I * 8))^, V, 8);
-        fValues[B * fBatchSize + I] := V;
+        Move(PByte(NativeUInt(p) + 40 + NativeUInt(i * 8))^, v, 8);
+        fValues[b * fBatchSize + i] := v;
        End;
-      fUpdated[B] := NowTick;
-      fSeen[B]    := True;
+      fPending[b] := False;
+      fUpdated[b] := NowTick;
+      fSeen[b]    := True;
      End;
    End;
   End;
 
  Procedure TAircraftLVarReader.Tick;
   Var
-   P       : Pointer;
+   p       : Pointer;
    Size    : DWORD;
-   I       : Integer;
+   i       : Integer;
    Fresh   : Boolean;
+   HR      : HRESULT;
    NowTick : UInt64;
   Begin
    If (fHandle = 0) And (GetTickCount64 < fNextRetry) Then
@@ -222,22 +260,35 @@ Implementation
       Connect;
      End;
     // Bound each pump so malformed or excessive traffic cannot monopolize the UI thread.
-    For I := 1 To 512 Do
+    For i := 1 To 512 Do
      Begin
       If fHandle = 0 Then
        Break;
-      P    := Nil;
+      p    := Nil;
       Size := 0;
-      If fNext(fHandle, P, Size) < 0 Then
+      If fNext(fHandle, p, Size) < 0 Then
        Break;
-      Receive(P, Size, GetTickCount64);
+      Receive(p, Size, GetTickCount64);
      End;
+    // XML catalog polling has at most one outstanding ONCE request per field.
+    // It cannot accumulate an unbounded SIM_FRAME queue at long recording intervals.
+    If fPolling And (fHandle <> 0) Then
+     For i := 0 To High(fPending) Do
+      If Not fPending[i] And Not fFailed[i] And (GetTickCount64 - fRequestedAt[i] >= UInt64(Max(20, fPollInterval))) Then
+       Begin
+        HR := fRequest(fHandle, 2000 + i, 1000 + i, 0, 1, 0, 0, 0, 0);
+        Track(i);
+        fRequestedAt[i] := GetTickCount64;
+        fPending[i]     := HR >= 0;
+        If HR < 0 Then
+         fFailed[i] := True;
+       End;
     NowTick := GetTickCount64;
     If (fHandle <> 0) And (NowTick >= fCheckFreshAt) Then
      Begin
       Fresh := False;
-      For I := 0 To Length(fUpdated) - 1 Do
-       If fSeen[I] And Not fFailed[I] And (NowTick >= fUpdated[I]) And (NowTick - fUpdated[I] < 5000) Then
+      For i := 0 To Length(fUpdated) - 1 Do
+       If fSeen[i] And Not fFailed[i] And (NowTick >= fUpdated[i]) And (NowTick - fUpdated[i] < 5000) Then
         Fresh       := True;
       fCheckFreshAt := NowTick + 30000;
       If Not Fresh Then
@@ -248,9 +299,9 @@ Implementation
        End;
      End;
    Except
-    On E : Exception Do
+    On e : Exception Do
      Begin
-      fError := E.Message;
+      fError := e.Message;
       Close;
       fNextRetry := GetTickCount64 + 2000;
      End;
@@ -259,36 +310,38 @@ Implementation
 
  Function TAircraftLVarReader.Snapshot(Out Values : TArray<Double>; Out AgeMS : UInt64; MaxAgeMS : UInt64) : Integer;
   Var
-   I, B         : Integer;
-   NowTick, Age : UInt64;
+   i       : Integer;
+   b       : Integer;
+   NowTick : UInt64;
+   Age     : UInt64;
   Begin
    SetLength(Values, Length(fNames));
    Result  := 0;
    AgeMS   := 0;
    NowTick := GetTickCount64;
-   For I   := 0 To Length(fNames) - 1 Do
+   For i   := 0 To Length(fNames) - 1 Do
     Begin
-     Values[I] := NaN;
-     B         := I Div fBatchSize;
-     If Not fSeen[B] Or fFailed[B] Or (NowTick < fUpdated[B]) Then
+     Values[i] := NaN;
+     b         := i Div fBatchSize;
+     If Not fSeen[b] Or fFailed[b] Or (NowTick < fUpdated[b]) Then
       Continue;
-     Age := NowTick - fUpdated[B];
+     Age := NowTick - fUpdated[b];
      If Age > MaxAgeMS Then
       Continue;
      If Age > AgeMS Then
       AgeMS := Age;
-     If IsNan(fValues[I]) Or IsInfinite(fValues[I]) Then
+     If IsNan(fValues[i]) Or IsInfinite(fValues[i]) Then
       Continue;
-     Values[I] := fValues[I];
+     Values[i] := fValues[i];
      Inc(Result);
     End;
   End;
- {$IFDEF PORT_TEST}
+{$IFDEF PORT_TEST}
 
- Procedure TAircraftLVarReader.Feed(P : Pointer; Size : DWORD; NowTick : UInt64);
+ Procedure TAircraftLVarReader.Feed(p : Pointer; Size : DWORD; NowTick : UInt64);
   Begin
-   Receive(P, Size, NowTick);
+   Receive(p, Size, NowTick);
   End;
- {$ENDIF}
+{$ENDIF}
 
 End.

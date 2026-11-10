@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -12,15 +12,15 @@
 /// This unit defines some functions, data types, and constants regarding the
 /// Unicode characters.
 /// </summary>
-unit i18nUnicode;
+Unit i18nUnicode;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-const
+ Const
 
-  {$region 'xmldoc'}
+  {$Region 'xmldoc'}
   /// <summary>
   /// Unicode Control Character: Left-to-right mark (LRM)
   /// </summary>
@@ -28,808 +28,809 @@ const
   /// Acts exactly like left-to-right characters, except that it is not displayed.
   /// LRM does not have any other semantic effect.
   /// </remarks>
-  {$endregion}
+  {$Endregion}
   UCC_LMR = #$200E;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Unicode Control Character: Right-to-left mark (RLM)
-  /// </summary>
-  /// <remarks>
-  /// Acts exactly like right-to-left characters, except that it is not displayed.
-  /// RLM does not have any other semantic effect.
-  /// </remarks>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Unicode Control Character: Right-to-left mark (RLM)
+/// </summary>
+/// <remarks>
+/// Acts exactly like right-to-left characters, except that it is not displayed.
+/// RLM does not have any other semantic effect.
+/// </remarks>
+{$Endregion}
   UCC_RLM = #$200F;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Unicode Control Character: Zero-width joiner (ZWJ)
-  /// </summary>
-  /// <remarks>
-  /// Prevents the joining of consecutive characters on output.
-  /// </remarks>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Unicode Control Character: Zero-width joiner (ZWJ)
+/// </summary>
+/// <remarks>
+/// Prevents the joining of consecutive characters on output.
+/// </remarks>
+{$Endregion}
   UCC_ZWJ = #$200D;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Unicode Control Character: Zero width non-joiner (ZWNJ)
-  /// </summary>
-  /// <remarks>
-  /// Adds a non-joiner between two characters to prevent them from forming a
-  /// cursive connection with each other when rendered.
-  /// </remarks>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Unicode Control Character: Zero width non-joiner (ZWNJ)
+/// </summary>
+/// <remarks>
+/// Adds a non-joiner between two characters to prevent them from forming a
+/// cursive connection with each other when rendered.
+/// </remarks>
+{$Endregion}
   UCC_ZWNJ = #$200C;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Unicode Control Character: Start of left-to-right embedding (LRE)
-  /// </summary>
-  /// <remarks>
-  /// Signals that a piece of text is to be treated as embedded left-to-right.
-  /// For example, an English quotation in the middle of an Arabic sentence could
-  /// be marked as being embedded left-to-right text.
-  /// NOTE: LRE affects word order, not character order.
-  /// </remarks>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Unicode Control Character: Start of left-to-right embedding (LRE)
+/// </summary>
+/// <remarks>
+/// Signals that a piece of text is to be treated as embedded left-to-right.
+/// For example, an English quotation in the middle of an Arabic sentence could
+/// be marked as being embedded left-to-right text.
+/// NOTE: LRE affects word order, not character order.
+/// </remarks>
+{$Endregion}
   UCC_LRE = #$202A;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Unicode Control Character: Start of right-to-left embedding (RLE)
-  /// </summary>
-  /// <remarks>
-  /// Signals that a piece of text is to be treated as embedded right-to-left.
-  /// For example, a Hebrew phrase in the middle of an English quotation could be
-  /// marked as being embedded right-to-left.
-  /// NOTE: RLE affects word order, not character order.
-  /// </remarks>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Unicode Control Character: Start of right-to-left embedding (RLE)
+/// </summary>
+/// <remarks>
+/// Signals that a piece of text is to be treated as embedded right-to-left.
+/// For example, a Hebrew phrase in the middle of an English quotation could be
+/// marked as being embedded right-to-left.
+/// NOTE: RLE affects word order, not character order.
+/// </remarks>
+{$Endregion}
   UCC_RLE = #$202B;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Unicode Control Character: Start of left-to-right override (LRO)
-  /// </summary>
-  /// <remarks>
-  /// Overrides bidirectional character types when required for special cases, such
-  /// as for part numbers. LRO forces characters to be treated as strong left-to-right
-  /// characters.
-  /// </remarks>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Unicode Control Character: Start of left-to-right override (LRO)
+/// </summary>
+/// <remarks>
+/// Overrides bidirectional character types when required for special cases, such
+/// as for part numbers. LRO forces characters to be treated as strong left-to-right
+/// characters.
+/// </remarks>
+{$Endregion}
   UCC_LRO = #$202D;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Unicode Control Character: Start of right-to-left override (RLO)
-  /// </summary>
-  /// <remarks>
-  /// Overrides bidirectional character types when required for special cases, such
-  /// as for part numbers. RLO forces characters to be treated as strong right-to-left
-  /// characters.
-  /// </remarks>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Unicode Control Character: Start of right-to-left override (RLO)
+/// </summary>
+/// <remarks>
+/// Overrides bidirectional character types when required for special cases, such
+/// as for part numbers. RLO forces characters to be treated as strong right-to-left
+/// characters.
+/// </remarks>
+{$Endregion}
   UCC_RLO = #$202E;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Unicode Control Character: Pop directional formatting (PDF)
-  /// </summary>
-  /// <remarks>
-  /// Terminates the effects of the last explicit code (either embedding or override)
-  /// and restores the bidirectional state to what it was before the last LRE, RLE,
-  /// RLO, or LRO control characters.
-  /// </remarks>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Unicode Control Character: Pop directional formatting (PDF)
+/// </summary>
+/// <remarks>
+/// Terminates the effects of the last explicit code (either embedding or override)
+/// and restores the bidirectional state to what it was before the last LRE, RLE,
+/// RLO, or LRO control characters.
+/// </remarks>
+{$Endregion}
   UCC_PDF = #$202C;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Unicode Control Character: National digit shapes substitution (NADS)
-  /// </summary>
-  /// <remarks>
-  /// Uses national digit shapes to display the U+0030-U+0039 (ASCII numerals). The
-  /// national digit shapes are determined by the current user locale.
-  /// </remarks>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Unicode Control Character: National digit shapes substitution (NADS)
+/// </summary>
+/// <remarks>
+/// Uses national digit shapes to display the U+0030-U+0039 (ASCII numerals). The
+/// national digit shapes are determined by the current user locale.
+/// </remarks>
+{$Endregion}
   UCC_NADS = #$206E;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Unicode Control Character: Nominal (European) digit shapes (NODS)
-  /// </summary>
-  /// <remarks>
-  /// Uses the nominal digit shapes for the digits U+0030-U+0039 (ASCII digits).
-  /// Nominal digit shapes are Western digits.
-  /// </remarks>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Unicode Control Character: Nominal (European) digit shapes (NODS)
+/// </summary>
+/// <remarks>
+/// Uses the nominal digit shapes for the digits U+0030-U+0039 (ASCII digits).
+/// Nominal digit shapes are Western digits.
+/// </remarks>
+{$Endregion}
   UCC_NODS = #$206F;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Unicode Control Character: Activate symmetric swapping (ASS)
-  /// </summary>
-  /// <remarks>
-  /// Indicates whether the term LEFT or RIGHT in pairs of character names, such
-  /// as parentheses, should be interpreted as meaning opening or closing, respectively.
-  /// The default state is activated.
-  /// </remarks>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Unicode Control Character: Activate symmetric swapping (ASS)
+/// </summary>
+/// <remarks>
+/// Indicates whether the term LEFT or RIGHT in pairs of character names, such
+/// as parentheses, should be interpreted as meaning opening or closing, respectively.
+/// The default state is activated.
+/// </remarks>
+{$Endregion}
   UCC_ASS = #$206B;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Unicode Control Character: Inhibit symmetric swapping (ISS)
-  /// </summary>
-  /// <remarks>
-  /// Turns off the symmetric swapping of characters such as parenthesis, so that left
-  /// and right continue to mean left and right facing, as opposed to opening and closing,
-  /// when symmetric swapping is on.
-  /// </remarks>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Unicode Control Character: Inhibit symmetric swapping (ISS)
+/// </summary>
+/// <remarks>
+/// Turns off the symmetric swapping of characters such as parenthesis, so that left
+/// and right continue to mean left and right facing, as opposed to opening and closing,
+/// when symmetric swapping is on.
+/// </remarks>
+{$Endregion}
   UCC_ISS = #$206A;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Unicode Control Character: Activate Arabic form shaping (AAFS)
-  /// </summary>
-  /// <remarks>
-  /// Controls the shaping behavior of the Arabic compatibility characters. During the
-  /// presentation process, certain letterforms may be joined together in cursive
-  /// connection or ligatures. The shaping selector codes indicate that the character
-  /// shape determination (glyph selection) process used to achieve this presentation
-  /// effect is to be either activated or inhibited. The default state is inhibited.
-  /// </remarks>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Unicode Control Character: Activate Arabic form shaping (AAFS)
+/// </summary>
+/// <remarks>
+/// Controls the shaping behavior of the Arabic compatibility characters. During the
+/// presentation process, certain letterforms may be joined together in cursive
+/// connection or ligatures. The shaping selector codes indicate that the character
+/// shape determination (glyph selection) process used to achieve this presentation
+/// effect is to be either activated or inhibited. The default state is inhibited.
+/// </remarks>
+{$Endregion}
   UCC_AAFS = #$206D;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Unicode Control Character: Inhibit Arabic form shaping (IAFS)
-  /// </summary>
-  /// <remarks>
-  /// Inhibits the character shaping determination process, so that characters are not
-  /// shaped based on position.
-  /// </remarks>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Unicode Control Character: Inhibit Arabic form shaping (IAFS)
+/// </summary>
+/// <remarks>
+/// Inhibits the character shaping determination process, so that characters are not
+/// shaped based on position.
+/// </remarks>
+{$Endregion}
   UCC_IAFS = #$206C;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Unicode Control Character: Record Separator (Block separator) (RS)
-  /// </summary>
-  /// <remarks>
-  /// Begins a new line after each line separator.
-  /// </remarks>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Unicode Control Character: Record Separator (Block separator) (RS)
+/// </summary>
+/// <remarks>
+/// Begins a new line after each line separator.
+/// </remarks>
+{$Endregion}
   UCC_RS = #$241E;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// Unicode Control Character: Unit Separator (Segment separator) (US)
-  /// </summary>
-  /// <remarks>
-  /// Begins a new paragraph after each paragraph separator.
-  /// </remarks>
-  {$endregion}
+{$Region 'xmldoc'}
+/// <summary>
+/// Unicode Control Character: Unit Separator (Segment separator) (US)
+/// </summary>
+/// <remarks>
+/// Begins a new paragraph after each paragraph separator.
+/// </remarks>
+{$Endregion}
   UCC_US = #$241F;
 
-type
+ Type
 
-  {$region 'xmldoc'}
+  {$Region 'xmldoc'}
   /// <summary>
   /// This enumeration type identifies the different types of scripts.
   /// </summary>
-  {$endregion}
+  {$Endregion}
   TUnicodeScript = (
-    {$region 'xmldoc'}
-    /// Arabic
-    {$endregion}
-    usArabic,
-    {$region 'xmldoc'}
-    /// Imperial Aramaic
-    {$endregion}
-    usImperialAramaic,
-    {$region 'xmldoc'}
-    /// Armenian
-    {$endregion}
-    usArmenian,
-    {$region 'xmldoc'}
-    /// Avestan
-    {$endregion}
-    usAvestan,
-    {$region 'xmldoc'}
-    /// Balinese
-    {$endregion}
-    usBalinese,
-    {$region 'xmldoc'}
-    /// Bamum
-    {$endregion}
-    usBamum,
-    {$region 'xmldoc'}
-    /// Bassa Vah
-    {$endregion}
-    usBassaVah,
-    {$region 'xmldoc'}
-    /// Batak
-    {$endregion}
-    usBatak,
-    {$region 'xmldoc'}
-    /// Bengali
-    {$endregion}
-    usBengali,
-    {$region 'xmldoc'}
-    /// Blissymbols
-    {$endregion}
-    usBlissymbols,
-    {$region 'xmldoc'}
-    /// Bopomofo
-    {$endregion}
-    usBopomofo,
-    {$region 'xmldoc'}
-    /// Brahmi
-    {$endregion}
-    usBrahmi,
-    {$region 'xmldoc'}
-    /// Braille
-    {$endregion}
-    usBraille,
-    {$region 'xmldoc'}
-    /// Buginese
-    {$endregion}
-    usBuginese,
-    {$region 'xmldoc'}
-    /// Buhid
-    {$endregion}
-    usBuhid,
-    {$region 'xmldoc'}
-    /// Chakma
-    {$endregion}
-    usChakma,
-    {$region 'xmldoc'}
-    /// Unified Canadian Aboriginal Syllabics
-    {$endregion}
-    usUnifiedCanadianAboriginalSyllabics,
-    {$region 'xmldoc'}
-    /// Carian
-    {$endregion}
-    usCarian,
-    {$region 'xmldoc'}
-    /// Cham
-    {$endregion}
-    usCham,
-    {$region 'xmldoc'}
-    /// Cherokee
-    {$endregion}
-    usCherokee,
-    {$region 'xmldoc'}
-    /// Cirth
-    {$endregion}
-    usCirth,
-    {$region 'xmldoc'}
-    /// Coptic
-    {$endregion}
-    usCoptic,
-    {$region 'xmldoc'}
-    /// Cypriot
-    {$endregion}
-    usCypriot,
-    {$region 'xmldoc'}
-    /// Cyrillic
-    {$endregion}
-    usCyrillic,
-    {$region 'xmldoc'}
-    /// Cyrillic (Old Church Slavonic variant)
-    {$endregion}
-    usCyrillic_OldChurchSlavonic,
-    {$region 'xmldoc'}
-    /// Devanagari (Nagari)
-    {$endregion}
-    usDevanagari,
-    {$region 'xmldoc'}
-    /// Deseret (Mormon)
-    {$endregion}
-    usDeseret,
-    {$region 'xmldoc'}
-    /// Duployan shorthand, Duployan stenography
-    {$endregion}
-    usDuployan,
-    {$region 'xmldoc'}
-    /// Egyptian demotic
-    {$endregion}
-    usEgyptianDemotic,
-    {$region 'xmldoc'}
-    /// Egyptian hieratic
-    {$endregion}
-    usEgyptianHieratic,
-    {$region 'xmldoc'}
-    /// Egyptian hieroglyphs
-    {$endregion}
-    usEgyptianHieroglyphs,
-    {$region 'xmldoc'}
-    /// Elbasan
-    {$endregion}
-    usElbasan,
-    {$region 'xmldoc'}
-    /// Ethiopic
-    {$endregion}
-    usEthiopic,
-    {$region 'xmldoc'}
-    /// Khutsuri
-    {$endregion}
-    usKhutsuri,
-    {$region 'xmldoc'}
-    /// Georgian (Mkhedruli)
-    {$endregion}
-    usGeorgian,
-    {$region 'xmldoc'}
-    /// Glagolitic
-    {$endregion}
-    usGlagolitic,
-    {$region 'xmldoc'}
-    /// Gothic
-    {$endregion}
-    usGothic,
-    {$region 'xmldoc'}
-    /// Grantha
-    {$endregion}
-    usGrantha,
-    {$region 'xmldoc'}
-    /// Greek
-    {$endregion}
-    usGreek,
-    {$region 'xmldoc'}
-    /// Gujarati
-    {$endregion}
-    usGujarati,
-    {$region 'xmldoc'}
-    /// Gurmukhi
-    {$endregion}
-    usGurmukhi,
-    {$region 'xmldoc'}
-    /// Hangul (Hangŭl, Hangeul)
-    {$endregion}
-    usHangul,
-    {$region 'xmldoc'}
-    /// Han (Hanzi, Kanji, Hanja)
-    {$endregion}
-    usHan,
-    {$region 'xmldoc'}
-    /// Hanunoo (Hanunóo)
-    {$endregion}
-    usHanunoo,
-    {$region 'xmldoc'}
-    /// Han (Simplified variant)
-    {$endregion}
-    usHan_Simplified,
-    {$region 'xmldoc'}
-    /// Han (Traditional variant)
-    {$endregion}
-    usHan_Traditional,
-    {$region 'xmldoc'}
-    /// Hebrew
-    {$endregion}
-    usHebrew,
-    {$region 'xmldoc'}
-    /// Hiragana
-    {$endregion}
-    usHiragana,
-    {$region 'xmldoc'}
-    /// Pahawh Hmong
-    {$endregion}
-    usPahawhHmong,
-    {$region 'xmldoc'}
-    /// (alias for Hiragana + Katakana)
-    {$endregion}
-    usHiraganaKatakana,
-    {$region 'xmldoc'}
-    /// Old Hungarian
-    {$endregion}
-    usOldHungarian,
-    {$region 'xmldoc'}
-    /// Indus (Harappan)
-    {$endregion}
-    usIndus,
-    {$region 'xmldoc'}
-    /// Old Italic (Etruscan, Oscan, etc.)
-    {$endregion}
-    usOldItalic,
-    {$region 'xmldoc'}
-    /// Javanese
-    {$endregion}
-    usJavanese,
-    {$region 'xmldoc'}
-    /// Japanese (alias for Han + Hiragana + Katakana)
-    {$endregion}
-    usJapanese,
-    {$region 'xmldoc'}
-    /// Kayah Li
-    {$endregion}
-    usKayahLi,
-    {$region 'xmldoc'}
-    /// Katakana
-    {$endregion}
-    usKatakana,
-    {$region 'xmldoc'}
-    /// Kharoshthi
-    {$endregion}
-    usKharoshthi,
-    {$region 'xmldoc'}
-    /// Khmer
-    {$endregion}
-    usKhmer,
-    {$region 'xmldoc'}
-    /// Kannada
-    {$endregion}
-    usKannada,
-    {$region 'xmldoc'}
-    /// Korean (alias for Hangul + Han)
-    {$endregion}
-    usKorean,
-    {$region 'xmldoc'}
-    /// Kpelle
-    {$endregion}
-    usKpelle,
-    {$region 'xmldoc'}
-    /// Kaithi
-    {$endregion}
-    usKaithi,
-    {$region 'xmldoc'}
-    /// Tai Tham (Lanna)
-    {$endregion}
-    usTaiTham,
-    {$region 'xmldoc'}
-    /// Lao
-    {$endregion}
-    usLao,
-    {$region 'xmldoc'}
-    /// Latin (Fraktur variant)
-    {$endregion}
-    usLatin_Fraktur,
-    {$region 'xmldoc'}
-    /// Latin (Gaelic variant)
-    {$endregion}
-    usLatin_Gaelic,
-    {$region 'xmldoc'}
-    /// Latin
-    {$endregion}
-    usLatin,
-    {$region 'xmldoc'}
-    /// Lepcha (Róng)
-    {$endregion}
-    usLepcha,
-    {$region 'xmldoc'}
-    /// Limbu
-    {$endregion}
-    usLimbu,
-    {$region 'xmldoc'}
-    /// Linear A
-    {$endregion}
-    usLinearA,
-    {$region 'xmldoc'}
-    /// Linear B
-    {$endregion}
-    usLinearB,
-    {$region 'xmldoc'}
-    /// Lisu (Fraser)
-    {$endregion}
-    usLisu,
-    {$region 'xmldoc'}
-    /// Loma
-    {$endregion}
-    usLoma,
-    {$region 'xmldoc'}
-    /// Lycian
-    {$endregion}
-    usLycian,
-    {$region 'xmldoc'}
-    /// Lydian
-    {$endregion}
-    usLydian,
-    {$region 'xmldoc'}
-    /// Mandaic
-    {$endregion}
-    usMandaic,
-    {$region 'xmldoc'}
-    /// Manichaean
-    {$endregion}
-    usManichaean,
-    {$region 'xmldoc'}
-    /// Mayan hieroglyphs
-    {$endregion}
-    usMayanHieroglyphs,
-    {$region 'xmldoc'}
-    /// Mende
-    {$endregion}
-    usMende,
-    {$region 'xmldoc'}
-    /// Meroitic Cursive
-    {$endregion}
-    usMeroiticCursive,
-    {$region 'xmldoc'}
-    /// Meroitic Hieroglyphs
-    {$endregion}
-    usMeroiticHieroglyphs,
-    {$region 'xmldoc'}
-    /// Malayalam
-    {$endregion}
-    usMalayalam,
-    {$region 'xmldoc'}
-    /// Mongolian
-    {$endregion}
-    usMongolian,
-    {$region 'xmldoc'}
-    /// Moon (Moon code, Moon script, Moon type)
-    {$endregion}
-    usMoon,
-    {$region 'xmldoc'}
-    /// Meitei Mayek (Meithei, Meetei)
-    {$endregion}
-    usMeiteiMayek,
-    {$region 'xmldoc'}
-    /// Myanmar (Burmese)
-    {$endregion}
-    usMyanmar,
-    {$region 'xmldoc'}
-    /// Old North Arabian (Ancient North Arabian)
-    {$endregion}
-    usOldNorthArabian,
-    {$region 'xmldoc'}
-    /// Nabataean
-    {$endregion}
-    usNabataean,
-    {$region 'xmldoc'}
-    /// Nakhi Geba ('Na-'Khi ²Ggŏ-¹baw, Naxi Geba)
-    {$endregion}
-    usNakhiGeba,
-    {$region 'xmldoc'}
-    /// N’Ko
-    {$endregion}
-    usNKo,
-    {$region 'xmldoc'}
-    /// Ogham
-    {$endregion}
-    usOgham,
-    {$region 'xmldoc'}
-    /// Ol Chiki (Ol Cemet’, Ol, Santali)
-    {$endregion}
-    usOlChiki,
-    {$region 'xmldoc'}
-    /// Old Turkic, Orkhon Runic
-    {$endregion}
-    usOldTurkicOrkhonRunic,
-    {$region 'xmldoc'}
-    /// Oriya
-    {$endregion}
-    usOriya,
-    {$region 'xmldoc'}
-    /// Osmanya
-    {$endregion}
-    usOsmanya,
-    {$region 'xmldoc'}
-    /// Palmyrene
-    {$endregion}
-    usPalmyrene,
-    {$region 'xmldoc'}
-    /// Old Permic
-    {$endregion}
-    usOldPermic,
-    {$region 'xmldoc'}
-    /// Phags-pa
-    {$endregion}
-    usPhagsPa,
-    {$region 'xmldoc'}
-    /// Inscriptional Pahlavi
-    {$endregion}
-    usInscriptionalPahlavi,
-    {$region 'xmldoc'}
-    /// Psalter Pahlavi
-    {$endregion}
-    usPsalterPahlavi,
-    {$region 'xmldoc'}
-    /// Book Pahlavi
-    {$endregion}
-    usBookPahlavi,
-    {$region 'xmldoc'}
-    /// Phoenician
-    {$endregion}
-    usPhoenician,
-    {$region 'xmldoc'}
-    /// Miao (Pollard)
-    {$endregion}
-    usMiao,
-    {$region 'xmldoc'}
-    /// Inscriptional Parthian
-    {$endregion}
-    usInscriptionalParthian,
-    {$region 'xmldoc'}
-    /// Reserved for private use (start)
-    {$endregion}
-    usReservedStart,
-    {$region 'xmldoc'}
-    /// Reserved for private use (end)
-    {$endregion}
-    usReservedEnd,
-    {$region 'xmldoc'}
-    /// Rejang (Redjang, Kaganga)
-    {$endregion}
-    usRejang,
-    {$region 'xmldoc'}
-    /// Rongorongo
-    {$endregion}
-    usRongorongo,
-    {$region 'xmldoc'}
-    /// Runic
-    {$endregion}
-    usRunic,
-    {$region 'xmldoc'}
-    /// Samaritan
-    {$endregion}
-    usSamaritan,
-    {$region 'xmldoc'}
-    /// Sarati
-    {$endregion}
-    usSarati,
-    {$region 'xmldoc'}
-    /// Old South Arabian
-    {$endregion}
-    usOldSouthArabian,
-    {$region 'xmldoc'}
-    /// Saurashtra
-    {$endregion}
-    usSaurashtra,
-    {$region 'xmldoc'}
-    /// SignWriting
-    {$endregion}
-    usSignWriting,
-    {$region 'xmldoc'}
-    /// Shavian (Shaw)
-    {$endregion}
-    usShavian,
-    {$region 'xmldoc'}
-    /// Sindhi
-    {$endregion}
-    usSindhi,
-    {$region 'xmldoc'}
-    /// Sinhala
-    {$endregion}
-    usSinhala,
-    {$region 'xmldoc'}
-    /// Sundanese
-    {$endregion}
-    usSundanese,
-    {$region 'xmldoc'}
-    /// Syloti Nagri
-    {$endregion}
-    usSylotiNagri,
-    {$region 'xmldoc'}
-    /// Syriac
-    {$endregion}
-    usSyriac,
-    {$region 'xmldoc'}
-    /// Syriac (Estrangelo variant)
-    {$endregion}
-    usSyriac_Estrangelo,
-    {$region 'xmldoc'}
-    /// Syriac (Western variant)
-    {$endregion}
-    usSyriac_Western,
-    {$region 'xmldoc'}
-    /// Syriac (Eastern variant)
-    {$endregion}
-    usSyriac_Eastern,
-    {$region 'xmldoc'}
-    /// Tagbanwa
-    {$endregion}
-    usTagbanwa,
-    {$region 'xmldoc'}
-    /// Tai
-    {$endregion}
-    usTai,
-    {$region 'xmldoc'}
-    /// New Tai Lue
-    {$endregion}
-    usNewTaiLue,
-    {$region 'xmldoc'}
-    /// Tamil
-    {$endregion}
-    usTamil,
-    {$region 'xmldoc'}
-    /// Tai Viet
-    {$endregion}
-    usTaiViet,
-    {$region 'xmldoc'}
-    /// Telugu
-    {$endregion}
-    usTelugu,
-    {$region 'xmldoc'}
-    /// Tengwar
-    {$endregion}
-    usTengwar,
-    {$region 'xmldoc'}
-    /// Tifinagh (Berber)
-    {$endregion}
-    usTifinagh,
-    {$region 'xmldoc'}
-    /// Tagalog (Baybayin, Alibata)
-    {$endregion}
-    usTagalog,
-    {$region 'xmldoc'}
-    /// Thaana
-    {$endregion}
-    usThaana,
-    {$region 'xmldoc'}
-    /// Thai
-    {$endregion}
-    usThai,
-    {$region 'xmldoc'}
-    /// Tibetan
-    {$endregion}
-    usTibetan,
-    {$region 'xmldoc'}
-    /// Ugaritic
-    {$endregion}
-    usUgaritic,
-    {$region 'xmldoc'}
-    /// Vai
-    {$endregion}
-    usVai,
-    {$region 'xmldoc'}
-    /// Visible Speech
-    {$endregion}
-    usVisibleSpeech,
-    {$region 'xmldoc'}
-    /// Warang Citi (Varang Kshiti)
-    {$endregion}
-    usWarangCiti,
-    {$region 'xmldoc'}
-    /// Old Persian
-    {$endregion}
-    usOldPersian,
-    {$region 'xmldoc'}
-    /// Cuneiform, Sumero-Akkadian
-    {$endregion}
-    usCuneiformSumeroAkkadian,
-    {$region 'xmldoc'}
-    /// Yi
-    {$endregion}
-    usYi,
-    {$region 'xmldoc'}
-    /// Code for inherited script
-    {$endregion}
-    usInherited,
-    {$region 'xmldoc'}
-    /// Mathematical notation
-    {$endregion}
-    usMathematical,
-    {$region 'xmldoc'}
-    /// Symbols
-    {$endregion}
-    usSymbols,
-    {$region 'xmldoc'}
-    /// Unwritten documents
-    {$endregion}
-    usUnwritten,
-    {$region 'xmldoc'}
-    /// Undetermined script
-    {$endregion}
-    usUndetermined,
-    {$region 'xmldoc'}
-    /// Uncoded script
-    {$endregion}
-    usUncoded
+  {$Region 'xmldoc'}
+  /// Arabic
+  {$Endregion}
+  usArabic,
+  {$Region 'xmldoc'}
+  /// Imperial Aramaic
+  {$Endregion}
+  usImperialAramaic,
+  {$Region 'xmldoc'}
+  /// Armenian
+  {$Endregion}
+  usArmenian,
+  {$Region 'xmldoc'}
+  /// Avestan
+  {$Endregion}
+  usAvestan,
+  {$Region 'xmldoc'}
+  /// Balinese
+  {$Endregion}
+  usBalinese,
+  {$Region 'xmldoc'}
+  /// Bamum
+  {$Endregion}
+  usBamum,
+  {$Region 'xmldoc'}
+  /// Bassa Vah
+  {$Endregion}
+  usBassaVah,
+  {$Region 'xmldoc'}
+  /// Batak
+  {$Endregion}
+  usBatak,
+  {$Region 'xmldoc'}
+  /// Bengali
+  {$Endregion}
+  usBengali,
+  {$Region 'xmldoc'}
+  /// Blissymbols
+  {$Endregion}
+  usBlissymbols,
+  {$Region 'xmldoc'}
+  /// Bopomofo
+  {$Endregion}
+  usBopomofo,
+  {$Region 'xmldoc'}
+  /// Brahmi
+  {$Endregion}
+  usBrahmi,
+  {$Region 'xmldoc'}
+  /// Braille
+  {$Endregion}
+  usBraille,
+  {$Region 'xmldoc'}
+  /// Buginese
+  {$Endregion}
+  usBuginese,
+  {$Region 'xmldoc'}
+  /// Buhid
+  {$Endregion}
+  usBuhid,
+  {$Region 'xmldoc'}
+  /// Chakma
+  {$Endregion}
+  usChakma,
+  {$Region 'xmldoc'}
+  /// Unified Canadian Aboriginal Syllabics
+  {$Endregion}
+  usUnifiedCanadianAboriginalSyllabics,
+  {$Region 'xmldoc'}
+  /// Carian
+  {$Endregion}
+  usCarian,
+  {$Region 'xmldoc'}
+  /// Cham
+  {$Endregion}
+  usCham,
+  {$Region 'xmldoc'}
+  /// Cherokee
+  {$Endregion}
+  usCherokee,
+  {$Region 'xmldoc'}
+  /// Cirth
+  {$Endregion}
+  usCirth,
+  {$Region 'xmldoc'}
+  /// Coptic
+  {$Endregion}
+  usCoptic,
+  {$Region 'xmldoc'}
+  /// Cypriot
+  {$Endregion}
+  usCypriot,
+  {$Region 'xmldoc'}
+  /// Cyrillic
+  {$Endregion}
+  usCyrillic,
+  {$Region 'xmldoc'}
+  /// Cyrillic (Old Church Slavonic variant)
+  {$Endregion}
+  usCyrillic_OldChurchSlavonic,
+  {$Region 'xmldoc'}
+  /// Devanagari (Nagari)
+  {$Endregion}
+  usDevanagari,
+  {$Region 'xmldoc'}
+  /// Deseret (Mormon)
+  {$Endregion}
+  usDeseret,
+  {$Region 'xmldoc'}
+  /// Duployan shorthand, Duployan stenography
+  {$Endregion}
+  usDuployan,
+  {$Region 'xmldoc'}
+  /// Egyptian demotic
+  {$Endregion}
+  usEgyptianDemotic,
+  {$Region 'xmldoc'}
+  /// Egyptian hieratic
+  {$Endregion}
+  usEgyptianHieratic,
+  {$Region 'xmldoc'}
+  /// Egyptian hieroglyphs
+  {$Endregion}
+  usEgyptianHieroglyphs,
+  {$Region 'xmldoc'}
+  /// Elbasan
+  {$Endregion}
+  usElbasan,
+  {$Region 'xmldoc'}
+  /// Ethiopic
+  {$Endregion}
+  usEthiopic,
+  {$Region 'xmldoc'}
+  /// Khutsuri
+  {$Endregion}
+  usKhutsuri,
+  {$Region 'xmldoc'}
+  /// Georgian (Mkhedruli)
+  {$Endregion}
+  usGeorgian,
+  {$Region 'xmldoc'}
+  /// Glagolitic
+  {$Endregion}
+  usGlagolitic,
+  {$Region 'xmldoc'}
+  /// Gothic
+  {$Endregion}
+  usGothic,
+  {$Region 'xmldoc'}
+  /// Grantha
+  {$Endregion}
+  usGrantha,
+  {$Region 'xmldoc'}
+  /// Greek
+  {$Endregion}
+  usGreek,
+  {$Region 'xmldoc'}
+  /// Gujarati
+  {$Endregion}
+  usGujarati,
+  {$Region 'xmldoc'}
+  /// Gurmukhi
+  {$Endregion}
+  usGurmukhi,
+  {$Region 'xmldoc'}
+  /// Hangul (Hangŭl, Hangeul)
+  {$Endregion}
+  usHangul,
+  {$Region 'xmldoc'}
+  /// Han (Hanzi, Kanji, Hanja)
+  {$Endregion}
+  usHan,
+  {$Region 'xmldoc'}
+  /// Hanunoo (Hanunóo)
+  {$Endregion}
+  usHanunoo,
+  {$Region 'xmldoc'}
+  /// Han (Simplified variant)
+  {$Endregion}
+  usHan_Simplified,
+  {$Region 'xmldoc'}
+  /// Han (Traditional variant)
+  {$Endregion}
+  usHan_Traditional,
+  {$Region 'xmldoc'}
+  /// Hebrew
+  {$Endregion}
+  usHebrew,
+  {$Region 'xmldoc'}
+  /// Hiragana
+  {$Endregion}
+  usHiragana,
+  {$Region 'xmldoc'}
+  /// Pahawh Hmong
+  {$Endregion}
+  usPahawhHmong,
+  {$Region 'xmldoc'}
+  /// (alias for Hiragana + Katakana)
+  {$Endregion}
+  usHiraganaKatakana,
+  {$Region 'xmldoc'}
+  /// Old Hungarian
+  {$Endregion}
+  usOldHungarian,
+  {$Region 'xmldoc'}
+  /// Indus (Harappan)
+  {$Endregion}
+  usIndus,
+  {$Region 'xmldoc'}
+  /// Old Italic (Etruscan, Oscan, etc.)
+  {$Endregion}
+  usOldItalic,
+  {$Region 'xmldoc'}
+  /// Javanese
+  {$Endregion}
+  usJavanese,
+  {$Region 'xmldoc'}
+  /// Japanese (alias for Han + Hiragana + Katakana)
+  {$Endregion}
+  usJapanese,
+  {$Region 'xmldoc'}
+  /// Kayah Li
+  {$Endregion}
+  usKayahLi,
+  {$Region 'xmldoc'}
+  /// Katakana
+  {$Endregion}
+  usKatakana,
+  {$Region 'xmldoc'}
+  /// Kharoshthi
+  {$Endregion}
+  usKharoshthi,
+  {$Region 'xmldoc'}
+  /// Khmer
+  {$Endregion}
+  usKhmer,
+  {$Region 'xmldoc'}
+  /// Kannada
+  {$Endregion}
+  usKannada,
+  {$Region 'xmldoc'}
+  /// Korean (alias for Hangul + Han)
+  {$Endregion}
+  usKorean,
+  {$Region 'xmldoc'}
+  /// Kpelle
+  {$Endregion}
+  usKpelle,
+  {$Region 'xmldoc'}
+  /// Kaithi
+  {$Endregion}
+  usKaithi,
+  {$Region 'xmldoc'}
+  /// Tai Tham (Lanna)
+  {$Endregion}
+  usTaiTham,
+  {$Region 'xmldoc'}
+  /// Lao
+  {$Endregion}
+  usLao,
+  {$Region 'xmldoc'}
+  /// Latin (Fraktur variant)
+  {$Endregion}
+  usLatin_Fraktur,
+  {$Region 'xmldoc'}
+  /// Latin (Gaelic variant)
+  {$Endregion}
+  usLatin_Gaelic,
+  {$Region 'xmldoc'}
+  /// Latin
+  {$Endregion}
+  usLatin,
+  {$Region 'xmldoc'}
+  /// Lepcha (Róng)
+  {$Endregion}
+  usLepcha,
+  {$Region 'xmldoc'}
+  /// Limbu
+  {$Endregion}
+  usLimbu,
+  {$Region 'xmldoc'}
+  /// Linear A
+  {$Endregion}
+  usLinearA,
+  {$Region 'xmldoc'}
+  /// Linear B
+  {$Endregion}
+  usLinearB,
+  {$Region 'xmldoc'}
+  /// Lisu (Fraser)
+  {$Endregion}
+  usLisu,
+  {$Region 'xmldoc'}
+  /// Loma
+  {$Endregion}
+  usLoma,
+  {$Region 'xmldoc'}
+  /// Lycian
+  {$Endregion}
+  usLycian,
+  {$Region 'xmldoc'}
+  /// Lydian
+  {$Endregion}
+  usLydian,
+  {$Region 'xmldoc'}
+  /// Mandaic
+  {$Endregion}
+  usMandaic,
+  {$Region 'xmldoc'}
+  /// Manichaean
+  {$Endregion}
+  usManichaean,
+  {$Region 'xmldoc'}
+  /// Mayan hieroglyphs
+  {$Endregion}
+  usMayanHieroglyphs,
+  {$Region 'xmldoc'}
+  /// Mende
+  {$Endregion}
+  usMende,
+  {$Region 'xmldoc'}
+  /// Meroitic Cursive
+  {$Endregion}
+  usMeroiticCursive,
+  {$Region 'xmldoc'}
+  /// Meroitic Hieroglyphs
+  {$Endregion}
+  usMeroiticHieroglyphs,
+  {$Region 'xmldoc'}
+  /// Malayalam
+  {$Endregion}
+  usMalayalam,
+  {$Region 'xmldoc'}
+  /// Mongolian
+  {$Endregion}
+  usMongolian,
+  {$Region 'xmldoc'}
+  /// Moon (Moon code, Moon script, Moon type)
+  {$Endregion}
+  usMoon,
+  {$Region 'xmldoc'}
+  /// Meitei Mayek (Meithei, Meetei)
+  {$Endregion}
+  usMeiteiMayek,
+  {$Region 'xmldoc'}
+  /// Myanmar (Burmese)
+  {$Endregion}
+  usMyanmar,
+  {$Region 'xmldoc'}
+  /// Old North Arabian (Ancient North Arabian)
+  {$Endregion}
+  usOldNorthArabian,
+  {$Region 'xmldoc'}
+  /// Nabataean
+  {$Endregion}
+  usNabataean,
+  {$Region 'xmldoc'}
+  /// Nakhi Geba ('Na-'Khi ²Ggŏ-¹baw, Naxi Geba)
+  {$Endregion}
+  usNakhiGeba,
+  {$Region 'xmldoc'}
+  /// N’Ko
+  {$Endregion}
+  usNKo,
+  {$Region 'xmldoc'}
+  /// Ogham
+  {$Endregion}
+  usOgham,
+  {$Region 'xmldoc'}
+  /// Ol Chiki (Ol Cemet’, Ol, Santali)
+  {$Endregion}
+  usOlChiki,
+  {$Region 'xmldoc'}
+  /// Old Turkic, Orkhon Runic
+  {$Endregion}
+  usOldTurkicOrkhonRunic,
+  {$Region 'xmldoc'}
+  /// Oriya
+  {$Endregion}
+  usOriya,
+  {$Region 'xmldoc'}
+  /// Osmanya
+  {$Endregion}
+  usOsmanya,
+  {$Region 'xmldoc'}
+  /// Palmyrene
+  {$Endregion}
+  usPalmyrene,
+  {$Region 'xmldoc'}
+  /// Old Permic
+  {$Endregion}
+  usOldPermic,
+  {$Region 'xmldoc'}
+  /// Phags-pa
+  {$Endregion}
+  usPhagsPa,
+  {$Region 'xmldoc'}
+  /// Inscriptional Pahlavi
+  {$Endregion}
+  usInscriptionalPahlavi,
+  {$Region 'xmldoc'}
+  /// Psalter Pahlavi
+  {$Endregion}
+  usPsalterPahlavi,
+  {$Region 'xmldoc'}
+  /// Book Pahlavi
+  {$Endregion}
+  usBookPahlavi,
+  {$Region 'xmldoc'}
+  /// Phoenician
+  {$Endregion}
+  usPhoenician,
+  {$Region 'xmldoc'}
+  /// Miao (Pollard)
+  {$Endregion}
+  usMiao,
+  {$Region 'xmldoc'}
+  /// Inscriptional Parthian
+  {$Endregion}
+  usInscriptionalParthian,
+  {$Region 'xmldoc'}
+  /// Reserved for private use (start)
+  {$Endregion}
+  usReservedStart,
+  {$Region 'xmldoc'}
+  /// Reserved for private use (end)
+  {$Endregion}
+  usReservedEnd,
+  {$Region 'xmldoc'}
+  /// Rejang (Redjang, Kaganga)
+  {$Endregion}
+  usRejang,
+  {$Region 'xmldoc'}
+  /// Rongorongo
+  {$Endregion}
+  usRongorongo,
+  {$Region 'xmldoc'}
+  /// Runic
+  {$Endregion}
+  usRunic,
+  {$Region 'xmldoc'}
+  /// Samaritan
+  {$Endregion}
+  usSamaritan,
+  {$Region 'xmldoc'}
+  /// Sarati
+  {$Endregion}
+  usSarati,
+  {$Region 'xmldoc'}
+  /// Old South Arabian
+  {$Endregion}
+  usOldSouthArabian,
+  {$Region 'xmldoc'}
+  /// Saurashtra
+  {$Endregion}
+  usSaurashtra,
+  {$Region 'xmldoc'}
+  /// SignWriting
+  {$Endregion}
+  usSignWriting,
+  {$Region 'xmldoc'}
+  /// Shavian (Shaw)
+  {$Endregion}
+  usShavian,
+  {$Region 'xmldoc'}
+  /// Sindhi
+  {$Endregion}
+  usSindhi,
+  {$Region 'xmldoc'}
+  /// Sinhala
+  {$Endregion}
+  usSinhala,
+  {$Region 'xmldoc'}
+  /// Sundanese
+  {$Endregion}
+  usSundanese,
+  {$Region 'xmldoc'}
+  /// Syloti Nagri
+  {$Endregion}
+  usSylotiNagri,
+  {$Region 'xmldoc'}
+  /// Syriac
+  {$Endregion}
+  usSyriac,
+  {$Region 'xmldoc'}
+  /// Syriac (Estrangelo variant)
+  {$Endregion}
+  usSyriac_Estrangelo,
+  {$Region 'xmldoc'}
+  /// Syriac (Western variant)
+  {$Endregion}
+  usSyriac_Western,
+  {$Region 'xmldoc'}
+  /// Syriac (Eastern variant)
+  {$Endregion}
+  usSyriac_Eastern,
+  {$Region 'xmldoc'}
+  /// Tagbanwa
+  {$Endregion}
+  usTagbanwa,
+  {$Region 'xmldoc'}
+  /// Tai
+  {$Endregion}
+  usTai,
+  {$Region 'xmldoc'}
+  /// New Tai Lue
+  {$Endregion}
+  usNewTaiLue,
+  {$Region 'xmldoc'}
+  /// Tamil
+  {$Endregion}
+  usTamil,
+  {$Region 'xmldoc'}
+  /// Tai Viet
+  {$Endregion}
+  usTaiViet,
+  {$Region 'xmldoc'}
+  /// Telugu
+  {$Endregion}
+  usTelugu,
+  {$Region 'xmldoc'}
+  /// Tengwar
+  {$Endregion}
+  usTengwar,
+  {$Region 'xmldoc'}
+  /// Tifinagh (Berber)
+  {$Endregion}
+  usTifinagh,
+  {$Region 'xmldoc'}
+  /// Tagalog (Baybayin, Alibata)
+  {$Endregion}
+  usTagalog,
+  {$Region 'xmldoc'}
+  /// Thaana
+  {$Endregion}
+  usThaana,
+  {$Region 'xmldoc'}
+  /// Thai
+  {$Endregion}
+  usThai,
+  {$Region 'xmldoc'}
+  /// Tibetan
+  {$Endregion}
+  usTibetan,
+  {$Region 'xmldoc'}
+  /// Ugaritic
+  {$Endregion}
+  usUgaritic,
+  {$Region 'xmldoc'}
+  /// Vai
+  {$Endregion}
+  usVai,
+  {$Region 'xmldoc'}
+  /// Visible Speech
+  {$Endregion}
+  usVisibleSpeech,
+  {$Region 'xmldoc'}
+  /// Warang Citi (Varang Kshiti)
+  {$Endregion}
+  usWarangCiti,
+  {$Region 'xmldoc'}
+  /// Old Persian
+  {$Endregion}
+  usOldPersian,
+  {$Region 'xmldoc'}
+  /// Cuneiform, Sumero-Akkadian
+  {$Endregion}
+  usCuneiformSumeroAkkadian,
+  {$Region 'xmldoc'}
+  /// Yi
+  {$Endregion}
+  usYi,
+  {$Region 'xmldoc'}
+  /// Code for inherited script
+  {$Endregion}
+  usInherited,
+  {$Region 'xmldoc'}
+  /// Mathematical notation
+  {$Endregion}
+  usMathematical,
+  {$Region 'xmldoc'}
+  /// Symbols
+  {$Endregion}
+  usSymbols,
+  {$Region 'xmldoc'}
+  /// Unwritten documents
+  {$Endregion}
+  usUnwritten,
+  {$Region 'xmldoc'}
+  /// Undetermined script
+  {$Endregion}
+  usUndetermined,
+  {$Region 'xmldoc'}
+  /// Uncoded script
+  {$Endregion}
+  usUncoded
   );
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This data type represents a set of <see cref="TUnicodeScript"/> values.
-  /// </summary>
-  {$endregion}
-  TUnicodeScripts = set of TUnicodeScript;
+{$Region 'xmldoc'}
+/// <summary>
+/// This data type represents a set of <see cref="TUnicodeScript"/> values.
+/// </summary>
+{$Endregion}
 
-{$region 'xmldoc'}
+  TUnicodeScripts = Set Of TUnicodeScript;
+
+{$Region 'xmldoc'}
 /// <summary>
 /// Converts a semicolon separated list of the four-character ISO 15924 script
 /// codes to a set of <see cref="TUnicodeScript"/> values.
@@ -841,278 +842,294 @@ type
 /// The set of <see cref="TUnicodeScript"/> values.
 /// </returns>
 /// <seealso cref="ScriptsToScriptCodes"/>
-{$endregion}
-function ScriptCodesToScripts(const Codes: String): TUnicodeScripts;
+{$Endregion}
 
-{$region 'xmldoc'}
-/// <summary>
-/// Converts a set of <see cref="TUnicodeScript"/> values to a semicolon separated
-/// list of the four characters ISO 15924 script codes.
-/// </summary>
-/// <param name="Scripts">
-/// The set of <see cref="TUnicodeScript"/> values.
-/// </param>
-/// <returns>
-/// The semicolon separated list of the four-character codes.
-/// </returns>
-/// <seealso cref="ScriptCodesToScripts"/>
-{$endregion}
-function ScriptsToScriptCodes(Scripts: TUnicodeScripts): String;
+ Function ScriptCodesToScripts(Const Codes : String) : TUnicodeScripts;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Determines whether the specified character is a Unicode separator character.
-/// </summary>
-/// <param name="C">
-/// The character to check.
-/// </param>
-/// <returns>
-/// <see langword="true"/> if the character is a separator; otherwise, <see langword="false"/>.
-/// </returns>
-{$endregion}
-function CharIsSeparator(C: Char): Boolean; inline;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Converts a set of <see cref="TUnicodeScript"/> values to a semicolon separated
+ /// list of the four characters ISO 15924 script codes.
+ /// </summary>
+ /// <param name="Scripts">
+ /// The set of <see cref="TUnicodeScript"/> values.
+ /// </param>
+ /// <returns>
+ /// The semicolon separated list of the four-character codes.
+ /// </returns>
+ /// <seealso cref="ScriptCodesToScripts"/>
+ {$Endregion}
+ Function ScriptsToScriptCodes(Scripts : TUnicodeScripts) : String;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Determines whether the specified character is a letter.
-/// </summary>
-/// <param name="C">
-/// The character to check.
-/// </param>
-/// <returns>
-/// <see langword="true"/> if the character is a letter; otherwise, <see langword="false"/>.
-/// </returns>
-{$endregion}
-function CharIsLetter(C: Char): Boolean; inline;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Determines whether the specified character is a Unicode separator character.
+ /// </summary>
+ /// <param name="C">
+ /// The character to check.
+ /// </param>
+ /// <returns>
+ /// <see langword="true"/> if the character is a separator; otherwise, <see langword="false"/>.
+ /// </returns>
+ {$Endregion}
+ Function CharIsSeparator(c : Char) : Boolean; Inline;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Determines whether the specified character is a digit.
-/// </summary>
-/// <param name="C">
-/// The character to check.
-/// </param>
-/// <returns>
-/// <see langword="true"/> if the character is a digit; otherwise, <see langword="false"/>.
-/// </returns>
-{$endregion}
-function CharIsDigit(C: Char): Boolean; inline;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Determines whether the specified character is a letter.
+ /// </summary>
+ /// <param name="C">
+ /// The character to check.
+ /// </param>
+ /// <returns>
+ /// <see langword="true"/> if the character is a letter; otherwise, <see langword="false"/>.
+ /// </returns>
+ {$Endregion}
+ Function CharIsLetter(c : Char) : Boolean; Inline;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Determines whether the specified character is a letter or digit.
-/// </summary>
-/// <param name="C">
-/// The character to check.
-/// </param>
-/// <returns>
-/// <see langword="true"/> if the character is a letter or digit; otherwise, <see langword="false"/>.
-/// </returns>
-{$endregion}
-function CharIsLetterOrDigit(C: Char): Boolean; inline;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Determines whether the specified character is a digit.
+ /// </summary>
+ /// <param name="C">
+ /// The character to check.
+ /// </param>
+ /// <returns>
+ /// <see langword="true"/> if the character is a digit; otherwise, <see langword="false"/>.
+ /// </returns>
+ {$Endregion}
+ Function CharIsDigit(c : Char) : Boolean; Inline;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Determines whether the specified character is a whitespace character.
-/// </summary>
-/// <param name="C">
-/// The character to check.
-/// </param>
-/// <returns>
-/// <see langword="true"/> if the character is a whitespace; otherwise, <see langword="false"/>.
-/// </returns>
-{$endregion}
-function CharIsWhiteSpace(C: Char): Boolean; inline;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Determines whether the specified character is a letter or digit.
+ /// </summary>
+ /// <param name="C">
+ /// The character to check.
+ /// </param>
+ /// <returns>
+ /// <see langword="true"/> if the character is a letter or digit; otherwise, <see langword="false"/>.
+ /// </returns>
+ {$Endregion}
+ Function CharIsLetterOrDigit(c : Char) : Boolean; Inline;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Converts the specified character to uppercase.
-/// </summary>
-/// <param name="C">
-/// The character to convert.
-/// </param>
-/// <returns>
-/// The uppercase equivalent of the character.
-/// </returns>
-{$endregion}
-function CharToUpper(C: Char): Char; inline;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Determines whether the specified character is a whitespace character.
+ /// </summary>
+ /// <param name="C">
+ /// The character to check.
+ /// </param>
+ /// <returns>
+ /// <see langword="true"/> if the character is a whitespace; otherwise, <see langword="false"/>.
+ /// </returns>
+ {$Endregion}
+ Function CharIsWhiteSpace(c : Char) : Boolean; Inline;
 
-{$region 'xmldoc'}
-/// <summary>
-/// Converts the specified character to lowercase.
-/// </summary>
-/// <param name="C">
-/// The character to convert.
-/// </param>
-/// <returns>
-/// The lowercase equivalent of the character.
-/// </returns>
-{$endregion}
-function CharToLower(C: Char): Char; inline;
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Converts the specified character to uppercase.
+ /// </summary>
+ /// <param name="C">
+ /// The character to convert.
+ /// </param>
+ /// <returns>
+ /// The uppercase equivalent of the character.
+ /// </returns>
+ {$Endregion}
+ Function CharToUpper(c : Char) : Char; Inline;
 
-implementation
+ {$Region 'xmldoc'}
+ /// <summary>
+ /// Converts the specified character to lowercase.
+ /// </summary>
+ /// <param name="C">
+ /// The character to convert.
+ /// </param>
+ /// <returns>
+ /// The lowercase equivalent of the character.
+ /// </returns>
+ {$Endregion}
+ Function CharToLower(c : Char) : Char; Inline;
 
-uses
+Implementation
+
+ Uses
   SysUtils, Types
   {$IFDEF COMPILER_XE4_UP}
   , System.Character
   {$ENDIF}
-;
+  ;
 
-const
+ Const
   // ISO 15924 script codes in alphabetical order
-  ScriptCodes: array [TUnicodeScript] of PChar = (
-    'Arab', 'Armi', 'Armn', 'Avst', 'Bali', 'Bamu', 'Bass', 'Batk', 'Beng',
-    'Blis', 'Bopo', 'Brah', 'Brai', 'Bugi', 'Buhd', 'Cakm', 'Cans', 'Cari',
-    'Cham', 'Cher', 'Cirt', 'Copt', 'Cprt', 'Cyrl', 'Cyrs', 'Deva', 'Dsrt',
-    'Dupl', 'Egyd', 'Egyh', 'Egyp', 'Elba', 'Ethi', 'Geok', 'Geor', 'Glag',
-    'Goth', 'Gran', 'Grek', 'Gujr', 'Guru', 'Hang', 'Hani', 'Hano', 'Hans',
-    'Hant', 'Hebr', 'Hira', 'Hmng', 'Hrkt', 'Hung', 'Inds', 'Ital', 'Java',
-    'Jpan', 'Kali', 'Kana', 'Khar', 'Khmr', 'Knda', 'Kore', 'Kpel', 'Kthi',
-    'Lana', 'Laoo', 'Latf', 'Latg', 'Latn', 'Lepc', 'Limb', 'Lina', 'Linb',
-    'Lisu', 'Loma', 'Lyci', 'Lydi', 'Mand', 'Mani', 'Maya', 'Mend', 'Merc',
-    'Mero', 'Mlym', 'Mong', 'Moon', 'Mtei', 'Mymr', 'Narb', 'Nbat', 'Nkgb',
-    'Nkoo', 'Ogam', 'Olck', 'Orkh', 'Orya', 'Osma', 'Palm', 'Perm', 'Phag',
-    'Phli', 'Phlp', 'Phlv', 'Phnx', 'Plrd', 'Prti', 'Qaaa', 'Qabx', 'Rjng',
-    'Roro', 'Runr', 'Samr', 'Sara', 'Sarb', 'Saur', 'Sgnw', 'Shaw', 'Sind',
-    'Sinh', 'Sund', 'Sylo', 'Syrc', 'Syre', 'Syrj', 'Syrn', 'Tagb', 'Tale',
-    'Talu', 'Taml', 'Tavt', 'Telu', 'Teng', 'Tfng', 'Tglg', 'Thaa', 'Thai',
-    'Tibt', 'Ugar', 'Vaii', 'Visp', 'Wara', 'Xpeo', 'Xsux', 'Yiii', 'Zinh',
-    'Zmth', 'Zsym', 'Zxxx', 'Zyyy', 'Zzzz');
+  ScriptCodes : Array [TUnicodeScript] Of PChar = (
+  'Arab', 'Armi', 'Armn', 'Avst', 'Bali', 'Bamu', 'Bass', 'Batk', 'Beng',
+  'Blis', 'Bopo', 'Brah', 'Brai', 'Bugi', 'Buhd', 'Cakm', 'Cans', 'Cari',
+  'Cham', 'Cher', 'Cirt', 'Copt', 'Cprt', 'Cyrl', 'Cyrs', 'Deva', 'Dsrt',
+  'Dupl', 'Egyd', 'Egyh', 'Egyp', 'Elba', 'Ethi', 'Geok', 'Geor', 'Glag',
+  'Goth', 'Gran', 'Grek', 'Gujr', 'Guru', 'Hang', 'Hani', 'Hano', 'Hans',
+  'Hant', 'Hebr', 'Hira', 'Hmng', 'Hrkt', 'Hung', 'Inds', 'Ital', 'Java',
+  'Jpan', 'Kali', 'Kana', 'Khar', 'Khmr', 'Knda', 'Kore', 'Kpel', 'Kthi',
+  'Lana', 'Laoo', 'Latf', 'Latg', 'Latn', 'Lepc', 'Limb', 'Lina', 'Linb',
+  'Lisu', 'Loma', 'Lyci', 'Lydi', 'Mand', 'Mani', 'Maya', 'Mend', 'Merc',
+  'Mero', 'Mlym', 'Mong', 'Moon', 'Mtei', 'Mymr', 'Narb', 'Nbat', 'Nkgb',
+  'Nkoo', 'Ogam', 'Olck', 'Orkh', 'Orya', 'Osma', 'Palm', 'Perm', 'Phag',
+  'Phli', 'Phlp', 'Phlv', 'Phnx', 'Plrd', 'Prti', 'Qaaa', 'Qabx', 'Rjng',
+  'Roro', 'Runr', 'Samr', 'Sara', 'Sarb', 'Saur', 'Sgnw', 'Shaw', 'Sind',
+  'Sinh', 'Sund', 'Sylo', 'Syrc', 'Syre', 'Syrj', 'Syrn', 'Tagb', 'Tale',
+  'Talu', 'Taml', 'Tavt', 'Telu', 'Teng', 'Tfng', 'Tglg', 'Thaa', 'Thai',
+  'Tibt', 'Ugar', 'Vaii', 'Visp', 'Wara', 'Xpeo', 'Xsux', 'Yiii', 'Zinh',
+  'Zmth', 'Zsym', 'Zxxx', 'Zyyy', 'Zzzz');
 
-function CharIsSeparator(C: Char): Boolean;
-{$IFDEF COMPILER_XE4_UP}
-begin
-  Result := C.IsSeparator;
-end;
+ Function CharIsSeparator(c : Char) : Boolean;
+ {$IFDEF COMPILER_XE4_UP}
+  Begin
+   Result := c.IsSeparator;
+  End;
 {$ELSE}
-var
-  CharType: Word;
-begin
-  GetStringTypeEx(LOCALE_USER_DEFAULT, CT_CTYPE1, @C, 1, CharType);
-  Result := ((CharType and C1_SPACE) <> 0) or (C = #$2028) or (C = #$2029);
-end;
+
+ Var
+  CharType : Word;
+
+Begin
+ GetStringTypeEx(LOCALE_USER_DEFAULT, CT_CTYPE1, @c, 1, CharType);
+ Result := ((CharType And C1_SPACE) <> 0) Or (c = #$2028) Or (c = #$2029);
+
+End;
 {$ENDIF}
 
-function CharIsLetter(C: Char): Boolean;
-{$IFDEF COMPILER_XE4_UP}
-begin
-  Result := C.IsLetter;
-end;
+ Function CharIsLetter(c : Char) : Boolean;
+ {$IFDEF COMPILER_XE4_UP}
+  Begin
+   Result := c.IsLetter;
+  End;
 {$ELSE}
-begin
-  Result := IsLetter(C);
-end;
+
+Begin
+ Result := IsLetter(c);
+
+End;
 {$ENDIF}
 
-function CharIsDigit(C: Char): Boolean;
-{$IFDEF COMPILER_XE4_UP}
-begin
-  Result := C.IsDigit;
-end;
+ Function CharIsDigit(c : Char) : Boolean;
+ {$IFDEF COMPILER_XE4_UP}
+  Begin
+   Result := c.IsDigit;
+  End;
 {$ELSE}
-begin
-  Result := IsDigit(C);
-end;
+
+Begin
+ Result := IsDigit(c);
+
+End;
 {$ENDIF}
 
-function CharIsLetterOrDigit(C: Char): Boolean;
-{$IFDEF COMPILER_XE4_UP}
-begin
-  Result := C.IsLetterOrDigit;
-end;
+ Function CharIsLetterOrDigit(c : Char) : Boolean;
+ {$IFDEF COMPILER_XE4_UP}
+  Begin
+   Result := c.IsLetterOrDigit;
+  End;
 {$ELSE}
-begin
-  Result := IsLetterOrDigit(C);
-end;
+
+Begin
+ Result := IsLetterOrDigit(c);
+
+End;
 {$ENDIF}
 
-function CharIsWhiteSpace(C: Char): Boolean;
-{$IFDEF COMPILER_XE4_UP}
-begin
-  Result := C.IsWhiteSpace;
-end;
+ Function CharIsWhiteSpace(c : Char) : Boolean;
+ {$IFDEF COMPILER_XE4_UP}
+  Begin
+   Result := c.IsWhiteSpace;
+  End;
 {$ELSE}
-begin
-  Result := IsCharWhiteSpace(C);
-end;
+
+Begin
+ Result := IsCharWhiteSpace(c);
+
+End;
 {$ENDIF}
 
-function CharToUpper(C: Char): Char;
-{$IFDEF COMPILER_XE4_UP}
-begin
-  Result := C.ToUpper;
-end;
+ Function CharToUpper(c : Char) : Char;
+ {$IFDEF COMPILER_XE4_UP}
+  Begin
+   Result := c.ToUpper;
+  End;
 {$ELSE}
-begin
-  Result := UpCase(C);
-end;
+
+Begin
+ Result := UpCase(c);
+
+End;
 {$ENDIF}
 
-function CharToLower(C: Char): Char;
-{$IFDEF COMPILER_XE4_UP}
-begin
-  Result := C.ToLower;
-end;
+ Function CharToLower(c : Char) : Char;
+ {$IFDEF COMPILER_XE4_UP}
+  Begin
+   Result := c.ToLower;
+  End;
 {$ELSE}
-begin
-  CharLowerBuff(@C, 1);
-  Result := C;
-end;
+
+Begin
+ CharLowerBuff(@c, 1);
+ Result := c;
+
+End;
 {$ENDIF}
 
-function FindScript(pCode: PChar; out Script: TUnicodeScript): Boolean;
-var
-  L, H: TUnicodeScript;
-  C: Integer;
-begin
-  L := Low(TUnicodeScript);
-  H := High(TUnicodeScript);
-  repeat
-    Script := TUnicodeScript((Ord(L) + Ord(H)) shr 1);
-    C := StrLIComp(ScriptCodes[Script], pCode, 4);
-    if C < 0 then
-      L := Succ(Script)
-    else if C > 0 then
-      H := Pred(Script)
-    else
-    begin
+ Function FindScript(pCode : PChar; Out Script : TUnicodeScript) : Boolean;
+  Var
+   l : TUnicodeScript;
+   h : TUnicodeScript;
+   c : Integer;
+  Begin
+   l := Low(TUnicodeScript);
+   h := High(TUnicodeScript);
+   Repeat
+    Script := TUnicodeScript((Ord(l) + Ord(h)) Shr 1);
+    c      := StrLIComp(ScriptCodes[Script], pCode, 4);
+    If c < 0 Then
+     l := Succ(Script)
+    Else If c > 0 Then
+     h := Pred(Script)
+    Else
+     Begin
       Result := True;
       Exit;
-    end;
-  until L > H;
-  Result := False;
-end;
+     End;
+   Until l > h;
+   Result := False;
+  End;
 
-function ScriptCodesToScripts(const Codes: String): TUnicodeScripts;
-var
-  Script: TUnicodeScript;
-  S, E: PChar;
-begin
-  Result := [];
-  S := PChar(Codes);
-  E := StrScan(S, ';');
-  while E <> nil do
-  begin
-    if (E - S = 4) and FindScript(S, Script) then
+ Function ScriptCodesToScripts(Const Codes : String) : TUnicodeScripts;
+  Var
+   Script : TUnicodeScript;
+   s      : PChar;
+   e      : PChar;
+  Begin
+   Result := [];
+   s      := PChar(Codes);
+   e      := StrScan(s, ';');
+   While e <> Nil Do
+    Begin
+     If (e - s = 4) And FindScript(s, Script) Then
       Include(Result, Script);
-    S := E + 1;
-    if S^ = #0 then
+     s := e + 1;
+     If s^ = #0 Then
       Exit;
-    E := StrScan(S, ';');
-  end;
-end;
+     e := StrScan(s, ';');
+    End;
+  End;
 
-function ScriptsToScriptCodes(Scripts: TUnicodeScripts): String;
-var
-  Script: TUnicodeScript;
-begin
-  Result := '';
-  for Script := Low(TUnicodeScript) to High(TUnicodeScript) do
-    if Script in Scripts then
-      Result := Result + ScriptCodes[Script] + ';';
-end;
+ Function ScriptsToScriptCodes(Scripts : TUnicodeScripts) : String;
+  Var
+   Script : TUnicodeScript;
+  Begin
+   Result     := '';
+   For Script := Low(TUnicodeScript) To High(TUnicodeScript) Do
+    If Script In Scripts Then
+     Result := Result + ScriptCodes[Script] + ';';
+  End;
 
-end.
-
-
+End.

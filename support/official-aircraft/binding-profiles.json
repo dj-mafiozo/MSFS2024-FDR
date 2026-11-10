@@ -1,0 +1,1715 @@
+[
+  {
+    "provider": "AsoboBell407",
+    "label": "Microsoft Bell 407",
+    "sources": [
+      {
+        "file": "de-de.locpak",
+        "sha256": "b588fa62fc388dfbcc3faaa9abc9495b992d4e2781528b9cb17c67293260dfd8",
+        "keys": 376
+      },
+      {
+        "file": "es-es.locpak",
+        "sha256": "6ec2880bb713ba48226b0dea96cc5ac2ff9a0bdc838dff205eff4a7780b10591",
+        "keys": 376
+      },
+      {
+        "file": "es-mx.locpak",
+        "sha256": "8d5a73cb41fe8d9db28968f68f30a13ecfc27e2237cf030ebfe16faa917aafef",
+        "keys": 376
+      },
+      {
+        "file": "fi-fi.locpak",
+        "sha256": "b6241bdc73a1f83723436b209452b1f9699403498fce5ed36915b9bb5508e6f9",
+        "keys": 376
+      },
+      {
+        "file": "fr-ca.locpak",
+        "sha256": "3ed52195a09d2ea7994c7afbeb1827bc0cccdb4428f14018c261ec0054391460",
+        "keys": 376
+      },
+      {
+        "file": "fr-fr.locpak",
+        "sha256": "5ac5a4e5845eb6723b4d681e499a70a2a0617daa9f9aadcaddf2133924415e44",
+        "keys": 376
+      },
+      {
+        "file": "it-it.locpak",
+        "sha256": "493b25d2895fffe5fa2c9413e917bb8809954f120f1ce505557df9017daad566",
+        "keys": 376
+      },
+      {
+        "file": "ja-jp.locpak",
+        "sha256": "f38b17114f45c97dfa2fdc72388dc95c77cd733944d13ce330e5414223168239",
+        "keys": 376
+      },
+      {
+        "file": "ko-kr.locpak",
+        "sha256": "a07fb393bd7e5d2211d0c0f445f2b34a01ef5dda1236d327dc8628dd82236643",
+        "keys": 376
+      },
+      {
+        "file": "nb-no.locpak",
+        "sha256": "3fcdbabb6f8836678b03d5e3c7028a3352ceba660f5fe6d36b8c8517bc10a359",
+        "keys": 376
+      },
+      {
+        "file": "nl-nl.locpak",
+        "sha256": "da70690376be5971cfebc04b90bdc8a5c70b9ce0af3610b26ee4293c4961ef49",
+        "keys": 376
+      },
+      {
+        "file": "pt-br.locpak",
+        "sha256": "8424f3804b9c0392424f82fea021b19330ebde9ab429aaafb73f0e172e9b3f1b",
+        "keys": 376
+      },
+      {
+        "file": "pt-pt.locpak",
+        "sha256": "e51b9672b00e3b5c9482d3958b3c2af04997a418360a815d9b750e2f3738dfd1",
+        "keys": 376
+      },
+      {
+        "file": "ru-ru.locpak",
+        "sha256": "81ad0a4427e82cecc56632c1e16142d632bdc03c2b16f7a5a16eb602bf5bd49a",
+        "keys": 376
+      },
+      {
+        "file": "sv-se.locpak",
+        "sha256": "6606043194578176273888d7ca72c6ab8ed525f43d5cfb955f83baac3cc2e013",
+        "keys": 376
+      },
+      {
+        "file": "tr-tr.locpak",
+        "sha256": "187cddcd20322d45e6e10851fd98975ead5fa56597dfc9f5df6a9ed33e42bd48",
+        "keys": 376
+      }
+    ],
+    "fields": [
+      {
+        "name": "A:ATTITUDE BARS POSITION",
+        "source_units": "position",
+        "locale_count": 14
+      },
+      {
+        "name": "A:AVIONICS MASTER SWITCH:1",
+        "source_units": "bool",
+        "locale_count": 15
+      },
+      {
+        "name": "A:COM TRANSMIT:1",
+        "source_units": "bool",
+        "locale_count": 13
+      },
+      {
+        "name": "A:COM TRANSMIT:2",
+        "source_units": "bool",
+        "locale_count": 15
+      },
+      {
+        "name": "A:ELECTRICAL MASTER BATTERY:1",
+        "source_units": "bool",
+        "locale_count": 15
+      },
+      {
+        "name": "A:ELT ACTIVATED",
+        "source_units": "bool",
+        "locale_count": 14
+      },
+      {
+        "name": "A:ENG ANTI ICE:1",
+        "source_units": "bool",
+        "locale_count": 14
+      },
+      {
+        "name": "A:FUELSYSTEM PUMP ACTIVE:1",
+        "source_units": "bool",
+        "locale_count": 15
+      },
+      {
+        "name": "A:FUELSYSTEM PUMP ACTIVE:2",
+        "source_units": "bool",
+        "locale_count": 15
+      },
+      {
+        "name": "A:FUELSYSTEM VALVE SWITCH:1",
+        "source_units": "bool",
+        "locale_count": 15
+      },
+      {
+        "name": "A:HYDRAULIC SWITCH:1",
+        "source_units": "bool",
+        "locale_count": 14
+      },
+      {
+        "name": "A:INTERCOM SYSTEM ACTIVE",
+        "source_units": "bool",
+        "locale_count": 15
+      },
+      {
+        "name": "A:LIGHT BEACON",
+        "source_units": "bool",
+        "locale_count": 14
+      },
+      {
+        "name": "A:LIGHT LANDING",
+        "source_units": "bool",
+        "locale_count": 15
+      },
+      {
+        "name": "A:LIGHT LOGO",
+        "source_units": "bool",
+        "locale_count": 15
+      },
+      {
+        "name": "A:LIGHT NAV",
+        "source_units": "bool",
+        "locale_count": 15
+      },
+      {
+        "name": "A:LIGHT PANEL",
+        "source_units": "bool",
+        "locale_count": 15
+      },
+      {
+        "name": "A:LIGHT POTENTIOMETER:4",
+        "source_units": "percent",
+        "locale_count": 11
+      },
+      {
+        "name": "A:LIGHT POTENTIOMETER:5",
+        "source_units": "percent",
+        "locale_count": 15
+      },
+      {
+        "name": "A:LIGHT RECOGNITION ON",
+        "source_units": "bool",
+        "locale_count": 15
+      },
+      {
+        "name": "A:LIGHT STROBE",
+        "source_units": "bool",
+        "locale_count": 15
+      },
+      {
+        "name": "A:MARKER BEACON TEST MUTE",
+        "source_units": "bool",
+        "locale_count": 13
+      },
+      {
+        "name": "A:NAV OBS:1",
+        "source_units": "degrees",
+        "locale_count": 14
+      },
+      {
+        "name": "A:NAV OBS:2",
+        "source_units": "degrees",
+        "locale_count": 10
+      },
+      {
+        "name": "A:PITOT HEAT",
+        "source_units": "bool",
+        "locale_count": 14
+      },
+      {
+        "name": "A:ROTOR BRAKE ACTIVE",
+        "source_units": "bool",
+        "locale_count": 13
+      },
+      {
+        "name": "A:ROTOR COLLECTIVE BLADE PITCH PCT:1",
+        "source_units": "percent",
+        "locale_count": 12
+      },
+      {
+        "name": "A:ROTOR GOV SWITCH POS",
+        "source_units": "bool",
+        "locale_count": 15
+      },
+      {
+        "name": "ChronoMode",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "ChronoOatVolt",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "CollectiveGrip",
+        "source_units": "percent",
+        "locale_count": 16
+      },
+      {
+        "name": "TotalRunning chrono",
+        "source_units": "seconds",
+        "locale_count": 15
+      },
+      {
+        "name": "adfObs",
+        "source_units": "degrees",
+        "locale_count": 14
+      },
+      {
+        "name": "buttonAnnTest",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "buttonFireTest",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "buttonFloatTest",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "buttonHornTest",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "buttonInstrTest",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "buttonLcdTest",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "collGripState",
+        "source_units": "enum",
+        "locale_count": 16
+      },
+      {
+        "name": "fuelQtyMode",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "hornMuted",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "knobAcTemp",
+        "source_units": "celsius",
+        "locale_count": 16
+      },
+      {
+        "name": "knobAttCage",
+        "source_units": "bool",
+        "locale_count": 15
+      },
+      {
+        "name": "knobDefrost",
+        "source_units": "number",
+        "locale_count": 16
+      },
+      {
+        "name": "knobFriction",
+        "source_units": "number",
+        "locale_count": 16
+      },
+      {
+        "name": "needleHsiMarker",
+        "source_units": "number",
+        "locale_count": 15
+      },
+      {
+        "name": "panelLightTilt",
+        "source_units": "number",
+        "locale_count": 15
+      },
+      {
+        "name": "switchAircondAft",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "switchAircondFwd",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "switchAircondMode",
+        "source_units": "enum",
+        "locale_count": 16
+      },
+      {
+        "name": "switchAttGyro",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "switchAutotrim",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "switchAuxSys",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "switchBroadcastMaster",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "switchCargoRelease",
+        "source_units": "bool",
+        "locale_count": 15
+      },
+      {
+        "name": "switchCautLtsMode",
+        "source_units": "bool",
+        "locale_count": 15
+      },
+      {
+        "name": "switchDefog",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "switchForceTrim",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "switchFuelValveCover",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "switchGenerator",
+        "source_units": "enum",
+        "locale_count": 16
+      },
+      {
+        "name": "switchHeater",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "switchLandingLight",
+        "source_units": "enum",
+        "locale_count": 16
+      },
+      {
+        "name": "switchLtsCabinPass",
+        "source_units": "enum",
+        "locale_count": 16
+      },
+      {
+        "name": "switchParicleSep",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "switchPrimaryCompassMode",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "switchRadAlt",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "switchStarter",
+        "source_units": "enum",
+        "locale_count": 16
+      },
+      {
+        "name": "switchturnCoord",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "testOvrspd",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "ventKnobCopilot",
+        "source_units": "number",
+        "locale_count": 15
+      },
+      {
+        "name": "ventKnobPilot",
+        "source_units": "number",
+        "locale_count": 15
+      }
+    ],
+    "aircraft_titles": []
+  },
+  {
+    "provider": "AsoboEC135",
+    "label": "Microsoft EC135",
+    "sources": [
+      {
+        "file": "de-de.locpak",
+        "sha256": "39a03d7bedaabfa94fc229ae0702894afb1fd150c8fc6e46a61b258d79e9472b",
+        "keys": 527
+      },
+      {
+        "file": "es-es.locpak",
+        "sha256": "6d2bcebc98793add935264e79c72b3b50ea92c0fbd97528f4fdbd4c93431d6ff",
+        "keys": 527
+      },
+      {
+        "file": "es-mx.locpak",
+        "sha256": "0e68bb58e712bdc62706aaac52cdf2f88d01217975c6734ea72c32e7f0a7749b",
+        "keys": 527
+      },
+      {
+        "file": "fi-fi.locpak",
+        "sha256": "69fcadb5536a7c4ffa76f840e15da244215449461e02f95438fe642217c04c33",
+        "keys": 527
+      },
+      {
+        "file": "fr-fr.locpak",
+        "sha256": "e5de03b4f91d231a934539638f34b472e2c5bbe5deaca64daa3dd288e7884ef4",
+        "keys": 527
+      },
+      {
+        "file": "it-it.locpak",
+        "sha256": "df0eeee5c647df2cac7ca5ffeb8f947a7ce7ebbb7529a310e7ffbae91aa7f96c",
+        "keys": 527
+      },
+      {
+        "file": "ja-jp.locpak",
+        "sha256": "4c4e7c4be3712604829d66e9acdb021e0d5bcd898fce6544ed587e9bc75b04b5",
+        "keys": 527
+      },
+      {
+        "file": "ko-kr.locpak",
+        "sha256": "c80c48411520c528f98193d59398f436aeb5b742aae6bfae9f57acb5a74de916",
+        "keys": 527
+      },
+      {
+        "file": "nb-no.locpak",
+        "sha256": "de2aefea5d15350da0306f545a05553d44f367dd6a3834dcf4a2c30f8d3baf32",
+        "keys": 527
+      },
+      {
+        "file": "nl-nl.locpak",
+        "sha256": "1f5be7999e6ac5e28f63bc7687125f0b29f4d6e9d676c648b6089673232223aa",
+        "keys": 527
+      },
+      {
+        "file": "pl-pl.locpak",
+        "sha256": "abce13cce65202dde75632c21e13b72638f5f4959819ae8c4063ca3c309b6b6b",
+        "keys": 527
+      },
+      {
+        "file": "pt-br.locpak",
+        "sha256": "2a574399c215305884117a8942f3ed7e4d83eeceb3a58b6c22168b33a7666fed",
+        "keys": 527
+      },
+      {
+        "file": "pt-pt.locpak",
+        "sha256": "31dcc06a43781bdf1e9a5b61e7ddc8936ddba32aea53a1bec7d223212215c1db",
+        "keys": 527
+      },
+      {
+        "file": "ru-ru.locpak",
+        "sha256": "d24a418e27582648952ce7d501cb8a38ea140233cfe7f4eccf0ca710c1d2378d",
+        "keys": 527
+      },
+      {
+        "file": "sv-se.locpak",
+        "sha256": "e2cc6d0ef27d92f5a93affcc798d58b18fa7227f61ef496d6f005ebeaf3553cf",
+        "keys": 527
+      },
+      {
+        "file": "tr-tr.locpak",
+        "sha256": "424bb028a4771c3f0686144af02bc0e3a57303e83a4be22bb2206a33dbb5a050",
+        "keys": 527
+      },
+      {
+        "file": "zh-cn.locpak",
+        "sha256": "af771704feb86bf06ebfe3be18ec1e32f12efc4992078dce131dfa33ec74bcd6",
+        "keys": 527
+      }
+    ],
+    "fields": [
+      {
+        "name": "A:ADF VOLUME:1",
+        "source_units": "percent",
+        "locale_count": 17
+      },
+      {
+        "name": "A:ATTITUDE BARS POSITION:1",
+        "source_units": "position",
+        "locale_count": 17
+      },
+      {
+        "name": "A:ATTITUDE BARS POSITION:2",
+        "source_units": "position",
+        "locale_count": 16
+      },
+      {
+        "name": "A:AVIONICS MASTER SWITCH:1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:AVIONICS MASTER SWITCH:2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:CIRCUIT ON:57",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:COLLECTIVE POSITION",
+        "source_units": "percent",
+        "locale_count": 17
+      },
+      {
+        "name": "A:COM VOLUME:1",
+        "source_units": "percent",
+        "locale_count": 17
+      },
+      {
+        "name": "A:COM VOLUME:2",
+        "source_units": "percent",
+        "locale_count": 16
+      },
+      {
+        "name": "A:ELECTRICAL MASTER BATTERY:1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:ELT ACTIVATED",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:EXTERNAL POWER ON:1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:FUELSYSTEM PUMP ACTIVE:1",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "A:FUELSYSTEM PUMP ACTIVE:2",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "A:FUELSYSTEM PUMP ACTIVE:3",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "A:FUELSYSTEM PUMP ACTIVE:4",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "A:GENERAL ENG MASTER ALTERNATOR:1",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "A:GENERAL ENG MASTER ALTERNATOR:2",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "A:LIGHT BEACON",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:LIGHT CABIN ON:1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:LIGHT CABIN ON:2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:LIGHT CABIN ON:3",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:LIGHT CABIN ON:4",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:LIGHT CABIN ON:5",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:LIGHT CABIN ON:6",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:LIGHT NAV",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:LIGHT POTENTIOMETER:2",
+        "source_units": "percent",
+        "locale_count": 17
+      },
+      {
+        "name": "A:LIGHT POTENTIOMETER:4",
+        "source_units": "percent",
+        "locale_count": 17
+      },
+      {
+        "name": "A:LIGHT POTENTIOMETER:5",
+        "source_units": "percent",
+        "locale_count": 17
+      },
+      {
+        "name": "A:LIGHT POTENTIOMETER:6",
+        "source_units": "percent",
+        "locale_count": 17
+      },
+      {
+        "name": "A:LIGHT STROBE",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:LIGHT TAXI",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:MARKER SOUND",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "A:NAV OBS:1",
+        "source_units": "degrees",
+        "locale_count": 17
+      },
+      {
+        "name": "A:NAV OBS:2",
+        "source_units": "degrees",
+        "locale_count": 17
+      },
+      {
+        "name": "A:NAV VOLUME:1",
+        "source_units": "percent",
+        "locale_count": 17
+      },
+      {
+        "name": "A:NAV VOLUME:2",
+        "source_units": "percent",
+        "locale_count": 17
+      },
+      {
+        "name": "A:PITOT HEAT SWITCH:1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:PITOT HEAT SWITCH:2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:PITOT HEAT:1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:PITOT HEAT:2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:ROTOR BRAKE HANDLE POS",
+        "source_units": "percent",
+        "locale_count": 17
+      },
+      {
+        "name": "A:ROTOR GOV TARGET PCT:1",
+        "source_units": "percent",
+        "locale_count": 17
+      },
+      {
+        "name": "A:ROTOR GOV TARGET PCT:2",
+        "source_units": "percent",
+        "locale_count": 17
+      },
+      {
+        "name": "A:STRUCTURAL DEICE SWITCH",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "A:WINDSHIELD DEICE SWITCH",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "ButtonCutoffCover1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "ButtonCutoffCover2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "CDSresetCover",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "ShotOffUnlockENG1Pilot",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "ShotOffUnlockENG2Copilot",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "ShotOffUnlockENG2Pilot",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "adfObs",
+        "source_units": "degrees",
+        "locale_count": 17
+      },
+      {
+        "name": "bkrValveSpare",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkAcollLt",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkAncAlt",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkAnr",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkAuxTemp",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkBambi",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkCDS1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkCDS2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkCkptLt",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkCont",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkCvr",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkDg1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkDg2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkDme",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkEmerFloat",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkEng1N1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkEng1N2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkEng2N1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkEng2N2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkEng2OilPress",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkEng2OilTemp",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkEpuCont",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkEpuNorm",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkFadec1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkFadec2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkFireDet1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkFireDet2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkFireExt1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkFireExt2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkFuelLevel1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkFuelLevel2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkFuelValve1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkFuelValve2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkGps",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkHookCont",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkHorn",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkHtgCont",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkHydPump1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkHydPump2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkIcs1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkIcs2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkIcsCont",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkIcsPat",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkIgn1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkIgn2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkInactive",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkInstLt2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkInstrLt1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkInverter1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkInverter2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkLandLightCont",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkLandLightPwr",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkMast",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkNav1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkNav2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkOilPress1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkOilTemp1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkPaxBlw",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkPaxLight",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkPitchSas",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkPitotHtrCpilot",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkPitotPilot",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkPosLight",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkPrimePump1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkPrimePump2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkPsSas",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkPwrLoad",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkRadioAlt",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkRotor",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkShedBus2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkShedbus1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkSmokeBelt",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkSrchLight",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkStart1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkStart2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkStbyHor",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkStbyHor2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkStrobeLight",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkTaxiLt",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkTimer",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkTot1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkTot2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkTrimAct",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkTrimRel",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkTrq1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkVentSys",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkVentSys2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkVhf1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkVhf2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkWarn1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkWarn2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkWinchCont",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkWinchPwr",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkWiper",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkXferPumpFwd",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkXmsnTempRess",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkYaw",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkpumpXferAft",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkrAc1Blank1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkrAc1SasRoll",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkrAcSupply",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkrBatCabAcc",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkrBatHor2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkrBattFm2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkrBattFm3",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkrELT",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "brkwinchPed",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "buttonCDSreset",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "buttonRadioHeightTest",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "buttonWiperPilot",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "cdsDisplayScroll",
+        "source_units": "number",
+        "locale_count": 17
+      },
+      {
+        "name": "cdsPage",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "emerShutOffTriggerENG1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "emerShutOffTriggerENG2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "inverter1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "inverter2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "knobAir",
+        "source_units": "number",
+        "locale_count": 17
+      },
+      {
+        "name": "knobBladeHtr",
+        "source_units": "number",
+        "locale_count": 17
+      },
+      {
+        "name": "knobCdsMode",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "knobDefrost",
+        "source_units": "number",
+        "locale_count": 17
+      },
+      {
+        "name": "knobDmeMode",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "knobDmeVol",
+        "source_units": "percent",
+        "locale_count": 17
+      },
+      {
+        "name": "knobFriction",
+        "source_units": "number",
+        "locale_count": 17
+      },
+      {
+        "name": "knobIcsVolume",
+        "source_units": "number",
+        "locale_count": 17
+      },
+      {
+        "name": "knobIntComIso",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "knobIntComVol",
+        "source_units": "number",
+        "locale_count": 17
+      },
+      {
+        "name": "knobRxVol",
+        "source_units": "number",
+        "locale_count": 17
+      },
+      {
+        "name": "knobXmitMode",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "needleHsiMarker",
+        "source_units": "number",
+        "locale_count": 17
+      },
+      {
+        "name": "panelLightTilt",
+        "source_units": "number",
+        "locale_count": 17
+      },
+      {
+        "name": "radioHeightMkr",
+        "source_units": "feet",
+        "locale_count": 17
+      },
+      {
+        "name": "switchACbusSelect",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "switchAdfXmit",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchBladeHtrMode",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchBurnChip",
+        "source_units": "bool",
+        "locale_count": 16
+      },
+      {
+        "name": "switchBusTie1",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "switchBusTie2",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "switchBusTieCover1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchBusTieCover2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchCDStest",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchCOM2Xmit",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchCollFloatCover",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchCollInactiveCover",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchCom1Xmit",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchDmeXmit",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchENG1Mode",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchENG1ModeCover",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchENG2Mode",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchENG2ModeCover",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchEngControlCover1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchEngControlCover2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchEngineControlENG1",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "switchEngineControlENG2",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "switchFadec1",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchFadec2",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchFireExtTest1",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "switchFireExtTest2",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "switchHydraulic",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "switchInstrLightMode",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchIntComPower",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchIsoEmerNorm",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchLandingLight",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "switchNAV1Xmit",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchNAV2Xmit",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchPaxBlower",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchPrimaryCompassMode",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchSeatSmoke",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "switchShedBus",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchShedBusCover",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchStandByHor",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "switchStarMode1",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "switchStarMode2",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "switchTape",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchTrainMode",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchTrainModeCover",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchVoxLive",
+        "source_units": "bool",
+        "locale_count": 17
+      },
+      {
+        "name": "switchWiper",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "ventKnobPilot",
+        "source_units": "number",
+        "locale_count": 17
+      },
+      {
+        "name": "voltampScroll",
+        "source_units": "enum",
+        "locale_count": 17
+      },
+      {
+        "name": "windowVentCopilot",
+        "source_units": "number",
+        "locale_count": 17
+      },
+      {
+        "name": "windowVentPilot",
+        "source_units": "number",
+        "locale_count": 17
+      }
+    ],
+    "aircraft_titles": []
+  }
+]

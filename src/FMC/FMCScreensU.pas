@@ -8,19 +8,18 @@ Interface
 
  Type
   TFMCScreen = Class
-   Public
-    Provider         : String;
-    Device           : String;
-    PageKey          : String;
-    StyleJSON        : String;
-    AnnunciatorsJSON : String;
-    Title            : String;
-    Available        : Boolean;
-    PowerState       : Integer;
-    Lines            : TStringList;
-    Constructor Create;
-    Destructor Destroy; Override;
-    Procedure IdentifyPage;
+   Provider         : String;
+   Device           : String;
+   PageKey          : String;
+   StyleJSON        : String;
+   AnnunciatorsJSON : String;
+   Title            : String;
+   Available        : Boolean;
+   PowerState       : Integer;
+   Lines            : TStringList;
+   Constructor Create;
+   Destructor Destroy; Override;
+   Procedure IdentifyPage;
   End;
 
  Function ExtractFMCScreens(Root : TJSONObject) : TObjectList<TFMCScreen>;
@@ -32,7 +31,7 @@ Interface
 Implementation
 
  Uses
-  System.StrUtils, System.RegularExpressions, System.DateUtils, Data.DB, FireDAC.Stan.Param, AirbusMCDUValuesU, BoeingFMCValuesU;
+  FMCStyleU, Vcl.Graphics, System.StrUtils, System.RegularExpressions, System.DateUtils, Data.DB, FireDAC.Stan.Param, AirbusMCDUValuesU, BoeingFMCValuesU;
 
  Constructor TFMCScreen.Create;
   Begin
@@ -52,29 +51,29 @@ Implementation
 
  Procedure TFMCScreen.IdentifyPage;
   Var
-   T    : String;
+   t    : String;
    Page : TMatch;
   Begin
    Title := '';
    If Lines.Count > 0 Then
     Title := Trim(Lines[0]);
-   T      := UpperCase(Title).Replace(' ', '');
+   t      := UpperCase(Title).Replace(' ', '');
    If Not Available Then
     PageKey := 'UNAVAILABLE'
    Else If ((Provider = 'FenixA32X') Or (Provider = 'FBWA32NX')) And (AirbusMCDUPage(Lines) <> '') Then
     PageKey := AirbusMCDUPage(Lines)
-   Else If (Pos('PERFINIT', T) > 0) Or (Pos('PREFINIT', T) > 0) Then
+   Else If (Pos('PERFINIT', t) > 0) Or (Pos('PREFINIT', t) > 0) Then
     PageKey := 'PERF_INIT'
-   Else If Pos('N1LIMIT', T) > 0 Then
+   Else If Pos('N1LIMIT', t) > 0 Then
     PageKey := 'N1_LIMIT'
-   Else If Pos('TAKEOFFREF', T) > 0 Then
+   Else If Pos('TAKEOFFREF', t) > 0 Then
     PageKey := 'TAKEOFF_REF'
-   Else If (Pos('APPROACHREF', T) > 0) Or (Pos('APPROCHREF', T) > 0) Then
+   Else If (Pos('APPROACHREF', t) > 0) Or (Pos('APPROCHREF', t) > 0) Then
     PageKey := 'APPROACH_REF'
-   Else If T = '' Then
+   Else If t = '' Then
     PageKey := 'BLANK'
    Else
-    PageKey := 'OTHER:' + Copy(T, 1, 64);
+    PageKey := 'OTHER:' + Copy(t, 1, 64);
    Page     := TRegEx.Match(Title, '\b(\d{1,2})/(\d{1,2})\b');
    If Page.Success Then
     PageKey := PageKey + ':' + Page.Value;
@@ -82,49 +81,49 @@ Implementation
     PageKey := PageKey + ':MOD';
   End;
 
- Function Member(O : TJSONObject; Const Name : String) : TJSONValue;
+ Function Member(o : TJSONObject; Const Name : String) : TJSONValue;
   Begin
    Result := Nil;
-   If O <> Nil Then
-    Result := O.GetValue(Name);
+   If o <> Nil Then
+    Result := o.GetValue(Name);
   End;
 
- Function TextValue(O : TJSONObject; Const Name, Default : String) : String;
+ Function TextValue(o : TJSONObject; Const Name, Default : String) : String;
   Var
-   V : TJSONValue;
+   v : TJSONValue;
   Begin
-   V      := Member(O, Name);
+   v      := Member(o, Name);
    Result := Default;
-   If V Is TJSONString Then
-    Result := V.Value;
+   If v Is TJSONString Then
+    Result := v.Value;
   End;
 
  Procedure CaptureIFlyAppearance(Fields : TJSONObject; Device : Integer; Screen : TFMCScreen);
   Const
-   Lamps : Array [0 .. 4] Of String = ('FAIL', 'MSG', 'EXEC', 'CALL', 'OFST');
+   Lamps : Array [0..4] Of String = ('FAIL', 'MSG', 'EXEC', 'CALL', 'OFST');
   Var
    Styles     : TJSONObject;
    Indicators : TJSONObject;
    Rows       : TJSONArray;
    Row        : Integer;
    Col        : Integer;
-   C          : Integer;
-   F          : Integer;
-   I          : Integer;
+   c          : Integer;
+   f          : Integer;
+   i          : Integer;
    Hex        : String;
-   V          : TJSONValue;
+   v          : TJSONValue;
 
    Function ReadCode(Const Name : String; Max : Integer) : Integer;
     Var
-     D : Double;
+     d : Double;
     Begin
      Result := 15;
-     V      := Member(Fields, Name);
-     If V Is TJSONNumber Then
+     v      := Member(Fields, Name);
+     If v Is TJSONNumber Then
       Begin
-       D := TJSONNumber(V).AsDouble;
-       If (D >= 0) And (D <= Max) And (D = Trunc(D)) Then
-        Result := Trunc(D);
+       d := TJSONNumber(v).AsDouble;
+       If (d >= 0) And (d <= Max) And (d = Trunc(d)) Then
+        Result := Trunc(d);
       End;
     End;
 
@@ -140,19 +139,19 @@ Implementation
       Hex     := '';
       For Col := 0 To 23 Do
        Begin
-        C   := ReadCode(Format('LSK_Color[%d][%d][%d]', [Device, Row, Col]), 13);
-        F   := ReadCode(Format('LSK_SmallFont[%d][%d][%d]', [Device, Row, Col]), 1);
-        Hex := Hex + IntToHex(C, 1) + IntToHex(F, 1);
+        c   := ReadCode(Format('LSK_Color[%d][%d][%d]', [Device, Row, Col]), 13);
+        f   := ReadCode(Format('LSK_SmallFont[%d][%d][%d]', [Device, Row, Col]), 1);
+        Hex := Hex + IntToHex(c, 1) + IntToHex(f, 1);
        End;
       Rows.Add(Hex);
      End;
-    For I := 0 To High(Lamps) Do
+    For i := 0 To High(Lamps) Do
      Begin
-      C := ReadCode(Format('CDU_%s_Status[%d]', [Lamps[I], Device]), 2);
-      If C = 15 Then
-       Indicators.AddPair(Lamps[I], TJSONNull.Create)
+      c := ReadCode(Format('CDU_%s_Status[%d]', [Lamps[i], Device]), 2);
+      If c = 15 Then
+       Indicators.AddPair(Lamps[i], TJSONNull.Create)
       Else
-       Indicators.AddPair(Lamps[I], TJSONNumber.Create(C));
+       Indicators.AddPair(Lamps[i], TJSONNumber.Create(c));
      End;
     Screen.StyleJSON        := Styles.ToJSON;
     Screen.AnnunciatorsJSON := Indicators.ToJSON;
@@ -167,10 +166,10 @@ Implementation
    Fields : TJSONObject;
    CDUs   : TJSONObject;
    Obj    : TJSONObject;
-   P      : TJSONPair;
-   S      : TFMCScreen;
-   V      : TJSONValue;
-   J      : TJSONValue;
+   p      : TJSONPair;
+   s      : TFMCScreen;
+   v      : TJSONValue;
+   j      : TJSONValue;
    Rows   : TJSONArray;
    Device : Integer;
    Row    : Integer;
@@ -187,103 +186,96 @@ Implementation
     If (TextValue(Root, 'provider', '') = 'iFly737MAX') And Not(Member(Root, 'cdu') Is TJSONObject) Then
      Begin
       Fields := Nil;
-      V      := Member(Root, 'fields');
-      If V Is TJSONObject Then
-       Fields    := TJSONObject(V);
+      v      := Member(Root, 'fields');
+      If v Is TJSONObject Then
+       Fields    := TJSONObject(v);
       For Device := 0 To 1 Do
        Begin
-        S := TFMCScreen.Create;
-        Result.Add(S);
-        S.Provider := 'iFly737MAX';
-        S.Device   := IntToStr(Device);
-        CaptureIFlyAppearance(Fields, Device, S);
+        s := TFMCScreen.Create;
+        Result.Add(s);
+        s.Provider := 'iFly737MAX';
+        s.Device   := IntToStr(Device);
+        CaptureIFlyAppearance(Fields, Device, s);
         Good    := True;
         For Row := 0 To 13 Do
          Begin
-          V := Member(Fields, Format('LSKChar[%d][%d]', [Device, Row]));
-          If Not(V Is TJSONString) Or (Length(V.Value) <> 24) Then
+          v := Member(Fields, Format('LSKChar[%d][%d]', [Device, Row]));
+          If Not(v Is TJSONString) Or (Length(v.Value) <> 24) Then
            Begin
             Good := False;
             Break;
            End;
-          Line    := V.Value;
+          Line    := v.Value;
           For Col := 0 To 23 Do
            Begin
             Ch := Line[Col + 1];
             If Ch = #0 Then
              Ch := ' ';
-            J   := Member(Fields, Format('LSK_Color[%d][%d][%d]', [Device, Row, Col]));
-            If J Is TJSONNumber Then
+            j   := Member(Fields, Format('LSK_Color[%d][%d][%d]', [Device, Row, Col]));
+            If j Is TJSONNumber Then
              Begin
-              Code := TJSONNumber(J).AsInt;
+              Code := TJSONNumber(j).AsInt;
               Case Code Of
-               5 :
-                Ch := WideChar($25A1);
-               6, 7, 8 :
-                Ch := WideChar($00B0);
-               9 :
-                Ch := WideChar($2190);
-               10 :
-                Ch := WideChar($2192);
-               11 :
-                Ch := WideChar($2191);
-               12 :
-                Ch := WideChar($2193);
-               13 :
-                Ch := WideChar($25A0);
+               5       : Ch := WideChar($25A1);
+               6, 7, 8 : Ch := WideChar($00B0);
+               9       : Ch := WideChar($2190);
+               10      : Ch := WideChar($2192);
+               11      : Ch := WideChar($2191);
+               12      : Ch := WideChar($2193);
+               13      : Ch := WideChar($25A0);
               End;
              End;
             Line[Col + 1] := Ch;
            End;
-          S.Lines.Add(Line);
+          s.Lines.Add(Line);
          End;
-        S.Available := Good;
+        s.Available := Good;
         If Not Good Then
-         S.Lines.Clear;
-        S.IdentifyPage;
+         s.Lines.Clear;
+        s.IdentifyPage;
        End;
       Exit;
      End;
-    V := Member(Root, 'cdu');
-    If Not(V Is TJSONObject) Then
+    v := Member(Root, 'cdu');
+    If Not(v Is TJSONObject) Then
      Exit;
-    CDUs := TJSONObject(V);
-    For P In CDUs Do
+    CDUs := TJSONObject(v);
+    For p In CDUs Do
      Begin
-      If Not(P.JsonValue Is TJSONObject) Then
+      If Not(p.JsonValue Is TJSONObject) Then
        Continue;
-      Obj := TJSONObject(P.JsonValue);
-      S   := TFMCScreen.Create;
-      Result.Add(S);
-      S.Provider         := TextValue(Root, 'provider', 'unknown');
-      S.Device           := P.JsonString.Value;
-      S.StyleJSON        := TextValue(Obj, 'style_json', '{}');
-      S.AnnunciatorsJSON := TextValue(Obj, 'annunciators_json', '{}');
-      V                  := Member(Obj, 'powered');
-      If V Is TJSONBool Then
-       S.PowerState := Ord(TJSONBool(V).AsBoolean);
-      V             := Member(Obj, 'rows');
-      Good          := (V Is TJSONArray) And (TextValue(Obj, 'status', 'available') = 'available');
+      Obj := TJSONObject(p.JsonValue);
+      s   := TFMCScreen.Create;
+      Result.Add(s);
+      s.Provider         := TextValue(Root, 'provider', 'unknown');
+      s.Device           := p.JsonString.Value;
+      s.StyleJSON        := TextValue(Obj, 'style_json', '{}');
+      s.AnnunciatorsJSON := TextValue(Obj, 'annunciators_json', '{}');
+      v                  := Member(Obj, 'powered');
+      If v Is TJSONBool Then
+       s.PowerState := Ord(TJSONBool(v).AsBoolean);
+      v             := Member(Obj, 'rows');
+      Good          := (v Is TJSONArray) And (TextValue(Obj, 'status', 'available') = 'available');
       If Good Then
        Begin
-        Rows := TJSONArray(V);
+        Rows := TJSONArray(v);
         Good := Rows.Count = 14;
         If Good Then
          For Row := 0 To 13 Do
           Begin
-           V := Rows.Items[Row];
-           If Not(V Is TJSONString) Or (Length(V.Value) <> 24) Then
+           v := Rows.Items[Row];
+           If Not(v Is TJSONString) Or (Length(v.Value) <> 24) Then
             Begin
              Good := False;
              Break;
             End;
-           S.Lines.Add(V.Value.Replace(#0, ' '));
+           s.Lines.Add(v.Value.Replace(#0, ' '));
           End;
        End;
-      S.Available := Good;
+      s.Available := Good;
       If Not Good Then
-       S.Lines.Clear;
-      S.IdentifyPage;
+       s.Lines.Clear;
+      s.IdentifyPage;
      End;
    Except
     Result.Free;
@@ -293,92 +285,69 @@ Implementation
 
  Function FMCScreenHTML(Screen : TFMCScreen) : String;
   Var
-   Style  : TJSONValue;
-   Rows   : TJSONArray;
-   V      : TJSONValue;
-   R      : Integer;
-   C      : Integer;
+   Style  : TFMCStyle;
+   c      : TFMCCellStyle;
+   Next   : TFMCCellStyle;
+   r      : Integer;
+   Col    : Integer;
    Finish : Integer;
-   Color  : Integer;
-   Font   : Integer;
-   Codes  : String;
-   Code   : String;
    Text   : String;
    CSS    : String;
 
-   Function Escape(Const S : String) : String;
+   Function RGBHex(Color : TColor) : String;
+    Var
+     n : Cardinal;
     Begin
-     Result := S.Replace('&', '&amp;').Replace('<', '&lt;').Replace('>', '&gt;').Replace('"', '&quot;');
+     n      := ColorToRGB(Color);
+     Result := LowerCase(IntToHex(n And 255, 2) + IntToHex((n Shr 8) And 255, 2) + IntToHex((n Shr 16) And 255, 2));
     End;
 
   Begin
    Result := '';
    If Not Screen.Available Then
     Exit;
-   Style := TJSONObject.ParseJSONValue(Screen.StyleJSON);
-   Rows  := Nil;
+   Style := TFMCStyle.Create(Screen.StyleJSON);
    Try
-    If Style Is TJSONObject Then
-     Begin
-      V := TJSONObject(Style).GetValue('rows');
-      If V Is TJSONArray Then
-       Rows := TJSONArray(V);
-     End;
     Result := '<pre style="background:#000;color:#fff;font-family:monospace;white-space:pre;line-height:1.3">';
-    For R  := 0 To Screen.Lines.Count - 1 Do
+    For r  := 0 To Screen.Lines.Count - 1 Do
      Begin
-      Codes := '';
-      If (Rows <> Nil) And (R < Rows.Count) Then
-       Codes := Rows.Items[R].Value;
-      C      := 1;
-      While C <= Length(Screen.Lines[R]) Do
+      Col := 0;
+      While Col < Length(Screen.Lines[r]) Do
        Begin
-        Code   := Copy(Codes, (C - 1) * 2 + 1, 2);
-        Finish := C + 1;
-        While (Finish <= Length(Screen.Lines[R])) And (Copy(Codes, (Finish - 1) * 2 + 1, 2) = Code) Do
-         Inc(Finish);
-        Color := 15;
-        Font  := 15;
-        If Length(Code) = 2 Then
+        c      := Style.Cell(r, Col);
+        Finish := Col + 1;
+        While Finish < Length(Screen.Lines[r]) Do
          Begin
-          Color := StrToIntDef('$' + Code[1], 15);
-          Font  := StrToIntDef('$' + Code[2], 15);
+          Next := Style.Cell(r, Finish);
+          If (Next.Foreground <> c.Foreground) Or (Next.Background <> c.Background) Or (Next.Small <> c.Small) Then
+           Break;
+          Inc(Finish);
          End;
-        CSS := '';
-        Case Color Of
-         1 :
-          CSS := 'color:#00ff00;';
-         2 :
-          CSS := 'color:#00ffff;';
-         3, 8 :
-          CSS := 'color:#ff00ff;';
-         4, 7 :
-          CSS := 'background:#666;';
-        End;
-        Text := Escape(Copy(Screen.Lines[R], C, Finish - C));
-        If Font = 1 Then
-         Text  := '<span style="font-size:75%">' + Text + '</span>';
-        Result := Result + '<span style="display:inline-block;width:' + IntToStr(Finish - C) + 'ch;' + CSS + '">' + Text + '</span>';
-        C      := Finish;
+        Text := Copy(Screen.Lines[r], Col + 1, Finish - Col).Replace('&', '&amp;').Replace('<', '&lt;').Replace('>', '&gt;').Replace('"', '&quot;');
+        CSS  := 'color:#' + RGBHex(c.Foreground) + ';background:#' + RGBHex(c.Background) + ';';
+        If c.Small Then
+         CSS   := CSS + 'font-size:75%;';
+        Result := Result + '<span style="display:inline-block;width:' + IntToStr(Finish - Col) + 'ch;' + CSS + '">' + Text + '</span>';
+        Col    := Finish;
        End;
       Result := Result + #10;
      End;
-    Result := Result + '</pre>';
    Finally
     Style.Free;
    End;
+   Result := Result + '</pre>';
   End;
 
  Function ParseFMCValues(Screen : TFMCScreen) : TJSONObject;
   Const
-   Patterns : Array [0 .. 5] Of String = ('\bV1\b', '\bVR\b', '\bV2\b', '\bVAPP\b', '\bVREF\b', '\bWIND\s*CORR(?:ECTION)?\b');
-   Keys : Array [0 .. 5] Of String     = ('v1_kt', 'vr_kt', 'v2_kt', 'vapp_kt', 'vref_kt', 'wind_correction_kt');
+   Patterns : Array [0..5] Of String = ('\bV1\b', '\bVR\b', '\bV2\b', '\bVAPP\b', '\bVREF\b', '\bWIND\s*CORR(?:ECTION)?\b');
+   Keys : Array [0..5] Of String = ('v1_kt', 'vr_kt', 'v2_kt', 'vapp_kt', 'vref_kt', 'wind_correction_kt');
   Var
-   I        : Integer;
-   R        : Integer;
+   i        : Integer;
+   r        : Integer;
    StartCol : Integer;
-   M        : TMatch;
-   N        : TMatch;
+   m        : TMatch;
+   n        : TMatch;
    Line     : String;
    Cell     : String;
    Value    : Double;
@@ -393,58 +362,58 @@ Implementation
    ParseBoeingPerformance(Screen.Lines, Result);
    FS                  := TFormatSettings.Create;
    FS.DecimalSeparator := '.';
-   For I               := 0 To High(Patterns) Do
-    For R              := 1 To Screen.Lines.Count - 1 Do
+   For i               := 0 To High(Patterns) Do
+    For r              := 1 To Screen.Lines.Count - 1 Do
      Begin
-      Line := UpperCase(Screen.Lines[R]);
-      M    := TRegEx.Match(Line, Patterns[I]);
-      If Not M.Success Then
+      Line := UpperCase(Screen.Lines[r]);
+      m    := TRegEx.Match(Line, Patterns[i]);
+      If Not m.Success Then
        Continue;
-      Cell := Copy(Line, M.Index + M.Length + 1, MaxInt);
-      N    := TRegEx.Match(Cell, '^\s*[:=]?\s*([+-]?\d{1,3}(?:[.,]\d+)?)\s*(?:KTS?|KNOTS)?\s*$');
-      If Not N.Success And (I <> 4) And (R + 1 < Screen.Lines.Count) Then
+      Cell := Copy(Line, m.Index + m.Length + 1, MaxInt);
+      n    := TRegEx.Match(Cell, '^\s*[:=]?\s*([+-]?\d{1,3}(?:[.,]\d+)?)\s*(?:KTS?|KNOTS)?\s*$');
+      If Not n.Success And (i <> 4) And (r + 1 < Screen.Lines.Count) Then
        Begin
         StartCol := 0;
-        If M.Index >= 12 Then
+        If m.Index >= 12 Then
          StartCol := 12;
         // QRH proposals occupy the middle column; only the selected right field is a V-speed.
-        If (I <= 2) And (M.Index >= 19) Then
+        If (i <= 2) And (m.Index >= 19) Then
          StartCol := 19;
-        Cell      := Copy(UpperCase(Screen.Lines[R + 1]), StartCol + 1, 12);
-        N         := TRegEx.Match(Cell, '^\s*[<\[*]?\s*([+-]?\d{1,3}(?:[.,]\d+)?)\s*(?:KTS?|KNOTS)?\s*[>\]]?\s*$');
+        Cell      := Copy(UpperCase(Screen.Lines[r + 1]), StartCol + 1, 12);
+        n         := TRegEx.Match(Cell, '^\s*[<\[*]?\s*([+-]?\d{1,3}(?:[.,]\d+)?)\s*(?:KTS?|KNOTS)?\s*[>\]]?\s*$');
        End;
-      Found := N.Success;
+      Found := n.Success;
       If Found Then
-       Found := TryStrToFloat(N.Groups[1].Value.Replace(',', '.'), Value, FS);
+       Found := TryStrToFloat(n.Groups[1].Value.Replace(',', '.'), Value, FS);
       If Found Then
        Begin
-        If I = 5 Then
+        If i = 5 Then
          Found := (Value >= 0) And (Value <= 99)
         Else
          Found := (Value > 0) And (Value < 400);
        End;
-      Result.RemovePair(Keys[I]).Free;
+      Result.RemovePair(Keys[i]).Free;
       If Found Then
-       Result.AddPair(Keys[I], TJSONNumber.Create(Value))
+       Result.AddPair(Keys[i], TJSONNumber.Create(Value))
       Else
-       Result.AddPair(Keys[I], TJSONNull.Create);
+       Result.AddPair(Keys[i], TJSONNull.Create);
       Break;
      End;
-   For R := 1 To Screen.Lines.Count - 2 Do
+   For r := 1 To Screen.Lines.Count - 2 Do
     Begin
-     M := TRegEx.Match(UpperCase(Screen.Lines[R]), '\bFLAP\s*/\s*SPD\b');
-     If Not M.Success Then
+     m := TRegEx.Match(UpperCase(Screen.Lines[r]), '\bFLAP\s*/\s*SPD\b');
+     If Not m.Success Then
       Continue;
      // The label is right aligned. Do not read the runway frequency/course on the left.
-     StartCol := M.Index;
-     Cell     := Copy(UpperCase(Screen.Lines[R + 1]), StartCol + 1, MaxInt);
-     N        := TRegEx.Match(Cell, '^\s*(?:[<\[])?\s*(\d{1,2})\s*/\s*(\d{2,3})\s*(?:KTS?)?\s*(?:[>\]])?\s*$');
+     StartCol := m.Index;
+     Cell     := Copy(UpperCase(Screen.Lines[r + 1]), StartCol + 1, MaxInt);
+     n        := TRegEx.Match(Cell, '^\s*(?:[<\[])?\s*(\d{1,2})\s*/\s*(\d{2,3})\s*(?:KTS?)?\s*(?:[>\]])?\s*$');
      Result.RemovePair('vref_kt').Free;
      Result.RemovePair('approach_flaps_deg').Free;
-     If N.Success And TryStrToFloat(N.Groups[2].Value, Value, FS) And (Value > 0) And (Value < 400) And (StrToInt(N.Groups[1].Value) > 0) And (StrToInt(N.Groups[1].Value) <= 40) Then
+     If n.Success And TryStrToFloat(n.Groups[2].Value, Value, FS) And (Value > 0) And (Value < 400) And (StrToInt(n.Groups[1].Value) > 0) And (StrToInt(n.Groups[1].Value) <= 40) Then
       Begin
        Result.AddPair('vref_kt', TJSONNumber.Create(Value));
-       Result.AddPair('approach_flaps_deg', TJSONNumber.Create(StrToInt(N.Groups[1].Value)));
+       Result.AddPair('approach_flaps_deg', TJSONNumber.Create(StrToInt(n.Groups[1].Value)));
       End
      Else
       Begin
@@ -458,8 +427,8 @@ Implementation
  Procedure SaveFMCScreens(DB : TFDConnection; Trip : Integer; Sample : Int64; Const SimUTC : String; Root : TJSONObject; Const CapturedUTC : String);
   Var
    Screens : TObjectList<TFMCScreen>;
-   S       : TFMCScreen;
-   Q       : TFDQuery;
+   s       : TFMCScreen;
+   q       : TFDQuery;
    Parsed  : TJSONObject;
    Raw     : String;
    Same    : Boolean;
@@ -468,68 +437,68 @@ Implementation
    Pair    : TPair<String, String>;
   Begin
    Screens := ExtractFMCScreens(Root);
-   Q       := TFDQuery.Create(Nil);
+   q       := TFDQuery.Create(Nil);
    Seen    := TDictionary<String, Boolean>.Create;
-   Missing := TList < TPair < String, String >>.Create;
+   Missing := TList<TPair<String, String>>.Create;
    Try
-    Q.Connection             := DB;
-    Q.FormatOptions.StrsTrim := False;
+    q.Connection             := DB;
+    q.FormatOptions.StrsTrim := False;
     // A provider/device disappearing must invalidate its current screen, not retain stale text.
-    For S In Screens Do
-     Seen.AddOrSetValue(S.Provider + #1 + S.Device, True);
-    Q.Open('select a.provider,a.device from trip_fmc_screens a where a.trip=:t and a.available=1 and not exists(select 1 from trip_fmc_screens b where b.trip=a.trip and b.provider=a.provider and b.device=a.device and b.id>a.id)', [Trip]);
-    While Not Q.Eof Do
+    For s In Screens Do
+     Seen.AddOrSetValue(s.Provider + #1 + s.Device, True);
+    q.Open('select a.provider,a.device from trip_fmc_screens a where a.trip=:t and a.available=1 and not exists(select 1 from trip_fmc_screens b where b.trip=a.trip and b.provider=a.provider and b.device=a.device and b.id>a.id)', [Trip]);
+    While Not q.Eof Do
      Begin
-      If Not Seen.ContainsKey(Q.FieldByName('provider').AsString + #1 + Q.FieldByName('device').AsString) Then
-       Missing.Add(TPair<String, String>.Create(Q.FieldByName('provider').AsString, Q.FieldByName('device').AsString));
-      Q.Next;
+      If Not Seen.ContainsKey(q.FieldByName('provider').AsString + #1 + q.FieldByName('device').AsString) Then
+       Missing.Add(TPair<String, String>.Create(q.FieldByName('provider').AsString, q.FieldByName('device').AsString));
+      q.Next;
      End;
-    Q.Close;
+    q.Close;
     For Pair In Missing Do
      Begin
-      S          := TFMCScreen.Create;
-      S.Provider := Pair.Key;
-      S.Device   := Pair.Value;
-      S.IdentifyPage;
-      Screens.Add(S);
+      s          := TFMCScreen.Create;
+      s.Provider := Pair.Key;
+      s.Device   := Pair.Value;
+      s.IdentifyPage;
+      Screens.Add(s);
      End;
-    For S In Screens Do
+    For s In Screens Do
      Begin
-      Raw := S.Lines.Text;
-      Q.Open('select available,powered,raw_text,style_json,annunciators_json from trip_fmc_screens where trip=:t and provider=:p and device=:d order by id desc limit 1', [Trip, S.Provider, S.Device]);
-      Same := Not Q.IsEmpty;
+      Raw := s.Lines.Text;
+      q.Open('select available,powered,raw_text,style_json,annunciators_json from trip_fmc_screens where trip=:t and provider=:p and device=:d order by id desc limit 1', [Trip, s.Provider, s.Device]);
+      Same := Not q.IsEmpty;
 
       If Same Then
-       Same := (Q.FieldByName('available').AsInteger = Ord(S.Available)) And (Q.FieldByName('powered').AsInteger = S.PowerState) And (Q.FieldByName('raw_text').AsString = Raw) And (Q.FieldByName('style_json').AsString = S.StyleJSON) And (Q.FieldByName('annunciators_json').AsString = S.AnnunciatorsJSON);
-      Q.Close;
+       Same := (q.FieldByName('available').AsInteger = Ord(s.Available)) And (q.FieldByName('powered').AsInteger = s.PowerState) And (q.FieldByName('raw_text').AsString = Raw) And (q.FieldByName('style_json').AsString = s.StyleJSON) And (q.FieldByName('annunciators_json').AsString = s.AnnunciatorsJSON);
+      q.Close;
       If Same Then
        Continue;
-      Parsed := ParseFMCValues(S);
+      Parsed := ParseFMCValues(s);
       Try
-       Q.SQL.Text                    := 'insert into trip_fmc_screens(trip,sample,time_zulu,captured_utc,provider,device,page_key,title,available,powered,raw_text,parsed_json,style_json,annunciators_json,formatted_html) values(:t,:s,:z,:u,:p,:d,:k,:h,:a,:w,:r,:' + 'j,:style,:lamps,:html)';
-       Q.ParamByName('t').AsInteger  := Trip;
-       Q.ParamByName('s').AsLargeInt := Sample;
-       Q.ParamByName('z').AsString   := SimUTC;
+       q.SQL.Text                    := 'insert into trip_fmc_screens(trip,sample,time_zulu,captured_utc,provider,device,page_key,title,available,powered,raw_text,parsed_json,style_json,annunciators_json,formatted_html) values(:t,:s,:z,:u,:p,:d,:k,:h,:a,:w,:r,:' + 'j,:style,:lamps,:html)';
+       q.ParamByName('t').AsInteger  := Trip;
+       q.ParamByName('s').AsLargeInt := Sample;
+       q.ParamByName('z').AsString   := SimUTC;
        If CapturedUTC <> '' Then
-        Q.ParamByName('u').AsString := CapturedUTC
+        q.ParamByName('u').AsString := CapturedUTC
        Else
-        Q.ParamByName('u').AsString := DateToISO8601(TTimeZone.Local.ToUniversalTime(Now), True);
-       Q.ParamByName('p').AsString  := S.Provider;
-       Q.ParamByName('d').AsString  := S.Device;
-       Q.ParamByName('k').AsString  := S.PageKey;
-       Q.ParamByName('h').AsString  := S.Title;
-       Q.ParamByName('a').AsInteger := Ord(S.Available);
-       Q.ParamByName('w').AsInteger := S.PowerState;
-       Q.ParamByName('r').DataType  := ftWideMemo;
-       If S.Available Then
-        Q.ParamByName('r').AsWideString := Raw
+        q.ParamByName('u').AsString := DateToISO8601(TTimeZone.Local.ToUniversalTime(Now), True);
+       q.ParamByName('p').AsString  := s.Provider;
+       q.ParamByName('d').AsString  := s.Device;
+       q.ParamByName('k').AsString  := s.PageKey;
+       q.ParamByName('h').AsString  := s.Title;
+       q.ParamByName('a').AsInteger := Ord(s.Available);
+       q.ParamByName('w').AsInteger := s.PowerState;
+       q.ParamByName('r').DataType  := ftWideMemo;
+       If s.Available Then
+        q.ParamByName('r').AsWideString := Raw
        Else
-        Q.ParamByName('r').Clear;
-       Q.ParamByName('j').AsWideString     := Parsed.ToJSON;
-       Q.ParamByName('style').AsWideString := S.StyleJSON;
-       Q.ParamByName('lamps').AsWideString := S.AnnunciatorsJSON;
-       Q.ParamByName('html').AsWideString  := FMCScreenHTML(S);
-       Q.ExecSQL;
+        q.ParamByName('r').Clear;
+       q.ParamByName('j').AsWideString     := Parsed.ToJSON;
+       q.ParamByName('style').AsWideString := s.StyleJSON;
+       q.ParamByName('lamps').AsWideString := s.AnnunciatorsJSON;
+       q.ParamByName('html').AsWideString  := FMCScreenHTML(s);
+       q.ExecSQL;
       Finally
        Parsed.Free;
       End;
@@ -537,14 +506,14 @@ Implementation
    Finally
     Missing.Free;
     Seen.Free;
-    Q.Free;
+    q.Free;
     Screens.Free;
    End;
   End;
 
  Function LatestFMCContext(DB : TFDConnection; Trip : Integer; Const EventUTC : String) : TJSONObject;
   Var
-   Q              : TFDQuery;
+   q              : TFDQuery;
    Screens        : TDictionary<String, TJSONObject>;
    Pages          : TDictionary<String, TJSONObject>;
    Values         : TJSONObject;
@@ -553,31 +522,33 @@ Implementation
    Ref            : TJSONObject;
    DeviceValues   : TJSONObject;
    ReparsedScreen : TFMCScreen;
-   P              : TJSONPair;
+   p              : TJSONPair;
    Key            : String;
    Pair           : TPair<String, TJSONObject>;
-   A              : TJSONArray;
-   Procedure Replace(D : TDictionary<String, TJSONObject>; Const K : String; O : TJSONObject);
+   a              : TJSONArray;
+
+   Procedure Replace(d : TDictionary<String, TJSONObject>; Const k : String; o : TJSONObject);
     Var
      Old : TJSONObject;
     Begin
-     If D.TryGetValue(K, Old) Then
+     If d.TryGetValue(k, Old) Then
       Old.Free;
-     D.AddOrSetValue(K, O);
+     d.AddOrSetValue(k, o);
     End;
-   Procedure Output(Const Name : String; D : TDictionary<String, TJSONObject>);
+
+   Procedure Output(Const Name : String; d : TDictionary<String, TJSONObject>);
     Var
      Item : TPair<String, TJSONObject>;
     Begin
-     A := TJSONArray.Create;
-     Result.AddPair(Name, A);
-     For Item In D Do
-      A.AddElement(TJSONObject.ParseJSONValue(Item.Value.ToJSON) As TJSONObject);
+     a := TJSONArray.Create;
+     Result.AddPair(Name, a);
+     For Item In d Do
+      a.AddElement(TJSONObject.ParseJSONValue(Item.Value.ToJSON) As TJSONObject);
     End;
 
   Begin
    Result  := TJSONObject.Create;
-   Q       := TFDQuery.Create(Nil);
+   q       := TFDQuery.Create(Nil);
    Screens := TDictionary<String, TJSONObject>.Create;
    Pages   := TDictionary<String, TJSONObject>.Create;
    Values  := TJSONObject.Create;
@@ -587,39 +558,39 @@ Implementation
      Result.AddPair('as_of_event_utc', EventUTC);
      Result.AddPair('timestamp_semantics', 'Timestamps identify the first observation of a changed screen. Repeated identical reads are omitted. Device histories and pending MOD pages remain separate.');
      Result.AddPair('boeing_performance_semantics', 'N1 LIMIT and TAKEOFF REF N1 values are displayed limits/targets, not measured engine speeds. ACT and SEL are separate for takeoff (left) and climb (right). ' + 'A missing assumed temperature is not OAT. Weights/fuel ending in _display retain FMC display units; KG/LB cannot be inferred from these pages alone. ' +
-      'Selected FLAP/SPD supplies approach_flaps_deg and VREF; wind correction remains separate. CG is percent MAC and takeoff trim is in stabilizer trim units.');
+     'Selected FLAP/SPD supplies approach_flaps_deg and VREF; wind correction remains separate. CG is percent MAC and takeoff trim is in stabilizer trim units.');
      Result.AddPair('semantics', 'Last observed screens/pages from this trip at or before the event, including observations before the analysis window. Hidden pages are not continuously refreshed. ' + 'Times are observation times, not proven FMC edit times. Raw text preserves fixed columns/rows. Typed SDK references take precedence over text parsing. ' +
-      'MOD pages are pending, not executed active values. Unknown power=-1. Power-off/unavailable screens do not provide new parsed values. VREF tables are not collapsed to a guessed selected speed.');
-     Q.Connection             := DB;
-     Q.FormatOptions.StrsTrim := False;
-     Q.Open('select * from trip_fmc_screens where trip=:t and substr(time_zulu,1,23)<=:u order by time_zulu,id', [Trip, Copy(EventUTC, 1, 23)]);
-     While Not Q.Eof Do
+     'MOD pages are pending, not executed active values. Unknown power=-1. Power-off/unavailable screens do not provide new parsed values. VREF tables are not collapsed to a guessed selected speed.');
+     q.Connection             := DB;
+     q.FormatOptions.StrsTrim := False;
+     q.Open('select * from trip_fmc_screens where trip=:t and substr(time_zulu,1,23)<=:u order by time_zulu,id', [Trip, Copy(EventUTC, 1, 23)]);
+     While Not q.Eof Do
       Begin
        Obj := TJSONObject.Create;
-       Obj.AddPair('provider', Q.FieldByName('provider').AsString);
-       Obj.AddPair('device', Q.FieldByName('device').AsString);
-       Obj.AddPair('page', Q.FieldByName('page_key').AsString);
-       Obj.AddPair('title', Q.FieldByName('title').AsString);
-       Obj.AddPair('observed_sim_utc', Q.FieldByName('time_zulu').AsString);
-       Obj.AddPair('captured_utc', Q.FieldByName('captured_utc').AsString);
-       Obj.AddPair('available', TJSONBool.Create(Q.FieldByName('available').AsInteger <> 0));
-       Obj.AddPair('power_state', TJSONNumber.Create(Q.FieldByName('powered').AsInteger));
-       If Q.FieldByName('raw_text').IsNull Then
+       Obj.AddPair('provider', q.FieldByName('provider').AsString);
+       Obj.AddPair('device', q.FieldByName('device').AsString);
+       Obj.AddPair('page', q.FieldByName('page_key').AsString);
+       Obj.AddPair('title', q.FieldByName('title').AsString);
+       Obj.AddPair('observed_sim_utc', q.FieldByName('time_zulu').AsString);
+       Obj.AddPair('captured_utc', q.FieldByName('captured_utc').AsString);
+       Obj.AddPair('available', TJSONBool.Create(q.FieldByName('available').AsInteger <> 0));
+       Obj.AddPair('power_state', TJSONNumber.Create(q.FieldByName('powered').AsInteger));
+       If q.FieldByName('raw_text').IsNull Then
         Obj.AddPair('raw_text', TJSONNull.Create)
        Else
-        Obj.AddPair('raw_text', Q.FieldByName('raw_text').AsWideString);
-       Parsed := TJSONObject.ParseJSONValue(Q.FieldByName('parsed_json').AsString) As TJSONObject;
+        Obj.AddPair('raw_text', q.FieldByName('raw_text').AsWideString);
+       Parsed := TJSONObject.ParseJSONValue(q.FieldByName('parsed_json').AsString) As TJSONObject;
        If Parsed = Nil Then
         Parsed := TJSONObject.Create;
        // Reparse all saved raw screens with the current parser; preserve the original database.
-       If Not Q.FieldByName('raw_text').IsNull Then
+       If Not q.FieldByName('raw_text').IsNull Then
         Begin
          ReparsedScreen := TFMCScreen.Create;
          Try
-          ReparsedScreen.Provider   := Q.FieldByName('provider').AsString;
-          ReparsedScreen.Available  := Q.FieldByName('available').AsInteger <> 0;
-          ReparsedScreen.PowerState := Q.FieldByName('powered').AsInteger;
-          ReparsedScreen.Lines.Text := Q.FieldByName('raw_text').AsWideString;
+          ReparsedScreen.Provider   := q.FieldByName('provider').AsString;
+          ReparsedScreen.Available  := q.FieldByName('available').AsInteger <> 0;
+          ReparsedScreen.PowerState := q.FieldByName('powered').AsInteger;
+          ReparsedScreen.Lines.Text := q.FieldByName('raw_text').AsWideString;
           ReparsedScreen.IdentifyPage;
           Parsed.Free;
           Parsed := Nil;
@@ -631,33 +602,33 @@ Implementation
          End;
         End;
        Obj.AddPair('parsed', Parsed);
-       If Not Q.FieldByName('annunciators_json').IsNull Then
-        Obj.AddPair('annunciators', TJSONObject.ParseJSONValue(Q.FieldByName('annunciators_json').AsString));
-       Key := Q.FieldByName('provider').AsString + #1 + Q.FieldByName('device').AsString;
-       If (Q.FieldByName('available').AsInteger <> 0) And (Q.FieldByName('powered').AsInteger <> 0) And (Obj.GetValue('page').Value <> 'BLANK') Then
+       If Not q.FieldByName('annunciators_json').IsNull Then
+        Obj.AddPair('annunciators', TJSONObject.ParseJSONValue(q.FieldByName('annunciators_json').AsString));
+       Key := q.FieldByName('provider').AsString + #1 + q.FieldByName('device').AsString;
+       If (q.FieldByName('available').AsInteger <> 0) And (q.FieldByName('powered').AsInteger <> 0) And (Obj.GetValue('page').Value <> 'BLANK') Then
         Begin
          Replace(Pages, Key + #1 + Obj.GetValue('page').Value, TJSONObject.ParseJSONValue(Obj.ToJSON) As TJSONObject);
          If Pos(':MOD', Obj.GetValue('page').Value) = 0 Then
-          For P In Parsed Do
+          For p In Parsed Do
            Begin
             Ref := TJSONObject.Create;
-            Ref.AddPair('value', TJSONObject.ParseJSONValue(P.JsonValue.ToJSON));
-            Ref.AddPair('provider', Q.FieldByName('provider').AsString);
-            Ref.AddPair('device', Q.FieldByName('device').AsString);
+            Ref.AddPair('value', TJSONObject.ParseJSONValue(p.JsonValue.ToJSON));
+            Ref.AddPair('provider', q.FieldByName('provider').AsString);
+            Ref.AddPair('device', q.FieldByName('device').AsString);
             Ref.AddPair('page', Obj.GetValue('page').Value);
-            Ref.AddPair('observed_sim_utc', Q.FieldByName('time_zulu').AsString);
-            DeviceValues := Values.GetValue(Q.FieldByName('provider').AsString + '/' + Q.FieldByName('device').AsString) As TJSONObject;
+            Ref.AddPair('observed_sim_utc', q.FieldByName('time_zulu').AsString);
+            DeviceValues := Values.GetValue(q.FieldByName('provider').AsString + '/' + q.FieldByName('device').AsString) As TJSONObject;
             If DeviceValues = Nil Then
              Begin
               DeviceValues := TJSONObject.Create;
-              Values.AddPair(Q.FieldByName('provider').AsString + '/' + Q.FieldByName('device').AsString, DeviceValues);
+              Values.AddPair(q.FieldByName('provider').AsString + '/' + q.FieldByName('device').AsString, DeviceValues);
              End;
-            DeviceValues.RemovePair(P.JsonString.Value).Free;
-            DeviceValues.AddPair(P.JsonString.Value, Ref);
+            DeviceValues.RemovePair(p.JsonString.Value).Free;
+            DeviceValues.AddPair(p.JsonString.Value, Ref);
            End;
         End;
        Replace(Screens, Key, Obj);
-       Q.Next;
+       q.Next;
       End;
      Output('last_screen_per_device', Screens);
      Output('last_observed_pages', Pages);
@@ -672,7 +643,7 @@ Implementation
      Pair.Value.Free;
     Pages.Free;
     Screens.Free;
-    Q.Free;
+    q.Free;
    End;
   End;
 

@@ -1,0 +1,32 @@
+﻿# Przykładowa analiza lądowania
+> Dane syntetyczne do instrukcji. Raport przygotowano ręcznie; nie jest odpowiedzią modelu AI ani oceną rzeczywistego lotu.
+
+## Lot i zakres analizy
+**FDR101 · B38M · EPLL–EPLL · RWY 25**
+Plan: `EPLL.25 ADOX2W SOXE2T LL501 ILSZ.25 EPLL.25`.
+Wybrano przyziemienie o 00:33:20 UTC. Zakres: 180 s przed kontaktem i 30 s po nim. Nagranie obejmuje przygotowanie, start, wznoszenie, odcinek po trasie, zniżanie i dobieg.
+
+## Parametry wybranej próbki
+- IAS: **145 kt**; prędkość względem ziemi: **138 kt**.
+- V/S w próbce kontaktu: **−120 ft/min**; przeciążenie: **1,18 g**.
+- Wysokość: **607 ft MSL**; radioaltitude: **0 ft**.
+- Pochylenie nosa: **2,6° w górę**; przechylenie: **0,7°**.
+- Kurs magnetyczny: **245°**; QNH: **1013 hPa**.
+- Klapy: **40**; podwozie: **DOWN**; spoilery: **ARMED** przed kontaktem.
+- Stan AP po rozłączeniu: **OFF**; FD i A/T należy sprawdzać według zapisanych stanów.
+
+## Obserwacje przed i po kontakcie
+Na zniżaniu maleje wysokość i następuje stopniowe przejście do konfiguracji lądowania. W przykładzie prędkość zbliża się do 145 kt. Po przyziemieniu maleje prędkość, pojawia się hamowanie oraz wychylenie spoilerów. Porównaj te zmiany z chwilą kontaktu na wspólnej osi czasu.
+Samo uzyskanie oczekiwanej IAS nie potwierdza stabilizacji podejścia. Trzeba ocenić również ścieżkę pionową, konfigurację, ciąg i odchylenia LOC/GS, o ile zostały zapisane. Stan przełącznika FD nie zastępuje komend prowadzenia.
+
+## Pogoda i plan
+Przykładowy METAR symulatora: `EPLL 120000Z 27008KT 9999 SCT025 12/08 Q1013`.
+Przy kursie 245° oznacza to w przybliżeniu 7 kt składowej czołowej i 3 kt bocznej. Raport realny w przykładzie ma 28012G18KT i Q1012; różnice należy wiązać ze źródłem oraz czasem obserwacji. Dane OFP są planowane, a nie zmierzone podczas lotu.
+
+## Ograniczenia i dalsze sprawdzenie
+Nagranie demonstracyjne ma zgrubny odstęp **20 s**. Podane −120 ft/min i 1,18 g opisują przygotowaną próbkę, nie maksymalny pik kontaktu. Nie można na ich podstawie wiarygodnie określić momentu flare, największego przeciążenia ani dokładnego punktu przyziemienia.
+- Zwiększ skalę wykresu IAS/V/S/pitch w pobliżu kontaktu.
+- Sprawdź źródło i ważność stanów AP/A/T, LOC oraz GS.
+- Porównaj miejsce kontaktu na mapie z zapisaną trasą i torem rzeczywistym.
+- Przy rzeczywistej ocenie użyj gęstszego zapisu oraz kontekstu przed i po lądowaniu.
+**Wniosek demonstracyjny:** zapis pokazuje kolejność zdarzeń i konfigurację; nie wystarcza do pełnej oceny jakości lądowania.

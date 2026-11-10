@@ -10,59 +10,81 @@ Interface
 
  Type
   TfrmSettings = Class(TLocalizedForm)
-   Published
-    AppTranslator    : TTranslator;
-    SettingsPages : TPageControl;
-    UnitsPage : TTabSheet;
-    UnitsEditor : TValueListEditor;
-    GeneralPage, AnalysisPage, AIPage : TTabSheet;
-    ProviderPages : TPageControl;
-    CodexPage, GeminiPage, OllamaPage : TTabSheet;
-    LanguageLabel    : TLabel;
-    cbLanguage       : TComboBox;
-    seBefore         : TSpinEdit;
-    seAfter          : TSpinEdit;
-    seLandingBefore  : TSpinEdit;
-    seLandingAfter   : TSpinEdit;
-    lStartWindow     : TLabel;
-    lLandingWindow   : TLabel;
-    lBefore          : TLabel;
-    lAfter           : TLabel;
-    lLandingBefore   : TLabel;
-    lLandingAfter    : TLabel;
-    lOllamaURL       : TLabel;
-    lOllamaModel     : TLabel;
-    lOllamaContext   : TLabel;
-    seOllamaContext  : TSpinEdit;
-    eOllamaURL       : TEdit;
-    cbOllamaModel    : TComboBox;
-    btnOllamaRefresh : TButton;
-    ModelsTimer      : TTimer;
-    lProvider        : TLabel;
-    lCodexPath       : TLabel;
-    lCodexModel      : TLabel;
-    lGeminiModel     : TLabel;
-    lKey             : TLabel;
-    lTimeout         : TLabel;
-    lHelp            : TLabel;
-    cbProvider       : TComboBox;
-    eCodexPath       : TEdit;
-    eCodexModel      : TEdit;
-    eGeminiModel     : TEdit;
-    eGeminiKey       : TEdit;
-    seTimeout        : TSpinEdit;
-    btnOK            : TButton;
-    btnCancel        : TButton;
-    btnResetLayout   : TButton;
+    GhostPage            : TTabSheet;
+    lGhostHz             : TLabel;
+    seGhostHz            : TSpinEdit;
+    lGhostVMR            : TLabel;
+    eGhostVMR            : TEdit;
+    AppTranslator        : TTranslator;
+    SettingsPages        : TPageControl;
+    UnitsPage            : TTabSheet;
+    DebugPage            : TTabSheet;
+    cbB38MFD             : TCheckBox;
+    cbB38MAoA            : TCheckBox;
+    cbB38MInfo           : TCheckBox;
+    cbB38MInfoLeft       : TCheckBox;
+    lInstrumentOverride  : TLabel;
+    cbInstrumentOverride : TComboBox;
+    UnitsEditor          : TValueListEditor;
+    GeneralPage          : TTabSheet;
+    AnalysisPage         : TTabSheet;
+    AIPage               : TTabSheet;
+    ProviderPages        : TPageControl;
+    CodexPage            : TTabSheet;
+    GeminiPage           : TTabSheet;
+    OllamaPage           : TTabSheet;
+    LanguageLabel        : TLabel;
+    cbLanguage           : TComboBox;
+    seBefore             : TSpinEdit;
+    seAfter              : TSpinEdit;
+    seLandingBefore      : TSpinEdit;
+    seLandingAfter       : TSpinEdit;
+    lStartWindow         : TLabel;
+    lLandingWindow       : TLabel;
+    lBefore              : TLabel;
+    lAfter               : TLabel;
+    lLandingBefore       : TLabel;
+    lLandingAfter        : TLabel;
+    lOllamaURL           : TLabel;
+    lOllamaModel         : TLabel;
+    lOllamaContext       : TLabel;
+    seOllamaContext      : TSpinEdit;
+    eOllamaURL           : TEdit;
+    cbOllamaModel        : TComboBox;
+    btnOllamaRefresh     : TButton;
+    ModelsTimer          : TTimer;
+    lProvider            : TLabel;
+    lCodexPath           : TLabel;
+    lCodexModel          : TLabel;
+    lGeminiModel         : TLabel;
+    lKey                 : TLabel;
+    lTimeout             : TLabel;
+    lHelp                : TLabel;
+    cbProvider           : TComboBox;
+    eCodexPath           : TEdit;
+    eCodexModel          : TEdit;
+    eGeminiModel         : TEdit;
+    eGeminiKey           : TEdit;
+    seTimeout            : TSpinEdit;
+    btnOK                : TButton;
+    btnCancel            : TButton;
+    btnResetLayout       : TButton;
+    cbAutomaticUpdates   : TCheckBox;
+    btnCheckUpdates      : TButton;
+    btnChangeLog         : TButton;
+    Procedure CheckUpdatesClick(Sender : TObject);
+    Procedure ChangeLogClick(Sender : TObject);
     Procedure LanguageDrawItem(Control : TWinControl; Index : Integer; Rect : TRect; State : TOwnerDrawState);
     Procedure RefreshOllamaModels(Sender : TObject);
     Procedure ModelsTick(Sender : TObject);
     Procedure ModelsActivate(Sender : TObject);
    Private
-    fModelsThread   : TOllamaModelsThread;
-    fModelsURL      : String;
-    fRefreshPending : Boolean;
+    fUpdateRequested : Boolean;
+    fModelsThread    : TOllamaModelsThread;
+    fModelsURL       : String;
+    fRefreshPending  : Boolean;
    Public
+    Property UpdateRequested : Boolean Read fUpdateRequested;
     Destructor Destroy; Override;
     Procedure Load(Config : TMemIniFile);
     Procedure Save(Config : TMemIniFile);
@@ -72,21 +94,41 @@ Interface
 
 Implementation
 
- {$R *.dfm}
+ Uses
+  frmChangeLogU;
+{$R *.dfm}
+
+ Procedure TfrmSettings.CheckUpdatesClick(Sender : TObject);
+  Begin
+   // Portable release: the Setup EXE is a notice-only stub.
+   fUpdateRequested := False;
+  End;
+
+ Procedure TfrmSettings.ChangeLogClick(Sender : TObject);
+  Begin
+   ShowChangeLog(Self);
+  End;
 
  Procedure TfrmSettings.LanguageDrawItem(Control : TWinControl; Index : Integer; Rect : TRect; State : TOwnerDrawState);
-  Var Code, Text : String; Flags : Cardinal;
+  Var
+   Code  : String;
+   Text  : String;
+   Flags : Cardinal;
   Begin
-   If Index < 0 Then Exit;
+   If Index < 0 Then
+    Exit;
    Code := Language;
-   If (Index > 0) And (Index <= UILanguageCount) Then Code := UILanguageLocales[Index-1];
+   If (Index > 0) And (Index <= UILanguageCount) Then
+    Code := UILanguageLocales[Index - 1];
    cbLanguage.Canvas.FillRect(Rect);
    cbLanguage.Canvas.Font.Assign(cbLanguage.Font);
    cbLanguage.Canvas.Font.Name := LocaleFontName(Code);
-   Text := cbLanguage.Items[Index]; InflateRect(Rect,-4,0);
+   Text                        := cbLanguage.Items[Index];
+   InflateRect(Rect, -4, 0);
    Flags := DT_SINGLELINE Or DT_VCENTER Or DT_NOPREFIX;
-   If (Copy(Code,1,2)='ar') Or (Copy(Code,1,2)='he') Then Flags := Flags Or DT_RTLREADING;
-   DrawText(cbLanguage.Canvas.Handle,PChar(Text),Length(Text),Rect,Flags);
+   If (Copy(Code, 1, 2) = 'ar') Or (Copy(Code, 1, 2) = 'he') Then
+    Flags := Flags Or DT_RTLREADING;
+   DrawText(cbLanguage.Canvas.Handle, PChar(Text), Length(Text), Rect, Flags);
   End;
 
  Destructor TfrmSettings.Destroy;
@@ -189,23 +231,40 @@ Implementation
   Var
    BeforeSeconds : Integer;
    AfterSeconds  : Integer;
-   I, Row : Integer; Source, Target : String;
+   i             : Integer;
+   Row           : Integer;
+   Source        : String;
+   Target        : String;
   Begin
+   fUpdateRequested               := False;
+   cbInstrumentOverride.ItemIndex := EnsureRange(Config.ReadInteger('debug', 'instrument_kind', -1) + 1, 0, 6);
+   cbB38MInfoLeft.Checked         := Config.ReadBool('instruments', 'b38m_flight_info_left', True);
+   cbB38MInfo.Checked             := Config.ReadBool('instruments', 'b38m_flight_info', True);
+   cbB38MAoA.Checked              := Config.ReadBool('instruments', 'b38m_aoa', False);
+   cbB38MFD.Checked               := Config.ReadBool('instruments', 'b38m_flight_director', True);
+   seGhostHz.Value                := EnsureRange(Config.ReadInteger('ghost', 'refresh_hz', 30), 5, 60);
+   eGhostVMR.Text                 := Config.ReadString('ghost', 'vmr_file', '');
+   cbAutomaticUpdates.Checked     := False;
+   cbAutomaticUpdates.Enabled     := False;
+   btnCheckUpdates.Enabled        := False;
    UnitsEditor.Strings.Clear;
-   For I := 0 To DisplayUnitCount-1 Do
+   For i := 0 To DisplayUnitCount - 1 Do
     Begin
-     Source := SourceDisplayUnit(I);
-     Target := Config.ReadString('display_units', Source, Source);
-     Row := UnitsEditor.InsertRow(Source, Target, True);
-     UnitsEditor.ItemProps[Row-1].EditStyle := esPickList;
-     UnitsEditor.ItemProps[Row-1].ReadOnly := False;
-     UnitsEditor.ItemProps[Row-1].PickList.CommaText := DisplayUnitOptions(Source);
+     Source                                            := SourceDisplayUnit(i);
+     Target                                            := Config.ReadString('display_units', Source, Source);
+     Row                                               := UnitsEditor.InsertRow(Source, Target, True);
+     UnitsEditor.ItemProps[Row - 1].EditStyle          := esPickList;
+     UnitsEditor.ItemProps[Row - 1].ReadOnly           := False;
+     UnitsEditor.ItemProps[Row - 1].PickList.CommaText := DisplayUnitOptions(Source);
     End;
    cbLanguage.ItemIndex := 0;
-   If Not SameText(Config.ReadString('ui','language','auto'),'auto') Then
-    For I := 0 To UILanguageCount-1 Do
-     If UILanguageLocales[I] = NormalizeLanguage(Config.ReadString('ui','language','auto')) Then
-      Begin cbLanguage.ItemIndex := I+1; Break; End;
+   If Not SameText(Config.ReadString('ui', 'language', 'auto'), 'auto') Then
+    For i := 0 To UILanguageCount - 1 Do
+     If UILanguageLocales[i] = NormalizeLanguage(Config.ReadString('ui', 'language', 'auto')) Then
+      Begin
+       cbLanguage.ItemIndex := i + 1;
+       Break;
+      End;
    ReadAnalysisWindow(Config, False, BeforeSeconds, AfterSeconds);
    seBefore.Value := BeforeSeconds;
    seAfter.Value  := AfterSeconds;
@@ -216,23 +275,32 @@ Implementation
    If SameText(Config.ReadString('ai', 'provider', 'codex'), 'gemini') Then
     cbProvider.ItemIndex := 1;
    If SameText(Config.ReadString('ai', 'provider', 'codex'), 'ollama') Then
-    cbProvider.ItemIndex := 2;
-   seOllamaContext.Value := EnsureRange(Config.ReadInteger('ai', 'ollama_context_tokens', 32768), 2048, 262144);
-   eOllamaURL.Text       := Config.ReadString('ai', 'ollama_url', 'http://localhost:11434');
-   cbOllamaModel.Text    := Config.ReadString('ai', 'ollama_model', '');
-   eCodexPath.Text       := Config.ReadString('ai', 'codex_path', '');
-   eCodexModel.Text      := Config.ReadString('ai', 'codex_model', '');
-   eGeminiModel.Text     := Config.ReadString('ai', 'model', 'gemma-4-31b-it');
-   eGeminiKey.Text       := Config.ReadString('ai', 'gemini_api_key', '');
-   seTimeout.Value := EnsureRange(Config.ReadInteger('ai', 'timeout_seconds', 180), 1, 1800);
+    cbProvider.ItemIndex         := 2;
+   seOllamaContext.Value         := EnsureRange(Config.ReadInteger('ai', 'ollama_context_tokens', 32768), 2048, 262144);
+   eOllamaURL.Text               := Config.ReadString('ai', 'ollama_url', 'http://localhost:11434');
+   cbOllamaModel.Text            := Config.ReadString('ai', 'ollama_model', '');
+   eCodexPath.Text               := Config.ReadString('ai', 'codex_path', '');
+   eCodexModel.Text              := Config.ReadString('ai', 'codex_model', '');
+   eGeminiModel.Text             := Config.ReadString('ai', 'model', 'gemma-4-31b-it');
+   eGeminiKey.Text               := Config.ReadString('ai', 'gemini_api_key', '');
+   seTimeout.Value               := EnsureRange(Config.ReadInteger('ai', 'timeout_seconds', 180), 1, 1800);
    ProviderPages.ActivePageIndex := cbProvider.ItemIndex;
   End;
 
  Procedure TfrmSettings.Save(Config : TMemIniFile);
-  Var I : Integer;
+  Var
+   i : Integer;
   Begin
-   For I := 1 To UnitsEditor.RowCount-1 Do
-    SaveDisplayUnit(Config, UnitsEditor.Cells[0,I], UnitsEditor.Cells[1,I]);
+   Config.WriteBool('instruments', 'b38m_flight_info_left', cbB38MInfoLeft.Checked);
+   Config.WriteBool('instruments', 'b38m_flight_info', cbB38MInfo.Checked);
+   Config.WriteBool('instruments', 'b38m_aoa', cbB38MAoA.Checked);
+   Config.WriteBool('instruments', 'b38m_flight_director', cbB38MFD.Checked);
+   Config.WriteInteger('debug', 'instrument_kind', cbInstrumentOverride.ItemIndex - 1);
+   Config.WriteInteger('ghost', 'refresh_hz', seGhostHz.Value);
+   Config.WriteString('ghost', 'vmr_file', Trim(eGhostVMR.Text));
+   Config.WriteBool('updates', 'automatic', False);
+   For i := 1 To UnitsEditor.RowCount - 1 Do
+    SaveDisplayUnit(Config, UnitsEditor.Cells[0, i], UnitsEditor.Cells[1, i]);
    LoadDisplayUnits(Config);
    If cbProvider.ItemIndex = 2 Then
     Config.WriteString('ai', 'provider', 'ollama')
@@ -253,8 +321,9 @@ Implementation
    Config.WriteInteger('ai', 'landing_before_seconds', seLandingBefore.Value);
    Config.WriteInteger('ai', 'landing_after_seconds', seLandingAfter.Value);
    If (cbLanguage.ItemIndex > 0) And (cbLanguage.ItemIndex <= UILanguageCount) Then
-    Config.WriteString('ui','language',UILanguageLocales[cbLanguage.ItemIndex-1])
-   Else Config.WriteString('ui','language','auto');
+    Config.WriteString('ui', 'language', UILanguageLocales[cbLanguage.ItemIndex - 1])
+   Else
+    Config.WriteString('ui', 'language', 'auto');
    Config.UpdateFile;
    SetLanguage(Config.ReadString('ui', 'language', 'auto'));
   End;

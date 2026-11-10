@@ -3,7 +3,7 @@
 {  i18n Package                                                                }
 {  Internationalization and Localization for Delphi                            }
 {                                                                              }
-{  Copyright (c) Kambiz Khojasteh                                              }
+{ Copyright(c) Kambiz Khojasteh                                              }
 {  https://github.com/khojasteh/i18n                                           }
 {                                                                              }
 {------------------------------------------------------------------------------}
@@ -11,18 +11,18 @@
 /// <summary>
 /// This unit implements the Japanese Emperor Era calendar.
 /// </summary>
-unit i18nCalJapanese;
+Unit i18nCalJapanese;
 
 {$I DELPHIAREA.INC}
 
-interface
+Interface
 
-uses
+ Uses
   SysUtils, i18nCalendar, i18nCalGregorian;
 
-type
+ Type
 
-  {$region 'xmldoc'}
+  {$Region 'xmldoc'}
   /// <summary>
   /// This class implements the Japanese Emperor Era calendar.
   /// </summary>
@@ -40,10 +40,10 @@ type
   /// This calendar supports Common Era (C.E.) as well as Japanese Emperor Eras.
   /// </para>
   /// </remarks>
-  {$endregion}
-  TJapaneseCalendar = class(TGregorianCalendar)
-  protected
-    {$region 'xmldoc'}
+  {$Endregion}
+  TJapaneseCalendar = Class(TGregorianCalendar)
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the era that contains the specified year expressed in Common Era.
     /// If the value of <see cref="DefaultEra"/> is
@@ -56,58 +56,58 @@ type
     /// <returns>
     /// The best era for expressing the year.
     /// </returns>
-    {$endregion}
-    function BestEraOfBaseEraYear(Year: Integer): Integer; override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function BestEraOfBaseEraYear(Year : Integer) : Integer; Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Specifies index of Meiji Era.
     /// </summary>
-    {$endregion}
-    const MeijiEra = 2;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const MeijiEra = 2;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Specifies index of Taisho Era.
     /// </summary>
-    {$endregion}
-    const TaishoEra = 3;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const TaishoEra = 3;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Specifies index of Showa Era.
     /// </summary>
-    {$endregion}
-    const ShowaEra = 4;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const ShowaEra = 4;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Specifies index of Heisei Era.
     /// </summary>
-    {$endregion}
-    const HeiseiEra = 5;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const HeiseiEra = 5;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Specifies index of Reiwa Era.
     /// </summary>
-    {$endregion}
-    const ReiwaEra = 6;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Const ReiwaEra = 6;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the unique identifier of the calendar.
     /// </summary>
     /// <returns>
     /// Returns <see cref="CAL_JAPAN"/>.
     /// </returns>
-    {$endregion}
-    class function CalendarID: Cardinal; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function CalendarID : Cardinal; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the number of eras that the calendar class supports.
     /// </summary>
     /// <returns>
     /// The maximum number of eras.
     /// </returns>
-    {$endregion}
-    class function MaxEra: Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MaxEra : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the minimum <see cref="TDateTime"/> value that can be managed by
     /// the calendar.
@@ -116,9 +116,9 @@ type
     /// The minimum supported <see cref="TDateTime"/> value.
     /// </returns>
     /// <seealso cref="MaxSupportedDateTime"/>
-    {$endregion}
-    class function MinSupportedDateTime: TDateTime; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MinSupportedDateTime : TDateTime; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the maximum <see cref="TDateTime"/> value that can be managed by
     /// the calendar.
@@ -127,9 +127,9 @@ type
     /// The maximum supported <see cref="TDateTime"/> value.
     /// </returns>
     /// <seealso cref="MinSupportedDateTime"/>
-    {$endregion}
-    class function MaxSupportedDateTime: TDateTime; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function MaxSupportedDateTime : TDateTime; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns the <see cref="TCalendarSettings"/> class that provides locale
     /// specific settings for the calendar.
@@ -137,9 +137,9 @@ type
     /// <returns>
     /// Returns <see cref="TJapaneseCalendarSettings"/> class.
     /// </returns>
-    {$endregion}
-    class function SettingsClass: TCalendarSettingsClass; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Class Function SettingsClass : TCalendarSettingsClass; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Converts a year from one era to another.
     /// </summary>
@@ -155,9 +155,9 @@ type
     /// <returns>
     /// The year expressed in the target era.
     /// </returns>
-    {$endregion}
-    function ConvertYear(Year, FromEra, ToEra: Integer): Integer; override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Function ConvertYear(Year, FromEra, ToEra : Integer) : Integer; Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Returns a <see cref="TDateTime"/> value that represents the first expressible
     /// moment of a specified era.
@@ -169,25 +169,26 @@ type
     /// The <see cref="TDateTime"/> value of the first moment.
     /// </returns>
     /// <seealso cref="EndOfEra"/>
-    {$endregion}
-    function StartOfEra(Era: Integer): TDateTime; override;
-  end;
+    {$Endregion}
+    Function StartOfEra(Era : Integer) : TDateTime; Override;
+  End;
 
-  {$region 'xmldoc'}
-  /// <summary>
-  /// This class provides locale specific settings for the <see cref="TJapaneseCalendar"/>
-  /// class.
-  /// </summary>
-  /// <remarks>
-  /// <para>
-  /// TJapaneseCalendarSettings class collects the Japanese calendar's locale specific
-  /// settings, which are required by the <see cref="TJapaneseCalendar"/> class.
-  /// </para>
-  /// </remarks>
-  {$endregion}
-  TJapaneseCalendarSettings = class(TGregorianCalendarSettings)
-  protected
-    {$region 'xmldoc'}
+{$Region 'xmldoc'}
+/// <summary>
+/// This class provides locale specific settings for the <see cref="TJapaneseCalendar"/>
+/// class.
+/// </summary>
+/// <remarks>
+/// <para>
+/// TJapaneseCalendarSettings class collects the Japanese calendar's locale specific
+/// settings, which are required by the <see cref="TJapaneseCalendar"/> class.
+/// </para>
+/// </remarks>
+{$Endregion}
+
+  TJapaneseCalendarSettings = Class(TGregorianCalendarSettings)
+   Protected
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="EraNames"/> and <see cref="ShortEraNames"/> properties for
     /// the specified era based on the given locale and calendar identifier.
@@ -201,9 +202,9 @@ type
     /// <param name="CalendarID">
     /// The identifier of calendar system.
     /// </param>
-    {$endregion}
-    procedure PrepareEraName(Era: Integer; const Locale: String; CalendarID: Cardinal); override;
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure PrepareEraName(Era : Integer; Const Locale : String; CalendarID : Cardinal); Override;
+    {$Region 'xmldoc'}
     /// <summary>
     /// Sets <see cref="LongDateFormat"/>, <see cref="ShortDateFormat"/>,
     /// <see cref="YearMonthFormat"/>, <see cref="MonthDayFormat"/> and
@@ -216,281 +217,294 @@ type
     /// <param name="CalendarID">
     /// The identifier of calendar system.
     /// </param>
-    {$endregion}
-    procedure PrepareDateFormats(const Locale: String; CalendarID: Cardinal); override;
-  public
-    {$region 'xmldoc'}
+    {$Endregion}
+    Procedure PrepareDateFormats(Const Locale : String; CalendarID : Cardinal); Override;
+   Public
+    {$Region 'xmldoc'}
     /// <summary>
     /// Determines the calendar system that this settings is provided for.
     /// </summary>
     /// <returns>
     /// Returns <see cref="TJapaneseCalendar"/> class.
     /// </returns>
-    {$endregion}
-    class function CalendarClass: TCalendarClass; override;
-  end;
+    {$Endregion}
+    Class Function CalendarClass : TCalendarClass; Override;
+  End;
 
-implementation
+Implementation
 
-uses
+ Uses
   Math, Types, i18nWinNLS, Windows, Registry, Classes;
 
 { Japanese Eras }
 
-type
+ Type
   // Stores information about a single Japanese era.
-  TJapaneseEraInfo = record
-    Start: TDateYMD;
-    StartDate: TDate;
-    NativeName: String;
-    ShortNativeName: String;
-    EnglishName: String;
-    ShortEnglishName: String;
-  end;
+  TJapaneseEraInfo = Record
+   Start            : TDateYMD;
+   StartDate        : TDate;
+   NativeName       : String;
+   ShortNativeName  : String;
+   EnglishName      : String;
+   ShortEnglishName : String;
+  End;
 
-var
+ Var
   // Stores minimum supported TDateTime value for Japanese calendar.
-  JapaneseMinDateTime: TDateTime;
-  // Stores maximum supported TDateTime value for Japanese calendar.
-  JapaneseMaxDateTime: TDateTime;
-  // Lists information about the Japanese eras.
-  JapaneseEraInfo: array of TJapaneseEraInfo;
+  JapaneseMinDateTime : TDateTime;
+// Stores maximum supported TDateTime value for Japanese calendar.
+  JapaneseMaxDateTime : TDateTime;
+// Lists information about the Japanese eras.
+  JapaneseEraInfo : Array Of TJapaneseEraInfo;
 
-procedure ExtractJapaneseEras(Info: TStrings);
-var
-  I: Integer;
-  S, E: PChar;
-  Num: String;
-begin
-  SetLength(JapaneseEraInfo, Info.Count);
-  for I := 0 to Info.Count - 1 do
-  begin
-    S := PChar(Info[I]);
-    with JapaneseEraInfo[I] do
-    begin
-      // Start.Year
-      E := StrScan(S, ' ');
-      SetString(Num, S, E - S);
-      Start.Year := StrToInt(Num);
-      S := E + 1;
-      // Start.Month
-      E := StrScan(S, ' ');
-      SetString(Num, S, E - S);
-      Start.Month := StrToInt(Num);
-      S := E + 1;
-      // Start.Day
-      E := StrScan(S, '=');
-      SetString(Num, S, E - S);
-      Start.Day := StrToInt(Num);
-      S := E + 1;
-      // NativeName
-      E := StrScan(S, '_');
-      SetString(NativeName, S, E - S);
-      S := E + 1;
-      // ShortNativeName
-      E := StrScan(S, '_');
-      SetString(ShortNativeName, S, E - S);
-      S := E + 1;
-      // EnglishName
-      E := StrScan(S, '_');
-      SetString(EnglishName, S, E - S);
-      S := E + 1;
-      // ShortEnglishName
-      SetString(ShortEnglishName, S, StrLen(S));
-    end;
-  end;
-end;
+ Procedure ExtractJapaneseEras(Info : TStrings);
+  Var
+   i   : Integer;
+   s   : PChar;
+   e   : PChar;
+   Num : String;
+  Begin
+   SetLength(JapaneseEraInfo, Info.Count);
+   For i := 0 To Info.Count - 1 Do
+    Begin
+     s := PChar(Info[i]);
+     With JapaneseEraInfo[i] Do
+      Begin
+       // Start.Year
+       e := StrScan(s, ' ');
+       SetString(Num, s, e - s);
+       Start.Year := StrToInt(Num);
+       s          := e + 1;
+       // Start.Month
+       e := StrScan(s, ' ');
+       SetString(Num, s, e - s);
+       Start.Month := StrToInt(Num);
+       s           := e + 1;
+       // Start.Day
+       e := StrScan(s, '=');
+       SetString(Num, s, e - s);
+       Start.Day := StrToInt(Num);
+       s         := e + 1;
+       // NativeName
+       e := StrScan(s, '_');
+       SetString(NativeName, s, e - s);
+       s := e + 1;
+       // ShortNativeName
+       e := StrScan(s, '_');
+       SetString(ShortNativeName, s, e - s);
+       s := e + 1;
+       // EnglishName
+       e := StrScan(s, '_');
+       SetString(EnglishName, s, e - s);
+       s := e + 1;
+       // ShortEnglishName
+       SetString(ShortEnglishName, s, StrLen(s));
+      End;
+    End;
+  End;
 
-procedure GetJapaneseErasFromKnownInfo;
-const
-  KnownInfo = '1868 01 01=明治_明_Meiji_M'  + #13#10
-            + '1912 07 30=大正_大_Taisho_T' + #13#10
-            + '1926 12 25=昭和_昭_Showa_S'  + #13#10
-            + '1989 01 08=平成_平_Heisei_H' + #13#10
-            + '2019 05 01=令和_令_Reiwa_R';
-var
-  Info: TStrings;
-begin
-  Info := TStringList.Create;
-  try
+ Procedure GetJapaneseErasFromKnownInfo;
+  Const
+   KnownInfo = '1868 01 01=明治_明_Meiji_M' + #13#10
+   + '1912 07 30=大正_大_Taisho_T' + #13#10
+   + '1926 12 25=昭和_昭_Showa_S' + #13#10
+   + '1989 01 08=平成_平_Heisei_H' + #13#10
+   + '2019 05 01=令和_令_Reiwa_R';
+  Var
+   Info : TStrings;
+  Begin
+   Info := TStringList.Create;
+   Try
     Info.Text := KnownInfo;
     ExtractJapaneseEras(Info);
-  finally
+   Finally
     Info.Free;
-  end;
-end;
+   End;
+  End;
 
-function GetJapaneseErasFromRegistry: Boolean;
-const
-  ErasKey = '\SYSTEM\CurrentControlSet\Control\Nls\Calendars\Japanese\Eras';
-var
-  R: TRegistry;
-  Info: TStrings;
-  I: Integer;
-begin
-  Result := False;
-  try
-    R := TRegistry.Create(KEY_QUERY_VALUE);
-    try
-      R.RootKey := HKEY_LOCAL_MACHINE;
-      if R.OpenKeyReadOnly(ErasKey) then
-      begin
-        Info := TStringList.Create;
-        try
-          R.GetValueNames(Info);
-          for I := 0 to Info.Count - 1 do
-            Info[I] := Info[I] + '=' + R.ReadString(Info[I]);
-          ExtractJapaneseEras(Info);
-          Result := (Info.Count <> 0);
-        finally
-          Info.Free;
-        end;
-      end;
-    finally
-      R.Free;
-    end;
-  except
+ Function GetJapaneseErasFromRegistry : Boolean;
+  Const
+   ErasKey = '\SYSTEM\CurrentControlSet\Control\Nls\Calendars\Japanese\Eras';
+  Var
+   r    : TRegistry;
+   Info : TStrings;
+   i    : Integer;
+  Begin
+   Result := False;
+   Try
+    r := TRegistry.Create(KEY_QUERY_VALUE);
+    Try
+     r.RootKey := HKEY_LOCAL_MACHINE;
+     If r.OpenKeyReadOnly(ErasKey) Then
+      Begin
+       Info := TStringList.Create;
+       Try
+        r.GetValueNames(Info);
+        For i    := 0 To Info.Count - 1 Do
+         Info[i] := Info[i] + '=' + r.ReadString(Info[i]);
+        ExtractJapaneseEras(Info);
+        Result := (Info.Count <> 0);
+       Finally
+        Info.Free;
+       End;
+      End;
+    Finally
+     r.Free;
+    End;
+   Except
     Result := False;
-  end;
-end;
+   End;
+  End;
 
-procedure InitializeJapaneseEraInfo;
-var
-  I: Integer;
-begin
-  if not GetJapaneseErasFromRegistry then
+ Procedure InitializeJapaneseEraInfo;
+  Var
+   i : Integer;
+  Begin
+   If Not GetJapaneseErasFromRegistry Then
     GetJapaneseErasFromKnownInfo;
-  for I := 0 to Length(JapaneseEraInfo) - 1 do
-    with JapaneseEraInfo[I] do
-      StartDate := EncodeDate(Start.Year, Start.Month, Start.Day);
-  JapaneseMinDateTime := JapaneseEraInfo[0].StartDate;
-  with JapaneseEraInfo[Length(JapaneseEraInfo) - 1].Start do
+   For i := 0 To Length(JapaneseEraInfo) - 1 Do
+    With JapaneseEraInfo[i] Do
+     StartDate         := EncodeDate(Start.Year, Start.Month, Start.Day);
+   JapaneseMinDateTime := JapaneseEraInfo[0].StartDate;
+   With JapaneseEraInfo[Length(JapaneseEraInfo) - 1].Start Do
     JapaneseMaxDateTime := EncodeDate(Year + 99, 1, 1) - 0.00001;
-end;
+  End;
 
-procedure FinalizeJapaneseEraInfo;
-begin
-  SetLength(JapaneseEraInfo, 0);
-end;
+ Procedure FinalizeJapaneseEraInfo;
+  Begin
+   SetLength(JapaneseEraInfo, 0);
+  End;
 
 { TJapaneseCalendar }
 
-class function TJapaneseCalendar.CalendarID: Cardinal;
-begin
-  Result := CAL_JAPAN;
-end;
+  Class Function TJapaneseCalendar.CalendarID : Cardinal;
 
-class function TJapaneseCalendar.SettingsClass: TCalendarSettingsClass;
-begin
-  Result := TJapaneseCalendarSettings;
-end;
+Begin
+ Result := CAL_JAPAN;
 
-class function TJapaneseCalendar.MaxEra: Integer;
-begin
-  Result := Length(JapaneseEraInfo) + CommonEra;
-end;
+End;
 
-class function TJapaneseCalendar.MinSupportedDateTime: TDateTime;
-begin
-  Result := Max(JapaneseMinDateTime, inherited);
-end;
+  Class Function TJapaneseCalendar.SettingsClass : TCalendarSettingsClass;
 
-class function TJapaneseCalendar.MaxSupportedDateTime: TDateTime;
-begin
-  Result := Min(JapaneseMaxDateTime, inherited);
-end;
+Begin
+ Result := TJapaneseCalendarSettings;
 
-function TJapaneseCalendar.ConvertYear(Year, FromEra, ToEra: Integer): Integer;
-begin
-  if Year = 0 then
+End;
+
+  Class Function TJapaneseCalendar.MaxEra : Integer;
+
+Begin
+ Result := Length(JapaneseEraInfo) + CommonEra;
+
+End;
+
+  Class Function TJapaneseCalendar.MinSupportedDateTime : TDateTime;
+
+Begin
+ Result := Max(JapaneseMinDateTime, Inherited);
+
+End;
+
+  Class Function TJapaneseCalendar.MaxSupportedDateTime : TDateTime;
+
+Begin
+ Result := Min(JapaneseMaxDateTime, Inherited);
+
+End;
+
+ Function TJapaneseCalendar.ConvertYear(Year, FromEra, ToEra : Integer) : Integer;
+  Begin
+   If Year = 0 Then
     YearError(FromEra, Year)
-  else if FromEra <> ToEra then
-  begin
-    if (FromEra > CommonEra) and (FromEra <= MaxEra) then
-      Year := OffsetYear(Year, +(JapaneseEraInfo[FromEra-2].Start.Year - 1), FromEra, CommonEra)
-    else if FromEra <> CommonEra then
+   Else If FromEra <> ToEra Then
+    Begin
+     If (FromEra > CommonEra) And (FromEra <= MaxEra) Then
+      Year := OffsetYear(Year, +(JapaneseEraInfo[FromEra - 2].Start.Year - 1), FromEra, CommonEra)
+     Else If FromEra <> CommonEra Then
       EraError(FromEra);
-    if (ToEra > CommonEra) and (ToEra <= MaxEra) then
-      Year := OffsetYear(Year, -(JapaneseEraInfo[ToEra-2].Start.Year - 1), CommonEra, ToEra)
-    else if ToEra <> CommonEra then
+     If (ToEra > CommonEra) And (ToEra <= MaxEra) Then
+      Year := OffsetYear(Year, -(JapaneseEraInfo[ToEra - 2].Start.Year - 1), CommonEra, ToEra)
+     Else If ToEra <> CommonEra Then
       EraError(FromEra);
-  end
-  else if (FromEra < CommonEra) or (FromEra > MaxEra) then
+    End
+   Else If (FromEra < CommonEra) Or (FromEra > MaxEra) Then
     EraError(FromEra);
-  Result := Year;
-end;
+   Result := Year;
+  End;
 
-function TJapaneseCalendar.StartOfEra(Era: Integer): TDateTime;
-begin
-  if (Era > CommonEra) and (Era <= MaxEra) then
-    Result := JapaneseEraInfo[Era-2].StartDate
-  else
-    Result := inherited StartOfEra(Era);
-end;
+ Function TJapaneseCalendar.StartOfEra(Era : Integer) : TDateTime;
+  Begin
+   If (Era > CommonEra) And (Era <= MaxEra) Then
+    Result := JapaneseEraInfo[Era - 2].StartDate
+   Else
+    Result := Inherited StartOfEra(Era);
+  End;
 
-function TJapaneseCalendar.BestEraOfBaseEraYear(Year: Integer): Integer;
-var
-  I: Integer;
-begin
-  if DefaultEra = CommonEra then
-    Result := inherited BestEraOfBaseEraYear(Year)
-  else
-  begin
-    for I := Length(JapaneseEraInfo) - 1 downto 1 do
-      if Year >= JapaneseEraInfo[I].Start.Year then
-      begin
-        Result := I + 2;
+ Function TJapaneseCalendar.BestEraOfBaseEraYear(Year : Integer) : Integer;
+  Var
+   i : Integer;
+  Begin
+   If DefaultEra = CommonEra Then
+    Result := Inherited BestEraOfBaseEraYear(Year)
+   Else
+    Begin
+     For i := Length(JapaneseEraInfo) - 1 Downto 1 Do
+      If Year >= JapaneseEraInfo[i].Start.Year Then
+       Begin
+        Result := i + 2;
         Exit;
-      end;
-    Result := MeijiEra;
-  end;
-end;
+       End;
+     Result := MeijiEra;
+    End;
+  End;
 
 { TJapaneseCalendarSettings }
 
-class function TJapaneseCalendarSettings.CalendarClass: TCalendarClass;
-begin
-  Result := TJapaneseCalendar;
-end;
+  Class Function TJapaneseCalendarSettings.CalendarClass : TCalendarClass;
 
-procedure TJapaneseCalendarSettings.PrepareEraName(Era: Integer;
-  const Locale: String; CalendarID: Cardinal);
-begin
-  if Era = TJapaneseCalendar.CommonEra then
-    inherited PrepareEraName(Era, Locale, CAL_GREGORIAN)
-  else
-  begin
-    if Pos('Jpan;', GetLocaleScripts(Locale)) <> 0 then
-    begin
-      EraNames[Era] := JapaneseEraInfo[Era-2].NativeName;
-      ShortEraNames[Era] := JapaneseEraInfo[Era-2].ShortNativeName
-    end
-    else
-    begin
-      EraNames[Era] := JapaneseEraInfo[Era-2].EnglishName;
-      ShortEraNames[Era] := JapaneseEraInfo[Era-2].ShortEnglishName;
-    end;
-  end;
-end;
+Begin
+ Result := TJapaneseCalendar;
 
-procedure TJapaneseCalendarSettings.PrepareDateFormats(const Locale: String;
-  CalendarID: Cardinal);
-begin
-  if SameText(Locale, 'ja-JP') then
-    inherited PrepareDateFormats(Locale, CalendarID)
-  else
-  begin
-    LongDateFormat := 'gg y, MMMM d';
-    ShortDateFormat := 'gg y/M/d';
-    YearMonthFormat := 'gg y, MMMM';
-    MonthDayFormat := 'MMMM, d';
-  end;
-  YearFormat := 'gg y';
-end;
+End;
 
-initialization
-  InitializeJapaneseEraInfo;
-  CalendarTypes.Register(TJapaneseCalendar, ['ja-JP']);
-finalization
-  FinalizeJapaneseEraInfo;
-end.
+ Procedure TJapaneseCalendarSettings.PrepareEraName(Era : Integer; Const Locale : String; CalendarID : Cardinal);
+  Begin
+   If Era = TJapaneseCalendar.CommonEra Then
+    Inherited PrepareEraName(Era, Locale, CAL_GREGORIAN)
+   Else
+    Begin
+     If Pos('Jpan;', GetLocaleScripts(Locale)) <> 0 Then
+      Begin
+       EraNames[Era]      := JapaneseEraInfo[Era - 2].NativeName;
+       ShortEraNames[Era] := JapaneseEraInfo[Era - 2].ShortNativeName
+      End
+     Else
+      Begin
+       EraNames[Era]      := JapaneseEraInfo[Era - 2].EnglishName;
+       ShortEraNames[Era] := JapaneseEraInfo[Era - 2].ShortEnglishName;
+      End;
+    End;
+  End;
+
+ Procedure TJapaneseCalendarSettings.PrepareDateFormats(Const Locale : String; CalendarID : Cardinal);
+  Begin
+   If SameText(Locale, 'ja-JP') Then
+    Inherited PrepareDateFormats(Locale, CalendarID)
+   Else
+    Begin
+     LongDateFormat  := 'gg y, MMMM d';
+     ShortDateFormat := 'gg y/M/d';
+     YearMonthFormat := 'gg y, MMMM';
+     MonthDayFormat  := 'MMMM, d';
+    End;
+   YearFormat := 'gg y';
+  End;
+
+Initialization
+ InitializeJapaneseEraInfo;
+ CalendarTypes.Register(TJapaneseCalendar, ['ja-JP']);
+
+Finalization
+ FinalizeJapaneseEraInfo;
+
+End.

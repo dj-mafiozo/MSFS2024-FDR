@@ -9,21 +9,21 @@ Interface
 
  Type
   TRecorderState = Record
-   Public
-    Trip           : Integer;
-    WorkerThreadID : Cardinal;
-    Status         : String;
-    Plan           : String;
-    Error          : String;
-    Ready          : Boolean;
-    Failed         : Boolean;
+   Trip                 : Integer;
+   WorkerThreadID       : Cardinal;
+   Status               : String;
+   Plan                 : String;
+   Error                : String;
+   SimulatorSupported   : Boolean;
+   UnsupportedSimulator : String;
+   Ready                : Boolean;
+   Failed               : Boolean;
   End;
 
   TRecorderCommand = Record
-   Public
-    Kind  : String;
-    Value : String;
-    ID    : Integer;
+   Kind  : String;
+   Value : String;
+   ID    : Integer;
   End;
 
   TRecorderWorker = Class(TThread)
@@ -42,6 +42,7 @@ Interface
    Protected
     Procedure Execute; Override;
     Procedure PollRecorder(Recorder : TFlightRecorder); Virtual;
+    Procedure ConnectRecorder(Recorder : TFlightRecorder); Virtual;
    Public
     Constructor Create(Const Path, Root, Plan : String; BridgePort : Integer; Connect : Boolean = True);
     Destructor Destroy; Override;
@@ -53,7 +54,12 @@ Interface
 Implementation
 
  Uses
-  Winapi.Windows, Winapi.ActiveX, System.IOUtils, FlightDatabaseU, AppLogU;
+  Winapi.Windows, Winapi.ActiveX, System.IOUtils, SimConnectClientU, FlightDatabaseU, AppLogU, MetarU;
+
+ Procedure TRecorderWorker.ConnectRecorder(Recorder : TFlightRecorder);
+  Begin
+   Recorder.Sim.Connect(TPath.Combine(fRoot, 'SimConnect.dll'));
+  End;
 
  Procedure TRecorderWorker.PollRecorder(Recorder : TFlightRecorder);
   Begin
@@ -102,16 +108,16 @@ Implementation
 
  Procedure TRecorderWorker.Command(Const Kind, Value : String; ID : Integer);
   Var
-   C : TRecorderCommand;
+   c : TRecorderCommand;
   Begin
-   C.Kind  := Kind;
-   C.Value := Value;
-   C.ID    := ID;
+   c.Kind  := Kind;
+   c.Value := Value;
+   c.ID    := ID;
    fLock.Enter;
    Try
     If fCommands.Count >= 128 Then
      Raise Exception.Create(Tr('Recorder command queue full'));
-    fCommands.Add(C);
+    fCommands.Add(c);
    Finally
     fLock.Leave;
    End;
@@ -130,18 +136,22 @@ Implementation
 
  Procedure TRecorderWorker.Execute;
   Var
-   DB       : TFlightDatabase;
-   R        : TFlightRecorder;
-   Commands : TArray<TRecorderCommand>;
-   C        : TRecorderCommand;
-   State    : TRecorderState;
-   Retry    : UInt64;
-   HR       : HRESULT;
+   DB        : TFlightDatabase;
+   r         : TFlightRecorder;
+   WeatherDB : TFlightDatabase;
+   Weather   : TMetarService;
+   Commands  : TArray<TRecorderCommand>;
+   c         : TRecorderCommand;
+   State     : TRecorderState;
+   Retry     : UInt64;
+   HR        : HRESULT;
   Begin
+   WeatherDB            := Nil;
+   Weather              := Nil;
    DB                   := Nil;
-   R                    := Nil;
+   r                    := Nil;
    Retry                := 0;
-   State                := Default (TRecorderState);
+   State                := Default(TRecorderState);
    State.WorkerThreadID := GetCurrentThreadId;
    State.Status         := Tr('Starting recorder');
    fLock.Enter;
@@ -156,12 +166,12 @@ Implementation
      If Terminated Then
       Exit;
      DB := TFlightDatabase.Create(fPath, TPath.Combine(fRoot, 'sqlite3.dll'), True);
-     R  := TFlightRecorder.Create(DB);
+     r  := TFlightRecorder.Create(DB);
      If fBridgePort > 0 Then
-      R.EnableRouteBridge(fBridgePort);
+      r.EnableRouteBridge(fBridgePort);
      If FileExists(fPlan) Then
       Try
-       R.LoadPlanFile(fPlan);
+       r.LoadPlanFile(fPlan);
       Except
        On E : Exception Do
         Log(1, 'Fallback PLN: ' + E.Message);
@@ -171,59 +181,85 @@ Implementation
       Begin
        fLock.Enter;
        Try
-        R.IntervalMS := fInterval;
-        R.Enabled    := fEnabled;
+        r.IntervalMS := fInterval;
+        r.Enabled    := fEnabled;
         Commands     := fCommands.ToArray;
         fCommands.Clear;
        Finally
         fLock.Leave;
        End;
-       For C In Commands Do
+       For c In Commands Do
         Try
          State.Error := '';
-         If C.Kind = 'start' Then
-          R.Start
-         Else If C.Kind = 'stop' Then
-          R.Stop
-         Else If C.Kind = 'plan' Then
-          R.LoadPlanFile(C.Value)
-         Else If C.Kind = 'metar' Then
-          R.RequestHistoricalMetar(C.ID);
+         If c.Kind = 'start' Then
+          r.Start
+         Else If c.Kind = 'stop' Then
+          r.Stop
+         Else If c.Kind = 'plan' Then
+          r.LoadPlanFile(c.Value)
+         Else If c.Kind = 'metar' Then
+          If c.Value = '' Then
+           r.RequestHistoricalMetar(c.ID)
+          Else
+           Begin
+            FreeAndNil(Weather);
+            FreeAndNil(WeatherDB);
+            If Not FileExists(c.Value) Then
+             Raise Exception.Create('Recording file missing');
+            WeatherDB := TFlightDatabase.Create(c.Value, TPath.Combine(fRoot, 'sqlite3.dll'), True);
+            Weather   := TMetarService.Create(WeatherDB);
+            Weather.RequestHistorical(c.ID);
+           End;
         Except
          On E : Exception Do
           Begin
            State.Error := E.Message;
-           R.Status    := E.Message;
+           r.Status    := E.Message;
            Log(1, 'Recorder command: ' + E.Message);
           End;
         End;
        Try
-        If fConnect And Not R.Sim.Opened And (GetTickCount64 >= Retry) Then
+        If fConnect And Not r.Sim.Opened And (GetTickCount64 >= Retry) Then
          Begin
           Retry := GetTickCount64 + 3000;
-          R.Sim.Connect(TPath.Combine(fRoot, 'SimConnect.dll'));
+          Try
+           ConnectRecorder(r);
+           State.Error := '';
+          Except
+           On E : ESimConnectUnavailable Do
+            Begin
+             r.Status := Tr('Oczekiwanie na MSFS');
+             // No active recording was touched; replay remains independent.
+             State.Error := '';
+            End;
+          End;
          End;
-        PollRecorder(R);
+        PollRecorder(r);
+        If Weather <> Nil Then
+         Weather.Tick;
        Except
         On E : Exception Do
          Begin
-          R.Status := E.Message;
+          r.Status := E.Message;
           Log(1, Tr('Recorder worker: ') + E.Message);
           State.Error := E.Message;
+          DB.RecordingError;
           Try
-           R.Stop;
+           r.Stop;
           Except
            On X : Exception Do
             Log(0, 'Recorder stop: ' + X.Message);
           End;
-          R.Sim.Disconnect;
+          r.Sim.Disconnect;
          End;
        End;
-       State.Trip   := R.Trip;
-       State.Plan   := R.PlanSummary;
-       State.Status := R.Status;
-       If R.Sim.Connected Then
-        State.Status := Format(Tr('MSFS: %s | lot %d | IAS %.0f | ALT %.0f'), [R.Sim.Sample.S('title'), R.Trip, R.Sim.Sample.N('airspeed_indicated'), R.Sim.Sample.N('plane_altitude')]);
+       State.SimulatorSupported   := r.Sim.SimulatorSupported And r.Sim.Connected;
+       State.UnsupportedSimulator := r.Sim.UnsupportedSimulator;
+       State.Trip                 := r.Trip;
+       State.Plan                 := r.PlanSummary;
+       State.Status               := r.Status;
+       If r.Sim.Connected Then
+        State.Status := Format(Tr('MSFS: %s | lot %d | IAS %.0f | ALT %.0f'), [r.Sim.Sample.S('title'), r.Trip, r.Sim.Sample.N('airspeed_indicated'), r.Sim.Sample.N('plane_altitude')]);
        fLock.Enter;
        Try
         fState := State;
@@ -249,7 +285,9 @@ Implementation
     End;
    Finally
     Try
-     R.Free;
+     Weather.Free;
+     WeatherDB.Free;
+     r.Free;
     Finally
      DB.Free;
      If Succeeded(HR) Then

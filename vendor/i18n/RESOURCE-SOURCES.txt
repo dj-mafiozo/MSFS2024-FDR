@@ -1,0 +1,11 @@
+Resource build inputs
+
+The original i18nFlags_16x11.rc referenced bitmap sources absent from this vendored
+subset. Flags 16x11/*.bmp were restored losslessly from the original BITMAP
+resources; upstream licensing and attribution are unchanged. The flag RC paths
+use forward slashes for standard Windows RC escape handling.
+
+The i18n/i18nDB/i18nDesign RC files preserve the original package version data.
+Rebuild with python tools/build_resources.py --vendor from the recorder root,
+or compile each RC in this directory with the Windows SDK Resource Compiler.
+Compiled *.res files are ignored build outputs, not repository/source-archive inputs.
