@@ -5,6 +5,8 @@ The history starts with the initial Preview, followed by releases **0.1.0**, **0
 
 ## 0.1.1
 
+- Avoid reattaching an already active menu during action updates, preventing transient RTL/LTR flips and menu-header flicker.
+
 - Fixed blank analysis-report illustrations in CHM. Examples now include fuller reports, flight phases, configuration, engines, ATC history and GSX progress.
 
 - Fixed Polish and Western European characters in CHM navigation; compilation now validates every label in the compiled file.

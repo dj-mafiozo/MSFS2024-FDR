@@ -4,7 +4,7 @@ Unit LocalizationU;
 Interface
 
  Uses
-  System.Classes, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, System.UITypes, LocalizationCatalogU, i18nLocalizer;
+  System.Classes, Winapi.Messages, Vcl.Controls, Vcl.Forms, Vcl.Dialogs, System.UITypes, LocalizationCatalogU, i18nLocalizer;
 
  Const
   UILanguageCount = 32;
@@ -13,6 +13,8 @@ Interface
 
  Type
   TLocalizedForm = Class(TForm)
+   Private
+    Procedure CMMenuChanged(Var Message : TMessage); Message CM_MENUCHANGED;
    Public
     Constructor Create(AOwner : TComponent); Override;
   End;
@@ -41,7 +43,7 @@ Interface
 Implementation
 
  Uses
-  System.Generics.Collections, System.Types, UIFontsU, Winapi.Windows, System.SysUtils, System.SyncObjs, i18nCore, i18nCatalog, i18nDialogs, i18nHashList;
+  System.Generics.Collections, System.Types, Vcl.Menus, UIFontsU, Winapi.Windows, System.SysUtils, System.SyncObjs, i18nCore, i18nCatalog, i18nDialogs, i18nHashList;
 
  Type
    TTranslatorAccess = Class(TTranslator);
@@ -363,6 +365,21 @@ Implementation
    Finally
     Lock.Leave;
    End;
+  End;
+
+ Procedure TLocalizedForm.CMMenuChanged(Var Message : TMessage);
+  Begin
+   // VCL SetMenu reassigns WindowHandle even for the already attached HMENU.
+   // On MiddleEast Windows this invokes AdjustBiDiBehavior (RTL then LTR)
+   // and DrawMenuBar twice. Native item changes need repainting, not reattaching.
+   If (FormStyle = fsNormal) And HandleAllocated And (Menu <> Nil) And
+   (GetMenu(Handle) = Menu.Handle) Then
+    Begin
+     DrawMenuBar(Handle);
+     Message.Result := 0;
+    End
+   Else
+    Inherited;
   End;
 
  Constructor TLocalizedForm.Create(AOwner : TComponent);

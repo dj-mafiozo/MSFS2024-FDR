@@ -5,6 +5,8 @@ Historia zaczyna się od initial Preview, następnie obejmuje wydania `0.1.0`, `
 
 ## 0.1.1
 
+- Usunięto ponowne podpinanie już aktywnego menu podczas aktualizacji akcji, powodujące przejściowe przełączanie RTL/LTR i migotanie nagłówków.
+
 - Naprawiono puste ilustracje raportu analizy w CHM. Przykłady obejmują pełniejsze raporty, fazy lotu, konfigurację, silniki, historię ATC i postęp GSX.
 
 - Poprawiono polskie i zachodnioeuropejskie znaki w drzewie CHM; kompilacja sprawdza teraz kodowanie wszystkich etykiet w gotowym pliku.

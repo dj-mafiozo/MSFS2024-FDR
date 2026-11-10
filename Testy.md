@@ -950,3 +950,5 @@ Pomoc: VerifyHelpContexts sprawdza 62 rozdziały w czterech językach, wszystkie
 Kodowanie pomocy: VerifyHelpContexts czyta HTML/HHC właściwą stroną Windows, sprawdza polskie znaki i brak encji w nazwach spisu. build_help.py sprawdza wszystkie 248 etykiet bezpośrednio w skompilowanych strumieniach #STRINGS oraz obecność #TOCIDX, korzystając z CLI 7-Zip.
 
 Regresja raportu: VerifyReport korzysta z tego samego HelpScreenshotU co generator pomocy. Sprawdza zachowanie treści i render RichEdit do bitmapy przez EM_FORMATRANGE; generator weryfikuje też obecność pikseli tekstu w ilustracji. Raport demonstracyjny PL/EN/DE/ES ma osobne zrzuty początku i dalszych wniosków. Dane lotu mają monotoniczne znaczniki co 20 s i jawnie zapisany interwał, fazy lotu oraz zmienną konfigurację/GSX/ATC.
+
+Regresja `VerifyRTLReturn` wymusza również 40 powiadomień `CM_MENUCHANGED` na już podłączonym menu, kontrolując flagi HMENU i stałe położenie nagłówków po przejściu RTL → automatyczny język.

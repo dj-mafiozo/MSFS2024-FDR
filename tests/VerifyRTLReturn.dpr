@@ -146,6 +146,10 @@ Type
     Check(GetMenuItemRect(m.Handle, m.MainMenu.Handle, 0, FirstRect), 'Initial menu position');
     For Pass := 1 To 40 Do
      Begin
+      // Exercise CM_MENUCHANGED on an already attached native menu, as
+      // action/image updates do while the main window is idle.
+      m.Perform(CM_MENUCHANGED, 0, 0);
+      CheckMenuDirection(m.MainMenu.Handle, Application.BiDiMode = bdRightToLeft);
       m.ActionList.UpdateAction(m.aPlayPause);
       Application.ProcessMessages;
       Sleep(10);

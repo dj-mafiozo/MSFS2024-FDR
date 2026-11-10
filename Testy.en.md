@@ -625,3 +625,5 @@ Help: VerifyHelpContexts checks 62 topics in four languages, all DFM HelpContext
 Help encoding: VerifyHelpContexts reads HTML/HHC using the matching Windows codepage and checks Polish glyphs and literal TOC labels. build_help.py verifies all 248 labels directly in compiled #STRINGS and checks #TOCIDX using the 7-Zip CLI.
 
 Report regression: VerifyReport shares HelpScreenshotU with the help capture tool. It checks retained text and native EM_FORMATRANGE bitmap rendering; capture also requires visible text pixels. PL/EN/DE/ES reports have opening/continuation images. Flight fixtures have monotonic 20 s timestamps and stored interval, flight phases, changing configuration, GSX and ATC.
+
+`VerifyRTLReturn` also forces 40 `CM_MENUCHANGED` notifications on an already attached menu, checking native HMENU flags and stable header positions after switching from RTL to automatic language selection.
