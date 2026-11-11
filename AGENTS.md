@@ -86,7 +86,7 @@ Names := TArray<String>.Create('str1', 'str2');
 - Pomoc: po zmianie UI odśwież lokalizowane zrzuty przez tools/capture_help.ps1; dokumentuj wszystkie opcje w help/manual.*.txt (PL/EN/DE/ES). Pilnuj HelpContext w DFM i aliasów w tools/generate_help.py. Zachowaj istniejące ID. CHM ma drzewo tematów bez globalnego paska linków i zrzuty zgodnego języka. Release zawiera wyłącznie CHM; package_flightsim.py wymusza przebudowę i sprawdza świeżość źródeł/obrazów.
 
 
-- Od tej wersji każdą kolejną przygotowaną i zweryfikowaną wersję commituj lokalnie automatycznie. Nie wykonuj push bez osobnego polecenia użytkownika.
+- Od tej wersji każdą kolejną przygotowaną i zweryfikowaną wersję commituj lokalnie automatycznie. Nie wykonuj push bez osobnego polecenia użytkownika. Commit message po angielsku bez dziwnych form gramatycznych oraz bez śmieci w stylu "zakomitowno lokalnie bez push"
 
 - Jawne jednostki DPR: uruchamiaj `python tools/check_project_units.py` (uzupełnianie: `--fix`). Jednostki projektu mają względne klauzule `in` zgodne z `DCCReference`; biblioteki RTL/VCL/vendor pozostają na ścieżkach wyszukiwania. Po dodaniu testu uzupełnij również te deklaracje.
 
