@@ -629,3 +629,9 @@ Report regression: VerifyReport shares HelpScreenshotU with the help capture too
 `VerifyRTLReturn` also forces 40 `CM_MENUCHANGED` notifications on an already attached menu, checking native HMENU flags and stable header positions after switching from RTL to automatic language selection.
 
 The menu regression counts native WM_NCPAINT messages: 40 unchanged-header notifications must not repaint the frame, while a changed header must repaint. Version tests compare the deployed i18n catalog with its source and check English/Polish recording, value and chart search cues.
+
+`tools/check_project_units.py` checks all application, test and tool DPRs for explicit relative project-unit paths and matching DCCReference entries. `--fix` adds missing declarations without rebuilding XML configuration; test.ps1 runs this check. RTL/VCL/vendor libraries retain their configured search paths.
+
+Full runs and `VerifyReleasePEM` build both application and stub before the signing fixture so their executable VersionInfo values match.
+
+Explicit-DPR-path audit: the full run compiled the suite and passed 93 of 94 DUnitX cases plus the standalone RTL regression. The sole failure was a stale stub version in the packaging fixture; after adding the missing executable-build dependency, `VerifyReleasePEM` passed on recheck (94/94 overall). Token comparison of 103 DPRs and configuration comparison of 104 DPROJs preserved code and metadata except the added paths/references and Build.

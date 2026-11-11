@@ -4,9 +4,9 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, System.SysUtils, System.Classes, System.IOUtils, System.Hash,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', System.SysUtils, System.Classes, System.IOUtils, System.Hash,
  System.Variants, System.Math, System.Types, FireDAC.Comp.Client, FireDAC.Stan.Param,
- FlightDatabaseU, FlightTelemetryU, TelemetryCatalogU, LegacyExportU, RecordingIndexU, InstrumentDataU;
+ FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', LegacyExportU In '..\src\Data\LegacyExportU.pas', RecordingIndexU In '..\src\Data\RecordingIndexU.pas', InstrumentDataU In '..\src\Visualization\InstrumentDataU.pas';
 
 Procedure Check(v : Boolean; Const m : String);
  Begin

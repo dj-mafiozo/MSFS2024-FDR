@@ -181,6 +181,9 @@
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>
     <PropertyGroup><FDRVerifyTest>false</FDRVerifyTest></PropertyGroup>
+    <ItemGroup>
+        <DCCReference Include="..\src\FMC\FMCScreensU.pas"/>
+    </ItemGroup>
     <Import Project="Tests.Shared.props"/>
     <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
     <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>

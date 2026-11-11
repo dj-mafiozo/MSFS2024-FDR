@@ -4,7 +4,7 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, System.SysUtils, System.IOUtils, Xml.XMLDoc, Xml.XMLIntf, Xml.xmldom, Xml.omnixmldom, Xml.XMLIniFile;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', System.SysUtils, System.IOUtils, Xml.XMLDoc, Xml.XMLIntf, Xml.xmldom, Xml.omnixmldom, Xml.XMLIniFile;
 
 Procedure Check(b : Boolean; Const s : String);
  Begin

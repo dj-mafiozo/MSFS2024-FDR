@@ -4,9 +4,9 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, System.SysUtils, System.Classes, System.IOUtils, Vcl.Forms,
- SetupProductU, SetupProcessU, SetupHandoffU, UpdateProtocolU, SetupServicesU,
- frmSetupBaseU, SetupWindowsU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', System.SysUtils, System.Classes, System.IOUtils, Vcl.Forms,
+ SetupProductU In '..\..\setup-common\src\SetupProductU.pas', SetupProcessU In '..\..\setup-common\src\SetupProcessU.pas', SetupHandoffU In '..\..\setup-common\src\SetupHandoffU.pas', UpdateProtocolU In '..\..\setup-common\src\UpdateProtocolU.pas', SetupServicesU In '..\..\setup-common\src\SetupServicesU.pas',
+ frmSetupBaseU In '..\..\setup-core\src\frmSetupBaseU.pas', SetupWindowsU In '..\..\setup-core\src\SetupWindowsU.pas';
 
 Type
  TFixtureSetup = Class(TfrmSetupBase)

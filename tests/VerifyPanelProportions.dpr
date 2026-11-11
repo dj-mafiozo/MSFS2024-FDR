@@ -4,8 +4,8 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, System.SysUtils, System.Math, Vcl.Forms, Vcl.Controls, Vcl.ExtCtrls,
- PanelProportionsU, frmViewWindowU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', System.SysUtils, System.Math, Vcl.Forms, Vcl.Controls, Vcl.ExtCtrls,
+ PanelProportionsU In '..\src\Visualization\PanelProportionsU.pas', frmViewWindowU In '..\src\Forms\frmViewWindowU.pas';
 
 Procedure Check(b : Boolean; Const s : String);
  Begin

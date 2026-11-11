@@ -4,7 +4,7 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, FDRSetupProductU, System.SysUtils, System.Classes, System.IOUtils, SetupSignatureU, SetupPlatformU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', FDRSetupProductU In '..\..\MSFS2024-FDR-Setup\src\FDRSetupProductU.pas', System.SysUtils, System.Classes, System.IOUtils, SetupSignatureU In '..\..\setup-common\src\SetupSignatureU.pas', SetupPlatformU In '..\..\MSFS2024-FDR-Setup\src\SetupPlatformU.pas';
 
 Function BCryptOpenAlgorithmProvider(Out h : Pointer; a, p : PWideChar; f : Cardinal) : LongInt; Stdcall; External 'bcrypt.dll';
 

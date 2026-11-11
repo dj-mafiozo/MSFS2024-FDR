@@ -5,10 +5,10 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
  Winapi.Windows, System.SysUtils, System.Classes, System.Math, Vcl.ComCtrls, System.IOUtils, VirtualTrees, VirtualTrees.BaseTree, VirtualTrees.Types, Vcl.Controls, Vcl.ExtCtrls, System.UITypes, Vcl.Forms, Vcl.Grids, System.Types, Vcl.Graphics, Vcl.Imaging.pngimage,
 
- frmDockViewU, LocalizationU, frmReportU, FlightPlanU, frmChartsConfigureU, frmSettingsU, System.IniFiles,
+ frmDockViewU In '..\src\Forms\frmDockViewU.pas', LocalizationU In '..\src\i18n\LocalizationU.pas', frmReportU In '..\src\Forms\frmReportU.pas', FlightPlanU In '..\src\FlightPlan\FlightPlanU.pas', frmChartsConfigureU In '..\src\Forms\frmChartsConfigureU.pas', frmSettingsU In '..\src\Forms\frmSettingsU.pas', System.IniFiles,
 
  frmMainU In '..\src\forms\frmMainU.pas', FlightDatabaseU In '..\src\data\FlightDatabaseU.pas', FlightTelemetryU In '..\src\telemetry\FlightTelemetryU.pas', TelemetryCatalogU In '..\src\telemetry\TelemetryCatalogU.pas';
 

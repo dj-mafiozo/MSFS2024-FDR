@@ -5,12 +5,12 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
  Winapi.Windows, System.SysUtils, System.Classes, System.IOUtils, System.IniFiles,
 
  Vcl.Forms, Vcl.Controls, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Graphics, Vcl.Imaging.pngimage,
 
- frmSimBriefFrameU, frmSimBriefU;
+ frmSimBriefFrameU In '..\src\Frames\frmSimBriefFrameU.pas', frmSimBriefU In '..\src\Forms\frmSimBriefU.pas';
 
 Type
  TPopupProbe = Class

@@ -1,7 +1,7 @@
 ﻿Library MockGhostSim;
 
 Uses
- TestPathsU, Winapi.Windows, System.SysUtils, System.Generics.Collections;
+ TestPathsU In 'TestPathsU.pas', Winapi.Windows, System.SysUtils, System.Generics.Collections;
 
 Type
  TInit = Packed Record

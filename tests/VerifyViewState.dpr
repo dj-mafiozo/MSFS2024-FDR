@@ -4,9 +4,9 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, Winapi.Windows, System.SysUtils, System.Classes, System.Types, System.IniFiles,
- Vcl.Forms, Vcl.Controls, Vcl.ExtCtrls, ViewStateU, frmViewWindowU, frmMainU,
- fraFMCU, fraSixPackU, fraEnginesU, fraMapU, fraGraphU, frmSimBriefFrameU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', Winapi.Windows, System.SysUtils, System.Classes, System.Types, System.IniFiles,
+ Vcl.Forms, Vcl.Controls, Vcl.ExtCtrls, ViewStateU In '..\src\Core\ViewStateU.pas', frmViewWindowU In '..\src\Forms\frmViewWindowU.pas', frmMainU In '..\src\Forms\frmMainU.pas',
+ fraFMCU In '..\src\Frames\fraFMCU.pas', fraSixPackU In '..\src\Frames\fraSixPackU.pas', fraEnginesU In '..\src\Frames\fraEnginesU.pas', fraMapU In '..\src\Frames\fraMapU.pas', fraGraphU In '..\src\Frames\fraGraphU.pas', frmSimBriefFrameU In '..\src\Frames\frmSimBriefFrameU.pas';
 
 Procedure Check(b : Boolean; Const m : String);
  Begin

@@ -4,9 +4,9 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
- Winapi.Windows, System.SysUtils, System.JSON, AnalysisPrecisionU, AnalysisContextU,
- FlightDatabaseU, FlightTelemetryU, TelemetryCatalogU, FireDAC.Comp.Client;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
+ Winapi.Windows, System.SysUtils, System.JSON, AnalysisPrecisionU In '..\src\Analysis\AnalysisPrecisionU.pas', AnalysisContextU In '..\src\Analysis\AnalysisContextU.pas',
+ FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', FireDAC.Comp.Client;
 
 Var
  Original : TJSONValue;

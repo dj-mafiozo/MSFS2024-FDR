@@ -5,8 +5,8 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
- LocalizationU, Winapi.Windows, System.SysUtils, Vcl.Forms, frmReportU, ReportMarkdownU, HelpScreenshotU In 'HelpScreenshotU.pas', Vcl.Graphics;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
+ LocalizationU In '..\src\i18n\LocalizationU.pas', Winapi.Windows, System.SysUtils, Vcl.Forms, frmReportU In '..\src\Forms\frmReportU.pas', ReportMarkdownU In '..\src\Analysis\ReportMarkdownU.pas', HelpScreenshotU In 'HelpScreenshotU.pas', Vcl.Graphics;
 
 Procedure Require(b : Boolean; Const s : String);
  Begin

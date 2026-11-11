@@ -4,7 +4,7 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, Winapi.Windows, System.SysUtils, System.Math, SimConnectClientU, SimVarSelectionU, TelemetryCatalogU, FlightTelemetryU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', Winapi.Windows, System.SysUtils, System.Math, SimConnectClientU In '..\src\SimConnect\SimConnectClientU.pas', SimVarSelectionU In '..\src\Telemetry\SimVarSelectionU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas';
 
 Type
  TProbe = Class

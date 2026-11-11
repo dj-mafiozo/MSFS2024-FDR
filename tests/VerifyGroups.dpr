@@ -4,10 +4,10 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
  System.SysUtils, System.Classes, System.IOUtils, Vcl.Forms, Vcl.Controls,
- Vcl.ExtCtrls, Data.DB, FireDAC.Comp.Client, FlightDatabaseU, FlightTelemetryU,
- TelemetryCatalogU, frmMainU, frmAssignGroupU, VirtualTrees, VirtualTrees.BaseTree, VirtualTrees.Types, RecordingTreeU;
+ Vcl.ExtCtrls, Data.DB, FireDAC.Comp.Client, FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas',
+ TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', frmMainU In '..\src\Forms\frmMainU.pas', frmAssignGroupU In '..\src\Forms\frmAssignGroupU.pas', VirtualTrees, VirtualTrees.BaseTree, VirtualTrees.Types, RecordingTreeU In '..\src\Visualization\RecordingTreeU.pas';
 
 Procedure Check(Value : Boolean; Const Msg : String);
  Begin

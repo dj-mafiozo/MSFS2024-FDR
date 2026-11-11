@@ -2,14 +2,14 @@
 {$APPTYPE CONSOLE}
 
 Uses
- TestPathsU, HelpScreenshotU                 In 'HelpScreenshotU.pas', Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes, System.Types, System.Math,
+ TestPathsU In 'TestPathsU.pas', HelpScreenshotU In 'HelpScreenshotU.pas', Winapi.Windows, Winapi.Messages, System.SysUtils, System.Classes, System.Types, System.Math,
  System.IOUtils, System.IniFiles, System.JSON, Vcl.Forms, Vcl.Controls, Vcl.Graphics,
  Vcl.ComCtrls, Vcl.StdCtrls, Vcl.ExtCtrls, Vcl.Imaging.pngimage,
- LocalizationU, frmSettingsU, frmMainU, frmChartsConfigureU, frmWeatherU, frmReportU,
- frmDockViewU, FlightDatabaseU, FlightTelemetryU, TelemetryCatalogU, ParameterNamesU,
- FlightPlanU, SimBriefImportU, HelpDemoDataU In 'HelpDemoDataU.pas', InstrumentDataU, Boeing737PFDU,
- fraPFD737U, fraB38MEICASU, fraA320PFDU, fraA320ECAMU, fraEnginesU, fraSixPackU,
- fraFMCU, MetarDecodeU, FireDAC.Comp.Client;
+ LocalizationU In '..\src\i18n\LocalizationU.pas', frmSettingsU In '..\src\Forms\frmSettingsU.pas', frmMainU In '..\src\Forms\frmMainU.pas', frmChartsConfigureU In '..\src\Forms\frmChartsConfigureU.pas', frmWeatherU In '..\src\Forms\frmWeatherU.pas', frmReportU In '..\src\Forms\frmReportU.pas',
+ frmDockViewU In '..\src\Forms\frmDockViewU.pas', FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', ParameterNamesU In '..\src\Visualization\ParameterNamesU.pas',
+ FlightPlanU In '..\src\FlightPlan\FlightPlanU.pas', SimBriefImportU In '..\src\FlightPlan\SimBriefImportU.pas', HelpDemoDataU In 'HelpDemoDataU.pas', InstrumentDataU In '..\src\Visualization\InstrumentDataU.pas', Boeing737PFDU In '..\src\Visualization\Boeing737PFDU.pas',
+ fraPFD737U In '..\src\Frames\fraPFD737U.pas', fraB38MEICASU In '..\src\Frames\fraB38MEICASU.pas', fraA320PFDU In '..\src\Frames\fraA320PFDU.pas', fraA320ECAMU In '..\src\Frames\fraA320ECAMU.pas', fraEnginesU In '..\src\Frames\fraEnginesU.pas', fraSixPackU In '..\src\Frames\fraSixPackU.pas',
+ fraFMCU In '..\src\Frames\fraFMCU.pas', MetarDecodeU In '..\src\Weather\MetarDecodeU.pas', FireDAC.Comp.Client;
 { FLD+ }
 
 Const

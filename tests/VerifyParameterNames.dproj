@@ -124,6 +124,20 @@
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>
     <PropertyGroup><FDRVerifyTest>true</FDRVerifyTest></PropertyGroup>
+    <ItemGroup>
+        <DCCReference Include="TestPathsU.pas"/>
+        <DCCReference Include="NativeTestRunnerU.pas"/>
+        <DCCReference Include="..\src\Visualization\ParameterNamesU.pas"/>
+        <DCCReference Include="..\src\i18n\LocalizationU.pas"/>
+        <DCCReference Include="..\src\Forms\frmChartsConfigureU.pas"><Form>frmChartsConfigure</Form></DCCReference>
+        <DCCReference Include="..\src\Telemetry\TelemetryCatalogU.pas"/>
+        <DCCReference Include="..\src\Aircraft\iFly\iFlySDKCatalogU.pas"/>
+        <DCCReference Include="..\src\Aircraft\Fenix\FenixCatalogU.pas"/>
+        <DCCReference Include="..\src\Aircraft\FBW\FBWCatalogU.pas"/>
+        <DCCReference Include="..\src\Aircraft\PMDG\PMDGNG3CatalogU.pas"/>
+        <DCCReference Include="..\src\Telemetry\AirlinerCatalogU.pas"/>
+        <DCCReference Include="..\src\Data\FlightDatabaseU.pas"/>
+    </ItemGroup>
     <Import Project="Tests.Shared.props"/>
     <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
     <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>

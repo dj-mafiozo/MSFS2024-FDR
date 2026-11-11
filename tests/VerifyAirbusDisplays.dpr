@@ -4,10 +4,10 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, System.SysUtils, System.Classes, System.Math, System.Types, System.JSON,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', System.SysUtils, System.Classes, System.Math, System.Types, System.JSON,
  Vcl.Forms, Vcl.Controls, Vcl.Graphics, Vcl.Imaging.pngimage,
- FlightDatabaseU, FlightTelemetryU, TelemetryCatalogU, InstrumentDataU, AirbusDataU,
- AirbusFMAU, AirbusMessagesU, AirbusPFDU, AirbusECAMU, fraA320PFDU, fraA320ECAMU, frmViewWindowU, LocalizationU;
+ FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', InstrumentDataU In '..\src\Visualization\InstrumentDataU.pas', AirbusDataU In '..\src\Visualization\AirbusDataU.pas',
+ AirbusFMAU In '..\src\Visualization\AirbusFMAU.pas', AirbusMessagesU In '..\src\Visualization\AirbusMessagesU.pas', AirbusPFDU In '..\src\Visualization\AirbusPFDU.pas', AirbusECAMU In '..\src\Visualization\AirbusECAMU.pas', fraA320PFDU In '..\src\Frames\fraA320PFDU.pas', fraA320ECAMU In '..\src\Frames\fraA320ECAMU.pas', frmViewWindowU In '..\src\Forms\frmViewWindowU.pas', LocalizationU In '..\src\i18n\LocalizationU.pas';
 
 Procedure Check(b : Boolean; Const m : String);
  Begin

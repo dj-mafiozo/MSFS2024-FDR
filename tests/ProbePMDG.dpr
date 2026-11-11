@@ -2,7 +2,7 @@
 {$APPTYPE CONSOLE}
 
 Uses
- Winapi.Windows, System.SysUtils, System.JSON, SimConnectClientU, AircraftTelemetryU, PMDGNG3CatalogU;
+ Winapi.Windows, System.SysUtils, System.JSON, SimConnectClientU In '..\src\SimConnect\SimConnectClientU.pas', AircraftTelemetryU In '..\src\Telemetry\AircraftTelemetryU.pas', PMDGNG3CatalogU In '..\src\Aircraft\PMDG\PMDGNG3CatalogU.pas';
 
 Var
  Sim      : TSimConnectClient;

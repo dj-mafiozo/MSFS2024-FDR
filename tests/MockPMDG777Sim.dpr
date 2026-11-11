@@ -1,7 +1,7 @@
 ﻿Library MockPMDG777Sim;
 
 Uses
- Winapi.Windows, System.SysUtils, System.Math, PMDG777CatalogU;
+ Winapi.Windows, System.SysUtils, System.Math, PMDG777CatalogU In '..\src\Aircraft\PMDG\PMDG777CatalogU.pas';
 
 Const
  AreaIDs : Array [0..3] Of DWORD = (PMDG777DataID, PMDG777CDU0ID, PMDG777CDU1ID, PMDG777CDU2ID);

@@ -125,6 +125,13 @@
     </ProjectExtensions>
     <PropertyGroup><FDRVerifyTest>true</FDRVerifyTest></PropertyGroup>
     <ItemGroup><DCCReference Include="HelpScreenshotU.pas"/></ItemGroup>
+    <ItemGroup>
+        <DCCReference Include="TestPathsU.pas"/>
+        <DCCReference Include="NativeTestRunnerU.pas"/>
+        <DCCReference Include="..\src\i18n\LocalizationU.pas"/>
+        <DCCReference Include="..\src\Forms\frmReportU.pas"><Form>frmReport</Form></DCCReference>
+        <DCCReference Include="..\src\Analysis\ReportMarkdownU.pas"/>
+    </ItemGroup>
     <Import Project="Tests.Shared.props"/>
     <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
     <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>

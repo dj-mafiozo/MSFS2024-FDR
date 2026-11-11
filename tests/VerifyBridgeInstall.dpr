@@ -4,7 +4,7 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, System.SysUtils, System.Classes, System.IOUtils, System.JSON, System.DateUtils, SetupBridgeU, SimulatorPackagesU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', System.SysUtils, System.Classes, System.IOUtils, System.JSON, System.DateUtils, SetupBridgeU In '..\..\MSFS2024-FDR-Setup\src\SetupBridgeU.pas', SimulatorPackagesU In '..\src\Core\SimulatorPackagesU.pas';
 
 Procedure Check(b : Boolean; Const s : String);
  Begin

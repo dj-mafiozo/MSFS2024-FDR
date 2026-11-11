@@ -6,6 +6,17 @@
     <ItemGroup><BuildConfiguration Include="Release"><Key>Cfg_2</Key><CfgParent>Base</CfgParent></BuildConfiguration></ItemGroup><PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''"><Cfg_2>true</Cfg_2><CfgParent>Base</CfgParent></PropertyGroup>
     <ProjectExtensions><Borland.Personality>Delphi.Personality.12</Borland.Personality><Borland.ProjectType/><BorlandProject><Delphi.Personality><Source><Source Name="MainSource">VerifyPFD737.dpr</Source></Source></Delphi.Personality><Platforms><Platform value="Win32">True</Platform><Platform value="Win64">True</Platform></Platforms></BorlandProject><ProjectFileVersion>12</ProjectFileVersion></ProjectExtensions>
     <ItemGroup><DelphiCompile Include="$(MainSource)"><MainSource>MainSource</MainSource></DelphiCompile></ItemGroup>
+    <ItemGroup>
+        <DCCReference Include="TestPathsU.pas"/>
+        <DCCReference Include="NativeTestRunnerU.pas"/>
+        <DCCReference Include="..\src\Data\FlightDatabaseU.pas"/>
+        <DCCReference Include="..\src\Visualization\Boeing737PFDU.pas"/>
+        <DCCReference Include="..\src\Frames\fraPFD737U.pas"><Form>fraPFD737</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Frames\fraA320PFDU.pas"><Form>fraA320PFD</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Frames\fraSixPackU.pas"><Form>fraSixPack</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Forms\frmViewWindowU.pas"><Form>frmViewWindow</Form></DCCReference>
+        <DCCReference Include="..\src\i18n\LocalizationU.pas"/>
+    </ItemGroup>
     <Import Project="Tests.Shared.props"/>
     <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
 </Project>

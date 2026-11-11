@@ -5,7 +5,7 @@ $Tests=@($Tests | ForEach-Object {$_.Split(',')} | ForEach-Object {$_.Trim()} | 
 $DelphiRoot=Resolve-FDRDelphiRoot $DelphiRoot
 $env:BDS=$DelphiRoot
 $env:BDSINCLUDE=Join-Path $DelphiRoot 'include'
-foreach($check in @('sync_test_projects.py','check_project_groups.py','check_project.py','check_version.py','check_translations.py','check_documentation.py','check_fonts.py','check_addon_catalog.py','check_airliner_catalog.py')) {
+foreach($check in @('sync_test_projects.py','check_project_groups.py','check_project.py','check_project_units.py','check_version.py','check_translations.py','check_documentation.py','check_fonts.py','check_addon_catalog.py','check_airliner_catalog.py')) {
  $arguments=@((Join-Path $PSScriptRoot "tools\$check"))
  if($check -eq 'sync_test_projects.py'){$arguments+='--check'}
  & python @arguments
@@ -13,10 +13,15 @@ foreach($check in @('sync_test_projects.py','check_project_groups.py','check_pro
 }
 $msbuild=Join-Path $env:WINDIR 'Microsoft.NET\Framework\v4.0.30319\MSBuild.exe'
 $projects=if($Tests.Count){$Tests}else{@(Get-ChildItem "$PSScriptRoot\tests\Verify*.dpr" | ForEach-Object BaseName)}
-if(($Tests.Count -eq 0) -or ($Tests -contains 'VerifyVersionLanguage') -or ($Tests -contains 'VerifyLocaleExpansion')) {
+if(($Tests.Count -eq 0) -or ($Tests -contains 'VerifyVersionLanguage') -or ($Tests -contains 'VerifyLocaleExpansion') -or ($Tests -contains 'VerifyReleasePEM')) {
  Invoke-FDRFormatter $PSScriptRoot
  & $msbuild (Join-Path $PSScriptRoot 'src\MSFS2024-FDR.dproj') /t:Build /p:Config=Release /p:Platform=Win64 /v:minimal /nologo
  if($LASTEXITCODE -ne 0){throw 'Test application build failed'}
+}
+# The signing fixture copies both executables and requires matching VersionInfo.
+if(($Tests.Count -eq 0) -or ($Tests -contains 'VerifyReleasePEM')) {
+ & (Join-Path $PSScriptRoot 'tools/build_setup_stub.ps1') -DelphiRoot $DelphiRoot
+ if($LASTEXITCODE -ne 0){throw 'Test Setup stub build failed'}
 }
 $dependencies=@('MockFlightPad32','MockGhostSim','MockFenixSim','MockPMDGSim','MockPMDG777Sim','MockAddonSim','MockLifecycleSim','CaptureHelpScreenshots')
 try {

@@ -4,9 +4,9 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
  Winapi.Windows, System.SysUtils, System.Classes, System.IOUtils,
- Vcl.Forms, Vcl.ExtCtrls, LocalizationU, SimConnectClientU, FlightDatabaseU, RecorderWorkerU, FlightRecorderU, TelemetryCatalogU;
+ Vcl.Forms, Vcl.ExtCtrls, LocalizationU In '..\src\i18n\LocalizationU.pas', SimConnectClientU In '..\src\SimConnect\SimConnectClientU.pas', FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', RecorderWorkerU In '..\src\Recording\RecorderWorkerU.pas', FlightRecorderU In '..\src\Recording\FlightRecorderU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas';
 
 Type
  TTestRecorder = Class(TRecorderWorker)

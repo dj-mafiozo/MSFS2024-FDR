@@ -4,7 +4,7 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
  Winapi.Windows, System.SysUtils, System.IOUtils, System.Types, Data.DB, FireDAC.Comp.Client,
  FlightDatabaseU In '..\src\data\FlightDatabaseU.pas', LegacyMigrationU In '..\src\core\LegacyMigrationU.pas',
  FlightTelemetryU In '..\src\telemetry\FlightTelemetryU.pas', TelemetryCatalogU In '..\src\telemetry\TelemetryCatalogU.pas';

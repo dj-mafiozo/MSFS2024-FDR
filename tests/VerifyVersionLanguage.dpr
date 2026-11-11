@@ -5,8 +5,8 @@
 {$R '..\src\MSFS2024-FDR.res'}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
- System.SysUtils, System.IniFiles, System.IOUtils, Vcl.Forms, Vcl.Graphics, Vcl.Imaging.pngimage, VersionU, LocalizationU, frmMainU, frmSettingsU, frmAboutU, frmChartsConfigureU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
+ System.SysUtils, System.IniFiles, System.IOUtils, Vcl.Forms, Vcl.Graphics, Vcl.Imaging.pngimage, VersionU In '..\src\Common\VersionU.pas', LocalizationU In '..\src\i18n\LocalizationU.pas', frmMainU In '..\src\Forms\frmMainU.pas', frmSettingsU In '..\src\Forms\frmSettingsU.pas', frmAboutU In '..\src\Forms\frmAboutU.pas', frmChartsConfigureU In '..\src\Forms\frmChartsConfigureU.pas';
 
 Procedure Check(b : Boolean; Const m : String); Forward;
 

@@ -5,8 +5,8 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
- Winapi.Windows, System.SysUtils, System.IOUtils, AppLogU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
+ Winapi.Windows, System.SysUtils, System.IOUtils, AppLogU In '..\src\Core\AppLogU.pas';
 
 Type
  TFilter = Function(Info : Pointer) : LongInt;

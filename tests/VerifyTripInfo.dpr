@@ -5,8 +5,8 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
- Winapi.Windows, System.SysUtils, FlightDatabaseU, FlightTelemetryU, TelemetryCatalogU, frmTripInfoU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
+ Winapi.Windows, System.SysUtils, FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', frmTripInfoU In '..\src\Forms\frmTripInfoU.pas';
 
 Var
  DB   : TFlightDatabase;

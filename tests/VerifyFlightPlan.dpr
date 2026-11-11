@@ -5,10 +5,10 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
  Winapi.Windows, Winapi.ActiveX, System.SysUtils, System.Classes, System.IOUtils, System.Math,
 
- IdHTTP, FlightPlanU, FlightDatabaseU, FlightRecorderU, SimConnectClientU, FlightTelemetryU;
+ IdHTTP, FlightPlanU In '..\src\FlightPlan\FlightPlanU.pas', FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightRecorderU In '..\src\Recording\FlightRecorderU.pas', SimConnectClientU In '..\src\SimConnect\SimConnectClientU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas';
 
 Procedure Require(b : Boolean; Const m : String);
  Begin

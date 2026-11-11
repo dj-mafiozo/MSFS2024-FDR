@@ -1,7 +1,7 @@
 ﻿Library MockFenixSim;
 
 Uses
- Winapi.Windows, System.SysUtils, System.Math, FenixCatalogU, FBWCatalogU, AirlinerVarsU, AirlinerCatalogU, GSXVarsU;
+ Winapi.Windows, System.SysUtils, System.Math, FenixCatalogU In '..\src\Aircraft\Fenix\FenixCatalogU.pas', FBWCatalogU In '..\src\Aircraft\FBW\FBWCatalogU.pas', AirlinerVarsU In '..\src\Telemetry\AirlinerVarsU.pas', AirlinerCatalogU In '..\src\Telemetry\AirlinerCatalogU.pas', GSXVarsU In '..\src\Telemetry\GSXVarsU.pas';
 
 Var
  IsAirliner : Boolean;

@@ -4,8 +4,8 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, System.SysUtils, System.Math, FlightDatabaseU, FlightDirectorU,
- FlightTelemetryU, TelemetryCatalogU, AirbusDataU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', System.SysUtils, System.Math, FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightDirectorU In '..\src\Visualization\FlightDirectorU.pas',
+ FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', AirbusDataU In '..\src\Visualization\AirbusDataU.pas';
 
 Procedure Check(b : Boolean; Const m : String);
  Begin

@@ -4,10 +4,10 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, System.SysUtils, System.Classes, System.IniFiles, System.Math, System.Types,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', System.SysUtils, System.Classes, System.IniFiles, System.Math, System.Types,
  Vcl.ImgList, Vcl.Forms, Vcl.Controls, Vcl.Graphics, Vcl.Imaging.pngimage,
- FlightDatabaseU, FlightTelemetryU, TelemetryCatalogU, InstrumentDataU, SixPackU, PFDScalesU,
- frmMainU, fraB38MEICASU, ParameterNamesU;
+ FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', InstrumentDataU In '..\src\Visualization\InstrumentDataU.pas', SixPackU In '..\src\Visualization\SixPackU.pas', PFDScalesU In '..\src\Visualization\PFDScalesU.pas',
+ frmMainU In '..\src\Forms\frmMainU.pas', fraB38MEICASU In '..\src\Frames\fraB38MEICASU.pas', ParameterNamesU In '..\src\Visualization\ParameterNamesU.pas';
 
 Procedure Check(b : Boolean; Const m : String);
  Begin

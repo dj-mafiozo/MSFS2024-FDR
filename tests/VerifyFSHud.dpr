@@ -5,10 +5,10 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
- Winapi.Windows, System.SysUtils, System.JSON, FSHudReplayU, FSHudProtocolU, FSHudClientU, FSHudDataU,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
+ Winapi.Windows, System.SysUtils, System.JSON, FSHudReplayU In '..\src\FSHud\FSHudReplayU.pas', FSHudProtocolU In '..\src\FSHud\FSHudProtocolU.pas', FSHudClientU In '..\src\FSHud\FSHudClientU.pas', FSHudDataU In '..\src\FSHud\FSHudDataU.pas',
 
- FlightDatabaseU, FlightTelemetryU, TelemetryCatalogU, AircraftDataStoreU;
+ FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', AircraftDataStoreU In '..\src\Data\AircraftDataStoreU.pas';
 
 Var
  Replay    : TFSHudReplay;

@@ -954,3 +954,9 @@ Regresja raportu: VerifyReport korzysta z tego samego HelpScreenshotU co generat
 Regresja `VerifyRTLReturn` wymusza również 40 powiadomień `CM_MENUCHANGED` na już podłączonym menu, kontrolując flagi HMENU i stałe położenie nagłówków po przejściu RTL → automatyczny język.
 
 Regresja menu kontroluje natywne WM_NCPAINT: niezmienione nagłówki nie mogą odrysowywać ramki przy 40 powiadomieniach, a zmieniony nagłówek musi się odświeżyć. Test wersji sprawdza zgodność katalogu i18n w bin ze źródłem oraz angielskie/polskie podpowiedzi wyszukiwania nagrań, wartości i wykresów.
+
+Kontrola `tools/check_project_units.py` sprawdza wszystkie DPR aplikacji, testów i narzędzi: jawne względne ścieżki jednostek projektu oraz odpowiadające im DCCReference. `--fix` uzupełnia brakujące wpisy bez przebudowy konfiguracji XML; kontrola jest częścią test.ps1. Biblioteki RTL/VCL/vendor nadal korzystają ze ścieżek wyszukiwania.
+
+Pełny przebieg i `VerifyReleasePEM` budują aplikację oraz stub przed testem podpisywania, aby próbka zawierała zgodne VersionInfo obu EXE.
+
+Audyt jawnych ścieżek DPR: pełny przebieg skompilował zestaw i zaliczył 93 z 94 przypadków DUnitX oraz osobną regresję RTL. Jedyny błąd wynikał ze starej wersji stuba w próbce pakowania; po dodaniu zależności budowania obu EXE `VerifyReleasePEM` zaliczył ponowiony przypadek (łącznie 94/94). Porównanie tokenów 103 DPR oraz konfiguracji 104 DPROJ potwierdziło zachowanie kodu i metadanych poza dodanymi ścieżkami/referencjami i Build.

@@ -1,7 +1,7 @@
 ﻿Library MockPMDGSim;
 
 Uses
- Winapi.Windows, System.SysUtils, System.Math, PMDGNG3CatalogU;
+ Winapi.Windows, System.SysUtils, System.Math, PMDGNG3CatalogU In '..\src\Aircraft\PMDG\PMDGNG3CatalogU.pas';
 
 Const
  AreaIDs : Array [0..2] Of DWORD = (PMDGDataID, PMDGCDU0ID, PMDGCDU1ID);

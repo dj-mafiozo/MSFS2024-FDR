@@ -7,6 +7,32 @@
     <ItemGroup><BuildConfiguration Include="Release"><Key>Cfg_2</Key><CfgParent>Base</CfgParent></BuildConfiguration></ItemGroup><PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''"><Cfg_2>true</Cfg_2><CfgParent>Base</CfgParent></PropertyGroup>
     <ProjectExtensions><Borland.Personality>Delphi.Personality.12</Borland.Personality><Borland.ProjectType/><BorlandProject><Delphi.Personality><Source><Source Name="MainSource">CaptureHelpScreenshots.dpr</Source></Source></Delphi.Personality><Platforms><Platform value="Win32">True</Platform><Platform value="Win64">True</Platform></Platforms></BorlandProject><ProjectFileVersion>12</ProjectFileVersion></ProjectExtensions>
     <ItemGroup><DCCReference Include="HelpDemoDataU.pas"/><DCCReference Include="HelpScreenshotU.pas"/></ItemGroup>
+    <ItemGroup>
+        <DCCReference Include="TestPathsU.pas"/>
+        <DCCReference Include="..\src\i18n\LocalizationU.pas"/>
+        <DCCReference Include="..\src\Forms\frmSettingsU.pas"><Form>frmSettings</Form></DCCReference>
+        <DCCReference Include="..\src\Forms\frmMainU.pas"><Form>frmMain</Form></DCCReference>
+        <DCCReference Include="..\src\Forms\frmChartsConfigureU.pas"><Form>frmChartsConfigure</Form></DCCReference>
+        <DCCReference Include="..\src\Forms\frmWeatherU.pas"><Form>frmWeather</Form></DCCReference>
+        <DCCReference Include="..\src\Forms\frmReportU.pas"><Form>frmReport</Form></DCCReference>
+        <DCCReference Include="..\src\Forms\frmDockViewU.pas"><Form>frmDockView</Form></DCCReference>
+        <DCCReference Include="..\src\Data\FlightDatabaseU.pas"/>
+        <DCCReference Include="..\src\Telemetry\FlightTelemetryU.pas"/>
+        <DCCReference Include="..\src\Telemetry\TelemetryCatalogU.pas"/>
+        <DCCReference Include="..\src\Visualization\ParameterNamesU.pas"/>
+        <DCCReference Include="..\src\FlightPlan\FlightPlanU.pas"/>
+        <DCCReference Include="..\src\FlightPlan\SimBriefImportU.pas"/>
+        <DCCReference Include="..\src\Visualization\InstrumentDataU.pas"/>
+        <DCCReference Include="..\src\Visualization\Boeing737PFDU.pas"/>
+        <DCCReference Include="..\src\Frames\fraPFD737U.pas"><Form>fraPFD737</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Frames\fraB38MEICASU.pas"><Form>fraB38MEICAS</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Frames\fraA320PFDU.pas"><Form>fraA320PFD</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Frames\fraA320ECAMU.pas"><Form>fraA320ECAM</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Frames\fraEnginesU.pas"><Form>fraEngines</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Frames\fraSixPackU.pas"><Form>fraSixPack</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Frames\fraFMCU.pas"><Form>fraFMC</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Weather\MetarDecodeU.pas"/>
+    </ItemGroup>
     <Import Project="Tests.Shared.props"/>
     <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
 </Project>

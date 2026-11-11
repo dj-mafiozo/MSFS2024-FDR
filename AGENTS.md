@@ -86,3 +86,59 @@ Names := TArray<String>.Create('str1', 'str2');
 
 
 - Od tej wersji każdą kolejną przygotowaną i zweryfikowaną wersję commituj lokalnie automatycznie. Nie wykonuj push bez osobnego polecenia użytkownika.
+
+- Jawne jednostki DPR: uruchamiaj `python tools/check_project_units.py` (uzupełnianie: `--fix`). Jednostki projektu mają względne klauzule `in` zgodne z `DCCReference`; biblioteki RTL/VCL/vendor pozostają na ścieżkach wyszukiwania. Po dodaniu testu uzupełnij również te deklaracje.
+
+## Bash i Zsh
+
+Bash jest dostępny do poleceń nieinteraktywnych. Z końca `~/.bashrc` usunięto bezwarunkowe `zsh ; exit`, które powodowało zawieszanie automatyzacji. Zsh uruchamia się wyłącznie w sesji interaktywnej z terminalem na stdin i stdout:
+
+```bash
+if [[ $- == *i* && -t 0 && -t 1 ]]; then
+    exec zsh
+fi
+```
+
+Nie przywracaj bezwarunkowego wywołania Zsh ani `exit` w `.bashrc`. Do automatyzacji można używać Bash; dobieraj powłokę do zadania i zachowuj zasady bezpieczeństwa operacji na plikach Windows.
+
+### Aliasy środowiska Bash
+
+W `.bashrc` są poniższe aliasy. Traktuj je jako wygodę sesji interaktywnej; nie zakładaj ich rozwijania ani wczytania `.bashrc` w poleceniach nieinteraktywnych. W skryptach używaj jawnych poleceń `git`. Aliasy `gp`, `gpf`, `gpu` i `gpuf` nie stanowią zgody na push ani force push. `cat` i `less` są zastąpione przez `bat`, więc do odczytu surowych danych dobieraj jawne narzędzie bez formatowania.
+
+```bash
+alias ls='ls --color'
+alias lh='ls -lh'
+alias l='lh'
+alias gs='git status'
+alias ga='git add'
+alias gl='git log --oneline'
+alias go='git checkout'
+alias gb='git branch'
+alias gbc='gb --show-current'
+alias gc='git commit'
+alias gu='git pull'
+alias gp='git push'
+alias gpf='gp --force'
+alias gmt='git mergetool'
+alias gr='git rebase'
+alias gm='git merge'
+alias gca='gc --amend'
+alias gce='gc --no-edit'
+alias gcae='gca --no-edit'
+alias gpu='git push --set-upstream origin $(gbc)'
+alias gpuf='gpu --force'
+alias gf='git fetch'
+alias gfp='gf -p'
+alias ge='git clone'
+alias gre='git remote'
+alias grerm='gre remove'
+alias grea='gre add'
+alias grew='gre show'
+alias greg='gre get-url'
+alias gres='gre set-url'
+alias bat='bat -pp --theme=ansi'
+alias cat='bat'
+alias less='bat --paging=auto -p'
+alias repo='cd ~/Documents/GIT'
+alias github='cd ~/Documents/GitHub'
+```

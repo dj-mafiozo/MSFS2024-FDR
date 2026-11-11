@@ -4,10 +4,10 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, Vcl.XPMan, Winapi.Windows, System.SysUtils, System.Classes, System.Types, System.IOUtils,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', Vcl.XPMan, Winapi.Windows, System.SysUtils, System.Classes, System.Types, System.IOUtils,
  System.Hash, System.Variants, Vcl.Forms, Vcl.Graphics, Vcl.ActnList, FireDAC.Comp.Client,
- FireDAC.Stan.Param, FlightDatabaseU, RecordingIndexU, FlightTelemetryU,
- TelemetryCatalogU, frmMainU, AppPathsU;
+ FireDAC.Stan.Param, FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', RecordingIndexU In '..\src\Data\RecordingIndexU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas',
+ TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', frmMainU In '..\src\Forms\frmMainU.pas', AppPathsU In '..\src\Core\AppPathsU.pas';
 
 Procedure Check(b : Boolean; Const s : String);
  Begin

@@ -6,6 +6,19 @@
     <ItemGroup><BuildConfiguration Include="Release"><Key>Cfg_2</Key><CfgParent>Base</CfgParent></BuildConfiguration></ItemGroup><PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''"><Cfg_2>true</Cfg_2><CfgParent>Base</CfgParent></PropertyGroup>
     <ProjectExtensions><Borland.Personality>Delphi.Personality.12</Borland.Personality><Borland.ProjectType/><BorlandProject><Delphi.Personality><Source><Source Name="MainSource">VerifyViewState.dpr</Source></Source></Delphi.Personality><Platforms><Platform value="Win32">True</Platform><Platform value="Win64">True</Platform></Platforms></BorlandProject><ProjectFileVersion>12</ProjectFileVersion></ProjectExtensions>
     <ItemGroup><DelphiCompile Include="$(MainSource)"><MainSource>MainSource</MainSource></DelphiCompile></ItemGroup>
+    <ItemGroup>
+        <DCCReference Include="TestPathsU.pas"/>
+        <DCCReference Include="NativeTestRunnerU.pas"/>
+        <DCCReference Include="..\src\Core\ViewStateU.pas"/>
+        <DCCReference Include="..\src\Forms\frmViewWindowU.pas"><Form>frmViewWindow</Form></DCCReference>
+        <DCCReference Include="..\src\Forms\frmMainU.pas"><Form>frmMain</Form></DCCReference>
+        <DCCReference Include="..\src\Frames\fraFMCU.pas"><Form>fraFMC</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Frames\fraSixPackU.pas"><Form>fraSixPack</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Frames\fraEnginesU.pas"><Form>fraEngines</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Frames\fraMapU.pas"><Form>fraMap</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Frames\fraGraphU.pas"><Form>fraGraph</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Frames\frmSimBriefFrameU.pas"><Form>fraSimBrief</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+    </ItemGroup>
     <Import Project="Tests.Shared.props"/>
     <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
 </Project>

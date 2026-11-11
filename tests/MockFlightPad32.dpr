@@ -2,7 +2,7 @@
 {$APPTYPE CONSOLE}
 
 Uses
- Winapi.Windows, System.SysUtils, System.JSON, FlightPadScreenIPCU;
+ Winapi.Windows, System.SysUtils, System.JSON, FlightPadScreenIPCU In '..\src\FMC\FlightPadScreenIPCU.pas';
 
 Var
  Publisher  : TFlightPadScreenPublisher;

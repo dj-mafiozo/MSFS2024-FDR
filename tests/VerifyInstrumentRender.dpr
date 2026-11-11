@@ -4,9 +4,9 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, Winapi.Messages, Winapi.Windows, System.SysUtils, System.Types, Vcl.Forms, Vcl.Controls,
- Vcl.Graphics, Vcl.Imaging.pngimage, InstrumentRenderU, Boeing737PFDU, AirbusPFDU,
- SixPackU, B38MEICASU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', Winapi.Messages, Winapi.Windows, System.SysUtils, System.Types, Vcl.Forms, Vcl.Controls,
+ Vcl.Graphics, Vcl.Imaging.pngimage, InstrumentRenderU In '..\src\Visualization\InstrumentRenderU.pas', Boeing737PFDU In '..\src\Visualization\Boeing737PFDU.pas', AirbusPFDU In '..\src\Visualization\AirbusPFDU.pas',
+ SixPackU In '..\src\Visualization\SixPackU.pas', B38MEICASU In '..\src\Visualization\B38MEICASU.pas';
 
 Procedure Check(b : Boolean; Const s : String);
  Begin

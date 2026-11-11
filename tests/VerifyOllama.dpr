@@ -5,10 +5,10 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
  Winapi.Windows, System.SysUtils, System.Classes, System.JSON, System.IniFiles,
 
- FlightAnalysisU, OllamaAnalysisU, frmSettingsU, IdHTTPServer, IdCustomHTTPServer, IdContext;
+ FlightAnalysisU In '..\src\Analysis\FlightAnalysisU.pas', OllamaAnalysisU In '..\src\Analysis\OllamaAnalysisU.pas', frmSettingsU In '..\src\Forms\frmSettingsU.pas', IdHTTPServer, IdCustomHTTPServer, IdContext;
 
 Type
  TResponder = Class

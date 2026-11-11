@@ -128,6 +128,16 @@
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>
     <PropertyGroup><FDRVerifyTest>true</FDRVerifyTest></PropertyGroup>
+    <ItemGroup>
+        <DCCReference Include="TestPathsU.pas"/>
+        <DCCReference Include="NativeTestRunnerU.pas"/>
+        <DCCReference Include="..\src\Forms\frmDockViewU.pas"><Form>frmDockView</Form></DCCReference>
+        <DCCReference Include="..\src\i18n\LocalizationU.pas"/>
+        <DCCReference Include="..\src\Forms\frmReportU.pas"><Form>frmReport</Form></DCCReference>
+        <DCCReference Include="..\src\FlightPlan\FlightPlanU.pas"/>
+        <DCCReference Include="..\src\Forms\frmChartsConfigureU.pas"><Form>frmChartsConfigure</Form></DCCReference>
+        <DCCReference Include="..\src\Forms\frmSettingsU.pas"><Form>frmSettings</Form></DCCReference>
+    </ItemGroup>
     <Import Project="Tests.Shared.props"/>
     <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
     <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>

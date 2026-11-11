@@ -2,10 +2,10 @@
 {$APPTYPE CONSOLE}
 
 Uses
- TestPathsU,
+ TestPathsU In 'TestPathsU.pas',
  System.SysUtils, System.Classes, System.IOUtils, System.IniFiles, System.Types,
  Winapi.Windows, Winapi.Messages, Vcl.Forms, Vcl.Controls, Vcl.Menus, Vcl.ActnList, Vcl.ExtCtrls,
- LocalizationU, frmMainU, frmSettingsU, fraMapU, fraGraphU;
+ LocalizationU In '..\src\i18n\LocalizationU.pas', frmMainU In '..\src\Forms\frmMainU.pas', frmSettingsU In '..\src\Forms\frmSettingsU.pas', fraMapU In '..\src\Frames\fraMapU.pas', fraGraphU In '..\src\Frames\fraGraphU.pas';
 
 Type
   TControlAccess = Class(TControl);

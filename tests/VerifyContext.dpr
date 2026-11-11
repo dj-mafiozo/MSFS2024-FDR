@@ -5,8 +5,8 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
- Winapi.Windows, System.SysUtils, System.IOUtils, System.JSON, FireDAC.Comp.Client, FlightDatabaseU, FlightTelemetryU, TelemetryCatalogU, AnalysisContextU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
+ Winapi.Windows, System.SysUtils, System.IOUtils, System.JSON, FireDAC.Comp.Client, FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', AnalysisContextU In '..\src\Analysis\AnalysisContextU.pas';
 
 Procedure Require(b : Boolean; Const m : String);
  Begin

@@ -4,9 +4,9 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, System.SysUtils, System.Classes, System.Math, System.IOUtils, System.Types, System.Hash, System.JSON, AnalysisContextU, System.Variants, FireDAC.Comp.Client,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', System.SysUtils, System.Classes, System.Math, System.IOUtils, System.Types, System.Hash, System.JSON, AnalysisContextU In '..\src\Analysis\AnalysisContextU.pas', System.Variants, FireDAC.Comp.Client,
  Vcl.Forms, Vcl.Controls, Vcl.ExtCtrls, Vcl.Graphics, Vcl.Imaging.pngimage,
- B38MEICASU, EngineGaugesU, fraEnginesU, frmViewWindowU, FlightDatabaseU, FlightTelemetryU, TelemetryCatalogU, InstrumentDataU, LocalizationU;
+ B38MEICASU In '..\src\Visualization\B38MEICASU.pas', EngineGaugesU In '..\src\Visualization\EngineGaugesU.pas', fraEnginesU In '..\src\Frames\fraEnginesU.pas', frmViewWindowU In '..\src\Forms\frmViewWindowU.pas', FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', InstrumentDataU In '..\src\Visualization\InstrumentDataU.pas', LocalizationU In '..\src\i18n\LocalizationU.pas';
 
 Procedure Check(b : Boolean; Const m : String);
  Begin

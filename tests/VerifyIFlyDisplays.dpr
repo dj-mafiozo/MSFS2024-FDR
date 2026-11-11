@@ -5,10 +5,10 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
- Winapi.Windows, System.SysUtils, System.JSON, System.Math, FlightDatabaseU, FlightTelemetryU,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
+ Winapi.Windows, System.SysUtils, System.JSON, System.Math, FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas',
 
- TelemetryCatalogU, iFlyDisplaysU, FMCScreensU, FMCPreflightU;
+ TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', iFlyDisplaysU In '..\src\Aircraft\iFly\iFlyDisplaysU.pas', FMCScreensU In '..\src\FMC\FMCScreensU.pas', FMCPreflightU In '..\src\FMC\FMCPreflightU.pas';
 
 Const
  Lamps : Array [0..4] Of String = ('FAIL', 'MSG', 'EXEC', 'CALL', 'OFST');

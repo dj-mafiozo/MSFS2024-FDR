@@ -5,7 +5,7 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
  Winapi.Windows, System.SysUtils, System.IOUtils, System.Classes, System.Math,
 
  TelemetryCatalogU In '..\src\telemetry\TelemetryCatalogU.pas', FlightTelemetryU In '..\src\telemetry\FlightTelemetryU.pas',

@@ -4,11 +4,11 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
- StackTrace In '..\vendor\Delphi-StackTrace\source\StackTrace.pas', Winapi.Windows, System.SysUtils, System.Classes, System.IOUtils,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
+ StackTrace    In '..\vendor\Delphi-StackTrace\source\StackTrace.pas', Winapi.Windows, System.SysUtils, System.Classes, System.IOUtils,
  Vcl.StdCtrls, Vcl.Forms, Vcl.Controls, Vcl.ComCtrls, Vcl.ExtCtrls, Vcl.Graphics,
- FlightDatabaseU, FMCReplayU, fraFMCU, frmViewWindowU, frmReportU,
- LocalizationU;
+ FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FMCReplayU In '..\src\FMC\FMCReplayU.pas', fraFMCU In '..\src\Frames\fraFMCU.pas', frmViewWindowU In '..\src\Forms\frmViewWindowU.pas', frmReportU In '..\src\Forms\frmReportU.pas',
+ LocalizationU In '..\src\i18n\LocalizationU.pas';
 
 Function PrintWindow(Wnd : HWND; DC : HDC; Flags : UINT) : BOOL; Stdcall; External 'user32.dll';
 

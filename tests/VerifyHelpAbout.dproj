@@ -124,6 +124,18 @@
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>
     <PropertyGroup><FDRVerifyTest>true</FDRVerifyTest></PropertyGroup>
+    <ItemGroup>
+        <DCCReference Include="TestPathsU.pas"/>
+        <DCCReference Include="NativeTestRunnerU.pas"/>
+        <DCCReference Include="..\src\Data\FlightDatabaseU.pas"/>
+        <DCCReference Include="..\src\Telemetry\FlightTelemetryU.pas"/>
+        <DCCReference Include="..\src\Telemetry\TelemetryCatalogU.pas"/>
+        <DCCReference Include="..\src\Forms\frmMainU.pas"><Form>frmMain</Form></DCCReference>
+        <DCCReference Include="..\src\Forms\frmAboutU.pas"><Form>frmAbout</Form></DCCReference>
+        <DCCReference Include="..\src\i18n\LocalizationU.pas"/>
+        <DCCReference Include="..\src\Core\AppHelpU.pas"/>
+        <DCCReference Include="..\src\Visualization\ParameterNamesU.pas"/>
+    </ItemGroup>
     <Import Project="Tests.Shared.props"/>
     <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
     <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>

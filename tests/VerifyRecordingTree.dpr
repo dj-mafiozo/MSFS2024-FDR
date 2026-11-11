@@ -4,8 +4,8 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, System.SysUtils, System.Classes, System.IOUtils, Vcl.Forms,
- VirtualTrees, VirtualTrees.BaseTree, VirtualTrees.Types, FireDAC.Comp.Client, FireDAC.Stan.Param, RecordingIndexU, RecordingTreeU, LocalizationU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', System.SysUtils, System.Classes, System.IOUtils, Vcl.Forms,
+ VirtualTrees, VirtualTrees.BaseTree, VirtualTrees.Types, FireDAC.Comp.Client, FireDAC.Stan.Param, RecordingIndexU In '..\src\Data\RecordingIndexU.pas', RecordingTreeU In '..\src\Visualization\RecordingTreeU.pas', LocalizationU In '..\src\i18n\LocalizationU.pas';
 
 Procedure Check(b : Boolean; Const Msg : String);
  Begin

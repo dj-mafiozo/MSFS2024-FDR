@@ -2,7 +2,7 @@
 {$APPTYPE CONSOLE}
 
 Uses
- TestPathsU, Winapi.Windows, System.SysUtils, System.Math, SimConnectClientU, FlightTelemetryU;
+ TestPathsU In 'TestPathsU.pas', Winapi.Windows, System.SysUtils, System.Math, SimConnectClientU In '..\src\SimConnect\SimConnectClientU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas';
 
 Type
  TProbe = Class

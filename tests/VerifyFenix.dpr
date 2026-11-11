@@ -5,10 +5,10 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
  Winapi.Windows, System.SysUtils, System.Math, System.JSON, System.IOUtils, FireDAC.Comp.Client,
 
- FlightTelemetryU, TelemetryCatalogU, FlightDatabaseU, AircraftTelemetryU, FenixReaderU, FenixCatalogU, AircraftDataStoreU, AnalysisContextU;
+ FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', AircraftTelemetryU In '..\src\Telemetry\AircraftTelemetryU.pas', FenixReaderU In '..\src\Aircraft\Fenix\FenixReaderU.pas', FenixCatalogU In '..\src\Aircraft\Fenix\FenixCatalogU.pas', AircraftDataStoreU In '..\src\Data\AircraftDataStoreU.pas', AnalysisContextU In '..\src\Analysis\AnalysisContextU.pas';
 
 Type
  TReset = Procedure(Mode : Integer);

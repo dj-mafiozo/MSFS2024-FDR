@@ -4,7 +4,7 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, Winapi.Windows, System.SysUtils, System.Math, System.IOUtils, FSLTLU, GhostReplayU, FlightDatabaseU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', Winapi.Windows, System.SysUtils, System.Math, System.IOUtils, FSLTLU In '..\src\Visualization\FSLTLU.pas', GhostReplayU In '..\src\Visualization\GhostReplayU.pas', FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas';
 
 Procedure Check(b : Boolean; Const s : String);
  Begin

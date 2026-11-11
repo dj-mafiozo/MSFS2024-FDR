@@ -3,7 +3,7 @@
 
 Uses
  System.SysUtils, System.JSON, FireDAC.Comp.Client, FireDAC.Phys.SQLite,
- FireDAC.Stan.Def, FireDAC.Stan.Async, FireDAC.DApt, FMCScreensU;
+ FireDAC.Stan.Def, FireDAC.Stan.Async, FireDAC.DApt, FMCScreensU In '..\src\FMC\FMCScreensU.pas';
 
 Var
  d        : TFDPhysSQLiteDriverLink;

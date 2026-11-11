@@ -5,8 +5,8 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
- System.SysUtils, System.Classes, System.Types, System.Generics.Collections, Vcl.Forms, Vcl.Controls, FlightChartsU, FlightDatabaseU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
+ System.SysUtils, System.Classes, System.Types, System.Generics.Collections, Vcl.Forms, Vcl.Controls, FlightChartsU In '..\src\Visualization\FlightChartsU.pas', FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas';
 
 Type
  TChartProbe = Class(TFlightCharts)

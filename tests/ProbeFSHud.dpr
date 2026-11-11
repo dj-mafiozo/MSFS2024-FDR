@@ -2,7 +2,7 @@
 {$APPTYPE CONSOLE}
 
 Uses
- Winapi.Windows, System.SysUtils, System.JSON, System.Classes, FSHudClientU;
+ Winapi.Windows, System.SysUtils, System.JSON, System.Classes, FSHudClientU In '..\src\FSHud\FSHudClientU.pas';
 
 Var
  c        : TFSHudClient;

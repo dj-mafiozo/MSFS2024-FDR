@@ -4,8 +4,8 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, Winapi.Windows, System.SysUtils, System.Types, System.Classes, System.IOUtils,
- System.JSON, System.Hash, System.Zip, DUnitX.TestFramework, NativeTestRunnerU;
+ TestPathsU                                                                    In 'TestPathsU.pas', Winapi.Windows, System.SysUtils, System.Types, System.Classes, System.IOUtils,
+ System.JSON, System.Hash, System.Zip, DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas';
 
 Type
 

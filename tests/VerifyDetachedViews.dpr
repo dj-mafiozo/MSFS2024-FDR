@@ -4,11 +4,11 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
  System.SysUtils, System.Classes, System.IOUtils, System.Types,
  System.Generics.Collections, Vcl.ImgList, Vcl.Graphics, Vcl.Forms, Vcl.Controls, Vcl.ExtCtrls,
- frmMainU, frmChartsConfigureU, FlightDatabaseU, FlightTelemetryU,
- TelemetryCatalogU, LocalizationU, FlightChartsU, fraGraphU, fraMapU, fraSixPackU, SixPackU, fraEnginesU, EngineGaugesU;
+ frmMainU In '..\src\Forms\frmMainU.pas', frmChartsConfigureU In '..\src\Forms\frmChartsConfigureU.pas', FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas',
+ TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', LocalizationU In '..\src\i18n\LocalizationU.pas', FlightChartsU In '..\src\Visualization\FlightChartsU.pas', fraGraphU In '..\src\Frames\fraGraphU.pas', fraMapU In '..\src\Frames\fraMapU.pas', fraSixPackU In '..\src\Frames\fraSixPackU.pas', SixPackU In '..\src\Visualization\SixPackU.pas', fraEnginesU In '..\src\Frames\fraEnginesU.pas', EngineGaugesU In '..\src\Visualization\EngineGaugesU.pas';
 
 Procedure Check(Value : Boolean; Const MessageText : String);
  Begin

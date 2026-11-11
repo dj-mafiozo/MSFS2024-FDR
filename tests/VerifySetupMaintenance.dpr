@@ -7,10 +7,10 @@
 {$ENDIF}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, FDRSetupProductU, Winapi.Windows, Winapi.ActiveX, System.SysUtils, System.Classes, System.IOUtils,
- System.IniFiles, Vcl.Forms, Vcl.Controls, LocalizationU, UIFontsU, SetupLocalizationU,
- SetupMaintenanceU, SetupPlatformU, UpdateProtocolU, ReleasePackageU, VersionU,
- frmSetupU, frmSetupLanguageU, frmSetupCleanupU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', FDRSetupProductU In '..\..\MSFS2024-FDR-Setup\src\FDRSetupProductU.pas', Winapi.Windows, Winapi.ActiveX, System.SysUtils, System.Classes, System.IOUtils,
+ System.IniFiles, Vcl.Forms, Vcl.Controls, LocalizationU In '..\src\i18n\LocalizationU.pas', UIFontsU In '..\src\i18n\UIFontsU.pas', SetupLocalizationU In '..\..\MSFS2024-FDR-Setup\src\SetupLocalizationU.pas',
+ SetupMaintenanceU In '..\..\MSFS2024-FDR-Setup\src\SetupMaintenanceU.pas', SetupPlatformU In '..\..\MSFS2024-FDR-Setup\src\SetupPlatformU.pas', UpdateProtocolU In '..\..\setup-common\src\UpdateProtocolU.pas', ReleasePackageU In '..\..\MSFS2024-FDR-Setup\src\ReleasePackageU.pas', VersionU In '..\src\Common\VersionU.pas',
+ frmSetupU In '..\..\MSFS2024-FDR-Setup\src\frmSetupU.pas', frmSetupLanguageU In '..\..\setup-core\src\frmSetupLanguageU.pas', frmSetupCleanupU In '..\..\MSFS2024-FDR-Setup\src\frmSetupCleanupU.pas';
 
 Procedure Check(b : Boolean; Const MessageText : String);
  Begin

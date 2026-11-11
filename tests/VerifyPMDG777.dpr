@@ -4,10 +4,10 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
  Winapi.Windows, System.SysUtils, System.IOUtils, System.JSON, System.Math,
- PMDG777ReaderU, PMDG777CatalogU, PMDG777DecodeU, AircraftTelemetryU, FlightTelemetryU,
- FlightDatabaseU, FMCScreensU, TelemetryCatalogU, FMCStyleU, Vcl.Graphics;
+ PMDG777ReaderU In '..\src\Aircraft\PMDG\PMDG777ReaderU.pas', PMDG777CatalogU In '..\src\Aircraft\PMDG\PMDG777CatalogU.pas', PMDG777DecodeU In '..\src\Aircraft\PMDG\PMDG777DecodeU.pas', AircraftTelemetryU In '..\src\Telemetry\AircraftTelemetryU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas',
+ FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FMCScreensU In '..\src\FMC\FMCScreensU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', FMCStyleU In '..\src\FMC\FMCStyleU.pas', Vcl.Graphics;
 
 Procedure Check(b : Boolean; Const s : String);
  Begin

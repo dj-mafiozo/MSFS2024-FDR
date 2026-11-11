@@ -124,6 +124,23 @@
         <ProjectFileVersion>12</ProjectFileVersion>
     </ProjectExtensions>
     <PropertyGroup><FDRVerifyTest>true</FDRVerifyTest></PropertyGroup>
+    <ItemGroup>
+        <DCCReference Include="TestPathsU.pas"/>
+        <DCCReference Include="NativeTestRunnerU.pas"/>
+        <DCCReference Include="..\src\Forms\frmMainU.pas"><Form>frmMain</Form></DCCReference>
+        <DCCReference Include="..\src\Forms\frmChartsConfigureU.pas"><Form>frmChartsConfigure</Form></DCCReference>
+        <DCCReference Include="..\src\Data\FlightDatabaseU.pas"/>
+        <DCCReference Include="..\src\Telemetry\FlightTelemetryU.pas"/>
+        <DCCReference Include="..\src\Telemetry\TelemetryCatalogU.pas"/>
+        <DCCReference Include="..\src\i18n\LocalizationU.pas"/>
+        <DCCReference Include="..\src\Visualization\FlightChartsU.pas"/>
+        <DCCReference Include="..\src\Frames\fraGraphU.pas"><Form>fraGraph</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Frames\fraMapU.pas"><Form>fraMap</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Frames\fraSixPackU.pas"><Form>fraSixPack</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Visualization\SixPackU.pas"/>
+        <DCCReference Include="..\src\Frames\fraEnginesU.pas"><Form>fraEngines</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Visualization\EngineGaugesU.pas"/>
+    </ItemGroup>
     <Import Project="Tests.Shared.props"/>
     <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
     <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>

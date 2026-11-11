@@ -5,8 +5,8 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
- Winapi.Windows, System.SysUtils, System.Classes, System.IOUtils, FlightAnalysisU, LocalizationU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
+ Winapi.Windows, System.SysUtils, System.Classes, System.IOUtils, FlightAnalysisU In '..\src\Analysis\FlightAnalysisU.pas', LocalizationU In '..\src\i18n\LocalizationU.pas';
 
 Procedure Require(b : Boolean; Const s : String);
  Begin

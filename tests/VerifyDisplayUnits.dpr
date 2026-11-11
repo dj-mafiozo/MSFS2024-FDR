@@ -4,9 +4,9 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
  System.SysUtils, System.IOUtils, System.Classes, System.IniFiles, System.Math, System.Generics.Collections,
- Vcl.Forms, Vcl.Graphics, Vcl.Imaging.pngimage, ParameterNamesU, frmSettingsU, LocalizationU, FlightChartsU;
+ Vcl.Forms, Vcl.Graphics, Vcl.Imaging.pngimage, ParameterNamesU In '..\src\Visualization\ParameterNamesU.pas', frmSettingsU In '..\src\Forms\frmSettingsU.pas', LocalizationU In '..\src\i18n\LocalizationU.pas', FlightChartsU In '..\src\Visualization\FlightChartsU.pas';
 
 Procedure Check(b : Boolean; Const m : String);
  Begin

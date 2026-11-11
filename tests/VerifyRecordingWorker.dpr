@@ -4,9 +4,9 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, Winapi.Windows, System.SysUtils, System.Classes, System.IOUtils,
- System.Variants, Vcl.Forms, Vcl.ExtCtrls, FlightDatabaseU, RecordingIndexU,
- RecorderWorkerU, FlightRecorderU, TelemetryCatalogU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', Winapi.Windows, System.SysUtils, System.Classes, System.IOUtils,
+ System.Variants, Vcl.Forms, Vcl.ExtCtrls, FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', RecordingIndexU In '..\src\Data\RecordingIndexU.pas',
+ RecorderWorkerU In '..\src\Recording\RecorderWorkerU.pas', FlightRecorderU In '..\src\Recording\FlightRecorderU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas';
 
 Type
  TFixtureWorker = Class(TRecorderWorker)

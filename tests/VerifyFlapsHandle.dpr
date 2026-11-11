@@ -4,7 +4,7 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, System.SysUtils, System.Classes, System.Math, FlapsHandleU, ParameterNamesU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', System.SysUtils, System.Classes, System.Math, FlapsHandleU In '..\src\Visualization\FlapsHandleU.pas', ParameterNamesU In '..\src\Visualization\ParameterNamesU.pas';
 
 Procedure Check(b : Boolean; Const m : String);
  Begin

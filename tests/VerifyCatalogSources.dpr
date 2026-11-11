@@ -4,9 +4,9 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, System.SysUtils, System.Classes, System.IOUtils, System.JSON,
- System.RegularExpressions, Winapi.Windows, DUnitX.TestFramework, NativeTestRunnerU,
- FlapsHandleU, ParameterNamesU, FenixCatalogU;
+ TestPathsU                                                                         In 'TestPathsU.pas', System.SysUtils, System.Classes, System.IOUtils, System.JSON,
+ System.RegularExpressions, Winapi.Windows, DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
+ FlapsHandleU In '..\src\Visualization\FlapsHandleU.pas', ParameterNamesU In '..\src\Visualization\ParameterNamesU.pas', FenixCatalogU In '..\src\Aircraft\Fenix\FenixCatalogU.pas';
 
 Type
 

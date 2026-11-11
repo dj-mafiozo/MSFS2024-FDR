@@ -6,6 +6,17 @@
     <ItemGroup><BuildConfiguration Include="Debug"><Key>Cfg_1</Key><CfgParent>Base</CfgParent></BuildConfiguration></ItemGroup><PropertyGroup Condition="'$(Config)'=='Debug' or '$(Cfg_1)'!=''"><Cfg_1>true</Cfg_1><CfgParent>Base</CfgParent></PropertyGroup>
     <ItemGroup><BuildConfiguration Include="Release"><Key>Cfg_2</Key><CfgParent>Base</CfgParent></BuildConfiguration></ItemGroup><PropertyGroup Condition="'$(Config)'=='Release' or '$(Cfg_2)'!=''"><Cfg_2>true</Cfg_2><CfgParent>Base</CfgParent></PropertyGroup>
     <ProjectExtensions><Borland.Personality>Delphi.Personality.12</Borland.Personality><Borland.ProjectType/><BorlandProject><Delphi.Personality><Source><Source Name="MainSource">VerifySimBriefMaps.dpr</Source></Source></Delphi.Personality><Platforms><Platform value="Win32">True</Platform><Platform value="Win64">True</Platform></Platforms></BorlandProject><ProjectFileVersion>12</ProjectFileVersion></ProjectExtensions>
+    <ItemGroup>
+        <DCCReference Include="TestPathsU.pas"/>
+        <DCCReference Include="NativeTestRunnerU.pas"/>
+        <DCCReference Include="..\src\FlightPlan\SimBriefMapsU.pas"/>
+        <DCCReference Include="..\src\FlightPlan\SimBriefImportU.pas"/>
+        <DCCReference Include="..\src\Data\FlightDatabaseU.pas"/>
+        <DCCReference Include="..\src\Telemetry\FlightTelemetryU.pas"/>
+        <DCCReference Include="..\src\Telemetry\TelemetryCatalogU.pas"/>
+        <DCCReference Include="..\src\Frames\fraSimBriefMapU.pas"><Form>fraSimBriefMap</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="..\src\Frames\frmSimBriefFrameU.pas"><Form>fraSimBrief</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+    </ItemGroup>
     <Import Project="Tests.Shared.props"/>
     <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets"/>
 </Project>

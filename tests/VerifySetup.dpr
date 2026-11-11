@@ -4,9 +4,9 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, AppPathsU, FDRSetupProductU, Winapi.Windows, Winapi.ActiveX, Winapi.ShlObj, System.SysUtils, System.Classes, System.IOUtils,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', AppPathsU In '..\src\Core\AppPathsU.pas', FDRSetupProductU In '..\..\MSFS2024-FDR-Setup\src\FDRSetupProductU.pas', Winapi.Windows, Winapi.ActiveX, Winapi.ShlObj, System.SysUtils, System.Classes, System.IOUtils,
  System.Zip, System.JSON, Xml.XMLDoc, Xml.XMLIntf, Xml.xmldom, Xml.omnixmldom, Vcl.Forms, Vcl.ComCtrls, System.IniFiles,
- SecureZipU, UpdateProtocolU, SetupPlatformU, SetupHandoffU, frmChangeLogU, LocalizationU, frmSettingsU;
+ SecureZipU In '..\..\setup-core\src\SecureZipU.pas', UpdateProtocolU In '..\..\setup-common\src\UpdateProtocolU.pas', SetupPlatformU In '..\..\MSFS2024-FDR-Setup\src\SetupPlatformU.pas', SetupHandoffU In '..\..\setup-common\src\SetupHandoffU.pas', frmChangeLogU In '..\src\Forms\frmChangeLogU.pas', LocalizationU In '..\src\i18n\LocalizationU.pas', frmSettingsU In '..\src\Forms\frmSettingsU.pas';
 
 Procedure Check(b : Boolean; Const s : String);
  Begin

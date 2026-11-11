@@ -4,7 +4,7 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, FDRSetupProductU, Winapi.Windows, System.SysUtils, System.Classes, System.IOUtils, System.JSON, System.Zip, System.Hash, SecureZipU, SetupSignatureU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', FDRSetupProductU In '..\..\MSFS2024-FDR-Setup\src\FDRSetupProductU.pas', Winapi.Windows, System.SysUtils, System.Classes, System.IOUtils, System.JSON, System.Zip, System.Hash, SecureZipU In '..\..\setup-core\src\SecureZipU.pas', SetupSignatureU In '..\..\setup-common\src\SetupSignatureU.pas';
 
 Type
  TPSS = Record

@@ -4,7 +4,7 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, System.SysUtils, System.Math, System.Types, FlightDatabaseU, AirbusDataU, PFDMinimaU, Vcl.Graphics;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', System.SysUtils, System.Math, System.Types, FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', AirbusDataU In '..\src\Visualization\AirbusDataU.pas', PFDMinimaU In '..\src\Visualization\PFDMinimaU.pas', Vcl.Graphics;
 
 Procedure Check(b : Boolean; Const Msg : String);
  Begin

@@ -4,10 +4,10 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
  Winapi.Windows, System.SysUtils, System.Classes, System.JSON, System.Generics.Collections,
- FireDAC.Comp.Client, FlightDatabaseU, FlightTelemetryU, TelemetryCatalogU, FMCScreensU,
- FlightPadScreenIPCU, FlightPadScreensU, AircraftTelemetryU;
+ FireDAC.Comp.Client, FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', FMCScreensU In '..\src\FMC\FMCScreensU.pas',
+ FlightPadScreenIPCU In '..\src\FMC\FlightPadScreenIPCU.pas', FlightPadScreensU In '..\src\FMC\FlightPadScreensU.pas', AircraftTelemetryU In '..\src\Telemetry\AircraftTelemetryU.pas';
 
 Var
  Publisher : TFlightPadScreenPublisher;

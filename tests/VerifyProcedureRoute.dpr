@@ -4,8 +4,8 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, Winapi.Windows, System.SysUtils, System.Classes, System.Math,
- FlightPlanU, ProcedureRouteU, SimConnectClientU, FlightDatabaseU, FlightTelemetryU, TelemetryCatalogU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', Winapi.Windows, System.SysUtils, System.Classes, System.Math,
+ FlightPlanU In '..\src\FlightPlan\FlightPlanU.pas', ProcedureRouteU In '..\src\FlightPlan\ProcedureRouteU.pas', SimConnectClientU In '..\src\SimConnect\SimConnectClientU.pas', FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas';
 
 Procedure Check(b : Boolean; Const m : String);
  Begin

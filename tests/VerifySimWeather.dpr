@@ -4,8 +4,8 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, Winapi.Windows, System.SysUtils, System.Classes, System.JSON, System.DateUtils, System.Math,
- System.Net.HttpClient, Vcl.Forms, RouteBridgeU, SimWeatherU, MetarDecodeU, FlightDatabaseU, FlightTelemetryU, TelemetryCatalogU, frmWeatherU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', Winapi.Windows, System.SysUtils, System.Classes, System.JSON, System.DateUtils, System.Math,
+ System.Net.HttpClient, Vcl.Forms, RouteBridgeU In '..\src\FlightPlan\RouteBridgeU.pas', SimWeatherU In '..\src\Weather\SimWeatherU.pas', MetarDecodeU In '..\src\Weather\MetarDecodeU.pas', FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', frmWeatherU In '..\src\Forms\frmWeatherU.pas';
 
 Procedure Check(b : Boolean; Const s : String);
  Begin

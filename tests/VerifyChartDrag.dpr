@@ -4,9 +4,9 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
  System.SysUtils, System.Classes, System.Types, Winapi.Windows, Winapi.Messages,
- Vcl.Forms, Vcl.XPMan, Vcl.Controls, Vcl.Graphics, Vcl.Imaging.pngimage, frmChartsConfigureU, LocalizationU;
+ Vcl.Forms, Vcl.XPMan, Vcl.Controls, Vcl.Graphics, Vcl.Imaging.pngimage, frmChartsConfigureU In '..\src\Forms\frmChartsConfigureU.pas', LocalizationU In '..\src\i18n\LocalizationU.pas';
 
 Var
  d        : TfrmChartsConfigure;

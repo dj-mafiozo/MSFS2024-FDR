@@ -4,8 +4,8 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, FDRSetupProductU, Winapi.Windows, System.SysUtils, System.Classes, System.IOUtils, Vcl.Forms, Vcl.ExtCtrls, System.UITypes, frmSetupRunningU,
- IdHTTPServer, IdCustomHTTPServer, IdContext, UpdateProtocolU, SetupPlatformU, frmSetupU, SetupLocalizationU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', FDRSetupProductU In '..\..\MSFS2024-FDR-Setup\src\FDRSetupProductU.pas', Winapi.Windows, System.SysUtils, System.Classes, System.IOUtils, Vcl.Forms, Vcl.ExtCtrls, System.UITypes, frmSetupRunningU In '..\..\setup-core\src\frmSetupRunningU.pas',
+ IdHTTPServer, IdCustomHTTPServer, IdContext, UpdateProtocolU In '..\..\setup-common\src\UpdateProtocolU.pas', SetupPlatformU In '..\..\MSFS2024-FDR-Setup\src\SetupPlatformU.pas', frmSetupU In '..\..\MSFS2024-FDR-Setup\src\frmSetupU.pas', SetupLocalizationU In '..\..\MSFS2024-FDR-Setup\src\SetupLocalizationU.pas';
 
 Type
  TResponder = Class

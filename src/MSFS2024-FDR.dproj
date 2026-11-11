@@ -776,8 +776,8 @@
         <VerInfo_Locale>1045</VerInfo_Locale>
         <VerInfo_MajorVer>0</VerInfo_MajorVer>
         <VerInfo_MinorVer>1</VerInfo_MinorVer>
-        <VerInfo_Build>72</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=DJ M@fi0z0™;FileDescription=MSFS24 Flight Data Recorder;FileVersion=0.1.1.72;InternalName=MSFS24-FDR;LegalCopyright=© 2026 DJ M@fi0z0™ ;LegalTrademarks=DJ M@fi0z0™;OriginalFilename=MSFS24-FDR.exe;ProductName=Microsoft Flight Simulator 2024 - Flight Data Recorder;ProductVersion=0.1;Comments=;CFBundleName=</VerInfo_Keys>
+        <VerInfo_Build>73</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=DJ M@fi0z0™;FileDescription=MSFS24 Flight Data Recorder;FileVersion=0.1.1.73;InternalName=MSFS24-FDR;LegalCopyright=© 2026 DJ M@fi0z0™ ;LegalTrademarks=DJ M@fi0z0™;OriginalFilename=MSFS24-FDR.exe;ProductName=Microsoft Flight Simulator 2024 - Flight Data Recorder;ProductVersion=0.1;Comments=;CFBundleName=</VerInfo_Keys>
         <DCC_E>false</DCC_E>
         <DCC_F>false</DCC_F>
         <DCC_K>false</DCC_K>

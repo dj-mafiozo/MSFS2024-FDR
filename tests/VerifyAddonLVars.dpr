@@ -4,9 +4,9 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
  Winapi.Windows, System.SysUtils, System.IOUtils, System.JSON, System.Math,
- AddonLVarCatalogU, AircraftTelemetryU, AircraftLVarReaderU, FlightTelemetryU, FlightDatabaseU, TelemetryCatalogU;
+ AddonLVarCatalogU In '..\src\Aircraft\AddonLVarCatalogU.pas', AircraftTelemetryU In '..\src\Telemetry\AircraftTelemetryU.pas', AircraftLVarReaderU In '..\src\SimConnect\AircraftLVarReaderU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas', FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas';
 
 Procedure Check(b : Boolean; Const s : String);
  Begin

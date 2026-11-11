@@ -5,10 +5,10 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas',
  Winapi.Windows, System.SysUtils, System.Classes, System.Variants, System.JSON, System.Generics.Collections, FireDAC.Comp.Client,
 
- FlightDatabaseU, FlightTelemetryU, TelemetryCatalogU, FMCScreensU, FMCPreflightU, AnalysisContextU;
+ FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', FMCScreensU In '..\src\FMC\FMCScreensU.pas', FMCPreflightU In '..\src\FMC\FMCPreflightU.pas', AnalysisContextU In '..\src\Analysis\AnalysisContextU.pas';
 
 Var
  DB        : TFlightDatabase;

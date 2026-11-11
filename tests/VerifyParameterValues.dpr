@@ -4,8 +4,8 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, System.SysUtils, System.Classes, System.Math, ParameterNamesU, LocalizationU,
- TelemetryCatalogU, iFlySDKCatalogU, PMDGNG3CatalogU, PMDG777CatalogU, FenixCatalogU, FBWCatalogU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', System.SysUtils, System.Classes, System.Math, ParameterNamesU In '..\src\Visualization\ParameterNamesU.pas', LocalizationU In '..\src\i18n\LocalizationU.pas',
+ TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas', iFlySDKCatalogU In '..\src\Aircraft\iFly\iFlySDKCatalogU.pas', PMDGNG3CatalogU In '..\src\Aircraft\PMDG\PMDGNG3CatalogU.pas', PMDG777CatalogU In '..\src\Aircraft\PMDG\PMDG777CatalogU.pas', FenixCatalogU In '..\src\Aircraft\Fenix\FenixCatalogU.pas', FBWCatalogU In '..\src\Aircraft\FBW\FBWCatalogU.pas';
 
 Procedure Check(b : Boolean; Const m : String);
  Begin

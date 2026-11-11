@@ -4,8 +4,8 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, Winapi.Windows, DockPreviewU, System.SysUtils, System.Classes, System.Types, System.IniFiles,
- Vcl.StdCtrls, Vcl.Forms, Vcl.Controls, Vcl.ComCtrls, Vcl.ExtCtrls, frmDockViewU;
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', Winapi.Windows, DockPreviewU In '..\src\Visualization\DockPreviewU.pas', System.SysUtils, System.Classes, System.Types, System.IniFiles,
+ Vcl.StdCtrls, Vcl.Forms, Vcl.Controls, Vcl.ComCtrls, Vcl.ExtCtrls, frmDockViewU In '..\src\Forms\frmDockViewU.pas';
 
 Procedure Check(b : Boolean; Const s : String);
  Begin

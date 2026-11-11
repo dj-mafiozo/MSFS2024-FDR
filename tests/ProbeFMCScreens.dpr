@@ -3,7 +3,7 @@
 {$APPTYPE CONSOLE}
 
 Uses
- Winapi.Windows, System.JSON, System.SysUtils, System.Generics.Collections, FlightTelemetryU, AircraftTelemetryU, FMCScreensU;
+ Winapi.Windows, System.JSON, System.SysUtils, System.Generics.Collections, FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas', AircraftTelemetryU In '..\src\Telemetry\AircraftTelemetryU.pas', FMCScreensU In '..\src\FMC\FMCScreensU.pas';
 
 Var
  s       : TFlightSample;

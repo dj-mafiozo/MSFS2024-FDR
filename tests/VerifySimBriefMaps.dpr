@@ -4,10 +4,10 @@
 {$RTTI EXPLICIT METHODS([vcPublic])}
 
 Uses
- TestPathsU, DUnitX.TestFramework, NativeTestRunnerU, Winapi.Windows, System.SysUtils, System.Classes, System.JSON, System.NetEncoding, System.Math,
+ TestPathsU In 'TestPathsU.pas', DUnitX.TestFramework, NativeTestRunnerU In 'NativeTestRunnerU.pas', Winapi.Windows, System.SysUtils, System.Classes, System.JSON, System.NetEncoding, System.Math,
  Vcl.Forms, Vcl.Controls, Vcl.StdCtrls, Vcl.ExtCtrls, IdHTTPServer, IdContext, IdCustomHTTPServer,
- SimBriefMapsU, SimBriefImportU, FlightDatabaseU, FlightTelemetryU, TelemetryCatalogU,
- fraSimBriefMapU, frmSimBriefFrameU;
+ SimBriefMapsU In '..\src\FlightPlan\SimBriefMapsU.pas', SimBriefImportU In '..\src\FlightPlan\SimBriefImportU.pas', FlightDatabaseU In '..\src\Data\FlightDatabaseU.pas', FlightTelemetryU In '..\src\Telemetry\FlightTelemetryU.pas', TelemetryCatalogU In '..\src\Telemetry\TelemetryCatalogU.pas',
+ fraSimBriefMapU In '..\src\Frames\fraSimBriefMapU.pas', frmSimBriefFrameU In '..\src\Frames\frmSimBriefFrameU.pas';
 
 Type
  TFakeMaps = Class
