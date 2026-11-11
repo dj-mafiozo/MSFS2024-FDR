@@ -39,6 +39,7 @@
 - To samodzielny formatter autora, korzystający z jego silnika i wbudowanego zaszyfrowanego profilu. Formatuje całą grupę `MSFS24 Flight Data Recorder.groupproj` oraz `tests/Tests.groupproj`; nie zastępuj go innym formatterem ani własnymi regułami formatowania.
 - Parametr `/nogui` wyłącza końcowy raport w MsgBox. Obsługa przekazywania statusu przez stdout jest rozwijana w osobnej instancji; dopóki nie zostanie dostarczona, brak stdout nie oznacza błędu ani potwierdzenia sukcesu. Poczekaj na zakończenie procesu; zgłoszony błąd formatowania popraw przed kompilacją.
 - Po zmianach kodu lub regeneracji katalogów najpierw zadbaj o znaczniki poniżej, następnie uruchom formatter, przejrzyj jego zmiany i dopiero kompiluj. Pamiętaj, że formatter obejmuje obie całe grupy, a nie wyłącznie edytowany unit.
+- Jeśli ten plik nie ma czystego git status znaczy, że został uaktualniony i automatycznie go uaktualnij w kolejnym przyszykowanym commit, jest automatycznie uaktualniany podczas rozwoju Delphi-Formatter, z którego silnika korzysta, oraz w razie zmiany zaszyfrowanego profilu konfiguracyjnego w zasobach pliku .exe tego narzędzia.
 
 ## Tablice i katalogi — znaczniki FLD
 
