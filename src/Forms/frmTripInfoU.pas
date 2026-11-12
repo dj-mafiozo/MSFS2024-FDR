@@ -22,9 +22,9 @@ Interface
     mInfo            : TMemo;
     SimBriefPanel    : TPanel;
     TripInfoGroupBox : TGroupBox;
-    Procedure ImportClick(Sender : TObject);
-    Procedure OFPClick(Sender : TObject);
-    Procedure FetchTick(Sender : TObject);
+    Procedure ImportClick (Sender : TObject);
+    Procedure OFPClick    (Sender : TObject);
+    Procedure FetchTick   (Sender : TObject);
     Procedure RefreshClick(Sender : TObject);
    Private
     fAllowOlder : Boolean;
@@ -36,8 +36,8 @@ Interface
     fMetadataID : Integer;
    Public
     Destructor Destroy; Override;
-    Procedure ConfigureSimBrief(Config : TMemIniFile);
-    Procedure LoadTrip(Connection : TFDConnection; Trip : Integer; Metadata : TFDConnection = Nil; MetadataID : Integer = 0);
+    Procedure  ConfigureSimBrief(Config : TMemIniFile);
+    Procedure  LoadTrip         (Connection : TFDConnection; Trip : Integer; Metadata : TFDConnection = Nil; MetadataID : Integer = 0);
   End;
 
 Implementation

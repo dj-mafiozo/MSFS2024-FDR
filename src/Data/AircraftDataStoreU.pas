@@ -16,9 +16,9 @@ Interface
     q      : TFDQuery;
     fState : TJSONObject;
    Public
-    Constructor Create(DB : TFDConnection; Trip : Integer);
-    Destructor Destroy; Override;
-    Function AtSample(ID : Int64) : TJSONObject;
+    Constructor Create  (DB : TFDConnection; Trip : Integer);
+    Destructor  Destroy; Override;
+    Function    AtSample(ID : Int64) : TJSONObject;
   End;
 
 Implementation

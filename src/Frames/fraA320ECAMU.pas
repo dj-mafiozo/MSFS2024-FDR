@@ -35,7 +35,7 @@ Interface
     ToolButton2  : TToolButton;
     UpperPanel   : TPanel;
     Procedure FrameResize(Sender : TObject);
-    Procedure PageClick(Sender : TObject);
+    Procedure PageClick  (Sender : TObject);
    Private
     fUpper     : TAirbusEWD;
     fLower     : TAirbusSD;
@@ -43,9 +43,9 @@ Interface
    Protected
     Procedure SetParent(AParent : TWinControl); Override;
    Public
-    Constructor Create(AOwner : TComponent); Override;
-    Procedure SetPoint(Plot : TTripPlot; Index : Integer);
-    Procedure Clear;
+    Constructor Create  (AOwner : TComponent); Override;
+    Procedure   SetPoint(Plot : TTripPlot; Index : Integer);
+    Procedure   Clear;
     Property UpperDisplay : TAirbusEWD Read fUpper;
     Property LowerDisplay : TAirbusSD Read fLower;
   End;

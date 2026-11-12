@@ -35,19 +35,19 @@ Interface
     btnClose      : TButton;
     RefreshTimer  : TTimer;
     Procedure SourcesResize(Sender : TObject);
-    Procedure RefreshClick(Sender : TObject);
-    Procedure EventChanged(Sender : TObject);
-    Procedure FetchClick(Sender : TObject);
+    Procedure RefreshClick (Sender : TObject);
+    Procedure EventChanged (Sender : TObject);
+    Procedure FetchClick   (Sender : TObject);
    Private
     fConnection : TFDConnection;
     fTrip       : Integer;
     fRows       : TList<TWeatherEvent>;
     fFetch      : TNotifyEvent;
-    Function HasReports : Boolean;
+    Function  HasReports : Boolean;
     Procedure Reload;
    Public
     Destructor Destroy; Override;
-    Procedure Load(Connection : TFDConnection; Trip : Integer; AllowFetch : Boolean; OnFetch : TNotifyEvent);
+    Procedure  Load(Connection : TFDConnection; Trip : Integer; AllowFetch : Boolean; OnFetch : TNotifyEvent);
   End;
 
 Implementation

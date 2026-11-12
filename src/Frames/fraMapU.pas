@@ -25,8 +25,8 @@ Interface
    Protected
     Procedure SetParent(AParent : TWinControl); Override;
    Public
-    Constructor Create(AOwner : TComponent); Override;
-    Procedure BindActions(WindowAction : TNotifyEvent; UpdateAction : TActionEvent);
+    Constructor Create     (AOwner : TComponent); Override;
+    Procedure   BindActions(WindowAction : TNotifyEvent; UpdateAction : TActionEvent);
     Property Map : TFlightMap Read fMap;
   End;
 

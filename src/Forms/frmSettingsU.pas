@@ -72,12 +72,12 @@ Interface
     cbAutomaticUpdates   : TCheckBox;
     btnCheckUpdates      : TButton;
     btnChangeLog         : TButton;
-    Procedure CheckUpdatesClick(Sender : TObject);
-    Procedure ChangeLogClick(Sender : TObject);
-    Procedure LanguageDrawItem(Control : TWinControl; Index : Integer; Rect : TRect; State : TOwnerDrawState);
+    Procedure CheckUpdatesClick  (Sender : TObject);
+    Procedure ChangeLogClick     (Sender : TObject);
+    Procedure LanguageDrawItem   (Control : TWinControl; Index : Integer; Rect : TRect; State : TOwnerDrawState);
     Procedure RefreshOllamaModels(Sender : TObject);
-    Procedure ModelsTick(Sender : TObject);
-    Procedure ModelsActivate(Sender : TObject);
+    Procedure ModelsTick         (Sender : TObject);
+    Procedure ModelsActivate     (Sender : TObject);
    Private
     fUpdateRequested : Boolean;
     fModelsThread    : TOllamaModelsThread;
@@ -86,8 +86,8 @@ Interface
    Public
     Property UpdateRequested : Boolean Read fUpdateRequested;
     Destructor Destroy; Override;
-    Procedure Load(Config : TMemIniFile);
-    Procedure Save(Config : TMemIniFile);
+    Procedure  Load(Config : TMemIniFile);
+    Procedure  Save(Config : TMemIniFile);
   End;
 
  Procedure ReadAnalysisWindow(Config : TMemIniFile; Landing : Boolean; Out BeforeSeconds, AfterSeconds : Integer);

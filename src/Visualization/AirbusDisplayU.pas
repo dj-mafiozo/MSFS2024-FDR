@@ -12,16 +12,16 @@ Interface
     fData   : TAirbusData;
     Procedure Render; Virtual; Abstract;
     Procedure Paint; Override;
-    Procedure Text(x, y : Integer; Const s : String; Col : TColor = clWhite; Size : Integer = 16);
-    Procedure Line(X1, Y1, X2, Y2 : Integer; Col : TColor = clWhite; w : Integer = 1);
-    Procedure Box(X1, Y1, X2, Y2 : Integer; Col : TColor = clWhite);
+    Procedure Text  (x, y : Integer; Const s : String; Col : TColor = clWhite; Size : Integer = 16);
+    Procedure Line  (X1, Y1, X2, Y2 : Integer; Col : TColor = clWhite; w : Integer = 1);
+    Procedure Box   (X1, Y1, X2, Y2 : Integer; Col : TColor = clWhite);
     Procedure Number(x, y : Integer; v : Double; Digits : Integer = 0; Col : TColor = clLime);
-    Procedure Gauge(x, y, r : Integer; v, Maximum : Double; Const LabelText : String);
+    Procedure Gauge (x, y, r : Integer; v, Maximum : Double; Const LabelText : String);
    Public
-    Constructor Create(AOwner : TComponent); Override;
-    Destructor Destroy; Override;
-    Procedure SetPoint(Plot : TTripPlot; Index : Integer); Virtual;
-    Procedure Clear; Virtual;
+    Constructor Create  (AOwner : TComponent); Override;
+    Destructor  Destroy; Override;
+    Procedure   SetPoint(Plot : TTripPlot; Index : Integer); Virtual;
+    Procedure   Clear; Virtual;
     Property Data : TAirbusData Read fData;
   End;
 

@@ -635,3 +635,7 @@ The menu regression counts native WM_NCPAINT messages: 40 unchanged-header notif
 Full runs and `VerifyReleasePEM` build both application and stub before the signing fixture so their executable VersionInfo values match.
 
 Explicit-DPR-path audit: the full run compiled the suite and passed 93 of 94 DUnitX cases plus the standalone RTL regression. The sole failure was a stale stub version in the packaging fixture; after adding the missing executable-build dependency, `VerifyReleasePEM` passed on recheck (94/94 overall). Token comparison of 103 DPRs and configuration comparison of 104 DPROJs preserved code and metadata except the added paths/references and Build.
+
+B38M PFD regression covers LOT131 from legacy LOT/131 fields, full callsigns, whitespace, leading zeroes, suffixes and missing airline/number. Historical values were confirmed using read-only SQLite queries.
+
+The remaining standalone VerifyRTLReturn scenario now uses DUnitX with preserved assertions and separate Setup/TearDown for its settings backup. All Verify programs use DUnitX.

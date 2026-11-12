@@ -52,10 +52,10 @@ Interface
     Procedure Execute; Override;
    Public
     Constructor Create(Plot : TTripPlot; Const DLL, VMR : String; Hz : Integer; StartSeconds : Double; Inventory : TAIModelInventory = Nil);
-    Destructor Destroy; Override;
-    Procedure Toggle;
-    Procedure Skip(Seconds : Double);
-    Function Snapshot : TGhostState;
+    Destructor  Destroy; Override;
+    Procedure   Toggle;
+    Procedure   Skip  (Seconds : Double);
+    Function    Snapshot : TGhostState;
   End;
 
  Function GhostInterpolate(Const a, b : TGhostSample; Seconds : Double) : TGhostSample;

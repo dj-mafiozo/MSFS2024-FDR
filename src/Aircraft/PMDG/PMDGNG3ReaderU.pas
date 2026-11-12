@@ -27,15 +27,15 @@ Interface
     fRequest    : Function(h : THandle; ID, RequestID, Definition, Period, Flags, Origin, Interval, Limit : DWORD) : HRESULT; Stdcall;
     fNext       : Function(h : THandle; Var p : Pointer; Var Size : DWORD) : HRESULT; Stdcall;
     fLast       : Function(h : THandle; Var ID : DWORD) : HRESULT; Stdcall;
-    Procedure Track(Area : Integer);
+    Procedure Track  (Area : Integer);
     Procedure Connect;
     Procedure Receive(p : Pointer; Size : DWORD; NowTick : UInt64);
    Public
-    Constructor Create(Const DLL : String = '');
-    Destructor Destroy; Override;
-    Procedure Close;
-    Procedure Tick;
-    Function Snapshot(Area : Integer; Out Data : TBytes; Out AgeMS : UInt64) : Boolean;
+    Constructor Create  (Const DLL : String = '');
+    Destructor  Destroy; Override;
+    Procedure   Close;
+    Procedure   Tick;
+    Function    Snapshot(Area : Integer; Out Data : TBytes; Out AgeMS : UInt64) : Boolean;
     Property LastError : String Read fError;
     {$IFDEF PORT_TEST}
     Procedure Feed(p : Pointer; Size : DWORD; NowTick : UInt64); {$ENDIF}

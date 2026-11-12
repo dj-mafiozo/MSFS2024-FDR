@@ -143,10 +143,10 @@ Type
   Frame  : TFrame;
   Window : TfrmViewWindow;
   Store  : TViewStateStore;
-  Constructor Create(Config : TCustomIniFile);
-  Destructor Destroy; Override;
-  Procedure Toggle(Sender : TObject);
-  Procedure Returned(Sender : TObject);
+  Constructor Create  (Config : TCustomIniFile);
+  Destructor  Destroy; Override;
+  Procedure   Toggle  (Sender : TObject);
+  Procedure   Returned(Sender : TObject);
  End;
 
 Constructor TFuture.Create(Config : TCustomIniFile);

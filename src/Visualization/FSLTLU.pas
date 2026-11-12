@@ -35,8 +35,8 @@ Interface
     Procedure Execute; Override;
    Public
     Constructor Create(Const LocalData, RoamingData : String);
-    Destructor Destroy; Override;
-    Function Models : TArray<TAIModelInfo>;
+    Destructor  Destroy; Override;
+    Function    Models : TArray<TAIModelInfo>;
     Property Error : String Read fError;
   End;
 

@@ -20,15 +20,15 @@ Interface
    Private
     fItems    : TObjectList<TPanelRatio>;
     fApplying : Boolean;
-    Function Active(e : TPanelRatio) : Boolean;
+    Function Active   (e : TPanelRatio)                            : Boolean;
     Function Available(Parent : TWinControl; Horizontal : Boolean) : Integer;
    Public
     Constructor Create;
-    Destructor Destroy; Override;
-    Procedure Add(Control : TWinControl; Horizontal : Boolean; Minimum, Rest : Integer; DockOnly : Boolean = False);
-    Procedure CaptureGroup(Parent : TWinControl; Horizontal : Boolean);
-    Procedure Capture;
-    Procedure Apply;
+    Destructor  Destroy; Override;
+    Procedure   Add         (Control : TWinControl; Horizontal : Boolean; Minimum, Rest : Integer; DockOnly : Boolean = False);
+    Procedure   CaptureGroup(Parent : TWinControl; Horizontal : Boolean);
+    Procedure   Capture;
+    Procedure   Apply;
   End;
 
 Implementation

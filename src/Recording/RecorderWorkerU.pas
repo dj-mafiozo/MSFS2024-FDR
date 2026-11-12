@@ -41,14 +41,14 @@ Interface
     fConnect    : Boolean;
    Protected
     Procedure Execute; Override;
-    Procedure PollRecorder(Recorder : TFlightRecorder); Virtual;
+    Procedure PollRecorder   (Recorder : TFlightRecorder); Virtual;
     Procedure ConnectRecorder(Recorder : TFlightRecorder); Virtual;
    Public
-    Constructor Create(Const Path, Root, Plan : String; BridgePort : Integer; Connect : Boolean = True);
-    Destructor Destroy; Override;
-    Procedure Configure(Interval : Integer; Enabled : Boolean);
-    Procedure Command(Const Kind : String; Const Value : String = ''; ID : Integer = 0);
-    Function Snapshot : TRecorderState;
+    Constructor Create   (Const Path, Root, Plan : String; BridgePort : Integer; Connect : Boolean = True);
+    Destructor  Destroy; Override;
+    Procedure   Configure(Interval : Integer; Enabled : Boolean);
+    Procedure   Command  (Const Kind : String; Const Value : String = ''; ID : Integer = 0);
+    Function    Snapshot : TRecorderState;
   End;
 
 Implementation

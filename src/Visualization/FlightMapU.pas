@@ -17,9 +17,9 @@ Interface
    Protected
     Procedure Execute; Override;
    Public
-    Constructor Create(Const Root : String);
-    Destructor Destroy; Override;
-    Procedure Request(Const Key : String);
+    Constructor Create (Const Root : String);
+    Destructor  Destroy; Override;
+    Procedure   Request(Const Key : String);
   End;
 
   TFlightMap = Class(TCustomControl)
@@ -36,21 +36,21 @@ Interface
     fLast      : TPoint;
     fData      : TTripPlot;
     fCursor    : Integer;
-    Procedure Tick(Sender : TObject);
-    Function Project(Lat, Lon : Double) : TPointF;
+    Procedure Tick   (Sender : TObject);
+    Function  Project(Lat, Lon : Double) : TPointF;
    Protected
     Procedure Paint; Override;
-    Procedure MouseDown(Button : TMouseButton; Shift : TShiftState; x, y : Integer); Override;
-    Procedure MouseUp(Button : TMouseButton; Shift : TShiftState; x, y : Integer); Override;
-    Procedure MouseMove(Shift : TShiftState; x, y : Integer); Override;
-    Function DoMouseWheel(Shift : TShiftState; WheelDelta : Integer; MousePos : TPoint) : Boolean; Override;
+    Procedure MouseDown   (Button : TMouseButton; Shift : TShiftState; x, y : Integer); Override;
+    Procedure MouseUp     (Button : TMouseButton; Shift : TShiftState; x, y : Integer); Override;
+    Procedure MouseMove   (Shift : TShiftState; x, y : Integer); Override;
+    Function  DoMouseWheel(Shift : TShiftState; WheelDelta : Integer; MousePos : TPoint) : Boolean; Override;
    Public
     TilesEnabled : Boolean;
-    Constructor Create(AOwner : TComponent); Override;
-    Destructor Destroy; Override;
-    Procedure SetData(Data : TTripPlot);
-    Procedure SetCursor(Index : Integer);
-    Procedure Fit;
+    Constructor Create   (AOwner : TComponent); Override;
+    Destructor  Destroy; Override;
+    Procedure   SetData  (Data : TTripPlot);
+    Procedure   SetCursor(Index : Integer);
+    Procedure   Fit;
   End;
 
 Implementation

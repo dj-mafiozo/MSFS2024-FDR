@@ -39,14 +39,14 @@ Interface
     fNext         : Function(h : THandle; Var p : Pointer; Var Size : DWORD) : HRESULT; Stdcall;
     fLast         : Function(h : THandle; Var ID : DWORD) : HRESULT; Stdcall;
     Procedure Connect;
-    Procedure Track(Batch : Integer);
+    Procedure Track  (Batch : Integer);
     Procedure Receive(p : Pointer; Size : DWORD; NowTick : UInt64);
    Public
-    Constructor Create(Const Names : TArray<String>; Const ClientName : String; Const DLL : String = ''; BatchSize : Integer = LVarBatchSize; Polling : Boolean = False; Const Units : TArray<String> = Nil);
-    Destructor Destroy; Override;
-    Procedure Close;
-    Procedure Tick;
-    Function Snapshot(Out Values : TArray<Double>; Out AgeMS : UInt64; MaxAgeMS : UInt64) : Integer;
+    Constructor Create  (Const Names : TArray<String>; Const ClientName : String; Const DLL : String = ''; BatchSize : Integer = LVarBatchSize; Polling : Boolean = False; Const Units : TArray<String> = Nil);
+    Destructor  Destroy; Override;
+    Procedure   Close;
+    Procedure   Tick;
+    Function    Snapshot(Out Values : TArray<Double>; Out AgeMS : UInt64; MaxAgeMS : UInt64) : Integer;
     Property PollIntervalMS : Integer Read fPollInterval Write fPollInterval;
     Property LastError      : String Read fError;
     {$IFDEF PORT_TEST}

@@ -38,16 +38,16 @@ Interface
     ToolButton7   : TToolButton;
     Tools         : TPanel;
     WheelEvents   : TApplicationEvents;
-    Procedure WheelMessage(Var Msg : TMsg; Var Handled : Boolean);
-    Procedure aOlderExecute(Sender : TObject);
-    Procedure aFetchExecute(Sender : TObject);
+    Procedure WheelMessage    (Var Msg : TMsg; Var Handled : Boolean);
+    Procedure aOlderExecute   (Sender : TObject);
+    Procedure aFetchExecute   (Sender : TObject);
     Procedure aRecordedExecute(Sender : TObject);
-    Procedure aAttachExecute(Sender : TObject);
-    Procedure aOFPExecute(Sender : TObject);
-    Procedure aWindowExecute(Sender : TObject);
-    Procedure FetchTick(Sender : TObject);
-    Procedure ToggleSection(Sender : TObject);
-    Procedure ResizeCards(Sender : TObject);
+    Procedure aAttachExecute  (Sender : TObject);
+    Procedure aOFPExecute     (Sender : TObject);
+    Procedure aWindowExecute  (Sender : TObject);
+    Procedure FetchTick       (Sender : TObject);
+    Procedure ToggleSection   (Sender : TObject);
+    Procedure ResizeCards     (Sender : TObject);
    Private
     fMapsFetch        : TSimBriefMapsFetch;
     fMapImages        : TArray<TSimBriefMap>;
@@ -65,19 +65,19 @@ Interface
     Procedure PrepareMaps;
     Procedure StartMapFetch;
     Procedure RenderMaps;
-    Procedure AddSection(Const Key, Title, Text : String; Expanded : Boolean);
-    Function SectionText(Root : TJSONObject; Const Paths : String) : String;
-    Function CardText(Root : TJSONObject; Const Specs : String) : String;
-    Function MemoSectionHeight(Memo : TMemo) : Integer;
+    Procedure AddSection       (Const Key, Title, Text : String; Expanded : Boolean);
+    Function  SectionText      (Root : TJSONObject; Const Paths : String) : String;
+    Function  CardText         (Root : TJSONObject; Const Specs : String) : String;
+    Function  MemoSectionHeight(Memo : TMemo)                             : Integer;
    Protected
     Procedure Loaded; Override;
     Procedure SetParent(AParent : TWinControl); Override;
    Public
-    Procedure Retranslate;
+    Procedure  Retranslate;
     Destructor Destroy; Override;
-    Procedure Configure(Config : TMemIniFile);
-    Procedure SetTrip(Connection : TFDConnection; Trip : Integer);
-    Procedure LoadPayload(Const Payload, Source : String);
+    Procedure  Configure  (Config : TMemIniFile);
+    Procedure  SetTrip    (Connection : TFDConnection; Trip : Integer);
+    Procedure  LoadPayload(Const Payload, Source : String);
     Property ReadOnly : Boolean Read fReadOnly Write fReadOnly;
     Property Payload  : String Read fPayload;
   End;

@@ -16,10 +16,10 @@ Interface
    Protected
     Procedure Render; Override;
    Public
-    Constructor Create(AOwner : TComponent); Override;
-    Destructor Destroy; Override;
-    Procedure SetPoint(Plot : TTripPlot; Index : Integer); Override;
-    Procedure Clear; Override;
+    Constructor Create  (AOwner : TComponent); Override;
+    Destructor  Destroy; Override;
+    Procedure   SetPoint(Plot : TTripPlot; Index : Integer); Override;
+    Procedure   Clear; Override;
     Property Sampler : TSixPackDisplay Read fSampler;
   End;
 

@@ -5,6 +5,8 @@ The history starts with the initial Preview, followed by releases **0.1.0**, **0
 
 ## 0.1.1
 
+- B38M PFD flight information combines the recorded airline ICAO designator and flight number, such as LOT and 131 becoming LOT131, while preserving complete callsigns.
+
 - Avoid repainting unchanged menu headers and coalesce real changes into one redraw. Translate the value-search cue and deploy the current translation catalog after Build/Make.
 
 - Avoid reattaching an already active menu during action updates, preventing transient RTL/LTR flips and menu-header flicker.

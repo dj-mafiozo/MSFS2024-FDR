@@ -54,10 +54,10 @@ Interface
     fScreenTick     : UInt64;
     fScreenUTC      : TFileTime;
    Public
-    Constructor Create(Const Profile : String);
-    Destructor Destroy; Override;
-    Procedure Publish(Const Text : String; Available : Boolean);
-    Procedure PublishFull(Const Text, AppearanceJSON : String; Available : Boolean);
+    Constructor Create     (Const Profile : String);
+    Destructor  Destroy; Override;
+    Procedure   Publish    (Const Text : String; Available : Boolean);
+    Procedure   PublishFull(Const Text, AppearanceJSON : String; Available : Boolean);
   End;
 
  Function ReadFlightPadScreenStatePID(Const Profile : String; PID : Cardinal; Out Snapshot : TFlightPadScreenSnapshot) : Boolean;

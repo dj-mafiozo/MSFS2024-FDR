@@ -20,12 +20,12 @@ Interface
     fTrip   : Integer;
     Procedure WriteMessage(DB : TFDConnection; Trip : Integer; Const SimUTC : String; Const m : TFSHudMessage);
    Public
-    Constructor Create(Connect : Boolean = True);
-    Destructor Destroy; Override;
-    Procedure BeginTrip(DB : TFDConnection; Trip : Integer; Const SimUTC : String);
-    Procedure Tick(DB : TFDConnection; Trip : Integer; Const SimUTC : String);
-    Procedure Apply(DB : TFDConnection; Trip : Integer; Const SimUTC : String; Const Messages : TArray<TFSHudMessage>);
-    Function Snapshot : TJSONObject;
+    Constructor Create   (Connect : Boolean = True);
+    Destructor  Destroy; Override;
+    Procedure   BeginTrip(DB : TFDConnection; Trip : Integer; Const SimUTC : String);
+    Procedure   Tick     (DB : TFDConnection; Trip : Integer; Const SimUTC : String);
+    Procedure   Apply    (DB : TFDConnection; Trip : Integer; Const SimUTC : String; Const Messages : TArray<TFSHudMessage>);
+    Function    Snapshot : TJSONObject;
   End;
 
  Function FSHudContext(DB : TFDConnection; Trip : Integer; Const CapturedUTC : String) : TJSONObject;

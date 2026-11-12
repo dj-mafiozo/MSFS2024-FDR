@@ -20,7 +20,7 @@ Interface
     ImageList1    : TImageList;
     ToolBar1      : TToolBar;
     ToolButton2   : TToolButton;
-    Procedure PaintDisplay(Sender : TObject);
+    Procedure PaintDisplay (Sender : TObject);
     Procedure DeviceChanged(Sender : TObject);
    Private
     fAirframe   : String;
@@ -35,10 +35,10 @@ Interface
    Protected
     Procedure SetParent(AParent : TWinControl); Override;
    Public
-    Constructor Create(AOwner : TComponent); Override;
-    Destructor Destroy; Override;
-    Procedure Load(Connection : TFDConnection; Trip : Integer);
-    Procedure SetTime(Const Time : String);
+    Constructor Create (AOwner : TComponent); Override;
+    Destructor  Destroy; Override;
+    Procedure   Load   (Connection : TFDConnection; Trip : Integer);
+    Procedure   SetTime(Const Time : String);
     Property AirframeKind : String Read fAirframe;
     Property Current      : TFMCSnapshot Read fCurrent;
   End;

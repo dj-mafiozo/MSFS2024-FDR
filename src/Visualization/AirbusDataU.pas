@@ -17,20 +17,20 @@ Interface
     fLookup   : TDictionary<String, Integer>;
    Public
     Constructor Create;
-    Destructor Destroy; Override;
-    Procedure Clear;
-    Procedure SetPoint(Plot : TTripPlot; Index : Integer);
-    Function Value(Const Name : String) : Double;
-    Function FBW(Const Name : String) : Double;
-    Function Fenix(Const Name : String) : Double;
-    Function ARINC(Const Name : String) : Double;
-    Function Cabin(Const Suffix : String) : Double;
-    Function Engine(Const Name : String; Number : Integer) : Double;
-    Function RecordedPage : Integer;
-    Function RecordedPageSource : String;
-    Function Time : String;
-    Function Seconds : Double;
-    Function IsFenix : Boolean;
+    Destructor  Destroy; Override;
+    Procedure   Clear;
+    Procedure   SetPoint(Plot : TTripPlot; Index : Integer);
+    Function    Value   (Const Name : String)                   : Double;
+    Function    FBW     (Const Name : String)                   : Double;
+    Function    Fenix   (Const Name : String)                   : Double;
+    Function    ARINC   (Const Name : String)                   : Double;
+    Function    Cabin   (Const Suffix : String)                 : Double;
+    Function    Engine  (Const Name : String; Number : Integer) : Double;
+    Function    RecordedPage                                    : Integer;
+    Function    RecordedPageSource                              : String;
+    Function    Time                                            : String;
+    Function    Seconds                                         : Double;
+    Function    IsFenix                                         : Boolean;
   End;
 
  Function DecodeAirbusARINC(Raw : Double) : Double;

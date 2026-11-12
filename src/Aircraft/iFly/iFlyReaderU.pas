@@ -16,9 +16,9 @@ Interface
     fMutexName : String;
    Public
     Constructor Create(Const MapName : String = 'iFly737MAX_SDK_FileMappingObject'; Const MutexName : String = 'iFly737MAX_SDK_Mutex');
-    Destructor Destroy; Override;
-    Procedure Close;
-    Function Read(Out Values : TReadings; Out Stamp : TCaptureTime) : Boolean;
+    Destructor  Destroy; Override;
+    Procedure   Close;
+    Function    Read  (Out Values : TReadings; Out Stamp : TCaptureTime) : Boolean;
   End;
 
 Implementation

@@ -17,7 +17,7 @@ Interface
     fMenuVisualState    : String;
     fMenuRepaintPending : Boolean;
     Procedure CMMenuChanged(Var Message : TMessage); Message CM_MENUCHANGED;
-    Procedure RepaintMenu(Var Message : TMessage); Message WM_APP + $31F;
+    Procedure RepaintMenu  (Var Message : TMessage); Message WM_APP + $31F;
    Public
     Constructor Create(AOwner : TComponent); Override;
   End;
@@ -59,9 +59,9 @@ Implementation
       OriginalBeforeFlip : TNotifyEvent;
       Positions          : TDictionary<String, TPoint>;
       Destructor Destroy; Override;
-      Procedure BeforeFlip(Sender : TObject);
-      Procedure Translated(Sender : TObject);
-      Procedure RestoreLTR;
+      Procedure  BeforeFlip(Sender : TObject);
+      Procedure  Translated(Sender : TObject);
+      Procedure  RestoreLTR;
     End;
 
    Var

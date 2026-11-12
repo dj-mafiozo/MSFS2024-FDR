@@ -10,12 +10,12 @@ Interface
  Type
   TfrmViewWindow = Class(TLocalizedForm)
     AppTranslator : TTranslator;
-    Procedure ViewDockOver(Sender : TObject; Source : TDragDockObject; x, y : Integer; State : TDragState; Var Accept : Boolean);
-    Procedure ViewUnDock(Sender : TObject; Client : TControl; NewTarget : TWinControl; Var Allow : Boolean);
-    Procedure DockFinished(Sender : TObject; Target : TObject; x, y : Integer);
+    Procedure ViewDockOver    (Sender : TObject; Source : TDragDockObject; x, y : Integer; State : TDragState; Var Accept : Boolean);
+    Procedure ViewUnDock      (Sender : TObject; Client : TControl; NewTarget : TWinControl; Var Allow : Boolean);
+    Procedure DockFinished    (Sender : TObject; Target : TObject; x, y : Integer);
     Procedure StartDockPreview(Sender : TObject; Var DragObject : TDragDockObject);
-    Procedure FormClose(Sender : TObject; Var Action : TCloseAction);
-    Procedure TranslateTitle(Sender : TObject);
+    Procedure FormClose       (Sender : TObject; Var Action : TCloseAction);
+    Procedure TranslateTitle  (Sender : TObject);
    Private
     fDockResizeSnapshot : TMemoryStream;
     fSnapshotWidth      : Integer;
@@ -29,12 +29,12 @@ Interface
     fStateStore         : TViewStateStore;
     fViewID             : String;
     Procedure WMWindowPosChanging(Var Msg : TWMWindowPosChanging); Message WM_WINDOWPOSCHANGING;
-    Procedure WMSize(Var Msg : TWMSize); Message WM_SIZE;
+    Procedure WMSize             (Var Msg : TWMSize); Message WM_SIZE;
     Procedure ReturnView;
    Public
-    Procedure SetBounds(ALeft, ATop, AWidth, AHeight : Integer); Override;
+    Procedure  SetBounds(ALeft, ATop, AWidth, AHeight : Integer); Override;
     Destructor Destroy; Override;
-    Procedure Attach(View : TFrame; Dock : TWinControl; Const Title : String; Returned : TNotifyEvent; StateStore : TViewStateStore = Nil; Const ViewID : String = '');
+    Procedure  Attach   (View : TFrame; Dock : TWinControl; Const Title : String; Returned : TNotifyEvent; StateStore : TViewStateStore = Nil; Const ViewID : String = '');
   End;
 
 Implementation

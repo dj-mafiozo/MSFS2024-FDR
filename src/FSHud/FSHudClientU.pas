@@ -25,11 +25,11 @@ Interface
     Procedure Execute; Override;
    Public
     Constructor Create;
-    Destructor Destroy; Override;
-    Procedure Abort;
-    Procedure Accept(Const JSON : String);
-    Function Take : TArray<TFSHudMessage>;
-    Function GetStatus : String;
+    Destructor  Destroy; Override;
+    Procedure   Abort;
+    Procedure   Accept(Const JSON : String);
+    Function    Take      : TArray<TFSHudMessage>;
+    Function    GetStatus : String;
   End;
 
  Function RecordFSHudKind(Const Kind : String) : Boolean;

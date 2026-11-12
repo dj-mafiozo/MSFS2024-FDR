@@ -16,17 +16,17 @@ Interface
     ReportPanel    : TPanel;
     ReportGroupBox : TGroupBox;
     Procedure TranslateTitle(Sender : TObject);
-    Procedure CloseClick(Sender : TObject);
-    Procedure FormClose(Sender : TObject; Var Action : TCloseAction);
+    Procedure CloseClick    (Sender : TObject);
+    Procedure FormClose     (Sender : TObject; Var Action : TCloseAction);
    Private
     fTitleSource : String;
     fRich        : TRichEdit;
     fScroll      : TScrollBox;
    Public
-    Constructor Create(AOwner : TComponent); Override;
-    Procedure SetHTMLDocument(Const HTML : String);
-    Procedure SetReport(Const Markdown : String); Overload;
-    Procedure SetReport(Const Markdown : String; Landing : Boolean); Overload;
+    Constructor Create         (AOwner : TComponent); Override;
+    Procedure   SetHTMLDocument(Const HTML : String);
+    Procedure   SetReport      (Const Markdown : String); Overload;
+    Procedure   SetReport      (Const Markdown : String; Landing : Boolean); Overload;
   End;
 
 Implementation

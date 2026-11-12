@@ -7,20 +7,20 @@ Interface
 
  Type
   TfrmDockView = Class(TForm)
-    Procedure FitClient(Sender : TObject);
+    Procedure FitClient       (Sender : TObject);
     Procedure StartDockPreview(Sender : TObject; Var DragObject : TDragDockObject);
-    Procedure FormClose(Sender : TObject; Var Action : TCloseAction);
+    Procedure FormClose       (Sender : TObject; Var Action : TCloseAction);
    Private
     fFitting     : Boolean;
     fFloatBounds : TRect;
     fPage        : TTabSheet;
     fHome        : TPageControl;
    Public
-    Procedure Dock(NewDockSite : TWinControl; ARect : TRect); Override;
-    Procedure Attach(Page : TTabSheet; Home : TPageControl);
+    Procedure Dock   (NewDockSite : TWinControl; ARect : TRect); Override;
+    Procedure Attach (Page : TTabSheet; Home : TPageControl);
     Procedure Toggle;
     Procedure Restore(Config : TCustomIniFile);
-    Procedure Save(Config : TCustomIniFile);
+    Procedure Save   (Config : TCustomIniFile);
     Procedure ReleasePage;
     Property Page : TTabSheet Read fPage;
   End;

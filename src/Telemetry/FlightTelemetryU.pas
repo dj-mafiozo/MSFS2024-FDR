@@ -19,15 +19,15 @@ Interface
     fSHudDataU   : TJSONObject;
     Numbers      : Array Of Double;
     Texts        : Array Of String;
-    Procedure OverrideNumber(Const Name : String; Value : Double; Const Source : String);
+    Procedure   OverrideNumber(Const Name : String; Value : Double; Const Source : String);
     Constructor Create;
-    Destructor Destroy; Override;
-    Procedure Decode(p : Pointer; Size : Integer);
-    Function N(Const Name : String) : Double;
-    Function S(Const Name : String) : String;
-    Function Time(Const Prefix : String) : String;
-    Function EngineCount : Integer;
-    Function EngineRunning : Boolean;
+    Destructor  Destroy; Override;
+    Procedure   Decode        (p : Pointer; Size : Integer);
+    Function    N             (Const Name : String)   : Double;
+    Function    S             (Const Name : String)   : String;
+    Function    Time          (Const Prefix : String) : String;
+    Function    EngineCount                           : Integer;
+    Function    EngineRunning                         : Boolean;
   End;
 
 Implementation

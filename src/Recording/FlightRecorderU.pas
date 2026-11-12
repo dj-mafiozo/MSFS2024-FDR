@@ -29,28 +29,28 @@ Interface
     fPlanNext       : UInt64;
     fWasGround      : Boolean;
     fTitle          : String;
-    Procedure FacilityPacket(p : Pointer; Size : DWORD);
+    Procedure FacilityPacket   (p : Pointer; Size : DWORD);
     Procedure ProceduresUpdated(Sender : TObject);
-    Procedure SampleReceived(Sender : TObject; s : TFlightSample);
-    Procedure Cockpit(Sender : TObject; Const Name : String);
-    Procedure Commit(Const Name : String; Const o : TOccurrence; Seq : Int64);
-    Procedure Retract(Seq : Int64);
+    Procedure SampleReceived   (Sender : TObject; s : TFlightSample);
+    Procedure Cockpit          (Sender : TObject; Const Name : String);
+    Procedure Commit           (Const Name : String; Const o : TOccurrence; Seq : Int64);
+    Procedure Retract          (Seq : Int64);
    Public
     Sim        : TSimConnectClient;
     Trip       : Integer;
     Enabled    : Boolean;
     IntervalMS : Integer;
     Status     : String;
-    Constructor Create(DB : TFlightDatabase);
-    Destructor Destroy; Override;
-    Procedure RequestHistoricalMetar(TripID : Integer);
-    Procedure EnableRouteBridge(Port : Word);
-    Procedure SetFlightPlan(Plan : TFlightPlan);
-    Procedure LoadPlanFile(Const Path : String);
-    Function PlanSummary : String;
-    Procedure Tick;
-    Procedure Stop;
-    Procedure Start;
+    Constructor Create                (DB : TFlightDatabase);
+    Destructor  Destroy; Override;
+    Procedure   RequestHistoricalMetar(TripID : Integer);
+    Procedure   EnableRouteBridge     (Port : Word);
+    Procedure   SetFlightPlan         (Plan : TFlightPlan);
+    Procedure   LoadPlanFile          (Const Path : String);
+    Function    PlanSummary : String;
+    Procedure   Tick;
+    Procedure   Stop;
+    Procedure   Start;
   End;
 
 Implementation

@@ -29,9 +29,9 @@ Interface
     Procedure Store(Const Kind, Payload : String);
    Public
     Constructor Create(Sim : TSimConnectClient; DB : TFlightDatabase);
-    Destructor Destroy; Override;
-    Procedure Tick(Bridge : TRouteBridge; Trip : Integer; Const UTC : String);
-    Procedure Feed(p : Pointer; Size : DWORD);
+    Destructor  Destroy; Override;
+    Procedure   Tick  (Bridge : TRouteBridge; Trip : Integer; Const UTC : String);
+    Procedure   Feed  (p : Pointer; Size : DWORD);
   End;
 
 Implementation

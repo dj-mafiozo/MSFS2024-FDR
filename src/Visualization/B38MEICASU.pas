@@ -41,10 +41,10 @@ Interface
     Procedure Render;
    Public
     Constructor Create;
-    Destructor Destroy; Override;
-    Procedure Clear;
-    Procedure SetPoint(Plot : TTripPlot; Index : Integer);
-    Procedure PaintTo(Canvas : TCanvas; Const Bounds : TRect);
+    Destructor  Destroy; Override;
+    Procedure   Clear;
+    Procedure   SetPoint(Plot : TTripPlot; Index : Integer);
+    Procedure   PaintTo (Canvas : TCanvas; Const Bounds : TRect);
     Property State : TB38MEicasState Read fState;
   End;
 

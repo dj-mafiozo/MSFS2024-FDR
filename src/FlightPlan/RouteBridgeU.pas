@@ -15,17 +15,17 @@ Interface
     fWeatherResponses : TQueue<String>;
     fPending          : String;
     fATC              : TQueue<String>;
-    Function GetPort : Word;
+    Function  GetPort : Word;
     Procedure Command(Context : TIdContext; Request : TIdHTTPRequestInfo; Response : TIdHTTPResponseInfo);
    Public
     Constructor Create(Port : Word);
-    Destructor Destroy; Override;
+    Destructor  Destroy; Override;
     Property Port : Word Read GetPort;
-    Procedure QueueWeather(Const ID, JSON : String);
+    Procedure QueueWeather (Const ID, JSON : String);
     Procedure CancelWeather(Const ID : String);
-    Function TakeWeather : String;
-    Function TakeATC : String;
-    Function Take : String;
+    Function  TakeWeather : String;
+    Function  TakeATC     : String;
+    Function  Take        : String;
   End;
 
 Implementation

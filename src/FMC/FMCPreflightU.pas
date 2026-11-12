@@ -13,7 +13,7 @@ Interface
    CapturedUTC : String;
    Root        : TJSONObject;
    Destructor Destroy; Override;
-   Function Clone : TFMCObservation;
+   Function   Clone : TFMCObservation;
   End;
 
   TFMCPreflightCache = Class
@@ -24,11 +24,11 @@ Interface
     fSeq     : Int64;
     fLimit   : Integer;
    Public
-    Constructor Create(Limit : Integer = 4096);
-    Destructor Destroy; Override;
-    Procedure Clear;
-    Procedure Observe(Root : TJSONObject; Const SimUTC : String);
-    Procedure Flush(DB : TFDConnection; Trip : Integer);
+    Constructor Create (Limit : Integer = 4096);
+    Destructor  Destroy; Override;
+    Procedure   Clear;
+    Procedure   Observe(Root : TJSONObject; Const SimUTC : String);
+    Procedure   Flush  (DB : TFDConnection; Trip : Integer);
   End;
 
 Implementation

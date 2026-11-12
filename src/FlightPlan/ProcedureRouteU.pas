@@ -69,11 +69,11 @@ Interface
     Procedure Publish;
    Public
     OnUpdated : TNotifyEvent;
-    Constructor Create(Sim : TSimConnectClient);
-    Destructor Destroy; Override;
-    Procedure SetPlan(Plan : TFlightPlan);
-    Procedure Tick;
-    Procedure Feed(p : Pointer; Size : DWORD);
+    Constructor Create (Sim : TSimConnectClient);
+    Destructor  Destroy; Override;
+    Procedure   SetPlan(Plan : TFlightPlan);
+    Procedure   Tick;
+    Procedure   Feed   (p : Pointer; Size : DWORD);
     Property RequestID : Cardinal Read fRequest;
   End;
 

@@ -25,11 +25,11 @@ Interface
     fReader : TIFlyReader;
    Public
     Constructor Create;
-    Destructor Destroy; Override;
-    Function Matches(Const Title : String) : Boolean; Override;
-    Procedure Capture(s : TFlightSample); Override;
-    Procedure Deactivate; Override;
-    Procedure Apply(s : TFlightSample; Const Values : TReadings);
+    Destructor  Destroy; Override;
+    Function    Matches(Const Title : String) : Boolean; Override;
+    Procedure   Capture(s : TFlightSample); Override;
+    Procedure   Deactivate; Override;
+    Procedure   Apply  (s : TFlightSample; Const Values : TReadings);
   End;
 
   TFenixProvider = Class(TAircraftProvider)
@@ -38,13 +38,13 @@ Interface
     fMaxAge     : UInt64;
     fLastStatus : String;
    Public
-    Constructor Create(Const DLL : String = '');
-    Destructor Destroy; Override;
-    Function Matches(Const Title : String) : Boolean; Override;
-    Procedure Deactivate; Override;
-    Procedure Tick(IntervalMS : Integer); Override;
-    Procedure Capture(s : TFlightSample); Override;
-    Procedure Apply(s : TFlightSample; Const Values : TArray<Double>; AgeMS : UInt64; Const Error : String);
+    Constructor Create (Const DLL : String = '');
+    Destructor  Destroy; Override;
+    Function    Matches(Const Title : String) : Boolean; Override;
+    Procedure   Deactivate; Override;
+    Procedure   Tick   (IntervalMS : Integer); Override;
+    Procedure   Capture(s : TFlightSample); Override;
+    Procedure   Apply  (s : TFlightSample; Const Values : TArray<Double>; AgeMS : UInt64; Const Error : String);
   End;
 
   TFBWProvider = Class(TAircraftProvider)
@@ -53,13 +53,13 @@ Interface
     fMaxAge     : UInt64;
     fLastStatus : String;
    Public
-    Constructor Create(Const DLL : String = '');
-    Destructor Destroy; Override;
-    Function Matches(Const Title : String) : Boolean; Override;
-    Procedure Deactivate; Override;
-    Procedure Tick(IntervalMS : Integer); Override;
-    Procedure Capture(s : TFlightSample); Override;
-    Procedure Apply(s : TFlightSample; Const Values : TArray<Double>; AgeMS : UInt64; Const Error : String);
+    Constructor Create (Const DLL : String = '');
+    Destructor  Destroy; Override;
+    Function    Matches(Const Title : String) : Boolean; Override;
+    Procedure   Deactivate; Override;
+    Procedure   Tick   (IntervalMS : Integer); Override;
+    Procedure   Capture(s : TFlightSample); Override;
+    Procedure   Apply  (s : TFlightSample; Const Values : TArray<Double>; AgeMS : UInt64; Const Error : String);
   End;
 
   TPMDGNG3Provider = Class(TAircraftProvider)
@@ -67,13 +67,13 @@ Interface
     fReader     : TPMDGNG3Reader;
     fLastStatus : String;
    Public
-    Constructor Create(Const DLL : String = '');
-    Destructor Destroy; Override;
-    Function Matches(Const Title : String) : Boolean; Override;
-    Procedure Deactivate; Override;
-    Procedure Tick(IntervalMS : Integer); Override;
-    Procedure Capture(s : TFlightSample); Override;
-    Procedure Apply(s : TFlightSample; Const Data : TBytes; AgeMS : UInt64; Const Error : String);
+    Constructor Create (Const DLL : String = '');
+    Destructor  Destroy; Override;
+    Function    Matches(Const Title : String) : Boolean; Override;
+    Procedure   Deactivate; Override;
+    Procedure   Tick   (IntervalMS : Integer); Override;
+    Procedure   Capture(s : TFlightSample); Override;
+    Procedure   Apply  (s : TFlightSample; Const Data : TBytes; AgeMS : UInt64; Const Error : String);
   End;
 
   TPMDG777Provider = Class(TAircraftProvider)
@@ -81,13 +81,13 @@ Interface
     fReader     : TPMDG777Reader;
     fLastStatus : String;
    Public
-    Constructor Create(Const DLL : String = '');
-    Destructor Destroy; Override;
-    Function Matches(Const Title : String) : Boolean; Override;
-    Procedure Deactivate; Override;
-    Procedure Tick(IntervalMS : Integer); Override;
-    Procedure Capture(s : TFlightSample); Override;
-    Procedure Apply(s : TFlightSample; Const Data : TBytes; AgeMS : UInt64; Const Error : String);
+    Constructor Create (Const DLL : String = '');
+    Destructor  Destroy; Override;
+    Function    Matches(Const Title : String) : Boolean; Override;
+    Procedure   Deactivate; Override;
+    Procedure   Tick   (IntervalMS : Integer); Override;
+    Procedure   Capture(s : TFlightSample); Override;
+    Procedure   Apply  (s : TFlightSample; Const Data : TBytes; AgeMS : UInt64; Const Error : String);
   End;
 
   TAddonLVarProvider = Class(TAircraftProvider)
@@ -96,13 +96,13 @@ Interface
     fReader  : TAircraftLVarReader;
     fMaxAge  : UInt64;
    Public
-    Constructor Create(Profile : Integer; Const DLL : String = '');
-    Destructor Destroy; Override;
-    Function Matches(Const Title : String) : Boolean; Override;
-    Procedure Deactivate; Override;
-    Procedure Tick(IntervalMS : Integer); Override;
-    Procedure Capture(s : TFlightSample); Override;
-    Procedure Apply(s : TFlightSample; Const Values : TArray<Double>; Age : UInt64);
+    Constructor Create (Profile : Integer; Const DLL : String = '');
+    Destructor  Destroy; Override;
+    Function    Matches(Const Title : String) : Boolean; Override;
+    Procedure   Deactivate; Override;
+    Procedure   Tick   (IntervalMS : Integer); Override;
+    Procedure   Capture(s : TFlightSample); Override;
+    Procedure   Apply  (s : TFlightSample; Const Values : TArray<Double>; Age : UInt64);
   End;
 
   TAircraftProviders = Class
@@ -111,11 +111,11 @@ Interface
     fLastTitle : String;
     Procedure CheckAircraft(Const Title : String);
    Public
-    Constructor Create(Const FenixDLL : String = ''; Const FBWDLL : String = ''; Const PMDGDLL : String = '');
-    Destructor Destroy; Override;
-    Procedure RegisterProvider(p : TAircraftProvider);
-    Procedure Tick(s : TFlightSample; Active : Boolean; IntervalMS : Integer);
-    Procedure Capture(s : TFlightSample);
+    Constructor Create          (Const FenixDLL : String = ''; Const FBWDLL : String = ''; Const PMDGDLL : String = '');
+    Destructor  Destroy; Override;
+    Procedure   RegisterProvider(p : TAircraftProvider);
+    Procedure   Tick            (s : TFlightSample; Active : Boolean; IntervalMS : Integer);
+    Procedure   Capture         (s : TFlightSample);
   End;
 
 Implementation

@@ -21,8 +21,8 @@ Interface
     fOverlay  : String;
    Public
     Constructor Create(Const JSON : String);
-    Destructor Destroy; Override;
-    Function Cell(Row, Column : Integer) : TFMCCellStyle;
+    Destructor  Destroy; Override;
+    Function    Cell  (Row, Column : Integer) : TFMCCellStyle;
     Property Overlay : String Read fOverlay;
   End;
 

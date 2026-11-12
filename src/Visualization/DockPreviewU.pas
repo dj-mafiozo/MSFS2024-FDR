@@ -13,7 +13,7 @@ Interface
    Protected
     Procedure DrawDragDockImage; Override;
     Procedure EraseDragDockImage; Override;
-    Function GetEraseWhenMoving : Boolean; Override;
+    Function  GetEraseWhenMoving : Boolean; Override;
    Public
     Destructor Destroy; Override;
     Property PreviewHandle : HWND Read fPreview;

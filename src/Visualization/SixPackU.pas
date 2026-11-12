@@ -54,15 +54,15 @@ Interface
     Procedure BindPlot(Plot : TTripPlot; Index : Integer);
     Procedure DrawInstruments;
     Procedure DrawGlass;
-    Procedure DrawILS(c : TCanvas; CX, CY, r : Integer);
+    Procedure DrawILS (c : TCanvas; CX, CY, r : Integer);
     Procedure DrawDial(c : TCanvas; CX, CY, r, Kind : Integer);
    Protected
     Procedure Paint; Override;
    Public
-    Constructor Create(AOwner : TComponent); Override;
-    Destructor Destroy; Override;
-    Procedure Clear;
-    Procedure SetPoint(Plot : TTripPlot; Index : Integer);
+    Constructor Create  (AOwner : TComponent); Override;
+    Destructor  Destroy; Override;
+    Procedure   Clear;
+    Procedure   SetPoint(Plot : TTripPlot; Index : Integer);
     Property State        : TSixPackState Read fState;
     Property VSIFullScale : Double Read fVSIFullScale;
     Property IASFullScale : Double Read fIASFullScale;

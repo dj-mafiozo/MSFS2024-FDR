@@ -20,16 +20,16 @@ Interface
    Device   : String;
    Items    : TObjectList<TFMCSnapshot>;
    Constructor Create;
-   Destructor Destroy; Override;
-   Function AtTime(Time : TDateTime) : TFMCSnapshot;
+   Destructor  Destroy; Override;
+   Function    AtTime(Time : TDateTime) : TFMCSnapshot;
   End;
 
   TFMCHistory = Class
    TripTitle : String;
    Devices   : TObjectList<TFMCDeviceHistory>;
    Constructor Create;
-   Destructor Destroy; Override;
-   Procedure Load(Connection : TFDConnection; Trip : Integer);
+   Destructor  Destroy; Override;
+   Procedure   Load(Connection : TFDConnection; Trip : Integer);
   End;
 
  Function FMCTime(Const Text : String; Out Value : TDateTime) : Boolean;

@@ -14,7 +14,7 @@ Interface
   TAirbusSD = Class(TAirbusDisplay)
    Private
     fPage : Integer;
-    Procedure SetPage(Value : Integer);
+    Procedure SetPage   (Value : Integer);
     Procedure Footer;
     Procedure EnginePage(Cruise : Boolean);
     Procedure BleedPage;

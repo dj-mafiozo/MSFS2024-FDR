@@ -22,9 +22,9 @@ Interface
     fState : TFlightDirectorState;
    Public
     Constructor Create;
-    Destructor Destroy; Override;
-    Procedure Clear;
-    Procedure SetPoint(Plot : TTripPlot; Index : Integer; PreferFBW : Boolean);
+    Destructor  Destroy; Override;
+    Procedure   Clear;
+    Procedure   SetPoint(Plot : TTripPlot; Index : Integer; PreferFBW : Boolean);
     Property State : TFlightDirectorState Read fState;
   End;
 

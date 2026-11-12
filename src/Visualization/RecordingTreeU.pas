@@ -29,7 +29,7 @@ Implementation
 
   TRecordingTreePresenter = Class(TComponent)
    Private
-    Procedure GetText(Sender : TBaseVirtualTree; Node : PVirtualNode; Column : TColumnIndex; TextType : TVSTTextType; Var CellText : String);
+    Procedure GetText (Sender : TBaseVirtualTree; Node : PVirtualNode; Column : TColumnIndex; TextType : TVSTTextType; Var CellText : String);
     Procedure GetImage(Sender : TBaseVirtualTree; Node : PVirtualNode; Kind : TVTImageKind; Column : TColumnIndex; Var Ghosted : Boolean; Var ImageIndex : TImageIndex);
     Procedure FreeNode(Sender : TBaseVirtualTree; Node : PVirtualNode);
    Public

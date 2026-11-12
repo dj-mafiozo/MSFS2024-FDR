@@ -68,14 +68,14 @@ Interface
      Procedure RefreshIdentity;
      Procedure StopTelemetry;
      Procedure ConfigureTelemetry;
-     Procedure Bootstrap(p : Pointer; Size : DWORD);
-     Function MatchesIdentity(Const Data : TBytes) : Boolean;
-     Procedure QueueTelemetry(p : Pointer);
-     Procedure DeliverTelemetry(Const Data : TBytes);
+     Procedure Bootstrap           (p : Pointer; Size : DWORD);
+     Function  MatchesIdentity     (Const Data : TBytes) : Boolean;
+     Procedure QueueTelemetry      (p : Pointer);
+     Procedure DeliverTelemetry    (Const Data : TBytes);
      Procedure FlushTelemetry;
-     Procedure Track(Const Context : String);
-     Procedure Check(HR : HRESULT);
-     Procedure Receive(p : Pointer; Size : DWORD);
+     Procedure Track               (Const Context : String);
+     Procedure Check               (HR : HRESULT);
+     Procedure Receive             (p : Pointer; Size : DWORD);
     Public
      SimulatorSupported   : Boolean;
      SimulatorVersion     : String;
@@ -96,18 +96,18 @@ Interface
      OnSample             : TSampleEvent;
      OnCockpit            : TCockpitEvent;
      OnPacket             : TPacketEvent;
-     Procedure ApplyFlow(Event : DWORD; Const Path : String);
+     Procedure ApplyFlow     (Event : DWORD; Const Path : String);
      Procedure TrackAuxiliary(Const Context : String);
      Property FlightStarted : Boolean Read fFlightStarted;
      Property Handle        : THandle Read fHandle;
-     Function FunctionAddress(Const Name : AnsiString) : Pointer;
+     Function    FunctionAddress(Const Name : AnsiString) : Pointer;
      Constructor Create;
-     Destructor Destroy; Override;
-     Procedure Connect(Const DLL : String);
-     Procedure Disconnect;
-     Procedure Poll;
+     Destructor  Destroy; Override;
+     Procedure   Connect        (Const DLL : String);
+     Procedure   Disconnect;
+     Procedure   Poll;
      {$IFDEF PORT_TEST}
-     Procedure Feed(p : Pointer; Size : DWORD);
+     Procedure Feed     (p : Pointer; Size : DWORD);
      Procedure FeedBatch(Const Packets : TArray<TBytes>);
      {$ENDIF}
    End;

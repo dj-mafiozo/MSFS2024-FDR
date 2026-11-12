@@ -132,6 +132,9 @@
         <DCCReference Include="..\src\Frames\fraMapU.pas"><Form>fraMap</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
         <DCCReference Include="..\src\Frames\fraGraphU.pas"><Form>fraGraph</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
     </ItemGroup>
+    <ItemGroup>
+        <DCCReference Include="NativeTestRunnerU.pas"/>
+    </ItemGroup>
     <Import Project="Tests.Shared.props"/>
     <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
     <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>

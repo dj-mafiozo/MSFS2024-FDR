@@ -29,10 +29,10 @@ Interface
     Separator2         : TToolButton;
     Separator3         : TToolButton;
     ToolBar2           : TToolBar;
-    Procedure TranslateView(Sender : TObject);
-    Procedure Wheel(Sender : TObject; Shift : TShiftState; WheelDelta : Integer; MousePos : TPoint; Var Handled : Boolean);
-    Procedure WindowExecute(Sender : TObject);
-    Procedure ZoomChart(Sender : TObject);
+    Procedure TranslateView   (Sender : TObject);
+    Procedure Wheel           (Sender : TObject; Shift : TShiftState; WheelDelta : Integer; MousePos : TPoint; Var Handled : Boolean);
+    Procedure WindowExecute   (Sender : TObject);
+    Procedure ZoomChart       (Sender : TObject);
     Procedure ConfigureExecute(Sender : TObject);
    Private
     fLocalized   : Boolean;
@@ -43,9 +43,9 @@ Interface
    Protected
     Procedure SetParent(AParent : TWinControl); Override;
    Public
-    Constructor Create(AOwner : TComponent); Override;
-    Procedure BindActions(ConfigureCharts, WindowAction : TNotifyEvent; UpdateAction : TActionEvent);
-    Procedure SetViewCaption(Const Text : String);
+    Constructor Create        (AOwner : TComponent); Override;
+    Procedure   BindActions   (ConfigureCharts, WindowAction : TNotifyEvent; UpdateAction : TActionEvent);
+    Procedure   SetViewCaption(Const Text : String);
     Property Charts : TFlightCharts Read fCharts;
   End;
 

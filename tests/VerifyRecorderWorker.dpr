@@ -19,7 +19,7 @@ Type
    Calls : Integer;
   Protected
    Procedure ConnectRecorder(Recorder : TFlightRecorder); Override;
-   Procedure PollRecorder(Recorder : TFlightRecorder); Override;
+   Procedure PollRecorder   (Recorder : TFlightRecorder); Override;
  End;
 
  THeartbeat = Class

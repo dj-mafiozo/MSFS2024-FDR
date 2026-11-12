@@ -26,7 +26,7 @@ Interface
    FastSuppressed : Boolean;
    SlowSuppressed : Boolean;
    Constructor Create;
-   Destructor Destroy; Override;
+   Destructor  Destroy; Override;
   End;
 
   TCommitEvent = Procedure(Const Name : String; Const Occurrence : TOccurrence; Seq : Int64) Of Object;
@@ -42,9 +42,9 @@ Interface
     OnCommit  : TCommitEvent;
     OnRetract : TRetractEvent;
     Constructor Create(StartSeq : Int64);
-    Destructor Destroy; Override;
-    Procedure Add(Const Name : String; Const o : TOccurrence; Tick : UInt64);
-    Procedure Flush(Tick : UInt64; All : Boolean = False);
+    Destructor  Destroy; Override;
+    Procedure   Add   (Const Name : String; Const o : TOccurrence; Tick : UInt64);
+    Procedure   Flush (Tick : UInt64; All : Boolean = False);
   End;
 
 Implementation

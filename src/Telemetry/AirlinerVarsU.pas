@@ -12,10 +12,10 @@ Interface
     fReader : TAircraftLVarReader;
    Public
     Constructor Create(Const DLL : String = '');
-    Destructor Destroy; Override;
-    Procedure Close;
-    Procedure Tick;
-    Function Snapshot : TJSONObject;
+    Destructor  Destroy; Override;
+    Procedure   Close;
+    Procedure   Tick;
+    Function    Snapshot : TJSONObject;
   End;
 
 Implementation

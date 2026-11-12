@@ -960,3 +960,7 @@ Kontrola `tools/check_project_units.py` sprawdza wszystkie DPR aplikacji, testó
 Pełny przebieg i `VerifyReleasePEM` budują aplikację oraz stub przed testem podpisywania, aby próbka zawierała zgodne VersionInfo obu EXE.
 
 Audyt jawnych ścieżek DPR: pełny przebieg skompilował zestaw i zaliczył 93 z 94 przypadków DUnitX oraz osobną regresję RTL. Jedyny błąd wynikał ze starej wersji stuba w próbce pakowania; po dodaniu zależności budowania obu EXE `VerifyReleasePEM` zaliczył ponowiony przypadek (łącznie 94/94). Porównanie tokenów 103 DPR oraz konfiguracji 104 DPROJ potwierdziło zachowanie kodu i metadanych poza dodanymi ścieżkami/referencjami i Build.
+
+Regresja PFD B38M obejmuje identyfikator LOT131 ze starych pól LOT/131, pełny callsign, białe znaki, zera wiodące, sufiks i brak linii/numeru. Dane historyczne potwierdzono odczytem SQLite tylko do odczytu.
+
+Ostatni samodzielny scenariusz VerifyRTLReturn przeniesiono do DUnitX z zachowaniem asercji i osobnymi Setup/TearDown dla kopii ustawień. Programy Verify korzystają teraz z DUnitX.

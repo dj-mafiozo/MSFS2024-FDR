@@ -40,15 +40,15 @@ Interface
     fWind          : Double;
     fWindDirection : Double;
     fOnGround      : Double;
-    Function GetState : TSixPackState;
+    Function  GetState : TSixPackState;
     Procedure Render;
    Protected
     Procedure Paint; Override;
    Public
-    Constructor Create(AOwner : TComponent); Override;
-    Destructor Destroy; Override;
-    Procedure SetPoint(Plot : TTripPlot; Index : Integer);
-    Procedure Clear;
+    Constructor Create  (AOwner : TComponent); Override;
+    Destructor  Destroy; Override;
+    Procedure   SetPoint(Plot : TTripPlot; Index : Integer);
+    Procedure   Clear;
     Property FlightInfo : TMAXFlightInfo Read fInfo;
     Property State      : TSixPackState Read GetState;
   End;
@@ -85,6 +85,22 @@ Implementation
     Result := '--';
   End;
 
+ Function RecordedFlightIdentifier(Const Airline, FlightNumber : String) : String;
+  Var
+   Prefix : String;
+  Begin
+   Result := UpperCase(Trim(FlightNumber));
+   If Result = '' Then
+    Exit('--');
+   Prefix := UpperCase(Trim(Airline));
+   // ATC AIRLINE can also contain a long display name. Only use a recorded
+   // ICAO designator to prefix a number; complete callsigns already carry it.
+   If (Length(Prefix) = 3) And CharInSet(Result[1], ['0'..'9']) Then
+    If CharInSet(Prefix[1], ['A'..'Z']) And CharInSet(Prefix[2], ['A'..'Z']) And
+    CharInSet(Prefix[3], ['A'..'Z']) Then
+     Result := Prefix + Result;
+  End;
+
  Function MAXFlightInfo(Plot : TTripPlot; Index : Integer) : TMAXFlightInfo;
   Var
    d          : TDateTime;
@@ -104,7 +120,7 @@ Implementation
    Result.Elapsed      := '--';
    If (Plot = Nil) Or (Index < 0) Or (Index >= Plot.Points.Count) Then
     Exit;
-   Result.FlightNumber := InfoText(Plot.FlightNumber);
+   Result.FlightNumber := RecordedFlightIdentifier(Plot.Airline, Plot.FlightNumber);
    Result.Registration := InfoText(Plot.Registration);
    Result.Selcal       := InfoText(Plot.Selcal);
    Digit               := 1000;

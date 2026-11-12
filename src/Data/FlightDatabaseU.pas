@@ -60,11 +60,11 @@ Interface
     AircraftTypeICAO       : String;
     FlightPlan             : TFlightPlan;
     Constructor Create;
-    Destructor Destroy; Override;
-    Function DisplayPoint(Index : Integer) : TPlotPoint;
-    Procedure ClearDisplayPoint;
-    Procedure ResolveSamplingInterval(StoredMS : Integer = 0);
-    Procedure SetDisplayPoint(Index : Integer; Const p : TPlotPoint);
+    Destructor  Destroy; Override;
+    Function    DisplayPoint           (Index : Integer) : TPlotPoint;
+    Procedure   ClearDisplayPoint;
+    Procedure   ResolveSamplingInterval(StoredMS : Integer = 0);
+    Procedure   SetDisplayPoint        (Index : Integer; Const p : TPlotPoint);
   End;
 
   TFlightDatabase = Class
@@ -83,26 +83,26 @@ Interface
     fSample           : TFDQuery;
     fEngine           : TFDQuery;
     Procedure InitializeStorage(Const FileName : String; Background : Boolean);
-    Procedure SaveAircraft(ID : Integer; Row : Int64; s : TFlightSample);
-    Procedure EnsureTable(Const Table, Fields : String);
-    Function ContactFields(Touchdown : Boolean) : String;
+    Procedure SaveAircraft     (ID : Integer; Row : Int64; s : TFlightSample);
+    Procedure EnsureTable      (Const Table, Fields : String);
+    Function  ContactFields    (Touchdown : Boolean) : String;
    Public
-    Constructor Create(Const FileName, SQLiteDLL : String; Background : Boolean = False; ReadOnly : Boolean = False);
-    Destructor Destroy; Override;
-    Function StartTrip(s : TFlightSample; SamplingIntervalMS : Integer = 0) : Integer;
-    Procedure EndTrip(ID : Integer; s : TFlightSample);
-    Procedure FinalizeRecording;
-    Procedure RefreshRecordingMetadata;
-    Procedure RecordingError;
+    Constructor Create   (Const FileName, SQLiteDLL : String; Background : Boolean = False; ReadOnly : Boolean = False);
+    Destructor  Destroy; Override;
+    Function    StartTrip(s : TFlightSample; SamplingIntervalMS : Integer = 0) : Integer;
+    Procedure   EndTrip  (ID : Integer; s : TFlightSample);
+    Procedure   FinalizeRecording;
+    Procedure   RefreshRecordingMetadata;
+    Procedure   RecordingError;
     Property RecordingIndex : TRecordingIndex Read fIndex;
-    Procedure RecordSample(ID : Integer; s : TFlightSample);
-    Function Contact(ID : Integer; s : TFlightSample; Touchdown : Boolean) : Integer;
-    Procedure Event(ID : Integer; Const Name, Zulu, Local : String; Seq : Int64);
-    Procedure Retract(Seq : Int64);
+    Procedure RecordSample  (ID : Integer; s : TFlightSample);
+    Function  Contact       (ID : Integer; s : TFlightSample; Touchdown : Boolean) : Integer;
+    Procedure Event         (ID : Integer; Const Name, Zulu, Local : String; Seq : Int64);
+    Procedure Retract       (Seq : Int64);
     Procedure SaveFlightPlan(ID : Integer; Plan : TFlightPlan);
-    Procedure DeleteTrip(ID : Integer);
-    Function LoadTrip(ID : Integer) : TTripPlot;
-    Procedure ExportKML(ID : Integer; Const FileName : String);
+    Procedure DeleteTrip    (ID : Integer);
+    Function  LoadTrip      (ID : Integer)                                         : TTripPlot;
+    Procedure ExportKML     (ID : Integer; Const FileName : String);
     Property Connection : TFDConnection Read fDB;
   End;
 

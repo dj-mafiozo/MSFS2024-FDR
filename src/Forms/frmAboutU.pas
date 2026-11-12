@@ -21,8 +21,8 @@ Interface
     btnClose      : TButton;
     AppTranslator : TTranslator;
     Procedure RefreshVersion(Sender : TObject);
-    Procedure ProjectClick(Sender : TObject);
-    Procedure HelpClick(Sender : TObject);
+    Procedure ProjectClick  (Sender : TObject);
+    Procedure HelpClick     (Sender : TObject);
    Public
     Constructor Create(AOwner : TComponent); Override;
   End;

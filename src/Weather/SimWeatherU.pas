@@ -14,8 +14,8 @@ Interface
     Procedure Receive(Const Text : String);
    Public
     Constructor Create(Database : TFlightDatabase; Bridge : TRouteBridge);
-    Destructor Destroy; Override;
-    Procedure Tick;
+    Destructor  Destroy; Override;
+    Procedure   Tick;
   End;
 
  Procedure StoreRealWeather(DB : TFDConnection; Const TableName : String; RowID : Integer; Const Station, ReportText, ObservedUTC, FetchedUTC, Status, Error, JSON : String);

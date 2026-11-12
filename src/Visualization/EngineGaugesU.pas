@@ -29,15 +29,15 @@ Interface
     fColumns    : Integer;
     fCardHeight : Integer;
     Procedure SetCompact(Value : Boolean);
-    Procedure Add(Plot : TTripPlot; Index, Engine : Integer; Const Caption, Parameter : String; Scale : Double; Primary, Optional : Boolean);
+    Procedure Add       (Plot : TTripPlot; Index, Engine : Integer; Const Caption, Parameter : String; Scale : Double; Primary, Optional : Boolean);
    Protected
     Procedure Paint; Override;
    Public
-    Constructor Create(AOwner : TComponent); Override;
-    Destructor Destroy; Override;
-    Procedure Clear;
-    Procedure SetPoint(Plot : TTripPlot; Index : Integer);
-    Procedure FitWidth(Value : Integer);
+    Constructor Create  (AOwner : TComponent); Override;
+    Destructor  Destroy; Override;
+    Procedure   Clear;
+    Procedure   SetPoint(Plot : TTripPlot; Index : Integer);
+    Procedure   FitWidth(Value : Integer);
     Property IsB38M  : Boolean Read fUseEicas;
     Property Eicas   : TB38MEICAS Read fEicas;
     Property Items   : TList < TEngineReading > Read fItems;

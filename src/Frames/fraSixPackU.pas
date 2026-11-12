@@ -26,9 +26,9 @@ Interface
    Protected
     Procedure SetParent(AParent : TWinControl); Override;
    Public
-    Constructor Create(AOwner : TComponent); Override;
-    Procedure SetPoint(Plot : TTripPlot; Index : Integer);
-    Procedure Clear;
+    Constructor Create  (AOwner : TComponent); Override;
+    Procedure   SetPoint(Plot : TTripPlot; Index : Integer);
+    Procedure   Clear;
     Property Display             : TSixPackDisplay Read fDisplay;
     Property ShowEmbeddedEngines : Boolean Read fShowEmbeddedEngines Write SetShowEmbeddedEngines;
   End;

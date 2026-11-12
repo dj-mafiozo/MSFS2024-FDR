@@ -35,11 +35,11 @@ Interface
     Procedure FinishRequest;
    Public
     Endpoint : String;
-    Procedure AttachBridge(Bridge : TRouteBridge);
-    Constructor Create(DB : TFlightDatabase);
-    Destructor Destroy; Override;
-    Procedure RequestHistorical(Trip : Integer);
-    Procedure Tick;
+    Procedure   AttachBridge     (Bridge : TRouteBridge);
+    Constructor Create           (DB : TFlightDatabase);
+    Destructor  Destroy; Override;
+    Procedure   RequestHistorical(Trip : Integer);
+    Procedure   Tick;
   End;
 
  Procedure DecodeMetar(Const JSON, Station : String; Out ReportText, ObservedUTC : String);

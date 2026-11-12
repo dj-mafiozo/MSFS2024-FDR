@@ -54,7 +54,7 @@ Interface
    Summary            : String;
    Points             : TList<TPlanPoint>;
    Constructor Create;
-   Destructor Destroy; Override;
+   Destructor  Destroy; Override;
   End;
 
  Procedure ResolvePlanNames(Plan : TFlightPlan; Const SimBriefJSON : String);

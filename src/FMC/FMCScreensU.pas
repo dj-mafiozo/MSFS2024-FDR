@@ -18,8 +18,8 @@ Interface
    PowerState       : Integer;
    Lines            : TStringList;
    Constructor Create;
-   Destructor Destroy; Override;
-   Procedure IdentifyPage;
+   Destructor  Destroy; Override;
+   Procedure   IdentifyPage;
   End;
 
  Function ExtractFMCScreens(Root : TJSONObject) : TObjectList<TFMCScreen>;

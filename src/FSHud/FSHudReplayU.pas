@@ -25,13 +25,13 @@ Interface
     fText     : String;
     fPackets  : TList<TATCPacket>;
     Procedure BuildMessages;
-    Function ParseTime(Const s : String; Out t : TDateTime) : Boolean;
+    Function  ParseTime(Const s : String; Out t : TDateTime) : Boolean;
    Public
     Constructor Create;
-    Destructor Destroy; Override;
-    Procedure Load(Connection : TFDConnection; Trip : Integer);
-    Function TextAt(Const Time : String) : String;
-    Function LastMessageAt(Const Time : String; Seconds : Integer = 30) : String;
+    Destructor  Destroy; Override;
+    Procedure   Load         (Connection : TFDConnection; Trip : Integer);
+    Function    TextAt       (Const Time : String)                         : String;
+    Function    LastMessageAt(Const Time : String; Seconds : Integer = 30) : String;
   End;
 
 Implementation

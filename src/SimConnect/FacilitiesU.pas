@@ -62,11 +62,11 @@ Interface
     Procedure Finish;
     Procedure Save(Const Airport : TAirportCandidate; Const Runway : String; Heading : Integer; Along, Cross, Length, Width : Double);
    Public
-    Constructor Create(Sim : TSimConnectClient; DB : TFlightDatabase);
-    Destructor Destroy; Override;
-    Procedure Request(Const Task : TFacilityTask);
-    Procedure Feed(p : Pointer; Size : DWORD);
-    Procedure Tick;
+    Constructor Create (Sim : TSimConnectClient; DB : TFlightDatabase);
+    Destructor  Destroy; Override;
+    Procedure   Request(Const Task : TFacilityTask);
+    Procedure   Feed   (p : Pointer; Size : DWORD);
+    Procedure   Tick;
   End;
 
  Function MatchRunway(Const r : TRunway; Lat, Lon, Track : Double; Out Secondary : Boolean; Out Along, Cross : Double) : Boolean;

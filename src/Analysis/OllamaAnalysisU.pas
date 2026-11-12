@@ -16,7 +16,7 @@ Interface
     Models : TStringList;
     Error  : String;
     Constructor Create(Const BaseURL : String);
-    Destructor Destroy; Override;
+    Destructor  Destroy; Override;
   End;
 
  Function OllamaModelsURL(Const BaseURL : String) : String;
@@ -44,8 +44,8 @@ Implementation
     Text  : String;
     Error : String;
     Constructor Create(Const URL, Body : String);
-    Destructor Destroy; Override;
-    Procedure AbortRequest;
+    Destructor  Destroy; Override;
+    Procedure   AbortRequest;
   End;
 
  Function OllamaChatURL(Const BaseURL : String) : String;

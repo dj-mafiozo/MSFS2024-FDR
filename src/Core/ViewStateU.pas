@@ -22,21 +22,21 @@ Interface
     fEntries      : TObjectList<TViewStateEntry>;
     fShuttingDown : Boolean;
     fRestored     : Boolean;
-    Function Find(Const ID : String) : TViewStateEntry;
-    Function Section(Const ID : String) : String;
-    Procedure SaveGeometry(Entry : TViewStateEntry);
+    Function  Find           (Const ID : String) : TViewStateEntry;
+    Function  Section        (Const ID : String) : String;
+    Procedure SaveGeometry   (Entry : TViewStateEntry);
     Procedure RestoreGeometry(Entry : TViewStateEntry);
     Procedure RestoreDockHost(Entry : TViewStateEntry);
     Procedure Flush;
    Public
-    Constructor Create(Config : TCustomIniFile);
-    Destructor Destroy; Override;
-    Procedure RegisterView(Const ID : String; Toggle : TNotifyEvent);
-    Procedure Restore;
-    Procedure Opened(Const ID : String; Window : TForm);
-    Procedure Returned(Const ID : String);
-    Procedure BeginShutdown;
-    Procedure Reset;
+    Constructor Create      (Config : TCustomIniFile);
+    Destructor  Destroy; Override;
+    Procedure   RegisterView(Const ID : String; Toggle : TNotifyEvent);
+    Procedure   Restore;
+    Procedure   Opened      (Const ID : String; Window : TForm);
+    Procedure   Returned    (Const ID : String);
+    Procedure   BeginShutdown;
+    Procedure   Reset;
   End;
 
 Implementation

@@ -24,29 +24,29 @@ Interface
     fData          : TTripPlot;
     fSelected      : TList<Integer>;
     fCursor        : Integer;
-    Function IndexAt(t : Double) : Integer;
-    Function TimeAt(x : Integer) : Double;
+    Function IndexAt(t : Double)  : Integer;
+    Function TimeAt (x : Integer) : Double;
    Protected
-    Function DoMouseWheel(Shift : TShiftState; WheelDelta : Integer; MousePos : TPoint) : Boolean; Override;
-    Procedure MouseDown(Button : TMouseButton; Shift : TShiftState; x, y : Integer); Override;
-    Procedure MouseUp(Button : TMouseButton; Shift : TShiftState; x, y : Integer); Override;
+    Function  DoMouseWheel(Shift : TShiftState; WheelDelta : Integer; MousePos : TPoint) : Boolean; Override;
+    Procedure MouseDown   (Button : TMouseButton; Shift : TShiftState; x, y : Integer); Override;
+    Procedure MouseUp     (Button : TMouseButton; Shift : TShiftState; x, y : Integer); Override;
     Procedure DblClick; Override;
     Procedure Paint; Override;
-    Procedure MouseMove(Shift : TShiftState; x, y : Integer); Override;
+    Procedure MouseMove   (Shift : TShiftState; x, y : Integer); Override;
    Public
     OnViewChange : TNotifyEvent;
     OnCursor     : TCursorEvent;
     Property ViewStart : Double Read fViewStart;
     Property ViewEnd   : Double Read fViewEnd;
-    Procedure SetView(a, b : Double);
-    Procedure ResetView;
-    Procedure Zoom(Factor : Double);
-    Procedure Pan(Fraction : Double);
-    Constructor Create(AOwner : TComponent); Override;
-    Destructor Destroy; Override;
-    Procedure SetData(Data : TTripPlot);
-    Procedure Select(Indices : TList<Integer>);
-    Procedure SetCursor(Index : Integer);
+    Procedure   SetView  (a, b : Double);
+    Procedure   ResetView;
+    Procedure   Zoom     (Factor : Double);
+    Procedure   Pan      (Fraction : Double);
+    Constructor Create   (AOwner : TComponent); Override;
+    Destructor  Destroy; Override;
+    Procedure   SetData  (Data : TTripPlot);
+    Procedure   Select   (Indices : TList<Integer>);
+    Procedure   SetCursor(Index : Integer);
   End;
 
 Implementation
