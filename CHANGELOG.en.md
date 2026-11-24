@@ -2,6 +2,8 @@
 
 The history starts with the initial Preview, followed by releases **0.1.0**, **0.1.1** and later versions. Changes are grouped by release; individual build numbers are not listed.
 
+- Added simulator checklist recording and replay through the Community bridge, with a detachable read-only checklist tab and checklist selector.
+
 
 ## 0.1.1
 

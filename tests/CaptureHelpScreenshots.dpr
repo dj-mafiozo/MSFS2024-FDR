@@ -362,6 +362,10 @@ Procedure Seed;
    DB.Event(DemoID, 'DEMO: initial climb', '2026-10-12T00:03:20Z', '2026-10-12T00:03:20Z', 2);
    DB.Connection.ExecSQL('update trip_liftoffs set icao=''EPLL''');
    DB.Connection.ExecSQL('update trip_touchdowns set icao=''EPLL''');
+   DB.Connection.ExecSQL('insert into trip_checklists(trip,captured_utc,sim_utc,payload) values(:t,:u,:u,:p)', [DemoID, '2026-10-12T00:00:01Z', '{"schema":1,"activeChecklistId":"preflight","checklists":[{"id":"preflight","name":"PREFLIGHT","items":[{"id":"1","text":"Parking brake - SET","checked":true},{"id":"2","text":"Bat' +
+   'tery - ON","checked":true},{"id":"3","text":"Ground power - CONNECTED","checked":true},{"id":"4","text":"Flight instruments - CHECKED","checked":false},{"id":"5","text":"FMC route ' +
+   '- EPLL / ADOX2W / SOXE2T / ILS Z 25","checked":false},{"id":"6","text":"Weather briefing - REVIEWED","checked":null}]},{"id":"before-start","name":"BEFORE START","items":[{"id":"1"' +
+   ',"text":"Doors - CLOSED","checked":false},{"id":"2","text":"Fuel pumps - ON","checked":false}]}]}']);
    DB.Connection.ExecSQL('insert into trip_fshud_messages(trip,captured_utc,sim_utc,message_type,payload) values(:t,:u,:u,''RadioMessagesData'',:p)', [DemoID, '2026-10-12T00:00:01Z', '{"MessageItems":[{"Id":"DEMO1","Message":"FDR101, CLEARED TO LODZ, CLIMB 5000 FEET, SQUAWK 4213","Frequency":"120.005"}]}']);
    DB.Connection.ExecSQL('insert into trip_fshud_messages(trip,captured_utc,sim_utc,message_type,payload) values(:t,:u,:u,''NativeATCLine'',:p)', [DemoID, '2026-10-12T00:00:15Z', '{"Id":"DEMO2","Message":"[MSFS ATC] FDR101, WIND 270 AT 8, RUNWAY 25 CLEARED FOR TAKEOFF"}']);
 
@@ -603,6 +607,8 @@ Procedure DataViews(Main : TfrmMain);
     Begin
      View := TfrmDockView(Main.Components[i]);
      Name := '';
+     If View.Page = Main.ChecklistPage Then
+      Name := 'checklists';
      If View.Page = Main.GSXPage Then
       Name := 'gsx';
      If View.Page = Main.PlanPage Then

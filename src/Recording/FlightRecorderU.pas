@@ -4,7 +4,7 @@ Unit FlightRecorderU;
 Interface
 
  Uses
-  NativeATCU, Winapi.Windows, System.SysUtils, System.IOUtils, System.Classes, System.DateUtils, System.Math,
+  ChecklistU, NativeATCU, Winapi.Windows, System.SysUtils, System.IOUtils, System.Classes, System.DateUtils, System.Math,
   LocalizationU, FlightDatabaseU, FlightTelemetryU, SimConnectClientU, EventFilterU, FacilitiesU,
   AppLogU, ProcedureRouteU, FlightPlanU, RouteBridgeU, MetarU, AircraftTelemetryU, FMCPreflightU, FSHudDataU;
 
@@ -14,6 +14,7 @@ Interface
     fProviders      : TAircraftProviders;
     fFSHud          : TFSHudData;
     fNativeATC      : TMSFSATC;
+    fChecklists     : TChecklistRecorder;
     fPreflight      : TFMCPreflightCache;
     fPreflightTitle : String;
     fPreflightNext  : UInt64;
@@ -66,6 +67,7 @@ Implementation
    fPreflight            := TFMCPreflightCache.Create;
    Sim                   := TSimConnectClient.Create;
    fNativeATC            := TMSFSATC.Create(Sim, fDB);
+   fChecklists           := TChecklistRecorder.Create(fDB);
    Sim.OnSample          := SampleReceived;
    Sim.OnCockpit         := Cockpit;
    Seq                   := fDB.Connection.ExecSQLScalar('select coalesce(max(event_seq),0) from trip_events');
@@ -85,6 +87,7 @@ Implementation
  Destructor TFlightRecorder.Destroy;
   Begin
    Stop;
+   fChecklists.Free;
    fNativeATC.Free;
    fFSHud.Free;
    fMetar.Free;
@@ -336,6 +339,7 @@ Implementation
    fProviders.Tick(Sim.Sample, Sim.TelemetryActive And Sim.Connected And Sim.Running And Not Sim.Paused And Not Sim.FlightEnded And Not Sim.FlightLoading And (Enabled Or (Trip > 0)), IntervalMS);
    fFSHud.Tick(fDB.Connection, Trip, Sim.Sample.Time('time_zulu'));
    fNativeATC.Tick(fBridge, Trip, Sim.Sample.Time('time_zulu'));
+   fChecklists.Tick(fBridge, Trip, Sim.Sample.Time('time_zulu'), Sim.TelemetryActive And Sim.Connected And Sim.SimulatorSupported);
    If Not Sim.Connected Or Not Sim.Running Then
     fPreflight.Clear;
    // Parse and persist only on the owning recorder thread, never in HTTP/SimConnect callbacks.

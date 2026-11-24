@@ -1195,6 +1195,40 @@
           end
         end
       end
+      object ChecklistPage: TTabSheet
+        HelpContext = 2000
+        Caption = 'Listy kontrolne'
+        object ChecklistSelector: TComboBox
+          Left = 0
+          Top = 0
+          Width = 342
+          Height = 25
+          Align = alTop
+          Style = csDropDownList
+          TabOrder = 0
+          OnChange = ChecklistSelectorChange
+        end
+        object ChecklistEmpty: TLabel
+          Left = 0
+          Top = 25
+          Width = 342
+          Height = 40
+          Align = alTop
+          AutoSize = False
+          WordWrap = True
+          Caption = 'Brak zapisanych checklist w tym nagraniu.'
+        end
+        object ChecklistItems: TCheckListBox
+          Left = 0
+          Top = 65
+          Width = 342
+          Height = 721
+          Align = alClient
+          AllowGrayed = True
+          ItemHeight = 17
+          TabOrder = 1
+        end
+      end
       object GSXPage: TTabSheet
         HelpContext = 1200
         Caption = 'GSX Pro'

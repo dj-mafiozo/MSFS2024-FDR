@@ -964,3 +964,9 @@ Audyt jawnych ścieżek DPR: pełny przebieg skompilował zestaw i zaliczył 93 
 Regresja PFD B38M obejmuje identyfikator LOT131 ze starych pól LOT/131, pełny callsign, białe znaki, zera wiodące, sufiks i brak linii/numeru. Dane historyczne potwierdzono odczytem SQLite tylko do odczytu.
 
 Ostatni samodzielny scenariusz VerifyRTLReturn przeniesiono do DUnitX z zachowaniem asercji i osobnymi Setup/TearDown dla kopii ustawień. Programy Verify korzystają teraz z DUnitX.
+
+## Checklisty symulatora
+
+VerifyChecklists sprawdza zapis tylko podczas nagrywania, deduplikację heartbeatów, zmianę stanu, cofanie czasu bez ujawniania przyszłego stanu, rozdzielenie lotów i usuwanie danych. Obejmuje również normalizację listenera JS na fixture oraz kontrolki z frmMain DFM: lista wyboru i blokada edycji spacją. Listener i struktury danych są testowane syntetycznie; nie wykonano próby na żywo w MSFS 2024. Własne checklisty dodatków mogą nie być udostępnione przez natywny listener.
+
+Weryfikacja 0.1.1: 8 testów DUnitX — PASS (VerifyChecklists: 3, VerifyNativeATC, VerifyRecordingFiles, VerifyNativeDocking, VerifyVersionLanguage i VerifyHelpContexts: po 1). Cztery CHM zawierają po 63 rozdziały; sprawdzono kodowanie skompilowanej nawigacji, konteksty F1 i aktualność 232 ilustracji.

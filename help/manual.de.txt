@@ -366,3 +366,10 @@ Abheben ist nicht Rotationsbeginn; 500-ms-Abtastung kann Spitzen verpassen. Prü
 Der Katalog stammt direkt aus numerischen, logischen und Motor-Telemetriedeklarationen der Anwendung. Der Demo-Dialog enthält alle mit Motoren 1–4. Er dokumentiert FDR-Unterstützung, nicht sämtliche Microsoft-SDK-Variablen. Addon-/GSX-Kataloge sind getrennt.
 IDs sind interne FDR-Namen; Texte und Einheiten folgen Sprache/Einstellungen. Reale Aufnahmen können je nach Flugzeug und Abonnement weniger enthalten. Kolbenparameter werden Jets nicht aufgezwungen. Neue Diagramme erzeugen keine alten Messwerte.
 Suchen Sie in CHM oder Dialog, übernehmen Sie Parameter, ordnen Sie sie und bestätigen Sie OK. IDs helfen beim Vergleich mit Werte und Diagnose.
+@checklists|Checklisten des Flugzeugs
+Die Registerkarte Checklisten zeigt die vom Simulator über die optionale MSFS24-FDR-Bridge bereitgestellten Checklisten. Die Anzeige ist schreibgeschützt und führt keine Checklisten im Cockpit aus oder setzt sie zurück.
+Auswahl :: Wählen Sie oben eine Checkliste aus. Darunter erscheinen die Prüfpunkte, erwarteten Einstellungen und verfügbaren Bearbeitungszustände.
+Zustand :: Markiert bedeutet laut Simulatordaten erledigt. Ein leeres Feld bezeichnet einen aufgezeichneten offenen Punkt, Grau einen unbekannten Zustand. Fehlende Daten beweisen keine unterlassene Handlung.
+Wiedergabe :: Änderungen werden mit der Aufnahmezeit gespeichert. Beim Spulen wird der zuletzt bekannte Zustand wiederhergestellt. Zukünftige Zustände werden nicht vorweggenommen. Die manuell gewählte Liste bleibt nach Möglichkeit ausgewählt.
+Verfügbarkeit :: Die Bridge muss während der Aufnahme laufen. Eigene Checklisten von Add-ons sind möglicherweise nicht über den nativen Listener verfügbar. Ältere Aufnahmen ohne diese Daten zeigen einen entsprechenden Hinweis.
+Fenster :: Diese Registerkarte lässt sich wie andere Datenfenster abdocken. Auswahl und Scrollen senden keine Befehle an das Flugzeug.

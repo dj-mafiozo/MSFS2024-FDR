@@ -2,6 +2,7 @@
 Program MSFSFDR;
 
 Uses
+ ChecklistU           In 'Recording\ChecklistU.pas',
  StackTrace,
  Winapi.Windows,
  System.SysUtils,

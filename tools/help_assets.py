@@ -14,7 +14,7 @@ def source_hash():
 
   paths.update(p for p in (ROOT/folder).rglob('*') if p.suffix.lower() in ('.pas','.dfm','.inc') and not any(x in p.parts for x in ['__history','__recovery']))
 
- paths.update([ROOT/'translations/MSFS2024-FDR.i18n',ROOT/'tests/CaptureHelpScreenshots.dpr',ROOT/'tests/HelpDemoDataU.pas',ROOT/'tests/HelpScreenshotU.pas',ROOT/'help/demo-route.pln',ROOT/'help/demo-simbrief.json'])
+ paths.update([ROOT/'src/Recording/ChecklistU.pas',ROOT/'translations/MSFS2024-FDR.i18n',ROOT/'tests/CaptureHelpScreenshots.dpr',ROOT/'tests/HelpDemoDataU.pas',ROOT/'tests/HelpScreenshotU.pas',ROOT/'help/demo-route.pln',ROOT/'help/demo-simbrief.json'])
 
  paths.update((ROOT/'help').glob('example-analysis.*.txt'))
  digest=hashlib.sha256()

@@ -88,7 +88,7 @@ Procedure THelpContextsTests.DFMAndLocalizedManual;
          Assert.IsTrue(FileExists(TestRepositoryPath('help\images\' + Image.Groups[1].Value)));
         End;
       End;
-     Assert.AreEqual(62, Count);
+     Assert.AreEqual(63, Count);
      Assert.IsTrue(FileExists(Base + 'ecam-sts.htm'));
      Assert.IsTrue(FileExists(Base + 'simvars.htm'));
      Text := ReadHelpText(Base + 'simvars.htm', Lang);
@@ -96,7 +96,7 @@ Procedure THelpContextsTests.DFMAndLocalizedManual;
      Assert.IsTrue(Text.Contains('398 SimVars'), 'Complete standard catalog');
      RecordProof := Proof.GetValue(Lang) As TJSONObject;
      Assert.AreEqual(THashSHA2.GetHashStringFromFile(TestRepositoryPath('bin\help\MSFS2024-FDR.' + Lang + '.chm')), RecordProof.GetValue('chm_sha256').Value);
-     Assert.IsTrue(StrToInt(RecordProof.GetValue('images').Value) >= 57);
+     Assert.IsTrue(StrToInt(RecordProof.GetValue('images').Value) >= 58);
     End;
   Finally
    Proof.Free;

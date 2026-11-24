@@ -639,3 +639,9 @@ Explicit-DPR-path audit: the full run compiled the suite and passed 93 of 94 DUn
 B38M PFD regression covers LOT131 from legacy LOT/131 fields, full callsigns, whitespace, leading zeroes, suffixes and missing airline/number. Historical values were confirmed using read-only SQLite queries.
 
 The remaining standalone VerifyRTLReturn scenario now uses DUnitX with preserved assertions and separate Setup/TearDown for its settings backup. All Verify programs use DUnitX.
+
+## Simulator checklists
+
+VerifyChecklists covers recording scope, heartbeat deduplication, changed states, backward seeking without future-state leakage, trip isolation and deletion. It also checks JS listener normalization through a fixture and the frmMain DFM controls, including dropdown population and read-only Space handling. Listener payloads are synthetic; no live MSFS 2024 checklist session has been validated. Proprietary add-on checklists may not be exposed by the native listener.
+
+Verification for 0.1.1: 8 DUnitX tests passed (VerifyChecklists: 3; VerifyNativeATC, VerifyRecordingFiles, VerifyNativeDocking, VerifyVersionLanguage and VerifyHelpContexts: 1 each). Four CHMs contain 63 chapters each; compiled navigation encoding, F1 contexts and freshness of 232 illustrations were checked.

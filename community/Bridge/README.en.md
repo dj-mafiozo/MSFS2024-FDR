@@ -41,3 +41,19 @@ Default ATC and FSHud share replay history, retaining their source identifiers.
 ATC/COM states are polled through the recorder SimConnect connection once per second
 only while recording an active MSFS24 flight. Optional unavailable fields are disabled
 for that connection. The native listener payload still needs in-simulator validation.
+
+
+## Read-only native checklists
+
+The bridge registers `JS_LISTENER_CHECKLIST` and receives `ChecklistWholeData`,
+`ChecklistCompletion` and `ChecklistEvaluation` through Coherent, matching the native
+MSFS 2024 checklist service. It never sends checklist control events.
+The normalized schema-1 snapshot is posted to the loopback `/checklists/state`
+endpoint. Only changed states are stored in `trip_checklists` with recording time.
+The Checklists tab provides a dropdown and a read-only checklist; unknown completion
+is distinct from an explicitly unchecked item. Seeking restores historical state.
+Native names are supplied by the simulator; proprietary add-on checklists may not
+be exposed. Payload shapes are covered by fixtures; a live simulator session is
+still required to verify every aircraft's checklist payload.
+
+SDK: https://docs.flightsimulator.com/msfs2024/retail/programming-apis/javascript/coherent-listeners/js_listener_checklist/

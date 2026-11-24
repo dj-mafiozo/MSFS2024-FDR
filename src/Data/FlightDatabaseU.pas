@@ -429,6 +429,9 @@ Implementation
    If Not fReadOnly And (Not Background Or Not Existing) Then
     EnsureTable('trip_weather_reports', 'id INTEGER PRIMARY KEY AUTOINCREMENT,trip INTEGER NOT NULL,contact_table TEXT NOT NULL,contact_id INTEGER NOT NULL,source TEXT NOT NULL,request_id TEXT,requested_station TEXT,station TEXT,event_utc TE' + 'XT,requested_utc TEXT,fetched_utc TEXT,observed_utc TEXT,status TEXT,error TEXT,metar_text TEXT,taf_text TEXT,raw_json TEXT');
    fDB.ExecSQL('create unique index if not exists idx_weather_contact_source on trip_weather_reports(contact_table,contact_id,source)');
+   EnsureTable('trip_checklists', 'id INTEGER PRIMARY KEY AUTOINCREMENT,trip INTEGER NOT NULL,captured_utc TEXT NOT NULL,sim_utc TEXT NOT NULL,payload TEXT NOT NULL');
+   If Not fReadOnly And (Not Background Or Not Existing) Then
+    fDB.ExecSQL('create index if not exists idx_checklists_trip_time on trip_checklists(trip,sim_utc,id)');
    EnsureTable('trip_fshud_messages', 'id INTEGER PRIMARY KEY AUTOINCREMENT,trip INTEGER NOT NULL,captured_utc TEXT NOT NULL,sim_utc TEXT,message_type TEXT NOT NULL,payload TEXT NOT NULL');
    If Not fReadOnly And (Not Background Or Not Existing) Then
     fDB.ExecSQL('create index if not exists idx_fshud_trip_type_time on trip_fshud_messages(trip,message_type,captured_utc,id)');
@@ -704,8 +707,25 @@ Implementation
   End;
 
  Procedure TFlightDatabase.DeleteTrip(ID : Integer);
+ { FLD+ }
   Const
-   Tables : Array [0..11] Of String = ('trip_simbrief_maps', 'trip_weather_reports', 'trip_fshud_messages', 'trip_simbrief', 'trip_fmc_screens', 'trip_aircraft_data', 'trip_flight_plans', 'trip_data', 'trip_engine_data', 'trip_events', 'trip_liftoffs', 'trip_touchdowns');
+   Tables : Array [0..12] Of String =
+    (
+     'trip_checklists',
+     'trip_simbrief_maps',
+     'trip_weather_reports',
+     'trip_fshud_messages',
+     'trip_simbrief',
+     'trip_fmc_screens',
+     'trip_aircraft_data',
+     'trip_flight_plans',
+     'trip_data',
+     'trip_engine_data',
+     'trip_events',
+     'trip_liftoffs',
+     'trip_touchdowns'
+    );
+   { FLD- }
   Var
    Table : String;
   Begin

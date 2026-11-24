@@ -372,3 +372,10 @@ Liftoff is not the start of rotation, and a 500 ms touchdown sample may miss pea
 This catalog is generated directly from the application’s numeric, Boolean and engine telemetry declarations. The demonstration chart dialog includes all these parameters, with engines 1–4. It documents FDR support, not every variable in Microsoft’s SDK. Addon SDK and GSX variables have separate catalogs.
 IDs are stable internal FDR names; captions and units reflect application language/display settings. Actual recordings may contain fewer parameters according to aircraft, engine type and captured subscriptions. Piston-only variables are not forced onto jets. Adding a chart cannot recover values never recorded.
 Use CHM search or the chart-dialog search to find a parameter. Select the required values, add them to the displayed list, set their order and confirm OK. Raw IDs help compare this catalog with Values and diagnostics.
+@checklists|Aircraft checklists
+The Checklists tab displays checklists exposed by the simulator through the optional MSFS24-FDR-Bridge. This is a read-only view and does not complete or reset cockpit checklists.
+Selection :: Use the dropdown at the top to choose a checklist. Its items, expected settings and available completion states appear below.
+Item state :: Checked means completed according to simulator data. Unchecked means a recorded incomplete state; gray means the state is unknown. Missing data does not prove that a procedure was not performed.
+Replay :: Changes are stored with recording time. Seeking restores the latest state known at that time and never shows future completion early. A manually selected checklist remains selected while it exists.
+Availability :: The bridge must run during recording. Add-on proprietary checklists may not be exposed by the native listener. Older recordings without checklist data display an empty-state message.
+Window :: Detach and dock this tab like other data tabs. Selecting or scrolling a checklist sends no commands to the aircraft.

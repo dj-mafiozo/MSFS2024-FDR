@@ -9,12 +9,13 @@ Interface
  Type
   TRouteBridge = Class
    Private
-    fServer           : TIdHTTPServer;
-    fLock             : TCriticalSection;
-    fWeatherRequests  : TDictionary<String, String>;
-    fWeatherResponses : TQueue<String>;
-    fPending          : String;
-    fATC              : TQueue<String>;
+    fServer            : TIdHTTPServer;
+    fLock              : TCriticalSection;
+    fWeatherRequests   : TDictionary<String, String>;
+    fWeatherResponses  : TQueue<String>;
+    fPending           : String;
+    fATC               : TQueue<String>;
+    fChecklistSnapshot : String;
     Function  GetPort : Word;
     Procedure Command(Context : TIdContext; Request : TIdHTTPRequestInfo; Response : TIdHTTPResponseInfo);
    Public
@@ -23,9 +24,10 @@ Interface
     Property Port : Word Read GetPort;
     Procedure QueueWeather (Const ID, JSON : String);
     Procedure CancelWeather(Const ID : String);
-    Function  TakeWeather : String;
-    Function  TakeATC     : String;
-    Function  Take        : String;
+    Function  TakeWeather       : String;
+    Function  ChecklistSnapshot : String;
+    Function  TakeATC           : String;
+    Function  Take              : String;
   End;
 
 Implementation
@@ -74,6 +76,51 @@ Implementation
    Response.CustomHeaders.Values['Access-Control-Allow-Headers']         := 'Content-Type';
    Response.CustomHeaders.Values['Access-Control-Allow-Private-Network'] := 'true';
    Response.CloseConnection                                              := True;
+   If Request.Document = '/checklists/state' Then
+    Begin
+     If Request.Command = 'OPTIONS' Then
+      Begin
+       Response.ResponseNo := 204;
+       Exit;
+      End;
+     If Request.Command <> 'POST' Then
+      Begin
+       Response.ResponseNo := 405;
+       Exit;
+      End;
+     If (Request.PostStream = Nil) Or (Request.PostStream.Size < 2) Or (Request.PostStream.Size > 2097152) Then
+      Begin
+       Response.ResponseNo := 413;
+       Exit;
+      End;
+     SetLength(Bytes, Request.PostStream.Size);
+     Request.PostStream.Position := 0;
+     Request.PostStream.ReadBuffer(Bytes[0], Length(Bytes));
+     Text := TEncoding.UTF8.GetString(Bytes);
+     v    := TJSONObject.ParseJSONValue(Text);
+     Try
+      If Not(v Is TJSONObject) Then
+       Begin
+        Response.ResponseNo := 400;
+        Exit;
+       End;
+      If Not(TJSONObject(v).GetValue('checklists') Is TJSONArray) Then
+       Begin
+        Response.ResponseNo := 400;
+        Exit;
+       End;
+      fLock.Enter;
+      Try
+       fChecklistSnapshot := Text;
+      Finally
+       fLock.Leave;
+      End;
+     Finally
+      v.Free;
+     End;
+     Response.ResponseNo := 202;
+     Exit;
+    End;
    If Request.Document = '/atc/messages' Then
     Begin
      If Request.Command = 'OPTIONS' Then
@@ -271,6 +318,16 @@ Implementation
    Try
     If fWeatherResponses.Count > 0 Then
      Result := fWeatherResponses.Dequeue;
+   Finally
+    fLock.Leave;
+   End;
+  End;
+
+ Function TRouteBridge.ChecklistSnapshot : String;
+  Begin
+   fLock.Enter;
+   Try
+    Result := fChecklistSnapshot;
    Finally
     fLock.Leave;
    End;

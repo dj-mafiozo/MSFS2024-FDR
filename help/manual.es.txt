@@ -366,3 +366,10 @@ Despegue no es inicio de rotación y 500 ms pueden perder un pico. Examine antes
 El catálogo se genera de las declaraciones numéricas, lógicas y de motores de la aplicación. El diálogo de ejemplo incluye todas, con motores 1–4. Documenta FDR, no cada variable del SDK Microsoft. Addons y GSX tienen catálogos separados.
 Los IDs son nombres internos; etiquetas/unidades siguen idioma y ajustes. Un vuelo real puede contener menos según avión y suscripciones. No se fuerzan variables de pistón en jets. Añadir gráficos no recupera medidas nunca grabadas.
 Busque en CHM o diálogo, añada parámetros, ordénelos y confirme OK. Los IDs permiten comparar con Valores y diagnóstico.
+@checklists|Listas de comprobación del avión
+La pestaña Listas de comprobación muestra las listas que expone el simulador mediante MSFS24-FDR-Bridge opcional. Es una vista de solo lectura; no ejecuta ni reinicia listas en la cabina.
+Selección :: Elija una lista en el desplegable superior. Debajo aparecen sus elementos, ajustes esperados y estados disponibles.
+Estado :: Marcado significa completado según el simulador. Una casilla vacía indica un estado pendiente registrado; gris indica estado desconocido. La ausencia de datos no demuestra que no se haya realizado un procedimiento.
+Reproducción :: Los cambios se guardan con el tiempo de la grabación. Al desplazarse se recupera el último estado conocido, sin adelantar estados futuros. La lista seleccionada manualmente se conserva mientras exista.
+Disponibilidad :: El bridge debe estar activo durante la grabación. Las listas propias de algunos complementos pueden no estar disponibles mediante el listener nativo. Las grabaciones antiguas sin estos datos muestran un aviso.
+Ventana :: La pestaña puede separarse y acoplarse como las demás. Seleccionar o recorrer una lista no envía órdenes al avión.

@@ -64,7 +64,7 @@ for operation in ['Build','Make','Clean']:
  text+=f' <Target Name="{operation}"><CallTarget Targets="{names}"/></Target>\n'
 text+='<ProjectExtensions><Borland.Personality>Default.Personality.12</Borland.Personality><Borland.ProjectType/><BorlandProject><Default.Personality/></BorlandProject></ProjectExtensions>\n'
 text+=' <Import Project="$(BDS)\\Bin\\CodeGear.Group.Targets" Condition="Exists(\'$(BDS)\\Bin\\CodeGear.Group.Targets\')"/>\n</Project>\n';group.write_text(text,encoding='utf-8-sig')
-folders=['..\\'+p.relative_to(r).as_posix().replace('/','\\') for p in (r/'src').rglob('*') if p.is_dir() and not any(z in p.parts for z in ['__history','__recovery'])]
+folders=['..\\'+p.relative_to(r).as_posix().replace('/','\\') for p in (r/'src').rglob('*') if p.is_dir() and not any(z in p.parts for z in ['__history','__recovery','.git','.github'])]
 paths=';'.join(['.','..\\src','..\\..\\MSFS2024-FDR-Setup\\src','..\\..\\setup-common\\src','..\\..\\setup-core\\src']+folders+['$(I18nRoot)','$(VirtualTreeRoot)','..\\vendor\\Delphi-StackTrace\\source'])
 props=f'''<Project xmlns="{ns}">
  <PropertyGroup>
@@ -72,7 +72,7 @@ props=f'''<Project xmlns="{ns}">
   <VirtualTreeRoot Condition="'$(VirtualTreeRoot)'==''">$(MSBuildThisFileDirectory)..\\vendor\\Virtual-TreeView\\Source</VirtualTreeRoot>
   <I18nRoot Condition="'$(I18nRoot)'==''">$(MSBuildThisFileDirectory)..\\vendor\\i18n\\Packages</I18nRoot>
   <DCC_UnitSearchPath>$(BDS)\\source\\DUnitX;{paths};$(DCC_UnitSearchPath)</DCC_UnitSearchPath>
-  <PreBuildEvent>python.exe &quot;$(MSBuildThisFileDirectory)..\\tools\\build_resources.py&quot; --app --vendor</PreBuildEvent>
+  <PreBuildEvent>python.exe &quot;$(MSBuildThisFileDirectory)..\\tools\\build_resources.py&quot; --vendor</PreBuildEvent>
   <PreBuildEventIgnoreExitCode>false</PreBuildEventIgnoreExitCode>
   <DCC_IncludePath>$(BDS)\\source\\DUnitX;$(DCC_IncludePath)</DCC_IncludePath>
   <DCC_ResourcePath>$(BDS)\\lib\\$(Platform)\\release;$(DCC_ResourcePath)</DCC_ResourcePath>

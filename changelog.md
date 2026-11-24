@@ -2,6 +2,8 @@
 
 Historia zaczyna się od initial Preview, następnie obejmuje wydania `0.1.0`, `0.1.1` i kolejne. Zmiany są grupowane według wersji wydania `Major.Minor.Release`. Kolejne buildy uzupełniają wpis tego samego wydania; nie mają osobnych sekcji ani oznaczeń w tej historii.
 
+- Dodano zapis i odtwarzanie checklist symulatora przez Community bridge oraz odłączaną zakładkę z wyborem checklisty i listą pozycji tylko do odczytu.
+
 
 ## 0.1.1
 

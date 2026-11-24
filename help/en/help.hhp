@@ -71,6 +71,7 @@ values.htm
 events.htm
 contacts.htm
 simvars.htm
+checklists.htm
 images/en-a320-ewd.png
 images/en-a320-pfd.png
 images/en-airliner-classic.png
@@ -82,6 +83,7 @@ images/en-b38m-eicas.png
 images/en-b38m-fo.png
 images/en-charts-view.png
 images/en-charts.png
+images/en-checklists.png
 images/en-contacts.png
 images/en-ecam-apu.png
 images/en-ecam-bleed.png
@@ -167,6 +169,7 @@ IDH_TOPIC_1710=events.htm
 IDH_TOPIC_1720=contacts.htm
 IDH_TOPIC_1800=playback.htm
 IDH_TOPIC_1900=recording.htm
+IDH_TOPIC_2000=checklists.htm
 IDH_TOPIC_733=a320-ewd.htm
 IDH_TOPIC_739=ecam-recorded.htm
 IDH_TOPIC_740=ecam-engine.htm

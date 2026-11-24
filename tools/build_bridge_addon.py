@@ -1,4 +1,4 @@
-"""Stage the optional MSFS weather panel; rebuild its SPB with the SDK when requested."""
+"""Stage the optional MSFS data bridge panel; rebuild its SPB with the SDK when requested."""
 from pathlib import Path
 import argparse,json,shutil,subprocess
 ROOT=Path(__file__).resolve().parents[1]
@@ -17,8 +17,8 @@ def main():
  for f in sorted(target.rglob('*')):
   if f.is_file() and f.name not in {'manifest.json','layout.json'}:
    entries.append({'path':f.relative_to(target).as_posix(),'size':f.stat().st_size,'date':int((f.stat().st_mtime+11644473600)*10000000)})
- manifest={'dependencies':[],'content_type':'INSTRUMENTS','title':'MSFS24-FDR-Bridge','manufacturer':'','creator':'DJ M@fi0z0','package_version':'1.0.0','minimum_game_version':'1.9.21','release_notes':{'neutral':{'LastUpdate':'','OlderHistory':''}},'total_package_size':sum(e['size'] for e in entries)}
+ manifest={'dependencies':[],'content_type':'INSTRUMENTS','title':'MSFS24-FDR-Bridge','manufacturer':'','creator':'DJ M@fi0z0','package_version':'1.0.1','minimum_game_version':'1.9.21','release_notes':{'neutral':{'LastUpdate':'','OlderHistory':''}},'total_package_size':sum(e['size'] for e in entries)}
  (target/'manifest.json').write_text(json.dumps(manifest,indent=2),encoding='utf-8')
  (target/'layout.json').write_text(json.dumps({'content':entries},indent=2),encoding='utf-8')
- print('PASS: optional weather package staged:',len(entries),'files')
+ print('PASS: optional bridge package staged:',len(entries),'files')
 if __name__=='__main__':main()
