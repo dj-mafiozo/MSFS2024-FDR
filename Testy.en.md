@@ -645,3 +645,9 @@ The remaining standalone VerifyRTLReturn scenario now uses DUnitX with preserved
 VerifyChecklists covers recording scope, heartbeat deduplication, changed states, backward seeking without future-state leakage, trip isolation and deletion. It also checks JS listener normalization through a fixture and the frmMain DFM controls, including dropdown population and read-only Space handling. Listener payloads are synthetic; no live MSFS 2024 checklist session has been validated. Proprietary add-on checklists may not be exposed by the native listener.
 
 Verification for 0.1.1: 8 DUnitX tests passed (VerifyChecklists: 3; VerifyNativeATC, VerifyRecordingFiles, VerifyNativeDocking, VerifyVersionLanguage and VerifyHelpContexts: 1 each). Four CHMs contain 63 chapters each; compiled navigation encoding, F1 contexts and freshness of 232 illustrations were checked.
+
+## Independent data-tab frames
+
+VerifyDataTabFrames passed two DUnitX cases: controls belong to seven independent TFrames, each page contains one alClient frame, window actions detach and switch icons 0/1, closing restores docking, and resizing preserves full client bounds and control ownership. Translation migration and Hebrew-to-Polish direction restoration were checked. VerifyChecklists (3), VerifyNativeDocking (1), VerifyUI (1) and VerifyGSX (1) also passed. These are synthetic tests using real DFM forms without a simulator connection.
+
+Final frame validation also passed VerifyVersionLanguage and VerifyHelpContexts, totaling 10 DUnitX cases. The application and stub were rebuilt; four CHMs contain 63 chapters each and 232 current illustrations.

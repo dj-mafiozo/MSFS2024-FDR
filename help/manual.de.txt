@@ -36,6 +36,8 @@ Registerkarten :: Kopf herausziehen, an Registerleiste/Randziel andocken. Schlie
 Instrumentfenster :: PFD und EICAS/ECAM können gemeinsam in einem schwebenden Host liegen. Andockziele verwenden.
 Größe :: Panelproportionen und Instrumentseitenverhältnis bleiben erhalten; Ränder verhindern Verzerrungen.
 Speichern / Reset :: Zustand, Position und Größe jedes Fensters werden gespeichert. Leere Hosts klappen ein. Standardlayout in Einstellungen stellt Anordnung, nicht Flugdaten, zurück.
+Fensterschaltfläche :: Jede Datenregisterkarte besitzt eine Schaltfläche zum Abdocken. Erneutes Drücken oder Schließen des freien Fensters dockt es wieder an; das Symbol zeigt den Zustand. Inhalt, Suche, Zeitachse und Datenbindungen bleiben aktiv.
+
 @playback|Wiedergabe und aufgezeichnete Zeit
 1x folgt der Aufnahmezeit, nicht einem Messwert je Timeraufruf. Interpolation glättet kontinuierliche Werte und Winkel, Schalter bleiben sprunghaft. Pausieren Sie zur genauen Auswahl. Stop kehrt zum Anfang und 1x zurück. Normale Zeitsprünge sind 30 Sekunden, Ghost-Sprünge 10.
 Normale Wiedergabe steuert die Analyse, nicht ein Simulatorflugzeug; Ghost ist unabhängig.

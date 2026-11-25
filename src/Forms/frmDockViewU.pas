@@ -31,7 +31,7 @@ Interface
 Implementation
 
  Uses
-  DockPreviewU, System.SysUtils, System.NetEncoding, System.Math, Vcl.ExtCtrls;
+  Vcl.ActnList, DockPreviewU, System.SysUtils, System.NetEncoding, System.Math, Vcl.ExtCtrls;
 {$R *.dfm}
 
  Procedure SaveDockTree(Host : TWinControl; Config : TCustomIniFile);
@@ -77,6 +77,9 @@ Implementation
   End;
 
  Procedure TfrmDockView.FitClient(Sender : TObject);
+  Var
+   i      : Integer;
+   Action : TComponent;
   Begin
    If fFitting Or (fPage = Nil) Or (csDestroying In ComponentState) Then
     Exit;
@@ -93,6 +96,16 @@ Implementation
     If (fPage.Width <> ClientWidth) Or (fPage.Height <> ClientHeight) Or (fPage.Left <> 0) Or (fPage.Top <> 0) Then
      fPage.SetBounds(0, 0, ClientWidth, ClientHeight);
     fPage.Realign;
+    For i := 0 To fPage.ControlCount - 1 Do
+     If fPage.Controls[i] Is TFrame Then
+      Begin
+       Action := fPage.Controls[i].FindComponent('aWindow');
+       If Action Is TAction Then
+        If HostDockSite = Nil Then
+         TAction(Action).ImageIndex := 1
+        Else
+         TAction(Action).ImageIndex := 0;
+      End;
    Finally
     fFitting := False;
    End;

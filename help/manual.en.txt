@@ -39,6 +39,8 @@ Combined instruments :: PFD and EICAS/ECAM can share a floating instrument host.
 Resize :: Panels preserve proportions. Instruments retain aspect ratio and may show margins instead of distortion.
 Saved layout :: Docked state and each floating window's position/size are remembered. A host without any docked tabs should collapse.
 Reset :: Restore default panel layout in Settings after a monitor change or inconvenient arrangement. It resets the workspace, not flight data.
+Window button :: Every data tab has a detach button. Press it again or close the floating window to dock it back; the icon follows the current state. Content, search, the timeline and data bindings remain active.
+
 @playback|Playback and recorded time
 At 1x, time follows the recording rather than advancing one sample per timer tick. Interpolation smooths continuous values and angles while switches retain discrete transitions. Pause to select an instant with the slider or chart. Stop returns to the beginning and 1x. Normal replay jumps are 30 seconds; separate ghost actions jump 10 seconds.
 Normal playback controls the analysis timeline, not a simulator aircraft. Ghost replay is separate.

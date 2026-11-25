@@ -970,3 +970,9 @@ Ostatni samodzielny scenariusz VerifyRTLReturn przeniesiono do DUnitX z zachowan
 VerifyChecklists sprawdza zapis tylko podczas nagrywania, deduplikację heartbeatów, zmianę stanu, cofanie czasu bez ujawniania przyszłego stanu, rozdzielenie lotów i usuwanie danych. Obejmuje również normalizację listenera JS na fixture oraz kontrolki z frmMain DFM: lista wyboru i blokada edycji spacją. Listener i struktury danych są testowane syntetycznie; nie wykonano próby na żywo w MSFS 2024. Własne checklisty dodatków mogą nie być udostępnione przez natywny listener.
 
 Weryfikacja 0.1.1: 8 testów DUnitX — PASS (VerifyChecklists: 3, VerifyNativeATC, VerifyRecordingFiles, VerifyNativeDocking, VerifyVersionLanguage i VerifyHelpContexts: po 1). Cztery CHM zawierają po 63 rozdziały; sprawdzono kodowanie skompilowanej nawigacji, konteksty F1 i aktualność 232 ilustracji.
+
+## Samodzielne ramki zakładek danych
+
+VerifyDataTabFrames — PASS (2 przypadki DUnitX): kontrolki należą do siedmiu odrębnych TFrame, każda zakładka ma jedną ramkę alClient, akcje odłączają okna i zmieniają ikony 0/1, zamknięcie przywraca dokowanie, zmiana rozmiaru zachowuje pełny obszar oraz właścicieli kontrolek. Sprawdzono tłumaczenia po przeniesieniu do domen ramek i powrót z hebrajskiego do polskiego. Regresje VerifyChecklists (3), VerifyNativeDocking (1), VerifyUI (1) i VerifyGSX (1) również przeszły. Próby syntetyczne na formularzach z DFM, bez połączenia z symulatorem.
+
+Końcowa weryfikacja ramek: dodatkowo PASS VerifyVersionLanguage i VerifyHelpContexts, razem 10 przypadków DUnitX. Przebudowano aplikację i stuba; cztery CHM mają po 63 rozdziały i aktualne 232 ilustracje.

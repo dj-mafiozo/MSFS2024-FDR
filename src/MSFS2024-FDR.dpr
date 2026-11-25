@@ -2,6 +2,13 @@
 Program MSFSFDR;
 
 Uses
+ fraFlightPlanU       In 'Frames\fraFlightPlanU.pas'     {fraFlightPlan: TFrame},
+ fraChecklistsU       In 'Frames\fraChecklistsU.pas'     {fraChecklists: TFrame},
+ fraGSXU              In 'Frames\fraGSXU.pas'            {fraGSX: TFrame},
+ fraValuesU           In 'Frames\fraValuesU.pas'         {fraValues: TFrame},
+ fraEventsU           In 'Frames\fraEventsU.pas'         {fraEvents: TFrame},
+ fraATCU              In 'Frames\fraATCU.pas'            {fraATC: TFrame},
+ fraContactsU         In 'Frames\fraContactsU.pas'       {fraContacts: TFrame},
  ChecklistU           In 'Recording\ChecklistU.pas',
  StackTrace,
  Winapi.Windows,

@@ -36,6 +36,8 @@ Pestañas :: Arrastre el encabezado para separar y acople a barra/borde disponib
 Instrumentos juntos :: PFD y EICAS/ECAM pueden compartir ventana flotante mediante los destinos de acoplamiento.
 Tamaño :: Conserva proporciones; los márgenes evitan deformar los instrumentos.
 Guardar / restaurar :: Recuerda estado y geometría de cada ventana. Un host vacío se contrae. Restaurar diseño en ajustes no borra vuelos.
+Botón de ventana :: Cada pestaña de datos incluye un botón para separarla. Púlselo otra vez o cierre la ventana flotante para volver a acoplarla; el icono indica el estado. El contenido, la búsqueda, la línea temporal y los datos siguen activos.
+
 @playback|Reproducción y tiempo grabado
 1x sigue el tiempo grabado, no una muestra por tick. La interpolación suaviza valores continuos y ángulos; los interruptores mantienen saltos. Pause para elegir un instante. Stop vuelve al inicio y 1x. Saltos normales son 30 segundos; ghost tiene acciones separadas de 10 segundos.
 La reproducción normal controla el análisis, no un avión del simulador. Ghost es independiente.

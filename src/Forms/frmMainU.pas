@@ -4,6 +4,7 @@ Unit frmMainU;
 Interface
 
  Uses
+  fraFlightPlanU, fraChecklistsU, fraGSXU, fraValuesU, fraEventsU, fraATCU, fraContactsU,
   ChecklistU, {$IFDEF PORT_TEST}
   TestPathsU,{$ENDIF} FSLTLU, GhostReplayU, FlapsHandleU, PanelProportionsU, frmDockViewU, FSHudReplayU, PlaybackU, fraA320PFDU, fraA320ECAMU, LegacyExportU, fraB38MEICASU, InstrumentDataU, FlightDirectorU, Boeing737PFDU, fraPFD737U, frmChangeLogU, ViewStateU, Winapi.Messages, AppPathsU, UIFontsU, Vcl.XPMan, Vcl.Menus, RecordingIndexU, LocalizationU, i18nLocalizer, Winapi.Windows, System.SysUtils, System.Classes,
   System.IOUtils, System.StrUtils, System.Math, System.IniFiles, System.Generics.Collections, Vcl.Forms,
@@ -18,6 +19,13 @@ Interface
 
  Type
   TfrmMain = Class(TLocalizedForm)
+    fFlightPlanTab     : TfraFlightPlan;
+    fChecklistsTab     : TfraChecklists;
+    fGSXTab            : TfraGSX;
+    fValuesTab         : TfraValues;
+    fEventsTab         : TfraEvents;
+    fATCTab            : TfraATC;
+    fContactsTab       : TfraContacts;
     aAbout             : TAction;
     aAnalysisLanding   : TAction;
     aAnalysisLiftoff   : TAction;
@@ -128,200 +136,168 @@ Interface
     btnTripInfo        : TToolButton;
     cbGroup            : TComboBox;
     CenterPanel        : TPanel;
-    ContactGrid        : TDBGrid;
     ContactsPage       : TTabSheet;
     CursorLabel        : TLabel;
-    DataGrid           : TStringGrid;
     DataTabs           : TPageControl;
     ChecklistPage      : TTabSheet;
-    ChecklistSelector  : TComboBox;
-    ChecklistEmpty     : TLabel;
-    ChecklistItems     : TCheckListBox;
 
-    DockBottomSite             : TPanel;
-    DockBottomSplitter         : TSplitter;
-    DockLeftSite               : TPanel;
-    DockLeftSplitter           : TSplitter;
-    DockRightSite              : TPanel;
-    DockRightSplitter          : TSplitter;
-    DockTopSite                : TPanel;
-    DockTopSplitter            : TSplitter;
-    EnginePanel                : TPanel;
-    eSearch                    : TEdit;
-    eValueSearch               : TEdit;
-    EventGrid                  : TDBGrid;
-    EventsPage                 : TTabSheet;
-    fA320ECAMFrame             : TfraA320ECAM;
-    fA320PFDFrame              : TfraA320PFD;
-    fB38MEICASFrame            : TfraB38MEICAS;
-    fEnginesFrame              : TfraEngines;
-    fFMCFrame                  : TfraFMC;
-    fFMCPage                   : TTabSheet;
-    fGraphFrame                : TfraGraph;
-    fMapFrame                  : TfraMap;
-    fPFD737Frame               : TfraPFD737;
-    fSHudMemo                  : TMemo;
-    fSHudPage                  : TTabSheet;
-    fSimBrief                  : TfraSimBrief;
-    fSixPackFrame              : TfraSixPack;
-    GraphPanel                 : TPanel;
-    GroupPanel                 : TPanel;
-    GSXBoardingCargoProgress   : TProgressBar;
-    GSXBoardingProgress        : TProgressBar;
-    GSXBoardingProgressLabel   : TLabel;
-    GSXBoardingProgressPanel   : TPanel;
-    GSXCateringProgress        : TProgressBar;
-    GSXCateringProgressLabel   : TLabel;
-    GSXCateringProgressPanel   : TPanel;
-    GSXDeboardingCargoProgress : TProgressBar;
-    GSXDeboardingProgress      : TProgressBar;
-    GSXDeboardingProgressLabel : TLabel;
-    GSXDeboardingProgressPanel : TPanel;
-    GSXDeiceProgress           : TProgressBar;
-    GSXDeiceProgressLabel      : TLabel;
-    GSXDeiceProgressPanel      : TPanel;
-    GSXDepartureProgress       : TProgressBar;
-    GSXDepartureProgressLabel  : TLabel;
-    GSXDepartureProgressPanel  : TPanel;
-    GSXGrid                    : TStringGrid;
-    GSXPage                    : TTabSheet;
-    GSXProgressPanel           : TPanel;
-    GSXRefuelingProgress       : TProgressBar;
-    GSXRefuelingProgressLabel  : TLabel;
-    GSXRefuelingProgressPanel  : TPanel;
-    ImageList                  : TImageList;
-    ImageListSmall             : TImageList;
-    ImportFlightDialog         : TOpenDialog;
-    InstrumentsPanel           : TPanel;
-    lATCMessage                : TLabel;
-    LeftPanel                  : TPanel;
-    LegacyExportDialog         : TSaveDialog;
-    lPlayRate                  : TLabel;
-    MainMenu                   : TMainMenu;
-    MapPanel                   : TPanel;
-    miAbout                    : TMenuItem;
-    miAnalysis                 : TMenuItem;
-    miArabic                   : TMenuItem;
-    miAssign                   : TMenuItem;
-    miAuto                     : TMenuItem;
-    miBack                     : TMenuItem;
-    miBegining                 : TMenuItem;
-    miBelarusian               : TMenuItem;
-    miChangeLog                : TMenuItem;
-    miChartsConfigure          : TMenuItem;
-    miChinese                  : TMenuItem;
-    miClose                    : TMenuItem;
-    miCroatian                 : TMenuItem;
-    miCzech                    : TMenuItem;
-    miDanish                   : TMenuItem;
-    miDeleteGroup              : TMenuItem;
-    miDeleteTrip               : TMenuItem;
-    miDutch                    : TMenuItem;
-    miEnding                   : TMenuItem;
-    miEnglish                  : TMenuItem;
-    miEnglishGB                : TMenuItem;
-    miExport                   : TMenuItem;
-    miExportLegacy             : TMenuItem;
-    miFile                     : TMenuItem;
-    miFinnish                  : TMenuItem;
-    miFit                      : TMenuItem;
-    miFrench                   : TMenuItem;
-    miFrenchCA                 : TMenuItem;
-    miFullView                 : TMenuItem;
-    miGerman                   : TMenuItem;
-    miGermanAT                 : TMenuItem;
-    miGermanCH                 : TMenuItem;
-    miGhost                    : TMenuItem;
-    miGraphWindow              : TMenuItem;
-    miGreek                    : TMenuItem;
-    miGroups                   : TMenuItem;
-    miHebrew                   : TMenuItem;
-    miHelp                     : TMenuItem;
-    miHelpContents             : TMenuItem;
-    miHindi                    : TMenuItem;
-    miImport                   : TMenuItem;
-    miImportFlight             : TMenuItem;
-    miIndonesian               : TMenuItem;
-    miItalian                  : TMenuItem;
-    miJapanese                 : TMenuItem;
-    miLanding                  : TMenuItem;
-    miLangAuto                 : TMenuItem;
-    miLanguage                 : TMenuItem;
-    miMapWindow                : TMenuItem;
-    miMetar                    : TMenuItem;
-    miNewGroup                 : TMenuItem;
-    miNorwegian                : TMenuItem;
-    miOpen                     : TMenuItem;
-    miOverview                 : TMenuItem;
-    miPlayback                 : TMenuItem;
-    miPlayPause                : TMenuItem;
-    miPolish                   : TMenuItem;
-    miPortuguese               : TMenuItem;
-    miPortugueseBR             : TMenuItem;
-    miRecording                : TMenuItem;
-    miRefresh                  : TMenuItem;
-    miRenameGroup              : TMenuItem;
-    miRussian                  : TMenuItem;
-    miSaveMap                  : TMenuItem;
-    miSeparator1               : TMenuItem;
-    miSettings                 : TMenuItem;
-    miSkip                     : TMenuItem;
-    miSlovak                   : TMenuItem;
-    miSpanish                  : TMenuItem;
-    miStart                    : TMenuItem;
-    miStop                     : TMenuItem;
-    miStopPlayback             : TMenuItem;
-    miSwedish                  : TMenuItem;
-    miTakeoff                  : TMenuItem;
-    miTiles                    : TMenuItem;
-    miTools                    : TMenuItem;
-    miTripInfo                 : TMenuItem;
-    miTurkish                  : TMenuItem;
-    miUkrainian                : TMenuItem;
-    miVietnamese               : TMenuItem;
-    miView                     : TMenuItem;
-    miZoomIn                   : TMenuItem;
-    miZoomOut                  : TMenuItem;
-    mPlan                      : TMemo;
-    OpenDialog                 : TOpenDialog;
-    Panel1                     : TPanel;
-    PlanDialog                 : TOpenDialog;
-    PlanPage                   : TTabSheet;
-    PlayBackRate               : TUpDown;
-    PlaybackTimer              : TTimer;
-    RightPanel                 : TPanel;
-    SaveDialog                 : TSaveDialog;
-    seInterval                 : TSpinEdit;
-    SimBriefPage               : TTabSheet;
-    SixPackPanel               : TPanel;
-    SliderPanel                : TPanel;
-    SplitLeft                  : TSplitter;
-    SplitMap                   : TSplitter;
-    SplitRight                 : TSplitter;
-    SplitterInstruments        : TSplitter;
-    SplitterSixPackEngines     : TSplitter;
-    StatusBar1                 : TStatusBar;
-    Timeline                   : TTrackBar;
-    Timer                      : TTimer;
-    ToolBar1                   : TToolBar;
-    ToolBar2                   : TToolBar;
-    ToolBar3                   : TToolBar;
-    ToolBar4                   : TToolBar;
-    ToolBar5                   : TToolBar;
-    ToolBar6                   : TToolBar;
-    ToolButton4                : TToolButton;
-    ToolButton6                : TToolButton;
-    ToolButton7                : TToolButton;
-    ToolButton8                : TToolButton;
-    ToolButton10               : TToolButton;
-    ToolButton12               : TToolButton;
-    ToolButton13               : TToolButton;
-    ToolButton15               : TToolButton;
-    ValuesPage                 : TTabSheet;
-    ViewPan                    : TTrackBar;
-    ViewsPanel                 : TPanel;
-    vstRecordings              : TVirtualStringTree;
+    DockBottomSite         : TPanel;
+    DockBottomSplitter     : TSplitter;
+    DockLeftSite           : TPanel;
+    DockLeftSplitter       : TSplitter;
+    DockRightSite          : TPanel;
+    DockRightSplitter      : TSplitter;
+    DockTopSite            : TPanel;
+    DockTopSplitter        : TSplitter;
+    EnginePanel            : TPanel;
+    eSearch                : TEdit;
+    EventsPage             : TTabSheet;
+    fA320ECAMFrame         : TfraA320ECAM;
+    fA320PFDFrame          : TfraA320PFD;
+    fB38MEICASFrame        : TfraB38MEICAS;
+    fEnginesFrame          : TfraEngines;
+    fFMCFrame              : TfraFMC;
+    fFMCPage               : TTabSheet;
+    fGraphFrame            : TfraGraph;
+    fMapFrame              : TfraMap;
+    fPFD737Frame           : TfraPFD737;
+    fSHudPage              : TTabSheet;
+    fSimBrief              : TfraSimBrief;
+    fSixPackFrame          : TfraSixPack;
+    GraphPanel             : TPanel;
+    GroupPanel             : TPanel;
+    GSXPage                : TTabSheet;
+    ImageList              : TImageList;
+    ImageListSmall         : TImageList;
+    ImportFlightDialog     : TOpenDialog;
+    InstrumentsPanel       : TPanel;
+    lATCMessage            : TLabel;
+    LeftPanel              : TPanel;
+    LegacyExportDialog     : TSaveDialog;
+    lPlayRate              : TLabel;
+    MainMenu               : TMainMenu;
+    MapPanel               : TPanel;
+    miAbout                : TMenuItem;
+    miAnalysis             : TMenuItem;
+    miArabic               : TMenuItem;
+    miAssign               : TMenuItem;
+    miAuto                 : TMenuItem;
+    miBack                 : TMenuItem;
+    miBegining             : TMenuItem;
+    miBelarusian           : TMenuItem;
+    miChangeLog            : TMenuItem;
+    miChartsConfigure      : TMenuItem;
+    miChinese              : TMenuItem;
+    miClose                : TMenuItem;
+    miCroatian             : TMenuItem;
+    miCzech                : TMenuItem;
+    miDanish               : TMenuItem;
+    miDeleteGroup          : TMenuItem;
+    miDeleteTrip           : TMenuItem;
+    miDutch                : TMenuItem;
+    miEnding               : TMenuItem;
+    miEnglish              : TMenuItem;
+    miEnglishGB            : TMenuItem;
+    miExport               : TMenuItem;
+    miExportLegacy         : TMenuItem;
+    miFile                 : TMenuItem;
+    miFinnish              : TMenuItem;
+    miFit                  : TMenuItem;
+    miFrench               : TMenuItem;
+    miFrenchCA             : TMenuItem;
+    miFullView             : TMenuItem;
+    miGerman               : TMenuItem;
+    miGermanAT             : TMenuItem;
+    miGermanCH             : TMenuItem;
+    miGhost                : TMenuItem;
+    miGraphWindow          : TMenuItem;
+    miGreek                : TMenuItem;
+    miGroups               : TMenuItem;
+    miHebrew               : TMenuItem;
+    miHelp                 : TMenuItem;
+    miHelpContents         : TMenuItem;
+    miHindi                : TMenuItem;
+    miImport               : TMenuItem;
+    miImportFlight         : TMenuItem;
+    miIndonesian           : TMenuItem;
+    miItalian              : TMenuItem;
+    miJapanese             : TMenuItem;
+    miLanding              : TMenuItem;
+    miLangAuto             : TMenuItem;
+    miLanguage             : TMenuItem;
+    miMapWindow            : TMenuItem;
+    miMetar                : TMenuItem;
+    miNewGroup             : TMenuItem;
+    miNorwegian            : TMenuItem;
+    miOpen                 : TMenuItem;
+    miOverview             : TMenuItem;
+    miPlayback             : TMenuItem;
+    miPlayPause            : TMenuItem;
+    miPolish               : TMenuItem;
+    miPortuguese           : TMenuItem;
+    miPortugueseBR         : TMenuItem;
+    miRecording            : TMenuItem;
+    miRefresh              : TMenuItem;
+    miRenameGroup          : TMenuItem;
+    miRussian              : TMenuItem;
+    miSaveMap              : TMenuItem;
+    miSeparator1           : TMenuItem;
+    miSettings             : TMenuItem;
+    miSkip                 : TMenuItem;
+    miSlovak               : TMenuItem;
+    miSpanish              : TMenuItem;
+    miStart                : TMenuItem;
+    miStop                 : TMenuItem;
+    miStopPlayback         : TMenuItem;
+    miSwedish              : TMenuItem;
+    miTakeoff              : TMenuItem;
+    miTiles                : TMenuItem;
+    miTools                : TMenuItem;
+    miTripInfo             : TMenuItem;
+    miTurkish              : TMenuItem;
+    miUkrainian            : TMenuItem;
+    miVietnamese           : TMenuItem;
+    miView                 : TMenuItem;
+    miZoomIn               : TMenuItem;
+    miZoomOut              : TMenuItem;
+    OpenDialog             : TOpenDialog;
+    Panel1                 : TPanel;
+    PlanDialog             : TOpenDialog;
+    PlanPage               : TTabSheet;
+    PlayBackRate           : TUpDown;
+    PlaybackTimer          : TTimer;
+    RightPanel             : TPanel;
+    SaveDialog             : TSaveDialog;
+    seInterval             : TSpinEdit;
+    SimBriefPage           : TTabSheet;
+    SixPackPanel           : TPanel;
+    SliderPanel            : TPanel;
+    SplitLeft              : TSplitter;
+    SplitMap               : TSplitter;
+    SplitRight             : TSplitter;
+    SplitterInstruments    : TSplitter;
+    SplitterSixPackEngines : TSplitter;
+    StatusBar1             : TStatusBar;
+    Timeline               : TTrackBar;
+    Timer                  : TTimer;
+    ToolBar1               : TToolBar;
+    ToolBar2               : TToolBar;
+    ToolBar3               : TToolBar;
+    ToolBar4               : TToolBar;
+    ToolBar6               : TToolBar;
+    ToolButton4            : TToolButton;
+    ToolButton6            : TToolButton;
+    ToolButton8            : TToolButton;
+    ToolButton10           : TToolButton;
+    ToolButton12           : TToolButton;
+    ToolButton13           : TToolButton;
+    ToolButton15           : TToolButton;
+    ValuesPage             : TTabSheet;
+    ViewPan                : TTrackBar;
+    ViewsPanel             : TPanel;
+    vstRecordings          : TVirtualStringTree;
     Function  AppHelp                (Command : Word; Data : THelpEventData; Var CallHelp : Boolean) : Boolean;
+    Procedure DataTabWindowClick     (Sender : TObject);
     Procedure ChecklistSelectorChange(Sender : TObject);
     Procedure aAboutExecute          (Sender : TObject);
     Procedure aAnalysisExecute       (Sender : TObject);
@@ -491,7 +467,73 @@ Interface
     Procedure UpdatePlaybackControls;
     Procedure UpdatePoint           (Index : Integer);
     Procedure UpdateViewLayout;
+    Function  GetmPlan                                      : TMemo;
+    Function  GetToolBar5                                   : TToolBar;
+    Function  GetToolButton7                                : TToolButton;
+    Function  GetChecklistSelector                          : TComboBox;
+    Function  GetChecklistEmpty                             : TLabel;
+    Function  GetChecklistItems                             : TCheckListBox;
+    Function  GetGSXProgressPanel                           : TPanel;
+    Function  GetGSXBoardingProgressPanel                   : TPanel;
+    Function  GetGSXBoardingProgressLabel                   : TLabel;
+    Function  GetGSXBoardingProgress                        : TProgressBar;
+    Function  GetGSXBoardingCargoProgress                   : TProgressBar;
+    Function  GetGSXDeboardingProgressPanel                 : TPanel;
+    Function  GetGSXDeboardingProgressLabel                 : TLabel;
+    Function  GetGSXDeboardingProgress                      : TProgressBar;
+    Function  GetGSXDeboardingCargoProgress                 : TProgressBar;
+    Function  GetGSXRefuelingProgressPanel                  : TPanel;
+    Function  GetGSXRefuelingProgressLabel                  : TLabel;
+    Function  GetGSXRefuelingProgress                       : TProgressBar;
+    Function  GetGSXCateringProgressPanel                   : TPanel;
+    Function  GetGSXCateringProgressLabel                   : TLabel;
+    Function  GetGSXCateringProgress                        : TProgressBar;
+    Function  GetGSXDepartureProgressPanel                  : TPanel;
+    Function  GetGSXDepartureProgressLabel                  : TLabel;
+    Function  GetGSXDepartureProgress                       : TProgressBar;
+    Function  GetGSXDeiceProgressPanel                      : TPanel;
+    Function  GetGSXDeiceProgressLabel                      : TLabel;
+    Function  GetGSXDeiceProgress                           : TProgressBar;
+    Function  GetGSXGrid                                    : TStringGrid;
+    Function  GetDataGrid                                   : TStringGrid;
+    Function  GeteValueSearch                               : TEdit;
+    Function  GetEventGrid                                  : TDBGrid;
+    Function  GetfSHudMemo                                  : TMemo;
+    Function  GetContactGrid                                : TDBGrid;
    Public
+    Property mPlan                      : TMemo Read GetmPlan;
+    Property ToolBar5                   : TToolBar Read GetToolBar5;
+    Property ToolButton7                : TToolButton Read GetToolButton7;
+    Property ChecklistSelector          : TComboBox Read GetChecklistSelector;
+    Property ChecklistEmpty             : TLabel Read GetChecklistEmpty;
+    Property ChecklistItems             : TCheckListBox Read GetChecklistItems;
+    Property GSXProgressPanel           : TPanel Read GetGSXProgressPanel;
+    Property GSXBoardingProgressPanel   : TPanel Read GetGSXBoardingProgressPanel;
+    Property GSXBoardingProgressLabel   : TLabel Read GetGSXBoardingProgressLabel;
+    Property GSXBoardingProgress        : TProgressBar Read GetGSXBoardingProgress;
+    Property GSXBoardingCargoProgress   : TProgressBar Read GetGSXBoardingCargoProgress;
+    Property GSXDeboardingProgressPanel : TPanel Read GetGSXDeboardingProgressPanel;
+    Property GSXDeboardingProgressLabel : TLabel Read GetGSXDeboardingProgressLabel;
+    Property GSXDeboardingProgress      : TProgressBar Read GetGSXDeboardingProgress;
+    Property GSXDeboardingCargoProgress : TProgressBar Read GetGSXDeboardingCargoProgress;
+    Property GSXRefuelingProgressPanel  : TPanel Read GetGSXRefuelingProgressPanel;
+    Property GSXRefuelingProgressLabel  : TLabel Read GetGSXRefuelingProgressLabel;
+    Property GSXRefuelingProgress       : TProgressBar Read GetGSXRefuelingProgress;
+    Property GSXCateringProgressPanel   : TPanel Read GetGSXCateringProgressPanel;
+    Property GSXCateringProgressLabel   : TLabel Read GetGSXCateringProgressLabel;
+    Property GSXCateringProgress        : TProgressBar Read GetGSXCateringProgress;
+    Property GSXDepartureProgressPanel  : TPanel Read GetGSXDepartureProgressPanel;
+    Property GSXDepartureProgressLabel  : TLabel Read GetGSXDepartureProgressLabel;
+    Property GSXDepartureProgress       : TProgressBar Read GetGSXDepartureProgress;
+    Property GSXDeiceProgressPanel      : TPanel Read GetGSXDeiceProgressPanel;
+    Property GSXDeiceProgressLabel      : TLabel Read GetGSXDeiceProgressLabel;
+    Property GSXDeiceProgress           : TProgressBar Read GetGSXDeiceProgress;
+    Property GSXGrid                    : TStringGrid Read GetGSXGrid;
+    Property DataGrid                   : TStringGrid Read GetDataGrid;
+    Property eValueSearch               : TEdit Read GeteValueSearch;
+    Property EventGrid                  : TDBGrid Read GetEventGrid;
+    Property fSHudMemo                  : TMemo Read GetfSHudMemo;
+    Property ContactGrid                : TDBGrid Read GetContactGrid;
     Procedure SelectRecording(ID : Integer);
     Property aChartsConfigure : TAction Read GetChartsConfigure;
     Property aFullView        : TAction Read GetFullView;
@@ -779,6 +821,191 @@ Implementation
    Close;
   End;
 
+ Function TfrmMain.GetmPlan : TMemo;
+  Begin
+   Result := fFlightPlanTab.mPlan;
+  End;
+
+ Function TfrmMain.GetToolBar5 : TToolBar;
+  Begin
+   Result := fFlightPlanTab.ToolBar5;
+  End;
+
+ Function TfrmMain.GetToolButton7 : TToolButton;
+  Begin
+   Result := fFlightPlanTab.ToolButton7;
+  End;
+
+ Function TfrmMain.GetChecklistSelector : TComboBox;
+  Begin
+   Result := fChecklistsTab.ChecklistSelector;
+  End;
+
+ Function TfrmMain.GetChecklistEmpty : TLabel;
+  Begin
+   Result := fChecklistsTab.ChecklistEmpty;
+  End;
+
+ Function TfrmMain.GetChecklistItems : TCheckListBox;
+  Begin
+   Result := fChecklistsTab.ChecklistItems;
+  End;
+
+ Function TfrmMain.GetGSXProgressPanel : TPanel;
+  Begin
+   Result := fGSXTab.GSXProgressPanel;
+  End;
+
+ Function TfrmMain.GetGSXBoardingProgressPanel : TPanel;
+  Begin
+   Result := fGSXTab.GSXBoardingProgressPanel;
+  End;
+
+ Function TfrmMain.GetGSXBoardingProgressLabel : TLabel;
+  Begin
+   Result := fGSXTab.GSXBoardingProgressLabel;
+  End;
+
+ Function TfrmMain.GetGSXBoardingProgress : TProgressBar;
+  Begin
+   Result := fGSXTab.GSXBoardingProgress;
+  End;
+
+ Function TfrmMain.GetGSXBoardingCargoProgress : TProgressBar;
+  Begin
+   Result := fGSXTab.GSXBoardingCargoProgress;
+  End;
+
+ Function TfrmMain.GetGSXDeboardingProgressPanel : TPanel;
+  Begin
+   Result := fGSXTab.GSXDeboardingProgressPanel;
+  End;
+
+ Function TfrmMain.GetGSXDeboardingProgressLabel : TLabel;
+  Begin
+   Result := fGSXTab.GSXDeboardingProgressLabel;
+  End;
+
+ Function TfrmMain.GetGSXDeboardingProgress : TProgressBar;
+  Begin
+   Result := fGSXTab.GSXDeboardingProgress;
+  End;
+
+ Function TfrmMain.GetGSXDeboardingCargoProgress : TProgressBar;
+  Begin
+   Result := fGSXTab.GSXDeboardingCargoProgress;
+  End;
+
+ Function TfrmMain.GetGSXRefuelingProgressPanel : TPanel;
+  Begin
+   Result := fGSXTab.GSXRefuelingProgressPanel;
+  End;
+
+ Function TfrmMain.GetGSXRefuelingProgressLabel : TLabel;
+  Begin
+   Result := fGSXTab.GSXRefuelingProgressLabel;
+  End;
+
+ Function TfrmMain.GetGSXRefuelingProgress : TProgressBar;
+  Begin
+   Result := fGSXTab.GSXRefuelingProgress;
+  End;
+
+ Function TfrmMain.GetGSXCateringProgressPanel : TPanel;
+  Begin
+   Result := fGSXTab.GSXCateringProgressPanel;
+  End;
+
+ Function TfrmMain.GetGSXCateringProgressLabel : TLabel;
+  Begin
+   Result := fGSXTab.GSXCateringProgressLabel;
+  End;
+
+ Function TfrmMain.GetGSXCateringProgress : TProgressBar;
+  Begin
+   Result := fGSXTab.GSXCateringProgress;
+  End;
+
+ Function TfrmMain.GetGSXDepartureProgressPanel : TPanel;
+  Begin
+   Result := fGSXTab.GSXDepartureProgressPanel;
+  End;
+
+ Function TfrmMain.GetGSXDepartureProgressLabel : TLabel;
+  Begin
+   Result := fGSXTab.GSXDepartureProgressLabel;
+  End;
+
+ Function TfrmMain.GetGSXDepartureProgress : TProgressBar;
+  Begin
+   Result := fGSXTab.GSXDepartureProgress;
+  End;
+
+ Function TfrmMain.GetGSXDeiceProgressPanel : TPanel;
+  Begin
+   Result := fGSXTab.GSXDeiceProgressPanel;
+  End;
+
+ Function TfrmMain.GetGSXDeiceProgressLabel : TLabel;
+  Begin
+   Result := fGSXTab.GSXDeiceProgressLabel;
+  End;
+
+ Function TfrmMain.GetGSXDeiceProgress : TProgressBar;
+  Begin
+   Result := fGSXTab.GSXDeiceProgress;
+  End;
+
+ Function TfrmMain.GetGSXGrid : TStringGrid;
+  Begin
+   Result := fGSXTab.GSXGrid;
+  End;
+
+ Function TfrmMain.GetDataGrid : TStringGrid;
+  Begin
+   Result := fValuesTab.DataGrid;
+  End;
+
+ Function TfrmMain.GeteValueSearch : TEdit;
+  Begin
+   Result := fValuesTab.eValueSearch;
+  End;
+
+ Function TfrmMain.GetEventGrid : TDBGrid;
+  Begin
+   Result := fEventsTab.EventGrid;
+  End;
+
+ Function TfrmMain.GetfSHudMemo : TMemo;
+  Begin
+   Result := fATCTab.fSHudMemo;
+  End;
+
+ Function TfrmMain.GetContactGrid : TDBGrid;
+  Begin
+   Result := fContactsTab.ContactGrid;
+  End;
+
+ Procedure TfrmMain.DataTabWindowClick(Sender : TObject);
+  Var
+   i    : Integer;
+   Page : TControl;
+  Begin
+   If Not(Sender Is TAction) Or Not(TAction(Sender).Owner Is TFrame) Then
+    Exit;
+   Page := TFrame(TAction(Sender).Owner);
+   While (Page <> Nil) And Not(Page Is TTabSheet) Do
+    Page := Page.Parent;
+   If (Page = Nil) Or (fDockViews = Nil) Then
+    Exit;
+   For i := 0 To fDockViews.Count - 1 Do
+    If TfrmDockView(fDockViews[i]).Page = Page Then
+     Begin
+      TfrmDockView(fDockViews[i]).Toggle;
+      Exit;
+     End;
+  End;
+
  Procedure TfrmMain.ChecklistSelectorChange(Sender : TObject);
   Begin
    If Assigned(fChecklists) Then
@@ -958,6 +1185,21 @@ Implementation
 
  Procedure TfrmMain.FormCreate(Sender : TObject);
   Begin
+   fFlightPlanTab.WindowActions.Images := fSixPackFrame.ImageList1;
+   fFlightPlanTab.WindowToolbar.Images := fSixPackFrame.ImageList1;
+   fChecklistsTab.WindowActions.Images := fSixPackFrame.ImageList1;
+   fChecklistsTab.WindowToolbar.Images := fSixPackFrame.ImageList1;
+   fGSXTab.WindowActions.Images        := fSixPackFrame.ImageList1;
+   fGSXTab.WindowToolbar.Images        := fSixPackFrame.ImageList1;
+   fValuesTab.WindowActions.Images     := fSixPackFrame.ImageList1;
+   fValuesTab.WindowToolbar.Images     := fSixPackFrame.ImageList1;
+   fEventsTab.WindowActions.Images     := fSixPackFrame.ImageList1;
+   fEventsTab.WindowToolbar.Images     := fSixPackFrame.ImageList1;
+   fATCTab.WindowActions.Images        := fSixPackFrame.ImageList1;
+   fATCTab.WindowToolbar.Images        := fSixPackFrame.ImageList1;
+   fContactsTab.WindowActions.Images   := fSixPackFrame.ImageList1;
+   fContactsTab.WindowToolbar.Images   := fSixPackFrame.ImageList1;
+
    UpdateApplicationTitle;
    fATC        := TFSHudReplay.Create;
    fChecklists := TChecklistReplay.Create;

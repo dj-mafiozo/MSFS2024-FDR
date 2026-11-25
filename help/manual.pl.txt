@@ -39,6 +39,8 @@ Połączone instrumenty :: PFD i EICAS/ECAM mogą współdzielić wyciągnięte 
 Rozmiar :: Panele zachowują proporcje. Przyrządy utrzymują geometrię i mogą pozostawiać marginesy zamiast rozciągać obraz.
 Zapamiętany układ :: Zachowywany jest stan dokowania i osobno pozycja/rozmiar każdego okna. Panel bez zadokowanych zakładek powinien się zwinąć.
 Reset :: Przywróć domyślny układ paneli w ustawieniach po zmianie monitorów lub nieudanym rozmieszczeniu. Nie usuwa to danych lotów.
+Przycisk osobnego okna :: Każda zakładka danych ma przycisk wypięcia. Ponowne naciśnięcie lub zamknięcie wyciągniętego okna przywraca dokowanie; ikona wskazuje aktualny stan. Zawartość, wyszukiwanie, oś czasu i powiązania danych pozostają aktywne.
+
 @playback|Odtwarzanie i czas nagrania
 Prędkość 1x oznacza bieg według czasu nagrania, a nie jedną próbkę na każde wywołanie timera. Interpolacja wygładza wielkości ciągłe i kąty; przełączniki muszą zachować skokową zmianę. Na pauzie wybierz dokładny moment suwakiem lub wykresem. Stop wraca do początku i 1x. Skoki zwykłego odtwarzania mają 30 sekund, a osobne akcje ghosta po 10 sekund — nie są to te same kontrolki.
 Zwykłe odtwarzanie steruje analizą, nie samolotem w symulatorze. Ghost jest osobną funkcją.

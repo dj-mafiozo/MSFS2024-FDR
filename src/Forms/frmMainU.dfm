@@ -370,35 +370,23 @@
       object PlanPage: TTabSheet
         HelpContext = 1000
         Caption = 'Plan lotu'
-        object mPlan: TMemo
-          Left = 0
-          Top = 28
-          Width = 342
-          Height = 758
-          Align = alClient
-          ReadOnly = True
-          ScrollBars = ssVertical
-          TabOrder = 0
-        end
-        object ToolBar5: TToolBar
+        inline fFlightPlanTab: TfraFlightPlan
           Left = 0
           Top = 0
           Width = 342
-          Height = 28
-          ButtonHeight = 28
-          ButtonWidth = 146
-          Caption = 'ToolBar5'
-          Images = ImageList
-          List = True
-          ParentShowHint = False
-          ShowCaptions = True
-          ShowHint = True
-          TabOrder = 1
-          object ToolButton7: TToolButton
-            Left = 0
-            Top = 0
-            Action = aImportPlan
-            AutoSize = True
+          Height = 786
+          Align = alClient
+          TabOrder = 0
+          inherited ToolBar5: TToolBar
+            Images = ImageList
+            inherited ToolButton7: TToolButton
+              Action = aImportPlan
+            end
+          end
+          inherited WindowActions: TActionList
+            inherited aWindow: TAction
+              OnExecute = DataTabWindowClick
+            end
           end
         end
       end
@@ -1198,331 +1186,78 @@
       object ChecklistPage: TTabSheet
         HelpContext = 2000
         Caption = 'Listy kontrolne'
-        object ChecklistSelector: TComboBox
-          Left = 0
-          Top = 0
-          Width = 342
-          Height = 25
-          Align = alTop
-          Style = csDropDownList
-          TabOrder = 0
-          OnChange = ChecklistSelectorChange
-        end
-        object ChecklistEmpty: TLabel
-          Left = 0
-          Top = 25
-          Width = 342
-          Height = 40
-          Align = alTop
-          AutoSize = False
-          WordWrap = True
-          Caption = 'Brak zapisanych checklist w tym nagraniu.'
-        end
-        object ChecklistItems: TCheckListBox
-          Left = 0
-          Top = 65
-          Width = 342
-          Height = 721
-          Align = alClient
-          AllowGrayed = True
-          ItemHeight = 17
-          TabOrder = 1
-        end
-      end
-      object GSXPage: TTabSheet
-        HelpContext = 1200
-        Caption = 'GSX Pro'
-        object GSXProgressPanel: TPanel
-          Left = 0
-          Top = 0
-          Width = 342
-          Height = 352
-          Align = alTop
-          AutoSize = True
-          BevelOuter = bvNone
-          TabOrder = 1
-          Visible = False
-          object GSXBoardingProgressPanel: TPanel
-            Left = 0
-            Top = 0
-            Width = 342
-            Height = 68
-            Align = alTop
-            BevelOuter = bvNone
-            TabOrder = 0
-            Visible = False
-            DesignSize = (
-              342
-              68)
-            object GSXBoardingProgressLabel: TLabel
-              Left = 4
-              Top = 2
-              Width = 334
-              Height = 30
-              Anchors = [akLeft, akTop, akRight]
-              AutoSize = False
-              WordWrap = True
-            end
-            object GSXBoardingProgress: TProgressBar
-              Left = 4
-              Top = 34
-              Width = 334
-              Height = 12
-              Anchors = [akLeft, akTop, akRight]
-              ParentShowHint = False
-              Smooth = True
-              ShowHint = True
-              TabOrder = 0
-            end
-            object GSXBoardingCargoProgress: TProgressBar
-              Left = 4
-              Top = 50
-              Width = 334
-              Height = 12
-              Anchors = [akLeft, akTop, akRight]
-              ParentShowHint = False
-              Smooth = True
-              ShowHint = True
-              TabOrder = 1
-            end
-          end
-          object GSXDeboardingProgressPanel: TPanel
-            Left = 0
-            Top = 68
-            Width = 342
-            Height = 68
-            Align = alTop
-            BevelOuter = bvNone
-            TabOrder = 1
-            Visible = False
-            DesignSize = (
-              342
-              68)
-            object GSXDeboardingProgressLabel: TLabel
-              Left = 4
-              Top = 2
-              Width = 334
-              Height = 30
-              Anchors = [akLeft, akTop, akRight]
-              AutoSize = False
-              WordWrap = True
-            end
-            object GSXDeboardingProgress: TProgressBar
-              Left = 4
-              Top = 34
-              Width = 334
-              Height = 12
-              Anchors = [akLeft, akTop, akRight]
-              ParentShowHint = False
-              Smooth = True
-              ShowHint = True
-              TabOrder = 0
-            end
-            object GSXDeboardingCargoProgress: TProgressBar
-              Left = 4
-              Top = 50
-              Width = 334
-              Height = 12
-              Anchors = [akLeft, akTop, akRight]
-              ParentShowHint = False
-              Smooth = True
-              ShowHint = True
-              TabOrder = 1
-            end
-          end
-          object GSXRefuelingProgressPanel: TPanel
-            Left = 0
-            Top = 136
-            Width = 342
-            Height = 54
-            Align = alTop
-            BevelOuter = bvNone
-            TabOrder = 2
-            Visible = False
-            DesignSize = (
-              342
-              54)
-            object GSXRefuelingProgressLabel: TLabel
-              Left = 4
-              Top = 2
-              Width = 334
-              Height = 30
-              Anchors = [akLeft, akTop, akRight]
-              AutoSize = False
-              WordWrap = True
-            end
-            object GSXRefuelingProgress: TProgressBar
-              Left = 4
-              Top = 36
-              Width = 334
-              Height = 12
-              Anchors = [akLeft, akTop, akRight]
-              ParentShowHint = False
-              Smooth = True
-              ShowHint = True
-              TabOrder = 0
-            end
-          end
-          object GSXCateringProgressPanel: TPanel
-            Left = 0
-            Top = 190
-            Width = 342
-            Height = 54
-            Align = alTop
-            BevelOuter = bvNone
-            TabOrder = 3
-            Visible = False
-            DesignSize = (
-              342
-              54)
-            object GSXCateringProgressLabel: TLabel
-              Left = 4
-              Top = 2
-              Width = 334
-              Height = 30
-              Anchors = [akLeft, akTop, akRight]
-              AutoSize = False
-              WordWrap = True
-            end
-            object GSXCateringProgress: TProgressBar
-              Left = 4
-              Top = 36
-              Width = 334
-              Height = 12
-              Anchors = [akLeft, akTop, akRight]
-              ParentShowHint = False
-              Smooth = True
-              ShowHint = True
-              TabOrder = 0
-            end
-          end
-          object GSXDepartureProgressPanel: TPanel
-            Left = 0
-            Top = 244
-            Width = 342
-            Height = 54
-            Align = alTop
-            BevelOuter = bvNone
-            TabOrder = 4
-            Visible = False
-            DesignSize = (
-              342
-              54)
-            object GSXDepartureProgressLabel: TLabel
-              Left = 4
-              Top = 2
-              Width = 334
-              Height = 30
-              Anchors = [akLeft, akTop, akRight]
-              AutoSize = False
-              WordWrap = True
-            end
-            object GSXDepartureProgress: TProgressBar
-              Left = 4
-              Top = 36
-              Width = 334
-              Height = 12
-              Anchors = [akLeft, akTop, akRight]
-              ParentShowHint = False
-              Smooth = True
-              ShowHint = True
-              TabOrder = 0
-            end
-          end
-          object GSXDeiceProgressPanel: TPanel
-            Left = 0
-            Top = 298
-            Width = 342
-            Height = 54
-            Align = alTop
-            BevelOuter = bvNone
-            TabOrder = 5
-            Visible = False
-            DesignSize = (
-              342
-              54)
-            object GSXDeiceProgressLabel: TLabel
-              Left = 4
-              Top = 2
-              Width = 334
-              Height = 30
-              Anchors = [akLeft, akTop, akRight]
-              AutoSize = False
-              WordWrap = True
-            end
-            object GSXDeiceProgress: TProgressBar
-              Left = 4
-              Top = 36
-              Width = 334
-              Height = 12
-              Anchors = [akLeft, akTop, akRight]
-              ParentShowHint = False
-              Smooth = True
-              ShowHint = True
-              TabOrder = 0
-            end
-          end
-        end
-        object GSXGrid: TStringGrid
-          Left = 0
-          Top = 352
-          Width = 342
-          Height = 434
-          Align = alClient
-          ColCount = 2
-          DefaultColWidth = 180
-          FixedCols = 0
-          RowCount = 2
-          Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goRowSelect]
-          TabOrder = 0
-        end
-      end
-      object ValuesPage: TTabSheet
-        HelpContext = 1700
-        Caption = 'Wartosci'
-        object DataGrid: TStringGrid
-          Left = 0
-          Top = 25
-          Width = 342
-          Height = 761
-          Align = alClient
-          ColCount = 2
-          DefaultColWidth = 145
-          FixedCols = 0
-          Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goRowSelect]
-          ParentShowHint = False
-          ShowHint = True
-          TabOrder = 0
-          OnMouseMove = ValueParameterHint
-        end
-        object eValueSearch: TEdit
-          Left = 0
-          Top = 0
-          Width = 342
-          Height = 25
-          Align = alTop
-          TabOrder = 1
-          TextHint = 'Szukaj parametru'
-          OnChange = ValueSearchChange
-        end
-      end
-      object EventsPage: TTabSheet
-        HelpContext = 1710
-        Caption = 'Zdarzenia'
-        object EventGrid: TDBGrid
+        inline fChecklistsTab: TfraChecklists
           Left = 0
           Top = 0
           Width = 342
           Height = 786
           Align = alClient
-          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgRowSelect]
-          ReadOnly = True
           TabOrder = 0
-          TitleFont.Charset = DEFAULT_CHARSET
-          TitleFont.Color = clWindowText
-          TitleFont.Height = -13
-          TitleFont.Name = 'Segoe UI'
-          TitleFont.Style = []
+          inherited ChecklistSelector: TComboBox
+            OnChange = ChecklistSelectorChange
+          end
+          inherited WindowActions: TActionList
+            inherited aWindow: TAction
+              OnExecute = DataTabWindowClick
+            end
+          end
+        end
+      end
+      object GSXPage: TTabSheet
+        HelpContext = 1200
+        Caption = 'GSX Pro'
+        inline fGSXTab: TfraGSX
+          Left = 0
+          Top = 0
+          Width = 342
+          Height = 786
+          Align = alClient
+          TabOrder = 0
+          inherited WindowActions: TActionList
+            inherited aWindow: TAction
+              OnExecute = DataTabWindowClick
+            end
+          end
+        end
+      end
+      object ValuesPage: TTabSheet
+        HelpContext = 1700
+        Caption = 'Wartosci'
+        inline fValuesTab: TfraValues
+          Left = 0
+          Top = 0
+          Width = 342
+          Height = 786
+          Align = alClient
+          TabOrder = 0
+          inherited DataGrid: TStringGrid
+            OnMouseMove = ValueParameterHint
+          end
+          inherited eValueSearch: TEdit
+            OnChange = ValueSearchChange
+          end
+          inherited WindowActions: TActionList
+            inherited aWindow: TAction
+              OnExecute = DataTabWindowClick
+            end
+          end
+        end
+      end
+      object EventsPage: TTabSheet
+        HelpContext = 1710
+        Caption = 'Zdarzenia'
+        inline fEventsTab: TfraEvents
+          Left = 0
+          Top = 0
+          Width = 342
+          Height = 786
+          Align = alClient
+          TabOrder = 0
+          inherited WindowActions: TActionList
+            inherited aWindow: TAction
+              OnExecute = DataTabWindowClick
+            end
+          end
         end
       end
       object fFMCPage: TTabSheet
@@ -1806,34 +1541,35 @@
       object FSHudPage: TTabSheet
         HelpContext = 1100
         Caption = 'ATC / FSHud'
-        object FSHudMemo: TMemo
+        inline fATCTab: TfraATC
           Left = 0
           Top = 0
           Width = 342
           Height = 786
           Align = alClient
-          ReadOnly = True
-          ScrollBars = ssVertical
           TabOrder = 0
+          inherited WindowActions: TActionList
+            inherited aWindow: TAction
+              OnExecute = DataTabWindowClick
+            end
+          end
         end
       end
       object ContactsPage: TTabSheet
         HelpContext = 1720
         Caption = 'Starty i ladowania'
-        object ContactGrid: TDBGrid
+        inline fContactsTab: TfraContacts
           Left = 0
           Top = 0
           Width = 342
           Height = 786
           Align = alClient
-          Options = [dgTitles, dgIndicator, dgColumnResize, dgColLines, dgRowLines, dgRowSelect]
-          ReadOnly = True
           TabOrder = 0
-          TitleFont.Charset = DEFAULT_CHARSET
-          TitleFont.Color = clWindowText
-          TitleFont.Height = -13
-          TitleFont.Name = 'Segoe UI'
-          TitleFont.Style = []
+          inherited WindowActions: TActionList
+            inherited aWindow: TAction
+              OnExecute = DataTabWindowClick
+            end
+          end
         end
       end
     end

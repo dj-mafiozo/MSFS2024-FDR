@@ -18,6 +18,13 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
+        <DCCReference Include="Frames\fraFlightPlanU.pas"><Form>fraFlightPlan</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="Frames\fraChecklistsU.pas"><Form>fraChecklists</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="Frames\fraGSXU.pas"><Form>fraGSX</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="Frames\fraValuesU.pas"><Form>fraValues</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="Frames\fraEventsU.pas"><Form>fraEvents</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="Frames\fraATCU.pas"><Form>fraATC</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="Frames\fraContactsU.pas"><Form>fraContacts</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
         <DCCReference Include="Core\SimulatorPackagesU.pas"/>
         <DCCReference Include="Visualization\FSLTLU.pas"/>
         <DCCReference Include="SimConnect\NativeATCU.pas"/>
@@ -777,8 +784,8 @@
         <VerInfo_Locale>1045</VerInfo_Locale>
         <VerInfo_MajorVer>0</VerInfo_MajorVer>
         <VerInfo_MinorVer>1</VerInfo_MinorVer>
-        <VerInfo_Build>75</VerInfo_Build>
-        <VerInfo_Keys>CompanyName=DJ M@fi0z0™;FileDescription=MSFS24 Flight Data Recorder;FileVersion=0.1.1.75;InternalName=MSFS24-FDR;LegalCopyright=© 2026 DJ M@fi0z0™ ;LegalTrademarks=DJ M@fi0z0™;OriginalFilename=MSFS24-FDR.exe;ProductName=Microsoft Flight Simulator 2024 - Flight Data Recorder;ProductVersion=0.1;Comments=;CFBundleName=</VerInfo_Keys>
+        <VerInfo_Build>76</VerInfo_Build>
+        <VerInfo_Keys>CompanyName=DJ M@fi0z0™;FileDescription=MSFS24 Flight Data Recorder;FileVersion=0.1.1.76;InternalName=MSFS24-FDR;LegalCopyright=© 2026 DJ M@fi0z0™ ;LegalTrademarks=DJ M@fi0z0™;OriginalFilename=MSFS24-FDR.exe;ProductName=Microsoft Flight Simulator 2024 - Flight Data Recorder;ProductVersion=0.1;Comments=;CFBundleName=</VerInfo_Keys>
         <DCC_E>false</DCC_E>
         <DCC_F>false</DCC_F>
         <DCC_K>false</DCC_K>
