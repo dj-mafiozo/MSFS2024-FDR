@@ -1,40 +1,10 @@
-﻿object fraChecklists: TfraChecklists
-  HelpContext = 2000
+object fraChecklists: TfraChecklists
+  Left = 0
+  Top = 0
   Width = 342
   Height = 786
+  HelpContext = 2000
   TabOrder = 0
-  object WindowToolbar: TToolBar
-    Left = 0
-    Top = 0
-    Width = 342
-    Height = 28
-    Align = alTop
-    ButtonHeight = 26
-    ButtonWidth = 28
-    ShowHint = True
-    TabOrder = 20
-    object WindowButton: TToolButton
-      Left = 0
-      Top = 0
-      Action = aWindow
-    end
-  end
-  object WindowActions: TActionList
-    object aWindow: TAction
-      Caption = 'Osobne okno'
-      Hint = 'Osobne okno'
-      ImageIndex = 0
-    end
-  end
-  object ChecklistSelector: TComboBox
-    Left = 0
-    Top = 28
-    Width = 342
-    Height = 25
-    Align = alTop
-    Style = csDropDownList
-    TabOrder = 0
-  end
   object ChecklistEmpty: TLabel
     Left = 0
     Top = 53
@@ -42,17 +12,49 @@
     Height = 40
     Align = alTop
     AutoSize = False
-    WordWrap = True
     Caption = 'Brak zapisanych checklist w tym nagraniu.'
+    WordWrap = True
+  end
+  object WindowToolbar: TToolBar
+    Left = 0
+    Top = 0
+    Width = 342
+    Height = 28
+    ButtonHeight = 26
+    ButtonWidth = 28
+    ParentShowHint = False
+    ShowHint = True
+    TabOrder = 2
+    object WindowButton: TToolButton
+      Left = 0
+      Top = 0
+      Action = aWindow
+    end
+  end
+  object ChecklistSelector: TComboBox
+    Left = 0
+    Top = 28
+    Width = 342
+    Height = 21
+    Align = alTop
+    Style = csDropDownList
+    TabOrder = 0
   end
   object ChecklistItems: TCheckListBox
     Left = 0
     Top = 93
     Width = 342
-    Height = 721
+    Height = 693
     Align = alClient
     AllowGrayed = True
-    ItemHeight = 17
+    ItemHeight = 13
     TabOrder = 1
+  end
+  object WindowActions: TActionList
+    object aWindow: TAction
+      Caption = 'Osobne okno'
+      Hint = 'Osobne okno'
+      ImageIndex = 0
+    end
   end
 end

@@ -5,7 +5,7 @@ Interface
  Uses
   System.Classes, Vcl.Controls, Vcl.Forms, Vcl.StdCtrls, Vcl.ExtCtrls,
   Vcl.ComCtrls, Vcl.ToolWin, Vcl.ActnList, System.Actions, Vcl.Grids,
-  Vcl.DBGrids, Vcl.CheckLst, LocalizationU;
+  Vcl.DBGrids, Vcl.CheckLst, LocalizationU, Data.DB;
 
  Type
   TfraContacts = Class(TFrame)

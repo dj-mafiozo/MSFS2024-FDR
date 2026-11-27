@@ -1,29 +1,24 @@
-﻿object fraGSX: TfraGSX
-  HelpContext = 1200
+object fraGSX: TfraGSX
+  Left = 0
+  Top = 0
   Width = 342
   Height = 786
+  HelpContext = 1200
   TabOrder = 0
   object WindowToolbar: TToolBar
     Left = 0
     Top = 0
     Width = 342
     Height = 28
-    Align = alTop
     ButtonHeight = 26
     ButtonWidth = 28
+    ParentShowHint = False
     ShowHint = True
-    TabOrder = 20
+    TabOrder = 2
     object WindowButton: TToolButton
       Left = 0
       Top = 0
       Action = aWindow
-    end
-  end
-  object WindowActions: TActionList
-    object aWindow: TAction
-      Caption = 'Osobne okno'
-      Hint = 'Osobne okno'
-      ImageIndex = 0
     end
   end
   object GSXProgressPanel: TPanel
@@ -261,7 +256,7 @@
     Left = 0
     Top = 380
     Width = 342
-    Height = 434
+    Height = 406
     Align = alClient
     ColCount = 2
     DefaultColWidth = 180
@@ -269,5 +264,12 @@
     RowCount = 2
     Options = [goFixedVertLine, goFixedHorzLine, goVertLine, goHorzLine, goColSizing, goRowSelect]
     TabOrder = 0
+  end
+  object WindowActions: TActionList
+    object aWindow: TAction
+      Caption = 'Osobne okno'
+      Hint = 'Osobne okno'
+      ImageIndex = 0
+    end
   end
 end

@@ -18,13 +18,42 @@
         <DelphiCompile Include="$(MainSource)">
             <MainSource>MainSource</MainSource>
         </DelphiCompile>
-        <DCCReference Include="Frames\fraFlightPlanU.pas"><Form>fraFlightPlan</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
-        <DCCReference Include="Frames\fraChecklistsU.pas"><Form>fraChecklists</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
-        <DCCReference Include="Frames\fraGSXU.pas"><Form>fraGSX</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
-        <DCCReference Include="Frames\fraValuesU.pas"><Form>fraValues</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
-        <DCCReference Include="Frames\fraEventsU.pas"><Form>fraEvents</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
-        <DCCReference Include="Frames\fraATCU.pas"><Form>fraATC</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
-        <DCCReference Include="Frames\fraContactsU.pas"><Form>fraContacts</Form><FormType>dfm</FormType><DesignClass>TFrame</DesignClass></DCCReference>
+        <DCCReference Include="Frames\fraFlightPlanU.pas">
+            <Form>fraFlightPlan</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Frames\fraChecklistsU.pas">
+            <Form>fraChecklists</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Frames\fraGSXU.pas">
+            <Form>fraGSX</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Frames\fraValuesU.pas">
+            <Form>fraValues</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Frames\fraEventsU.pas">
+            <Form>fraEvents</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Frames\fraATCU.pas">
+            <Form>fraATC</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Frames\fraContactsU.pas">
+            <Form>fraContacts</Form>
+            <FormType>dfm</FormType>
+            <DesignClass>TFrame</DesignClass>
+        </DCCReference>
+        <DCCReference Include="Recording\ChecklistU.pas"/>
         <DCCReference Include="Core\SimulatorPackagesU.pas"/>
         <DCCReference Include="Visualization\FSLTLU.pas"/>
         <DCCReference Include="SimConnect\NativeATCU.pas"/>
@@ -136,7 +165,6 @@
         <DCCReference Include="Aircraft\iFly\iFlyDisplaysU.pas"/>
         <DCCReference Include="FMC\BoeingFMCValuesU.pas"/>
         <DCCReference Include="Recording\RecorderWorkerU.pas"/>
-        <DCCReference Include="Recording\ChecklistU.pas"/>
         <DCCReference Include="Recording\FlightRecorderU.pas"/>
         <DCCReference Include="SimConnect\SimConnectClientU.pas"/>
         <DCCReference Include="Telemetry\FlightTelemetryU.pas"/>
@@ -239,8 +267,8 @@
                     <Source Name="MainSource">MSFS2024-FDR.dpr</Source>
                 </Source>
                 <Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSCOMMONDIR)\Bpl\LockBox3FMXDD250.bpl">TurboPack LockBox 3 FMX designtime package</Excluded_Packages>
-                    <Excluded_Packages Name="$(BDSCOMMONDIR)\Bpl\AbbreviaFMXDDesign250.bpl">TurboPack Abbrevia FMX Designtime Delphi package</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\19.0\Bpl\LockBox3FMXDD250.bpl">TurboPack LockBox 3 FMX designtime package</Excluded_Packages>
+                    <Excluded_Packages Name="C:\Users\Public\Documents\Embarcadero\Studio\19.0\Bpl\AbbreviaFMXDDesign250.bpl">TurboPack Abbrevia FMX Designtime Delphi package</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dcloffice2k250.bpl">Microsoft Office 2000 Sample Automation Server Wrapper Components</Excluded_Packages>
                     <Excluded_Packages Name="$(BDSBIN)\dclofficexp250.bpl">Microsoft Office XP Sample Automation Server Wrapper Components</Excluded_Packages>
                 </Excluded_Packages>
@@ -250,9 +278,10 @@
                 <Platform value="Win64">True</Platform>
             </Platforms>
             <Deployment Version="3">
-                <DeployFile LocalName="..\bin\MSFS2024-FDR.exe" Configuration="Debug" Class="ProjectOutput">
+                <DeployFile LocalName="MSFS2024-FDR-44.png" Configuration="Debug" Class="UWP_DelphiLogo44">
                     <Platform Name="Win64">
-                        <RemoteName>MSFS2024-FDR.exe</RemoteName>
+                        <RemoteDir>Assets\</RemoteDir>
+                        <RemoteName>Logo44x44.png</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -301,10 +330,9 @@
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
-                <DeployFile LocalName="MSFS2024-FDR-44.png" Configuration="Debug" Class="UWP_DelphiLogo44">
+                <DeployFile LocalName="..\bin\MSFS2024-FDR.exe" Configuration="Debug" Class="ProjectOutput">
                     <Platform Name="Win64">
-                        <RemoteDir>Assets\</RemoteDir>
-                        <RemoteName>Logo44x44.png</RemoteName>
+                        <RemoteName>MSFS2024-FDR.exe</RemoteName>
                         <Overwrite>true</Overwrite>
                     </Platform>
                 </DeployFile>
@@ -732,6 +760,13 @@
         <PreBuildEvent>python.exe &quot;$(MSBuildProjectDirectory)\..\tools\build_resources.py&quot; --vendor</PreBuildEvent>
         <PreBuildEventIgnoreExitCode>false</PreBuildEventIgnoreExitCode>
     </PropertyGroup>
+    <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
+    <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
+    <Import Project="$(MSBuildProjectName).deployproj" Condition="Exists('$(MSBuildProjectName).deployproj')"/>
+    <PropertyGroup>
+        <BuildDependsOn>$(BuildDependsOn);DeployTranslations</BuildDependsOn>
+        <MakeDependsOn>$(MakeDependsOn);DeployTranslations</MakeDependsOn>
+    </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Base' or '$(Base)'!=''">
         <Base>true</Base>
     </PropertyGroup>
@@ -857,13 +892,6 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <DCC_BplOutput>..\.build\$(Platform)\$(Config)</DCC_BplOutput>
         <DCC_DcuOutput>..\.build\$(Platform)\$(Config)</DCC_DcuOutput>
     </PropertyGroup>
-    <Import Project="$(BDS)\Bin\CodeGear.Delphi.Targets" Condition="Exists('$(BDS)\Bin\CodeGear.Delphi.Targets')"/>
-    <Import Project="$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj" Condition="Exists('$(APPDATA)\Embarcadero\$(BDSAPPDATABASEDIR)\$(PRODUCTVERSION)\UserTools.proj')"/>
-    <Import Project="$(MSBuildProjectName).deployproj" Condition="Exists('$(MSBuildProjectName).deployproj')"/>
-    <PropertyGroup>
-        <BuildDependsOn>$(BuildDependsOn);DeployTranslations</BuildDependsOn>
-        <MakeDependsOn>$(MakeDependsOn);DeployTranslations</MakeDependsOn>
-    </PropertyGroup>
     <Target Name="DeployTranslations">
         <MakeDir Directories="$(MSBuildProjectDirectory)\..\bin;$(MSBuildProjectDirectory)\..\bin\Assets;$(MSBuildProjectDirectory)\..\bin\fonts"/>
         <Copy SourceFiles="@(FMCBackground)" DestinationFolder="$(MSBuildProjectDirectory)\..\bin\Assets" SkipUnchangedFiles="true"/>
@@ -876,8 +904,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>map2pdb.exe &quot;-include:0001;0002&quot; &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot; &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot;) &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).drc&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).drc&quot;) &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).rsm&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).rsm&quot;)
-</PostBuildEvent>
+        <PostBuildEvent>map2pdb.exe &quot;-include:0001;0002&quot; &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot; &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot;) &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).drc&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).drc&quot;) &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).rsm&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).rsm&quot;)</PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Release' And '$(Platform)'=='Win64'">
@@ -885,8 +912,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>map2pdb.exe &quot;-include:0001;0002&quot; &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot; &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot;) &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).drc&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).drc&quot;) &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).rsm&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).rsm&quot;)
-</PostBuildEvent>
+        <PostBuildEvent>map2pdb.exe &quot;-include:0001;0002&quot; &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot; &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot;) &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).drc&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).drc&quot;) &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).rsm&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).rsm&quot;)</PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win32'">
@@ -894,8 +920,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>map2pdb.exe &quot;-include:0001;0002&quot; &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot; &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot;) &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).drc&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).drc&quot;) &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).rsm&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).rsm&quot;)
-</PostBuildEvent>
+        <PostBuildEvent>map2pdb.exe &quot;-include:0001;0002&quot; &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot; &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot;) &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).drc&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).drc&quot;) &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).rsm&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).rsm&quot;)</PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
     <PropertyGroup Condition="'$(Config)'=='Debug' And '$(Platform)'=='Win64'">
@@ -903,8 +928,7 @@ $(PostBuildEvent)]]></PostBuildEvent>
         <PreBuildEventIgnoreExitCode>False</PreBuildEventIgnoreExitCode>
         <PreLinkEvent/>
         <PreLinkEventIgnoreExitCode>False</PreLinkEventIgnoreExitCode>
-        <PostBuildEvent>map2pdb.exe &quot;-include:0001;0002&quot; &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot; &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot;) &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).drc&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).drc&quot;) &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).rsm&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).rsm&quot;)
-</PostBuildEvent>
+        <PostBuildEvent>map2pdb.exe &quot;-include:0001;0002&quot; &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot; &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).map&quot;) &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).drc&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).drc&quot;) &amp;&amp; (if exist &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).rsm&quot; del &quot;$(MSBuildProjectDirectory)\..\bin\$(MSBuildProjectName).rsm&quot;)</PostBuildEvent>
         <PostBuildEventIgnoreExitCode>False</PostBuildEventIgnoreExitCode>
     </PropertyGroup>
 </Project>

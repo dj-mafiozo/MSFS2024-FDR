@@ -1,46 +1,71 @@
 ﻿"""Check four-language navigation for project-owned README and test documentation."""
+
 from pathlib import Path
-import re,configparser
-root=Path(__file__).resolve().parents[1]
-excluded={'.git','.build','vendor','node_modules','__history','__recovery'}
+import re, configparser
+
+root = Path(__file__).resolve().parents[1]
+excluded = {".git", ".build", "vendor", "node_modules", "__history", "__recovery"}
 # Submodules retain their own documentation policy/licenses; never rewrite their READMEs.
-submodules=[]
-module_file=root/'.gitmodules'
+submodules = []
+module_file = root / ".gitmodules"
 if module_file.exists():
-    config=configparser.ConfigParser();config.read(module_file,encoding='utf-8-sig')
-    submodules=[(root/config[s]['path']).resolve() for s in config.sections() if 'path' in config[s]]
-bases=[p for p in root.rglob('README.md') if not excluded.intersection(p.relative_to(root).parts)
-       and not any(p.resolve().is_relative_to(module) for module in submodules)]
-bases += [p for p in root.glob('*.md') if p.stem.lower() in {'testy','tests'}]
-assert bases,'No documentation found'
-count=0
+    config = configparser.ConfigParser()
+    config.read(module_file, encoding="utf-8-sig")
+    submodules = [
+        (root / config[s]["path"]).resolve()
+        for s in config.sections()
+        if "path" in config[s]
+    ]
+bases = [
+    p
+    for p in root.rglob("README.md")
+    if not excluded.intersection(p.relative_to(root).parts)
+    and not any(p.resolve().is_relative_to(module) for module in submodules)
+]
+bases += [p for p in root.glob("*.md") if p.stem.lower() in {"testy", "tests"}]
+assert bases, "No documentation found"
+count = 0
 for base in bases:
-    versions=[base.with_name(base.stem+suffix+'.md') for suffix in ['','.en','.de','.es']]
+    versions = [
+        base.with_name(base.stem + suffix + ".md")
+        for suffix in ["", ".en", ".de", ".es"]
+    ]
     for path in versions:
-        assert path.is_file(),f'Missing translation: {path.relative_to(root)}'
-        text=path.read_text(encoding='utf-8-sig')
-        assert len(text.strip())>200,f'Incomplete documentation: {path}'
-        assert '\ufffd' not in text,f'Invalid Unicode: {path}'
+        assert path.is_file(), f"Missing translation: {path.relative_to(root)}"
+        text = path.read_text(encoding="utf-8-sig")
+        assert len(text.strip()) > 200, f"Incomplete documentation: {path}"
+        assert "\ufffd" not in text, f"Invalid Unicode: {path}"
         for sibling in versions:
-            assert f']({sibling.name})' in text,f'Missing language link: {path} -> {sibling.name}'
-        for target in re.findall(r'\]\(([^)]+)\)',text):
-            if re.match(r'^(?:https?:|mailto:|#)',target):continue
-            target=target.split('#')[0]
-            if not target:continue
+            assert (
+                f"]({sibling.name})" in text
+            ), f"Missing language link: {path} -> {sibling.name}"
+        for target in re.findall(r"\]\(([^)]+)\)", text):
+            if re.match(r"^(?:https?:|mailto:|#)", target):
+                continue
+            target = target.split("#")[0]
+            if not target:
+                continue
             # Documentation may name optional local sources; check the actual language navigation unconditionally.
             if Path(target).name in {v.name for v in versions}:
-                assert (path.parent/target).is_file(),f'Broken language link: {path}: {target}'
-        count+=1
-print(f'PASS: {len(bases)} project documentation sets, {count} PL/EN/DE/ES files with valid language navigation.')
+                assert (
+                    path.parent / target
+                ).is_file(), f"Broken language link: {path}: {target}"
+        count += 1
+print(
+    f"PASS: {len(bases)} project documentation sets, {count} PL/EN/DE/ES files with valid language navigation."
+)
 
 for base in bases:
- if base.stem.lower() not in {'readme'}:continue
- for suffix,locale in [('', 'pl'),('.en','en'),('.de','de'),('.es','es')]:
-  page=base.with_name('README'+suffix+'.md')
-  text=page.read_text(encoding='utf-8-sig')
-  assert 'Translation.'+locale+'.md)' in '\n'.join(text.splitlines()[:5]),page
-for locale in ['pl','en','de','es']:
- text=(root/('Translation.'+locale+'.md')).read_text(encoding='utf-8')
- assert 'https://github.com/dj-mafiozo/MSFS2024-FDR/issues' in text
- assert '%s' in text and '%d' in text
-print('PASS: four translation notices and top-of-README issue-report links.')
+    if base.stem.lower() not in {"readme"}:
+        continue
+    for suffix, locale in [("", "pl"), (".en", "en"), (".de", "de"), (".es", "es")]:
+        page = base.with_name("README" + suffix + ".md")
+        text = page.read_text(encoding="utf-8-sig")
+        assert "Translation." + locale + ".md)" in "\n".join(
+            text.splitlines()[:5]
+        ), page
+for locale in ["pl", "en", "de", "es"]:
+    text = (root / ("Translation." + locale + ".md")).read_text(encoding="utf-8")
+    assert "https://github.com/dj-mafiozo/MSFS2024-FDR/issues" in text
+    assert "%s" in text and "%d" in text
+print("PASS: four translation notices and top-of-README issue-report links.")

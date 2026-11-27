@@ -1,9 +1,9 @@
-﻿object fraA320ECAM: TfraA320ECAM
-  HelpContext = 731
+object fraA320ECAM: TfraA320ECAM
   Left = 0
   Top = 0
   Width = 520
   Height = 225
+  HelpContext = 731
   Font.Charset = DEFAULT_CHARSET
   Font.Color = clWindowText
   Font.Height = -11
@@ -55,155 +55,155 @@
     BevelOuter = bvNone
     TabOrder = 1
     object btnRecorded: TSpeedButton
-        HelpContext = 739
       Tag = -1
       Left = 0
       Top = 0
       Width = 72
       Height = 28
+      HelpContext = 739
       GroupIndex = 1
       Down = True
       Caption = 'Recorded'
       OnClick = PageClick
     end
     object btnENG: TSpeedButton
-        HelpContext = 740
       Left = 0
       Top = 0
       Width = 72
       Height = 28
+      HelpContext = 740
       GroupIndex = 1
       Caption = 'ENG'
       OnClick = PageClick
     end
     object btnBLEED: TSpeedButton
-        HelpContext = 741
       Tag = 1
       Left = 0
       Top = 0
       Width = 72
       Height = 28
+      HelpContext = 741
       GroupIndex = 1
       Caption = 'BLEED'
       OnClick = PageClick
     end
     object btnPRESS: TSpeedButton
-        HelpContext = 742
       Tag = 2
       Left = 0
       Top = 0
       Width = 72
       Height = 28
+      HelpContext = 742
       GroupIndex = 1
       Caption = 'PRESS'
       OnClick = PageClick
     end
     object btnELEC: TSpeedButton
-        HelpContext = 743
       Tag = 3
       Left = 0
       Top = 0
       Width = 72
       Height = 28
+      HelpContext = 743
       GroupIndex = 1
       Caption = 'ELEC'
       OnClick = PageClick
     end
     object btnHYD: TSpeedButton
-        HelpContext = 744
       Tag = 4
       Left = 0
       Top = 0
       Width = 72
       Height = 28
+      HelpContext = 744
       GroupIndex = 1
       Caption = 'HYD'
       OnClick = PageClick
     end
     object btnFUEL: TSpeedButton
-        HelpContext = 745
       Tag = 5
       Left = 0
       Top = 0
       Width = 72
       Height = 28
+      HelpContext = 745
       GroupIndex = 1
       Caption = 'FUEL'
       OnClick = PageClick
     end
     object btnAPU: TSpeedButton
-        HelpContext = 746
       Tag = 6
       Left = 0
       Top = 0
       Width = 72
       Height = 28
+      HelpContext = 746
       GroupIndex = 1
       Caption = 'APU'
       OnClick = PageClick
     end
     object btnCOND: TSpeedButton
-        HelpContext = 747
       Tag = 7
       Left = 0
       Top = 0
       Width = 72
       Height = 28
+      HelpContext = 747
       GroupIndex = 1
       Caption = 'COND'
       OnClick = PageClick
     end
     object btnDOOR: TSpeedButton
-        HelpContext = 748
       Tag = 8
       Left = 0
       Top = 0
       Width = 72
       Height = 28
+      HelpContext = 748
       GroupIndex = 1
       Caption = 'DOOR'
       OnClick = PageClick
     end
     object btnWHEEL: TSpeedButton
-        HelpContext = 749
       Tag = 9
       Left = 0
       Top = 0
       Width = 72
       Height = 28
+      HelpContext = 749
       GroupIndex = 1
       Caption = 'WHEEL'
       OnClick = PageClick
     end
     object btnFCTL: TSpeedButton
-        HelpContext = 750
       Tag = 10
       Left = 0
       Top = 0
       Width = 72
       Height = 28
+      HelpContext = 750
       GroupIndex = 1
       Caption = 'F/CTL'
       OnClick = PageClick
     end
     object btnSTS: TSpeedButton
-        HelpContext = 751
       Tag = 11
       Left = 0
       Top = 0
       Width = 72
       Height = 28
+      HelpContext = 751
       GroupIndex = 1
       Caption = 'STS'
       OnClick = PageClick
     end
     object btnCRUISE: TSpeedButton
-        HelpContext = 752
       Tag = 12
       Left = 0
       Top = 0
       Width = 72
       Height = 28
+      HelpContext = 752
       GroupIndex = 1
       Caption = 'CRUISE'
       OnClick = PageClick
@@ -219,21 +219,21 @@
     TabOrder = 2
     OnResize = FrameResize
     object UpperPanel: TPanel
-    HelpContext = 733
       Left = 0
       Top = 0
       Width = 640
       Height = 265
+      HelpContext = 733
       Align = alTop
       BevelOuter = bvNone
       TabOrder = 0
     end
     object LowerPanel: TPanel
-    HelpContext = 739
       Left = 0
       Top = 265
       Width = 640
       Height = 266
+      HelpContext = 739
       Align = alClient
       BevelOuter = bvNone
       TabOrder = 1
@@ -257,7 +257,7 @@
     Left = 240
     Top = 96
     Bitmap = {
-      494C0101020008001C0016001600FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
+      494C010102000800200016001600FFFFFFFF2110FFFFFFFFFFFFFFFF424D3600
       000000000000360000002800000058000000160000000100200000000000401E
       0000000000000000000000000000000000000000000000000000000000000000
       00000000000000000000000000000000000000000000000000000A0502120A05
